@@ -1,0 +1,83 @@
+/*
+ * Created on 28.may.2005
+ * 
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ * 
+ */
+package org.cubictest.ui.gef.actions;
+
+import org.cubictest.model.Link;
+import org.cubictest.model.PageElement;
+import org.cubictest.model.Text;
+import org.cubictest.ui.gef.command.ChangePresentCommand;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.ui.IWorkbenchPart;
+
+
+/**
+ * @author Stein Kåre Skytteren
+ *
+ * An selection action that changes the "present"/"notPresent" feature 
+ * of the <code>cubicTestPlugin.model.Link</code> and <code>cubicTestPlugin.model.Text</code>
+ * classes in the <code>org.cubictest.ui.gef.editors.GraphicalTestEditor</code>.
+ */
+public class PresentAction extends SelectionAction {
+
+	/**
+	 * The Actions ID which can be used to set and get it from acion registers.
+	 */
+	public static final String ACTION_ID = "cubicTestPlugin.action.present";
+	
+	/**
+	 * Creates a <code>PresentAction</code> and associates it with the given workbench part.
+	 * @param part the workbench part to associate with.
+	 */
+	public PresentAction(IWorkbenchPart part) {
+		super(part);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.gef.ui.actions.WorkbenchPartAction#calculateEnabled()
+	 */
+	protected boolean calculateEnabled() {
+		if (!(getSelection() instanceof StructuredSelection )) return false;
+		Object selection = ((StructuredSelection)getSelection()).getFirstElement();
+		if (selection instanceof EditPart){
+			Object model = ((EditPart)selection).getModel();
+			if (model instanceof Link || model instanceof Text)
+				return true;
+		}
+		return false;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.gef.ui.actions.WorkbenchPartAction#init()
+	 */
+	protected void init() {
+		super.init();
+		setText("(not)Present");
+    	setId(ACTION_ID);
+    	
+    	setEnabled(false);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.action.Action#run()
+	 */
+	public void run() {
+		ChangePresentCommand command = new ChangePresentCommand();
+		if (!(getSelection() instanceof StructuredSelection )) return;
+		Object selection = ((StructuredSelection)getSelection()).getFirstElement();
+		if (selection instanceof EditPart){
+			Object model = ((EditPart)selection).getModel();
+			if (model instanceof Link || model instanceof Text){
+				command.setPageElement((PageElement)model);
+				getCommandStack().execute(command);
+			}
+		}
+	}
+
+}

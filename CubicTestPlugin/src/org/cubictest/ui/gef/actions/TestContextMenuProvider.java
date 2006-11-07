@@ -1,0 +1,84 @@
+/*
+ * Created on 28.may.2005
+ * 
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ * 
+ */
+package org.cubictest.ui.gef.actions;
+
+import org.eclipse.gef.ContextMenuProvider;
+import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.ui.actions.ActionRegistry;
+import org.eclipse.gef.ui.actions.GEFActionConstants;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.ui.actions.ActionFactory;
+
+/**
+ * @author Stein Kåre Skytteren
+ *
+ * Provides the "right-click" menu found in the GraphicalTestEditor.
+ */
+public class TestContextMenuProvider extends ContextMenuProvider{
+
+	private ActionRegistry actionRegistry;
+
+	/**
+	 * Constructs the context menu for the GraphicalTestEditors graphical viewer.
+	 * @param viewer the graphical viewer
+	 * @param registry the actionregistry
+	 */
+	public TestContextMenuProvider(EditPartViewer viewer, ActionRegistry registry){
+		super(viewer);
+		actionRegistry = registry;
+	}
+
+	/*
+	 *  (non-Javadoc)
+	 * @see org.eclipse.gef.ContextMenuProvider#buildContextMenu(org.eclipse.jface.action.IMenuManager)
+	 */
+	public void buildContextMenu(IMenuManager menu){
+		GEFActionConstants.addStandardActionGroups(menu);
+
+		IAction action;
+		
+		action = actionRegistry.getAction(PresentAction.ACTION_ID);
+		menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+		
+		action = actionRegistry.getAction(ActionFactory.UNDO.getId());
+		menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
+
+		action = actionRegistry.getAction(ActionFactory.REDO.getId());
+		menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
+
+		action = actionRegistry.getAction(ActionFactory.DELETE.getId());
+		if (action.isEnabled())
+			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+		
+		action = actionRegistry.getAction(ActionFactory.CUT.getId());
+		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
+
+		action = actionRegistry.getAction(ActionFactory.COPY.getId());
+		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
+		
+		action = actionRegistry.getAction(ActionFactory.PASTE.getId());
+		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
+		
+		action = actionRegistry.getAction(GEFActionConstants.DIRECT_EDIT);
+		menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+
+		action = actionRegistry.getAction(AddExtensionPointAction.ACTION_ID);
+		menu.appendToGroup(GEFActionConstants.GROUP_EDIT,action);		
+		
+		action = actionRegistry.getAction(PopulateCommonAction.ID);
+		if (action.isEnabled())
+			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+		
+		action = actionRegistry.getAction(RunCubicUnitAction.ACTION_ID);
+		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
+		
+		action = actionRegistry.getAction(ResetTestAction.ACTION_ID);
+		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
+	}
+}

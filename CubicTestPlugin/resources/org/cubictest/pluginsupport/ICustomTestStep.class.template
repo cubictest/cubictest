@@ -1,0 +1,30 @@
+%%PACKAGE%%
+
+import java.util.List;
+import java.util.Map;
+
+import org.cubictest.custom.ICustomTestStep;
+import org.cubictest.custom.IElementContext;
+import org.cubicunit.Document;
+
+public class %%CLASSNAME%% implements ICustomTestStep {
+
+	public void execute(Map<String,String> config, IElementContext context, Document document) {
+	}
+
+	public String getDescription() {
+		return "%%CLASSNAME%% Test Step";
+	}
+
+	public String getDisplayText() {
+		return "%%CLASSNAME%%";
+	}
+
+	public String getName() {
+		return "%%CLASSNAME%%";
+	}
+	
+	public List<String> getArgumentNames() {
+		return null;	
+	}
+}

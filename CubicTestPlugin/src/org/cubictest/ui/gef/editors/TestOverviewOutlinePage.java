@@ -1,0 +1,99 @@
+/*
+ * Created on 28.may.2005
+ * 
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ * 
+ */
+package org.cubictest.ui.gef.editors;
+
+import org.eclipse.draw2d.LightweightSystem;
+import org.eclipse.draw2d.Viewport;
+import org.eclipse.draw2d.parts.ScrollableThumbnail;
+import org.eclipse.gef.LayerConstants;
+import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.part.Page;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+
+/**
+ * @author SK Skytteren
+ *
+ * The ouline page which is an overview of the graphical test editor.
+ */
+public class TestOverviewOutlinePage extends Page implements IContentOutlinePage{
+
+	private ScalableFreeformRootEditPart rootPart;
+	private Canvas canvas;
+	private ScrollableThumbnail image;
+
+	/**
+	 * Constructor
+	 * 
+	 * @param rootPart 
+	 */
+	public TestOverviewOutlinePage(ScalableFreeformRootEditPart rootPart) {
+		super();
+		this.rootPart = rootPart;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.part.Page#createControl(org.eclipse.swt.widgets.Composite)
+	 */
+	public void createControl(Composite parent) {
+		canvas = new Canvas(parent, SWT.NONE);
+        LightweightSystem lws = new LightweightSystem(canvas);
+        
+        image = new ScrollableThumbnail((Viewport) rootPart.getFigure());
+        image.setSource(
+            rootPart.getLayer(LayerConstants.PRINTABLE_LAYERS));
+        lws.setContents(image);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.part.Page#getControl()
+	 */
+	public Control getControl() {
+		return canvas;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.part.Page#setFocus()
+	 */
+	public void setFocus() {
+		if (getControl() != null)
+            getControl().setFocus();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ISelectionProvider#addSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener)
+	 */
+	public void addSelectionChangedListener(ISelectionChangedListener listener) {
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ISelectionProvider#getSelection()
+	 */
+	public ISelection getSelection() {
+		return StructuredSelection.EMPTY;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ISelectionProvider#removeSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener)
+	 */
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ISelectionProvider#setSelection(org.eclipse.jface.viewers.ISelection)
+	 */
+	public void setSelection(ISelection selection) {
+	}
+
+}

@@ -1,0 +1,149 @@
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>www.test.org</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <text>
+              <not>false</not>
+              <text></text>
+              <description>First</description>
+              <sationType>NONE</sationType>
+              <key></key>
+            </text>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>LinkToSecond</description>
+              <sationType reference="../../text/sationType"/>
+              <key></key>
+            </link>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>LinkToThird</description>
+              <sationType reference="../../text/sationType"/>
+              <key></key>
+            </link>
+          </elements>
+          <name>First Page</name>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <sationType reference="../../../../../elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <not>false</not>
+                    <text></text>
+                    <description>Second</description>
+                    <sationType reference="../../../../../../elements/text/sationType"/>
+                    <key></key>
+                  </text>
+                </elements>
+                <name>Second Page</name>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions/>
+                <id>page275379171162115936652</id>
+                <position>
+                  <x>79</x>
+                  <y>290</y>
+                </position>
+                <dimension>
+                  <width>93</width>
+                  <height>70</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userActions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action reference="../../../../userActions/inputs/pageElementAction/action"/>
+                  <sationType reference="../../../../../elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <not>false</not>
+                    <text></text>
+                    <description>Third</description>
+                    <sationType reference="../../../../../../elements/text/sationType"/>
+                    <key></key>
+                  </text>
+                </elements>
+                <name>Third Page</name>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions/>
+                <id>page297923971162115959945</id>
+                <position>
+                  <x>322</x>
+                  <y>292</y>
+                </position>
+                <dimension>
+                  <width>93</width>
+                  <height>70</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userActions>
+          </outTransitions>
+          <id>page843911162115924655</id>
+          <position>
+            <x>193</x>
+            <y>88</y>
+          </position>
+          <dimension>
+            <width>93</width>
+            <height>91</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>test1162115924655</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name>URL </name>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[2]/end"/>
+  </pages>
+  <subTests/>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[2]"/>
+  </transitions>
+  <customTestSteps/>
+  <name>SimpleTree</name>
+  <description></description>
+  <id>test1162115924655</id>
+  <modelVersion>3</modelVersion>
+</test>

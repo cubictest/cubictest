@@ -1,0 +1,114 @@
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>www.test.org</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>Alpha</description>
+              <sationType>NONE</sationType>
+              <key></key>
+            </link>
+          </elements>
+          <name>First Page</name>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <sationType reference="../../../../../elements/link/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="subTest">
+                <filePath>tests/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat</filePath>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions>
+                  <extensionTransition>
+                    <id>page297923971162115959945_2</id>
+                    <start class="subTest" reference="../../.."/>
+                    <end class="page">
+                      <commons/>
+                      <elements>
+                        <text>
+                          <not>false</not>
+                          <text></text>
+                          <description>Beta</description>
+                          <sationType reference="../../../../../../../../../elements/link/sationType"/>
+                          <key></key>
+                        </text>
+                      </elements>
+                      <name>Second Page</name>
+                      <inTransition class="extensionTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>page206560921162117577832</id>
+                      <position>
+                        <x>286</x>
+                        <y>354</y>
+                      </position>
+                      <dimension>
+                        <width>93</width>
+                        <height>70</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                    </end>
+                  </extensionTransition>
+                </outTransitions>
+                <id>1162117563361</id>
+                <position>
+                  <x>154</x>
+                  <y>237</y>
+                </position>
+                <name></name>
+              </end>
+            </userActions>
+          </outTransitions>
+          <id>page158704131162117538065</id>
+          <position>
+            <x>100</x>
+            <y>100</y>
+          </position>
+          <dimension>
+            <width>93</width>
+            <height>70</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>test1162117538055</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name>URL </name>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end"/>
+  </pages>
+  <subTests>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end"/>
+  </subTests>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions"/>
+    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <name>SimpleUsingSubTest</name>
+  <description></description>
+  <id>test1162117538055</id>
+  <modelVersion>3</modelVersion>
+</test>

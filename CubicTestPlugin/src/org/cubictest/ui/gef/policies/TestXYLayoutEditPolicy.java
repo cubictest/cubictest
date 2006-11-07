@@ -1,0 +1,87 @@
+/*
+ * Created on 28.may.2005
+ * 
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ * 
+ */
+package org.cubictest.ui.gef.policies;
+
+import org.cubictest.model.TransitionNode;
+import org.cubictest.ui.gef.command.MovePageCommand;
+import org.cubictest.ui.gef.command.PageResizeCommand;
+import org.cubictest.ui.gef.controller.AbstractNodeEditPart;
+import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
+import org.eclipse.gef.requests.CreateRequest;
+
+
+/**
+ * @author SK Skytteren
+ *
+ */
+public class TestXYLayoutEditPolicy extends XYLayoutEditPolicy {
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy#createAddCommand(org.eclipse.gef.EditPart, java.lang.Object)
+	 */
+	protected Command createAddCommand(EditPart child, Object constraint) {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy#createChangeConstraintCommand(org.eclipse.gef.EditPart, java.lang.Object)
+	 */
+	protected Command createChangeConstraintCommand(EditPart child,
+			Object constraint) {
+		if (!(child instanceof AbstractNodeEditPart))
+			return null;
+		if (!(constraint instanceof Rectangle))
+			return null;
+
+		AbstractNodeEditPart abstractNodeEditPart = (AbstractNodeEditPart) child;
+		TransitionNode transitionNode = (TransitionNode)abstractNodeEditPart.getModel();
+
+		Figure figure = (Figure) abstractNodeEditPart.getFigure();
+		Rectangle oldBounds = figure.getBounds();
+		Rectangle newBounds = (Rectangle) constraint;
+
+		if ((newBounds.width != -1 && newBounds.height != -1) && 
+				((oldBounds.width != newBounds.width) || (oldBounds.height != newBounds.height))) {
+			PageResizeCommand command = new PageResizeCommand();
+			command.setPage(transitionNode);
+			command.setOldDimension(new Dimension(oldBounds.width, oldBounds.height));
+			command.setNewDimension(new Dimension(newBounds.width, newBounds.height));
+			return command;
+		}
+		else
+		{
+			MovePageCommand command = new MovePageCommand();
+			command.setPage(transitionNode);
+			command.setOldPosition(new Point(oldBounds.x,oldBounds.y));
+			command.setNewPosition(new Point(newBounds.x,newBounds.y));
+			return command;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.gef.editpolicies.LayoutEditPolicy#getCreateCommand(org.eclipse.gef.requests.CreateRequest)
+	 */
+	protected Command getCreateCommand(CreateRequest request) {
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.gef.editpolicies.LayoutEditPolicy#getDeleteDependantCommand(org.eclipse.gef.Request)
+	 */
+	protected Command getDeleteDependantCommand(Request request) {
+		return null;
+	}
+
+}

@@ -1,0 +1,57 @@
+<test>
+  <startPoint class="extensionStartPoint">
+    <sourceExtensionPointPageId>page67485291162369150333</sourceExtensionPointPageId>
+    <sourceExtensionPointName>Webshop Extension Point</sourceExtensionPointName>
+    <filePath>tests/org/cubictest/common/converters/log in.aat</filePath>
+    <outTransitions>
+      <extensionTransition>
+        <id>page67485291162369150333</id>
+        <start class="extensionStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>Shipping crate</description>
+              <sationType>NONE</sationType>
+              <key></key>
+            </link>
+          </elements>
+          <name>First Page</name>
+          <inTransition class="extensionTransition" reference="../.."/>
+          <outTransitions/>
+          <id>page163242381162369217199</id>
+          <position>
+            <x>105</x>
+            <y>122</y>
+          </position>
+          <dimension>
+            <width>93</width>
+            <height>49</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </extensionTransition>
+    </outTransitions>
+    <id>1162369217199</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name></name>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end"/>
+  </pages>
+  <subTests/>
+  <transitions>
+    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <name>purchase crate</name>
+  <description></description>
+  <id>test1162369217199</id>
+  <modelVersion>3</modelVersion>
+</test>

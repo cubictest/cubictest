@@ -1,0 +1,57 @@
+<test>
+  <startPoint class="extensionStartPoint">
+    <sourceExtensionPointPageId>page297923971162115959945_2</sourceExtensionPointPageId>
+    <sourceExtensionPointName>Third Page Extension Point</sourceExtensionPointName>
+    <filePath>tests/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat</filePath>
+    <outTransitions>
+      <extensionTransition>
+        <id>page297923971162115959945_2</id>
+        <start class="extensionStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <text>
+              <not>false</not>
+              <text></text>
+              <description>Fourth</description>
+              <sationType>NONE</sationType>
+              <key></key>
+            </text>
+          </elements>
+          <name>Fourth Page</name>
+          <inTransition class="extensionTransition" reference="../.."/>
+          <outTransitions/>
+          <id>page284997311162125576874</id>
+          <position>
+            <x>117</x>
+            <y>110</y>
+          </position>
+          <dimension>
+            <width>93</width>
+            <height>70</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </extensionTransition>
+    </outTransitions>
+    <id>1162125576874</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name></name>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end"/>
+  </pages>
+  <subTests/>
+  <transitions>
+    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <name>SimpleUsingExtensionStartPoint</name>
+  <description></description>
+  <id>test1162125576874</id>
+  <modelVersion>3</modelVersion>
+</test>
