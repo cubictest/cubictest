@@ -1,0 +1,13 @@
+Erfringer fra generalprøve for JavaZone hos BEKK
+
+*	Få tester til å feile først, så få det til å gå grønt!!
+*	OSI.log på forsiden(!?!?)
+* 	Figur over systemet
+*	Om bruk av cubic til TDD i morgen
+*	Forklar Watir
+* 	Få med passord
+*	Populeringa av Aspekter
+*	SK - styrer sliper på starten
+*	Forklar kontekst bedre; bedre eksempel:
+	-	Assertions vnaligvis for snille -> contexts
+	-	Flytte i JSP

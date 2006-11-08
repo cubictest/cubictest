@@ -1,0 +1,3 @@
+Remember to write a note here if you are editing the slides!
+
+(or we should have a slide format in plain text).
