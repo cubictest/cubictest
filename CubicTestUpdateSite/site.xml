@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.cubictest_1.0.0.M2.jar" id="org.cubictest" version="1.0.0.M2"/>
+</site>
