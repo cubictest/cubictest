@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/ant.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.5.0_04/lib/tools.jar"/>
 	<classpathentry kind="output" path="src"/>
 </classpath>
