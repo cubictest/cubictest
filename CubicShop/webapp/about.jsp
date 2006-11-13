@@ -6,10 +6,14 @@ We sell cubics.
 <br><br><br>
 <form>
 	Was this info helpful?
-	<table><tr><td>
-		<input type="radio" name="helpfullness" id="helpful" value="Helpful">Helpful<br>
-		<input type="radio" name="helpfullness" id="notHelpful" value="Not helpful">Not helpful
-	</td></tr></table>
+	<table>
+		<tr>
+			<td>
+				<input type="radio" name="helpfullness" id="helpful" value="Helpful"><label for="helpful">Helpful</label><br>
+				<input type="radio" name="helpfullness" id="notHelpful" value="Not helpful"><label for="notHelpful">Not helpful</label>
+			</td>
+		</tr>
+	</table>
 	<input type="submit" value="Submit">
 </form>
 <%
