@@ -1,0 +1,207 @@
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <text>
+              <not>false</not>
+              <text></text>
+              <description>Welcome to our webshop!</description>
+              <sationType>NONE</sationType>
+              <key></key>
+              <status>PASS</status>
+            </text>
+          </elements>
+          <name>Frontpage</name>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <input></input>
+                  <action>NO_ACTION</action>
+                  <sationType reference="../../../../../elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="subTest">
+                <filePath>/CubicShopTest/tests/purchase.aat</filePath>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions>
+                  <extensionTransition>
+                    <id>1157464849674</id>
+                    <start class="subTest" reference="../../.."/>
+                    <end class="page">
+                      <commons/>
+                      <elements>
+                        <text>
+                          <not>false</not>
+                          <text></text>
+                          <description>You must log in before you can purchase.</description>
+                          <sationType reference="../../../../../../../../../elements/text/sationType"/>
+                          <key></key>
+                        </text>
+                      </elements>
+                      <name>Login error</name>
+                      <inTransition class="extensionTransition" reference="../.."/>
+                      <outTransitions>
+                        <userActions>
+                          <inputs>
+                            <pageElementAction>
+                              <input></input>
+                              <action reference="../../../../../../../../../inputs/pageElementAction/action"/>
+                              <sationType reference="../../../../../../../../../../../elements/text/sationType"/>
+                              <key></key>
+                            </pageElementAction>
+                          </inputs>
+                          <page class="page" reference="../../.."/>
+                          <start class="page" reference="../../.."/>
+                          <end class="subTest">
+                            <filePath>/CubicShopTest/tests/log_in.aat</filePath>
+                            <inTransition class="userActions" reference="../.."/>
+                            <outTransitions>
+                              <extensionTransition>
+                                <id>1157064802173</id>
+                                <start class="subTest" reference="../../.."/>
+                                <end class="subTest">
+                                  <filePath>/CubicShopTest/tests/purchase.aat</filePath>
+                                  <inTransition class="extensionTransition" reference="../.."/>
+                                  <outTransitions>
+                                    <extensionTransition>
+                                      <id>1157464849674</id>
+                                      <start class="subTest" reference="../../.."/>
+                                      <end class="page">
+                                        <commons/>
+                                        <elements>
+                                          <text>
+                                            <not>false</not>
+                                            <text></text>
+                                            <description>Added to cart</description>
+                                            <sationType reference="../../../../../../../../../../../../../../../../../../elements/text/sationType"/>
+                                            <key></key>
+                                          </text>
+                                        </elements>
+                                        <name>Bought box</name>
+                                        <inTransition class="extensionTransition" reference="../.."/>
+                                        <outTransitions>
+                                          <simpleTransition>
+                                            <start class="page" reference="../../.."/>
+                                            <end class="extensionPoint">
+                                              <inTransition class="simpleTransition" reference="../.."/>
+                                              <outTransitions/>
+                                              <id></id>
+                                              <position>
+                                                <x>493</x>
+                                                <y>489</y>
+                                              </position>
+                                              <name>Bought box Extension Point</name>
+                                            </end>
+                                          </simpleTransition>
+                                        </outTransitions>
+                                        <id>1157465786120</id>
+                                        <position>
+                                          <x>322</x>
+                                          <y>471</y>
+                                        </position>
+                                        <dimension>
+                                          <width>93</width>
+                                          <height>70</height>
+                                        </dimension>
+                                        <name defined-in="transitionNode"></name>
+                                      </end>
+                                    </extensionTransition>
+                                  </outTransitions>
+                                  <id>1157465774794</id>
+                                  <position>
+                                    <x>136</x>
+                                    <y>443</y>
+                                  </position>
+                                  <name></name>
+                                </end>
+                              </extensionTransition>
+                            </outTransitions>
+                            <id>1157465588656</id>
+                            <position>
+                              <x>134</x>
+                              <y>371</y>
+                            </position>
+                            <name></name>
+                          </end>
+                        </userActions>
+                      </outTransitions>
+                      <id>1157465552374</id>
+                      <position>
+                        <x>77</x>
+                        <y>244</y>
+                      </position>
+                      <dimension>
+                        <width>128</width>
+                        <height>58</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                    </end>
+                  </extensionTransition>
+                </outTransitions>
+                <id>1157465536862</id>
+                <position>
+                  <x>77</x>
+                  <y>169</y>
+                </position>
+                <name></name>
+              </end>
+            </userActions>
+          </outTransitions>
+          <id>page80283801157465511866</id>
+          <position>
+            <x>43</x>
+            <y>61</y>
+          </position>
+          <dimension>
+            <width>162</width>
+            <height>49</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>/CubicShopTest/tests/check_login_required.aat</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name>Frontpage</name>
+  </startPoint>
+  <extensionPoints>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/simpleTransition/end"/>
+  </extensionPoints>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end"/>
+  </pages>
+  <subTests>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end"/>
+  </subTests>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions"/>
+    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions"/>
+    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/simpleTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <name>Purchase after login</name>
+  <description></description>
+  <id>/CubicShopTest/tests/check_login_required.aat</id>
+  <modelVersion>3</modelVersion>
+</test>

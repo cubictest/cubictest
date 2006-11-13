@@ -1,0 +1,395 @@
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <pageSection>
+              <elements>
+                <text>
+                  <not>false</not>
+                  <text></text>
+                  <description>CubicShop</description>
+                  <sationType>NONE</sationType>
+                  <key></key>
+                </text>
+              </elements>
+              <not>false</not>
+              <text></text>
+              <description>Header</description>
+              <sationType reference="../elements/text/sationType"/>
+              <key></key>
+            </pageSection>
+            <pageSection>
+              <elements>
+                <text>
+                  <not>false</not>
+                  <text></text>
+                  <description>The CubicShop Inc</description>
+                  <sationType reference="../../../../pageSection/elements/text/sationType"/>
+                  <key></key>
+                </text>
+              </elements>
+              <not>false</not>
+              <text></text>
+              <description>Footer</description>
+              <sationType reference="../../pageSection/elements/text/sationType"/>
+              <key></key>
+            </pageSection>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>Welcome</description>
+              <sationType reference="../../pageSection/elements/text/sationType"/>
+              <key></key>
+            </link>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>Webshop</description>
+              <sationType reference="../../pageSection/elements/text/sationType"/>
+              <key></key>
+            </link>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>Your cart</description>
+              <sationType reference="../../pageSection/elements/text/sationType"/>
+              <key></key>
+            </link>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>Search</description>
+              <sationType reference="../../pageSection/elements/text/sationType"/>
+              <key></key>
+            </link>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>About us</description>
+              <sationType reference="../../pageSection/elements/text/sationType"/>
+              <key></key>
+            </link>
+          </elements>
+          <name>Frontpage</name>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <element class="link" reference="../../../../../elements/link[2]"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <sationType reference="../../../../../elements/pageSection/elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <not>false</not>
+                    <text></text>
+                    <description>Webshop</description>
+                    <sationType reference="../../../../../../elements/pageSection/elements/text/sationType"/>
+                    <key></key>
+                  </text>
+                </elements>
+                <name>Webshop</name>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="page" reference="../../.."/>
+                    <end class="extensionPoint">
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>extensionpoint290737251162367102538</id>
+                      <position>
+                        <x>146</x>
+                        <y>478</y>
+                      </position>
+                      <name>Webshop Extension Point</name>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>page313031181162367078413</id>
+                <position>
+                  <x>174</x>
+                  <y>380</y>
+                </position>
+                <dimension>
+                  <width>93</width>
+                  <height>70</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userActions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action reference="../../../../userActions/inputs/pageElementAction/action"/>
+                  <sationType reference="../../../../../elements/pageSection/elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <not>false</not>
+                    <text></text>
+                    <description>Welcome</description>
+                    <sationType reference="../../../../../../elements/pageSection/elements/text/sationType"/>
+                    <key></key>
+                  </text>
+                </elements>
+                <name>Welcome</name>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="page" reference="../../.."/>
+                    <end class="extensionPoint">
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>extensionpoint333172871162367127684</id>
+                      <position>
+                        <x>22</x>
+                        <y>319</y>
+                      </position>
+                      <name>Welcome Extension Point</name>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>page129011931162367112723</id>
+                <position>
+                  <x>45</x>
+                  <y>210</y>
+                </position>
+                <dimension>
+                  <width>93</width>
+                  <height>70</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userActions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <element class="link" reference="../../../../../elements/link[3]"/>
+                  <input></input>
+                  <action reference="../../../../userActions/inputs/pageElementAction/action"/>
+                  <sationType reference="../../../../../elements/pageSection/elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <not>false</not>
+                    <text></text>
+                    <description>Your cart</description>
+                    <sationType reference="../../../../../../elements/pageSection/elements/text/sationType"/>
+                    <key></key>
+                  </text>
+                </elements>
+                <name>Your cart</name>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="page" reference="../../.."/>
+                    <end class="extensionPoint">
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>extensionpoint277257491162367166179</id>
+                      <position>
+                        <x>424</x>
+                        <y>485</y>
+                      </position>
+                      <name>Your cart Extension Point</name>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>page181953751162367135666</id>
+                <position>
+                  <x>386</x>
+                  <y>377</y>
+                </position>
+                <dimension>
+                  <width>93</width>
+                  <height>70</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userActions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <element class="link" reference="../../../../../elements/link[4]"/>
+                  <input></input>
+                  <action reference="../../../../userActions/inputs/pageElementAction/action"/>
+                  <sationType reference="../../../../../elements/pageSection/elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <not>false</not>
+                    <text></text>
+                    <description>Search</description>
+                    <sationType reference="../../../../../../elements/pageSection/elements/text/sationType"/>
+                    <key></key>
+                  </text>
+                </elements>
+                <name>Search</name>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="page" reference="../../.."/>
+                    <end class="extensionPoint">
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>extensionpoint85418901162367195211</id>
+                      <position>
+                        <x>566</x>
+                        <y>383</y>
+                      </position>
+                      <name>Search Extension Point</name>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>page215362701162367169184</id>
+                <position>
+                  <x>548</x>
+                  <y>279</y>
+                </position>
+                <dimension>
+                  <width>93</width>
+                  <height>70</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userActions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <element class="link" reference="../../../../../elements/link[5]"/>
+                  <input></input>
+                  <action reference="../../../../userActions/inputs/pageElementAction/action"/>
+                  <sationType reference="../../../../../elements/pageSection/elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <not>false</not>
+                    <text></text>
+                    <description>About us</description>
+                    <sationType reference="../../../../../../elements/pageSection/elements/text/sationType"/>
+                    <key></key>
+                  </text>
+                </elements>
+                <name>About us</name>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="page" reference="../../.."/>
+                    <end class="extensionPoint">
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>extensionpoint318052531162367222330</id>
+                      <position>
+                        <x>499</x>
+                        <y>194</y>
+                      </position>
+                      <name>About us Extension Point</name>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>page51436251162367197875</id>
+                <position>
+                  <x>453</x>
+                  <y>95</y>
+                </position>
+                <dimension>
+                  <width>93</width>
+                  <height>70</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userActions>
+          </outTransitions>
+          <id>page323491251157307821626</id>
+          <position>
+            <x>220</x>
+            <y>53</y>
+          </position>
+          <dimension>
+            <width>144</width>
+            <height>229</height>
+          </dimension>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>/CubicShopTest/tests/frontpage.aat</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name>Frontpage</name>
+  </startPoint>
+  <extensionPoints>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/simpleTransition/end"/>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[2]/end/outTransitions/simpleTransition/end"/>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[3]/end/outTransitions/simpleTransition/end"/>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[4]/end/outTransitions/simpleTransition/end"/>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[5]/end/outTransitions/simpleTransition/end"/>
+  </extensionPoints>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[2]/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[3]/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[4]/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[5]/end"/>
+  </pages>
+  <subTests/>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/simpleTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[2]"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[2]/end/outTransitions/simpleTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[3]"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[3]/end/outTransitions/simpleTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[4]"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[4]/end/outTransitions/simpleTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[5]"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions[5]/end/outTransitions/simpleTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <name>FrontPage</name>
+  <description></description>
+  <id>/CubicShopTest/tests/frontpage.aat</id>
+  <modelVersion>3</modelVersion>
+</test>

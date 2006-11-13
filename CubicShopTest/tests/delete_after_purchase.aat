@@ -1,0 +1,206 @@
+<test>
+  <startPoint class="startPoint">
+    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="startPoint" reference="../../.."/>
+        <end class="page">
+          <aspects/>
+          <elements>
+            <text>
+              <not>false</not>
+              <text></text>
+              <description>Welcome to our webshop!</description>
+              <sationType>NONE</sationType>
+              <key></key>
+              <status>PASS</status>
+            </text>
+          </elements>
+          <name>Frontpage</name>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <input></input>
+                  <action>NO_ACTION</action>
+                  <sationType reference="../../../../../elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="org.cubictest.model.SubTest">
+                <filePath>tests/purchase_after_login.aat</filePath>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions>
+                  <org.cubictest.model.ExtensionTransition>
+                    <id>1157465786120</id>
+                    <start class="org.cubictest.model.SubTest" reference="../../.."/>
+                    <end class="page">
+                      <aspects/>
+                      <elements>
+                        <text>
+                          <not>false</not>
+                          <text></text>
+                          <description>Cart contents:</description>
+                          <sationType reference="../../../../../../../../../elements/text/sationType"/>
+                          <key></key>
+                        </text>
+                        <text>
+                          <not>false</not>
+                          <text></text>
+                          <description>3D Shooter Box</description>
+                          <sationType reference="../../../../../../../../../elements/text/sationType"/>
+                          <key></key>
+                        </text>
+                        <text>
+                          <not>false</not>
+                          <text></text>
+                          <description>Remove?</description>
+                          <sationType reference="../../../../../../../../../elements/text/sationType"/>
+                          <key></key>
+                        </text>
+                        <checkbox>
+                          <checked>false</checked>
+                          <not>false</not>
+                          <text>remove3dShooterBox</text>
+                          <identifierType>NAME</identifierType>
+                          <description>Remove</description>
+                          <sationType reference="../../../../../../../../../elements/text/sationType"/>
+                          <key></key>
+                        </checkbox>
+                        <button>
+                          <not>false</not>
+                          <text></text>
+                          <description>Remove selected</description>
+                          <sationType reference="../../../../../../../../../elements/text/sationType"/>
+                          <key></key>
+                        </button>
+                      </elements>
+                      <name>Added to card</name>
+                      <inTransition class="org.cubictest.model.ExtensionTransition" reference="../.."/>
+                      <outTransitions>
+                        <userActions>
+                          <inputs>
+                            <pageElementAction>
+                              <element class="checkbox" reference="../../../../../elements/checkbox"/>
+                              <input></input>
+                              <action>CHECK</action>
+                              <sationType reference="../../../../../../../../../../../elements/text/sationType"/>
+                              <key></key>
+                            </pageElementAction>
+                            <pageElementAction>
+                              <element class="button" reference="../../../../../elements/button"/>
+                              <input></input>
+                              <action>CLICK</action>
+                              <sationType reference="../../../../../../../../../../../elements/text/sationType"/>
+                              <key></key>
+                            </pageElementAction>
+                          </inputs>
+                          <page class="page" reference="../../.."/>
+                          <start class="page" reference="../../.."/>
+                          <end class="page">
+                            <aspects/>
+                            <elements>
+                              <text>
+                                <not>false</not>
+                                <text></text>
+                                <description>Cart contents</description>
+                                <sationType reference="../../../../../../../../../../../../elements/text/sationType"/>
+                                <key></key>
+                              </text>
+                              <text>
+                                <not>false</not>
+                                <text></text>
+                                <description>None</description>
+                                <sationType reference="../../../../../../../../../../../../elements/text/sationType"/>
+                                <key></key>
+                              </text>
+                              <text>
+                                <not>true</not>
+                                <text></text>
+                                <description>3D Shooter Box</description>
+                                <sationType reference="../../../../../../../../../../../../elements/text/sationType"/>
+                                <key></key>
+                              </text>
+                            </elements>
+                            <name>Removed</name>
+                            <inTransition class="userActions" reference="../.."/>
+                            <outTransitions/>
+                            <id>1157481707477</id>
+                            <position>
+                              <x>441</x>
+                              <y>274</y>
+                            </position>
+                            <dimension>
+                              <width>101</width>
+                              <height>102</height>
+                            </dimension>
+                            <name defined-in="transitionNode"></name>
+                          </end>
+                        </userActions>
+                      </outTransitions>
+                      <id>1157479939345</id>
+                      <position>
+                        <x>224</x>
+                        <y>153</y>
+                      </position>
+                      <dimension>
+                        <width>126</width>
+                        <height>134</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                    </end>
+                  </org.cubictest.model.ExtensionTransition>
+                </outTransitions>
+                <id>1157479926096</id>
+                <position>
+                  <x>48</x>
+                  <y>177</y>
+                </position>
+                <name></name>
+              </end>
+            </userActions>
+          </outTransitions>
+          <id>page168021581157479022156</id>
+          <position>
+            <x>22</x>
+            <y>55</y>
+          </position>
+          <dimension>
+            <width>128</width>
+            <height>52</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>/CubicShopTest/tests/new_test.aat</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name>Frontpage</name>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/org.cubictest.model.ExtensionTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/org.cubictest.model.ExtensionTransition/end/outTransitions/userActions/end"/>
+  </pages>
+  <subTests>
+    <org.cubictest.model.SubTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end"/>
+  </subTests>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions"/>
+    <org.cubictest.model.ExtensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/org.cubictest.model.ExtensionTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/org.cubictest.model.ExtensionTransition/end/outTransitions/userActions"/>
+  </transitions>
+  <customTestSteps/>
+  <name>Delete after purchase</name>
+  <description></description>
+  <id>/CubicShopTest/tests/new_test.aat</id>
+  <modelVersion>1.0</modelVersion>
+</test>

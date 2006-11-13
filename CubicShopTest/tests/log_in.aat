@@ -1,0 +1,266 @@
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>http://localhost:8080/cubicshop/</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons>
+            <commonTransition>
+              <start class="common">
+                <elements>
+                  <link>
+                    <not>false</not>
+                    <text>Welcome</text>
+                    <description>Welcome</description>
+                    <sationType>INTERNATIONALISATION</sationType>
+                    <key>Welcome</key>
+                  </link>
+                  <link>
+                    <not>false</not>
+                    <text>Search</text>
+                    <description>Search</description>
+                    <sationType reference="../../link/sationType"/>
+                    <key>Search</key>
+                    <status>UNKNOWN</status>
+                  </link>
+                </elements>
+                <name>Common</name>
+                <outTransitions>
+                  <commonTransition reference="../../.."/>
+                  <commonTransition>
+                    <start class="common" reference="../../.."/>
+                    <end class="page">
+                      <commons>
+                        <commonTransition reference="../../.."/>
+                      </commons>
+                      <elements>
+                        <text>
+                          <not>false</not>
+                          <text>Welcome Christian</text>
+                          <description>Welcome Christian</description>
+                          <sationType>BOTH</sationType>
+                          <key>WelcomeMessage</key>
+                        </text>
+                      </elements>
+                      <name>Logged in</name>
+                      <inTransition class="userActions">
+                        <inputs>
+                          <pageElementAction>
+                            <element class="textField">
+                              <not>false</not>
+                              <text></text>
+                              <identifierType>NAME</identifierType>
+                              <description>Username</description>
+                              <sationType>NONE</sationType>
+                              <key></key>
+                              <status reference="../../../../../../../../elements/link[2]/status"/>
+                            </element>
+                            <input>Christian</input>
+                            <action>ENTER_PARAMETER_TEXT</action>
+                            <sationType>PARAMETERISATION</sationType>
+                            <key>Username</key>
+                          </pageElementAction>
+                          <pageElementAction>
+                            <element class="password">
+                              <not>false</not>
+                              <text></text>
+                              <identifierType reference="../../../pageElementAction/element/identifierType"/>
+                              <description>Password</description>
+                              <sationType reference="../../../pageElementAction/element/sationType"/>
+                              <key></key>
+                              <status reference="../../../../../../../../elements/link[2]/status"/>
+                            </element>
+                            <input>pw1</input>
+                            <action reference="../../pageElementAction/action"/>
+                            <sationType reference="../../pageElementAction/sationType"/>
+                            <key>Passwords</key>
+                          </pageElementAction>
+                          <pageElementAction>
+                            <element class="button">
+                              <not>false</not>
+                              <text></text>
+                              <identifierType reference="../../../pageElementAction/element/identifierType"/>
+                              <description>Log in</description>
+                              <sationType reference="../../../pageElementAction/element/sationType"/>
+                              <key></key>
+                              <status reference="../../../../../../../../elements/link[2]/status"/>
+                            </element>
+                            <input></input>
+                            <action>CLICK</action>
+                            <sationType reference="../../pageElementAction/element/sationType"/>
+                            <key></key>
+                          </pageElementAction>
+                        </inputs>
+                        <page class="page" reference="../../../../../../../.."/>
+                        <start class="page" reference="../../../../../../../.."/>
+                        <end class="page" reference="../.."/>
+                      </inTransition>
+                      <outTransitions>
+                        <simpleTransition>
+                          <start class="page" reference="../../.."/>
+                          <end class="extensionPoint">
+                            <inTransition class="simpleTransition" reference="../.."/>
+                            <outTransitions/>
+                            <id></id>
+                            <position>
+                              <x>360</x>
+                              <y>441</y>
+                            </position>
+                            <name>Logged in Extension Point</name>
+                          </end>
+                        </simpleTransition>
+                      </outTransitions>
+                      <id>1157064802173</id>
+                      <position>
+                        <x>216</x>
+                        <y>415</y>
+                      </position>
+                      <dimension>
+                        <width>116</width>
+                        <height>54</height>
+                      </dimension>
+                    </end>
+                  </commonTransition>
+                </outTransitions>
+                <id></id>
+                <position>
+                  <x>289</x>
+                  <y>162</y>
+                </position>
+                <dimension>
+                  <width>91</width>
+                  <height>75</height>
+                </dimension>
+              </start>
+              <end class="page" reference="../../.."/>
+            </commonTransition>
+          </commons>
+          <elements>
+            <textField reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction/element"/>
+            <password reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction[2]/element"/>
+            <button reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction[3]/element"/>
+          </elements>
+          <name>Frontpage</name>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userActions reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
+          </outTransitions>
+          <id>page223261531157064773171</id>
+          <position>
+            <x>68</x>
+            <y>113</y>
+          </position>
+          <dimension>
+            <width>99</width>
+            <height>94</height>
+          </dimension>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>/CubicShopTest/tests/logIn.aat</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name>Frontpage</name>
+  </startPoint>
+  <extensionPoints>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/simpleTransition/end"/>
+  </extensionPoints>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end"/>
+    <common reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start"/>
+  </pages>
+  <subTests/>
+  <transitions>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/simpleTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <allLanguages>
+    <languages>
+      <language>
+        <name>Deutsch</name>
+        <fileName>\CubicShopTest\params\frontpage_de.properties</fileName>
+      </language>
+      <language>
+        <name>Norsk</name>
+        <fileName>\CubicShopTest\params\frontpage_no.properties</fileName>
+      </language>
+      <language>
+        <name>English</name>
+        <fileName>\CubicShopTest\params\frontpage_en.properties</fileName>
+      </language>
+    </languages>
+    <observers>
+      <link>
+        <not>false</not>
+        <text>About us</text>
+        <description>About us</description>
+        <sationType reference="../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link/sationType"/>
+        <key>AboutUs</key>
+        <status reference="../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link[2]/status"/>
+      </link>
+      <link reference="../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link[2]"/>
+      <text reference="../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/elements/text"/>
+      <link reference="../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link"/>
+    </observers>
+    <currentLanguage reference="../languages/language[3]"/>
+  </allLanguages>
+  <paramList>
+    <parameters>
+      <parameter>
+        <inputs>
+          <string>Christian</string>
+          <string>Stein Kåre</string>
+          <string>Erlend</string>
+        </inputs>
+        <header>Username</header>
+        <observers>
+          <pageElementAction reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction"/>
+          <text>
+            <not>false</not>
+            <text>Christian</text>
+            <description>Christian</description>
+            <sationType reference="../../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/elements/text/sationType"/>
+            <key>WelcomeMessage</key>
+            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link[2]/status"/>
+          </text>
+        </observers>
+      </parameter>
+      <parameter>
+        <inputs>
+          <string>pw1</string>
+          <string>pw2</string>
+          <string>pw3</string>
+        </inputs>
+        <header>Passwords</header>
+        <observers>
+          <pageElementAction reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction[2]"/>
+        </observers>
+      </parameter>
+      <parameter>
+        <inputs>
+          <string>WelcomeChristian</string>
+          <string>WelcomeSK</string>
+          <string>WelcomeErlend</string>
+        </inputs>
+        <header>WelcomeMessage</header>
+        <observers>
+          <text reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/elements/text"/>
+        </observers>
+      </parameter>
+    </parameters>
+    <parameterIndex>0</parameterIndex>
+    <fileName>/CubicShopTest/params/users.params</fileName>
+  </paramList>
+  <name>Log in</name>
+  <description>Test log in</description>
+  <id>/CubicShopTest/tests/logIn.aat</id>
+  <modelVersion>2</modelVersion>
+</test>

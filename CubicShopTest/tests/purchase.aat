@@ -1,0 +1,332 @@
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons>
+            <commonTransition>
+              <start class="common">
+                <elements>
+                  <text>
+                    <not>false</not>
+                    <text></text>
+                    <description>CubicShop</description>
+                    <sationType>NONE</sationType>
+                    <key></key>
+                    <status>PASS</status>
+                  </text>
+                  <link>
+                    <not>false</not>
+                    <text></text>
+                    <description>Welcome</description>
+                    <sationType reference="../../text/sationType"/>
+                    <key></key>
+                    <status reference="../../text/status"/>
+                  </link>
+                  <link>
+                    <not>false</not>
+                    <text></text>
+                    <description>Webshop</description>
+                    <sationType reference="../../text/sationType"/>
+                    <key></key>
+                    <status reference="../../text/status"/>
+                  </link>
+                </elements>
+                <name>Common</name>
+                <outTransitions>
+                  <commonTransition reference="../../.."/>
+                  <commonTransition>
+                    <start class="common" reference="../../.."/>
+                    <end class="page">
+                      <commons>
+                        <commonTransition reference="../../.."/>
+                      </commons>
+                      <elements>
+                        <link>
+                          <not>false</not>
+                          <text></text>
+                          <description>3D Shooter Box</description>
+                          <sationType reference="../../../../../../elements/text/sationType"/>
+                          <key></key>
+                          <status reference="../../../../../../elements/text/status"/>
+                        </link>
+                      </elements>
+                      <name>Webshop</name>
+                      <inTransition class="userActions">
+                        <inputs>
+                          <pageElementAction>
+                            <element class="link" reference="../../../../../../../elements/link[2]"/>
+                            <input></input>
+                            <action>CLICK</action>
+                            <sationType reference="../../../../../../../elements/text/sationType"/>
+                            <key></key>
+                          </pageElementAction>
+                        </inputs>
+                        <page class="page" reference="../../../../../../../.."/>
+                        <start class="page" reference="../../../../../../../.."/>
+                        <end class="page" reference="../.."/>
+                      </inTransition>
+                      <outTransitions>
+                        <userActions>
+                          <inputs>
+                            <pageElementAction>
+                              <element class="link" reference="../../../../../elements/link"/>
+                              <input></input>
+                              <action reference="../../../../../inTransition/inputs/pageElementAction/action"/>
+                              <sationType reference="../../../../../../../../elements/text/sationType"/>
+                              <key></key>
+                            </pageElementAction>
+                          </inputs>
+                          <page class="page" reference="../../.."/>
+                          <start class="page" reference="../../.."/>
+                          <end class="page">
+                            <commons>
+                              <commonTransition>
+                                <start class="common" reference="../../../../../../../../.."/>
+                                <end class="page" reference="../../.."/>
+                              </commonTransition>
+                            </commons>
+                            <elements>
+                              <button>
+                                <not>false</not>
+                                <text></text>
+                                <description>Buy</description>
+                                <sationType reference="../../../../../../../../../elements/text/sationType"/>
+                                <key></key>
+                                <status reference="../../../../../../../../../elements/text/status"/>
+                              </button>
+                              <text>
+                                <not>true</not>
+                                <text></text>
+                                <description>Buy this item</description>
+                                <sationType reference="../../../../../../../../../elements/text/sationType"/>
+                                <key></key>
+                              </text>
+                            </elements>
+                            <name>3D Shooter Box</name>
+                            <inTransition class="userActions" reference="../.."/>
+                            <outTransitions>
+                              <userActions>
+                                <inputs>
+                                  <pageElementAction>
+                                    <element class="button" reference="../../../../../elements/button"/>
+                                    <input></input>
+                                    <action>MOUSE_OVER</action>
+                                    <sationType reference="../../../../../../../../../../../elements/text/sationType"/>
+                                    <key></key>
+                                  </pageElementAction>
+                                </inputs>
+                                <page class="page" reference="../../.."/>
+                                <start class="page" reference="../../.."/>
+                                <end class="page">
+                                  <commons>
+                                    <commonTransition>
+                                      <start class="common" reference="../../../../../../../../../../../.."/>
+                                      <end class="page" reference="../../.."/>
+                                    </commonTransition>
+                                  </commons>
+                                  <elements>
+                                    <text>
+                                      <not>false</not>
+                                      <text></text>
+                                      <description>Buy this item</description>
+                                      <sationType reference="../../../../../../../../../../../../elements/text/sationType"/>
+                                      <key></key>
+                                    </text>
+                                    <button>
+                                      <not>false</not>
+                                      <text></text>
+                                      <description>Buy</description>
+                                      <sationType reference="../../../../../../../../../../../../elements/text/sationType"/>
+                                      <key></key>
+                                      <status reference="../../../../../../../../../../../../elements/text/status"/>
+                                    </button>
+                                  </elements>
+                                  <name>Show tooltip</name>
+                                  <inTransition class="userActions" reference="../.."/>
+                                  <outTransitions>
+                                    <userActions>
+                                      <inputs>
+                                        <pageElementAction>
+                                          <element class="button" reference="../../../../../elements/button"/>
+                                          <input></input>
+                                          <action reference="../../../../../../../../../../../inTransition/inputs/pageElementAction/action"/>
+                                          <sationType reference="../../../../../../../../../../../../../../elements/text/sationType"/>
+                                          <key></key>
+                                        </pageElementAction>
+                                      </inputs>
+                                      <page class="page" reference="../../.."/>
+                                      <start class="page" reference="../../.."/>
+                                      <end class="page">
+                                        <commons>
+                                          <commonTransition>
+                                            <start class="common" reference="../../../../../../../../../../../../../../.."/>
+                                            <end class="page" reference="../../.."/>
+                                          </commonTransition>
+                                        </commons>
+                                        <elements/>
+                                        <name>Buy clicked</name>
+                                        <inTransition class="userActions" reference="../.."/>
+                                        <outTransitions>
+                                          <simpleTransition>
+                                            <start class="page" reference="../../.."/>
+                                            <end class="extensionPoint">
+                                              <inTransition class="simpleTransition" reference="../.."/>
+                                              <outTransitions/>
+                                              <id></id>
+                                              <position>
+                                                <x>358</x>
+                                                <y>508</y>
+                                              </position>
+                                              <name>Buy clicked Extension Point</name>
+                                            </end>
+                                          </simpleTransition>
+                                        </outTransitions>
+                                        <id>1157464849674</id>
+                                        <position>
+                                          <x>514</x>
+                                          <y>408</y>
+                                        </position>
+                                        <dimension>
+                                          <width>93</width>
+                                          <height>49</height>
+                                        </dimension>
+                                        <name defined-in="transitionNode"></name>
+                                      </end>
+                                    </userActions>
+                                  </outTransitions>
+                                  <id>1157478235004</id>
+                                  <position>
+                                    <x>379</x>
+                                    <y>303</y>
+                                  </position>
+                                  <dimension>
+                                    <width>93</width>
+                                    <height>70</height>
+                                  </dimension>
+                                  <name defined-in="transitionNode"></name>
+                                </end>
+                              </userActions>
+                            </outTransitions>
+                            <id>1157465103719</id>
+                            <position>
+                              <x>189</x>
+                              <y>282</y>
+                            </position>
+                            <dimension>
+                              <width>101</width>
+                              <height>63</height>
+                            </dimension>
+                            <name defined-in="transitionNode"></name>
+                          </end>
+                        </userActions>
+                      </outTransitions>
+                      <id>1157304061539</id>
+                      <position>
+                        <x>83</x>
+                        <y>173</y>
+                      </position>
+                      <dimension>
+                        <width>93</width>
+                        <height>70</height>
+                      </dimension>
+                    </end>
+                  </commonTransition>
+                  <commonTransition reference="../commonTransition[2]/end/outTransitions/userActions/end/commons/commonTransition"/>
+                  <commonTransition reference="../commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/commons/commonTransition"/>
+                  <commonTransition reference="../commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/outTransitions/userActions/end/commons/commonTransition"/>
+                </outTransitions>
+                <id></id>
+                <position>
+                  <x>496</x>
+                  <y>92</y>
+                </position>
+                <dimension>
+                  <width>115</width>
+                  <height>99</height>
+                </dimension>
+              </start>
+              <end class="page" reference="../../.."/>
+            </commonTransition>
+          </commons>
+          <elements>
+            <text>
+              <not>false</not>
+              <text></text>
+              <description>Welcome to our webshop!</description>
+              <sationType reference="../../../commons/commonTransition/start/elements/text/sationType"/>
+              <key></key>
+              <status reference="../../../commons/commonTransition/start/elements/text/status"/>
+            </text>
+          </elements>
+          <name>Frontpage</name>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userActions reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
+          </outTransitions>
+          <id>page279867781157299895549</id>
+          <position>
+            <x>24</x>
+            <y>51</y>
+          </position>
+          <dimension>
+            <width>148</width>
+            <height>54</height>
+          </dimension>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>/CubicShopTest/tests/purchase.aat</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name>Frontpage</name>
+  </startPoint>
+  <extensionPoints>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/outTransitions/userActions/end/outTransitions/simpleTransition/end"/>
+  </extensionPoints>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end"/>
+    <common reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/outTransitions/userActions/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end"/>
+  </pages>
+  <subTests/>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/outTransitions/userActions/end/outTransitions/simpleTransition"/>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions"/>
+    <userActions>
+      <inputs>
+        <pageElementAction>
+          <element class="button" reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/elements/button"/>
+          <input></input>
+          <action reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction/action"/>
+          <sationType reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/text/sationType"/>
+          <key></key>
+        </pageElementAction>
+      </inputs>
+      <page class="page" reference="../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end"/>
+      <start class="page" reference="../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end"/>
+      <end class="page" reference="../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/outTransitions/userActions/end"/>
+    </userActions>
+    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/outTransitions/userActions"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/commons/commonTransition"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/commons/commonTransition"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/outTransitions/userActions/end/commons/commonTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <name>Purchase</name>
+  <description></description>
+  <id>/CubicShopTest/tests/purchase.aat</id>
+  <modelVersion>3</modelVersion>
+</test>
