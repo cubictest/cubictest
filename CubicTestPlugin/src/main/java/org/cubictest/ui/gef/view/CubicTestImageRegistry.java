@@ -27,7 +27,7 @@ public class CubicTestImageRegistry {
 	
 	public static final String PAGE_IMAGE 		= "page";
 	public static final String COMMON_IMAGE 	= "common";
-	public static final String EXTENSION_POINT_IMAGE 	= "extensionPoint";
+	public static final String EXTENSION_POINT_IMAGE 	= "extensionpoint";
 	public static final String LINK_IMAGE 		= "link";
 	public static final String NOT_LINK_IMAGE 	= "notLink";
 	public static final String BUTTON_IMAGE		= "button";
@@ -47,8 +47,8 @@ public class CubicTestImageRegistry {
 	public static final String MENU_ITEM_IMAGE 	= "menuItem";
 	public static final String LISTBOX_IMAGE	= "listbox";
 	public static final String LIST_ITEM_IMAGES	= "listItem";
-	public static final String CHECKBOX_CHECKED_IMAGE 	= "checkbox";
-	public static final String CHECKBOX_UNCHECKED_IMAGE = "checkbox-unchecked";
+	public static final String CHECKBOX_CHECKED_IMAGE 	= "checkboxChecked";
+	public static final String CHECKBOX_UNCHECKED_IMAGE = "checkboxUnchecked";
 	public static final String IMAGE_IMAGE = "image";
 	private static final String NOT_IMAGE_IMAGE = null;
 	
