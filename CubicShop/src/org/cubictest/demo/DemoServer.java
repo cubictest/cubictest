@@ -19,11 +19,12 @@ import org.mortbay.jetty.Server;
 public class DemoServer {
 
     /**
-     * Starts server!
+     * Starts the server.
      * 
      * Access the CubicShop at:
      *   http://localhost:8080/cubicshop/
      * 
+     * Tools.jar from the JDK lib folder must be on the classpath.
      */
 	public static void main(String[] args) {
         Server server = new Server();
