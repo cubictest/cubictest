@@ -51,7 +51,7 @@ public class TreeTestWalkerTest {
 	 */
 	@org.junit.Test
 	public void testTraversesSimpleTree() {
-		String fileName = "tests/org/cubictest/common/converters/SimpleTree.aat";
+		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTree.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		testWalker.convertTest(test, assertionList, null);
 		assertionList.assertContainsInOrder("www.test.org");
@@ -70,7 +70,7 @@ public class TreeTestWalkerTest {
 	 */
 	@org.junit.Test
 	public void testTraversesSimpleTreeOnlyToExtensionPoint() {
-		String fileName = "tests/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat";
+		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		
 		testWalker.convertTest(test, assertionList, setUpTargetExtensionPoint("page297923971162115959945_2"));
@@ -89,7 +89,7 @@ public class TreeTestWalkerTest {
 	 */
 	@org.junit.Test
 	public void testThrowsExceptionWhenInvalidExtensionPoint() {
-		String fileName = "tests/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat";
+		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		
 		try {
@@ -111,7 +111,7 @@ public class TreeTestWalkerTest {
 	 */
 	@org.junit.Test
 	public void testTraversesMediumTree() {
-		String fileName = "tests/org/cubictest/common/converters/MediumTreeExtensionPoint.aat";
+		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeExtensionPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		
 		testWalker.convertTest(test, assertionList, null);
@@ -131,7 +131,7 @@ public class TreeTestWalkerTest {
 	 */
 	@org.junit.Test
 	public void testTraversesMediumTreeOnlyToExtensionPoint() {
-		String fileName = "tests/org/cubictest/common/converters/MediumTreeExtensionPoint.aat";
+		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeExtensionPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		
 		testWalker.convertTest(test, assertionList, setUpTargetExtensionPoint("page299655571162117362723"));
@@ -155,7 +155,7 @@ public class TreeTestWalkerTest {
 	 */
 	@org.junit.Test
 	public void testTraversesSubTestToExtensionPoint() {
-		String fileName = "tests/org/cubictest/common/converters/SimpleUsingSubTest.aat";
+		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleUsingSubTest.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		testWalker.convertTest(test, assertionList, null);
 		
@@ -178,7 +178,7 @@ public class TreeTestWalkerTest {
 	 */
 	@org.junit.Test
 	public void testTraversesPreTestToExtensionPoint() {
-		String fileName = "tests/org/cubictest/common/converters/SimpleUsingExtensionStartPoint.aat";
+		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleUsingExtensionStartPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		testWalker.convertTest(test, assertionList, null);
 		
@@ -199,7 +199,7 @@ public class TreeTestWalkerTest {
 	 */
 	@org.junit.Test
 	public void testTraversesPreTestToExtensionPoint2() {
-		String fileName = "tests/org/cubictest/common/converters/purchase crate.aat";
+		String fileName = "src/test/resources/org/cubictest/common/converters/purchase crate.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		testWalker.convertTest(test, assertionList, null);
 		

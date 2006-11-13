@@ -31,7 +31,7 @@
               <page class="page" reference="../../.."/>
               <start class="page" reference="../../.."/>
               <end class="subTest">
-                <filePath>tests/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat</filePath>
+                <filePath>src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat</filePath>
                 <inTransition class="userActions" reference="../.."/>
                 <outTransitions>
                   <extensionTransition>

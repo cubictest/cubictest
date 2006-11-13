@@ -2,7 +2,7 @@
   <startPoint class="extensionStartPoint">
     <sourceExtensionPointPageId>page297923971162115959945_2</sourceExtensionPointPageId>
     <sourceExtensionPointName>Third Page Extension Point</sourceExtensionPointName>
-    <filePath>tests/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat</filePath>
+    <filePath>src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat</filePath>
     <outTransitions>
       <extensionTransition>
         <id>page297923971162115959945_2</id>

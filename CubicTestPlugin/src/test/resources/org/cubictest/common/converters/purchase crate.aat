@@ -2,7 +2,7 @@
   <startPoint class="extensionStartPoint">
     <sourceExtensionPointPageId>page67485291162369150333</sourceExtensionPointPageId>
     <sourceExtensionPointName>Webshop Extension Point</sourceExtensionPointName>
-    <filePath>tests/org/cubictest/common/converters/log in.aat</filePath>
+    <filePath>src/test/resources/org/cubictest/common/converters/log in.aat</filePath>
     <outTransitions>
       <extensionTransition>
         <id>page67485291162369150333</id>
