@@ -150,7 +150,7 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 	
 		if (link.isNot())
 		{
-			step = new TestStep("assert(!ie.link(" + idType + ", \"" + idText + "/\")).exists?)");
+			step = new TestStep("assert(!ie.link(" + idType + ", \"" + idText + "/\").exists?)");
 			step.setDescription("Check link NOT present with " + idType + " = '" + idText + "'");
 		}
 		
