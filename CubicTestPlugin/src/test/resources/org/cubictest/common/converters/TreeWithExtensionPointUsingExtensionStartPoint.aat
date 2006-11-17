@@ -1,0 +1,264 @@
+<test>
+  <startPoint class="extensionStartPoint">
+    <sourceExtensionPointPageId>page297923971162115959945_2</sourceExtensionPointPageId>
+    <sourceExtensionPointName>Third Page Extension Point</sourceExtensionPointName>
+    <filePath>src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat</filePath>
+    <outTransitions>
+      <extensionTransition>
+        <id>page297923971162115959945_2</id>
+        <start class="extensionStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <text>
+              <not>false</not>
+              <text></text>
+              <description>Fourth</description>
+              <sationType>NONE</sationType>
+              <key></key>
+            </text>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>LinkToSixth</description>
+              <sationType reference="../../text/sationType"/>
+              <key></key>
+            </link>
+            <link>
+              <not>false</not>
+              <text></text>
+              <description>LinkToFifth</description>
+              <sationType reference="../../text/sationType"/>
+              <key></key>
+            </link>
+          </elements>
+          <name>Fourth Page</name>
+          <inTransition class="extensionTransition" reference="../.."/>
+          <outTransitions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <element class="link" reference="../../../../../elements/link[2]"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <sationType reference="../../../../../elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <not>false</not>
+                    <text></text>
+                    <description>Fifth</description>
+                    <sationType reference="../../../../../../elements/text/sationType"/>
+                    <key></key>
+                  </text>
+                </elements>
+                <name>Fifth Page</name>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions/>
+                <id>page273054591163801020958</id>
+                <position>
+                  <x>41</x>
+                  <y>322</y>
+                </position>
+                <dimension>
+                  <width>93</width>
+                  <height>70</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userActions>
+            <userActions>
+              <inputs>
+                <pageElementAction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action reference="../../../../userActions/inputs/pageElementAction/action"/>
+                  <sationType reference="../../../../../elements/text/sationType"/>
+                  <key></key>
+                </pageElementAction>
+              </inputs>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <not>false</not>
+                    <text></text>
+                    <description>Sixth</description>
+                    <sationType reference="../../../../../../elements/text/sationType"/>
+                    <key></key>
+                  </text>
+                  <link>
+                    <not>false</not>
+                    <text></text>
+                    <description>LinkToSeventh</description>
+                    <sationType reference="../../../../../../elements/text/sationType"/>
+                    <key></key>
+                  </link>
+                  <link>
+                    <not>false</not>
+                    <text></text>
+                    <description>Link to Eighth</description>
+                    <sationType reference="../../../../../../elements/text/sationType"/>
+                    <key></key>
+                  </link>
+                </elements>
+                <name>Sixth Page</name>
+                <inTransition class="userActions" reference="../.."/>
+                <outTransitions>
+                  <userActions>
+                    <inputs>
+                      <pageElementAction>
+                        <element class="link" reference="../../../../../elements/link"/>
+                        <input></input>
+                        <action reference="../../../../../../../userActions/inputs/pageElementAction/action"/>
+                        <sationType reference="../../../../../../../../elements/text/sationType"/>
+                        <key></key>
+                      </pageElementAction>
+                    </inputs>
+                    <page class="page" reference="../../.."/>
+                    <start class="page" reference="../../.."/>
+                    <end class="page">
+                      <commons/>
+                      <elements>
+                        <text>
+                          <not>false</not>
+                          <text></text>
+                          <description>Seventh</description>
+                          <sationType reference="../../../../../../../../../elements/text/sationType"/>
+                          <key></key>
+                        </text>
+                      </elements>
+                      <name>Seventh Page</name>
+                      <inTransition class="userActions" reference="../.."/>
+                      <outTransitions>
+                        <simpleTransition>
+                          <start class="page" reference="../../.."/>
+                          <end class="extensionPoint">
+                            <inTransition class="simpleTransition" reference="../.."/>
+                            <outTransitions/>
+                            <id>extensionpoint100704181163802419058</id>
+                            <position>
+                              <x>163</x>
+                              <y>570</y>
+                            </position>
+                            <name>Seventh Page Extension Point</name>
+                          </end>
+                        </simpleTransition>
+                      </outTransitions>
+                      <id>page8469831163802373773</id>
+                      <position>
+                        <x>218</x>
+                        <y>451</y>
+                      </position>
+                      <dimension>
+                        <width>93</width>
+                        <height>70</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                    </end>
+                  </userActions>
+                  <userActions>
+                    <inputs>
+                      <pageElementAction>
+                        <element class="link" reference="../../../../../elements/link[2]"/>
+                        <input></input>
+                        <action reference="../../../../../../../userActions/inputs/pageElementAction/action"/>
+                        <sationType reference="../../../../../../../../elements/text/sationType"/>
+                        <key></key>
+                      </pageElementAction>
+                    </inputs>
+                    <page class="page" reference="../../.."/>
+                    <start class="page" reference="../../.."/>
+                    <end class="page">
+                      <commons/>
+                      <elements>
+                        <text>
+                          <not>false</not>
+                          <text></text>
+                          <description>Eighth</description>
+                          <sationType reference="../../../../../../../../../elements/text/sationType"/>
+                          <key></key>
+                        </text>
+                      </elements>
+                      <name>Eighth Page</name>
+                      <inTransition class="userActions" reference="../.."/>
+                      <outTransitions/>
+                      <id>page51374011163802380192</id>
+                      <position>
+                        <x>485</x>
+                        <y>484</y>
+                      </position>
+                      <dimension>
+                        <width>93</width>
+                        <height>70</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                    </end>
+                  </userActions>
+                </outTransitions>
+                <id>page161411711163801027167</id>
+                <position>
+                  <x>283</x>
+                  <y>239</y>
+                </position>
+                <dimension>
+                  <width>93</width>
+                  <height>91</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userActions>
+          </outTransitions>
+          <id>page284997311162125576874</id>
+          <position>
+            <x>117</x>
+            <y>110</y>
+          </position>
+          <dimension>
+            <width>93</width>
+            <height>91</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </extensionTransition>
+    </outTransitions>
+    <id>1162125576874</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name></name>
+  </startPoint>
+  <extensionPoints>
+    <extensionPoint reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions[2]/end/outTransitions/userActions/end/outTransitions/simpleTransition/end"/>
+  </extensionPoints>
+  <pages>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end"/>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions/end"/>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions[2]/end"/>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions[2]/end/outTransitions/userActions/end"/>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions[2]/end/outTransitions/userActions[2]/end"/>
+  </pages>
+  <subTests/>
+  <transitions>
+    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition"/>
+    <userActions reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions"/>
+    <userActions reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions[2]"/>
+    <userActions reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions[2]/end/outTransitions/userActions"/>
+    <userActions reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions[2]/end/outTransitions/userActions[2]"/>
+    <simpleTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions[2]/end/outTransitions/userActions/end/outTransitions/simpleTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <name>SimpleUsingExtensionStartPoint</name>
+  <description></description>
+  <id>test1162125576874</id>
+  <modelVersion>3</modelVersion>
+</test>
