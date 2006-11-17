@@ -221,6 +221,7 @@ public class TreeTestWalkerTest {
 	
 	/**
 	 * Test that tree is traversed after extension start point.
+	 * Tree test with two levels and an extension point.
 	 */
 	@org.junit.Test
 	public void testTraversesTreeWithExtensionPointAfterExtensionStartPoint() {
