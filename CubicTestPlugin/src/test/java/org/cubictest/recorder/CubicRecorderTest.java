@@ -2,7 +2,6 @@ package org.cubictest.recorder;
 
 import java.io.File;
 
-import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.Image;
 import org.cubictest.model.PageElementAction;
@@ -15,7 +14,7 @@ import org.cubictest.ui.utils.WizardUtils;
 public class CubicRecorderTest {
 	public static void testRecorderSimpleTest() {
 		Test test = WizardUtils.createEmptyTest("testRecorderSimpleTest", "", "", "");
-		CubicRecorder recorder = new CubicRecorder(test, (AbstractPage) test.getStartPoint().getOutTransitions().get(0).getEnd());
+		CubicRecorder recorder = new CubicRecorder(test);
 		Text text = new Text();
 		text.setText("some text");
 		recorder.addPageElement(text);

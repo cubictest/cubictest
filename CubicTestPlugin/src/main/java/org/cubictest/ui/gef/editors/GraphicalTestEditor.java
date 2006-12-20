@@ -26,6 +26,7 @@ import org.cubictest.ui.gef.actions.CutAction;
 import org.cubictest.ui.gef.actions.PasteAction;
 import org.cubictest.ui.gef.actions.PopulateCommonAction;
 import org.cubictest.ui.gef.actions.PresentAction;
+import org.cubictest.ui.gef.actions.RecordAction;
 import org.cubictest.ui.gef.actions.ResetTestAction;
 import org.cubictest.ui.gef.actions.RunCubicUnitAction;
 import org.cubictest.ui.gef.actions.TestContextMenuProvider;
@@ -311,6 +312,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		addAction(new PrintAction(this));
 		addEditorAction(new RunCubicUnitAction(this));
 		addEditorAction(new AutoLayoutAction(this));
+		addEditorAction(new RecordAction(this));
 		addEditorAction(new ResetTestAction(this));
 	}
 	

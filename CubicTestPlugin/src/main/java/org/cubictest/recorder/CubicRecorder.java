@@ -5,6 +5,8 @@ import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PageElementAction;
 import org.cubictest.model.Test;
+import org.cubictest.model.Transition;
+import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UserActions;
 
 public class CubicRecorder {
@@ -12,7 +14,20 @@ public class CubicRecorder {
 	private AbstractPage cursor;
 	private UserActions userActions;
 	
-	public CubicRecorder(Test test, AbstractPage cursor) {
+	public CubicRecorder(Test test) {
+		this.test = test;
+		for(Transition t : test.getStartPoint().getOutTransitions()) {
+			if(t.getEnd() instanceof Page && ((Page)t.getEnd()).getElements().size() == 0) {
+				this.cursor = (Page) t.getEnd();
+			}
+		}
+		
+		if(this.cursor == null) {
+			this.cursor = this.addUserActions(test.getStartPoint());
+		}
+	}
+	
+	public CubicRecorder(Test test, Page cursor) {
 		this.test = test;
 		this.cursor = cursor;
 	}
@@ -55,7 +70,7 @@ public class CubicRecorder {
 	 */
 	public void addUserInput(PageElementAction action) {
 		if(this.userActions == null) {
-			addUserActions();
+			addUserActions(this.cursor);
 		}
 		this.userActions.addInput(action);
 	}
@@ -63,12 +78,13 @@ public class CubicRecorder {
 	/**
 	 * Create a new Page and a UserActions transition to it
 	 */
-	private void addUserActions() {
+	private AbstractPage addUserActions(TransitionNode from) {
 		Page page = new Page();
 		page.setName("untitled");
 		this.test.addPage(page);
-		UserActions ua = new UserActions(this.cursor, page);
+		UserActions ua = new UserActions(from, page);
 		this.test.addTransition(ua);
-		this.userActions = ua;			
+		this.userActions = ua;
+		return page;
 	}
 }
