@@ -32,7 +32,6 @@ public class SimpleTransitionEditPart extends TransitionEditPart {
 	 */
 	public void propertyChange(PropertyChangeEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 

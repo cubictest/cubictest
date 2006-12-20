@@ -80,5 +80,8 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		
 		action = actionRegistry.getAction(ResetTestAction.ACTION_ID);
 		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
+
+		action = actionRegistry.getAction(AutoLayoutAction.ACTION_ID);
+		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
 	}
 }

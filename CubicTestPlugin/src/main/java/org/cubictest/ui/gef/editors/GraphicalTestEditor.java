@@ -16,9 +16,11 @@ import java.util.List;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.pluginsupport.CustomElementLoader;
+import org.cubictest.recorder.CubicRecorderTest;
 import org.cubictest.resources.ResourceMonitor;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.cubictest.ui.gef.actions.AddExtensionPointAction;
+import org.cubictest.ui.gef.actions.AutoLayoutAction;
 import org.cubictest.ui.gef.actions.CopyAction;
 import org.cubictest.ui.gef.actions.CutAction;
 import org.cubictest.ui.gef.actions.PasteAction;
@@ -31,11 +33,9 @@ import org.cubictest.ui.gef.dnd.DataEditDropTargetListner;
 import org.cubictest.ui.gef.dnd.FileTransferDropTargetListener;
 import org.cubictest.ui.gef.factory.PaletteRootCreator;
 import org.cubictest.ui.gef.factory.TestEditPartFactory;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditDomain;
@@ -68,7 +68,6 @@ import org.eclipse.gef.ui.palette.PaletteViewer;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -77,16 +76,11 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IPerspectiveRegistry;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.EditorPart;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
@@ -253,6 +247,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	 * Saves the multi-page editor's document.
 	 */
 	public void doSave(IProgressMonitor monitor) {
+		CubicRecorderTest.testRecorderSimpleTest();
 		
 		TestPersistance.saveToFile((Test)graphicalViewer.getContents().getModel(),((IFileEditorInput)getEditorInput()).getFile());
 		getCommandStack().markSaveLocation();
@@ -315,6 +310,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		addEditorAction(new SaveAction(this));
 		addAction(new PrintAction(this));
 		addEditorAction(new RunCubicUnitAction(this));
+		addEditorAction(new AutoLayoutAction(this));
 		addEditorAction(new ResetTestAction(this));
 	}
 	
