@@ -248,8 +248,6 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	 * Saves the multi-page editor's document.
 	 */
 	public void doSave(IProgressMonitor monitor) {
-		CubicRecorderTest.testRecorderSimpleTest();
-		
 		TestPersistance.saveToFile((Test)graphicalViewer.getContents().getModel(),((IFileEditorInput)getEditorInput()).getFile());
 		getCommandStack().markSaveLocation();
 

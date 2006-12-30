@@ -201,12 +201,15 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		
 		IStructuredSelection iss = (IStructuredSelection) selection;
 		if (iss.getFirstElement() instanceof IResource) {
-			project = ((IResource)iss.getFirstElement()).getProject();
+			IResource res = (IResource) iss.getFirstElement();
+			project = res.getProject();
+			IDE.saveAllEditors(new IResource[] {res}, true);
 		}
 		else {
 			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 			project = root.getProject();
 		}
+
 		try {
 			if (project == null) {
 				MessageDialog.openError(new Shell(), UiText.APP_TITLE, 
