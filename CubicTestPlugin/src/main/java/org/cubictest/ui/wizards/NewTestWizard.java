@@ -19,6 +19,7 @@ import org.cubictest.persistence.TestPersistance;
 import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.resources.ResourceMonitor;
 import org.cubictest.resources.interfaces.IResourceMonitor;
+import org.cubictest.ui.utils.ResourceNavigatorGetter;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -32,6 +33,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
@@ -198,6 +200,11 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.selection = selection;
 		setWindowTitle("New CubicTest test");
+
+		//Set "Link with editor" preference to see the test to be created:
+		PackageExplorerPart.getFromActivePerspective().setLinkingEnabled(true);
+		ResourceNavigatorGetter.getFromActivePerspective().setLinkingEnabled(true);
+		
 		
 		IStructuredSelection iss = (IStructuredSelection) selection;
 		if (iss.getFirstElement() instanceof IResource) {
