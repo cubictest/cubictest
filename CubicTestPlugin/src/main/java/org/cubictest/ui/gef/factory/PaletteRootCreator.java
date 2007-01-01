@@ -41,7 +41,6 @@ import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
-import org.eclipse.gef.palette.MarqueeToolEntry;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteEntry;
@@ -93,8 +92,6 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		basics.add(tool);
 
 		setDefaultEntry(tool);
-
-		basics.add(new MarqueeToolEntry());
 
 		PaletteSeparator separator = new PaletteSeparator("palette.seperator"); 
 		separator.setUserModificationPermission(PaletteEntry.PERMISSION_NO_MODIFICATION);
