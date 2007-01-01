@@ -22,8 +22,6 @@ import org.eclipse.draw2d.geometry.Point;
  */
 public class HeaderBorder extends AbstractBorder {
 
-	private boolean isSelected = false;
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.draw2d.Border#getInsets(org.eclipse.draw2d.IFigure)
 	 */
@@ -50,14 +48,6 @@ public class HeaderBorder extends AbstractBorder {
 	 */
 	public boolean isOpaque() {
 		return true;
-	}
-
-	/**
-	 * @param isSelected
-	 */
-	public void setSelected(boolean isSelected) {
-		this.isSelected = isSelected;
-		
 	}
 	
 }

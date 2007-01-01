@@ -37,7 +37,6 @@ public class CubicTestGroupFigure extends Figure {
 		else
 			lineBorder.setWidth(1);
 		header.setSelected(isSelected);
-		((HeaderBorder)header.getBorder()).setSelected(isSelected);
 	}
 	
 	/**
