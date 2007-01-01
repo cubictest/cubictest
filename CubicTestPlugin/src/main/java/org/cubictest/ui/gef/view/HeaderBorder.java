@@ -36,8 +36,7 @@ public class HeaderBorder extends AbstractBorder {
 	 */
 	public void paint(IFigure figure, Graphics graphics, Insets insets) {
 		graphics.setForegroundColor(ColorConstants.black);
-		if (isSelected)	graphics.setLineWidth(2);
-		else graphics.setLineWidth(1);
+		graphics.setLineWidth(1);
 		Point left = getPaintRectangle(figure, insets).getBottomLeft();
 		left.y = left.y -1;
 		Point right = getPaintRectangle(figure, insets).getBottomRight();

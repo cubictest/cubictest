@@ -14,8 +14,8 @@ import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.swt.graphics.Color;
 
 
 /**
@@ -40,7 +40,7 @@ public class PageEditPart extends AbstractPageEditPart {
 
 	protected IFigure createFigure() {
 		CubicTestGroupFigure figure = (CubicTestGroupFigure) super.createFigure();
-		figure.getHeader().setBackgroundColor(ColorConstants.lightBlue);
+		figure.getHeader().setBackgroundColor(new Color(null, 172, 170, 255));
 		return figure;
 	}
 
