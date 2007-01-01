@@ -1,6 +1,6 @@
 Cubic-notes from usability test
 -------------------------------
-For tutorial:
+For 1.0 tutorial:
    Does Common apply to more than one test?
    ExPoint hard to understand ==> Tutorial
    None used subtest! ==> Tutorial
@@ -23,58 +23,64 @@ For tutorial:
    Wants dynamic number of page elements (e.g. checkboxes)
    Info abount sequence (info that not important?) - it is relevant
 
-2.0 tutorial
+For 2.0 tutorial
    What is i18n and params?
 
 
 Observations/questions/opinions:
-   (Cycles in test was *very* popular, flow diagram style)
-   (Own view for customers? (e.g. not property view and not contexts))
-   (ExStartPoint should be more flexible (be possible to create user interactions from it?))
+--------------------------------
 M3  Most users right click often to see what is possible
 M3  What is Extension point? (hard to understand. Can several tests extend from one point?)
 M3  Messed with IdText etc in property view ==> tooltips?
 M3  Wants to enter text into checkbox user action => Remove header?
 M3  Tries to put extension points on canvas, not on test. => Anonymous, then gets name from page
+   (Cycles in test was *very* popular, flow diagram style)
+   (Own view for customers? (e.g. not property view and not contexts))
+   (ExStartPoint should be more flexible (be possible to create user interactions from it?))
 
    
-General
-   (Users want to model cycles (go back to a state) ==> Show error message or allow? Use sequence numbers?)
+General:
+--------
 Done   Invoke "IDE.saveAllEditors" before create new test from extension point
 M4   How to specify popup and alerts
-Not successful: The open file should be highlighted
 M3?   Confusing package explorer. Only interested in tests in the beginning
 M4?   Should be able to test PDF (at least existance)
-   (Test that print dialog box shows)
-   (Have a "shared repository" of page elements. => Use statistics)
 2.0   Should be some form of refactoring support (select states -> extract etc)
 2.0   Provide a "TODO" element   
+Not successful: The open file should be highlighted
+   (Users want to model cycles (go back to a state) ==> Show error message or allow? Use sequence numbers?)
+   (Test that print dialog box shows)
+   (Have a "shared repository" of page elements. => Use statistics)
       
 
-Files and persistance
+Files and persistance:
+----------------------
 M3   Move .aat file, problems with SubTest and ExStartPoint (refactoring support) => Update path on move
 M3   Move open .aat file, save again --> duplicated file  ==> Close file before moving? (Eclipse hook)
 2.0   Right click on file -> Run... (standard Eclipse menu) --> Run in Watir, etc.
    
-Page
+Page:
+-----
 M3   Header: Better contrast
 M3   Wider figure, Auto resize width
 M3   Resize vertically on drag'n'drop (bug)
 M3   Context menu for adding page elements
 M3   Context meny for adding user interaction
 
-Contexts
+Contexts:
+---------
 M3   What is Page Section? (No association to DIV, but tooltip was clearifying) ==> Should have <DIV> icon? => Change name
 M3   Wants to identify a single element, not an entire section.
 M3   Table row suggested icon: <TR>
+M3   "Page Section" --> "Page content"
 M3?    Provide coulumn headers
 M4?   Wants anonymous elements (amount, date etc, only that they are present).
-M3   "Page Section" --> "Page content"
 M4?   Have "List" as own context, not just table => Rename to Table/List??
    (Watir and Selenium does not support contexts)
    
 
-User interaction
+User interaction:
+-----------------
 M3   Problem with drag and drop when holding down mouse button. Must click twice.
 M3   Put --Choose-- automatically, not button "Add new"
 M3   When two elements have the same description, display idText in user action dialog (tooltip)
@@ -87,34 +93,36 @@ M3   Checkbox icon on "uncheck"-action is wrong in the user interaction figure (
    
    
 Palette:
+--------
 M3   Drag and drop: Too many clicks
-M4   Palette is too big for 1024 x 768
-   (Be possible to turn off text in palette, only see icons + tooltip?)
 M3   Icons for all elements in palette
 M3   "Add text" was confusing. ==> better "Add/check text"
-M4   "Toggle" of drawers and controls not working 100%
 M3   Add tooltips to all controls (e.g. RadioButton and Title)
 M3   Better structure (indenting?) of palette (e.g. Button was often not found)
+M4   "Toggle" of drawers and controls not working 100%
+M4   Palette is too big for 1024 x 768
+   (Be possible to turn off text in palette, only see icons + tooltip?)
    
    
 Test editor:
-   (Draw line from link --> Auto UserAction on link)
+------------
 Done:   Not marquee as own control, better contain it in select (should work by default, but is not the case)
 M3   Mark elements with ctrl key
-   (Easier "not present")
-   (Drag and drop element to another *test* (refactoring))
-   (Show page name from extenison point (?))
 M3   Right-click on ExStartPoint -> "Open test" (none double clicked)
 M3   "Cut" on Page does not work
 M3   Copy, delete Page has some problems with connections
 M3   Undo on "Cut" does not work => Use command stack
-   Problem with "sticky" Connection control. ==> Only sticky when source is Common
+M3   Problem with "sticky" Connection control. ==> Only sticky when source is Common
 M3   ID on page elements was deleted when description was set (empty desc first?) (bug)
-M4?   Bigger canvas, should be easier to extend (place elements at edge) (bug in GEF?)
 M3   Select all -> ctrl-x had problems / not implemented
 M3   When holding ctrl key --> Move should become "Copy-paste"
 M3   Copy Common, paste, then connection --> bug (connections stacked in background, wrong placement)
 M3   Issues with delete of SelectBox (?)
+M4?   Bigger canvas, should be easier to extend (place elements at edge) (bug in GEF?)
+   (Draw line from link --> Auto UserAction on link)
+   (Easier "not present")
+   (Drag and drop element to another *test* (refactoring))
+   (Show page name from extenison point (?))
    
    
 HTML export:
