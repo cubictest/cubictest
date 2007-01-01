@@ -40,9 +40,9 @@ M3  Tries to put extension points on canvas, not on test. => Anonymous, then get
    
 General
    (Users want to model cycles (go back to a state) ==> Show error message or allow? Use sequence numbers?)
-M3   Invoke "IDE.saveAllEditors" before create new test from extension point
+Done   Invoke "IDE.saveAllEditors" before create new test from extension point
 M4   How to specify popup and alerts
-M3?   The open file should be highlighted
+Not successful: The open file should be highlighted
 M3?   Confusing package explorer. Only interested in tests in the beginning
 M4?   Should be able to test PDF (at least existance)
    (Test that print dialog box shows)
@@ -99,7 +99,7 @@ M3   Better structure (indenting?) of palette (e.g. Button was often not found)
    
 Test editor:
    (Draw line from link --> Auto UserAction on link)
-M3?   Not marquee as own control, better contain it in select
+Done:   Not marquee as own control, better contain it in select (should work by default, but is not the case)
 M3   Mark elements with ctrl key
    (Easier "not present")
    (Drag and drop element to another *test* (refactoring))
