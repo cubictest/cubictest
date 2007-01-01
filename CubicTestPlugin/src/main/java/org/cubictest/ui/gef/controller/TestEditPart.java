@@ -19,18 +19,20 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
+import org.eclipse.gef.tools.MarqueeDragTracker;
 import org.eclipse.swt.graphics.Font;
 
 
 /**
+ * Root edit part and contoller for the <code>Test</code> model.
+ * 
  * @author SK Skytteren
- * Contoller for the <code>Test</code> model.
- *
  */
 public class TestEditPart extends PropertyChangePart{
 
@@ -118,5 +120,10 @@ public class TestEditPart extends PropertyChangePart{
 			if(obj instanceof UrlStartPointEditPart)
 				((UrlStartPointEditPart)obj).updateParams();
 		}
+	}
+	
+	@Override
+	public DragTracker getDragTracker(Request request) {
+		return new MarqueeDragTracker();
 	}
 }
