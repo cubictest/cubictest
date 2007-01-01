@@ -42,8 +42,8 @@ M3  Tries to put extension points on canvas, not on test. => Anonymous, then get
 General:
 --------
 Done   Invoke "IDE.saveAllEditors" before create new test from extension point
-M4   How to specify popup and alerts
 M3?   Confusing package explorer. Only interested in tests in the beginning
+M4   How to specify popup and alerts
 M4?   Should be able to test PDF (at least existance)
 2.0   Should be some form of refactoring support (select states -> extract etc)
 2.0   Provide a "TODO" element   
