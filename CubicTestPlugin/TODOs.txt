@@ -61,7 +61,7 @@ M3   Move open .aat file, save again --> duplicated file  ==> Close file before 
    
 Page:
 -----
-M3   Header: Better contrast
+Done   Header: Better contrast
 M3   Wider figure, Auto resize width
 M3   Resize vertically on drag'n'drop (bug)
 M3   Context menu for adding page elements
@@ -137,6 +137,7 @@ Previous TODOs:
 
 Christian suggests
 -------------------
+- Flag for marking that test is spec and not regression test (such that the build is not broken)
 - Automatically create page when user interaction is about to be created and there are no target pages available.
 Create new page with name from Link or form params(?)
 - Make it possible to create extension start point from link on page with extension point.
