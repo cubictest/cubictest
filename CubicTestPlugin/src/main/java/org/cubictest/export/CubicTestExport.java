@@ -1,7 +1,5 @@
 package org.cubictest.export;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.ICustomTestStepConverter;
@@ -43,6 +41,19 @@ public class CubicTestExport {
 		
 		try {
 			new ProgressMonitorDialog(new Shell()).run(false, false, dirWalker);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			throw new CubicException("Error when exporting file(s): " + e.toString(), e);
+		}
+	}
+	
+	
+	
+	public static void exportWithCustomDirectoryWalker(IRunnableWithProgress directoryWalker) {
+		
+		try {
+			new ProgressMonitorDialog(new Shell()).run(false, false, directoryWalker);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

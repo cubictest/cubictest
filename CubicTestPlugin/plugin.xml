@@ -74,15 +74,7 @@
             <separator
                   name="CubicTest">
             </separator>
-         </menu>
-         <action
-               enablesFor="1"
-               label="Create HTML skelton"
-               icon="icons/html_export_icon.gif"
-               class="org.cubictest.ui.actions.ExportToHtmlAction"
-               menubarPath="cubictest.menu1/group1"
-               id="org.cubictest.ui.actions.ExportToHtmlAction">
-         </action>      
+         </menu>    
       </objectContribution>
    </extension>
    <extension

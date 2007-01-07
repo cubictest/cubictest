@@ -12,9 +12,6 @@
 
    <element name="extension">
       <complexType>
-         <sequence>
-            <element ref="exporter"/>
-         </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
@@ -36,51 +33,6 @@
                </documentation>
                <appInfo>
                   <meta.attribute translatable="true"/>
-               </appInfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
-   <element name="exporter">
-      <complexType>
-         <attribute name="contextConverter" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appInfo>
-                  <meta.attribute kind="java" basedOn="org.cubictest.common.converters.interfaces.IContextConverter"/>
-               </appInfo>
-            </annotation>
-         </attribute>
-         <attribute name="pageElementConverter" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appInfo>
-                  <meta.attribute kind="java" basedOn="org.cubictest.common.converters.interfaces.IPageElementConverter"/>
-               </appInfo>
-            </annotation>
-         </attribute>
-         <attribute name="transitionConverter" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appInfo>
-                  <meta.attribute kind="java" basedOn="org.cubictest.common.converters.interfaces.ITransitionConverter"/>
-               </appInfo>
-            </annotation>
-         </attribute>
-         <attribute name="urlStartPointConverter" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appInfo>
-                  <meta.attribute kind="java" basedOn="org.cubictest.common.converters.interfaces.IUrlStartPointConverter"/>
                </appInfo>
             </annotation>
          </attribute>
