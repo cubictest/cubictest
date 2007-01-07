@@ -7,7 +7,7 @@
  */
 package org.cubictest.runner.cubicunit.delegates;
 
-import org.cubictest.common.converters.interfaces.IUrlStartPointConverter;
+import org.cubictest.export.converters.IUrlStartPointConverter;
 import org.cubictest.model.UrlStartPoint;
 import org.cubicunit.Browser;
 import org.cubicunit.Document;

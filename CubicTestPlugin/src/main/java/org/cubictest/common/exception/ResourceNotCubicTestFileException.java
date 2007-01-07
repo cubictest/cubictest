@@ -4,7 +4,7 @@
  */
 package org.cubictest.common.exception;
 
-public class ResourceNotCubicFileException extends RuntimeException {
+public class ResourceNotCubicTestFileException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public String toString() {

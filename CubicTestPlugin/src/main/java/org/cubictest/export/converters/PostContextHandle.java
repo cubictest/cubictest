@@ -2,9 +2,9 @@
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  */
-package org.cubictest.common.converters.interfaces;
+package org.cubictest.export.converters;
 
-public enum PreContextHandle {
-	CONTINUE,
-	SKIP;
+public enum PostContextHandle {
+	DONE,
+	DO_AGAIN;
 }

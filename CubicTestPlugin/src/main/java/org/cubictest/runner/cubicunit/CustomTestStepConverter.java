@@ -4,7 +4,7 @@
  */
 package org.cubictest.runner.cubicunit;
 
-import org.cubictest.common.converters.interfaces.ICustomTestStepConverter;
+import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.model.CustomTestStep; 
 import org.cubictest.runner.cubicunit.delegates.Holder;
 

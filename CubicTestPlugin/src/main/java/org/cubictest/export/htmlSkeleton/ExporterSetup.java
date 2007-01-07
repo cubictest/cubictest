@@ -26,7 +26,7 @@ public class ExporterSetup {
 	public static IRunnableWithProgress getRunnableExporter(IResource res) {	
 		//The walker takes them all as input:
 		String fileExtension = ".html";
-		IRunnableWithProgress walker = new DirectoryWalker(res, fileExtension, new TestConverter(new PageConverter(fileExtension, new PageElementConverter())));
+		IRunnableWithProgress walker = new HtmlExportDirectoryWalker(res, new TestConverter(new PageConverter(fileExtension, new PageElementConverter())), fileExtension);
 		
 		//Someone must invoke run() on this walker.
 		return walker;

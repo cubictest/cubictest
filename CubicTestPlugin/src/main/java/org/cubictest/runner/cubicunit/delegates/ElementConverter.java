@@ -15,7 +15,7 @@ import static org.cubicunit.InputType.SELECT;
 import static org.cubicunit.InputType.TEXT;
 import static org.cubicunit.InputType.TEXTAREA;
 
-import org.cubictest.common.converters.interfaces.IPageElementConverter;
+import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;

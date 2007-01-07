@@ -4,7 +4,7 @@
  */
 package org.cubictest.ui.gef.dnd;
 
-import org.cubictest.common.exception.ResourceNotCubicFileException;
+import org.cubictest.common.exception.ResourceNotCubicTestFileException;
 import org.cubictest.ui.gef.factory.SubTestFactory;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -45,7 +45,7 @@ public class FileTransferDropTargetListener extends
 	protected void handleDrop() {
 		String filePath = ((String[]) getCurrentEvent().data)[0];
 		if (!filePath.endsWith(".aat")) { // wrong filetype
-			throw new ResourceNotCubicFileException();
+			throw new ResourceNotCubicTestFileException();
 		}
 		IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(filePath));
 		factory.setFile(iFile);

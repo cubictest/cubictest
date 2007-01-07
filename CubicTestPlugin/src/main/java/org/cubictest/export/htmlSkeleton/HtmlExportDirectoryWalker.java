@@ -6,20 +6,18 @@
 package org.cubictest.export.htmlSkeleton;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
-import org.cubictest.export.common.BaseDirectoryWalker;
 import org.cubictest.export.htmlSkeleton.delegates.TestConverter;
+import org.cubictest.export.walkers.DirectoryWalker;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * A directory walker specifically designed for HTML skeleton.
@@ -28,25 +26,21 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
  * @author ehalvorsen
  * 
  */
-public class DirectoryWalker extends BaseDirectoryWalker implements IRunnableWithProgress {
+public class HtmlExportDirectoryWalker<T> extends DirectoryWalker<T>  {
 	
+	/**
+	 * This exporter uses its own test converter, not the common TreeTestWalker
+	 */
 	private TestConverter testConverter;
 
-
-	/**
-	 * Default constructor, gets the TestConverter to use.
-	 */
-	public DirectoryWalker(IResource resource, String outFileExtension, TestConverter testConverter) {
-		super(resource, outFileExtension);
+	public HtmlExportDirectoryWalker(IResource resource, TestConverter testConverter, String outFileExtension) {
+		super(resource, null, outFileExtension, null);
 		this.testConverter = testConverter;
 	}
 
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.cubictest.export.common.BaseDirectoryWalker#convertAatFile(org.eclipse.core.resources.IFile, org.eclipse.core.resources.IFolder, java.lang.String)
-	 */
-	protected void convertAatFile(IFile file, IFolder outFolder, String outFileExtension) throws IOException, CoreException {
+	
+	@Override
+	protected void convertCubicTestFile(IFile file, IFolder outFolder, IProgressMonitor monitor) throws Exception{
 		Test test = TestPersistance.loadFromFile(file);
 		IFolder destinationFolder = outFolder;
 		if(outFolder.getName().indexOf(".aat") == -1) {

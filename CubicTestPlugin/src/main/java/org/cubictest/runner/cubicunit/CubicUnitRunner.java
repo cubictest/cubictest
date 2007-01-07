@@ -7,8 +7,8 @@
  */
 package org.cubictest.runner.cubicunit;
 
-import org.cubictest.common.converters.PageWalker;
-import org.cubictest.common.converters.TreeTestWalker;
+import org.cubictest.export.converters.PageWalker;
+import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.model.Test;
 import org.cubictest.runner.cubicunit.delegates.UrlStartPointConverter;
 import org.cubictest.runner.cubicunit.delegates.ContextConverter;
@@ -34,8 +34,8 @@ public class CubicUnitRunner implements IRunnableWithProgress, ILaunchConfigurat
 		//	Set up dependency hierarchy:
 		Holder holder = new Holder();
 		
-		PageWalker<Holder> pw = new PageWalker<Holder>(ElementConverter.class, ContextConverter.class);
-		TreeTestWalker<Holder> testWalker = new TreeTestWalker<Holder>(UrlStartPointConverter.class, pw, 
+		TreeTestWalker<Holder> testWalker = new TreeTestWalker<Holder>(UrlStartPointConverter.class, 
+				ElementConverter.class, ContextConverter.class, 
 				TransitionConverter.class,CustomTestStepConverter.class);
 		
 		monitor.beginTask("Traversing the test model...", IProgressMonitor.UNKNOWN);

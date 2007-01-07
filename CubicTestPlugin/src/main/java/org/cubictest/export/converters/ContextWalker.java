@@ -3,10 +3,8 @@
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  * 
  */
-package org.cubictest.common.converters;
+package org.cubictest.export.converters;
 
-import org.cubictest.common.converters.interfaces.IContextConverter;
-import org.cubictest.common.converters.interfaces.IPageElementConverter;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 

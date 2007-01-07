@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
+   <extension-point id="org.cubictest.exporters" name="CubicTestExporters" schema="schema/org.cubictest.exporters.exsd"/>
 
    <extension
          point="org.eclipse.ui.editors">
@@ -82,14 +83,6 @@
                menubarPath="cubictest.menu1/group1"
                id="org.cubictest.ui.actions.ExportToHtmlAction">
          </action>      
-         <action
-               enablesFor="1"
-               label="Create Watir tests"
-               icon="icons/watir_export_icon.gif"
-               class="org.cubictest.ui.actions.ExportToWatirAction"
-               menubarPath="cubictest.menu1/group1"
-               id="org.cubictest.ui.actions.ExportToWatirAction">
-         </action>
       </objectContribution>
    </extension>
    <extension

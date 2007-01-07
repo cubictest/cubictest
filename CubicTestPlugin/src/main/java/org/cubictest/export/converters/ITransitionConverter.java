@@ -2,9 +2,9 @@
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  */
-package org.cubictest.common.converters.interfaces;
+package org.cubictest.export.converters;
 
-import org.cubictest.model.Transition;
+import org.cubictest.model.UserActions;
 
 
 /**
@@ -13,6 +13,6 @@ import org.cubictest.model.Transition;
  * @author chr_schwarz
  */
 public interface ITransitionConverter<T> {
-	public void handleTransition(T t, Transition transition);
+	public void handleTransition(T t, UserActions userInteractions);
 
 }

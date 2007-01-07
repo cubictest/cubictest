@@ -4,9 +4,9 @@
  */
 package org.cubictest.runner.cubicunit.delegates;
 
-import org.cubictest.common.converters.interfaces.IContextConverter;
-import org.cubictest.common.converters.interfaces.PostContextHandle;
-import org.cubictest.common.converters.interfaces.PreContextHandle;
+import org.cubictest.export.converters.IContextConverter;
+import org.cubictest.export.converters.PostContextHandle;
+import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.context.IContext;
