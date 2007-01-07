@@ -148,8 +148,8 @@
           </outTransitions>
           <id>page223261531157064773171</id>
           <position>
-            <x>68</x>
-            <y>113</y>
+            <x>74</x>
+            <y>111</y>
           </position>
           <dimension>
             <width>99</width>
@@ -262,5 +262,5 @@
   <name>Log in</name>
   <description>Test log in</description>
   <id>/CubicShopTest/tests/logIn.aat</id>
-  <modelVersion>2</modelVersion>
+  <modelVersion>3</modelVersion>
 </test>
