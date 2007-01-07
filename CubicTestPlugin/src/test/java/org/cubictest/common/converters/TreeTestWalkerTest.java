@@ -2,7 +2,7 @@
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  */
-package org.cubictest.common.coverters;
+package org.cubictest.common.converters;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -10,9 +10,9 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cubictest.common.converters.PageWalker;
-import org.cubictest.common.converters.TreeTestWalker;
 import org.cubictest.common.exception.UnknownExtensionPointException;
+import org.cubictest.export.converters.PageWalker;
+import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
@@ -39,9 +39,8 @@ public class TreeTestWalkerTest {
 	@Before
 	public void setUp() throws CoreException {
 		
-		PageWalker<AssertionList<String>> pw = new PageWalker<AssertionList<String>>(DummyConverter.class, DummyConverter.class);
-		testWalker = new TreeTestWalker<AssertionList<String>>(DummyConverter.class, pw, 
-				DummyConverter.class, DummyConverter.class);
+		testWalker = new TreeTestWalker<AssertionList<String>>(DummyConverter.class, DummyConverter.class,
+				DummyConverter.class, DummyConverter.class, DummyConverter.class);
 			
 		assertionList = new AssertionList<String>();
 	}
