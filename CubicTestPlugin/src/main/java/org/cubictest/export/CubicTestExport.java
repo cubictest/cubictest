@@ -9,7 +9,6 @@ import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.converters.IUrlStartPointConverter;
 import org.cubictest.export.converters.TreeTestWalker;
-import org.cubictest.export.walkers.DirectoryWalker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;

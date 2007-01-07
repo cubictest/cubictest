@@ -9,8 +9,8 @@ import java.io.File;
 import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
+import org.cubictest.export.DirectoryWalker;
 import org.cubictest.export.htmlSkeleton.delegates.TestConverter;
-import org.cubictest.export.walkers.DirectoryWalker;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.eclipse.core.resources.IFile;
