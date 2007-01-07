@@ -151,7 +151,7 @@ public class TreeTestWalker<T> {
 				if (targetExtensionPoint == null
 						|| isOnExtensionPointPath(endNode, targetExtensionPoint)) {
 					if (outTransition instanceof UserActions) {
-						transitionConverter.newInstance().handleTransition(t,(UserActions) outTransition);
+						transitionConverter.newInstance().handleUserInteractions(t,(UserActions) outTransition);
 					}
 					else {
 						//only follow transition, no export

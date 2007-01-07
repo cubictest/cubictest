@@ -21,7 +21,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class TransitionConverter implements ITransitionConverter<Holder> {
 
-	public void handleTransition(Holder holder, UserActions userInteractions) {
+	public void handleUserInteractions(Holder holder, UserActions userInteractions) {
 
 		if(userInteractions instanceof UserActions){
 			UserActions actions = (UserActions) userInteractions;

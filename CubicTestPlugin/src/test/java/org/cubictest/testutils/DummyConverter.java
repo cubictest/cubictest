@@ -47,7 +47,7 @@ public class DummyConverter implements
 		AssertionList.add(e.getDescription());
 	}
 
-	public void handleTransition(AssertionList<String> AssertionList, UserActions userInteractions) {
+	public void handleUserInteractions(AssertionList<String> AssertionList, UserActions userInteractions) {
 		AssertionList.add(userInteractions.getStart().getName() + " --> " + userInteractions.getEnd().getName());
 		
 	}

@@ -13,6 +13,6 @@ import org.cubictest.model.UserActions;
  * @author chr_schwarz
  */
 public interface ITransitionConverter<T> {
-	public void handleTransition(T t, UserActions userInteractions);
+	public void handleUserInteractions(T t, UserActions userInteractions);
 
 }
