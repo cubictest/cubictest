@@ -9,15 +9,19 @@ package org.cubictest.ui.gef.actions;
 import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.recorder.CubicRecorder;
+import org.cubictest.recorder.CubicRecorderTest;
 import org.cubictest.recorder.SeleniumRecorder;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.gef.ui.actions.EditorPartAction;
 import org.eclipse.ui.IEditorPart;
+import org.cubictest.recorder.CubicRecorderTest;
 
 
 public class RecordAction extends EditorPartAction {
 
-	public static final String ACTION_ID = "cubicTestPlugin.action.record";
+	public static final String ACTION_ID = "cubicTestPlugin.action.recordTest";
+	private boolean running;
+	private SeleniumRecorder seleniumRecorder;
 	
 	public RecordAction(IEditorPart editor) {
 		super(editor);
@@ -31,20 +35,37 @@ public class RecordAction extends EditorPartAction {
 	@Override
 	protected void init() {
 		super.init();
-		setText("Record");
+		setRunning(false);
 		setId(ACTION_ID);
 	}
 	
 
 	@Override
 	public void run() {
-		GraphicalTestEditor testEditor = (GraphicalTestEditor)getEditorPart();
-		Test test = testEditor.getTest();
+		if(!running) {
+			GraphicalTestEditor testEditor = (GraphicalTestEditor)getEditorPart();
+			Test test = testEditor.getTest();
 
-		if(test.getStartPoint() instanceof UrlStartPoint) {
-			CubicRecorder cubicRecorder = new CubicRecorder(test);
-			SeleniumRecorder seleniumRecorder = new SeleniumRecorder(cubicRecorder);
-			seleniumRecorder.start(((UrlStartPoint)test.getStartPoint()).getBeginAt());			
+//			CubicRecorderTest.testRecorderSimpleTest(test);
+			
+			if(test.getStartPoint() instanceof UrlStartPoint) {
+				CubicRecorder cubicRecorder = new CubicRecorder(test);
+				seleniumRecorder = new SeleniumRecorder(cubicRecorder);
+				seleniumRecorder.start(((UrlStartPoint)test.getStartPoint()).getBeginAt());			
+			}			
+		} else {
+			seleniumRecorder.stop();
+		}
+		
+		setRunning(!running);
+	}
+
+	private void setRunning(boolean running) {
+		this.running = running;
+		if(!running) {
+			setText("Start Recording");
+		} else {
+			setText("Stop Recording");
 		}
 	}
 }

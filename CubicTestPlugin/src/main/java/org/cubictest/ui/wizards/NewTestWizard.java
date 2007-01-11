@@ -201,14 +201,15 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		this.selection = selection;
 		setWindowTitle("New CubicTest test");
 
-		//Set "Link with editor" preference to see the test to be created:
+		// Set "Link with editor" preference to see the test to be created
+		// If the desired part isn't available, getFromActivePerspective() returns null
 		try {
-			PackageExplorerPart.getFromActivePerspective().setLinkingEnabled(true);
-			ResourceNavigatorGetter.getFromActivePerspective().setLinkingEnabled(true);
-		}
-		catch(Exception e) {
-			System.out.println("Error setting linking property.");
-		}
+			PackageExplorerPart.getFromActivePerspective().setLinkingEnabled(true);			
+		} catch(NullPointerException e) {}
+		
+		try {
+			ResourceNavigatorGetter.getFromActivePerspective().setLinkingEnabled(true);			
+		} catch(NullPointerException e) {} 
 		
 		
 		IStructuredSelection iss = (IStructuredSelection) selection;

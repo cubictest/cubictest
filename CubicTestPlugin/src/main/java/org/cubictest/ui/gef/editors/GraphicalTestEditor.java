@@ -309,9 +309,9 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		addEditorAction(new SaveAction(this));
 		addAction(new PrintAction(this));
 		addEditorAction(new RunCubicUnitAction(this));
-		addEditorAction(new AutoLayoutAction(this));
 		addEditorAction(new RecordAction(this));
 		addEditorAction(new ResetTestAction(this));
+		addEditorAction(new AutoLayoutAction(this));
 	}
 	
 	/*
