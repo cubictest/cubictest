@@ -1,16 +1,19 @@
-package org.cubictest.recorder;
+package org.cubictest.recorder.selenium;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import org.cubictest.recorder.IRecorder;
+import org.cubictest.recorder.JSONRecorder;
+
 import com.metaparadigm.jsonrpc.JSONRPCBridge;
 
 public class SeleniumRecorderSessionListener implements HttpSessionListener {
 
-	private CubicRecorder recorder;
+	private IRecorder recorder;
 
-	public SeleniumRecorderSessionListener(CubicRecorder recorder) {
+	public SeleniumRecorderSessionListener(IRecorder recorder) {
 		this.recorder = recorder;
 	}
 
@@ -26,6 +29,5 @@ public class SeleniumRecorderSessionListener implements HttpSessionListener {
 		json_bridge.registerObject("recorder", new JSONRecorder(recorder));
 	}
 
-	public void sessionDestroyed(HttpSessionEvent sessionEvent) {
-	}
+	public void sessionDestroyed(HttpSessionEvent sessionEvent) {}
 }

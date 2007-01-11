@@ -9,6 +9,7 @@ import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.TextField;
+import org.eclipse.swt.widgets.Display;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,11 +17,12 @@ import com.metaparadigm.jsonrpc.JSONSerializer;
 import com.metaparadigm.jsonrpc.UnmarshallException;
 
 public class JSONRecorder {
-	private final CubicRecorder recorder;
+	private final IRecorder recorder;
 	private JSONSerializer serializer;
 
-	public JSONRecorder(CubicRecorder recorder) {
+	public JSONRecorder(IRecorder recorder) {
 		this.recorder = recorder;
+		
 		serializer = new JSONSerializer();
 		try {
 			serializer.registerDefaultSerializers();

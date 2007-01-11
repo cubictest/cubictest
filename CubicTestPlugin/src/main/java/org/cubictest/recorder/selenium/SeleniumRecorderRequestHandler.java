@@ -1,16 +1,17 @@
-package org.cubictest.recorder;
+package org.cubictest.recorder.selenium;
 
 import java.io.IOException;
 
+import org.cubictest.recorder.IRecorder;
 import org.mortbay.http.HttpException;
 import org.mortbay.http.HttpRequest;
 import org.mortbay.http.HttpResponse;
 import org.mortbay.http.handler.AbstractHttpHandler;
 
 public class SeleniumRecorderRequestHandler extends AbstractHttpHandler {
-    private final CubicRecorder recorder;
+    private final IRecorder recorder;
 
-	public SeleniumRecorderRequestHandler(CubicRecorder recorder) {
+	public SeleniumRecorderRequestHandler(IRecorder recorder) {
 		this.recorder = recorder;
 	}
 

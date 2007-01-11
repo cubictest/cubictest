@@ -14,7 +14,7 @@ import org.cubictest.ui.utils.WizardUtils;
 public class CubicRecorderTest {
 	public static void testRecorderSimpleTest(Test test) {
 //		Test test = WizardUtils.createEmptyTest("testRecorderSimpleTest", "", "", "");
-		CubicRecorder recorder = new CubicRecorder(test);
+		IRecorder recorder = new CubicRecorder(test);
 		Text text = new Text();
 		text.setText("some text");
 		recorder.addPageElement(text);

@@ -10,11 +10,13 @@ import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.recorder.CubicRecorder;
 import org.cubictest.recorder.CubicRecorderTest;
-import org.cubictest.recorder.SeleniumRecorder;
+import org.cubictest.recorder.GUIAwareRecorder;
+import org.cubictest.recorder.IRecorder;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.gef.ui.actions.EditorPartAction;
 import org.eclipse.ui.IEditorPart;
 import org.cubictest.recorder.CubicRecorderTest;
+import org.cubictest.recorder.selenium.SeleniumRecorder;
 
 
 public class RecordAction extends EditorPartAction {
@@ -46,11 +48,10 @@ public class RecordAction extends EditorPartAction {
 			GraphicalTestEditor testEditor = (GraphicalTestEditor)getEditorPart();
 			Test test = testEditor.getTest();
 
-//			CubicRecorderTest.testRecorderSimpleTest(test);
-			
 			if(test.getStartPoint() instanceof UrlStartPoint) {
-				CubicRecorder cubicRecorder = new CubicRecorder(test);
-				seleniumRecorder = new SeleniumRecorder(cubicRecorder);
+				IRecorder cubicRecorder = new CubicRecorder(test);
+				IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder);
+				seleniumRecorder = new SeleniumRecorder(guiAwareRecorder);
 				seleniumRecorder.start(((UrlStartPoint)test.getStartPoint()).getBeginAt());			
 			}			
 		} else {

@@ -1,5 +1,7 @@
-package org.cubictest.recorder;
+package org.cubictest.recorder.selenium;
 
+import org.cubictest.recorder.IRecorder;
+import org.eclipse.swt.widgets.Display;
 import org.mortbay.http.HttpContext;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.ServletHandler;
@@ -12,7 +14,7 @@ public class SeleniumRecorder {
 	private DefaultSelenium selenium;
 	private SeleniumServer seleniumProxy;
 
-	public SeleniumRecorder(CubicRecorder recorder) {
+	public SeleniumRecorder(IRecorder recorder) {
 		// start server
 		try {
 			seleniumProxy = new SeleniumServer(4444);
@@ -22,7 +24,7 @@ public class SeleniumRecorder {
 			servletHandler.addServlet("JSON-RPC", "/JSON-RPC", JSONRPCServlet.class.getName());
 			cubicRecorder.addHandler(servletHandler);
 			servletHandler.getSessionManager().addEventListener(new SeleniumRecorderSessionListener(recorder));
-			
+
 	        Thread jetty = new Thread(new Runnable() {
 	            public void run() {
 	                try {

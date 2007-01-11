@@ -9,7 +9,7 @@ import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UserActions;
 
-public class CubicRecorder {
+public class CubicRecorder implements IRecorder {
 	private Test test;
 	private AbstractPage cursor;
 	private UserActions userActions;
@@ -32,27 +32,22 @@ public class CubicRecorder {
 		this.cursor = cursor;
 	}
 	
-	/**
-	 * Set the cursor to a specific Page.
-	 * @param page
+	/* (non-Javadoc)
+	 * @see org.cubictest.recorder.IRecorder#setCursor(org.cubictest.model.AbstractPage)
 	 */
 	public void setCursor(AbstractPage page) {
 		this.cursor = page;
 	}
 	
-	/**
-	 * This method forces the element to be added to the current page, even
-	 * if a transition to a new node has been created
-	 * @param element
+	/* (non-Javadoc)
+	 * @see org.cubictest.recorder.IRecorder#addPageElementToCurrentPage(org.cubictest.model.PageElement)
 	 */
 	public void addPageElementToCurrentPage(PageElement element) {
 		this.cursor.addElement(element);		
 	}
 	
-	/**
-	 * Add a check for a page element. If a new UserActions transition has been
-	 * created, we move the cursor to the next Page before adding
-	 * @param element
+	/* (non-Javadoc)
+	 * @see org.cubictest.recorder.IRecorder#addPageElement(org.cubictest.model.PageElement)
 	 */
 	public void addPageElement(PageElement element) {
 		if(this.userActions != null) {
@@ -63,10 +58,8 @@ public class CubicRecorder {
 		this.addPageElementToCurrentPage(element);
 	}
 	
-	/**
-	 * Add a PageElementAction from the current page. Consecutive calls to this 
-	 * function adds more PageElementActions to the same UserActions Transition 
-	 * @param action
+	/* (non-Javadoc)
+	 * @see org.cubictest.recorder.IRecorder#addUserInput(org.cubictest.model.PageElementAction)
 	 */
 	public void addUserInput(PageElementAction action) {
 		if(this.userActions == null) {
