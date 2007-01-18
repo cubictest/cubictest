@@ -206,8 +206,9 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart
 		Point position = page.getPosition();
 		Dimension dimension = page.getDimension();
 		Rectangle r = new Rectangle(position.x, position.y, dimension.width, dimension.height);
-		((TestEditPart)getParent()).setLayoutConstraint(this,figure,r);
-		if (manager !=null)
+		((TestEditPart)getParent()).setLayoutConstraint(this, figure, r);
+		if (manager != null) {
 			manager.setText(title);
+		}
 	}
 }
