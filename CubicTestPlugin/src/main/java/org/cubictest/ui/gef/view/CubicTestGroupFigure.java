@@ -12,6 +12,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.graphics.Color;
 
 public class CubicTestGroupFigure extends Figure {
@@ -22,6 +23,7 @@ public class CubicTestGroupFigure extends Figure {
 	public CubicTestGroupFigure(String title, boolean fullHeaderWidth){
 		header = new CubicTestHeaderLabel(title, this, fullHeaderWidth);
 		header.setBorder(new HeaderBorder());
+		header.setTextPlacement(PositionConstants.NORTH);
 		
 		setLayoutManager(ViewUtil.getFlowLayout());
 		setBorder(new LineBorder(ColorConstants.black));
