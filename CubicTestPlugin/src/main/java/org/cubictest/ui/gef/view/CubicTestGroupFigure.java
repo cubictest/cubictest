@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Color;
 
 public class CubicTestGroupFigure extends Figure {
 	public static Color pageColor = new Color(null, 255, 255, 255);
-	private CubicTestHeaderLabel header;
+	protected CubicTestHeaderLabel header;
 	
 
 	public CubicTestGroupFigure(String title, boolean fullHeaderWidth){
