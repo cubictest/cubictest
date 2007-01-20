@@ -13,7 +13,7 @@ import java.util.List;
 import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
-import org.cubictest.ui.gef.view.CubicTestGroupFigure;
+import org.cubictest.ui.gef.view.CubicTestScrollableGroupFigure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.graphics.Color;
 
@@ -39,7 +39,7 @@ public class PageEditPart extends AbstractPageEditPart {
 	}
 
 	protected IFigure createFigure() {
-		CubicTestGroupFigure figure = (CubicTestGroupFigure) super.createFigure();
+		CubicTestScrollableGroupFigure figure = (CubicTestScrollableGroupFigure) super.createFigure();
 		figure.getHeader().setBackgroundColor(new Color(null, 172, 170, 255));
 		return figure;
 	}

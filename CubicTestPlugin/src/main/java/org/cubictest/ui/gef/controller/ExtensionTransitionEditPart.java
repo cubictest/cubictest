@@ -11,7 +11,7 @@ import java.beans.PropertyChangeEvent;
 
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.ui.gef.view.CubicTestLabel;
-import org.eclipse.draw2d.ConnectionEndpointLocator;
+import org.cubictest.ui.gef.view.MidpointOffsetLocator;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolylineConnection;
 
@@ -29,9 +29,8 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 		PolylineConnection conn = (PolylineConnection) super.getFigure();
 		
 		label = new CubicTestLabel(getModel().getExtensionPoint().getName());
-		ConnectionEndpointLocator locator = new ConnectionEndpointLocator(conn,true);
-		locator.setUDistance(20);
-		conn.add(label,locator);
+		MidpointOffsetLocator locator = new MidpointOffsetLocator(conn);
+		conn.add(label, locator);
 		
 		return conn;
 	}

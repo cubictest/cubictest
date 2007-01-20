@@ -22,6 +22,7 @@ import org.cubictest.ui.gef.policies.ContextLayoutEditPolicy;
 import org.cubictest.ui.gef.policies.PageNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
+import org.cubictest.ui.gef.view.CubicTestScrollableGroupFigure;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -143,13 +144,18 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart
 		}
 		super.performRequest(request);
 	}
+	
+	@Override
+	public IFigure getContentPane() {
+		return ((CubicTestScrollableGroupFigure) getFigure()).getContentsPane();
+	}
 
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
 	protected IFigure createFigure() {
-		CubicTestGroupFigure figure = new CubicTestGroupFigure(((AbstractPage)getModel()).getName(), true);
+		IFigure figure = new CubicTestScrollableGroupFigure(((AbstractPage)getModel()).getName(), true);
 		figure.setLocation(((TransitionNode)getModel()).getPosition());
 		return figure;
 	}
@@ -201,6 +207,13 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart
 	protected void refreshVisuals(){
 		AbstractPage page = (AbstractPage)getModel();
 		CubicTestGroupFigure figure = (CubicTestGroupFigure) getFigure();
+		
+		//Update header dimension:
+		Dimension newHeaderDim = new Dimension();
+		newHeaderDim.width = figure.getPreferredSize().width;
+		newHeaderDim.height = figure.getHeader().getPreferredSize().height;
+		figure.getHeader().setPreferredSize(newHeaderDim);
+		
 		String title = ((AbstractPage)getModel()).getName();
 		figure.setText(title);
 		Point position = page.getPosition();

@@ -38,7 +38,7 @@ public class CommonEditPart extends AbstractPageEditPart {
 	 */
 	protected IFigure createFigure() {
 		CubicTestGroupFigure figure = (CubicTestGroupFigure) super.createFigure();
-		figure.getHeader().setBackgroundColor(ColorConstants.lightGray);//TODO fix om fokus
+		figure.getHeader().setBackgroundColor(ColorConstants.lightGray);
 		return figure;
 	}
 

@@ -12,7 +12,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * Special header label for CubicTest abstract pages.
- * Returns a wide preferred size. 
+ * Returns a preferred size equal to surrounding page. 
  *
  * @author chr_schwarz
  */
@@ -46,4 +46,6 @@ public class CubicTestHeaderLabel extends CubicTestLabel {
 			return orig;
 		}
 	}
+	
+	
 }
