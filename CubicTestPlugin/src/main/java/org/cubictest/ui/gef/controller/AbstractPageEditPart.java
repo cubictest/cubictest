@@ -149,7 +149,7 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
 	protected IFigure createFigure() {
-		CubicTestGroupFigure figure = new CubicTestGroupFigure(((AbstractPage)getModel()).getName());
+		CubicTestGroupFigure figure = new CubicTestGroupFigure(((AbstractPage)getModel()).getName(), true);
 		figure.setLocation(((TransitionNode)getModel()).getPosition());
 		return figure;
 	}

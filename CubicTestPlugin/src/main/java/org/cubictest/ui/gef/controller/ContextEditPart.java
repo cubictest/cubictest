@@ -68,7 +68,7 @@ public class ContextEditPart extends PageElementEditPart {
 	@Override
 	protected CubicTestGroupFigure createFigure() {
 		CubicTestGroupFigure figure = 
-			new CubicTestGroupFigure(((AbstractContext)getModel()).getDescription());
+			new CubicTestGroupFigure(((AbstractContext)getModel()).getDescription(), true);
 		figure.setBackgroundColor(ColorConstants.listBackground);
 		return figure;
 	}

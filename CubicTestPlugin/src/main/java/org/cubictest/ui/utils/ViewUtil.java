@@ -78,7 +78,7 @@ public class ViewUtil {
 	public static FlowLayout getFlowLayout() {
 		FlowLayout layout = new FlowLayout();
 		layout.setMinorAlignment(FlowLayout.ALIGN_LEFTTOP);
-		layout.setStretchMinorAxis(true);
+		layout.setStretchMinorAxis(false);
 		layout.setHorizontal(false);
 		return layout;
 		

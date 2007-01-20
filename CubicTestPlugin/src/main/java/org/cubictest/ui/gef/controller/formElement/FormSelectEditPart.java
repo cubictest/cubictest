@@ -68,7 +68,7 @@ public class FormSelectEditPart extends FormElementEditPart {
 	@Override
 	protected CubicTestGroupFigure createFigure() {
 		CubicTestGroupFigure figure = 
-			new CubicTestGroupFigure(getModel().getDescription());
+			new CubicTestGroupFigure(getModel().getDescription(), false);
 		figure.setBackgroundColor(ColorConstants.listBackground);
 		figure.getHeader().setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.SELECT_IMAGE));
 		return figure;

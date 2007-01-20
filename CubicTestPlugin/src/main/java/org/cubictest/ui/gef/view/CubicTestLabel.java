@@ -11,9 +11,10 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Label;
 
 /**
- * @author SK Skytteren
+ * Special label for CubicTest that does not display more than 
+ * x characters text (configurable).
  *
- * Special label for CubicTest that does not display more that 20 characters text.
+ * @author SK Skytteren
  */
 public class CubicTestLabel extends Label {
 	
@@ -34,11 +35,9 @@ public class CubicTestLabel extends Label {
 		super.setText(s);
 	}
 
-	/**
-	 * @param b
-	 */
-	public void setSelected(boolean b) {
-		if (b) setForegroundColor(ColorConstants.darkGray);
+
+	public void setSelected(boolean selected) {
+		if (selected) setForegroundColor(ColorConstants.darkGray);
 		else setForegroundColor(ColorConstants.black);
 	}
 

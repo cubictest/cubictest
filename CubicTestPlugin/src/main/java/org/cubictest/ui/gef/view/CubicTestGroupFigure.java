@@ -16,11 +16,11 @@ import org.eclipse.swt.graphics.Color;
 
 public class CubicTestGroupFigure extends Figure {
 	public static Color pageColor = new Color(null, 255, 255, 255);
-	private CubicTestLabel header;
+	private CubicTestHeaderLabel header;
 	
 
-	public CubicTestGroupFigure(String title){
-		header = new CubicTestLabel(title);
+	public CubicTestGroupFigure(String title, boolean fullHeaderWidth){
+		header = new CubicTestHeaderLabel(title, this, fullHeaderWidth);
 		header.setBorder(new HeaderBorder());
 		
 		setLayoutManager(ViewUtil.getFlowLayout());
