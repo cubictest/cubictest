@@ -32,10 +32,4 @@ public class CubicTestFreeformLayer extends FreeformLayer {
 		super.add(figure, constraint, index);
 	}
 	
-	@Override
-	public Dimension getPreferredSize(int wHint, int hHint) {
-		return new Dimension(10, 1000);
-	}
-
-	
 }

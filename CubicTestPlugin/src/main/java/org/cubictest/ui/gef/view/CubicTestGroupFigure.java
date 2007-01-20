@@ -13,8 +13,15 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.swt.graphics.Color;
 
+/**
+ * Figure for group of elements.
+ * Used for Contexts and Pages/Commons.
+ * 
+ * @author chr_schwarz
+ */
 public class CubicTestGroupFigure extends Figure {
 	public static Color pageColor = new Color(null, 255, 255, 255);
 	protected CubicTestHeaderLabel header;
@@ -52,6 +59,15 @@ public class CubicTestGroupFigure extends Figure {
 	 * @see org.eclipse.draw2d.Figure#add(org.eclipse.draw2d.IFigure, java.lang.Object, int)
 	 */
 	public void add(IFigure figure, Object constraint, int index) {
+		IFigure parent = getParent();
+		while (parent != null && !(parent instanceof CubicTestFreeformLayer)) {
+			parent = parent.getParent();
+		}
+		if (parent instanceof CubicTestFreeformLayer) {
+			//expand scrollable surface to prevent multiple columns:
+			parent.setSize(new Dimension(1, 9999));
+		}
+		
 		if(figure.equals(header)){
 			super.add(figure,constraint,index);
 		}else
