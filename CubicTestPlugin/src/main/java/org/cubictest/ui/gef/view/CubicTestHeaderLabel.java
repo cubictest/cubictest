@@ -40,7 +40,7 @@ public class CubicTestHeaderLabel extends CubicTestLabel {
 		Dimension orig = super.getPreferredSize(wHint, hHint);
 		if (fullWidth) {
 			int parentWidth = parent.getSize().width;
-			return new Dimension(parentWidth - 4, orig.height);
+			return new Dimension(parentWidth, orig.height);
 		}
 		else {
 			return orig;
