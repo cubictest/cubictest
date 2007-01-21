@@ -109,12 +109,24 @@ public class UserActionsEditPart extends TransitionEditPart{
 							CubicTestImageRegistry.SELECT_IMAGE));
 				}
 				else if (element instanceof Checkbox){
-					inputLabel.setIcon(CubicTestImageRegistry.get(
-							CubicTestImageRegistry.CHECKBOX_CHECKED_IMAGE));
+					if (input.getAction().equals(ActionType.UNCHECK)) {
+						inputLabel.setIcon(CubicTestImageRegistry.get(
+							CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE));
+					}
+					else {
+						inputLabel.setIcon(CubicTestImageRegistry.get(
+								CubicTestImageRegistry.CHECKBOX_CHECKED_IMAGE));
+					}
 				}
 				else if (element instanceof RadioButton){
-					inputLabel.setIcon(CubicTestImageRegistry.get(
-							CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE));
+					if (input.getAction().equals(ActionType.UNCHECK)) {
+						inputLabel.setIcon(CubicTestImageRegistry.get(
+								CubicTestImageRegistry.RADIO_BUTTON_UNCHECKED_IMAGE));
+					}
+					else {
+						inputLabel.setIcon(CubicTestImageRegistry.get(
+								CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE));
+					}
 				}
 				else if (element instanceof TextField){
 					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_FIELD_IMAGE));
