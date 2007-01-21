@@ -164,7 +164,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 
 		paletteViewer = createPaletteViewer(sashForm);
 		graphicalViewer = createGraphicalViewer(sashForm);
-		sashForm.setWeights(new int[]{25,75});
+		sashForm.setWeights(new int[]{13,87});
 	}
 	
 	protected GraphicalViewer createGraphicalViewer(Composite parent){
