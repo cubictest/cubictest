@@ -53,6 +53,7 @@ public class CubicTestImageRegistry {
 	public static final String NOT_IMAGE_IMAGE = null;
 	public static final String CONNECTION_IMAGE = "connection";
 	public static final String USER_INTERACTION_IMAGE = "userInteraction";
+	public static final String CUSTOM_STEP_IMAGE = "customStep";
 
 	/**
 	 * Note: An image registry owns all of the image objects registered with it,
@@ -142,7 +143,10 @@ public class CubicTestImageRegistry {
 
 		URL userInteractionUrl = FileLocator.find(pluginBundle, new Path(iconPath + USER_INTERACTION_IMAGE + ".gif"), null);
 		imageRegistry.put(USER_INTERACTION_IMAGE, ImageDescriptor.createFromURL(userInteractionUrl));
-}
+
+		URL customStepUrl = FileLocator.find(pluginBundle, new Path(iconPath + CUSTOM_STEP_IMAGE + ".gif"), null);
+		imageRegistry.put(CUSTOM_STEP_IMAGE, ImageDescriptor.createFromURL(customStepUrl));
+	}
 	
 	public static Image get(String key){
 		return imageRegistry.get(key);
