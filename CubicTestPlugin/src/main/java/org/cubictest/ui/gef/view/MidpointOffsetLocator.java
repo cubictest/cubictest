@@ -31,7 +31,7 @@ public class MidpointOffsetLocator extends ConnectionEndpointLocator {
 		Point p1 = points.getPoint(0);
 		Point p2 = points.getPoint(1);
 		Dimension diff = p2.getDifference(p1);
-		double half = Math.sqrt(((diff.height * diff.height) + (diff.width * diff.width))) / 5;
+		double half = Math.sqrt(((diff.height * diff.height) + (diff.width * diff.width))) / 7;
 		return (int) half;
 	}
 	

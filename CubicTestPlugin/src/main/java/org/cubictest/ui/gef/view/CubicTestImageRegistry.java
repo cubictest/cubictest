@@ -50,8 +50,10 @@ public class CubicTestImageRegistry {
 	public static final String CHECKBOX_CHECKED_IMAGE 	= "checkboxChecked";
 	public static final String CHECKBOX_UNCHECKED_IMAGE = "checkboxUnchecked";
 	public static final String IMAGE_IMAGE = "image";
-	private static final String NOT_IMAGE_IMAGE = null;
-	
+	public static final String NOT_IMAGE_IMAGE = null;
+	public static final String CONNECTION_IMAGE = "connection";
+	public static final String USER_INTERACTION_IMAGE = "userInteraction";
+
 	/**
 	 * Note: An image registry owns all of the image objects registered with it,
 	 * and automatically disposes of them the SWT Display is disposed.
@@ -134,7 +136,13 @@ public class CubicTestImageRegistry {
 		
 		URL notImageUrl = FileLocator.find(pluginBundle, new Path(iconPath + NOT_IMAGE_IMAGE + ".gif"), null);
 		imageRegistry.put(NOT_IMAGE_IMAGE, ImageDescriptor.createFromURL(notImageUrl));
-	}
+
+		URL connectionUrl = FileLocator.find(pluginBundle, new Path(iconPath + CONNECTION_IMAGE + ".gif"), null);
+		imageRegistry.put(CONNECTION_IMAGE, ImageDescriptor.createFromURL(connectionUrl));
+
+		URL userInteractionUrl = FileLocator.find(pluginBundle, new Path(iconPath + USER_INTERACTION_IMAGE + ".gif"), null);
+		imageRegistry.put(USER_INTERACTION_IMAGE, ImageDescriptor.createFromURL(userInteractionUrl));
+}
 	
 	public static Image get(String key){
 		return imageRegistry.get(key);
