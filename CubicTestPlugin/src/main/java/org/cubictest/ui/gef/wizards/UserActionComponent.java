@@ -37,6 +37,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
@@ -45,6 +46,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
@@ -78,7 +80,7 @@ public class UserActionComponent {
 	private List<PageElementAction> elementActions;
 	
 	private String[] currentActions;
-
+	private PageElementAction activeAction;
 
 	public UserActionComponent(UserActions transition, Test test) {
 		this.test = test;
@@ -202,18 +204,18 @@ public class UserActionComponent {
 		
 		TableColumn tc1 = new TableColumn(table, SWT.LEFT, 0);
 		tc1.setText(ELEMENT);
-		tc1.setWidth(100);
-		tc1.setResizable(false);
+		tc1.setWidth(120);
+		tc1.setResizable(true);
 		
 		TableColumn tc2 = new TableColumn(table, SWT.LEFT, 1);
 		tc2.setText(ACTION);
-		tc2.setWidth(100);
-		tc2.setResizable(false);
+		tc2.setWidth(120);
+		tc2.setResizable(true);
 		
 		TableColumn tc3 = new TableColumn(table, SWT.LEFT, 2);
 		tc3.setText(INPUT);
-		tc3.setWidth(140);
-		tc3.setResizable(false);
+		tc3.setWidth(160);
+		tc3.setResizable(true);
 		
 	}
 	private void createTableViewer() {
@@ -232,7 +234,7 @@ public class UserActionComponent {
 		}
 		elementNames[a] = "";
 
-		cellEditors[0] = new ComboBoxCellEditor(table, elementNames, SWT.READ_ONLY);
+		cellEditors[0] = new ActionComboBoxCellEditor(table, elementNames, SWT.READ_ONLY);
 		cellEditors[1] = new ComboBoxCellEditor(table, new String[]{""}, SWT.READ_ONLY);
 		cellEditors[2] = new TextCellEditor(table);
 		
@@ -241,13 +243,60 @@ public class UserActionComponent {
 		viewer.setLabelProvider(new ActionLabelProvider());
 		viewer.setCellModifier(new ActionInputCellModifier());
 	}
+	
 	public List getUserInput(){
 		return (List) viewer.getInput(); 
 	}
 	
+	
+	class ActionComboBoxCellEditor extends ComboBoxCellEditor {
+		
+		public ActionComboBoxCellEditor(Table table, String[] elementNames, int read_only) {
+				super(table,elementNames, read_only);
+		}
+
+		
+		@Override
+		protected Control createControl(Composite parent) {
+			CCombo comboBox = (CCombo) super.createControl(parent);
+	        comboBox.addSelectionListener(new SelectionAdapter() {
+	            public void widgetSelected(SelectionEvent event) {
+	                Integer selectedIndex = (Integer) doGetValue();
+					String name = elementNames[selectedIndex.intValue()];
+					for (IActionElement iae : allElements){	
+						if ( (iae.getType() + ": " + iae.getDescription()).equals(name)){
+							activeAction.setElement(iae);
+							break;
+						}
+					}
+					IActionElement pe = ((PageElementAction)activeAction).getElement();
+					if(pe != null){
+						
+						List<String> actionList = new ArrayList<String>();
+						for(ActionType action : pe.getActionTypes()){
+							if(ActionType.ENTER_PARAMETER_TEXT.equals(action) 
+									&& test.getParamList() == null) {
+								continue;
+							}
+							actionList.add(action.getText());
+						}
+						String[] actions = actionList.toArray(new String[0]);
+						if (!ArrayUtils.isEquals(actions, currentActions)) {
+							cellEditors[1] = new ComboBoxCellEditor(table,actions, SWT.READ_ONLY);
+							currentActions = actions;
+						}
+					}
+					deactivate();
+	            }
+	        });
+	        return comboBox;
+		}
+	}
 	class ActionInputCellModifier implements ICellModifier{
 
 		public boolean canModify(Object element, String property) {
+			activeAction = (PageElementAction) element;
+			
 			if (property.equals(INPUT)){
 				if (((PageElementAction)element).getElement() instanceof AbstractTextInput){
 					PageElementAction input = (PageElementAction)element;
@@ -345,10 +394,7 @@ public class UserActionComponent {
 						String name = elementNames[((Integer) value).intValue()];
 						
 						for (IActionElement iae : allElements){	
-							if ( (iae.getType() + ": " + iae.getDescription()).equals(name)){
-								rowItem.setElement(iae);
-							}
-							else if (name.equals(CHOOSE) || name.equals("")) {
+							if (name.equals(CHOOSE) || name.equals("")) {
 								rowItem.setElement(null);
 								rowItem.setAction(ActionType.NO_ACTION);
 							}
@@ -387,27 +433,15 @@ public class UserActionComponent {
 				viewer.update(rowItem, null);
 			}
 		}
-		
-	/*
-	 *  (non-Javadoc)
-	 * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
-	 */
-		public void handleEvent(Event event) {
-			if(event.widget == list) {
-				int index = list.getSelectionIndex();
-				if(index == -1)
-					return;
-			}
-		}
 	}	
 	class ActionContentProvider implements IStructuredContentProvider {
 
 		public void dispose() {
-			
 		}
+
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-			
 		}
+
 		public Object[] getElements(Object inputElement) {
 			List inputs = (List) inputElement;
 			return inputs.toArray();
