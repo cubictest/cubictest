@@ -7,6 +7,7 @@
  */
 package org.cubictest.ui.gef.controller;
 
+import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.cubictest.ui.gef.view.TestStepLabel;
@@ -41,7 +42,8 @@ public class PageTextEditPart extends PageElementEditPart{
 		
 		label.setLayoutManager(ViewUtil.getFlowLayout());
 		label.setLabelAlignment(PositionConstants.LEFT);
-		label.setTooltipText("Check text present: " + getElementDescription());
+		String not = ((PageElement) getModel()).isNot() ? "NOT " : "";
+		label.setTooltipText("Check text " + not + "present: " + getElementDescription());
 		return label;
 	}
 	

@@ -22,7 +22,7 @@ import org.eclipse.draw2d.LineBorder;
 public class AbstractTransitionNodeFigure extends Figure {
 	
 	private CubicTestLabel label;
-	private String toolTipText;
+	private String tooltipText;
 
 	public AbstractTransitionNodeFigure(){
 		setLayoutManager(ViewUtil.getFlowLayout());
@@ -45,11 +45,11 @@ public class AbstractTransitionNodeFigure extends Figure {
 	
 	@Override
 	public IFigure getToolTip() {
-		return StringUtils.isBlank(toolTipText) ? null : new Label(toolTipText);
+		return StringUtils.isBlank(tooltipText) ? null : new Label(tooltipText);
 	}
 	
 	public void setToolTipText(String toolTipText) {
-		this.toolTipText = toolTipText;
+		this.tooltipText = toolTipText;
 		label.setTooltipText(toolTipText);
 	}
 }
