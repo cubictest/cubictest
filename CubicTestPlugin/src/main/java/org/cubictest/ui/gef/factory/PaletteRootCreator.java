@@ -170,7 +170,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		controls.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add a Custom Step",
-				"Create a new Custom Step that lets you write code to do operations not available in the GUI.",
+				"Create a new Custom Step that lets you write code to do operations not available in the graphical test editor.",
 				CustomTestStep.class, new CustomTestStepCreationFactory(customTestStepLoader), 
 				imageRegistry.getDescriptor(CUSTOM_STEP_IMAGE), null);
 		controls.add(tool);
