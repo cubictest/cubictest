@@ -9,7 +9,9 @@ package org.cubictest.ui.gef.controller;
 
 import java.beans.PropertyChangeEvent;
 
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
+import org.cubictest.model.SubTest;
 import org.cubictest.ui.gef.view.CubicTestLabel;
 import org.cubictest.ui.gef.view.MidpointOffsetLocator;
 import org.eclipse.draw2d.IFigure;
@@ -28,7 +30,16 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 	@Override
 	public IFigure getFigure() {
 		PolylineConnection conn = (PolylineConnection) super.getFigure();
-		conn.setToolTip(new Label("Connection from an extension point in another test."));
+		
+		if (getModel().getStart() instanceof ExtensionStartPoint) {
+			conn.setToolTip(new Label("Starting from an extension point in another test."));
+		}
+		else if (getModel().getStart() instanceof SubTest) {
+			conn.setToolTip(new Label("Connection from an extension point in the subtest."));
+		}
+		else {
+			conn.setToolTip(new Label("Connection from an extension point in another test."));
+		}
 		
 		label = new CubicTestLabel(getModel().getExtensionPoint().getName());
 		MidpointOffsetLocator locator = new MidpointOffsetLocator(conn);
