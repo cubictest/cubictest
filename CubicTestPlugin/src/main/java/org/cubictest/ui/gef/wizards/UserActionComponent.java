@@ -21,7 +21,7 @@ import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PageElementAction;
 import org.cubictest.model.Test;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.WebBrowser;
 import org.cubictest.model.SationObserver.SationType;
 import org.cubictest.model.context.IContext;
@@ -72,7 +72,7 @@ public class UserActionComponent {
 	
 	private String[] columnNames = new String[] {ELEMENT, ACTION, INPUT};
 	
-	private UserActions transition;
+	private UserInteractionsTransition transition;
 	private List<IActionElement> allElements;
 	private String[] elementNames;
 	private Test test;
@@ -82,7 +82,7 @@ public class UserActionComponent {
 	private String[] currentActions;
 	private PageElementAction activeAction;
 
-	public UserActionComponent(UserActions transition, Test test) {
+	public UserActionComponent(UserInteractionsTransition transition, Test test) {
 		this.test = test;
 		this.transition = transition;
 		

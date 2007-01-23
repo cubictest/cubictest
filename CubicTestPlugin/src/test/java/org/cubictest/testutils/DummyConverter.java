@@ -14,7 +14,7 @@ import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.model.CustomTestStep;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.UrlStartPoint;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.IContext;
 
 
@@ -47,7 +47,7 @@ public class DummyConverter implements
 		AssertionList.add(e.getDescription());
 	}
 
-	public void handleUserInteractions(AssertionList<String> AssertionList, UserActions userInteractions) {
+	public void handleUserInteractions(AssertionList<String> AssertionList, UserInteractionsTransition userInteractions) {
 		AssertionList.add(userInteractions.getStart().getName() + " --> " + userInteractions.getEnd().getName());
 		
 	}

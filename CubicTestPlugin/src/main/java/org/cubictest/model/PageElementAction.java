@@ -7,7 +7,7 @@ package org.cubictest.model;
 /**
  * Class representing a single <i>action</i> from a user.
  * The action is done on a single page element.
- * This object is collected in a <code>UserActions</code> object to represent a collection of actions for page/state transition.
+ * This object is collected in a <code>UserInteractionsTransition</code> object to represent a collection of actions for page/state transition.
  * 
  * @author SK Skytteren
  * @author chr_schwarz

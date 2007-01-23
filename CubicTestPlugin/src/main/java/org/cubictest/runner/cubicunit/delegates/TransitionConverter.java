@@ -11,7 +11,7 @@ import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PageElementAction;
 import org.cubictest.model.TestPartStatus;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubicunit.Browser;
 import org.cubicunit.Checkbox;
 import org.cubicunit.Element;
@@ -21,10 +21,10 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class TransitionConverter implements ITransitionConverter<Holder> {
 
-	public void handleUserInteractions(Holder holder, UserActions userInteractions) {
+	public void handleUserInteractions(Holder holder, UserInteractionsTransition userInteractions) {
 
-		if(userInteractions instanceof UserActions){
-			UserActions actions = (UserActions) userInteractions;
+		if(userInteractions instanceof UserInteractionsTransition){
+			UserInteractionsTransition actions = (UserInteractionsTransition) userInteractions;
 			for(PageElementAction action : actions.getInputs()){
 				try{
 					Element element = holder.getElement((PageElement) action.getElement());

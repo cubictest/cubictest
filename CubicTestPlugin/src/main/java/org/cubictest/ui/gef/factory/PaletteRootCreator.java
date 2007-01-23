@@ -40,7 +40,7 @@ import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.Transition;
 import org.cubictest.model.UrlStartPoint;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.Row;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;
@@ -189,7 +189,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		tool = new ConnectionCreationToolEntry(
 				"Add User Interaction",
 				"Creates a new user interaction to change the state of a page (e.g. press a link or fill out and submit a form).",
-				new DataCreationFactory(UserActions.class), imageRegistry.getDescriptor(USER_INTERACTION_IMAGE), null);
+				new DataCreationFactory(UserInteractionsTransition.class), imageRegistry.getDescriptor(USER_INTERACTION_IMAGE), null);
 		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED,
 				Boolean.TRUE);
 		tool.setToolClass(ConnectionDragCreationTool.class);

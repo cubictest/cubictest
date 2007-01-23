@@ -28,7 +28,7 @@ import org.cubictest.model.Title;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.OrderedContext;
@@ -92,7 +92,7 @@ public class CubicTestXStream extends XStream {
 		this.alias("title", Title.class);
 		this.alias("transition", Transition.class);
 		this.alias("transitionNode", TransitionNode.class);
-		this.alias("userActions", UserActions.class);
+		this.alias("userInteractionsTransition", UserInteractionsTransition.class);
 		this.alias("webBrowser", WebBrowser.class);
 		this.alias("customTestStep", CustomTestStep.class);
 		this.omitField(Language.class, "properties");

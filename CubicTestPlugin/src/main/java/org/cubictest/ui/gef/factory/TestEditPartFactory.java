@@ -19,7 +19,7 @@ import org.cubictest.model.Test;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.UrlStartPoint;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.Row;
 import org.cubictest.model.formElement.Button;
@@ -47,7 +47,7 @@ import org.cubictest.ui.gef.controller.SubTestEditPart;
 import org.cubictest.ui.gef.controller.TableRowEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.controller.UrlStartPointEditPart;
-import org.cubictest.ui.gef.controller.UserActionsEditPart;
+import org.cubictest.ui.gef.controller.UserInteractionsTransitionEditPart;
 import org.cubictest.ui.gef.controller.formElement.FormButtonEditPart;
 import org.cubictest.ui.gef.controller.formElement.FormCheckboxEditPart;
 import org.cubictest.ui.gef.controller.formElement.FormOptionEditPart;
@@ -94,8 +94,8 @@ public class TestEditPartFactory implements EditPartFactory {
 			return new SimpleTransitionEditPart((SimpleTransition)model);
 		if (model instanceof ExtensionTransition)
 			return new ExtensionTransitionEditPart((ExtensionTransition)model);
-		if (model instanceof UserActions)
-			return new UserActionsEditPart((UserActions)model);
+		if (model instanceof UserInteractionsTransition)
+			return new UserInteractionsTransitionEditPart((UserInteractionsTransition)model);
 		if (model instanceof CommonTransition)
 			return new CommonTransitionEditPart((CommonTransition)model);
 		if (model instanceof Common)

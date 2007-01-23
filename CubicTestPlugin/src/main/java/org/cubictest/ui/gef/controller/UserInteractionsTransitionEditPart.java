@@ -11,7 +11,7 @@ import java.util.List;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.PageElementAction;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
@@ -33,15 +33,15 @@ import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.gef.EditPart;
 
 
-public class UserActionsEditPart extends TransitionEditPart{
+public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	
 	private Figure figure;
 	/**
-	 * Constructionr for the <code>UserActionsEditPart</code>.
+	 * Constructionr for the <code>UserInteractionsTransitionEditPart</code>.
 	 * @param transition
 	 */	
-	public UserActionsEditPart(UserActions userActions){
-		super(userActions);
+	public UserInteractionsTransitionEditPart(UserInteractionsTransition userInteractionsTransition){
+		super(userInteractionsTransition);
 	}
 
 	/* (non-Javadoc)
@@ -69,7 +69,7 @@ public class UserActionsEditPart extends TransitionEditPart{
 		for(Figure f : delete)
 			conn.remove(f);
 		
-		if (getModel() instanceof UserActions && ((UserActions)getModel()).getInputs() != null){
+		if (getModel() instanceof UserInteractionsTransition && ((UserInteractionsTransition)getModel()).getInputs() != null){
 			figure = new Figure();
 			ToolbarLayout layout = new ToolbarLayout();
 			layout.setVertical(true);
@@ -77,11 +77,11 @@ public class UserActionsEditPart extends TransitionEditPart{
 			figure.setLayoutManager(layout);
 			figure.setBackgroundColor(ColorConstants.menuBackground);
 			figure.setOpaque(true);
-			//figure.setLabelText(((UserActions)getModel()).getText());
+			//figure.setLabelText(((UserInteractionsTransition)getModel()).getText());
 			figure.setToolTip(new Label("User interaction on the page/state"));
 			conn.setToolTip(new Label("User interaction on the page/state"));
 			
-			List<PageElementAction> inputs = ((UserActions)getModel()).getInputs();
+			List<PageElementAction> inputs = ((UserInteractionsTransition)getModel()).getInputs();
 			Label inputLabel;
 			
 			for(PageElementAction input : inputs){

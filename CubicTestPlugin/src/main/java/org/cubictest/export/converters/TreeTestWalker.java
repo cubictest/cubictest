@@ -23,7 +23,7 @@ import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 
 /**
  * Uses a connection point converter, a page converter and a transition
@@ -150,8 +150,8 @@ public class TreeTestWalker<T> {
 
 				if (targetExtensionPoint == null
 						|| isOnExtensionPointPath(endNode, targetExtensionPoint)) {
-					if (outTransition instanceof UserActions) {
-						transitionConverter.newInstance().handleUserInteractions(t,(UserActions) outTransition);
+					if (outTransition instanceof UserInteractionsTransition) {
+						transitionConverter.newInstance().handleUserInteractions(t,(UserInteractionsTransition) outTransition);
 					}
 					else {
 						//only follow transition, no export

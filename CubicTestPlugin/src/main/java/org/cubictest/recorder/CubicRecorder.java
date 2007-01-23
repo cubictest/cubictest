@@ -8,7 +8,7 @@ import org.cubictest.model.PageElementAction;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
@@ -21,7 +21,7 @@ import sun.awt.geom.AreaOp.AddOp;
 public class CubicRecorder implements IRecorder {
 	private Test test;
 	private AbstractPage cursor;
-	private UserActions userActions;
+	private UserInteractionsTransition userInteractionsTransition;
 	private final CommandStack commandStack;
 	private final AutoLayout autoLayout;
 	
@@ -70,10 +70,10 @@ public class CubicRecorder implements IRecorder {
 	 * @see org.cubictest.recorder.IRecorder#addPageElement(org.cubictest.model.PageElement)
 	 */
 	public void addPageElement(PageElement element) {
-		if(this.userActions != null) {
+		if(this.userInteractionsTransition != null) {
 			// Advance the cursor
-			this.cursor = (AbstractPage) this.userActions.getEnd();
-			this.userActions = null;
+			this.cursor = (AbstractPage) this.userInteractionsTransition.getEnd();
+			this.userInteractionsTransition = null;
 		}
 		this.addPageElementToCurrentPage(element);
 	}
@@ -82,20 +82,20 @@ public class CubicRecorder implements IRecorder {
 	 * @see org.cubictest.recorder.IRecorder#addUserInput(org.cubictest.model.PageElementAction)
 	 */
 	public void addUserInput(PageElementAction action) {
-		if(this.userActions == null) {
+		if(this.userInteractionsTransition == null) {
 			addUserActions(this.cursor);
 		}
-		this.userActions.addInput(action);
+		this.userInteractionsTransition.addInput(action);
 	}
 	
 	/**
-	 * Create a new Page and a UserActions transition to it
+	 * Create a new Page and a UserInteractionsTransition transition to it
 	 */
 	private AbstractPage addUserActions(TransitionNode from) {
 		Page page = new Page();
 		page.setAutoPosition(true);
 		page.setName(cursor.getName());
-		UserActions ua = new UserActions(from, page);
+		UserInteractionsTransition ua = new UserInteractionsTransition(from, page);
 		
 		/* Add Page */
 		AddAbstractPageCommand addPageCmd = new AddAbstractPageCommand();
@@ -113,13 +113,13 @@ public class CubicRecorder implements IRecorder {
 
 		this.autoLayout.layout(page);
 		
-		this.userActions = ua;
+		this.userInteractionsTransition = ua;
 		return page;
 	}
 
 	public void setStateTitle(String title) {
-		if(this.userActions != null) {
-			this.userActions.getEnd().setName(title);
+		if(this.userInteractionsTransition != null) {
+			this.userInteractionsTransition.getEnd().setName(title);
 		} else {
 			this.cursor.setName(title);
 		}

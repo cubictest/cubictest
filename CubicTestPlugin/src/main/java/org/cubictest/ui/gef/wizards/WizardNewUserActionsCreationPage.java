@@ -9,7 +9,7 @@ package org.cubictest.ui.gef.wizards;
 
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Test;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 
@@ -23,7 +23,7 @@ public class WizardNewUserActionsCreationPage extends WizardPage {
 
 	private UserActionComponent component;
 
-	protected WizardNewUserActionsCreationPage(UserActions actions, Test test) {
+	protected WizardNewUserActionsCreationPage(UserInteractionsTransition actions, Test test) {
 		super("userActionsInputPage");
 		component = new UserActionComponent(actions, test);
 	}

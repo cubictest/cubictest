@@ -7,8 +7,8 @@
 package org.cubictest.ui.sections;
 
 import org.cubictest.model.Test;
-import org.cubictest.model.UserActions;
-import org.cubictest.ui.gef.controller.UserActionsEditPart;
+import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.ui.gef.controller.UserInteractionsTransitionEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.wizards.UserActionComponent;
 import org.eclipse.jface.util.Assert;
@@ -22,7 +22,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 public class UserActionsSection extends AbstractPropertySection {
 
-	private UserActions actions;
+	private UserInteractionsTransition actions;
 	private UserActionComponent component;
 	private Composite parent = null;
 	private boolean created = false;
@@ -38,8 +38,8 @@ public class UserActionsSection extends AbstractPropertySection {
 		super.setInput(part, selection);
 		Assert.isTrue(selection instanceof IStructuredSelection);
 		Object input = ((IStructuredSelection) selection).getFirstElement();
-		Assert.isTrue(input instanceof UserActionsEditPart);
-		actions = (UserActions) ((UserActionsEditPart) input).getModel();
+		Assert.isTrue(input instanceof UserInteractionsTransitionEditPart);
+		actions = (UserInteractionsTransition) ((UserInteractionsTransitionEditPart) input).getModel();
 		Assert.isTrue(part instanceof GraphicalTestEditor);
 		test = ((GraphicalTestEditor)part).getTest();
 

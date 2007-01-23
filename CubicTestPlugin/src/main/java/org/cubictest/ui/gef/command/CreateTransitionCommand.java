@@ -21,9 +21,9 @@ import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.wizards.ExposeExtensionPointWizard;
-import org.cubictest.ui.gef.wizards.NewCubicTestUserActionsInputWizard;
+import org.cubictest.ui.gef.wizards.NewUserInteractionsWizard;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -106,9 +106,9 @@ public class CreateTransitionCommand extends Command {
 						exposeExtensionPointWizard.getSelectedExtensionPoint());
 			}else if(sourceNode instanceof Page && (targetNode instanceof Page || 
 					targetNode instanceof SubTest || targetNode instanceof CustomTestStep)){
-				transition = new UserActions(sourceNode,targetNode);
-				NewCubicTestUserActionsInputWizard userActionWizard = new NewCubicTestUserActionsInputWizard(
-						(UserActions) transition, test);
+				transition = new UserInteractionsTransition(sourceNode,targetNode);
+				NewUserInteractionsWizard userActionWizard = new NewUserInteractionsWizard(
+						(UserInteractionsTransition) transition, test);
 				WizardDialog dlg = new WizardDialog(new Shell(), userActionWizard);
 
 				if (dlg.open() == WizardDialog.CANCEL) {

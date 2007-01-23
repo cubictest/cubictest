@@ -8,24 +8,24 @@
 package org.cubictest.ui.gef.wizards;
 
 import org.cubictest.model.Test;
-import org.cubictest.model.UserActions;
+import org.cubictest.model.UserInteractionsTransition;
 import org.eclipse.jface.wizard.Wizard;
 
 
 /**
  * @author SK Skytteren
- * Wizard for creating a new <code>FormTransition</code>.
+ * Wizard for creating a new <code>UserInteractionsTransition</code>.
  */
-public class NewCubicTestUserActionsInputWizard extends Wizard {
+public class NewUserInteractionsWizard extends Wizard {
 
 	private WizardNewUserActionsCreationPage userActionsPage;
-	private UserActions transition;
+	private UserInteractionsTransition transition;
 	private Test test;
 
 	/**
 	 * @param transition
 	 */
-	public NewCubicTestUserActionsInputWizard(UserActions transition, Test test) {
+	public NewUserInteractionsWizard(UserInteractionsTransition transition, Test test) {
 		this.transition = transition;
 		this.test = test;
 		

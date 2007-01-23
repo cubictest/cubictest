@@ -20,7 +20,7 @@ public interface IRecorder {
 	public abstract void addPageElementToCurrentPage(PageElement element);
 
 	/**
-	 * Add a check for a page element. If a new UserActions transition has been
+	 * Add a check for a page element. If a new UserInteractionsTransition transition has been
 	 * created, we move the cursor to the next Page before adding
 	 * @param element
 	 */
@@ -28,7 +28,7 @@ public interface IRecorder {
 
 	/**
 	 * Add a PageElementAction from the current page. Consecutive calls to this 
-	 * function adds more PageElementActions to the same UserActions Transition 
+	 * function adds more PageElementActions to the same UserInteractionsTransition Transition 
 	 * @param action
 	 */
 	public abstract void addUserInput(PageElementAction action);

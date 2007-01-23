@@ -156,7 +156,7 @@
                class="org.cubictest.ui.sections.UserActionsSection"
                id="org.cubictest.userActions"
                tab="org.cubictest.tab.userActions">
-            <input type="org.cubictest.model.UserActions"/>
+            <input type="org.cubictest.model.UserInteractionsTransition"/>
          </propertySection>
          <propertySection
                class="org.cubictest.ui.sections.ParameterisationSection"

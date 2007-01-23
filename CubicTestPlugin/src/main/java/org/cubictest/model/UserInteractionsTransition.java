@@ -13,22 +13,22 @@ import java.util.List;
 /**
  * Class representing a collection of PageElementActions that the user preforms to go from one application state to the next.
  * 
- * A typical UserActions object contains PageElementActions that fills out a form or presses a link.
+ * A typical UserInteractionsTransition object contains PageElementActions that fills out a form or presses a link.
  *  
  * @author chr_schwarz
  * @author SK Skytteren  
  */
-public class UserActions extends Transition {
+public class UserInteractionsTransition extends Transition {
 
 	private List<PageElementAction> inputs = new ArrayList<PageElementAction>();
 	private AbstractPage page;
 	
 	/**
-	 * Construct a new UserActions.
+	 * Construct a new UserInteractionsTransition.
 	 * @param start the start node
 	 * @param end the end node
 	 */
-	public UserActions(TransitionNode start, TransitionNode end) {
+	public UserInteractionsTransition(TransitionNode start, TransitionNode end) {
 		super(start, end);		
 	}
 
