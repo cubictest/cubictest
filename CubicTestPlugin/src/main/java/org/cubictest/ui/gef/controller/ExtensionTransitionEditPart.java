@@ -13,6 +13,7 @@ import org.cubictest.model.ExtensionTransition;
 import org.cubictest.ui.gef.view.CubicTestLabel;
 import org.cubictest.ui.gef.view.MidpointOffsetLocator;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolylineConnection;
 
 public class ExtensionTransitionEditPart extends TransitionEditPart {
@@ -27,6 +28,7 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 	@Override
 	public IFigure getFigure() {
 		PolylineConnection conn = (PolylineConnection) super.getFigure();
+		conn.setToolTip(new Label("Connection that links page from extension point to target page, merging the two pages/states."));
 		
 		label = new CubicTestLabel(getModel().getExtensionPoint().getName());
 		MidpointOffsetLocator locator = new MidpointOffsetLocator(conn);

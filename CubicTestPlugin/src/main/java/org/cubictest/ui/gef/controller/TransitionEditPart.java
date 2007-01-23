@@ -14,6 +14,7 @@ import org.cubictest.model.Transition;
 import org.cubictest.ui.gef.policies.TransitionConnectionEditPolicy;
 import org.eclipse.draw2d.BendpointConnectionRouter;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.gef.EditPart;
@@ -53,6 +54,7 @@ public abstract class TransitionEditPart extends AbstractConnectionEditPart impl
 		PolylineConnection conn = (PolylineConnection) super.createFigure();
 		conn.setConnectionRouter(new BendpointConnectionRouter());
 		conn.setTargetDecoration(new PolygonDecoration());
+		conn.setToolTip(new Label("Connection that links two nodes together"));
 		
 		return conn;
 	}

@@ -202,7 +202,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 						SimpleContext.class), null, null);
 		contexts.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add Row",
-				"Creates a new Row",
+				"Creates a new table Row",
 				Row.class, new DataCreationFactory(
 						Row.class), null, null);
 		contexts.add(tool);

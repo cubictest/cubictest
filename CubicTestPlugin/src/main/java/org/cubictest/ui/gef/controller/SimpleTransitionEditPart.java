@@ -31,7 +31,7 @@ public class SimpleTransitionEditPart extends TransitionEditPart {
 	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
 	 */
 	public void propertyChange(PropertyChangeEvent arg0) {
-		// TODO Auto-generated method stub
+		refreshVisuals();
 	}
 	
 

@@ -78,6 +78,9 @@ public class UserActionsEditPart extends TransitionEditPart{
 			figure.setBackgroundColor(ColorConstants.menuBackground);
 			figure.setOpaque(true);
 			//figure.setLabelText(((UserActions)getModel()).getText());
+			figure.setToolTip(new Label("User interaction on the page/state"));
+			conn.setToolTip(new Label("User interaction on the page/state"));
+			
 			List<PageElementAction> inputs = ((UserActions)getModel()).getInputs();
 			Label inputLabel;
 			

@@ -11,7 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 
+ * Class representing a collection of PageElementActions that the user preforms to go from one application state to the next.
+ * 
+ * A typical UserActions object contains PageElementActions that fills out a form or presses a link.
+ *  
+ * @author chr_schwarz
+ * @author SK Skytteren  
  */
 public class UserActions extends Transition {
 
@@ -19,27 +24,44 @@ public class UserActions extends Transition {
 	private AbstractPage page;
 	
 	/**
-	 * @param start
-	 * @param end
+	 * Construct a new UserActions.
+	 * @param start the start node
+	 * @param end the end node
 	 */
 	public UserActions(TransitionNode start, TransitionNode end) {
 		super(start, end);		
 	}
 
+	/**
+	 * Get the page the actions are applied to.
+	 * @return the page the actions are applied to.
+	 */
 	public AbstractPage getPage() {
 		return page;
 	}
 	
+	/**
+	 * Set the page the actions are applied to.
+	 * @param page the page the actions are applied to.
+	 */
 	public void setPage(AbstractPage page) {
 		AbstractPage oldPage = this.page;
 		this.page = page;
 		firePropertyChange(PropertyAwareObject.CHILD, oldPage, page);
 	}
 	
+	/**
+	 * Get the collection of actions that constitutes this user interactions transition.
+	 * @return the collection of actions that constitutes this user interactions transition.
+	 */
 	public List<PageElementAction> getInputs() {
 		return inputs;
 	}
 	
+	/**
+	 * Set the collection of actions that constitutes this user interactions transition.
+	 * @param inputs the collection of actions that constitutes this user interactions transition.
+	 */
 	public void setInputs(List<PageElementAction> inputs) {
 		this.inputs = inputs;
 		for(int i = 0 ; i < getListeners().getPropertyChangeListeners().length; i++ )
@@ -48,6 +70,10 @@ public class UserActions extends Transition {
 							getListeners().getPropertyChangeListeners()[i]);
 	}
 	
+	/**
+	 * Add action to collection of actions.
+	 * @param input the action to add.
+	 */
 	public void addInput(PageElementAction input){
 		inputs.add(input);
 		for(int i = 0 ; i < getListeners().getPropertyChangeListeners().length; i++ )
@@ -55,26 +81,20 @@ public class UserActions extends Transition {
 					getListeners().getPropertyChangeListeners()[i]);
 		firePropertyChange(CHILD, null, input);
 	}
-
+	/**
+	 * Remove action from collection of actions.
+	 * @param input the action to remove.
+	 */
 	public void removeInput(PageElementAction input){
 		inputs.remove(input);
 		firePropertyChange(CHILD, null, input);
 	}
 
-	public void addPropertyChangeListener(PropertyChangeListener l) {
-		super.addPropertyChangeListener(l);
-		if (inputs == null) return;
-		for (int i = 0; i < inputs.size() ; i++)
-			((PageElementAction)inputs.get(i)).addPropertyChangeListener(l);
-	}
 	
-	public void removePropertyChangeListener(PropertyChangeListener l) {
-		super.removePropertyChangeListener(l);
-		if (inputs == null) return;
-		for (int i = 0; i < inputs.size() ; i++)
-			((PageElementAction)inputs.get(i)).removePropertyChangeListener(l);
-	}
-	
+	/**
+	 * Utility method for checking whether there are any actions.
+	 * @return
+	 */
 	public boolean hasNoActions() {
 		for(PageElementAction action : getInputs()) {
 			if(action.getAction() != ActionType.NO_ACTION) {
@@ -83,4 +103,27 @@ public class UserActions extends Transition {
 		}
 		return true;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.cubictest.model.PropertyAwareObject#addPropertyChangeListener(java.beans.PropertyChangeListener)
+	 */
+	public void addPropertyChangeListener(PropertyChangeListener l) {
+		super.addPropertyChangeListener(l);
+		if (inputs == null) return;
+		for (int i = 0; i < inputs.size() ; i++)
+			((PageElementAction)inputs.get(i)).addPropertyChangeListener(l);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.cubictest.model.PropertyAwareObject#removePropertyChangeListener(java.beans.PropertyChangeListener)
+	 */
+	public void removePropertyChangeListener(PropertyChangeListener l) {
+		super.removePropertyChangeListener(l);
+		if (inputs == null) return;
+		for (int i = 0; i < inputs.size() ; i++)
+			((PageElementAction)inputs.get(i)).removePropertyChangeListener(l);
+	}
+
 }

@@ -12,6 +12,7 @@ import java.beans.PropertyChangeEvent;
 import org.cubictest.model.CommonTransition;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 
 
 /**
@@ -33,6 +34,7 @@ public class CommonTransitionEditPart extends TransitionEditPart {
 	protected IFigure createFigure() {
 		IFigure fig = super.createFigure();
 		fig.setForegroundColor(ColorConstants.gray);
+		fig.setToolTip(new Label("Connection that adds all elements from the Common to the target page"));
 		return fig;
 	}
 

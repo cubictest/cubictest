@@ -1,37 +1,61 @@
 /*
- * Created on Apr 20, 2005
- * 
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
 */
 package org.cubictest.model;
 
 /**
- * @author skyttere
- *
+ * Class representing a single <i>action</i> from a user.
+ * The action is done on a single page element.
+ * This object is collected in a <code>UserActions</code> object to represent a collection of actions for page/state transition.
+ * 
+ * @author SK Skytteren
+ * @author chr_schwarz
  */
 public class PageElementAction extends PropertyAwareObject 
 			implements SationObserver{
 	
-	private IActionElement element; // the element upon which "the user" performs an action
-	protected String input = ""; // the simulated "user" input
-	private  ActionType action = ActionType.NO_ACTION; //the action "the user" perform
+	/** The element upon which "the user" performs an action */
+	private IActionElement element;
+	
+	/** The simulated "user" input */
+	protected String input = "";
+	
+	/** The action "the user" perform */
+	private  ActionType action = ActionType.NO_ACTION;
+	
 	private SationType sationType = SationType.NONE;
 	private String key = "";
 	
 	public PageElementAction(){}
 	
+	
+	/**
+	 * Construct a new PageElementAction representing a single user interaction on a single page element.
+	 * @param element The action element (e.g. page element) that the action is applied to.
+	 * @param action The action the user performs
+	 * @param input The user textual input (only applicable to certain actions, like "enter text"-action).
+	 */
 	public PageElementAction( IActionElement element, ActionType action, 
 			String input){
 		this.element = element;
 		this.action = action;
 		this.input = input;
 	}
+	
+	
+	/** 
+	 * Get the action element (e.g. page element) that the action is applied to.
+	 * @return the action element (e.g. page element) that the action is applied to.
+	 */
 	public IActionElement getElement() {
 		return element;
 	}
+	
+	
 	/** 
-	 * @param element
+	 * Set the action element (e.g. page element) that the action is applied to.
+	 * @param element The action element (e.g. page element) that the action is applied to.
 	 */
 	public void setElement(IActionElement element) {
 		IActionElement oldPE = this.element;
@@ -43,14 +67,20 @@ public class PageElementAction extends PropertyAwareObject
 		}
 	}
 	
+	/**
+	 * Get the user textual input (only applicable to certain actions, like the "enter text"-action).
+	 * @return the user textual input (only applicable to certain actions, like the "enter text"-action).
+	 */
 	public String getInput(){
 		if((action !=null && element != null) && 
 				(action!= null || !element.equals(null)))
 			return input;
 		return null;
 	}
+	
 	/**
-	 * @param value
+	 * Set the user textual input (only applicable to certain actions, like the "enter text"-action).
+	 * @param input the user textual input (only applicable to certain actions, like the "enter text"-action).
 	 */
 	public void setInput(String input){
 		String oldInput = this.input;
@@ -58,11 +88,18 @@ public class PageElementAction extends PropertyAwareObject
 		firePropertyChange(PropertyAwareObject.NAME, oldInput, input);
 		firePropertyChange(PropertyAwareObject.LAYOUT, oldInput, input);
 	}
+	
+	/**
+	 * Get the ActionType the user performs, e.g. Click. 
+	 * @return the ActionType the user performs, e.g. Click.
+	 */
 	public ActionType getAction(){
 		return action;
 	}
+
 	/**
-	 * @param action
+	 * Set the ActionType the user performs, e.g. Click. 
+	 * @param action the ActionType the user performs, e.g. Click.
 	 */
 	public void setAction(ActionType action){
 		ActionType oldAction = this.action;
@@ -85,9 +122,8 @@ public class PageElementAction extends PropertyAwareObject
 	public SationType getSationType() {
 		return sationType;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+	
+
 	@Override
 	public boolean equals(Object arg) {
 		if (arg.toString().endsWith("-ACTION"))
