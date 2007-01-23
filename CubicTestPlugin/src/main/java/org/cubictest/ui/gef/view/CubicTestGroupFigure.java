@@ -32,7 +32,11 @@ public class CubicTestGroupFigure extends Figure {
 	public CubicTestGroupFigure(String title, boolean fullHeaderWidth){
 		header = new CubicTestHeaderLabel(title, this, fullHeaderWidth);
 		header.setBorder(new HeaderBorder());
-		header.setTextPlacement(PositionConstants.NORTH);
+		if (fullHeaderWidth) {
+			header.setTextPlacement(PositionConstants.NORTH);
+		} else {
+			header.setTextPlacement(PositionConstants.EAST);
+		}
 		
 		setLayoutManager(ViewUtil.getFlowLayout());
 		setBorder(new LineBorder(ColorConstants.black));
