@@ -7,7 +7,9 @@
  */
 package org.cubictest.ui.gef.view;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 
 /**
@@ -15,21 +17,26 @@ import org.eclipse.draw2d.Label;
  * x characters text (configurable).
  *
  * @author SK Skytteren
+ * @author chr_schwarz
  */
 public class CubicTestLabel extends Label {
 	
 	private int length = 30;
+	private String fullText;
+	private String tooltipText;
 
 	public CubicTestLabel(String text){
 		super();
 		setText(text);
 		setOpaque(true);
+		fullText = text;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.draw2d.Label#setText(java.lang.String)
 	 */
 	public void setText(String s) {
+		fullText = s;
 		if (s != null && s.length() > length)
 			s = s.substring(0,length).concat("...");
 		super.setText(s);
@@ -43,6 +50,25 @@ public class CubicTestLabel extends Label {
 
 	public void setLabelLength(int length) {
 		this.length = length;
+	}
+
+	public String getFullText() {
+		return fullText;
+	}
+	
+	@Override
+	public IFigure getToolTip() {
+		if (StringUtils.isNotBlank(tooltipText)) {
+			return new Label(tooltipText);
+		}
+		else if (getFullText().length() > getText().length()) {
+			return new Label(fullText);
+		}
+		return null;
+	}
+	
+	public void setTooltipText(String s) {
+		this.tooltipText = s;
 	}
 	
 }

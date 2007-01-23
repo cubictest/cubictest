@@ -7,7 +7,24 @@
  */
 package org.cubictest.ui.gef.factory;
 
-import static org.cubictest.ui.gef.view.CubicTestImageRegistry.*;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.BUTTON_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.COMMON_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONNECTION_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CUSTOM_STEP_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.EXTENSION_POINT_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.IMAGE_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.LINK_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.OPTION_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.PAGE_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.PASSWORD_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.SELECT_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TEXT_AREA_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TEXT_FIELD_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TEXT_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TITLE_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.USER_INTERACTION_IMAGE;
 
 import java.util.ArrayList;
 
@@ -24,9 +41,8 @@ import org.cubictest.model.Title;
 import org.cubictest.model.Transition;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserActions;
-import org.cubictest.model.context.PageSection;
 import org.cubictest.model.context.Row;
-import org.cubictest.model.context.Table;
+import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Option;
@@ -180,10 +196,10 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		connections.add(tool);
 
 		// -- Creating Contexts --
-		tool = new CombinedTemplateCreationEntry("Add Container",
-				"Creates a new Container used for identyfying a part of the page or a single element.",
-				PageSection.class, new DataCreationFactory(
-						PageSection.class), null, null);
+		tool = new CombinedTemplateCreationEntry("Add Context",
+				"Creates a new Context used for identyfying a part of the page or a single element.",
+				SimpleContext.class, new DataCreationFactory(
+						SimpleContext.class), null, null);
 		contexts.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add Row",
 				"Creates a new Row",

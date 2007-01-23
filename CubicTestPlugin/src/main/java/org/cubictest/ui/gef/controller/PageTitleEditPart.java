@@ -44,7 +44,7 @@ public class PageTitleEditPart extends PageElementEditPart{
 		label.setLayoutManager(ViewUtil.getFlowLayout());
 		label.setLabelAlignment(PositionConstants.LEFT);
 		label.setIcon(getImage(((Title)getModel()).isNot()));
-		
+		label.setTooltipText("Check page title equals: " + getElementDescription());
 		return label;
 	}
 

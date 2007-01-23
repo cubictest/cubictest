@@ -21,16 +21,17 @@ public class LegacyUpgrade {
 	 * @return
 	 */
 	public static String upgradeIfNecessary(String xml, IProject project) {
-		int currentVersion = getCurrentVersion(xml);
-		xml = upgradeModel1to2(xml, currentVersion++);
-		xml = upgradeModel2to3(xml, project, currentVersion++);
+		ModelVersion version = getModelVersion(xml);
+		xml = upgradeModel1to2(xml, version);
+		xml = upgradeModel2to3(xml, project, version);
+		xml = upgradeModel3to4(xml, version);
 		
 		return xml;
 	}
 
 
-	private static String upgradeModel1to2(String xml, int currentVersion) {
-		if (currentVersion != 1) {
+	private static String upgradeModel1to2(String xml, ModelVersion version) {
+		if (version.getVersion() != 1) {
 			return xml;
 		}
 		xml = StringUtils.replace(xml, "<aspect", "<common");
@@ -44,21 +45,35 @@ public class LegacyUpgrade {
 		xml = StringUtils.replace(xml, "/simpleContext", "/pageSection");
 		
 		xml = StringUtils.replace(xml, "class=\"startPoint\"", "class=\"urlStartPoint\"");
+		version.increment();
 		return xml;
 	}
 
 	
-	private static String upgradeModel2to3(String xml, IProject project, int currentVersion) {
-		if (currentVersion != 2) {
+	private static String upgradeModel2to3(String xml, IProject project, ModelVersion version) {
+		if (version.getVersion() != 2) {
 			return xml;
 		}
 		if (project != null && xml.indexOf("<filePath>/") == -1) {
 			xml = StringUtils.replace(xml, "<filePath>", "<filePath>/" + project.getName() + "/");
 		}
+		version.increment();
+		return xml;
+	}
+
+	private static String upgradeModel3to4(String xml, ModelVersion version) {
+		if (version.getVersion() != 3) {
+			return xml;
+		}
+		xml = StringUtils.replace(xml, "<pageSection", "<simpleContext");
+		xml = StringUtils.replace(xml, "</pageSection", "</simpleContext");
+		xml = StringUtils.replace(xml, "=\"pageSection\"", "=\"simpleContext\"");
+		xml = StringUtils.replace(xml, "/pageSection", "/simpleContext");
+		version.increment();
 		return xml;
 	}
 	
-	private static Integer getCurrentVersion(String xml) {
+	private static ModelVersion getModelVersion(String xml) {
 		String start = "<modelVersion>";
 		String end = "</modelVersion>";
 		int pos1 = xml.indexOf(start) + start.length();
@@ -66,6 +81,25 @@ public class LegacyUpgrade {
 		BigDecimal version = new BigDecimal(xml.substring(pos1, pos2).trim());
 
 		// only supporting integer versions:
-		return version.intValue();
+		return new ModelVersion(version.intValue());
+	}
+	
+	
+	
+	static class ModelVersion {
+		private int version;
+		
+		public ModelVersion(int initialVersion) {
+			version = initialVersion;
+		}
+		
+		public void increment() {
+			version++;
+		}
+		
+		public int getVersion() {
+			return version;
+		}
+		
 	}
 }

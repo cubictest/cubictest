@@ -12,6 +12,7 @@ import static org.cubictest.model.SationObserver.SationType.PARAMETERISATION;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SationObserver;
@@ -383,6 +384,11 @@ public abstract class PageElementEditPart extends PropertyChangePart
 	 */
 	public Object getEditableValue() {
 		return null;
-	}	
+	}
+	
+	public String getElementDescription() {
+		PageElement e = ((PageElement) getModel());
+		return StringUtils.isBlank(e.getDescription()) ? e.getText() : e.getDescription();
+	}
 
 }

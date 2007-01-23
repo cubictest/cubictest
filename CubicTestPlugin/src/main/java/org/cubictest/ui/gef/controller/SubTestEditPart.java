@@ -89,7 +89,9 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 		figure.setBackgroundColor(ColorConstants.darkBlue);
 		figure.setForegroundColor(ColorConstants.white);
 		figure.setLocation(((TransitionNode)getModel()).getPosition());
-		figure.setText(((SubTest)getModel()).getName());
+		String name = ((SubTest)getModel()).getName();
+		figure.setText(name);
+		figure.setToolTipText("Sub test: " + name + "\nDouble click to open file");
 		return figure;
 	}
 

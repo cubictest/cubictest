@@ -36,6 +36,7 @@ public class FormPasswordEditPart extends FormElementEditPart {
 	protected IFigure createFigure() {
 		TestStepLabel label = (TestStepLabel) super.createFigure();
 		label.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.PASSWORD_IMAGE));
+		label.setTooltipText("Check password present: " + getElementDescription());
 		return label;
 	}
 }

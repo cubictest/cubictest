@@ -22,6 +22,20 @@ public class AssertionList<T> extends ArrayList<T> {
 	public void resetCounter() {
 		knownMinPosition = 0;
 	}
+
+	/**
+	 * Checks that object is in the list with position x. 
+	 * @param obj the object to check.
+	 * @param index the index the object should have.
+	 * @return
+	 */
+	public void assertContains(Object obj, int index) {
+		if (size() < index || get(index) == null || !get(index).equals(obj)) {
+			throw new AssertionFailedError("\"" + obj + "\" is not in list with position " + index + "." + getDebugInfo()); 
+		}
+	}
+
+
 	/**
 	 * Checks that object is after the other objects asserted before this object. 
 	 * @param obj the object to check

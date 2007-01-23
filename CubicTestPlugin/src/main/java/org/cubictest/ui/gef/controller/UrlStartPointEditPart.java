@@ -46,6 +46,7 @@ public class UrlStartPointEditPart extends AbstractNodeEditPart {
 		Point p = ((TransitionNode)getModel()).getPosition();
 		startPointFigure.setLocation(p);
 		startPointFigure.setText(getName());
+		startPointFigure.setToolTipText("Begin at URL: " + getName());
 		return startPointFigure;
 	}
 

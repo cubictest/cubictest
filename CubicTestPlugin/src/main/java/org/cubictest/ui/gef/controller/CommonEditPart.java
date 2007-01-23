@@ -7,6 +7,7 @@
  */
 package org.cubictest.ui.gef.controller;
 
+import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
 import org.eclipse.draw2d.ColorConstants;
@@ -39,6 +40,8 @@ public class CommonEditPart extends AbstractPageEditPart {
 	protected IFigure createFigure() {
 		CubicTestGroupFigure figure = (CubicTestGroupFigure) super.createFigure();
 		figure.getHeader().setBackgroundColor(ColorConstants.lightGray);
+		String name = ((AbstractPage)getModel()).getName();
+		figure.setTooltipText("Common: " + name + "\nContains elements common to several pages/states");
 		return figure;
 	}
 

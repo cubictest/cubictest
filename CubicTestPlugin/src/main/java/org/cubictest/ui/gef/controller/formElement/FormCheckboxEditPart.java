@@ -39,6 +39,8 @@ public class FormCheckboxEditPart extends FormElementEditPart {
 		String key = model.isChecked() ? CubicTestImageRegistry.CHECKBOX_CHECKED_IMAGE : 
 			CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE;
 		figure.setIcon(CubicTestImageRegistry.get(key));
+		figure.setTooltipText("Check checkbox present: " + getElementDescription()
+				+ (model.isChecked() ? "(checked)" : "(unchecked)"));
 		return figure;
 	}
 	

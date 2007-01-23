@@ -34,6 +34,7 @@ public class FormTextAreaEditPart extends FormElementEditPart {
 	protected IFigure createFigure() {
 		TestStepLabel label = (TestStepLabel) super.createFigure();
 		label.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_AREA_IMAGE));
+		label.setTooltipText("Check text area present: " + getElementDescription());
 		return label;
 	}
 }

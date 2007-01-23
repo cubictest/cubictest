@@ -7,11 +7,13 @@
  */
 package org.cubictest.ui.gef.view;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
-import org.eclipse.draw2d.geometry.Dimension;
 
 /**
  * @author SK Skytteren
@@ -20,12 +22,12 @@ import org.eclipse.draw2d.geometry.Dimension;
 public class AbstractTransitionNodeFigure extends Figure {
 	
 	private CubicTestLabel label;
+	private String toolTipText;
 
 	public AbstractTransitionNodeFigure(){
 		setLayoutManager(ViewUtil.getFlowLayout());
 
 		setBorder(new LineBorder(ColorConstants.black));
-		setMinimumSize(new Dimension(40,25));
 		setBackgroundColor(ColorConstants.button);
 
 		label = new CubicTestLabel("");
@@ -39,5 +41,15 @@ public class AbstractTransitionNodeFigure extends Figure {
 
 	public void setLabelLength(int length) {
 		label.setLabelLength(length);
+	}
+	
+	@Override
+	public IFigure getToolTip() {
+		return StringUtils.isBlank(toolTipText) ? null : new Label(toolTipText);
+	}
+	
+	public void setToolTipText(String toolTipText) {
+		this.toolTipText = toolTipText;
+		label.setTooltipText(toolTipText);
 	}
 }

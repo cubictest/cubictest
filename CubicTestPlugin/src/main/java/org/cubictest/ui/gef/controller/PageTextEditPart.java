@@ -41,6 +41,7 @@ public class PageTextEditPart extends PageElementEditPart{
 		
 		label.setLayoutManager(ViewUtil.getFlowLayout());
 		label.setLabelAlignment(PositionConstants.LEFT);
+		label.setTooltipText("Check text present: " + getElementDescription());
 		return label;
 	}
 	

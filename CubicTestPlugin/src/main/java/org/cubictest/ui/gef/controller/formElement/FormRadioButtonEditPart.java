@@ -32,12 +32,13 @@ public class FormRadioButtonEditPart extends FormElementEditPart{
 	protected void refreshVisuals() {
 		super.refreshVisuals();
 		CubicTestLabel figure = (CubicTestLabel) getFigure();
-		if (getModel() instanceof RadioButton) {
-			RadioButton button = (RadioButton)getModel();
-			String key = button.isChecked() ? CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE : 
-				CubicTestImageRegistry.RADIO_BUTTON_UNCHECKED_IMAGE;
-			figure.setIcon(CubicTestImageRegistry.get(key));
-		}
+		RadioButton button = (RadioButton)getModel();
+		String key = button.isChecked() ? CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE : 
+			CubicTestImageRegistry.RADIO_BUTTON_UNCHECKED_IMAGE;
+		figure.setIcon(CubicTestImageRegistry.get(key));
+		figure.setTooltipText("Check radiobutton present: " + getElementDescription()
+				+ (button.isChecked() ? "(checked)" : "(unchecked)"));
+		
 		
 	}
 }

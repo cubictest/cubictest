@@ -7,10 +7,12 @@
  */
 package org.cubictest.ui.gef.view;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -25,7 +27,7 @@ import org.eclipse.swt.graphics.Color;
 public class CubicTestGroupFigure extends Figure {
 	public static Color pageColor = new Color(null, 255, 255, 255);
 	protected CubicTestHeaderLabel header;
-	
+	private String tooltipText;
 
 	public CubicTestGroupFigure(String title, boolean fullHeaderWidth){
 		header = new CubicTestHeaderLabel(title, this, fullHeaderWidth);
@@ -68,9 +70,9 @@ public class CubicTestGroupFigure extends Figure {
 			parent.setSize(new Dimension(1, 9999));
 		}
 		
-		if(figure.equals(header)){
+		if (figure.equals(header)){
 			super.add(figure,constraint,index);
-		}else
+		} else
 			super.add(figure, constraint, index + 1 );
 	}
 
@@ -83,5 +85,15 @@ public class CubicTestGroupFigure extends Figure {
 	
 	public String getText(){
 		return header.getText();
+	}
+
+	public void setTooltipText(String tooltipText) {
+		this.tooltipText = tooltipText;
+		header.setTooltipText(tooltipText);
+	}
+	
+	@Override
+	public IFigure getToolTip() {
+		return StringUtils.isBlank(tooltipText) ? null : new Label(tooltipText);
 	}
 }

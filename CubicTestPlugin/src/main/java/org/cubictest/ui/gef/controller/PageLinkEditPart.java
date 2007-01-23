@@ -44,6 +44,7 @@ public class PageLinkEditPart extends PageElementEditPart implements IPropertySo
 		label.setLayoutManager(ViewUtil.getFlowLayout());
 		label.setLabelAlignment(PositionConstants.LEFT);
 		label.setOpaque(true);
+		label.setTooltipText("Check link present: " + getElementDescription());
 		return label;
 	}	
 	

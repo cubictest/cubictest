@@ -8,9 +8,9 @@
 package org.cubictest.model.context;
 
 
-public class Table extends AbstractContext {
+public class SimpleContext extends AbstractContext {
 	
 	public String getType(){
-		return "Table";
+		return "SimpleContext";
 	}
 }

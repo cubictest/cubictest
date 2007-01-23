@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 import org.cubictest.model.Page;
 import org.cubictest.model.Text;
-import org.cubictest.model.context.PageSection;
+import org.cubictest.model.context.SimpleContext;
 import org.cubictest.ui.gef.controller.ContextEditPart;
 import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.PageTextEditPart;
@@ -34,7 +34,7 @@ public class ModelUtilTest extends TestCase {
 	public void testGetsPageWithContext() {
 		PageTextEditPart textPart = new PageTextEditPart(new Text());
 
-		ContextEditPart contextPart = new ContextEditPart(new PageSection());
+		ContextEditPart contextPart = new ContextEditPart(new SimpleContext());
 		textPart.setParent(contextPart);
 
 		PageEditPart pagePart = new PageEditPart(new Page());
@@ -49,10 +49,10 @@ public class ModelUtilTest extends TestCase {
 	public void testGetsPageWithTwoContexts() {
 		PageTextEditPart textPart = new PageTextEditPart(new Text());
 
-		ContextEditPart innerContextPart = new ContextEditPart(new PageSection());
+		ContextEditPart innerContextPart = new ContextEditPart(new SimpleContext());
 		textPart.setParent(innerContextPart);
 
-		ContextEditPart outerContextPart = new ContextEditPart(new PageSection());
+		ContextEditPart outerContextPart = new ContextEditPart(new SimpleContext());
 		innerContextPart.setParent(outerContextPart);
 
 		PageEditPart pagePart = new PageEditPart(new Page());

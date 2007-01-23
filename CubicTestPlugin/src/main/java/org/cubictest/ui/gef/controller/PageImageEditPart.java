@@ -32,6 +32,7 @@ public class PageImageEditPart extends PageElementEditPart {
 		
 		label.setLayoutManager(ViewUtil.getFlowLayout());
 		label.setLabelAlignment(PositionConstants.LEFT);
+		label.setTooltipText("Check image present: " + getElementDescription());
 		return label;
 	}
 	

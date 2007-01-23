@@ -21,6 +21,7 @@ import org.cubictest.model.Title;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserActions;
 import org.cubictest.model.context.AbstractContext;
+import org.cubictest.model.context.Row;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Option;
@@ -43,6 +44,7 @@ import org.cubictest.ui.gef.controller.PageTextEditPart;
 import org.cubictest.ui.gef.controller.PageTitleEditPart;
 import org.cubictest.ui.gef.controller.SimpleTransitionEditPart;
 import org.cubictest.ui.gef.controller.SubTestEditPart;
+import org.cubictest.ui.gef.controller.TableRowEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.controller.UrlStartPointEditPart;
 import org.cubictest.ui.gef.controller.UserActionsEditPart;
@@ -114,6 +116,8 @@ public class TestEditPartFactory implements EditPartFactory {
 			return new FormPasswordEditPart((Password)model);
 		if (model instanceof Option)
 			return new FormOptionEditPart((Option)model);
+		if (model instanceof Row)
+			return new TableRowEditPart((AbstractContext) model);
 		if (model instanceof AbstractContext)
 			return new ContextEditPart((AbstractContext) model);
 		if (model instanceof CustomTestStep)

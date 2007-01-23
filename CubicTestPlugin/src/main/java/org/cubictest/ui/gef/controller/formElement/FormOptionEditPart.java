@@ -26,6 +26,7 @@ public class FormOptionEditPart extends FormElementEditPart{
 	protected IFigure createFigure() {
 		TestStepLabel label = (TestStepLabel) super.createFigure();
 		label.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.OPTION_IMAGE));
+		label.setTooltipText("Check option present: " + getElementDescription());
 		return label;
 	}
 

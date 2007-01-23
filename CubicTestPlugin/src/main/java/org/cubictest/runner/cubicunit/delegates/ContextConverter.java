@@ -10,7 +10,7 @@ import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.context.IContext;
-import org.cubictest.model.context.PageSection;
+import org.cubictest.model.context.SimpleContext;
 import org.cubicunit.Container;
 import org.cubicunit.Document;
 import org.cubicunit.Element;
@@ -24,8 +24,8 @@ public class ContextConverter implements IContextConverter<Holder> {
 			Document doc = holder.getDocument();
 			holder.setContainer(doc);
 			container = doc;
-		}else if(context instanceof PageSection){
-			PageSection sc = (PageSection) context;
+		}else if(context instanceof SimpleContext){
+			SimpleContext sc = (SimpleContext) context;
 			try{
 				container = holder.getContainer();
 				if(sc.isNot()){

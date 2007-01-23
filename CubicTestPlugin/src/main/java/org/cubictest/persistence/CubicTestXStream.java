@@ -20,7 +20,6 @@ import org.cubictest.model.PageElementAction;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SationObserver;
 import org.cubictest.model.SimpleTransition;
-import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestPartStatus;
@@ -28,13 +27,13 @@ import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserActions;
 import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.OrderedContext;
-import org.cubictest.model.context.PageSection;
 import org.cubictest.model.context.Row;
-import org.cubictest.model.context.Table;
+import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
@@ -101,8 +100,7 @@ public class CubicTestXStream extends XStream {
 		//contexts:
 		this.alias("abstractContext", AbstractContext.class);
 		this.alias("orderedContext", OrderedContext.class);
-		this.alias("pageSection", PageSection.class);
-		this.alias("table", Table.class);
+		this.alias("simpleContext", SimpleContext.class);
 		this.alias("row", Row.class);
 		
 		//formElement:
