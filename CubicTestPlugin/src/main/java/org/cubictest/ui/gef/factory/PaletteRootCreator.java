@@ -134,14 +134,12 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		// -- Creates the Controls --
 		tool = new CombinedTemplateCreationEntry(
 				"Add Page/State",
-				"Create a new page/state. Weather it is a state or a "
-						+ "page depends on how you look at it. Very basically it is a \"placeholder\" "
-						+ " for a series of assertions.", Page.class,
+				"Create a new page/state, representing a stable state of the application between user interations.", Page.class,
 				new DataCreationFactory(Page.class), imageRegistry
 						.getDescriptor(PAGE_IMAGE), null);
 		controls.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add Common",
-				"Create a new Common", Common.class, new DataCreationFactory(
+				"Create a new Common used for holding elements common to several pages/states.", Common.class, new DataCreationFactory(
 						Common.class), imageRegistry
 						.getDescriptor(COMMON_IMAGE), null);
 		controls.add(tool);
@@ -166,20 +164,20 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				null);
 		controls.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add an Extension Point",
-				"Facilitate extension of this test", ExtensionPoint.class,
+				"Add an extension point that other tests can start from or include.", ExtensionPoint.class,
 				new DataCreationFactory(ExtensionPoint.class), imageRegistry
 						.getDescriptor(EXTENSION_POINT_IMAGE), null);
 		controls.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add a Custom Step",
-				"Create a new custom step",
+				"Create a new Custom Step that lets you write code to do operations not available in the GUI.",
 				CustomTestStep.class, new CustomTestStepCreationFactory(customTestStepLoader), 
 				imageRegistry.getDescriptor(CUSTOM_STEP_IMAGE), null);
 		controls.add(tool);
 			
 		// -- Creating Connections --
 		tool = new ConnectionCreationToolEntry("Add Connection",
-				"Creates a new connection. Typically used for transition from \"Common\"-pages to other pages, and for subtests.", 
+				"Creates a new Connection. Typically used for transition from \"Common\"-pages to other pages, and for subtests.", 
 				new DataCreationFactory(Transition.class), imageRegistry.getDescriptor(CONNECTION_IMAGE), null);
 		tool.setToolClass(ConnectionDragCreationTool.class);
 		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.TRUE);
@@ -188,7 +186,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		// -- Creating User interactions --
 		tool = new ConnectionCreationToolEntry(
 				"Add User Interaction",
-				"Creates a new user interaction to change the state of a page (e.g. press a link or fill out and submit a form).",
+				"Creates a new User Interaction to change the state of a page (e.g. press a link or fill out and submit a form).",
 				new DataCreationFactory(UserInteractionsTransition.class), imageRegistry.getDescriptor(USER_INTERACTION_IMAGE), null);
 		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED,
 				Boolean.TRUE);
@@ -228,7 +226,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		formElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add RadioButton",
-				"Create a new RadioButton for a RadioButtonGroup.",
+				"Create a new RadioButton.",
 				RadioButton.class, new DataCreationFactory(RadioButton.class),
 				imageRegistry.getDescriptor(RADIO_BUTTON_CHECKED_IMAGE), null);
 		formElements.add(tool);
