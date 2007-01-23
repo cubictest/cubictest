@@ -4,8 +4,7 @@
  */
 package org.cubictest.model.formElement;
 
-import static org.cubictest.model.ActionType.CHECK;
-import static org.cubictest.model.IdentifierType.ID;
+import static org.cubictest.model.ActionType.SELECT;
 import static org.cubictest.model.IdentifierType.LABEL;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class Option extends Checkable{
 	@Override
 	public List<ActionType> getActionTypes() {
 		List<ActionType> actions = new ArrayList<ActionType>();
-		actions.add(CHECK);
+		actions.add(SELECT);
 		return actions;
 	}
 

@@ -91,7 +91,7 @@ public class UserInteractionsComponent {
 		List<UserInteraction> toRemove = new ArrayList<UserInteraction>();
 		
 		//clean up elementActions:
-		List<UserInteraction> inputs = transition.getInputs();
+		List<UserInteraction> inputs = transition.getUserInteractions();
 		for (UserInteraction action : inputs) {
 			IActionElement element = action.getElement();
 			if (element != null) {
@@ -102,7 +102,7 @@ public class UserInteractionsComponent {
 			}
 		}
 		for (UserInteraction action : toRemove) {
-			transition.removeInput(action);
+			transition.removeUserInteraction(action);
 		}
 		
 		if(start instanceof Page) { // process commonTrasitions for pages
@@ -161,7 +161,7 @@ public class UserInteractionsComponent {
 				List<UserInteraction> allInputs = (List<UserInteraction>)viewer.getInput();
 				UserInteraction newInput = new UserInteraction();
 				
-				transition.addInput(newInput);
+				transition.addUserInteraction(newInput);
 				transition.setPage((AbstractPage)transition.getStart());
 				viewer.setInput(allInputs);
 			}
@@ -177,7 +177,7 @@ public class UserInteractionsComponent {
 		createTableViewer();
 		
 	
-		transition.setInputs(elementActions);
+		transition.setUserInteractions(elementActions);
 		transition.setPage((AbstractPage)transition.getStart());
 		viewer.setInput(elementActions);
 		
@@ -306,12 +306,12 @@ public class UserInteractionsComponent {
 						cellEditors[2] = new TextCellEditor(table);
 					}
 				}
-				if (((UserInteraction) element).getAction().acceptsInput()) {
+				if (((UserInteraction) element).getActionType().acceptsInput()) {
 					cellEditors[2] = new TextCellEditor(table);
 				}
 				else {
 					cellEditors[2] = new TextCellEditor(table, SWT.READ_ONLY);
-					((UserInteraction) element).setInput("");
+					((UserInteraction) element).setTextualInput("");
 					return false;
 				}
 			}else if(property.equals(ACTION)){
@@ -354,7 +354,7 @@ public class UserInteractionsComponent {
 							return i;
 					}
 				case 1: 
-					ActionType action = fInput.getAction();
+					ActionType action = fInput.getActionType();
 					int j = 0;
 					if(fInput.getElement() == null)
 						break;
@@ -370,13 +370,13 @@ public class UserInteractionsComponent {
 					}
 					break;
 				case 2:
-					if(ActionType.ENTER_PARAMETER_TEXT.equals(fInput.getAction())){
+					if(ActionType.ENTER_PARAMETER_TEXT.equals(fInput.getActionType())){
 						String key = fInput.getKey();
 						if(key == null || "".equals(key))
 							return 0;
 						return test.getParamList().getHeaders().indexOf(key);
 					}
-					return fInput.getInput();
+					return fInput.getTextualInput();
 			}
 			return result;
 		}
@@ -393,7 +393,7 @@ public class UserInteractionsComponent {
 						for (IActionElement iae : allElements){	
 							if (name.equals(CHOOSE) || name.equals("")) {
 								rowItem.setElement(null);
-								rowItem.setAction(ActionType.NO_ACTION);
+								rowItem.setActionType(ActionType.NO_ACTION);
 							}
 						}
 						break;
@@ -403,7 +403,7 @@ public class UserInteractionsComponent {
 						int i = 0;
 						for(ActionType action :rowItem.getElement().getActionTypes()){
 							if(i == (Integer) value){
-								rowItem.setAction(action);
+								rowItem.setActionType(action);
 								if(ActionType.ENTER_PARAMETER_TEXT.equals(action))
 									rowItem.setSationType(SationType.PARAMETERISATION);
 								else
@@ -418,13 +418,13 @@ public class UserInteractionsComponent {
 						}			
 						break;
 					case 2:
-						if(ActionType.ENTER_PARAMETER_TEXT.equals(rowItem.getAction())){
+						if(ActionType.ENTER_PARAMETER_TEXT.equals(rowItem.getActionType())){
 							rowItem.setKey(test.getParamList().getHeaders().get((Integer)value));
 							test.getParamList().getParameters().get((Integer) value).addObserver(rowItem);
 							test.updateObservers();
 						}
 						else
-							rowItem.setInput((String)value);			
+							rowItem.setTextualInput((String)value);			
 						break;
 				}
 				viewer.update(rowItem, null);
@@ -467,12 +467,12 @@ public class UserInteractionsComponent {
 					else
 						return elementNames[0];
 				case 1:
-					return fInput.getAction().getText();
+					return fInput.getActionType().getText();
 				case 2:
 					if (SationType.PARAMETERISATION.equals(fInput.getSationType()))
 						return fInput.getKey();
-					if (fInput.getAction().acceptsInput()) {
-						return fInput.getInput();
+					if (fInput.getActionType().acceptsInput()) {
+						return fInput.getTextualInput();
 					}
 				default:
 					break;

@@ -85,7 +85,7 @@ public class CubicRecorder implements IRecorder {
 		if(this.userInteractionsTransition == null) {
 			addUserActions(this.cursor);
 		}
-		this.userInteractionsTransition.addInput(action);
+		this.userInteractionsTransition.addUserInteraction(action);
 	}
 	
 	/**

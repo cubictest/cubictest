@@ -25,10 +25,10 @@ public class TransitionConverter implements ITransitionConverter<Holder> {
 
 		if(userInteractions instanceof UserInteractionsTransition){
 			UserInteractionsTransition actions = (UserInteractionsTransition) userInteractions;
-			for(UserInteraction action : actions.getInputs()){
+			for(UserInteraction action : actions.getUserInteractions()){
 				try{
 					Element element = holder.getElement((PageElement) action.getElement());
-					switch(action.getAction()){
+					switch(action.getActionType()){
 					case CLICK:
 						element.click();
 						break;
@@ -37,7 +37,7 @@ public class TransitionConverter implements ITransitionConverter<Holder> {
 						break;
 					case ENTER_TEXT:
 					case ENTER_PARAMETER_TEXT:
-						((TextInput)element).enter(action.getInput());
+						((TextInput)element).enter(action.getTextualInput());
 						break;
 					case CLEAR_ALL_TEXT:
 						((TextInput)element).enter("");

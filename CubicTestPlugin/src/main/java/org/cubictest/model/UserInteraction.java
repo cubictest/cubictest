@@ -61,7 +61,7 @@ public class UserInteraction extends PropertyAwareObject
 		firePropertyChange(CHILD, oldPE, element);
 		firePropertyChange(LAYOUT, oldPE, element);
 		if (element != null) {
-			setAction(element.getDefaultAction());
+			setActionType(element.getDefaultAction());
 		}
 	}
 	
@@ -69,18 +69,15 @@ public class UserInteraction extends PropertyAwareObject
 	 * Get the user textual input (only applicable to certain actions, like the "enter text"-action).
 	 * @return the user textual input (only applicable to certain actions, like the "enter text"-action).
 	 */
-	public String getInput(){
-		if((action !=null && element != null) && 
-				(action!= null || !element.equals(null)))
-			return input;
-		return null;
+	public String getTextualInput(){
+		return input;
 	}
 	
 	/**
 	 * Set the user textual input (only applicable to certain actions, like the "enter text"-action).
 	 * @param input the user textual input (only applicable to certain actions, like the "enter text"-action).
 	 */
-	public void setInput(String input){
+	public void setTextualInput(String input){
 		String oldInput = this.input;
 		this.input = input;
 		firePropertyChange(PropertyAwareObject.NAME, oldInput, input);
@@ -91,7 +88,7 @@ public class UserInteraction extends PropertyAwareObject
 	 * Get the ActionType the user performs, e.g. Click. 
 	 * @return the ActionType the user performs, e.g. Click.
 	 */
-	public ActionType getAction(){
+	public ActionType getActionType(){
 		return action;
 	}
 
@@ -99,7 +96,7 @@ public class UserInteraction extends PropertyAwareObject
 	 * Set the ActionType the user performs, e.g. Click. 
 	 * @param action the ActionType the user performs, e.g. Click.
 	 */
-	public void setAction(ActionType action){
+	public void setActionType(ActionType action){
 		ActionType oldAction = this.action;
 		this.action = action;
 		firePropertyChange(PropertyAwareObject.NAME, oldAction, action);
@@ -136,10 +133,10 @@ public class UserInteraction extends PropertyAwareObject
 
 	
 	public void setText(String text){
-		setInput(text);
+		setTextualInput(text);
 	}
 	public String getText() {
-		return getInput();
+		return getTextualInput();
 	}
 
 	public String getKey() {

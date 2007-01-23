@@ -54,49 +54,50 @@ public class UserInteractionsTransition extends Transition {
 	 * Get the collection of actions that constitutes this user interactions transition.
 	 * @return the collection of actions that constitutes this user interactions transition.
 	 */
-	public List<UserInteraction> getInputs() {
+	public List<UserInteraction> getUserInteractions() {
 		return inputs;
 	}
 	
 	/**
 	 * Set the collection of actions that constitutes this user interactions transition.
-	 * @param inputs the collection of actions that constitutes this user interactions transition.
+	 * @param userInteractions the collection of actions that constitutes this user interactions transition.
 	 */
-	public void setInputs(List<UserInteraction> inputs) {
-		this.inputs = inputs;
+	public void setUserInteractions(List<UserInteraction> userInteractions) {
+		this.inputs = userInteractions;
 		for(int i = 0 ; i < getListeners().getPropertyChangeListeners().length; i++ )
-			for (int j = 0; j < inputs.size(); j++)
-				((UserInteraction)inputs.get(j)).addPropertyChangeListener(
+			for (int j = 0; j < userInteractions.size(); j++)
+				((UserInteraction)userInteractions.get(j)).addPropertyChangeListener(
 							getListeners().getPropertyChangeListeners()[i]);
 	}
 	
 	/**
-	 * Add action to collection of actions.
-	 * @param input the action to add.
+	 * Add user interaction to collection of actions.
+	 * @param userInteraction the action to add.
 	 */
-	public void addInput(UserInteraction input){
-		inputs.add(input);
+	public void addUserInteraction(UserInteraction userInteraction){
+		inputs.add(userInteraction);
 		for(int i = 0 ; i < getListeners().getPropertyChangeListeners().length; i++ )
-			input.addPropertyChangeListener(
+			userInteraction.addPropertyChangeListener(
 					getListeners().getPropertyChangeListeners()[i]);
-		firePropertyChange(CHILD, null, input);
+		firePropertyChange(CHILD, null, userInteraction);
 	}
+	
 	/**
-	 * Remove action from collection of actions.
+	 * Remove user interaction from collection of actions.
 	 * @param input the action to remove.
 	 */
-	public void removeInput(UserInteraction input){
+	public void removeUserInteraction(UserInteraction input){
 		inputs.remove(input);
 		firePropertyChange(CHILD, null, input);
 	}
 
 	/**
-	 * Utility method for checking whether there are any actions.
+	 * Utility method for checking whether there are any user interactions.
 	 * @return
 	 */
-	public boolean hasActions() {
-		for(UserInteraction action : getInputs()) {
-			if(action.getAction() != ActionType.NO_ACTION) {
+	public boolean hasUserInteractions() {
+		for(UserInteraction action : getUserInteractions()) {
+			if(action.getActionType() != ActionType.NO_ACTION) {
 				return true;
 			}
 		}

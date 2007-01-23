@@ -69,7 +69,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 		for(Figure f : delete)
 			conn.remove(f);
 		
-		if (getModel() instanceof UserInteractionsTransition && ((UserInteractionsTransition)getModel()).hasActions()){
+		if (getModel() instanceof UserInteractionsTransition && ((UserInteractionsTransition)getModel()).hasUserInteractions()){
 			figure = new Figure();
 			ToolbarLayout layout = new ToolbarLayout();
 			layout.setVertical(true);
@@ -81,22 +81,22 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			figure.setToolTip(new Label("User interaction on the page/state"));
 			conn.setToolTip(new Label("User interaction on the page/state"));
 			
-			List<UserInteraction> inputs = ((UserInteractionsTransition)getModel()).getInputs();
+			List<UserInteraction> inputs = ((UserInteractionsTransition)getModel()).getUserInteractions();
 			Label inputLabel;
 			
 			for(UserInteraction input : inputs){
 				IActionElement element = input.getElement();
-				String inputLabelText = ((element != null)?element.getDescription() + ": " : "") + input.getAction().getText();
+				String inputLabelText = ((element != null)?element.getDescription() + ": " : "") + input.getActionType().getText();
 				
-				if (ActionType.ENTER_TEXT.equals(input.getAction()) 
+				if (ActionType.ENTER_TEXT.equals(input.getActionType()) 
 						&& element instanceof AbstractTextInput) {
 					inputLabelText =  inputLabelText + ": "
-						+ input.getInput();
+						+ input.getTextualInput();
 				}
-				if (ActionType.ENTER_PARAMETER_TEXT.equals(input.getAction())
+				if (ActionType.ENTER_PARAMETER_TEXT.equals(input.getActionType())
 						&& element instanceof AbstractTextInput) {
 					inputLabelText =  inputLabelText + ": "
-						+ input.getInput();
+						+ input.getTextualInput();
 				}
 				inputLabel = new Label(inputLabelText);
 				if (element instanceof Button){
@@ -112,7 +112,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 							CubicTestImageRegistry.SELECT_IMAGE));
 				}
 				else if (element instanceof Checkbox){
-					if (input.getAction().equals(ActionType.UNCHECK)) {
+					if (input.getActionType().equals(ActionType.UNCHECK)) {
 						inputLabel.setIcon(CubicTestImageRegistry.get(
 							CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE));
 					}
@@ -122,7 +122,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 					}
 				}
 				else if (element instanceof RadioButton){
-					if (input.getAction().equals(ActionType.UNCHECK)) {
+					if (input.getActionType().equals(ActionType.UNCHECK)) {
 						inputLabel.setIcon(CubicTestImageRegistry.get(
 								CubicTestImageRegistry.RADIO_BUTTON_UNCHECKED_IMAGE));
 					}

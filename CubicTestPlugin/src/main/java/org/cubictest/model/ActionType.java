@@ -17,7 +17,7 @@ import java.util.HashMap;
  */
 public enum ActionType {
 
-	//params: text, acceptsInput
+	//params: text, acceptsTextInput
 	
 	CLICK("Click", false),
 	CHECK("Check", false),
@@ -39,6 +39,7 @@ public enum ActionType {
 	NEXT_WINDOW("Next window", false),
 	PREVIOUS_WINDOW("Previous window", false),
 	ENTER_PARAMETER_TEXT("Enter parameter text", true),
+	SELECT("Select", false),
 	;
 	
 	private String text;
