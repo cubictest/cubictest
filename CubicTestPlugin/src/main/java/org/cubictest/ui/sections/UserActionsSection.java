@@ -10,7 +10,7 @@ import org.cubictest.model.Test;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.controller.UserInteractionsTransitionEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
-import org.cubictest.ui.gef.wizards.UserActionComponent;
+import org.cubictest.ui.gef.wizards.UserInteractionsComponent;
 import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -23,7 +23,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 public class UserActionsSection extends AbstractPropertySection {
 
 	private UserInteractionsTransition actions;
-	private UserActionComponent component;
+	private UserInteractionsComponent component;
 	private Composite parent = null;
 	private boolean created = false;
 	private Composite composite;
@@ -44,7 +44,7 @@ public class UserActionsSection extends AbstractPropertySection {
 		test = ((GraphicalTestEditor)part).getTest();
 
 		if(actions != null && !created && parent != null){
-			component = new UserActionComponent(actions, test);
+			component = new UserInteractionsComponent(actions, test);
 			composite = component.createControl(parent);
 			this.parent.setSize(400, 300);
 			created  = true;

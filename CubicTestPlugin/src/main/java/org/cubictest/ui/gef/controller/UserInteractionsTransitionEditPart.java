@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
-import org.cubictest.model.PageElementAction;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Button;
@@ -69,7 +69,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 		for(Figure f : delete)
 			conn.remove(f);
 		
-		if (getModel() instanceof UserInteractionsTransition && ((UserInteractionsTransition)getModel()).getInputs() != null){
+		if (getModel() instanceof UserInteractionsTransition && ((UserInteractionsTransition)getModel()).hasActions()){
 			figure = new Figure();
 			ToolbarLayout layout = new ToolbarLayout();
 			layout.setVertical(true);
@@ -81,10 +81,10 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			figure.setToolTip(new Label("User interaction on the page/state"));
 			conn.setToolTip(new Label("User interaction on the page/state"));
 			
-			List<PageElementAction> inputs = ((UserInteractionsTransition)getModel()).getInputs();
+			List<UserInteraction> inputs = ((UserInteractionsTransition)getModel()).getInputs();
 			Label inputLabel;
 			
-			for(PageElementAction input : inputs){
+			for(UserInteraction input : inputs){
 				IActionElement element = input.getElement();
 				String inputLabelText = ((element != null)?element.getDescription() + ": " : "") + input.getAction().getText();
 				

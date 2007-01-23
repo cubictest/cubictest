@@ -2,7 +2,7 @@ package org.cubictest.recorder;
 
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.PageElementAction;
+import org.cubictest.model.UserInteraction;
 import org.eclipse.swt.widgets.Display;
 
 public class GUIAwareRecorder implements IRecorder {
@@ -40,7 +40,7 @@ public class GUIAwareRecorder implements IRecorder {
 		});
 	}
 
-	public void addUserInput(final PageElementAction action) {
+	public void addUserInput(final UserInteraction action) {
 		display.asyncExec(new Runnable() {
 			public void run() {
 				recorder.addUserInput(action);

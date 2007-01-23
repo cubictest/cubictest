@@ -2,7 +2,7 @@ package org.cubictest.recorder;
 
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.PageElementAction;
+import org.cubictest.model.UserInteraction;
 
 public interface IRecorder {
 
@@ -27,11 +27,11 @@ public interface IRecorder {
 	public abstract void addPageElement(PageElement element);
 
 	/**
-	 * Add a PageElementAction from the current page. Consecutive calls to this 
+	 * Add a UserInteraction from the current page. Consecutive calls to this 
 	 * function adds more PageElementActions to the same UserInteractionsTransition Transition 
 	 * @param action
 	 */
-	public abstract void addUserInput(PageElementAction action);
+	public abstract void addUserInput(UserInteraction action);
 
 	public abstract void setStateTitle(String title);
 

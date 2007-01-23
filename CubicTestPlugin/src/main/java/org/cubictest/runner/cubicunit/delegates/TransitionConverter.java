@@ -9,7 +9,7 @@ package org.cubictest.runner.cubicunit.delegates;
 
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.PageElementAction;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubicunit.Browser;
@@ -25,7 +25,7 @@ public class TransitionConverter implements ITransitionConverter<Holder> {
 
 		if(userInteractions instanceof UserInteractionsTransition){
 			UserInteractionsTransition actions = (UserInteractionsTransition) userInteractions;
-			for(PageElementAction action : actions.getInputs()){
+			for(UserInteraction action : actions.getInputs()){
 				try{
 					Element element = holder.getElement((PageElement) action.getElement());
 					switch(action.getAction()){

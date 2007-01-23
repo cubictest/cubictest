@@ -5,39 +5,37 @@
 package org.cubictest.model;
 
 /**
- * Class representing a single <i>action</i> from a user.
- * The action is done on a single page element.
- * This object is collected in a <code>UserInteractionsTransition</code> object to represent a collection of actions for page/state transition.
+ * Class representing a single action from a user.
+ * The action is done on a IActionElement, e.g. a page element.
  * 
  * @author SK Skytteren
  * @author chr_schwarz
  */
-public class PageElementAction extends PropertyAwareObject 
+public class UserInteraction extends PropertyAwareObject 
 			implements SationObserver{
 	
 	/** The element upon which "the user" performs an action */
 	private IActionElement element;
 	
-	/** The simulated "user" input */
+	/** The textual user input (only applicable to certain actions, like "enter text"-action) */
 	protected String input = "";
 	
-	/** The action "the user" perform */
+	/** The action the user performs */
 	private  ActionType action = ActionType.NO_ACTION;
 	
 	private SationType sationType = SationType.NONE;
 	private String key = "";
 	
-	public PageElementAction(){}
+	public UserInteraction(){}
 	
 	
 	/**
-	 * Construct a new PageElementAction representing a single user interaction on a single page element.
+	 * Construct a new UserInteraction representing a single user interaction on a single page element.
 	 * @param element The action element (e.g. page element) that the action is applied to.
 	 * @param action The action the user performs
 	 * @param input The user textual input (only applicable to certain actions, like "enter text"-action).
 	 */
-	public PageElementAction( IActionElement element, ActionType action, 
-			String input){
+	public UserInteraction(IActionElement element, ActionType action, String input){
 		this.element = element;
 		this.action = action;
 		this.input = input;

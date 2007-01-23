@@ -4,7 +4,7 @@ import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.PageElementAction;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
@@ -79,9 +79,9 @@ public class CubicRecorder implements IRecorder {
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.cubictest.recorder.IRecorder#addUserInput(org.cubictest.model.PageElementAction)
+	 * @see org.cubictest.recorder.IRecorder#addUserInput(org.cubictest.model.UserInteraction)
 	 */
-	public void addUserInput(PageElementAction action) {
+	public void addUserInput(UserInteraction action) {
 		if(this.userInteractionsTransition == null) {
 			addUserActions(this.cursor);
 		}

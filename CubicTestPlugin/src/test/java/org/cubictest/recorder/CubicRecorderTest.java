@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.cubictest.model.ActionType;
 import org.cubictest.model.Image;
-import org.cubictest.model.PageElementAction;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.Test;
 import org.cubictest.model.Text;
 import org.cubictest.model.formElement.Button;
@@ -25,14 +25,14 @@ public class CubicRecorderTest {
 //		button.setDescription("some button");
 //		recorder.addPageElement(button);
 //		
-//		PageElementAction click = new PageElementAction(button, ActionType.CLICK, "");
+//		UserInteraction click = new UserInteraction(button, ActionType.CLICK, "");
 //		recorder.addUserInput(click);
 //
 //		Text moretext = new Text();
 //		moretext.setText("some more text");
 //		recorder.addPageElementToCurrentPage(moretext);
 //		
-//		PageElementAction click2 = new PageElementAction(image, ActionType.CLICK, "");
+//		UserInteraction click2 = new UserInteraction(image, ActionType.CLICK, "");
 //		recorder.addUserInput(click2);
 //		
 //		Text yetmoretext = new Text();

@@ -4,7 +4,7 @@ import java.text.ParseException;
 
 import org.cubictest.model.ActionType;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.PageElementAction;
+import org.cubictest.model.UserInteraction;
 
 import com.metaparadigm.jsonrpc.JSONSerializer;
 
@@ -61,7 +61,7 @@ public class JSONRecorder {
 		try {
 			PageElement pe = converter.createElementFromJson(jsonElement);
 			if(pe != null) {
-				PageElementAction action = new PageElementAction(pe, ActionType.getActionType(actionType), value);
+				UserInteraction action = new UserInteraction(pe, ActionType.getActionType(actionType), value);
 				recorder.addPageElement(pe);
 				recorder.addUserInput(action);
 			} else {

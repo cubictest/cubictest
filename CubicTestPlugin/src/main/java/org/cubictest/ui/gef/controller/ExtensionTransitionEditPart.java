@@ -28,7 +28,7 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 	@Override
 	public IFigure getFigure() {
 		PolylineConnection conn = (PolylineConnection) super.getFigure();
-		conn.setToolTip(new Label("Connection that links page from extension point to target page, merging the two pages/states."));
+		conn.setToolTip(new Label("Connection from an extension point in another test."));
 		
 		label = new CubicTestLabel(getModel().getExtensionPoint().getName());
 		MidpointOffsetLocator locator = new MidpointOffsetLocator(conn);

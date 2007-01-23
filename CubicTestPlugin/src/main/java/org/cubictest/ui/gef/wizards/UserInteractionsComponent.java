@@ -19,8 +19,8 @@ import org.cubictest.model.CommonTransition;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.PageElementAction;
 import org.cubictest.model.Test;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.WebBrowser;
 import org.cubictest.model.SationObserver.SationType;
@@ -44,10 +44,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -58,10 +56,9 @@ import org.eclipse.swt.widgets.TableItem;
  * @author SK Skytteren
  * @author chr_schwarz
  */
-public class UserActionComponent {
+public class UserInteractionsComponent {
 	
 	private static final String CHOOSE = "--Choose--";
-	private Combo list;
 	private TableViewer viewer;
 	private Table table;
 	private CellEditor[] cellEditors;
@@ -77,12 +74,12 @@ public class UserActionComponent {
 	private String[] elementNames;
 	private Test test;
 	private List<PageElement> flattenedElements = new ArrayList<PageElement>(); 
-	private List<PageElementAction> elementActions;
+	private List<UserInteraction> elementActions;
 	
 	private String[] currentActions;
-	private PageElementAction activeAction;
+	private UserInteraction activeAction;
 
-	public UserActionComponent(UserInteractionsTransition transition, Test test) {
+	public UserInteractionsComponent(UserInteractionsTransition transition, Test test) {
 		this.test = test;
 		this.transition = transition;
 		
@@ -90,12 +87,12 @@ public class UserActionComponent {
 		
 		AbstractPage start = (AbstractPage)transition.getStart();
 		
-		elementActions = new ArrayList<PageElementAction>();
-		List<PageElementAction> toRemove = new ArrayList<PageElementAction>();
+		elementActions = new ArrayList<UserInteraction>();
+		List<UserInteraction> toRemove = new ArrayList<UserInteraction>();
 		
 		//clean up elementActions:
-		List<PageElementAction> inputs = transition.getInputs();
-		for (PageElementAction action : inputs) {
+		List<UserInteraction> inputs = transition.getInputs();
+		for (UserInteraction action : inputs) {
 			IActionElement element = action.getElement();
 			if (element != null) {
 				elementActions.add(action);
@@ -104,7 +101,7 @@ public class UserActionComponent {
 				toRemove.add(action);
 			}
 		}
-		for (PageElementAction action : toRemove) {
+		for (UserInteraction action : toRemove) {
 			transition.removeInput(action);
 		}
 		
@@ -154,15 +151,15 @@ public class UserActionComponent {
 
 		//add empty element if empty list
 		if (elementActions.size() == 0)
-			elementActions.add(new PageElementAction());
+			elementActions.add(new UserInteraction());
 		
 		Button button = new Button(content, SWT.PUSH);
 		button.setText("Add New User Input");
 		button.pack();
 		button.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				List<PageElementAction> allInputs = (List<PageElementAction>)viewer.getInput();
-				PageElementAction newInput = new PageElementAction();
+				List<UserInteraction> allInputs = (List<UserInteraction>)viewer.getInput();
+				UserInteraction newInput = new UserInteraction();
 				
 				transition.addInput(newInput);
 				transition.setPage((AbstractPage)transition.getStart());
@@ -269,7 +266,7 @@ public class UserActionComponent {
 							break;
 						}
 					}
-					IActionElement pe = ((PageElementAction)activeAction).getElement();
+					IActionElement pe = ((UserInteraction)activeAction).getElement();
 					if(pe != null){
 						
 						List<String> actionList = new ArrayList<String>();
@@ -295,11 +292,11 @@ public class UserActionComponent {
 	class ActionInputCellModifier implements ICellModifier{
 
 		public boolean canModify(Object element, String property) {
-			activeAction = (PageElementAction) element;
+			activeAction = (UserInteraction) element;
 			
 			if (property.equals(INPUT)){
-				if (((PageElementAction)element).getElement() instanceof AbstractTextInput){
-					PageElementAction input = (PageElementAction)element;
+				if (((UserInteraction)element).getElement() instanceof AbstractTextInput){
+					UserInteraction input = (UserInteraction)element;
 					if(SationType.PARAMETERISATION.equals(input.getSationType())){
 						ParameterList list = test.getParamList();
 						String[] keys = list.getHeaders().toArray();
@@ -309,16 +306,16 @@ public class UserActionComponent {
 						cellEditors[2] = new TextCellEditor(table);
 					}
 				}
-				if (((PageElementAction) element).getAction().acceptsInput()) {
+				if (((UserInteraction) element).getAction().acceptsInput()) {
 					cellEditors[2] = new TextCellEditor(table);
 				}
 				else {
 					cellEditors[2] = new TextCellEditor(table, SWT.READ_ONLY);
-					((PageElementAction) element).setInput("");
+					((UserInteraction) element).setInput("");
 					return false;
 				}
 			}else if(property.equals(ACTION)){
-				IActionElement pe = ((PageElementAction)element).getElement();
+				IActionElement pe = ((UserInteraction)element).getElement();
 				if(pe != null){
 					
 					List<String> actionList = new ArrayList<String>();
@@ -340,7 +337,7 @@ public class UserActionComponent {
 		}
 		
 		public Object getValue(Object element, String property) {
-			PageElementAction fInput = (PageElementAction) element;
+			UserInteraction fInput = (UserInteraction) element;
 			int columnIndex = Arrays.asList(columnNames).indexOf(property);
 			
 			Object result = null;
@@ -388,7 +385,7 @@ public class UserActionComponent {
 			
 			int columnIndex = java.util.Arrays.asList(columnNames).indexOf(property);
 			if (element instanceof TableItem) {
-				PageElementAction rowItem = (PageElementAction) ((TableItem) element).getData();
+				UserInteraction rowItem = (UserInteraction) ((TableItem) element).getData();
 				switch (columnIndex) {
 					case 0: 
 						String name = elementNames[((Integer) value).intValue()];
@@ -459,7 +456,7 @@ public class UserActionComponent {
 		}
 
 		public String getColumnText(Object element, int columnIndex) {
-			PageElementAction fInput = (PageElementAction) element;
+			UserInteraction fInput = (UserInteraction) element;
 			String result = "";
 			
 			switch (columnIndex) {

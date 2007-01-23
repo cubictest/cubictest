@@ -21,11 +21,11 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class WizardNewUserActionsCreationPage extends WizardPage {
 
-	private UserActionComponent component;
+	private UserInteractionsComponent component;
 
 	protected WizardNewUserActionsCreationPage(UserInteractionsTransition actions, Test test) {
 		super("userActionsInputPage");
-		component = new UserActionComponent(actions, test);
+		component = new UserInteractionsComponent(actions, test);
 	}
 
 	public void createControl(Composite parent) {

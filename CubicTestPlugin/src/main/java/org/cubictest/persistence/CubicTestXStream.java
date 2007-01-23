@@ -16,7 +16,7 @@ import org.cubictest.model.Link;
 import org.cubictest.model.ModelInfo;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.PageElementAction;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SationObserver;
 import org.cubictest.model.SimpleTransition;
@@ -80,7 +80,7 @@ public class CubicTestXStream extends XStream {
 		this.alias("modelInfo", ModelInfo.class);
 		this.alias("page", Page.class);
 		this.alias("pageElement", PageElement.class);
-		this.alias("pageElementAction", PageElementAction.class);
+		this.alias("userInteraction", UserInteraction.class);
 		this.alias("propertyAwareObject", PropertyAwareObject.class);
 		this.alias("sationObserver", SationObserver.class);
 		this.alias("simpleTransition", SimpleTransition.class);
