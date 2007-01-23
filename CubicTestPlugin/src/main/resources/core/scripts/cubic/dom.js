@@ -10,9 +10,13 @@ Cubic.dom.serializeDomNode = function(domNode) {
 		}
 	}
 	if((domNode.tagName == "INPUT" || domNode.tagName == "SELECT" || domNode.tagName == "TEXTAREA") && domNode.id) {
-		var ancestor = domNode.form || document;
-		var labels = Element.getElementsBySelector(ancestor, "label");
+		YAHOO.log("ancestor: " + domNode.form);
+		var ancestor = domNode.ownerDocument;
+		//var labels = Element.getElementsBySelector(ancestor, "label");
+		var labels = ancestor.getElementsByTagName("label");
+		YAHOO.log("Labels #: " + labels.length)
 		for(var i=0; i < labels.length; i++) {
+			YAHOO.log(labels[i].htmlFor);
 			if(labels[i].htmlFor == domNode.id) {
 				data.label = labels[i].innerHTML;
 			}

@@ -6,6 +6,8 @@
 
 package org.cubictest.ui.gef.actions;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
@@ -16,9 +18,13 @@ import org.cubictest.recorder.IRecorder;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.gef.ui.actions.EditorPartAction;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.cubictest.recorder.CubicRecorderTest;
 import org.cubictest.recorder.selenium.SeleniumRecorder;
+import org.cubictest.runner.cubicunit.CubicUnitRunner;
 
 import com.thoughtworks.selenium.SeleniumException;
 
@@ -56,10 +62,13 @@ public class RecordAction extends EditorPartAction {
 			if(test.getStartPoint() instanceof UrlStartPoint) {
 				IRecorder cubicRecorder = new CubicRecorder(test, getCommandStack(), autoLayout);
 				IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder);
-				seleniumRecorder = new SeleniumRecorder(guiAwareRecorder);
+				seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, ((UrlStartPoint)test.getStartPoint()).getBeginAt());
+
 				try {
-					seleniumRecorder.start(((UrlStartPoint)test.getStartPoint()).getBeginAt());								
-				} catch(SeleniumException e) {
+					new ProgressMonitorDialog(new Shell()).run(false, false, seleniumRecorder);
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
