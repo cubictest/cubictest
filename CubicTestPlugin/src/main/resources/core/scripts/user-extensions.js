@@ -61,6 +61,8 @@ temp.innerHTML = '<a href="http://www.google.no/" target="myiframe" style="posit
 	Event.observe($(iframeName), 'load', function() {		
 		/* Hack to make the YAHOO menu work across frames */		
 		YAHOO.widget.MenuManager.oDoc = frames[iframeName].document;
+		
+		jsonrpc.recorder.setStateTitle(frames[iframeName].document.title);
 
 		/* Add menu.css to the page in the iframe */
 		Cubic.load('/selenium-server/core/scripts/YahooUI/menu/assets/menu.css', frames[iframeName].document);

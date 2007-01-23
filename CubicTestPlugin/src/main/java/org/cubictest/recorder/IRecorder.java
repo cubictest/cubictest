@@ -33,4 +33,6 @@ public interface IRecorder {
 	 */
 	public abstract void addUserInput(PageElementAction action);
 
+	public abstract void setStateTitle(String title);
+
 }

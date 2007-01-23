@@ -71,4 +71,8 @@ public class JSONRecorder {
 			e.printStackTrace();
 		}
 	}
+	
+	public void setStateTitle(String title) {
+		recorder.setStateTitle(title);
+	}
 }

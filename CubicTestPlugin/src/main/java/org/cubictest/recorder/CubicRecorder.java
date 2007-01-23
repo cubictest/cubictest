@@ -94,7 +94,7 @@ public class CubicRecorder implements IRecorder {
 	private AbstractPage addUserActions(TransitionNode from) {
 		Page page = new Page();
 		page.setAutoPosition(true);
-		page.setName("untitled");
+		page.setName(cursor.getName());
 		UserActions ua = new UserActions(from, page);
 		
 		/* Add Page */
@@ -115,5 +115,13 @@ public class CubicRecorder implements IRecorder {
 		
 		this.userActions = ua;
 		return page;
+	}
+
+	public void setStateTitle(String title) {
+		if(this.userActions != null) {
+			this.userActions.getEnd().setName(title);
+		} else {
+			this.cursor.setName(title);
+		}
 	}
 }

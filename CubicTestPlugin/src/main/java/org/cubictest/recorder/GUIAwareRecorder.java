@@ -55,4 +55,13 @@ public class GUIAwareRecorder implements IRecorder {
 			}
 		});
 	}
+
+	public void setStateTitle(final String title) {
+		display.asyncExec(new Runnable() {
+			public void run() {
+				recorder.setStateTitle(title);
+			}
+		});
+
+	}
 }
