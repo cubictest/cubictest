@@ -1,27 +1,21 @@
 package org.cubictest.recorder;
 
 import java.text.ParseException;
-import java.util.NoSuchElementException;
 
-import org.cubictest.model.IdentifierType;
+import org.cubictest.model.ActionType;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.formElement.AbstractTextInput;
-import org.cubictest.model.formElement.Checkbox;
-import org.cubictest.model.formElement.RadioButton;
-import org.cubictest.model.formElement.TextField;
-import org.eclipse.swt.widgets.Display;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.cubictest.model.PageElementAction;
 
 import com.metaparadigm.jsonrpc.JSONSerializer;
-import com.metaparadigm.jsonrpc.UnmarshallException;
 
 public class JSONRecorder {
 	private final IRecorder recorder;
 	private JSONSerializer serializer;
+	private final JSONElementConverter converter;
 
-	public JSONRecorder(IRecorder recorder) {
+	public JSONRecorder(IRecorder recorder, JSONElementConverter converter) {
 		this.recorder = recorder;
+		this.converter = converter;
 		
 		serializer = new JSONSerializer();
 		try {
@@ -31,12 +25,15 @@ public class JSONRecorder {
 		}
 	}
 	
-	public boolean assertPresent(String elementJsonData) {
+	public boolean assertPresent(String json) {
 		try {
-			JSONObject element = new JSONObject(elementJsonData);
-			PageElement pe = createElementFromJson(element);
-			recorder.addPageElement(pe);
-			return true;
+			PageElement pe = converter.createElementFromJson(json);
+			if(pe != null) {
+				recorder.addPageElement(pe);
+				return true;
+			} else {
+				return false;
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -44,10 +41,9 @@ public class JSONRecorder {
 		return false;
 	}
 	
-	public boolean assertNotPresent(String elementJsonData) {
+	public boolean assertNotPresent(String json) {
 		try {
-			JSONObject element = new JSONObject(elementJsonData);
-			PageElement pe = createElementFromJson(element);
+			PageElement pe = converter.createElementFromJson(json);
 			pe.setNot(true);
 			recorder.addPageElement(pe);
 			return true;
@@ -57,64 +53,22 @@ public class JSONRecorder {
 		return false;
 	}
 	
-	public void addAction(String actionJsonData) {
-		
+	public void addAction(String actionType, String jsonElement) {
+		this.addAction(actionType, jsonElement, "");
 	}
-	
-	/**
-	 * Parses a JSON structure and returns a new page element
-	 * 
-	 * Example JSON structure:
-	 * {
-	 *   tagName: "INPUT",
-	 *   label: "Text Input:", 
-	 *   attributes: {
-	 *     type: "text",
-	 *     value: "blablabla",
-	 *     class: "someclass",
-	 *     id: "someid"
-	 *   }
-	 * }
-	 * 
-	 * @param element
-	 * @return
-	 */
-	private PageElement createElementFromJson(JSONObject element) {
-		JSONObject attributes = element.getJSONObject("attributes");
-		PageElement pe = null;
-		if(element.getString("tagName").equals("INPUT")) {
-			String type = attributes.getString("type");
-			if(type.equals("text")) {
-				pe = new TextField();		
-			} else if(type.equals("radio")) {
-				pe = new RadioButton();
-			} else if(type.equals("checkbox")) {
-				pe = new Checkbox();
-			}
-		
-			AbstractTextInput txt = (AbstractTextInput) pe;
 
-			try {
-				pe.setText(element.getString("label"));
-				pe.setIdentifierType(IdentifierType.LABEL);
-			} catch(NoSuchElementException eLabel) {
-				try {
-					pe.setText(attributes.getString("id"));
-					pe.setIdentifierType(IdentifierType.ID);				
-				} catch(NoSuchElementException eId) {
-					try {
-						pe.setText(attributes.getString("name"));
-						pe.setIdentifierType(IdentifierType.NAME);
-					} catch(NoSuchElementException eName) {
-						
-					}
-				}
+	public void addAction(String actionType, String jsonElement, String value) {
+		try {
+			PageElement pe = converter.createElementFromJson(jsonElement);
+			if(pe != null) {
+				PageElementAction action = new PageElementAction(pe, ActionType.getActionType(actionType), value);
+				recorder.addPageElement(pe);
+				recorder.addUserInput(action);
+			} else {
+				System.out.println("Action ignored");
 			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
-		
-		if(pe != null) {
-		}
-		
-		return pe;
 	}
 }

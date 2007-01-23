@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSessionListener;
 
 import org.cubictest.recorder.IRecorder;
 import org.cubictest.recorder.JSONRecorder;
+import org.cubictest.recorder.JSONElementConverter;
 
 import com.metaparadigm.jsonrpc.JSONRPCBridge;
 
@@ -26,7 +27,7 @@ public class SeleniumRecorderSessionListener implements HttpSessionListener {
 		    session.setAttribute("JSONRPCBridge", json_bridge);
 			json_bridge.setDebug(true);
 		}
-		json_bridge.registerObject("recorder", new JSONRecorder(recorder));
+		json_bridge.registerObject("recorder", new JSONRecorder(recorder, new JSONElementConverter()));
 	}
 
 	public void sessionDestroyed(HttpSessionEvent sessionEvent) {}

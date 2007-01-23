@@ -6,17 +6,21 @@
 
 package org.cubictest.ui.gef.actions;
 
+import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.recorder.CubicRecorder;
 import org.cubictest.recorder.CubicRecorderTest;
 import org.cubictest.recorder.GUIAwareRecorder;
 import org.cubictest.recorder.IRecorder;
+import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.gef.ui.actions.EditorPartAction;
 import org.eclipse.ui.IEditorPart;
 import org.cubictest.recorder.CubicRecorderTest;
 import org.cubictest.recorder.selenium.SeleniumRecorder;
+
+import com.thoughtworks.selenium.SeleniumException;
 
 
 public class RecordAction extends EditorPartAction {
@@ -47,13 +51,18 @@ public class RecordAction extends EditorPartAction {
 		if(!running) {
 			GraphicalTestEditor testEditor = (GraphicalTestEditor)getEditorPart();
 			Test test = testEditor.getTest();
+			AutoLayout autoLayout = new AutoLayout((TestEditPart) testEditor.getGraphicalViewer().getContents());
 
 			if(test.getStartPoint() instanceof UrlStartPoint) {
-				IRecorder cubicRecorder = new CubicRecorder(test);
+				IRecorder cubicRecorder = new CubicRecorder(test, getCommandStack(), autoLayout);
 				IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder);
 				seleniumRecorder = new SeleniumRecorder(guiAwareRecorder);
-				seleniumRecorder.start(((UrlStartPoint)test.getStartPoint()).getBeginAt());			
-			}			
+				try {
+					seleniumRecorder.start(((UrlStartPoint)test.getStartPoint()).getBeginAt());								
+				} catch(SeleniumException e) {
+					e.printStackTrace();
+				}
+			}
 		} else {
 			seleniumRecorder.stop();
 		}

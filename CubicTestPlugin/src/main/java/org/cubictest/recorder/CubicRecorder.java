@@ -1,5 +1,6 @@
 package org.cubictest.recorder;
 
+import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
@@ -8,14 +9,26 @@ import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UserActions;
+import org.cubictest.model.context.IContext;
+import org.cubictest.ui.gef.command.AddAbstractPageCommand;
+import org.cubictest.ui.gef.command.CreatePageElementCommand;
+import org.cubictest.ui.gef.command.CreateTransitionCommand;
+import org.cubictest.ui.utils.ViewUtil;
+import org.eclipse.gef.commands.CommandStack;
+
+import sun.awt.geom.AreaOp.AddOp;
 
 public class CubicRecorder implements IRecorder {
 	private Test test;
 	private AbstractPage cursor;
 	private UserActions userActions;
+	private final CommandStack commandStack;
+	private final AutoLayout autoLayout;
 	
-	public CubicRecorder(Test test) {
+	public CubicRecorder(Test test, CommandStack comandStack, AutoLayout autoLayout) {
 		this.test = test;
+		this.commandStack = comandStack;
+		this.autoLayout = autoLayout;
 		for(Transition t : test.getStartPoint().getOutTransitions()) {
 			if(t.getEnd() instanceof Page && ((Page)t.getEnd()).getElements().size() == 0) {
 				this.cursor = (Page) t.getEnd();
@@ -27,9 +40,11 @@ public class CubicRecorder implements IRecorder {
 		}
 	}
 	
-	public CubicRecorder(Test test, Page cursor) {
+	public CubicRecorder(Test test, Page cursor, CommandStack commandStack, AutoLayout autoLayout) {
 		this.test = test;
 		this.cursor = cursor;
+		this.commandStack = commandStack;
+		this.autoLayout = autoLayout;
 	}
 	
 	/* (non-Javadoc)
@@ -43,7 +58,12 @@ public class CubicRecorder implements IRecorder {
 	 * @see org.cubictest.recorder.IRecorder#addPageElementToCurrentPage(org.cubictest.model.PageElement)
 	 */
 	public void addPageElementToCurrentPage(PageElement element) {
-		this.cursor.addElement(element);		
+		CreatePageElementCommand createElementCmd = new CreatePageElementCommand();
+		createElementCmd.setContext(this.cursor);
+		createElementCmd.setPageElement(element);
+		
+		this.commandStack.execute(createElementCmd);
+		this.autoLayout.layout(cursor);
 	}
 	
 	/* (non-Javadoc)
@@ -73,10 +93,26 @@ public class CubicRecorder implements IRecorder {
 	 */
 	private AbstractPage addUserActions(TransitionNode from) {
 		Page page = new Page();
+		page.setAutoPosition(true);
 		page.setName("untitled");
-		this.test.addPage(page);
 		UserActions ua = new UserActions(from, page);
-		this.test.addTransition(ua);
+		
+		/* Add Page */
+		AddAbstractPageCommand addPageCmd = new AddAbstractPageCommand();
+		addPageCmd.setPage(page);
+		addPageCmd.setTest(test);
+		this.commandStack.execute(addPageCmd);
+
+		/* Add Transition */
+		CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
+		createTransitionCmd.setTransition(ua);
+		createTransitionCmd.setTest(test);
+		createTransitionCmd.setSource(from);
+		createTransitionCmd.setTarget(page);
+		this.commandStack.execute(createTransitionCmd);
+
+		this.autoLayout.layout(page);
+		
 		this.userActions = ua;
 		return page;
 	}

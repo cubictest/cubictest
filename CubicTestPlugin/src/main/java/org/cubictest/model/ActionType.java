@@ -7,6 +7,8 @@
  */
 package org.cubictest.model;
 
+import java.util.HashMap;
+
 /**
  * The action types for user interaction with a web page.
  * 
@@ -41,10 +43,16 @@ public enum ActionType {
 	
 	private String text;
 	private boolean acceptsInput;
-
-	private ActionType(String text, boolean acceptsInput){
+	
+	static HashMap<String, ActionType> actions;
+	
+	private ActionType(String text, boolean acceptsInput) {
 		this.text = text;
 		this.acceptsInput = acceptsInput;
+		if(ActionType.actions == null) {
+			ActionType.actions = new HashMap<String, ActionType>();
+		}
+		ActionType.actions.put(text, this);
 	}
 	
 	public String getText(){
@@ -53,5 +61,9 @@ public enum ActionType {
 	
 	public boolean acceptsInput() {
 		return acceptsInput;
+	}
+	
+	public static ActionType getActionType(String action) {
+		return ActionType.actions.get(action);
 	}
 }

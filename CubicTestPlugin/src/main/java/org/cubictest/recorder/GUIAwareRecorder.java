@@ -10,6 +10,10 @@ public class GUIAwareRecorder implements IRecorder {
 	private final IRecorder recorder;
 	private final Display display;
 	
+	/**
+	 * Uses the current thread's Display
+	 * @param recorder
+	 */
 	public GUIAwareRecorder(IRecorder recorder) {
 		this.recorder = recorder;
 		this.display = Display.getCurrent();

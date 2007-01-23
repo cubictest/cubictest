@@ -17,7 +17,7 @@
 	<classpathentry kind="lib" path="lib/CubicUnit.jar"/>
 	<classpathentry kind="lib" path="lib/CubicTestElementAPI.jar"/>
 	<classpathentry kind="lib" path="lib/xstream-1.2.jar"/>
-	<classpathentry kind="lib" path="lib/selenium-java-client-driver.jar"/>
+	<classpathentry sourcepath="/selenium-java-client-driver/src" kind="lib" path="lib/selenium-java-client-driver.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-server.jar"/>
 	<classpathentry kind="lib" path="lib/org.mortbay.jetty.jar"/>
 	<classpathentry sourcepath="/json-rpc/src_impl" kind="lib" path="lib/jsonrpc-1.0.jar"/>

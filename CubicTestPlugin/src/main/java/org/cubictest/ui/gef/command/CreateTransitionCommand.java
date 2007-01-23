@@ -85,6 +85,7 @@ public class CreateTransitionCommand extends Command {
 		return true;
 	}
 
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -92,39 +93,42 @@ public class CreateTransitionCommand extends Command {
 	 */
 	public void execute() {
 		super.execute();
-		if (sourceNode instanceof SubTest && (targetNode instanceof Page || targetNode instanceof SubTest)) {
-			ExposeExtensionPointWizard exposeExtensionPointWizard = new ExposeExtensionPointWizard(
-					(SubTest) sourceNode, test);
-			WizardDialog dlg = new WizardDialog(new Shell(),
-					exposeExtensionPointWizard);
-			if (dlg.open() == WizardDialog.CANCEL) {
-				return;
-			}
-			transition = new ExtensionTransition(sourceNode, targetNode,
-					exposeExtensionPointWizard.getSelectedExtensionPoint());
-		}else if(sourceNode instanceof Page && (targetNode instanceof Page || 
-				targetNode instanceof SubTest || targetNode instanceof CustomTestStep)){
-			transition = new UserActions(sourceNode,targetNode);
-			NewCubicTestUserActionsInputWizard userActionWizard = new NewCubicTestUserActionsInputWizard(
-					(UserActions) transition, test);
-			WizardDialog dlg = new WizardDialog(new Shell(), userActionWizard);
+		if(transition == null) {
+			if (sourceNode instanceof SubTest && (targetNode instanceof Page || targetNode instanceof SubTest)) {
+				ExposeExtensionPointWizard exposeExtensionPointWizard = new ExposeExtensionPointWizard(
+						(SubTest) sourceNode, test);
+				WizardDialog dlg = new WizardDialog(new Shell(),
+						exposeExtensionPointWizard);
+				if (dlg.open() == WizardDialog.CANCEL) {
+					return;
+				}
+				transition = new ExtensionTransition(sourceNode, targetNode,
+						exposeExtensionPointWizard.getSelectedExtensionPoint());
+			}else if(sourceNode instanceof Page && (targetNode instanceof Page || 
+					targetNode instanceof SubTest || targetNode instanceof CustomTestStep)){
+				transition = new UserActions(sourceNode,targetNode);
+				NewCubicTestUserActionsInputWizard userActionWizard = new NewCubicTestUserActionsInputWizard(
+						(UserActions) transition, test);
+				WizardDialog dlg = new WizardDialog(new Shell(), userActionWizard);
 
-			if (dlg.open() == WizardDialog.CANCEL) {
-				DeleteTransitionCommand cmd = new DeleteTransitionCommand(
-						transition, test);
-				cmd.execute();
-				transition.resetStatus();
-				return;
-			}
-		} else if (sourceNode instanceof Common && targetNode instanceof Page) {
-			transition = new CommonTransition((Common) sourceNode,
-					(Page) targetNode);
-		} else if (sourceNode instanceof ConnectionPoint) {
-			transition = new SimpleTransition((ConnectionPoint) sourceNode,
-					targetNode);
-		} else if (targetNode instanceof ExtensionPoint) {
-			transition = new SimpleTransition(sourceNode, targetNode);
+				if (dlg.open() == WizardDialog.CANCEL) {
+					DeleteTransitionCommand cmd = new DeleteTransitionCommand(
+							transition, test);
+					cmd.execute();
+					transition.resetStatus();
+					return;
+				}
+			} else if (sourceNode instanceof Common && targetNode instanceof Page) {
+				transition = new CommonTransition((Common) sourceNode,
+						(Page) targetNode);
+			} else if (sourceNode instanceof ConnectionPoint) {
+				transition = new SimpleTransition((ConnectionPoint) sourceNode,
+						targetNode);
+			} else if (targetNode instanceof ExtensionPoint) {
+				transition = new SimpleTransition(sourceNode, targetNode);
+			}			
 		}
+
 		if(transition != null) {
 			test.addTransition(transition);
 		}

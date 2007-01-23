@@ -1,52 +1,170 @@
-Cubic.Recorder = Class.create();
-Cubic.Recorder.prototype = {
-	frame : 'myiframe',
-	initialize : function() {
-		// we need to name this frame, since the frame's document can only be accessed through frames['name'].document
-		$(this.frame).name = this.frame;
-		Event.observe($(this.frame), 'load', this.onload.bind(this), false);
+Cubic.recorder = {};
+
+/**
+ * ContextMenu
+ * @param {YAHOO.widget.ContextMenu} contextMenu
+ */
+Cubic.recorder.ContextMenu = function(contextMenu) {
+	this.init(contextMenu);
+}
+
+Cubic.recorder.ContextMenu.prototype = {
+	init: function(contextMenu) {
+		this.menuItems = [];
+		this.contextMenu = contextMenu;
+		this.contextMenu.beforeShowEvent.subscribe(this.onBeforeShow, this, true);
 	},
 	
-	onload : function() {	
-		var element = frames[this.frame].document;
-		var contextMenu = document.createElement('div');
-		this.contextMenu = contextMenu;
+	onBeforeShow: function() {
+		YAHOO.log("onBeforeShow");
 		
-		contextMenu.innerHTML = "Context Menu";
-		contextMenu.style.display = "none";
-		contextMenu.style.position = "absolute";
-		document.getElementsByTagName('body')[0].appendChild(contextMenu);
+		for(var i=0; i < this.menuItems.length; i++) {
+			this.menuItems[i].setTarget(this.contextMenu.contextEventTarget);
+		}
+	},
+	
+	addItem: function(menuItem) {
+		this.menuItems.push(menuItem);
+	},
+	
+	render: function(target) {
+		this.contextMenu.render(target);
+	}
+}
 
-		Event.observe(element, 'click', function(event) {
-		
-			var url = "/selenium-server/cubic-recorder/click";
-			var request = new Ajax.Request(
-				url,
-				{
-					method: 'get'
-				}
-			);
-			Event.stop(event);
-		}, false);
-		
-		Event.observe(element, 'mouseover', function(evt) {
-			evt.target.style.border = "1px solid red";
-		}, false);
-		
-		Event.observe(element, 'mouseout', function(evt) {
-			evt.target.style.border = "";
-		}, false);
+
+/**
+ * ContextMenuItem
+ */
+Cubic.recorder.ContextMenuItem = function(yuiMenuItem) {
+	this.init(yuiMenuItem);
+}
+
+Cubic.recorder.ContextMenuItem.prototype = {
+	init: function(yuiMenuItem) {
+		this.menuItem = yuiMenuItem;
+		this.text = yuiMenuItem.cfg.getProperty("text");
+		this.menuItem.clickEvent.subscribe(this._execute, this, true);
+	},
+	
+	/**
+	 * Wrapper method for execute, so that execute can be overridden
+	 * @private
+	 */
+	_execute: function() {
+		this.execute();
+	},
+	
+	execute: function() {
+		alert("Implement me!");
+	},
+	
+	respondsTo: function(element) {
+		alert("Implement me!");
+	},
+	
+	setTarget: function(element) {
+		YAHOO.log("setTarget(" + element.tagName + ")")
+		this.setTextFor(element);
+		if(this.respondsTo(element)) {
+			this.target = element;
+			this.menuItem.cfg.setProperty("disabled", false);
+		} else {
+			this.menuItem.cfg.setProperty("disabled", true);
+		}
+	},
+	
+	setTextFor: function(element) {
+		this.menuItem.cfg.setProperty("text", this.text.replace("%s", element.tagName));
+	} 
+}
+
+
+/**
+ * RPCContextMenuItem
+ */
+Cubic.recorder.RPCContextMenuItem = function(yuiMenuItem, rpcRecorder) {
+	this.init(yuiMenuItem, rpcRecorder);
+}
+
+YAHOO.extend(Cubic.recorder.RPCContextMenuItem, Cubic.recorder.ContextMenuItem, {
+	init: function(yuiMenuItem, rpcRecorder) {
+		Cubic.recorder.RPCContextMenuItem.superclass.init.call(this, yuiMenuItem);
+		this.rpcRecorder = rpcRecorder;
+	}
+});
+
+
+/**
+ * ActionRecorder
+ */
+Cubic.recorder.ActionRecorder = function(rpcRecorder, domNode) {
+	this.init(rpcRecorder, domNode);
+}
+
+Cubic.recorder.ActionRecorder.prototype = {
+	CLICK: "Click",
+	DBLCLICK: "Double click",
+	MOUSE_OVER: "Mouse over",
+	MOUSE_OUT: "Mouse out",
+	ENTER_TEXT: "Enter text",
+	
+	init: function(rpcRecorder, domNode) {
+		this.rpcRecorder = rpcRecorder;
+		this.listen(domNode);
+		this.ignoreList = [];
+	},
+	
+	listen: function(domNode) {
+		Event.observe($(domNode), 'click', this.mouseClick.bindAsEventListener(this), true);
+		Event.observe($(domNode), 'keyup', this.keyUp.bindAsEventListener(this), true);
+	},
+	
+	ignore: function(element) {
+		this.ignoreList.push(element);
+	},
+	
+	isIgnored: function(element) {
+		for(var i=0; i < this.ignoreList.length; i++) {
+			if(Element.descendantOf(element, this.ignoreList[i])) {
+				return true;
+			}
+		}
+		return false;
+	},
+	
+	mouseClick: function(e) {
+		var element = Event.element(e);
+		if(!this.isIgnored(element)) {
+			YAHOO.log("mouseClick");
+			if((element.tagName == "INPUT" && element.type != "text" && element.type != "password")
+				|| element.tagName == "A"
+			) {
+				this.rpcRecorder.addAction(this.CLICK, Cubic.dom.serializeDomNode(element));
+			}
+		}
+	},
+	
+	keyUp: function(e) {
+		var element = Event.element(e);
+		if(!this.isIgnored(element)) {
+			YAHOO.log("keyUp: " + element.tagName);
 				
-		Event.observe(element, 'contextmenu', function(evt) {
-			evt.preventDefault();
-			evt.stopPropagation();
-			contextMenu.style.left = evt.clientX + "px";
-			contextMenu.style.top = evt.clientY + "px";
-			Element.show(contextMenu);
-		}, false);
-		
-		Event.observe(element, 'mousedown', function(evt) {
-			Element.hide(contextMenu);
-		}, false);
+			if(element.tagName == "INPUT") {
+				if((element.type == "text" || element.type != "password") && !element.cubic_inputOnBlur) {
+					Event.observe(element, 'blur', this.inputOnBlur.bindAsEventListener(this), true);
+					element.cubic_inputOnBlur=true;
+				}
+			} else {
+				this.rpcRecorder.addAction(this.CLICK, Cubic.dom.serializeDomNode(element));
+			}
+		} else {
+			YAHOO.log("KeyUp Ignored")
+		}
+	},
+	
+	inputOnBlur: function(e) {
+		var input = Event.element(e);
+		this.rpcRecorder.addAction(this.ENTER_TEXT, Cubic.dom.serializeDomNode(input), input.value);
 	}
 }

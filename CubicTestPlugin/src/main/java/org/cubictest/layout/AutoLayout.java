@@ -3,14 +3,18 @@ package org.cubictest.layout;
 import java.util.List;
 
 import org.cubictest.model.Page;
+import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.UrlStartPoint;
 import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+
+import com.thoughtworks.xstream.io.binary.Token.StartNode;
 
 public class AutoLayout {
 	private final TestEditPart testEditPart;
@@ -21,7 +25,17 @@ public class AutoLayout {
 
 	public void layout(TransitionNode node) {
 		Point position = node.getPosition().getCopy();
-		position.x += node.getDimension().width / 2;
+		try {
+			if(!(node.getInTransition().getStart() instanceof UrlStartPoint)) {
+				position.x = node.getInTransition().getStart().getPosition().x + node.getInTransition().getStart().getDimension().width / 2;
+				position.y = node.getInTransition().getStart().getPosition().y + node.getInTransition().getStart().getDimension().height + 100;							
+			} else {				
+				position.x += node.getDimension().width / 2;
+			}
+		} catch(NullPointerException e) {
+			position.x += node.getDimension().width / 2;
+		}
+
 		layout(node, position);
 	}
 	
@@ -38,6 +52,9 @@ public class AutoLayout {
 			 * Calculate dimensions
 			 */
 			int width = pageEditPart.getFigure().getMinimumSize().width;
+			if(width < 100) {
+				width = 100;
+			}
 			int height = 25;
 			
 			for(Object child : pageEditPart.getChildren()) {

@@ -10,8 +10,11 @@ package org.cubictest.ui.gef.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.Test;
+import org.cubictest.model.TransitionNode;
+import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.TestContainerEditPolicy;
 import org.cubictest.ui.gef.policies.TestXYLayoutEditPolicy;
 import org.cubictest.ui.gef.view.TestFigure;

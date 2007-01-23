@@ -24,6 +24,7 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	private Point position;
 	private Dimension dimension;
 	private String name = "";
+	private boolean autoPosition = false;
 	
 	public TransitionNode() {
 		this.setId(getNewGeneratedId());
@@ -142,6 +143,7 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		}
 		return dimension;
 	}
+	
 	public void setDimension(Dimension dimension) {
 		Dimension oldDim = this.dimension;
 		this.dimension = dimension;
@@ -153,6 +155,14 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		name = name.substring(name.lastIndexOf(".") + 1);
 		name = name.toLowerCase();
 		return name + this.hashCode() + System.currentTimeMillis();
+	}
+
+	public void setAutoPosition(boolean autoPosition) {
+		this.autoPosition = autoPosition;
+	}
+
+	public boolean getAutoPosition() {
+		return autoPosition;
 	}
 
 }
