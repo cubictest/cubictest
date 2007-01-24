@@ -37,7 +37,7 @@ public class FormRadioButtonEditPart extends FormElementEditPart{
 			CubicTestImageRegistry.RADIO_BUTTON_UNCHECKED_IMAGE;
 		figure.setIcon(CubicTestImageRegistry.get(key));
 		figure.setTooltipText("Check radiobutton present: " + getElementDescription()
-				+ (button.isChecked() ? "(checked)" : "(unchecked)"));
+				+ (button.isChecked() ? " (checked)" : " (unchecked)"));
 		
 		
 	}

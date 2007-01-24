@@ -40,7 +40,7 @@ public class FormCheckboxEditPart extends FormElementEditPart {
 			CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE;
 		figure.setIcon(CubicTestImageRegistry.get(key));
 		figure.setTooltipText("Check checkbox present: " + getElementDescription()
-				+ (model.isChecked() ? "(checked)" : "(unchecked)"));
+				+ (model.isChecked() ? " (checked)" : " (unchecked)"));
 		return figure;
 	}
 	
