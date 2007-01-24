@@ -69,11 +69,9 @@ M3   Context meny for adding user interaction
 
 Contexts:
 ---------
-M3   What is Page Section? (No association to DIV, but tooltip was clearifying) ==> Should have <DIV> icon? => Change name
-M3   Wants to identify a single element, not an entire section.
-M3   Table row suggested icon: <TR>
-M3   "Page Section" --> "Page content"
-M3?    Provide coulumn headers
+Done   What is Page Section? (No association to DIV, but tooltip was clearifying)  => Change name
+Done   Wants to identify a single element, not an entire section.
+M3?   Provide coulumn headers
 M4?   Wants anonymous elements (amount, date etc, only that they are present).
 M4?   Have "List" as own context, not just table => Rename to Table/List??
    (Watir and Selenium does not support contexts)
@@ -81,23 +79,23 @@ M4?   Have "List" as own context, not just table => Rename to Table/List??
 
 User interaction:
 -----------------
-M3   Problem with drag and drop when holding down mouse button. Must click twice.
+Done   Problem with drag and drop when holding down mouse button. Must click twice.
+Done   The "auto-select default action" feature (e.g. "Click") was a bit confusing => Use event
+Done   Checkbox icon on "uncheck"-action is wrong in the user interaction figure (bug)
 M3   Put --Choose-- automatically, not button "Add new"
 M3   When two elements have the same description, display idText in user action dialog (tooltip)
 M3   Put options in the "value" dropdown of select list.
 M3   "Delete row"-button in input dialog
 M3   When form element text changes, must update label on connection automatically => subscriptions must be examined
 M3   "Move up" and "Move down" button wanted. Is sequence significant?
-M3   The "auto-select default action" feature (e.g. "Click") was a bit confusing => Use event
-M3   Checkbox icon on "uncheck"-action is wrong in the user interaction figure (bug)
    
    
 Palette:
 --------
+Done   Add tooltips to all controls (e.g. RadioButton and Title)
 M3   Drag and drop: Too many clicks
 M3   Icons for all elements in palette
 M3   "Add text" was confusing. ==> better "Add/check text"
-M3   Add tooltips to all controls (e.g. RadioButton and Title)
 M3   Better structure (indenting?) of palette (e.g. Button was often not found)
 M4   "Toggle" of drawers and controls not working 100%
 M4   Palette is too big for 1024 x 768
