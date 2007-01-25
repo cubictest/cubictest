@@ -57,6 +57,8 @@ public abstract class Transition extends PropertyAwareObject {
 
 	public void disconnect() {
 		getStart().removeOutTransition(this);
-		getEnd().removeInTransition();
+		if (getEnd().hasInTransition()) {
+			getEnd().removeInTransition();
+		}
 	}
 }

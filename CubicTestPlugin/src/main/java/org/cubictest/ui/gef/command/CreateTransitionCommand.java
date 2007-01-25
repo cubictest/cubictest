@@ -62,7 +62,7 @@ public class CreateTransitionCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#canExecute()
 	 */
 	public boolean canExecute() {
-		return ModelUtil.isLegalTransition(sourceNode, targetNode, transition, false);
+		return (ModelUtil.isLegalTransition(sourceNode, targetNode, transition, false) == ModelUtil.TRANSITION_EDIT_VALID);
 	}
 
 

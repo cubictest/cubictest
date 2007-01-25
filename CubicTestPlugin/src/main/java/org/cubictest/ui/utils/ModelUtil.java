@@ -24,6 +24,10 @@ import org.cubictest.ui.gef.controller.TestEditPart;
  */
 public class ModelUtil {
 
+	public static int TRANSITION_EDIT_NO_CHANGES = 0;
+	public static int TRANSITION_EDIT_VALID = 2;
+	public static int TRANSITION_EDIT_NOT_VALID = 4;
+
 	/**
 	 * Get the AbstractPage model object surronding an PropertyChangePart.
 	 * @param editPart
@@ -52,30 +56,30 @@ public class ModelUtil {
 		
 	}
 	
-	public static boolean isLegalTransition(TransitionNode sourceNode, TransitionNode targetNode, Transition transition, boolean isReconnectingSourceNode) {
+	public static int isLegalTransition(TransitionNode sourceNode, TransitionNode targetNode, Transition transition, boolean isReconnectingSourceNode) {
 		if (sourceNode.equals(targetNode))
-			return false;
+			return TRANSITION_EDIT_NOT_VALID;
 
 		if (targetNode instanceof UrlStartPoint)
-			return false;
+			return TRANSITION_EDIT_NOT_VALID;
 		
 		if (targetNode instanceof ExtensionStartPoint)
-			return false;
+			return TRANSITION_EDIT_NOT_VALID;
 
 		if (targetNode instanceof Common)
-			return false;
+			return TRANSITION_EDIT_NOT_VALID;
 		
 		if (targetNode == null)
-			return false;
+			return TRANSITION_EDIT_NOT_VALID;
 
 		if (sourceNode instanceof Common && !(targetNode instanceof Page))
-			return false;
+			return TRANSITION_EDIT_NOT_VALID;
 
 		
 		if (isReconnectingSourceNode) {
 			if (sourceNode.hasInTransition() && sourceNode.getInTransition().getStart().equals(targetNode)) {
 				//cycle between source and target
-				return false;
+				return TRANSITION_EDIT_NOT_VALID;
 			}
 		}
 		else {
@@ -83,20 +87,29 @@ public class ModelUtil {
 			
 			if (sourceNode.hasInTransition() && sourceNode.getInTransition().getStart().equals(targetNode))  {
 				//cycle between source and target
-				return false;
+				return TRANSITION_EDIT_NOT_VALID;
+			}
+
+			if (targetNode.hasInTransition() && !(sourceNode instanceof Common)) {
+				boolean isNoChanges = targetNode.getInTransition().getStart().equals(sourceNode);
+				if (isNoChanges) {
+					//ok, user has just reconnected to the original state
+					return TRANSITION_EDIT_NO_CHANGES;
+				}
+				else {
+					//multiple in-transitions not allowed, unless from Common
+					return TRANSITION_EDIT_NOT_VALID;
+				}
 			}
 			
 			Transition targetInTransition = targetNode.getInTransition();
 			if (targetNode.hasInTransition() && targetInTransition.getStart().equals(sourceNode))
 				//duplicate transition
-				return false;
+				return TRANSITION_EDIT_NOT_VALID;
 
-			if (targetNode.hasInTransition() && !(sourceNode instanceof Common)) {
-				//multiple in-transitions not allowed, unless from Common
-				return false;
-			}
+
 		}
 		
-		return true;
+		return TRANSITION_EDIT_VALID;
 	}
 }

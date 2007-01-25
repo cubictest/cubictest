@@ -29,6 +29,7 @@ public class ReconnectTrasitionTargetCommand extends Command {
 	private Transition transition;
 	private TransitionNode newTarget;
 	private TransitionNode oldTarget;
+	private boolean isNoModelChanges;
 
 	/**
 	 * @param transition
@@ -49,6 +50,9 @@ public class ReconnectTrasitionTargetCommand extends Command {
 	 */
 	public void execute() {
 		super.execute();
+		if (isNoModelChanges)
+			return;
+		
 		this.oldTarget = transition.getEnd();
 		if (transition instanceof CommonTransition){
 			((Page)oldTarget).removeCommonTransition((CommonTransition)transition);
@@ -67,6 +71,9 @@ public class ReconnectTrasitionTargetCommand extends Command {
 	 */
 	public void undo() {
 		super.undo();
+		if (isNoModelChanges)
+			return;
+
 		if (transition instanceof CommonTransition){
 			((Page)newTarget).removeCommonTransition((CommonTransition)transition);
 			transition.setEnd(oldTarget);
@@ -82,7 +89,9 @@ public class ReconnectTrasitionTargetCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#canExecute()
 	 */
 	public boolean canExecute() {
-		return ModelUtil.isLegalTransition(transition.getStart(), newTarget, transition, false);
+		int status = ModelUtil.isLegalTransition(transition.getStart(), newTarget, transition, false);
+		isNoModelChanges = (status == ModelUtil.TRANSITION_EDIT_NO_CHANGES);
+		return (status == ModelUtil.TRANSITION_EDIT_NO_CHANGES || status == ModelUtil.TRANSITION_EDIT_VALID);
 	}
 
 }
