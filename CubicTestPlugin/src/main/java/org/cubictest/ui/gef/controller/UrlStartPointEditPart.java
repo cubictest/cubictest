@@ -46,7 +46,7 @@ public class UrlStartPointEditPart extends AbstractNodeEditPart {
 		Point p = ((TransitionNode)getModel()).getPosition();
 		startPointFigure.setLocation(p);
 		startPointFigure.setText(getName());
-		startPointFigure.setToolTipText("Begin at URL: " + getName());
+		startPointFigure.setToolTipText("Begin at URL: $labelText");
 		return startPointFigure;
 	}
 
@@ -64,7 +64,6 @@ public class UrlStartPointEditPart extends AbstractNodeEditPart {
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new StartPointNodeEditPolicy());
-		//installEditPolicy(EditPolicy.COMPONENT_ROLE, new TestComponentEditPolicy());
 	}
 	
 	/* (non-Javadoc)
@@ -83,6 +82,5 @@ public class UrlStartPointEditPart extends AbstractNodeEditPart {
 	public void updateParams() {
 		refresh();
 		refreshVisuals();
-		//refreshChildren();
 	}
 }

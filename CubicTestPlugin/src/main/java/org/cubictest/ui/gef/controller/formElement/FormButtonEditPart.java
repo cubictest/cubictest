@@ -35,7 +35,7 @@ public class FormButtonEditPart extends FormElementEditPart {
 	protected IFigure createFigure() {
 		TestStepLabel label = (TestStepLabel) super.createFigure();
 		label.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.BUTTON_IMAGE));
-		label.setTooltipText("Check button present: " + getElementDescription());
+		label.setTooltipText("Check button present: $labelText");
 		return label;
 	}
 }

@@ -164,5 +164,9 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	public boolean getAutoPosition() {
 		return autoPosition;
 	}
+	
+	public boolean hasInTransition() {
+		return getInTransition() != null;
+	}
 
 }

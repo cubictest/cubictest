@@ -45,7 +45,7 @@ public class PageLinkEditPart extends PageElementEditPart implements IPropertySo
 		label.setLabelAlignment(PositionConstants.LEFT);
 		label.setOpaque(true);
 		String not = ((PageElement) getModel()).isNot() ? "NOT " : "";
-		label.setTooltipText("Check link " + not + "present: " + getElementDescription());
+		label.setTooltipText("Check link " + not + "present: $labelText");
 		return label;
 	}	
 	

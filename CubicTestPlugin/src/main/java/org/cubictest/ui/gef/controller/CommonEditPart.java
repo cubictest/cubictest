@@ -41,7 +41,7 @@ public class CommonEditPart extends AbstractPageEditPart {
 		CubicTestGroupFigure figure = (CubicTestGroupFigure) super.createFigure();
 		figure.getHeader().setBackgroundColor(ColorConstants.lightGray);
 		String name = ((AbstractPage)getModel()).getName();
-		figure.setTooltipText("Common: " + name + "\nContains elements common to several pages/states");
+		figure.setTooltipText("Common: $labelText\nContains elements common to several pages/states");
 		return figure;
 	}
 

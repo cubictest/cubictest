@@ -32,7 +32,7 @@ public class ExtensionStartPointEditPart extends SubTestEditPart {
 		figure.setLabelLength(200);
 		figure.setBackgroundColor(ColorConstants.buttonDarker);
 		String name = ((SubTest)getModel()).getName();
-		figure.setToolTipText("Test to start from: " + name + "\nDouble click to open file");
+		figure.setToolTipText("Test to start from: $labelText\nDouble click to open file");
 		return figure;
 	}
 }

@@ -98,6 +98,6 @@ public class CubicTestGroupFigure extends Figure {
 	
 	@Override
 	public IFigure getToolTip() {
-		return StringUtils.isBlank(tooltipText) ? null : new Label(tooltipText);
+		return new Label(StringUtils.replace(tooltipText, "$labelText", header.getFullText()));
 	}
 }

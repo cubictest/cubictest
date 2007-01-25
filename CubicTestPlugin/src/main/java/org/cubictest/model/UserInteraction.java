@@ -5,8 +5,7 @@
 package org.cubictest.model;
 
 /**
- * Class representing a single action from a user.
- * The action is done on a IActionElement, e.g. a page element.
+ * Class representing a single action from a user, on a single element (IActionElement).
  * 
  * @author SK Skytteren
  * @author chr_schwarz

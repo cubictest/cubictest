@@ -24,6 +24,7 @@ import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.wizards.ExposeExtensionPointWizard;
 import org.cubictest.ui.gef.wizards.NewUserInteractionsWizard;
+import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -61,29 +62,10 @@ public class CreateTransitionCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#canExecute()
 	 */
 	public boolean canExecute() {
-		if (sourceNode.equals(targetNode))
-			return false;
-
-		if (targetNode instanceof UrlStartPoint)
-			return false;
-		
-		if (targetNode instanceof ExtensionStartPoint)
-			return false;
-		
-		if (targetNode == null)
-			return false;
-
-		if (targetNode.getInTransition() != null
-				&& !(sourceNode instanceof Common))
-			return false;
-
-		if (targetNode instanceof Common)
-			return false;
-		if (sourceNode instanceof Common && !(targetNode instanceof Page))
-			return false;
-
-		return true;
+		return ModelUtil.isLegalTransition(sourceNode, targetNode, transition, false);
 	}
+
+
 
 	
 	/*

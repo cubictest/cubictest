@@ -71,7 +71,7 @@ public class FormSelectEditPart extends FormElementEditPart {
 			new CubicTestGroupFigure(getModel().getDescription(), false);
 		figure.setBackgroundColor(ColorConstants.listBackground);
 		figure.getHeader().setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.SELECT_IMAGE));
-		figure.setTooltipText("Check select box present: " + getElementDescription());
+		figure.setTooltipText("Check select box present: $labelText");
 		return figure;
 	}
 	

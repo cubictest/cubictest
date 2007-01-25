@@ -31,17 +31,21 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 	public IFigure getFigure() {
 		PolylineConnection conn = (PolylineConnection) super.getFigure();
 		
+		Label tooltip = null;
 		if (getModel().getStart() instanceof ExtensionStartPoint) {
-			conn.setToolTip(new Label("Starting from an extension point in another test."));
+			tooltip = new Label("Starting from an extension point in another test");
 		}
 		else if (getModel().getStart() instanceof SubTest) {
-			conn.setToolTip(new Label("Connection from an extension point in the subtest."));
+			tooltip = new Label("Connection from an extension point in the subtest");
 		}
 		else {
-			conn.setToolTip(new Label("Connection from an extension point in another test."));
+			tooltip = new Label("Connection from an extension point in another test");
 		}
+		conn.setToolTip(tooltip);
 		
 		label = new CubicTestLabel(getModel().getExtensionPoint().getName());
+		label.setTooltipText(tooltip.getText());
+		
 		MidpointOffsetLocator locator = new MidpointOffsetLocator(conn);
 		conn.add(label, locator);
 		

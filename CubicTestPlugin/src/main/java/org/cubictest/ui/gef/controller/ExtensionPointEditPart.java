@@ -46,7 +46,7 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 		Point p = ((TransitionNode)getModel()).getPosition();
 		extensionPointFigure.setLocation(p);
 		extensionPointFigure.setText(name);
-		extensionPointFigure.setToolTipText("Extension point: " + name + "\nOther tests can start from this point.");
+		extensionPointFigure.setToolTipText("Extension point: $labelText\nOther tests can start from this point.");
 		return extensionPointFigure;
 	}
 	

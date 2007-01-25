@@ -65,7 +65,7 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements IPro
 		Point p = ((TransitionNode)getModel()).getPosition();
 		customTestStepFigure.setLocation(p);
 		customTestStepFigure.setText(name);
-		customTestStepFigure.setToolTipText("Custom test step: " + name);
+		customTestStepFigure.setToolTipText("Custom test step: $labelText");
 		return customTestStepFigure;
 	}
 	

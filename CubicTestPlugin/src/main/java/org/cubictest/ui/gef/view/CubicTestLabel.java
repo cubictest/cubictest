@@ -58,13 +58,7 @@ public class CubicTestLabel extends Label {
 	
 	@Override
 	public IFigure getToolTip() {
-		if (StringUtils.isNotBlank(tooltipText)) {
-			return new Label(tooltipText);
-		}
-		else if (getFullText().length() > getText().length()) {
-			return new Label(fullText);
-		}
-		return null;
+		return new Label(StringUtils.replace(tooltipText, "$labelText", getFullText()));
 	}
 	
 	public void setTooltipText(String s) {

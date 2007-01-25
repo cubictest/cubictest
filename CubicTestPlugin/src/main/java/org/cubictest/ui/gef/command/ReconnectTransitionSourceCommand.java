@@ -7,44 +7,41 @@
  */
 package org.cubictest.ui.gef.command;
 
+import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.gef.commands.Command;
 
 
 /**
- * @author Stein Kåre Skytteren
- *
- * A command that changes a <code>Form</code>'s name.
+ * Command for reconnection transition source.
+ * 
+ * @author SK Skytteren
+ * @author chr_schwarz
  */
 public class ReconnectTransitionSourceCommand extends Command {
 
 	private Transition transition;
-	private TransitionNode node;
-	private TransitionNode oldNode;
+	private TransitionNode newSource;
+	private TransitionNode oldSource;
 
-	/**
-	 * @param transition
-	 */
-	public void setTransition(Transition transition) {
+	public ReconnectTransitionSourceCommand(TransitionNode newSource, Transition transition) {
+		super();
+		this.newSource = newSource;
 		this.transition = transition;
-	}
-
-	/**
-	 * @param node
-	 */
-	public void setSource(TransitionNode node) {
-		this.node = node;
+		this.oldSource = transition.getStart();
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
+		super.execute();
 		transition.disconnect();
-		oldNode = transition.getStart();
-		transition.setStart(node);
-		node.addOutTransition(transition);
+		oldSource.removeOutTransition(transition);
+		newSource.addOutTransition(transition);
+		transition.setStart(newSource);
 		transition.connect();
 	}
 	
@@ -52,10 +49,21 @@ public class ReconnectTransitionSourceCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo() {
+		super.undo();
 		transition.disconnect();
-		node.removeOutTransition(transition);
-		transition.setStart(oldNode);
-		oldNode.addOutTransition(transition);
+		newSource.removeOutTransition(transition);
+		oldSource.addOutTransition(transition);
+		transition.setStart(oldSource);
 		transition.connect();
+	}
+	
+	/*
+	 * @see org.eclipse.gef.commands.Command#canExecute()
+	 */
+	public boolean canExecute() {
+		if (transition instanceof ExtensionTransition) {
+			return false;
+		}
+		return ModelUtil.isLegalTransition(newSource, transition.getEnd(), transition, true);
 	}
 }

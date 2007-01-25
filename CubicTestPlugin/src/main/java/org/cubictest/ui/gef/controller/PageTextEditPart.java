@@ -43,7 +43,7 @@ public class PageTextEditPart extends PageElementEditPart{
 		label.setLayoutManager(ViewUtil.getFlowLayout());
 		label.setLabelAlignment(PositionConstants.LEFT);
 		String not = ((PageElement) getModel()).isNot() ? "NOT " : "";
-		label.setTooltipText("Check text " + not + "present: " + getElementDescription());
+		label.setTooltipText("Check text " + not + "present: $labelText");
 		return label;
 	}
 	

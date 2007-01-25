@@ -91,7 +91,7 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 		figure.setLocation(((TransitionNode)getModel()).getPosition());
 		String name = ((SubTest)getModel()).getName();
 		figure.setText(name);
-		figure.setToolTipText("Sub test: " + name + "\nDouble click to open file");
+		figure.setToolTipText("Sub test: $labelText\nDouble click to open file");
 		return figure;
 	}
 

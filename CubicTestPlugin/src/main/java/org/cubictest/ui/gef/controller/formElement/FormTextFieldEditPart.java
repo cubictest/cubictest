@@ -34,7 +34,7 @@ public class FormTextFieldEditPart extends FormElementEditPart {
 	protected IFigure createFigure() {
 		TestStepLabel label = (TestStepLabel)super.createFigure();
 		label.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_FIELD_IMAGE));
-		label.setTooltipText("Check text field present: " + getElementDescription());
+		label.setTooltipText("Check text field present: $labelText");
 		return label;
 	}
 }

@@ -29,19 +29,19 @@ public class UserInteractionsTransition extends Transition {
 	 * @param end the end node
 	 */
 	public UserInteractionsTransition(TransitionNode start, TransitionNode end) {
-		super(start, end);		
+		super(start, end);
 	}
 
 	/**
-	 * Get the page the actions are applied to.
-	 * @return the page the actions are applied to.
+	 * Get the page the user interactions are applied to.
+	 * @return the page the user interactions are applied to.
 	 */
 	public AbstractPage getPage() {
 		return page;
 	}
 	
 	/**
-	 * Set the page the actions are applied to.
+	 * Set the page the user interactions are applied to.
 	 * @param page the page the actions are applied to.
 	 */
 	public void setPage(AbstractPage page) {
@@ -51,7 +51,7 @@ public class UserInteractionsTransition extends Transition {
 	}
 	
 	/**
-	 * Get the collection of actions that constitutes this user interactions transition.
+	 * Get the collection of user interactions that constitutes this user interactions transition.
 	 * @return the collection of actions that constitutes this user interactions transition.
 	 */
 	public List<UserInteraction> getUserInteractions() {
@@ -59,7 +59,7 @@ public class UserInteractionsTransition extends Transition {
 	}
 	
 	/**
-	 * Set the collection of actions that constitutes this user interactions transition.
+	 * Set the collection of user interactions that constitutes this user interactions transition.
 	 * @param userInteractions the collection of actions that constitutes this user interactions transition.
 	 */
 	public void setUserInteractions(List<UserInteraction> userInteractions) {
@@ -71,8 +71,8 @@ public class UserInteractionsTransition extends Transition {
 	}
 	
 	/**
-	 * Add user interaction to collection of actions.
-	 * @param userInteraction the action to add.
+	 * Add user interaction to collection of user interactions.
+	 * @param userInteraction the user interaction to add.
 	 */
 	public void addUserInteraction(UserInteraction userInteraction){
 		inputs.add(userInteraction);
@@ -83,8 +83,8 @@ public class UserInteractionsTransition extends Transition {
 	}
 	
 	/**
-	 * Remove user interaction from collection of actions.
-	 * @param input the action to remove.
+	 * Remove user interaction from collection of user interactions.
+	 * @param input the user interaction to remove.
 	 */
 	public void removeUserInteraction(UserInteraction input){
 		inputs.remove(input);
@@ -126,4 +126,13 @@ public class UserInteractionsTransition extends Transition {
 			((UserInteraction)inputs.get(i)).removePropertyChangeListener(l);
 	}
 
+	public void cleanUpEmptyUserInteractions() {
+		List<UserInteraction> realActions = new ArrayList<UserInteraction>(); 
+		for(UserInteraction input : inputs) {
+			if (input != null && !input.getActionType().equals(ActionType.NO_ACTION)) {
+				realActions.add(input);
+			}
+		}
+		this.inputs = realActions;
+	}
 }

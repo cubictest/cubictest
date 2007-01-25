@@ -54,10 +54,9 @@ public abstract class AbstractNodeEditPolicy extends GraphicalNodeEditPolicy {
 	 * @see GraphicalNodeEditPolicy#getReconnectSourceCommand(ReconnectRequest)
 	 */
 	protected Command getReconnectSourceCommand(ReconnectRequest request){
-		ReconnectTransitionSourceCommand cmd = new ReconnectTransitionSourceCommand();
-		cmd.setTransition((Transition) request.getConnectionEditPart().getModel());
-		AbstractNodeEditPart abstractNodeEditPart = (AbstractNodeEditPart) getHost();
-		cmd.setSource((TransitionNode)abstractNodeEditPart.getModel());
+		TransitionNode newSource = ((TransitionNode)((AbstractNodeEditPart) getHost()).getModel());
+		Transition transition = ((Transition) request.getConnectionEditPart().getModel());
+		ReconnectTransitionSourceCommand cmd = new ReconnectTransitionSourceCommand(newSource, transition);
 		return cmd;
 	}
 
@@ -68,7 +67,7 @@ public abstract class AbstractNodeEditPolicy extends GraphicalNodeEditPolicy {
 		ReconnectTrasitionTargetCommand cmd = new ReconnectTrasitionTargetCommand();
 		cmd.setTransition((Transition)request.getConnectionEditPart().getModel());
 		AbstractNodeEditPart abstractNodeEditPart = (AbstractNodeEditPart) getHost();
-		cmd.setTarget((TransitionNode)abstractNodeEditPart.getModel());
+		cmd.setNewTarget((TransitionNode)abstractNodeEditPart.getModel());
 		return cmd;
 	}
 }

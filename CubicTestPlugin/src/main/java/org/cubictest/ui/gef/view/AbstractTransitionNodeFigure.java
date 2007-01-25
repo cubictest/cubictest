@@ -45,7 +45,7 @@ public class AbstractTransitionNodeFigure extends Figure {
 	
 	@Override
 	public IFigure getToolTip() {
-		return StringUtils.isBlank(tooltipText) ? null : new Label(tooltipText);
+		return new Label(StringUtils.replace(tooltipText, "$labelText", label.getFullText()));
 	}
 	
 	public void setToolTipText(String toolTipText) {

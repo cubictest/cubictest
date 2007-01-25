@@ -70,7 +70,7 @@ public class ContextEditPart extends PageElementEditPart {
 		CubicTestGroupFigure figure = 
 			new CubicTestGroupFigure(((AbstractContext)getModel()).getDescription(), false);
 		figure.setBackgroundColor(ColorConstants.listBackground);
-		figure.setTooltipText("Check context present: " + getElementDescription()
+		figure.setTooltipText("Check context present: $labelText"
 				+ "\nContexts are used for identyfying a part of the page or a single element.");
 		return figure;
 	}

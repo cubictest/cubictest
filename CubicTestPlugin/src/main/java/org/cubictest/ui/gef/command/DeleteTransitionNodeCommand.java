@@ -39,7 +39,7 @@ public abstract class DeleteTransitionNodeCommand extends Command {
 		for (Transition t : getOutTransitions()) {
 			test.removeTransition(t);
 			if (t.getStart().getOutTransitions().contains(t))
-				System.out.println("Error in DeleteTransitionNodeCommand (dublicate transition)");
+				System.out.println("Error in DeleteTransitionNodeCommand (duplicate transition)");
 		}
 
 		if (getInTransition() != null){

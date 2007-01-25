@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
+import org.cubictest.model.Image;
+import org.cubictest.model.Link;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.formElement.AbstractTextInput;
@@ -57,6 +59,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	@Override
 	protected void refreshVisuals() {
 		super.refreshVisuals();
+		UserInteractionsTransition model = (UserInteractionsTransition) getModel();
 		PolylineConnection conn = (PolylineConnection) getFigure();
 		List<Figure> delete = new ArrayList<Figure>();
 		for(Object o : conn.getChildren()){
@@ -69,7 +72,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 		for(Figure f : delete)
 			conn.remove(f);
 		
-		if (getModel() instanceof UserInteractionsTransition && ((UserInteractionsTransition)getModel()).hasUserInteractions()){
+		if (model.hasUserInteractions()){
 			figure = new Figure();
 			ToolbarLayout layout = new ToolbarLayout();
 			layout.setVertical(true);
@@ -77,11 +80,10 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			figure.setLayoutManager(layout);
 			figure.setBackgroundColor(ColorConstants.menuBackground);
 			figure.setOpaque(true);
-			//figure.setLabelText(((UserInteractionsTransition)getModel()).getText());
 			figure.setToolTip(new Label("User interaction on the page/state"));
 			conn.setToolTip(new Label("User interaction on the page/state"));
 			
-			List<UserInteraction> inputs = ((UserInteractionsTransition)getModel()).getUserInteractions();
+			List<UserInteraction> inputs = model.getUserInteractions();
 			Label inputLabel;
 			
 			for(UserInteraction input : inputs){
@@ -99,49 +101,46 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 						+ input.getTextualInput();
 				}
 				inputLabel = new Label(inputLabelText);
-				if (element instanceof Button){
-					inputLabel.setIcon(CubicTestImageRegistry.get(
-							CubicTestImageRegistry.BUTTON_IMAGE));
+				if (element instanceof Link){
+					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.LINK_IMAGE));
 				}
-				else if (element instanceof Password){
-					inputLabel.setIcon(CubicTestImageRegistry.get(
-							CubicTestImageRegistry.PASSWORD_IMAGE));
-				}	
-				else if (element instanceof Select){
-					inputLabel.setIcon(CubicTestImageRegistry.get(
-							CubicTestImageRegistry.SELECT_IMAGE));
-				}
-				else if (element instanceof Checkbox){
-					if (input.getActionType().equals(ActionType.UNCHECK)) {
-						inputLabel.setIcon(CubicTestImageRegistry.get(
-							CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE));
-					}
-					else {
-						inputLabel.setIcon(CubicTestImageRegistry.get(
-								CubicTestImageRegistry.CHECKBOX_CHECKED_IMAGE));
-					}
-				}
-				else if (element instanceof RadioButton){
-					if (input.getActionType().equals(ActionType.UNCHECK)) {
-						inputLabel.setIcon(CubicTestImageRegistry.get(
-								CubicTestImageRegistry.RADIO_BUTTON_UNCHECKED_IMAGE));
-					}
-					else {
-						inputLabel.setIcon(CubicTestImageRegistry.get(
-								CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE));
-					}
+				else if (element instanceof Image){
+					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.IMAGE_IMAGE));
 				}
 				else if (element instanceof TextField){
 					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_FIELD_IMAGE));
 				}
-				else if (element instanceof TextArea){
-					inputLabel.setIcon(CubicTestImageRegistry.get(
-							CubicTestImageRegistry.TEXT_AREA_IMAGE));
+				else if (element instanceof Button){
+					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.BUTTON_IMAGE));
+				}
+				else if (element instanceof Checkbox){
+					if (input.getActionType().equals(ActionType.UNCHECK)) {
+						inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE));
+					}
+					else {
+						inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.CHECKBOX_CHECKED_IMAGE));
+					}
+				}
+				else if (element instanceof RadioButton){
+					if (input.getActionType().equals(ActionType.UNCHECK)) {
+						inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.RADIO_BUTTON_UNCHECKED_IMAGE));
+					}
+					else {
+						inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE));
+					}
+				}
+				else if (element instanceof Select){
+					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.SELECT_IMAGE));
 				}
 				else if (element instanceof Option){
-					inputLabel.setIcon(CubicTestImageRegistry.get(
-							CubicTestImageRegistry.OPTION_IMAGE));
+					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.OPTION_IMAGE));
 				}
+				else if (element instanceof TextArea){
+					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_AREA_IMAGE));
+				}
+				else if (element instanceof Password){
+					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.PASSWORD_IMAGE));
+				}	
 				else {
 					inputLabel = new Label(inputLabelText);
 				}

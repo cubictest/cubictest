@@ -21,7 +21,7 @@ public class TableRowEditPart extends ContextEditPart {
 	@Override
 	protected CubicTestGroupFigure createFigure() {
 		CubicTestGroupFigure figure = super.createFigure();
-		figure.setTooltipText("Check table row present: " + getElementDescription());
+		figure.setTooltipText("Check table row present: $labelText");
 		return figure;
 	}
 }

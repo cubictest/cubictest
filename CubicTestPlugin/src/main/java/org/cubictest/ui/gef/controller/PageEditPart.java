@@ -43,7 +43,7 @@ public class PageEditPart extends AbstractPageEditPart {
 		CubicTestScrollableGroupFigure figure = (CubicTestScrollableGroupFigure) super.createFigure();
 		figure.getHeader().setBackgroundColor(new Color(null, 172, 170, 255));
 		String name = ((AbstractPage)getModel()).getName();
-		figure.setTooltipText("Page/state: " + name);
+		figure.setTooltipText("Page/state: $labelText");
 		return figure;
 	}
 

@@ -52,7 +52,9 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 /**
- * Component view for creating new user interaction input.
+ * Component view (GUI) nfor creating new user interaction input.
+ * Both used in dialog box for new user interaction and for properties view.
+ * 
  * @author SK Skytteren
  * @author chr_schwarz
  */
@@ -61,20 +63,18 @@ public class UserInteractionsComponent {
 	private static final String CHOOSE = "--Choose--";
 	private TableViewer viewer;
 	private Table table;
-	private CellEditor[] cellEditors;
 	
 	private static final String ELEMENT = "element";
 	private static final String ACTION = "action";
 	private static final String INPUT = "input";
 	
+	private CellEditor[] cellEditors;
 	private String[] columnNames = new String[] {ELEMENT, ACTION, INPUT};
+	private String[] elementNames;
 	
 	private UserInteractionsTransition transition;
-	private List<IActionElement> allElements;
-	private String[] elementNames;
+	private List<IActionElement> allActionElements = new ArrayList<IActionElement>();
 	private Test test;
-	private List<PageElement> flattenedElements = new ArrayList<PageElement>(); 
-	private List<UserInteraction> elementActions;
 	
 	private String[] currentActions;
 	private UserInteraction activeAction;
@@ -83,57 +83,20 @@ public class UserInteractionsComponent {
 		this.test = test;
 		this.transition = transition;
 		
-		List<PageElement> rootElements = new ArrayList<PageElement>();
-		
+		List<PageElement> elementsTree = new ArrayList<PageElement>();
 		AbstractPage start = (AbstractPage)transition.getStart();
-		
-		elementActions = new ArrayList<UserInteraction>();
-		List<UserInteraction> toRemove = new ArrayList<UserInteraction>();
-		
-		//clean up elementActions:
-		List<UserInteraction> inputs = transition.getUserInteractions();
-		for (UserInteraction action : inputs) {
-			IActionElement element = action.getElement();
-			if (element != null) {
-				elementActions.add(action);
-			}
-			else {
-				toRemove.add(action);
-			}
-		}
-		for (UserInteraction action : toRemove) {
-			transition.removeUserInteraction(action);
-		}
-		
 		if(start instanceof Page) { // process commonTrasitions for pages
-			rootElements.addAll(start.getElements());
+			elementsTree.addAll(start.getElements());
 			List<CommonTransition> commonTransitions = ((Page)start).getCommonTransitions();
 			for (CommonTransition at : commonTransitions)
-				rootElements.addAll(((Common)(at).getStart()).getElements());			
+				elementsTree.addAll(((Common)(at).getStart()).getElements());			
 		}
 		
-		populateFlattenedElements(rootElements);
-		
-		allElements = new ArrayList<IActionElement>();
-		for(Object o : flattenedElements){
-			if(o instanceof IActionElement && (((IActionElement) o).getActionTypes().size() > 0)){
-				allElements.add((IActionElement)o);
-			}
-		}
-		allElements.add (new WebBrowser());
+		allActionElements.addAll(getFlattenedPageElements(elementsTree));
+		allActionElements.add(new WebBrowser());
+		transition.setPage((AbstractPage)transition.getStart());
 	}
 	
-	private void populateFlattenedElements(List<PageElement> elements) {
-		for (PageElement element: elements){
-			if(element instanceof IContext){
-				populateFlattenedElements(((IContext) element).getElements());
-				flattenedElements.add(element);
-			}
-			else {
-				flattenedElements.add(element);
-			}
-		}
-	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
@@ -149,21 +112,16 @@ public class UserInteractionsComponent {
 		Label fill = new Label(content, SWT.NULL);
 		fill.setText("User interaction input");
 
-		//add empty element if empty list
-		if (elementActions.size() == 0)
-			elementActions.add(new UserInteraction());
 		
 		Button button = new Button(content, SWT.PUSH);
 		button.setText("Add New User Input");
 		button.pack();
 		button.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				List<UserInteraction> allInputs = (List<UserInteraction>)viewer.getInput();
+				List<UserInteraction> currentInputs = transition.getUserInteractions();
 				UserInteraction newInput = new UserInteraction();
-				
 				transition.addUserInteraction(newInput);
-				transition.setPage((AbstractPage)transition.getStart());
-				viewer.setInput(allInputs);
+				viewer.setInput(currentInputs);
 			}
 		});
 		
@@ -176,10 +134,14 @@ public class UserInteractionsComponent {
 		createTable(content);
 		createTableViewer();
 		
-	
-		transition.setUserInteractions(elementActions);
-		transition.setPage((AbstractPage)transition.getStart());
-		viewer.setInput(elementActions);
+		//populate viewer with initial user interactions:
+		List<UserInteraction> initialUserInteractions = transition.getUserInteractions();
+		if (initialUserInteractions == null || initialUserInteractions.size() == 0) {
+			initialUserInteractions.add(new UserInteraction());
+		}
+		
+		viewer.setInput(initialUserInteractions);
+		transition.setUserInteractions(initialUserInteractions);
 		
 		return content;
 	}
@@ -221,10 +183,10 @@ public class UserInteractionsComponent {
 		viewer.setColumnProperties(columnNames);
 		
 		cellEditors = new CellEditor[3];
-		elementNames = new String[allElements.size()+2];
+		elementNames = new String[allActionElements.size() + 2];
 		elementNames[0] = CHOOSE;
 		int a = 1;
-		for (IActionElement element: allElements) {
+		for (IActionElement element: allActionElements) {
 			if (element.getActionTypes().size() > 0) {
 				elementNames[a++] = element.getType() + ": " + element.getDescription();
 			}
@@ -239,10 +201,6 @@ public class UserInteractionsComponent {
 		viewer.setContentProvider(new ActionContentProvider());
 		viewer.setLabelProvider(new ActionLabelProvider());
 		viewer.setCellModifier(new ActionInputCellModifier());
-	}
-	
-	public List getUserInput(){
-		return (List) viewer.getInput(); 
 	}
 	
 	
@@ -260,7 +218,7 @@ public class UserInteractionsComponent {
 	            public void widgetSelected(SelectionEvent event) {
 	                Integer selectedIndex = (Integer) doGetValue();
 					String name = elementNames[selectedIndex.intValue()];
-					for (IActionElement iae : allElements){	
+					for (IActionElement iae : allActionElements){	
 						if ( (iae.getType() + ": " + iae.getDescription()).equals(name)){
 							activeAction.setElement(iae);
 							break;
@@ -314,7 +272,7 @@ public class UserInteractionsComponent {
 					((UserInteraction) element).setTextualInput("");
 					return false;
 				}
-			}else if(property.equals(ACTION)){
+			} else if(property.equals(ACTION)){
 				IActionElement pe = ((UserInteraction)element).getElement();
 				if(pe != null){
 					
@@ -390,7 +348,7 @@ public class UserInteractionsComponent {
 					case 0: 
 						String name = elementNames[((Integer) value).intValue()];
 						
-						for (IActionElement iae : allElements){	
+						for (IActionElement iae : allActionElements){	
 							if (name.equals(CHOOSE) || name.equals("")) {
 								rowItem.setElement(null);
 								rowItem.setActionType(ActionType.NO_ACTION);
@@ -430,7 +388,8 @@ public class UserInteractionsComponent {
 				viewer.update(rowItem, null);
 			}
 		}
-	}	
+	}
+	
 	class ActionContentProvider implements IStructuredContentProvider {
 
 		public void dispose() {
@@ -480,11 +439,29 @@ public class UserInteractionsComponent {
 			return result;
 		}
 		
-		/**
-		 * Disposes any resources
-		 */
+
 		public void dispose() {		
 		}
+	}
+	
+	
+	private List<PageElement> getFlattenedPageElements(List<PageElement> elements) {
+		List<PageElement> flattenedElements = new ArrayList<PageElement>(); 
+
+		for (PageElement element: elements){
+			if(element.getActionTypes().size() == 0) {
+				continue;
+			}
+
+			if(element instanceof IContext){
+				getFlattenedPageElements(((IContext) element).getElements());
+				flattenedElements.add(element);
+			}
+			else {
+				flattenedElements.add(element);
+			}
+		}
+		return flattenedElements;
 	}
 }
 

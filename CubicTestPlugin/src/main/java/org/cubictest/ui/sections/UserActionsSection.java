@@ -1,6 +1,4 @@
 /*
- * Created on 17.may.2006
- * 
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  */
@@ -19,14 +17,18 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
-
+/**
+ * Property view section of a user interaction.
+ * Configured in plugin.xml file.
+ * 
+ * @author chr_schwarz
+ */
 public class UserActionsSection extends AbstractPropertySection {
 
 	private UserInteractionsTransition actions;
 	private UserInteractionsComponent component;
 	private Composite parent = null;
 	private boolean created = false;
-	private Composite composite;
 	private Test test;
 
 	public UserActionsSection() {
@@ -45,7 +47,7 @@ public class UserActionsSection extends AbstractPropertySection {
 
 		if(actions != null && !created && parent != null){
 			component = new UserInteractionsComponent(actions, test);
-			composite = component.createControl(parent);
+			component.createControl(parent);
 			this.parent.setSize(400, 300);
 			created  = true;
 		}

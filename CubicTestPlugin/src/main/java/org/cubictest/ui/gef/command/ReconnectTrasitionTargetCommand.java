@@ -7,10 +7,14 @@
  */
 package org.cubictest.ui.gef.command;
 
+import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.UrlStartPoint;
+import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.gef.commands.Command;
 
 
@@ -23,7 +27,7 @@ import org.eclipse.gef.commands.Command;
 public class ReconnectTrasitionTargetCommand extends Command {
 
 	private Transition transition;
-	private TransitionNode node;
+	private TransitionNode newTarget;
 	private TransitionNode oldTarget;
 
 	/**
@@ -34,10 +38,10 @@ public class ReconnectTrasitionTargetCommand extends Command {
 	}
 
 	/**
-	 * @param node
+	 * @param newTarget
 	 */
-	public void setTarget(TransitionNode node) {
-		this.node = node;	
+	public void setNewTarget(TransitionNode node) {
+		this.newTarget = node;	
 	}
 	
 	/* (non-Javadoc)
@@ -48,28 +52,37 @@ public class ReconnectTrasitionTargetCommand extends Command {
 		this.oldTarget = transition.getEnd();
 		if (transition instanceof CommonTransition){
 			((Page)oldTarget).removeCommonTransition((CommonTransition)transition);
-			transition.setEnd(node);
-			((Page)node).addCommonTransition((CommonTransition) transition);
+			transition.setEnd(newTarget);
+			((Page)newTarget).addCommonTransition((CommonTransition) transition);
 		}else{
 			oldTarget.setInTransition(null);
-			transition.setEnd(node);
-			node.setInTransition(transition);
+			transition.setEnd(newTarget);
+			newTarget.setInTransition(transition);
 		}
 	}
+	
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo() {
 		super.undo();
 		if (transition instanceof CommonTransition){
-			((Page)node).removeCommonTransition((CommonTransition)transition);
+			((Page)newTarget).removeCommonTransition((CommonTransition)transition);
 			transition.setEnd(oldTarget);
 			((Page)oldTarget).addCommonTransition((CommonTransition) transition);
 		}else{
 			transition.setEnd(oldTarget);
 			oldTarget.setInTransition(transition);
-			node.setInTransition(null);
+			newTarget.setInTransition(null);
 		}
+	}
+	
+	/*
+	 * @see org.eclipse.gef.commands.Command#canExecute()
+	 */
+	public boolean canExecute() {
+		return ModelUtil.isLegalTransition(transition.getStart(), newTarget, transition, false);
 	}
 
 }
