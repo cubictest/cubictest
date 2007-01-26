@@ -20,6 +20,7 @@ import org.cubictest.ui.gef.policies.ContextLayoutEditPolicy;
 import org.cubictest.ui.gef.policies.PageElementComponentEditPolicy;
 import org.cubictest.ui.gef.policies.PageElementDirectEditPolicy;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
+import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.gef.EditPart;
@@ -70,8 +71,9 @@ public class ContextEditPart extends PageElementEditPart {
 		CubicTestGroupFigure figure = 
 			new CubicTestGroupFigure(((AbstractContext)getModel()).getDescription(), false);
 		figure.setBackgroundColor(ColorConstants.listBackground);
+		figure.getHeader().setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.CONTEXT_IMAGE));
 		figure.setTooltipText("Check context present: $labelText"
-				+ "\nContexts are used for identyfying a part of the page or a single element.");
+				+ "\nContexts are used for identyfying a part of the page or a single page element.");
 		return figure;
 	}
 	

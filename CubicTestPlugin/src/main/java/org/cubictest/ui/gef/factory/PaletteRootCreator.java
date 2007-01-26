@@ -25,6 +25,8 @@ import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TEXT_FIELD_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TEXT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TITLE_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.USER_INTERACTION_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONTEXT_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.ROW_IMAGE;
 
 import java.util.ArrayList;
 
@@ -197,59 +199,59 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		tool = new CombinedTemplateCreationEntry("Add Context",
 				"Creates a new Context used for identyfying a part of the page or a single element.",
 				SimpleContext.class, new DataCreationFactory(
-						SimpleContext.class), null, null);
+						SimpleContext.class), imageRegistry.getDescriptor(CONTEXT_IMAGE), null);
 		contexts.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add Row",
 				"Creates a new table Row",
 				Row.class, new DataCreationFactory(
-						Row.class), null, null);
+						Row.class), imageRegistry.getDescriptor(ROW_IMAGE), null);
 		contexts.add(tool);
 
 		
 		// -- Creating Form Elements --
 		tool = new CombinedTemplateCreationEntry("Add TextField",
-				"Create a new TextField", TextField.class,
+				"Check for a TextField", TextField.class,
 				new DataCreationFactory(TextField.class), imageRegistry
 						.getDescriptor(TEXT_FIELD_IMAGE), null);
 		formElements.add(tool);
 
-		tool = new CombinedTemplateCreationEntry("Add Button",
-				"Create a new Button. This is any kind of button",
-				Button.class, new DataCreationFactory(Button.class),
-				imageRegistry.getDescriptor(BUTTON_IMAGE), null);
-		formElements.add(tool);
-
 		tool = new CombinedTemplateCreationEntry("Add CheckBox",
-				"Create a new CheckBox", Checkbox.class,
+				"Check for a CheckBox", Checkbox.class,
 				new DataCreationFactory(Checkbox.class), imageRegistry
 						.getDescriptor(CHECKBOX_UNCHECKED_IMAGE), null);
 		formElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add RadioButton",
-				"Create a new RadioButton.",
+				"Check for a RadioButton.",
 				RadioButton.class, new DataCreationFactory(RadioButton.class),
 				imageRegistry.getDescriptor(RADIO_BUTTON_CHECKED_IMAGE), null);
 		formElements.add(tool);
 
+		tool = new CombinedTemplateCreationEntry("Add Button",
+				"Check for a Button. This is any kind of button",
+				Button.class, new DataCreationFactory(Button.class),
+				imageRegistry.getDescriptor(BUTTON_IMAGE), null);
+		formElements.add(tool);
+
 		tool = new CombinedTemplateCreationEntry("Add SelectList",
-				"Create a new SelectList", Select.class,
+				"Check for a SelectList", Select.class,
 				new DataCreationFactory(Select.class), imageRegistry
 						.getDescriptor(SELECT_IMAGE), null);
 		formElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add Option",
-				"Create a new Option for the SelectList", Option.class,
+				"Check for a Option for the SelectList", Option.class,
 				new DataCreationFactory(Option.class), imageRegistry
 						.getDescriptor(OPTION_IMAGE), null);
 		formElements.add(tool);
 		
 		tool = new CombinedTemplateCreationEntry("Add TextArea",
-				"Create a new TextArea", TextArea.class,
+				"Check for a TextArea", TextArea.class,
 				new DataCreationFactory(TextArea.class), imageRegistry
 						.getDescriptor(TEXT_AREA_IMAGE), null);
 		formElements.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add PasswordField",
-				"Create a new PasswordField", Password.class,
+				"Check for a PasswordField", Password.class,
 				new DataCreationFactory(Password.class), imageRegistry
 						.getDescriptor(PASSWORD_IMAGE), null);
 		formElements.add(tool);

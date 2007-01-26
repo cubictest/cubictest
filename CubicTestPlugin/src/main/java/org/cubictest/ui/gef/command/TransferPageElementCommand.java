@@ -9,6 +9,8 @@ package org.cubictest.ui.gef.command;
 
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
+import org.cubictest.model.formElement.Option;
+import org.cubictest.model.formElement.Select;
 import org.eclipse.gef.commands.Command;
 
 
@@ -65,9 +67,10 @@ public class TransferPageElementCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#canExecute()
 	 */
 	public boolean canExecute(){
-		//if (originalContext.getElements().size() > 0)
-			return true;
-		//return false;
+		if (child instanceof Option && !(newContext instanceof Select)) {
+			return false;
+		}
+		return true;
 	}
 	
 	/* (non-Javadoc)

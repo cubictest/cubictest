@@ -6,6 +6,7 @@ package org.cubictest.ui.gef.controller;
 
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
+import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 
 /**
  * Editpart for the <code>Row</code> model object.
@@ -22,6 +23,7 @@ public class TableRowEditPart extends ContextEditPart {
 	protected CubicTestGroupFigure createFigure() {
 		CubicTestGroupFigure figure = super.createFigure();
 		figure.setTooltipText("Check table row present: $labelText");
+		figure.getHeader().setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.ROW_IMAGE));
 		return figure;
 	}
 }
