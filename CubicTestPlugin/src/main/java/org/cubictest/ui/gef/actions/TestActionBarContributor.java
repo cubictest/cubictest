@@ -78,5 +78,6 @@ public class TestActionBarContributor extends ActionBarContributor{
 		addGlobalActionKey(ActionFactory.CUT.getId());
 		addGlobalActionKey(ActionFactory.COPY.getId());
 		addGlobalActionKey(ActionFactory.PASTE.getId());
+		addGlobalActionKey(ActionFactory.SELECT_ALL.getId());
 	}
 }

@@ -61,6 +61,7 @@ import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.PrintAction;
 import org.eclipse.gef.ui.actions.RedoAction;
 import org.eclipse.gef.ui.actions.SaveAction;
+import org.eclipse.gef.ui.actions.SelectAllAction;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.gef.ui.actions.StackAction;
 import org.eclipse.gef.ui.actions.UndoAction;
@@ -307,12 +308,14 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		addEditPartAction(new AddExtensionPointAction((IWorkbenchPart) this));
 		
 		addEditorAction(new SaveAction(this));
-		addAction(new PrintAction(this));
 		addEditorAction(new RunCubicUnitAction(this));
 		addEditorAction(new RecordAction(this));
 		addEditorAction(new ResetTestAction(this));
 		addEditorAction(new AutoLayoutAction(this));
-	}
+
+		addAction(new PrintAction(this));
+		addAction(new SelectAllAction(this));
+}
 	
 	/*
 	 *  (non-Javadoc)
