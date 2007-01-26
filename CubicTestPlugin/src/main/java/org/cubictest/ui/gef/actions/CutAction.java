@@ -9,11 +9,21 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.Common;
+import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
+import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.IContext;
+import org.cubictest.ui.gef.command.DeleteAbstractPageCommand;
+import org.cubictest.ui.gef.command.DeleteCustomTestStepCommand;
+import org.cubictest.ui.gef.command.DeleteExtensionPointCommand;
 import org.cubictest.ui.gef.command.DeletePageCommand;
 import org.cubictest.ui.gef.command.DeletePageElementCommand;
+import org.cubictest.ui.gef.command.DeleteSubTestCommand;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.ui.actions.Clipboard;
@@ -71,16 +81,40 @@ public class CutAction extends SelectionAction{
 				deleteCmd.setPageElement((PageElement) item.getModel());
 				compoundCmd.add(deleteCmd);
 			}
-			else if (item.getModel() instanceof AbstractPage) {
+			else if (item.getModel() instanceof Page) {
 				DeletePageCommand deleteCmd = new DeletePageCommand();
 				deleteCmd.setTest((Test) item.getParent().getModel());
-				deleteCmd.setTransitionNode((AbstractPage) item.getModel());
-				getCommandStack().execute(deleteCmd);
+				deleteCmd.setTransitionNode((TransitionNode) item.getModel());
+				compoundCmd.add(deleteCmd);
+			}
+			else if (item.getModel() instanceof CustomTestStep) {
+				DeleteCustomTestStepCommand deleteCmd = new DeleteCustomTestStepCommand();
+				deleteCmd.setTest((Test) item.getParent().getModel());
+				deleteCmd.setTransitionNode((TransitionNode) item.getModel());
+				compoundCmd.add(deleteCmd);
+			}
+			else if (item.getModel() instanceof ExtensionPoint) {
+				DeleteExtensionPointCommand deleteCmd = new DeleteExtensionPointCommand();
+				deleteCmd.setTest((Test) item.getParent().getModel());
+				deleteCmd.setTransitionNode((TransitionNode) item.getModel());
+				compoundCmd.add(deleteCmd);
+			}
+			else if (item.getModel() instanceof SubTest) {
+				DeleteSubTestCommand deleteCmd = new DeleteSubTestCommand();
+				deleteCmd.setTest((Test) item.getParent().getModel());
+				deleteCmd.setTransitionNode((TransitionNode) item.getModel());
+				compoundCmd.add(deleteCmd);
+			}
+			else if (item.getModel() instanceof Common) {
+				DeleteAbstractPageCommand deleteCmd = new DeleteAbstractPageCommand();
+				deleteCmd.setTest((Test) item.getParent().getModel());
+				deleteCmd.setTransitionNode((TransitionNode) item.getModel());
 				compoundCmd.add(deleteCmd);
 			}
 		}
 		getCommandStack().execute(compoundCmd);
 	}
+	
 	@Override
 	protected void handleSelectionChanged() {
 		ISelection s = getSelection();
