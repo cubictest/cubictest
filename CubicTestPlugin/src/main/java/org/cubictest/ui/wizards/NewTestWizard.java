@@ -11,7 +11,6 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.cubictest.common.resources.UiText;
-import org.cubictest.common.utils.ExceptionUtil;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.CubicTestXStream;
@@ -19,6 +18,7 @@ import org.cubictest.persistence.TestPersistance;
 import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.resources.ResourceMonitor;
 import org.cubictest.resources.interfaces.IResourceMonitor;
+import org.cubictest.ui.eclipse.ExceptionHandler;
 import org.cubictest.ui.utils.ResourceNavigatorGetter;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.IContainer;
@@ -168,7 +168,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 			file.getParent().refreshLocal(IResource.DEPTH_INFINITE, null);
 
 		} catch (IOException e) {
-			ExceptionUtil.rethrow(e);
+			ExceptionHandler.rethrow(e);
 		}
 		monitor.worked(1);
 		

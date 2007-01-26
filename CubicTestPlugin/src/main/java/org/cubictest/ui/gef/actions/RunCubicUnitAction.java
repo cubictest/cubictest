@@ -50,8 +50,6 @@ public class RunCubicUnitAction extends EditorPartAction {
 			new ProgressMonitorDialog(new Shell()).run(false, false, testRunner);
 		}catch (Exception e) {
 			ExceptionHandler.handleException(e);
-		}catch (Error e) {
-			ExceptionHandler.handleError(e);
-		}	
+		}
 	}
 }

@@ -11,8 +11,8 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.cubictest.common.exception.CubicException;
-import org.cubictest.common.utils.ExceptionUtil;
 import org.cubictest.model.Test;
+import org.cubictest.ui.eclipse.ExceptionHandler;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -51,7 +51,7 @@ public class TestPersistance {
 		try {
 			FileUtils.writeStringToFile(file, xml, "ISO-8859-1");
 		} catch (IOException e) {
-			ExceptionUtil.rethrow(e);
+			ExceptionHandler.rethrow(e);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class TestPersistance {
 			xml = FileUtils.readFileToString(file, "ISO-8859-1");
 			xml = LegacyUpgrade.upgradeIfNecessary(xml, project);
 		} catch (IOException e) {
-			ExceptionUtil.rethrow(e);
+			ExceptionHandler.rethrow(e);
 		}
 		
 		Test test = (Test) new CubicTestXStream().fromXML(xml);
