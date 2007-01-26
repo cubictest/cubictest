@@ -4,8 +4,6 @@
  */
 package org.cubictest.ui.eclipse;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
