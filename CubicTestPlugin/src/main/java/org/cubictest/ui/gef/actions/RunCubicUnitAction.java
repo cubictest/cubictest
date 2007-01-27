@@ -6,9 +6,9 @@
 
 package org.cubictest.ui.gef.actions;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Test;
 import org.cubictest.runner.cubicunit.CubicUnitRunner;
-import org.cubictest.ui.eclipse.ExceptionHandler;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.gef.ui.actions.EditorPartAction;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -49,7 +49,7 @@ public class RunCubicUnitAction extends EditorPartAction {
 
 			new ProgressMonitorDialog(new Shell()).run(false, false, testRunner);
 		}catch (Exception e) {
-			ExceptionHandler.handleException(e);
+			ErrorHandler.logAndShowErrorDialog(e);
 		}
 	}
 }

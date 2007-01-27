@@ -8,6 +8,7 @@ package org.cubictest.ui.gef.actions;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
@@ -67,9 +68,9 @@ public class RecordAction extends EditorPartAction {
 				try {
 					new ProgressMonitorDialog(new Shell()).run(false, false, seleniumRecorder);
 				} catch (InvocationTargetException e) {
-					e.printStackTrace();
+					ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 				}
 			}
 		} else {

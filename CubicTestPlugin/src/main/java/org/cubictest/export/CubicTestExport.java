@@ -1,6 +1,7 @@
 package org.cubictest.export;
 
 import org.cubictest.common.exception.CubicException;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.export.converters.IPageElementConverter;
@@ -43,8 +44,7 @@ public class CubicTestExport {
 			new ProgressMonitorDialog(new Shell()).run(false, false, dirWalker);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			throw new CubicException("Error when exporting file(s): " + e.toString(), e);
+			ErrorHandler.logAndShowErrorDialog(e, "Error occured when exporting file(s)");
 		}
 	}
 	
@@ -56,8 +56,7 @@ public class CubicTestExport {
 			new ProgressMonitorDialog(new Shell()).run(false, false, directoryWalker);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			throw new CubicException("Error when exporting file(s): " + e.toString(), e);
+			ErrorHandler.logAndShowErrorDialog(e, "Error occured when exporting file(s)");
 		}
 	}
 }

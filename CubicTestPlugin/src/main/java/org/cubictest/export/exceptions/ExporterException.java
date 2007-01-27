@@ -16,7 +16,7 @@ public class ExporterException extends CubicException {
 	}
 
 	public ExporterException(String message, Exception cause) {
-		super(message, cause);
+		super(cause, message);
 	}
 
 	private static final long serialVersionUID = 1L;

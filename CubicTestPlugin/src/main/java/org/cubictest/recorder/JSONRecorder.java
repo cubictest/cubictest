@@ -2,6 +2,7 @@ package org.cubictest.recorder;
 
 import java.text.ParseException;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.UserInteraction;
@@ -21,7 +22,7 @@ public class JSONRecorder {
 		try {
 			serializer.registerDefaultSerializers();
 		} catch (Exception e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
 	
@@ -35,7 +36,7 @@ public class JSONRecorder {
 				return false;
 			}
 		} catch (ParseException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 		
 		return false;
@@ -48,7 +49,7 @@ public class JSONRecorder {
 			recorder.addPageElement(pe);
 			return true;
 		} catch (ParseException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 		return false;
 	}
@@ -68,7 +69,7 @@ public class JSONRecorder {
 				System.out.println("Action ignored");
 			}
 		} catch (ParseException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
 	

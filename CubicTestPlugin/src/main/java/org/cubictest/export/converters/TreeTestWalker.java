@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.exception.UnknownExtensionPointException;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStep;
 import org.cubictest.model.ExtensionPoint;
@@ -86,11 +87,9 @@ public class TreeTestWalker<T> {
 				}
 			}
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new CubicException(e);
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new CubicException(e);
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
 

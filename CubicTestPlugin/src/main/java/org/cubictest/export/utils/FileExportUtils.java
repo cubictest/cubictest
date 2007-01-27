@@ -7,6 +7,7 @@ package org.cubictest.export.utils;
 import java.io.File;
 
 import org.cubictest.common.exception.CubicException;
+import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -74,8 +75,7 @@ public class FileExportUtils {
 						ff.create(true, true, monitor);
 					} 
 					catch (CoreException e) {
-						e.printStackTrace();
-						throw new CubicException("Error creating directory: " + e.toString());
+						ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error creating directory");
 					}
 					updatedFolder = ff;
 				}

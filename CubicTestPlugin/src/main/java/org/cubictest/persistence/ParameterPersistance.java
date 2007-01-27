@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.parameterization.Parameter;
 import org.cubictest.model.parameterization.ParameterList;
 import org.eclipse.core.resources.IFile;
@@ -29,7 +30,7 @@ public class ParameterPersistance {
 			}
 			bw.close();
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(ioe);
 		}
 	}
 
@@ -62,9 +63,9 @@ public class ParameterPersistance {
 			}
 			bw.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 		return list;
 	}

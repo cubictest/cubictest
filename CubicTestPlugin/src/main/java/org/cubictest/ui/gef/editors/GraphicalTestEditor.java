@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.pluginsupport.CustomElementLoader;
@@ -255,7 +256,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		try{
 			((IFileEditorInput)getEditorInput()).getFile().refreshLocal(1, monitor);
 		} catch (CoreException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error saving file.");
 		}
 	}
 	

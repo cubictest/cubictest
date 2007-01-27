@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.i18n.AllLanguages;
 import org.cubictest.model.i18n.Language;
 import org.eclipse.core.resources.IContainer;
@@ -49,12 +50,11 @@ public class MessagePersistance {
 							bw.newLine();	
 						}
 					} catch (IOException e) {
-						e.printStackTrace();
+						ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 					}
 				}
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}
 		}
 	}
@@ -90,13 +90,13 @@ public class MessagePersistance {
 								line = br.readLine();
 							}
 						} catch (IOException e) {
-							e.printStackTrace();
+							ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 							break;
 						}			
 					}
 				}
 			} catch (CoreException e) {
-				e.printStackTrace();
+				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}
 		}
 		return languages;

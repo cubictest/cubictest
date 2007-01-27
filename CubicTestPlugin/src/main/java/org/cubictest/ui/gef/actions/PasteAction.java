@@ -8,6 +8,7 @@ package org.cubictest.ui.gef.actions;
 import java.util.Iterator;
 import java.util.List;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
@@ -90,7 +91,7 @@ public class PasteAction extends SelectionAction {
 						createElementCmd.setIndex(target.getChildren().size());
 						getCommandStack().execute(ViewUtil.getCompoundCommandWithResize(createElementCmd, ViewUtil.ADD, target));
 					} catch (CloneNotSupportedException e) {
-						e.printStackTrace();
+						ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 					}
 				}
 				
@@ -109,7 +110,7 @@ public class PasteAction extends SelectionAction {
 						clone.setPosition(p);
 						((Test)target.getModel()).addPage(clone);
 					} catch (CloneNotSupportedException e) {
-						e.printStackTrace();
+						ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 					}
 				}
 			}

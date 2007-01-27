@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.custom.ICustomTestStep;
 import org.cubictest.pluginsupport.interfaces.IClassChangeListener;
 import org.cubictest.resources.interfaces.IResourceListener;
@@ -97,7 +98,7 @@ public class CustomElementLoader implements IResourceListener {
 			MyInvocationHandler handler = new MyInvocationHandler(name);
 			return (ICustomTestStep) Proxy.newProxyInstance(classLoader, new Class[] { ICustomTestStep.class }, handler);
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 		throw new ClassNotFoundException();
 	}
@@ -153,9 +154,9 @@ public class CustomElementLoader implements IResourceListener {
 			srcFile.create(new StringBufferInputStream(templateContents), true, null);
 			project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, null);
 		} catch (CoreException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
 	

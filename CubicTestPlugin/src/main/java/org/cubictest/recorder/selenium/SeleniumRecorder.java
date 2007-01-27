@@ -2,6 +2,7 @@ package org.cubictest.recorder.selenium;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.recorder.IRecorder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -32,8 +33,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 			cubicRecorder.addHandler(servletHandler);
 			servletHandler.getSessionManager().addEventListener(new SeleniumRecorderSessionListener(recorder));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}		
 	}
 	
@@ -42,8 +42,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 		try {
 			seleniumProxy.stop();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
 
@@ -53,13 +52,13 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}
 			this.selenium = new DefaultSelenium("localhost", 4444, "*firefox", url);
 			selenium.start();
 			selenium.open(url);
         } catch (Exception e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
 }

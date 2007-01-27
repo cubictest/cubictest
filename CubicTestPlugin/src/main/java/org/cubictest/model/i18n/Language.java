@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -41,9 +42,9 @@ public class Language{
 		try {
 			properties.load(file.getContents());
 		} catch (IOException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		} catch (CoreException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
 
@@ -86,9 +87,9 @@ public class Language{
 				properties = new Properties();
 				properties.load(getFile().getContents());
 			} catch (IOException e) {
-				e.printStackTrace();
+				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			} catch (CoreException e) {
-				e.printStackTrace();
+				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}
 		}
 		return properties;

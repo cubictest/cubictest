@@ -33,6 +33,10 @@ public class CubicTestPlugin extends AbstractUIPlugin {
 		}
 	}
 
+	public String getId() {
+		return "org.cubictest";
+	}
+	
 	/**
 	 * This method is called upon plug-in activation
 	 */

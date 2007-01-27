@@ -10,6 +10,7 @@ package org.cubictest.ui.i18n;
 
 import java.util.ArrayList;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.i18n.AllLanguages;
 import org.cubictest.model.i18n.Language;
 import org.cubictest.persistence.MessagePersistance;
@@ -64,7 +65,7 @@ public class I18nEditor extends EditorPart {
 		try {
 			((IFileEditorInput)getEditorInput()).getFile().refreshLocal(1, monitor);
 		} catch (CoreException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error saving file");
 		}
 		
 		//ToFromURL.toFile((URLList));

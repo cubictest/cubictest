@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -41,11 +42,9 @@ public class NewParamWizard extends Wizard implements INewWizard{
 
 			});
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-			return false;
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
-			return false;
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 		
 		return true;

@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.io.FileUtils;
 import org.cubictest.CubicTestPlugin;
+import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -68,11 +69,9 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 				}
 			});
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-			return false;
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
-			return false;
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 		return true;
 	}
@@ -115,8 +114,8 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 						libFolder.getFile("CubicTestElementAPI.jar").getLocation().toFile());
 				FileUtils.copyFile(new Path(Platform.asLocalURL(CubicTestPlugin.getDefault().find(new Path("lib/CubicUnit.jar"))).getPath()).toFile(),
 						libFolder.getFile("CubicUnit.jar").getLocation().toFile());
-			} catch (IOException e1) {
-				e1.printStackTrace();
+			} catch (IOException e) {
+				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}
 			
 			javaProject.setOutputLocation(binFolder.getFullPath(), monitor);
@@ -146,7 +145,7 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			project.refreshLocal(IResource.DEPTH_INFINITE, null);
 			
 		} catch (CoreException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
 

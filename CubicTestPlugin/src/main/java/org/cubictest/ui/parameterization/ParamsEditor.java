@@ -8,6 +8,7 @@
 
 package org.cubictest.ui.parameterization;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.parameterization.ParamMapper;
 import org.cubictest.model.parameterization.Parameter;
 import org.cubictest.model.parameterization.ParameterList;
@@ -72,7 +73,7 @@ public class ParamsEditor extends EditorPart {
 		try {
 			((IFileEditorInput)getEditorInput()).getFile().refreshLocal(1, monitor);
 		} catch (CoreException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error saving file");
 		}
 		
 		this.isDirty = false;

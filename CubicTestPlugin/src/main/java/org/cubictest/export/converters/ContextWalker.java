@@ -5,6 +5,7 @@
  */
 package org.cubictest.export.converters;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 
@@ -44,10 +45,10 @@ public class ContextWalker<T> {
 	
 			}
 			cc.handlePostContext(t, context);
-		} catch (InstantiationException e1) {
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
+		} catch (InstantiationException e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		} catch (IllegalAccessException e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 		
 	}

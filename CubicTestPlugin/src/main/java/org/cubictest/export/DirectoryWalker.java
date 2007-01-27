@@ -9,6 +9,7 @@ import java.io.FileWriter;
 
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.exception.ResourceNotCubicTestFileException;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.utils.FileExportUtils;
 import org.cubictest.model.Test;
@@ -77,8 +78,7 @@ public class DirectoryWalker<T> implements IRunnableWithProgress  {
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-			throw new CubicException("Error when exporting file(s): " + e.toString(), e);
+			ErrorHandler.rethrow(e);
 		}
 	}
 
