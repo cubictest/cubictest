@@ -17,6 +17,7 @@ import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.MovePageCommand;
 import org.cubictest.ui.utils.ViewUtil;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -66,55 +67,65 @@ public class PasteAction extends SelectionAction {
 	
 	@Override
 	public void run() {
-		Object obj = getClipboardContents();
-		if (!(obj instanceof List))
+		Object clipContents = getClipboardContents();
+		if (!(clipContents instanceof List)) {
+			ErrorHandler.log(IStatus.WARNING, null, "Clipboard item was not a list");
 			return;
+		}
 		
-		List list = (List) obj;
+		CompoundCommand compoundCmd = new CompoundCommand();
+		List clipboardList = (List) clipContents;
 		
-		for (Iterator iter = list.iterator(); iter.hasNext();){
-			Object next = iter.next();
-			if(!(next instanceof EditPart))
+		for (Iterator iter = clipboardList.iterator(); iter.hasNext();){
+			Object currentClip = iter.next();
+			if(!(currentClip instanceof EditPart)) {
+				ErrorHandler.log(IStatus.WARNING, null, "Clipboard item was not an editpart");
 				return;
-
-			EditPart clipboardItem = (EditPart) next;
+			}
 			
-			StructuredSelection selection = (StructuredSelection)getSelection();
+			EditPart clipboardPart = (EditPart) currentClip;
+			
+			StructuredSelection selection = (StructuredSelection) getSelection();
 			
 			Object selectedObj = selection.getFirstElement();
-			if (!(selectedObj instanceof EditPart))
+			if (!(selectedObj instanceof EditPart)) {
+				ErrorHandler.log(IStatus.WARNING, null, "Selected item was not an editpart");
 				return;
+			}
 			
-			EditPart target= (EditPart)selectedObj;
+			EditPart targetPart = (EditPart) selectedObj;
 			
-			if(clipboardItem.getModel() instanceof PageElement){
-				PageElement element = (PageElement) clipboardItem.getModel();
-				if (target.getModel() instanceof PageElement)
-					target = target.getParent();
-				if (target.getModel() instanceof IContext){
+			if (clipboardPart.getModel() instanceof PageElement && !parentPageIsOnClipboard(clipboardPart, clipboardList)) {
+				PageElement clipboardElement = (PageElement) clipboardPart.getModel();
+				if (targetPart.getModel() instanceof PageElement)
+					targetPart = targetPart.getParent();
+				if (targetPart.getModel() instanceof IContext){
 					try {
 						CreatePageElementCommand createElementCmd = new CreatePageElementCommand();
-						createElementCmd.setContext((IContext)target.getModel());
-						createElementCmd.setPageElement(element.clone());
-						createElementCmd.setIndex(target.getChildren().size());
-						getCommandStack().execute(ViewUtil.getCompoundCommandWithResize(createElementCmd, ViewUtil.ADD, target));
+						createElementCmd.setContext((IContext)targetPart.getModel());
+						createElementCmd.setPageElement(clipboardElement.clone());
+						createElementCmd.setIndex(targetPart.getChildren().size());
+						compoundCmd.add(ViewUtil.getCompoundCommandWithResize(createElementCmd, ViewUtil.ADD, targetPart));
 					} catch (CloneNotSupportedException e) {
 						ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 					}
 				}
+				else {
+					ErrorHandler.log(IStatus.WARNING, null, "Parent of page element was not an IContext. Skipping it.");
+				}
 				
-			}else if(clipboardItem.getModel() instanceof AbstractPage){
-				AbstractPage page = (AbstractPage) clipboardItem.getModel();
-				if (target.getModel() instanceof PageElement)
-					target = target.getParent();
-				while (target.getModel() instanceof IContext)
-					target = target.getParent();
-				if (target.getModel() instanceof Test){
+			}
+			else if (clipboardPart.getModel() instanceof AbstractPage){
+				AbstractPage page = (AbstractPage) clipboardPart.getModel();
+				if (targetPart.getModel() instanceof PageElement)
+					targetPart = targetPart.getParent();
+				while (targetPart.getModel() instanceof IContext)
+					targetPart = targetPart.getParent();
+				if (targetPart.getModel() instanceof Test){
 					try {
-						CompoundCommand compoundCmd = new CompoundCommand();
 						AbstractPage clone = page.clone();
 						AddAbstractPageCommand pageAddCommand = new AddAbstractPageCommand();
-						pageAddCommand.setTest((Test) target.getModel());
+						pageAddCommand.setTest((Test) targetPart.getModel());
 						pageAddCommand.setPage(clone);
 						compoundCmd.add(pageAddCommand);
 						MovePageCommand moveCmd = new MovePageCommand();
@@ -122,13 +133,25 @@ public class PasteAction extends SelectionAction {
 						moveCmd.setOldPosition(page.getPosition());
 						moveCmd.setNewPosition(new Point(page.getPosition().x + 25, page.getPosition().y + 25));
 						compoundCmd.add(moveCmd);
-						getCommandStack().execute(compoundCmd);
 					} catch (CloneNotSupportedException e) {
 						ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 					}
 				}
+				else {
+					ErrorHandler.log(IStatus.WARNING, null, "Parent of selected item did not have path to test. Skipping it.");
+				}
+				
 			}
 		}
+		getCommandStack().execute(compoundCmd);
+	}
+
+	private boolean parentPageIsOnClipboard(EditPart clipboardPart, List clipboardList) {
+		EditPart parent = clipboardPart.getParent();
+		while(parent.getModel() instanceof PageElement) {
+			parent = parent.getParent();
+		}
+		return clipboardList.contains(parent);
 	}
 
 	private Object getClipboardContents() {
