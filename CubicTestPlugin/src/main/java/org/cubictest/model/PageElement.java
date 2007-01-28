@@ -11,6 +11,7 @@ import static org.cubictest.model.IdentifierType.LABEL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.TextUtil;
 
 /**
@@ -66,7 +67,14 @@ public abstract class PageElement extends PropertyAwareObject
 	
 	@Override
 	public PageElement clone() throws CloneNotSupportedException {
-		return (PageElement)super.clone();
+		PageElement clone = (PageElement) super.clone();
+		clone.setText(text);
+		clone.setDescription(description);
+		clone.setIdentifierType(identifierType);
+		clone.setKey(key);
+		clone.setNot(not);
+		clone.setSationType(sationType);
+		return clone;
 	}
 	
 	
@@ -133,7 +141,7 @@ public abstract class PageElement extends PropertyAwareObject
 	 * @return the text used to identify the element in the page.
 	 */
 	public String getText() {
-		if(text == null || text.trim() == "") {
+		if(StringUtils.isBlank(text)) {
 			if (getIdentifierType().equals(LABEL)) {
 				return getDescription();
 			}
@@ -162,7 +170,7 @@ public abstract class PageElement extends PropertyAwareObject
 	
 	/**
 	 * Get the current identifier type (e.g. Label, ID or name) associated with this page element.
-	 * @return
+	 * @return the current identifier type (e.g. Label, ID or name) associated with this page element.
 	 */
 	public IdentifierType getIdentifierType() {
 		if (identifierType == null) {
@@ -184,7 +192,7 @@ public abstract class PageElement extends PropertyAwareObject
 	
 	/**
 	 * Get the identifier types that this page elements supports.
-	 * @return
+	 * @return the identifier types that this page elements supports.
 	 */
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();

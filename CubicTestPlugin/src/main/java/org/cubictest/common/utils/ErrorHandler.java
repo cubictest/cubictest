@@ -100,6 +100,11 @@ public class ErrorHandler {
 		log(IStatus.ERROR, e, message);
 	}
 	
+	
+	public static void logWarning(String message) {
+		log(IStatus.WARNING, null, message);
+	}
+	
 	/**
 	 * Log an error to the Eclipse log system and a printStackTrace.
 	 * 

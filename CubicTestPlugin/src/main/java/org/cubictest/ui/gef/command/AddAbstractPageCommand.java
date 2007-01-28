@@ -24,7 +24,7 @@ public class AddAbstractPageCommand extends Command {
 
 	private Test test;
 	private AbstractPage page;
-	private CreateTransitionCommand cmd;
+	private CreateTransitionCommand createTransitionCmd;
 
 	/**
 	 * @param test
@@ -42,12 +42,12 @@ public class AddAbstractPageCommand extends Command {
 
 		if (test.getPages().size() == 1 && page instanceof Page){
 			DataCreationFactory fac = new DataCreationFactory(SimpleTransition.class);
-			cmd = new CreateTransitionCommand();
-			cmd.setSource(test.getStartPoint());
-			cmd.setTarget(page);
-			cmd.setTest(test);
-			cmd.setTransition((SimpleTransition)fac.getNewObject());
-			cmd.execute();
+			createTransitionCmd = new CreateTransitionCommand();
+			createTransitionCmd.setSource(test.getStartPoint());
+			createTransitionCmd.setTarget(page);
+			createTransitionCmd.setTest(test);
+			createTransitionCmd.setTransition((SimpleTransition)fac.getNewObject());
+			createTransitionCmd.execute();
 		}
 	}
 	
@@ -57,8 +57,8 @@ public class AddAbstractPageCommand extends Command {
 	public void undo() {
 		super.undo();
 		test.removePage(page);
-		if (cmd != null)
-			cmd.undo();
+		if (createTransitionCmd != null)
+			createTransitionCmd.undo();
 	}
 
 	public AbstractPage getPage() {
@@ -77,7 +77,7 @@ public class AddAbstractPageCommand extends Command {
 	 */
 	public void redo() {
 		test.addPage(page);
-		if (cmd != null)
-			cmd.redo();
+		if (createTransitionCmd != null)
+			createTransitionCmd.redo();
 	}
 }

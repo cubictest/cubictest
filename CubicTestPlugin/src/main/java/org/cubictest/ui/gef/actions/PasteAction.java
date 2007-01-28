@@ -71,31 +71,28 @@ public class PasteAction extends SelectionAction {
 	public void run() {
 		Object clipContents = getClipboardContents();
 		if (!(clipContents instanceof List)) {
-			ErrorHandler.log(IStatus.WARNING, null, "Clipboard contents was not a list: " + clipContents);
+			ErrorHandler.logWarning("Clipboard contents was not a list: " + clipContents);
 			return;
 		}
+		List clipboardList = (List) clipContents;
+		
+		StructuredSelection selection = (StructuredSelection) getSelection();
+		Object selectedObj = selection.getFirstElement();
+		if (!(selectedObj instanceof EditPart)) {
+			ErrorHandler.logWarning("Selected item was not an editpart: " + selectedObj);
+			return;
+		}
+		EditPart targetPart = (EditPart) selectedObj;
 		
 		CompoundCommand compoundCmd = new CompoundCommand();
-		List clipboardList = (List) clipContents;
 		
 		for (Iterator iter = clipboardList.iterator(); iter.hasNext();){
 			Object currentClip = iter.next();
 			if(!(currentClip instanceof EditPart)) {
-				ErrorHandler.log(IStatus.WARNING, null, "Clipboard item was not an editpart: " + currentClip);
+				ErrorHandler.logWarning("Clipboard item was not an editpart: " + currentClip);
 				return;
 			}
-			
-			EditPart clipboardPart = (EditPart) currentClip;
-			
-			StructuredSelection selection = (StructuredSelection) getSelection();
-			
-			Object selectedObj = selection.getFirstElement();
-			if (!(selectedObj instanceof EditPart)) {
-				ErrorHandler.log(IStatus.WARNING, null, "Selected item was not an editpart: " + selectedObj);
-				return;
-			}
-			
-			EditPart targetPart = (EditPart) selectedObj;
+			EditPart clipboardPart = (EditPart) currentClip;			
 			
 			if (clipboardPart.getModel() instanceof ExtensionStartPoint || clipboardPart.getModel() instanceof UrlStartPoint) {
 				continue;
@@ -116,7 +113,7 @@ public class PasteAction extends SelectionAction {
 					}
 				}
 				else {
-					ErrorHandler.log(IStatus.WARNING, null, "Parent of page element was not an IContext. Skipping it: " + targetPart.getModel());
+					ErrorHandler.logWarning("Parent of page element was not an IContext. Skipping it: " + targetPart.getModel());
 				}
 				
 			}
@@ -141,7 +138,7 @@ public class PasteAction extends SelectionAction {
 					}
 				}
 				else {
-					ErrorHandler.log(IStatus.WARNING, null, "Parent of selected item did not have path to test. Skipping it: " + targetPart.getModel());
+					ErrorHandler.logWarning("Parent of selected item did not have path to test. Skipping it: " + targetPart.getModel());
 				}
 				
 			}

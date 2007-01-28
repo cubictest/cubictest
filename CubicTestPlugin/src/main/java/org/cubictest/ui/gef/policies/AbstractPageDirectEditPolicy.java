@@ -6,6 +6,7 @@
 package org.cubictest.ui.gef.policies;
 
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
 import org.cubictest.ui.utils.ViewUtil;
@@ -34,8 +35,14 @@ public class AbstractPageDirectEditPolicy extends DirectEditPolicy {
 		CommandStack commandStack = getHost().getViewer().getEditDomain().getCommandStack();
 		
 		if(ViewUtil.pageHasJustBeenCreated(commandStack, page)) {
-			AddAbstractPageCommand addPageCmd = (AddAbstractPageCommand) commandStack.getUndoCommand();
-			return addPageCmd.chain(cmd);
+			if (page.getInTransition() != null && (page.getInTransition().getStart() instanceof ExtensionStartPoint)) {
+				//do not nest when extensionStart point:
+				return cmd;
+			}
+			else {
+				AddAbstractPageCommand addPageCmd = (AddAbstractPageCommand) commandStack.getUndoCommand();
+				return addPageCmd.chain(cmd);
+			}
 		}
 		else {
 			return cmd;
