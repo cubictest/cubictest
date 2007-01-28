@@ -13,10 +13,13 @@ import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.context.IContext;
+import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
+import org.cubictest.ui.gef.command.MovePageCommand;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.ui.actions.Clipboard;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -25,7 +28,12 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 
-
+/**
+ * Action for pasting from clipboard.
+ * 
+ * @author chr_schwarz
+ *
+ */
 public class PasteAction extends SelectionAction {
 	
 	/**
@@ -103,12 +111,18 @@ public class PasteAction extends SelectionAction {
 					target = target.getParent();
 				if (target.getModel() instanceof Test){
 					try {
+						CompoundCommand compoundCmd = new CompoundCommand();
 						AbstractPage clone = page.clone();
-						Point p = page.getPosition();
-						p.x = p.x + 25;
-						p.y = p.y + 25;
-						clone.setPosition(p);
-						((Test)target.getModel()).addPage(clone);
+						AddAbstractPageCommand pageAddCommand = new AddAbstractPageCommand();
+						pageAddCommand.setTest((Test) target.getModel());
+						pageAddCommand.setPage(clone);
+						compoundCmd.add(pageAddCommand);
+						MovePageCommand moveCmd = new MovePageCommand();
+						moveCmd.setPage(clone);
+						moveCmd.setOldPosition(page.getPosition());
+						moveCmd.setNewPosition(new Point(page.getPosition().x + 25, page.getPosition().y + 25));
+						compoundCmd.add(moveCmd);
+						getCommandStack().execute(compoundCmd);
 					} catch (CloneNotSupportedException e) {
 						ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 					}

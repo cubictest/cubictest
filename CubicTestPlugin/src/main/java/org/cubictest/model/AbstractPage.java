@@ -13,8 +13,9 @@ import org.cubictest.model.context.IContext;
 
 
 /**
- * @author Stein Kåre Skytteren
- *
+ * Base class for pages.
+ * 
+ * @author SK Skytteren
  */
 public abstract class AbstractPage extends TransitionNode implements Cloneable, IContext {
 
@@ -96,14 +97,12 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 	
 	@Override
 	public AbstractPage clone() throws CloneNotSupportedException {
-		AbstractPage clone = (AbstractPage)super.clone();
+		AbstractPage clone = (AbstractPage) super.clone();
 		List<PageElement> elements = new ArrayList<PageElement>(); 
 		for(PageElement element : this.elements){
 			elements.add(element.clone());
 		}
-		clone.elements = elements;
-		clone.setInTransition(null);
-		clone.setOutTransitions(new ArrayList<Transition>());
+		clone.setElements(elements);
 		return clone;
 	}
 	

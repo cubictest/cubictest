@@ -16,9 +16,9 @@ import org.eclipse.gef.commands.Command;
 
 
 /**
- * @author Stein Kåre Skytteren
- *
  * A command for a new <code>AbstractPage</code> in a <code>Test</code>
+ *
+ * @author SK Skytteren
  */
 public class AddAbstractPageCommand extends Command {
 
@@ -39,15 +39,6 @@ public class AddAbstractPageCommand extends Command {
 	public void execute(){
 		super.execute();
 		test.addPage(page);
-		 
-		
-//		if(!(page instanceof SubTest)) {
-//			WizardDialog dlg = new WizardDialog(new Shell(),new NewCubicTestAbstractPageWizard(page));
-//			if (dlg.open() == WizardDialog.CANCEL){
-//				test.removePage(page);
-//				return;
-//			}			
-//		}
 
 		if (test.getPages().size() == 1 && page instanceof Page){
 			DataCreationFactory fac = new DataCreationFactory(SimpleTransition.class);

@@ -9,18 +9,19 @@ package org.cubictest.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
 /**
- * @author trond
+ * Base class for all nodes in a test.
  *
+ * @author trond
  */
 public abstract class TransitionNode extends PropertyAwareObject{
 	private Transition inTransition = null;
 	private List<Transition> outTransitions = new ArrayList<Transition>();
 	private String id = "";
-;
 	private Point position;
 	private Dimension dimension;
 	private String name = "";
@@ -130,10 +131,16 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	
 	@Override
 	protected TransitionNode clone() throws CloneNotSupportedException {
-		TransitionNode clone = (TransitionNode)super.clone();
+		TransitionNode clone = null;
+		try {
+			clone = this.getClass().newInstance();
+		} catch (Exception e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		}
+		clone.setDimension(this.getDimension());
+		clone.setName(this.getName());
 		clone.setId(getNewGeneratedId());
-		clone.inTransition = null;
-		clone.outTransitions = new ArrayList<Transition>();
+		clone.setOutTransitions(new ArrayList<Transition>());
 		return clone;
 	}
 	

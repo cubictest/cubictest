@@ -109,8 +109,9 @@ public class ErrorHandler {
 	 * @param message the message (humanly readable)
 	 */
 	public static void log(int severity, Throwable e, String message) {
-		e = getCause(e);
+		System.out.println(message);
 		e.printStackTrace();
+		e = getCause(e);
 		CubicTestPlugin plugin = CubicTestPlugin.getDefault();
 		IStatus status = new Status(severity, plugin.getId(), IStatus.OK, message, e);
 		plugin.getLog().log(status);
