@@ -226,7 +226,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		try {
 			if (project == null) {
 				MessageDialog.openError(new Shell(), UiText.APP_TITLE, 
-						"Could create new test (could not get project). Please try again!");
+						"Could create new test (could not get project). Please try again.");
 				
 			}
 			IResourceMonitor monitor = new ResourceMonitor(project);

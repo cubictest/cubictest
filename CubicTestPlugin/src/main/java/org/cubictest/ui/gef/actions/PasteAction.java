@@ -10,8 +10,10 @@ import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
+import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
@@ -69,7 +71,7 @@ public class PasteAction extends SelectionAction {
 	public void run() {
 		Object clipContents = getClipboardContents();
 		if (!(clipContents instanceof List)) {
-			ErrorHandler.log(IStatus.WARNING, null, "Clipboard item was not a list");
+			ErrorHandler.log(IStatus.WARNING, null, "Clipboard contents was not a list: " + clipContents);
 			return;
 		}
 		
@@ -79,7 +81,7 @@ public class PasteAction extends SelectionAction {
 		for (Iterator iter = clipboardList.iterator(); iter.hasNext();){
 			Object currentClip = iter.next();
 			if(!(currentClip instanceof EditPart)) {
-				ErrorHandler.log(IStatus.WARNING, null, "Clipboard item was not an editpart");
+				ErrorHandler.log(IStatus.WARNING, null, "Clipboard item was not an editpart: " + currentClip);
 				return;
 			}
 			
@@ -89,13 +91,16 @@ public class PasteAction extends SelectionAction {
 			
 			Object selectedObj = selection.getFirstElement();
 			if (!(selectedObj instanceof EditPart)) {
-				ErrorHandler.log(IStatus.WARNING, null, "Selected item was not an editpart");
+				ErrorHandler.log(IStatus.WARNING, null, "Selected item was not an editpart: " + selectedObj);
 				return;
 			}
 			
 			EditPart targetPart = (EditPart) selectedObj;
 			
-			if (clipboardPart.getModel() instanceof PageElement && !parentPageIsOnClipboard(clipboardPart, clipboardList)) {
+			if (clipboardPart.getModel() instanceof ExtensionStartPoint || clipboardPart.getModel() instanceof UrlStartPoint) {
+				continue;
+			}
+			else if (clipboardPart.getModel() instanceof PageElement && !parentPageIsOnClipboard(clipboardPart, clipboardList)) {
 				PageElement clipboardElement = (PageElement) clipboardPart.getModel();
 				if (targetPart.getModel() instanceof PageElement)
 					targetPart = targetPart.getParent();
@@ -111,15 +116,13 @@ public class PasteAction extends SelectionAction {
 					}
 				}
 				else {
-					ErrorHandler.log(IStatus.WARNING, null, "Parent of page element was not an IContext. Skipping it.");
+					ErrorHandler.log(IStatus.WARNING, null, "Parent of page element was not an IContext. Skipping it: " + targetPart.getModel());
 				}
 				
 			}
 			else if (clipboardPart.getModel() instanceof AbstractPage){
 				AbstractPage page = (AbstractPage) clipboardPart.getModel();
-				if (targetPart.getModel() instanceof PageElement)
-					targetPart = targetPart.getParent();
-				while (targetPart.getModel() instanceof IContext)
+				while (!(targetPart.getModel() instanceof Test))
 					targetPart = targetPart.getParent();
 				if (targetPart.getModel() instanceof Test){
 					try {
@@ -138,7 +141,7 @@ public class PasteAction extends SelectionAction {
 					}
 				}
 				else {
-					ErrorHandler.log(IStatus.WARNING, null, "Parent of selected item did not have path to test. Skipping it.");
+					ErrorHandler.log(IStatus.WARNING, null, "Parent of selected item did not have path to test. Skipping it: " + targetPart.getModel());
 				}
 				
 			}
