@@ -118,6 +118,7 @@ Done   Select all -> ctrl-x had problems / not implemented
 Done   Issues with delete of SelectBox
 Done   Copy Common, paste, then connection --> bug (connections stacked in background, wrong placement)
 M3   Limit context menu of elements
+M3	 Delete file -> File can still be open in editor. => Editor should be closed on delete.
 M3   Right-click on ExStartPoint -> "Open test" (none double clicked)
 M3   ID on page elements was deleted when description was set (empty desc first?) (bug)
 	(When holding ctrl key --> Move should become "Copy-paste" (attempted fixed, bug in GEF?))

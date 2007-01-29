@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class UserInteractionsTransition extends Transition {
 
-	private List<UserInteraction> inputs = new ArrayList<UserInteraction>();
+	private List<UserInteraction> userInteractions = new ArrayList<UserInteraction>();
 	private AbstractPage page;
 	
 	/**
@@ -55,7 +55,7 @@ public class UserInteractionsTransition extends Transition {
 	 * @return the collection of actions that constitutes this user interactions transition.
 	 */
 	public List<UserInteraction> getUserInteractions() {
-		return inputs;
+		return userInteractions;
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class UserInteractionsTransition extends Transition {
 	 * @param userInteractions the collection of actions that constitutes this user interactions transition.
 	 */
 	public void setUserInteractions(List<UserInteraction> userInteractions) {
-		this.inputs = userInteractions;
+		this.userInteractions = userInteractions;
 		for(int i = 0 ; i < getListeners().getPropertyChangeListeners().length; i++ )
 			for (int j = 0; j < userInteractions.size(); j++)
 				((UserInteraction)userInteractions.get(j)).addPropertyChangeListener(
@@ -75,7 +75,7 @@ public class UserInteractionsTransition extends Transition {
 	 * @param userInteraction the user interaction to add.
 	 */
 	public void addUserInteraction(UserInteraction userInteraction){
-		inputs.add(userInteraction);
+		userInteractions.add(userInteraction);
 		for(int i = 0 ; i < getListeners().getPropertyChangeListeners().length; i++ )
 			userInteraction.addPropertyChangeListener(
 					getListeners().getPropertyChangeListeners()[i]);
@@ -87,7 +87,7 @@ public class UserInteractionsTransition extends Transition {
 	 * @param input the user interaction to remove.
 	 */
 	public void removeUserInteraction(UserInteraction input){
-		inputs.remove(input);
+		userInteractions.remove(input);
 		firePropertyChange(CHILD, null, input);
 	}
 
@@ -110,9 +110,9 @@ public class UserInteractionsTransition extends Transition {
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener l) {
 		super.addPropertyChangeListener(l);
-		if (inputs == null) return;
-		for (int i = 0; i < inputs.size() ; i++)
-			((UserInteraction)inputs.get(i)).addPropertyChangeListener(l);
+		if (userInteractions == null) return;
+		for (int i = 0; i < userInteractions.size() ; i++)
+			((UserInteraction)userInteractions.get(i)).addPropertyChangeListener(l);
 	}
 	
 	/*
@@ -121,18 +121,18 @@ public class UserInteractionsTransition extends Transition {
 	 */
 	public void removePropertyChangeListener(PropertyChangeListener l) {
 		super.removePropertyChangeListener(l);
-		if (inputs == null) return;
-		for (int i = 0; i < inputs.size() ; i++)
-			((UserInteraction)inputs.get(i)).removePropertyChangeListener(l);
+		if (userInteractions == null) return;
+		for (int i = 0; i < userInteractions.size() ; i++)
+			((UserInteraction)userInteractions.get(i)).removePropertyChangeListener(l);
 	}
 
 	public void cleanUpEmptyUserInteractions() {
 		List<UserInteraction> realActions = new ArrayList<UserInteraction>(); 
-		for(UserInteraction input : inputs) {
+		for(UserInteraction input : userInteractions) {
 			if (input != null && !input.getActionType().equals(ActionType.NO_ACTION)) {
 				realActions.add(input);
 			}
 		}
-		this.inputs = realActions;
+		this.userInteractions = realActions;
 	}
 }

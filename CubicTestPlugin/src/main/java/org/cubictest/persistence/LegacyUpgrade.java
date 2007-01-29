@@ -79,7 +79,11 @@ public class LegacyUpgrade {
 		xml = StringUtils.replace(xml, "</pageElementAction", "</userInteraction");
 		xml = StringUtils.replace(xml, "=\"pageElementAction\"", "=\"userInteraction\"");
 		xml = StringUtils.replace(xml, "/pageElementAction", "/userInteraction");
-		
+
+		xml = StringUtils.replace(xml, "<inputs", "<userInteractions");
+		xml = StringUtils.replace(xml, "</inputs", "</userInteractions");
+		xml = StringUtils.replace(xml, "/inputs/", "/userInteractions/");
+
 		version.increment();
 		return xml;
 	}
