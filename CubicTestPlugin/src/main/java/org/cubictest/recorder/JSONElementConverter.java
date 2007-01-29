@@ -1,12 +1,15 @@
 package org.cubictest.recorder;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.Title;
+import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Password;
@@ -17,6 +20,7 @@ import org.cubictest.model.formElement.TextField;
 import org.json.JSONObject;
 
 public class JSONElementConverter {
+	private HashMap<String, PageElement> pageElements = new HashMap<String, PageElement>();
 
 	public JSONElementConverter() {
 		
@@ -55,7 +59,7 @@ public class JSONElementConverter {
 	 * 
 	 * @param element
 	 * @return
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public PageElement createElementFromJson(String json) throws ParseException {
 		System.out.println(json);
@@ -65,11 +69,12 @@ public class JSONElementConverter {
 	public PageElement createElementFromJson(JSONObject element) {
 		try {
 			JSONObject properties = getJSONObject(element, "properties");
+			if(pageElements.get(getString(properties, "cubicId")) != null) {
+				return pageElements.get(getString(properties, "cubicId")); 
+			}
+			
 			PageElement pe = null;
 
-			/**
-			 * INPUT ELEMENTS
-			 */
 			if(getString(properties, "tagName").equals("INPUT")) {
 				String type = properties.getString("type");
 				if(type.equals("text")) {
@@ -95,6 +100,10 @@ public class JSONElementConverter {
 				pe = new Image();
 			} else if(getString(properties, "tagName").equals("A")) {
 				pe = new Link();
+			} else if(getString(properties, "tagName").equals("TITLE")) {
+				pe = new Title();
+			} else if(getString(properties, "tagName").equals("DIV") || getString(properties, "tagName").equals("TABLE")) {
+				pe = new SimpleContext();
 			}
 			
 			if(pe == null) {
@@ -109,6 +118,8 @@ public class JSONElementConverter {
 			} else if(getString(properties, "tagName").equals("A")) {
 				pe.setText(getString(properties, "innerHTML"));
 				pe.setIdentifierType(IdentifierType.LABEL);
+			} else if(getString(properties, "tagName").equals("TITLE")) {
+				pe.setText(getString(properties, "innerHTML"));
 			} else if(getString(element, "label") != null && !getString(element, "label").equals("")) {
 				pe.setText(getString(element, "label"));
 				pe.setIdentifierType(IdentifierType.LABEL);
@@ -119,6 +130,8 @@ public class JSONElementConverter {
 				pe.setText(getString(properties, "name"));
 				pe.setIdentifierType(IdentifierType.NAME);
 			}
+			
+			pageElements.put(getString(properties, "cubicId"), pe);
 			
 			return pe;
 		} catch(NoSuchElementException e) {

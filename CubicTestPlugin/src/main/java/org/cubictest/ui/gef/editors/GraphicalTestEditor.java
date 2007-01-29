@@ -35,6 +35,8 @@ import org.cubictest.ui.gef.dnd.DataEditDropTargetListner;
 import org.cubictest.ui.gef.dnd.FileTransferDropTargetListener;
 import org.cubictest.ui.gef.factory.PaletteRootCreator;
 import org.cubictest.ui.gef.factory.TestEditPartFactory;
+import org.cubictest.ui.gef.interfaces.IDisposeListener;
+import org.cubictest.ui.gef.interfaces.IDisposeSubject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -96,13 +98,15 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  * The graphical editor for editing the tests. 
  */
 public class GraphicalTestEditor extends EditorPart implements IAdaptable, 
-		ITabbedPropertySheetPageContributor{
+		ITabbedPropertySheetPageContributor, IDisposeSubject {
 
 	private GraphicalViewer graphicalViewer;
 	
 	private EditDomain editDomain;
 	
 	private boolean isDirty;
+	
+	private List<IDisposeListener> disposeListeners = new ArrayList<IDisposeListener>();
 	
 	private CommandStackListener commandStackListener = new CommandStackListener(){
 		public void commandStackChanged(EventObject event){
@@ -226,6 +230,10 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	 * Subclasses may extend.
 	 */
 	public void dispose() {
+		for(IDisposeListener listener : disposeListeners) {
+			listener.disposed();
+		}
+		
 		getCommandStack().removeCommandStackListener(getCommandStackListener());
 		
 		getSite()
@@ -410,6 +418,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		return paletteViewer;
 	}
 	
+	
 	/**
 	 * Adds a <code>SelectionAction</code>.
 	 * @param action
@@ -495,20 +504,19 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	protected IPropertySheetPage getPropertySheetPage(){
 		if (null == undoablePropertySheetPage){	
 			undoablePropertySheetPage = new TabbedPropertySheetPage(this);
-			//undoablePropertySheetPage.setRootEntry();	
-			//undoablePropertySheetPage.
 		}
 		return undoablePropertySheetPage;
-		/*
-		if (null == undoablePropertySheetPage){	
-			undoablePropertySheetPage = new PropertySheetPage();
-			undoablePropertySheetPage.setRootEntry(GEFPlugin.createUndoablePropertySheetEntry(getCommandStack()));	
-		}
-		return undoablePropertySheetPage;
-		*/
 	}
 
 	public String getContributorId() {
 		return getSite().getId();
+	}
+
+	public void addDisposeListener(IDisposeListener listener) {
+		disposeListeners.add(listener);
+	}
+
+	public void removeDisposeListener(IDisposeListener listener) {
+		disposeListeners.remove(listener);
 	}
 }

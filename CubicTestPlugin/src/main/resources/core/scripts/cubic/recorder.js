@@ -75,8 +75,66 @@ Cubic.recorder.ContextMenuItem.prototype = {
 	},
 	
 	setTextFor: function(element) {
-		this.menuItem.cfg.setProperty("text", this.text.replace("%s", element.tagName));
-	} 
+		var label = this.generateLabelFor(element);
+
+		this.menuItem.cfg.setProperty("text", this.text.replace("%s", label));
+	},
+	
+	generateLabelFor: function(element) {
+		var label;
+		switch(element.tagName) {
+		case "A":
+			label = "Link"
+			break;
+		case "INPUT":
+			switch(element.type.toLowerCase()) {
+			case "text":
+				label = "Text Field";
+				break;
+			case "checkbox":
+				label = "Checkbox";
+				break;
+			case "radio":
+				label = "Radio Button";
+				break;
+			case "password":
+				label = "Password Field";
+				break;
+			case "button":
+			case "submit":
+				label = "Button";
+				break;
+			}
+			break;
+		case "TEXTAREA":
+			label = "Textarea";
+			break;
+		case "SELECT":
+			if(element.multiple) {
+				label = "Select Box";
+			} else {
+				label = "Drop-down Box";
+			}
+			break;
+		case "TABLE":
+			label = "Table";
+			break;
+		case "DIV":
+			label = "Context";
+			break;
+		case "IMG":
+			label = "Image";
+			break;
+		default:
+			label = element.tagName;
+			break;
+		}
+		if(element.id) {
+			label = label + " (#" + element.id + ")";
+		}
+
+		return label;
+	}
 }
 
 
@@ -117,7 +175,7 @@ Cubic.recorder.ActionRecorder.prototype = {
 	
 	listen: function(domNode) {
 		Event.observe($(domNode), 'click', this.mouseClick.bindAsEventListener(this), true);
-		Event.observe($(domNode), 'keyup', this.keyUp.bindAsEventListener(this), true);
+		Event.observe($(domNode), 'keydown', this.keyDown.bindAsEventListener(this), true);
 	},
 	
 	ignore: function(element) {
@@ -136,7 +194,13 @@ Cubic.recorder.ActionRecorder.prototype = {
 	mouseClick: function(e) {
 		var element = Event.element(e);
 		if(!this.isIgnored(element)) {
-			YAHOO.log("mouseClick");
+			if(element.tagName != "A") {
+				var temp = Event.findElement(e, "A");
+				if(temp.tagName == "A") {
+					element = temp;
+				}
+			}
+
 			if((element.tagName == "INPUT" && element.type != "text" && element.type != "password")
 				|| element.tagName == "A"
 			) {
@@ -145,26 +209,34 @@ Cubic.recorder.ActionRecorder.prototype = {
 		}
 	},
 	
-	keyUp: function(e) {
+	keyDown: function(e) {
 		var element = Event.element(e);
 		if(!this.isIgnored(element)) {
-			YAHOO.log("keyUp: " + element.tagName);
-				
+			YAHOO.log("keyDown: " + element.tagName);
+			
+			if(e.keyCode == Event.KEY_RETURN) {
+				return this.inputOnBlur(e);
+			}
+			
 			if(element.tagName == "INPUT") {
-				if((element.type == "text" || element.type != "password") && !element.cubic_inputOnBlur) {
+				if((element.type == "text" || element.type == "password") && !element.cubic_inputOnBlur) {
 					Event.observe(element, 'blur', this.inputOnBlur.bindAsEventListener(this), true);
 					element.cubic_inputOnBlur=true;
 				}
-			} else {
-				this.rpcRecorder.addAction(this.CLICK, Cubic.dom.serializeDomNode(element));
 			}
 		} else {
-			YAHOO.log("KeyUp Ignored")
+			YAHOO.log("KeyDown Ignored");
 		}
 	},
 	
 	inputOnBlur: function(e) {
 		var input = Event.element(e);
+		if(typeof input.cubic_oldInputValue != "undefined") {
+			if(input.cubic_oldInputValue == input.value) { // ignore event if value is unchanged
+				return;
+			}
+		}
 		this.rpcRecorder.addAction(this.ENTER_TEXT, Cubic.dom.serializeDomNode(input), input.value);
+		input.cubic_oldInputValue = input.value;
 	}
 }

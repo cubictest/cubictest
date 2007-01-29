@@ -78,20 +78,81 @@ temp.innerHTML = '<a href="http://www.google.no/" target="myiframe" style="posit
 		var yuiMenuItem;
 		var cubicMenuItem;
 		
+		/* Create Menu Elements */
+		/**
+		 * Assert %s Present
+		 */
 		yuiMenuItem = yuiContextMenu.addItem("Assert %s present");
 		cubicMenuItem = new Cubic.recorder.RPCContextMenuItem(yuiMenuItem, jsonrpc.recorder);
 		
 		cubicMenuItem.respondsTo = function(element) {
 			var tag = element.tagName;
-			return tag == "IMG" || tag == "INPUT" || tag == "A";
+			return tag == "IMG" || tag == "INPUT" || tag == "A" || tag == "TEXTAREA" || tag == "SELECT" || tag == "BUTTON" || ((tag == "DIV" || tag == "TABLE") && element.id);
 		}
 		
 		cubicMenuItem.execute = function() {
 			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(this.target));
 		}
+
+		cubicContextMenu.addItem(cubicMenuItem);
+
+		/**
+		 * Assert Page Title Present
+		 */
+		yuiMenuItem = yuiContextMenu.addItem("Assert Page Title Present");
+		cubicMenuItem = new Cubic.recorder.RPCContextMenuItem(yuiMenuItem, jsonrpc.recorder);
+		
+		cubicMenuItem.respondsTo = function(element) {
+			return true;
+		}
+		
+		cubicMenuItem.execute = function() {
+			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(frames[iframeName].document.getElementsByTagName("TITLE")[0]));
+		}
 		
 		cubicContextMenu.addItem(cubicMenuItem);
 	
+		/**
+		 * Assert Text %s Present
+		 */
+		yuiMenuItem = yuiContextMenu.addItem("Assert Text '%s' Present");
+		cubicMenuItem = new Cubic.recorder.RPCContextMenuItem(yuiMenuItem, jsonrpc.recorder);
+		
+		cubicMenuItem.respondsTo = function(element) {
+			return this.selectedText;
+		}
+		
+		cubicMenuItem.execute = function() {
+			alert(this._selectedText)
+			jsonrpc.recorder.assertTextPresent(this._selectedText);
+		}
+		
+		cubicMenuItem.setTarget = function(element) {
+			this._selectedText = this.selectedText;
+			this.setTextFor(element);
+		}
+		
+		cubicMenuItem.generateLabelFor = function(element) {
+			var s = this.selectedText;
+			if(s.length > 10) {
+				s = s.substring(0, 7) + "...";
+			}
+			return s;
+		}
+		
+		// Temporary hack until we figure out why the selection disappears when the contextmenu is displayed
+		var temp = function(item) {
+			YAHOO.log("observing..")
+			Event.observe(frames[iframeName].document.body, 'mouseup', function(e) {
+				item.selectedText = Cubic.dom.getSelectedText(frames[iframeName]).toString();
+			}, false);
+		}
+		temp(cubicMenuItem);
+		
+		cubicContextMenu.addItem(cubicMenuItem);
+	
+	
+		/* Render Menu */
 		cubicContextMenu.render(frames[iframeName].document.body);		
 		
 		/* Set up the action listener */

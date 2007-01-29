@@ -1,10 +1,12 @@
 package org.cubictest.recorder;
 
 import java.text.ParseException;
+import java.util.HashMap;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.Text;
 import org.cubictest.model.UserInteraction;
 
 import com.metaparadigm.jsonrpc.JSONSerializer;
@@ -13,7 +15,7 @@ public class JSONRecorder {
 	private final IRecorder recorder;
 	private JSONSerializer serializer;
 	private final JSONElementConverter converter;
-
+	 
 	public JSONRecorder(IRecorder recorder, JSONElementConverter converter) {
 		this.recorder = recorder;
 		this.converter = converter;
@@ -54,6 +56,13 @@ public class JSONRecorder {
 		return false;
 	}
 	
+	public boolean assertTextPresent(String text) {
+		PageElement pe = new Text();
+		pe.setText(text);
+		recorder.addPageElement(pe);
+		return true;
+	}
+	
 	public void addAction(String actionType, String jsonElement) {
 		this.addAction(actionType, jsonElement, "");
 	}
@@ -63,7 +72,7 @@ public class JSONRecorder {
 			PageElement pe = converter.createElementFromJson(jsonElement);
 			if(pe != null) {
 				UserInteraction action = new UserInteraction(pe, ActionType.getActionType(actionType), value);
-				recorder.addPageElement(pe);
+//				recorder.addPageElement(pe);
 				recorder.addUserInput(action);
 			} else {
 				System.out.println("Action ignored");

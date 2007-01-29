@@ -2,6 +2,10 @@ Cubic.dom = {};
 
 Cubic.dom.serializeDomNode = function(domNode) {
 	var data = {};
+	if(!domNode.cubicId) {
+		var date = new Date();
+		domNode.cubicId = date.valueOf();
+	}
 	data.properties = {};
 	for(var i=0; i < Cubic.dom.serializeDomNode.properties.length; i++) {
 		property = Cubic.dom.serializeDomNode.properties[i];
@@ -22,10 +26,13 @@ Cubic.dom.serializeDomNode = function(domNode) {
 			}
 		}
 	}
+	
+	
 	return toJSON(data);
 }
 
 Cubic.dom.serializeDomNode.properties = [
+	'cubicId',
 	'href',
 	'id',
 	'innerHTML',
@@ -36,3 +43,26 @@ Cubic.dom.serializeDomNode.properties = [
 	'type',
 	'value'
 ];
+
+Cubic.dom.getSelectedText = function(w) {
+	w = w || window;
+	var txt = '';
+	var foundIn = '';
+	if(w.getSelection)
+	{
+		txt = w.getSelection();
+		foundIn = 'window.getSelection()';
+	}
+	else if(w.document.getSelection)
+	{
+		txt = w.document.getSelection();
+		foundIn = 'document.getSelection()';
+	}
+	else if(w.document.selection)
+	{
+		txt = w.document.selection.createRange().text;
+		foundIn = 'document.selection.createRange()';
+	}
+
+	return txt;	
+}

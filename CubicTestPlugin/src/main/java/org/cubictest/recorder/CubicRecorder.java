@@ -82,6 +82,17 @@ public class CubicRecorder implements IRecorder {
 	 * @see org.cubictest.recorder.IRecorder#addUserInput(org.cubictest.model.UserInteraction)
 	 */
 	public void addUserInput(UserInteraction action) {
+		boolean elementExists = false;
+		for(PageElement element : cursor.getElements()) {
+			if(action.getElement() == element) {
+				elementExists = true;
+			}
+		}
+
+		if(!elementExists) {
+			this.addPageElement((PageElement) action.getElement());
+		}
+		
 		if(this.userInteractionsTransition == null) {
 			addUserActions(this.cursor);
 		}
@@ -94,7 +105,11 @@ public class CubicRecorder implements IRecorder {
 	private AbstractPage addUserActions(TransitionNode from) {
 		Page page = new Page();
 		page.setAutoPosition(true);
-		page.setName(cursor.getName());
+		if(cursor != null) {
+			page.setName(cursor.getName());			
+		} else {
+			page.setName("untitled");
+		}
 		UserInteractionsTransition ua = new UserInteractionsTransition(from, page);
 		
 		/* Add Page */
