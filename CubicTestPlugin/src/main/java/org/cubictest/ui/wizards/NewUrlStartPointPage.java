@@ -4,6 +4,9 @@
  */
 package org.cubictest.ui.wizards;
 
+import java.io.File;
+
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -21,14 +24,15 @@ public class NewUrlStartPointPage extends WizardPage implements ModifyListener {
 	private Label urlLabel;
 	private Label urlExampleLabel;
 	private Text urlText;
-	private String description = "Enter startpoint URL";
-	private String errorMessage = "Enter an URL - it is posible to change it later.";
+	private String headerText = "Enter startpoint URL. It is posible to change it later.";
 	StartPointTypeSelectionPage startPointTypeSelectionPage;
+	private static final int STATUS_OK = 1;
+	private static final int STATUS_ERROR = 2;
 
 	protected NewUrlStartPointPage(StartPointTypeSelectionPage startPointTypeSelectionPage) {
 		super(NAME);
 		setPageComplete(false);
-		setMessage(description );
+		setMessage(headerText);
 		this.startPointTypeSelectionPage = startPointTypeSelectionPage;
 	}
 
@@ -44,6 +48,7 @@ public class NewUrlStartPointPage extends WizardPage implements ModifyListener {
 		GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
 		urlText = new Text(container, SWT.SINGLE | SWT.BORDER);
 		urlText.setLayoutData(gridData);
+		urlText.setText("http://");
 		urlText.addModifyListener(this);
 		
 		urlExampleLabel = new Label(container, SWT.NONE);
@@ -56,22 +61,46 @@ public class NewUrlStartPointPage extends WizardPage implements ModifyListener {
 	}
 
 	public void modifyText(ModifyEvent e) {
-		setPageComplete(getText().length() > 3);
-		setErrorMessage(getText().length() < 3 ? errorMessage : null);
-		startPointTypeSelectionPage.urlStartPointSelected = true;
-	}
-
-	public String getText(){
-		if(urlText != null)
-			return urlText.getText();
-		else 
-			return ""; 
+		if (hasValidUrl()) {
+			updateStatus(null, STATUS_OK);
+			startPointTypeSelectionPage.urlStartPointSelected = true;
+		}
+		else {
+			updateStatus("URL must start with \"http://\" or \"https://\"", STATUS_ERROR);
+		}
 	}
 	
+	public String getUrl(){
+		return urlText.getText();
+	}
+
+	public boolean hasValidUrl(){
+		if (!(urlText.getText().startsWith("http://") || urlText.getText().startsWith("https://"))) {
+			return false;
+		}
+		if (urlText.getText().substring(urlText.getText().indexOf("://") + 3).length() < 1) {
+			return false;
+		}
+		return true;
+	}
 	
 	@Override
 	public IWizardPage getNextPage() {
 		return null;
+	}
+	
+
+	private void updateStatus(String message, int severity) {
+		if (severity == STATUS_ERROR) {
+			setErrorMessage(message);
+			setMessage(null);			
+			setPageComplete(false);
+		}
+		else {
+			setErrorMessage(null);
+			setMessage(headerText );
+			setPageComplete(true);
+		}
 	}
 	
 }

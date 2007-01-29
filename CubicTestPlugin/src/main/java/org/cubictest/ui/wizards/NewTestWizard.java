@@ -99,7 +99,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		final String fileName = page.getFileName();
 		final String name = page.getName();
 		final String description = page.getDescription();
-		final String url = newUrlStartPointPage.getText();
+		final String url = newUrlStartPointPage.getUrl();
 		final ExtensionPoint ep = extentionStartPointSelectorPage.getExtensionPoint();
 		final IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
 		final boolean hasUrl = startPointTypeSelectionPage.getNextPage().equals(newUrlStartPointPage);
@@ -242,7 +242,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	
 	@Override
 	public boolean canFinish() {
-		if(newUrlStartPointPage.getText().length() > 3 && startPointTypeSelectionPage.urlStartPointSelected == true) {
+		if(newUrlStartPointPage.hasValidUrl() && startPointTypeSelectionPage.urlStartPointSelected == true) {
 			return true;
 		}
 		else if(extentionStartPointSelectorPage.getExtensionPoint() != null && extentionStartPointSelectorPage.isPageShown() && 
