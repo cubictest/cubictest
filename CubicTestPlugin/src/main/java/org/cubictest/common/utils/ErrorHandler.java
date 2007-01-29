@@ -114,6 +114,7 @@ public class ErrorHandler {
 	 * @param message the message (humanly readable)
 	 */
 	public static void log(int severity, Throwable e, String message) {
+		message = (message == null) ? "An error has occurred." : message;
 		System.out.println(message);
 		if (e != null) {
 			e.printStackTrace();
