@@ -6,6 +6,7 @@ package org.cubictest.common.utils;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
@@ -114,7 +115,10 @@ public class ErrorHandler {
 	 * @param message the message (humanly readable)
 	 */
 	public static void log(int severity, Throwable e, String message) {
-		message = (message == null) ? "An error has occurred." : message;
+		if (StringUtils.isBlank(message)) {
+			message = "An error has occurred";
+		}
+		
 		System.out.println(message);
 		if (e != null) {
 			e.printStackTrace();
