@@ -4,9 +4,6 @@
  */
 package org.cubictest.ui.wizards;
 
-import java.io.File;
-
-import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -103,4 +100,11 @@ public class NewUrlStartPointPage extends WizardPage implements ModifyListener {
 		}
 	}
 	
+	public void setVisible(boolean visible) {
+		   super.setVisible(visible);
+		   // Set the initial field focus
+		   if (visible) {
+		      urlText.setFocus();
+		   }
+		}
 }
