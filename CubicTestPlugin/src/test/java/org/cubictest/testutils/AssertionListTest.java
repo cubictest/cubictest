@@ -90,25 +90,6 @@ public class AssertionListTest {
 	
 	
 	@Test
-	public void shouldProvideAssertWithoutOrder() {
-		list.assertContains("Third");
-		list.assertContains("First");
-	}
-
-	@Test
-	public void shouldProvideAssertWithoutOrderButRememberPosition() {
-		list.assertContains("Third");
-		list.assertContains("First");
-		try {
-			list.assertContainsInOrder("Second");
-			fail("Should throw assertion error for wrong order");
-		}
-		catch (AssertionFailedError e) {
-			assertTrue(true);
-		}
-	}
-	
-	@Test
 	public void shouldAssertNotContainsCorrectly() {
 		list.assertNotContains("Not present");
 		try {

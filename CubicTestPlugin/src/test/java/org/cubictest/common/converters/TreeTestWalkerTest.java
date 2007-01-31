@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.common.exception.UnknownExtensionPointException;
-import org.cubictest.export.converters.PageWalker;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
@@ -22,6 +21,7 @@ import org.cubictest.persistence.TestPersistance;
 import org.cubictest.testutils.AssertionList;
 import org.cubictest.testutils.DummyConverter;
 import org.eclipse.core.runtime.CoreException;
+import org.junit.After;
 import org.junit.Before;
 
 /**
@@ -45,6 +45,7 @@ public class TreeTestWalkerTest {
 		assertionList = new AssertionList<String>();
 	}
 	
+	
 	/**
 	 * Test that all paths are converted in tree (as no target extension point is specified).
 	 */
@@ -53,16 +54,23 @@ public class TreeTestWalkerTest {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTree.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		testWalker.convertTest(test, assertionList, null);
+		
+		//first path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
 		assertionList.assertContainsInOrder("First Page --> Second Page");
 		assertionList.assertContainsInOrder("Second");
-		assertionList.resetCounter();
+		
+		//second path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
-	}
+
+		assertionList.verifySize();
+}
 	
 	/**
 	 * Test that only path to given extension point is converted.
@@ -72,14 +80,18 @@ public class TreeTestWalkerTest {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		
+		//only convert path to extension point:
 		testWalker.convertTest(test, assertionList, setUpTargetExtensionPoint("page297923971162115959945_2"));
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
-		//Assert wrong paths in pre-test:
+		
+		//Assert did not convert elements on wrong path:
 		assertionList.assertNotContains("Second");
 		assertionList.assertNotContains("First Page --> Second Page");
+
+		assertionList.verifySize();
 	}
 
 	
@@ -116,12 +128,30 @@ public class TreeTestWalkerTest {
 		testWalker.convertTest(test, assertionList, null);
 		
 		//the order here might be fragile. Consider only using assertContains(..)
+		
+		//first path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("First Page --> Second Page");
 		assertionList.assertContainsInOrder("Second");
+		
+		//second path:
+		assertionList.assertContainsInOrder("www.test.org");
+		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
+		assertionList.assertContainsInOrder("Third Page --> Fifth Page");
 		assertionList.assertContainsInOrder("Fifth");
+		
+		//third path:
+		assertionList.assertContainsInOrder("www.test.org");
+		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("First Page --> Third Page");
+		assertionList.assertContainsInOrder("Third");
+		assertionList.assertContainsInOrder("Third Page --> Fourth Page");
 		assertionList.assertContainsInOrder("Fourth");
+
+		assertionList.verifySize();
 	}
 	
 	/**
@@ -133,6 +163,7 @@ public class TreeTestWalkerTest {
 		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeExtensionPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		
+		//only convert path to extension point:
 		testWalker.convertTest(test, assertionList, setUpTargetExtensionPoint("page299655571162117362723"));
 		
 		assertionList.assertContainsInOrder("www.test.org");
@@ -141,11 +172,14 @@ public class TreeTestWalkerTest {
 		assertionList.assertContainsInOrder("Third");
 		assertionList.assertContainsInOrder("Third Page --> Fifth Page");
 		assertionList.assertContainsInOrder("Fifth");
-		//Assert wrong paths in pre-test:
+		
+		//Assert did not convert elements on wrong path:
 		assertionList.assertNotContains("First Page --> Second Page");
 		assertionList.assertNotContains("Second");
 		assertionList.assertNotContains("Third Page --> Fouth Page");
 		assertionList.assertNotContains("Fourth");
+
+		assertionList.verifySize();
 	}
 	
 	
@@ -164,16 +198,18 @@ public class TreeTestWalkerTest {
 		assertionList.assertContainsInOrder("First");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
-		assertionList.assertContainsInOrder("SimpleTreeExtensionPoint (SimpleTreeExtensionPoint.aat) --> Second Page");
 		assertionList.assertContainsInOrder("Beta");
-		//Assert wrong paths in pre-test:
+
+		//Assert did not convert elements on wrong path in sub test:
 		assertionList.assertNotContains("Second");
 		assertionList.assertNotContains("First Page --> Second Page");
+
+		assertionList.verifySize();
 	}
 
 	
 	/**
-	 * Test with ExtensionStartPoint that only path to given extension point is converted.
+	 * Test with Extension*Start*Point that only path to given extension point is converted.
 	 */
 	@org.junit.Test
 	public void testTraversesPreTestToExtensionPoint() {
@@ -185,16 +221,18 @@ public class TreeTestWalkerTest {
 		assertionList.assertContainsInOrder("First");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
-		assertionList.assertContainsInOrder("SimpleTreeExtensionPoint (SimpleTreeExtensionPoint.aat) --> Fourth Page");
 		assertionList.assertContainsInOrder("Fourth");
-		//Assert wrong paths in pre-test:
+		
+		//Assert did not convert elements on wrong path:
 		assertionList.assertNotContains("First Page --> Second Page"); 
 		assertionList.assertNotContains("Second");
+
+		assertionList.verifySize();
 	}	
 	
 	
 	/**
-	 * Test that tree is traversed after extension start point.
+	 * Test that complete tree is traversed after extension start point.
 	 */
 	@org.junit.Test
 	public void testTraversesTreeAfterExtensionStartPoint() {
@@ -202,70 +240,63 @@ public class TreeTestWalkerTest {
 		Test test = TestPersistance.loadFromFile(fileName);
 		testWalker.convertTest(test, assertionList, null);
 		
+		//first path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
-		assertionList.assertContainsInOrder("SimpleTreeExtensionPoint (SimpleTreeExtensionPoint.aat) --> Fourth Page");
 		assertionList.assertContainsInOrder("Fourth");
 		assertionList.assertContainsInOrder("Fourth Page --> Fifth Page");
 		assertionList.assertContainsInOrder("Fifth");
+		
+		//second path:
+		assertionList.assertContainsInOrder("www.test.org");
+		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("First Page --> Third Page");
+		assertionList.assertContainsInOrder("Third");
+		assertionList.assertContainsInOrder("Fourth");
 		assertionList.assertContainsInOrder("Fourth Page --> Sixth Page");
 		assertionList.assertContainsInOrder("Sixth");
-		//Assert wrong paths in pre-test:
+
+		//Assert did not convert elements on wrong path in test from start point:
 		assertionList.assertNotContains("First Page --> Second Page"); 
 		assertionList.assertNotContains("Second");
+
+		assertionList.verifySize();
 	}
 	
 	
 	/**
-	 * Test that tree is traversed after extension start point.
+	 * Test that tree is traversed only to extension point after extension start point.
 	 * Tree test with two levels and an extension point.
 	 */
 	@org.junit.Test
 	public void testTraversesTreeWithExtensionPointAfterExtensionStartPoint() {
-		String fileName = "src/test/resources/org/cubictest/common/converters/TreeWithExtensionPointUsingExtensionStartPoint.aat";
+		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeWithExtensionPointUsingExtensionStartPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
-		testWalker.convertTest(test, assertionList, null);
+		testWalker.convertTest(test, assertionList, setUpTargetExtensionPoint("page8469831163802373773"));
 		
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
-		assertionList.assertContainsInOrder("SimpleTreeExtensionPoint (SimpleTreeExtensionPoint.aat) --> Fourth Page");
 		assertionList.assertContainsInOrder("Fourth");
-		assertionList.assertContainsInOrder("Fourth Page --> Fifth Page");
-		assertionList.assertContainsInOrder("Fifth");
 		assertionList.assertContainsInOrder("Fourth Page --> Sixth Page");
 		assertionList.assertContainsInOrder("Sixth");
 		assertionList.assertContainsInOrder("Sixth Page --> Seventh Page");
 		assertionList.assertContainsInOrder("Seventh");
-		assertionList.assertContainsInOrder("Sixth Page --> Eighth Page");
-		assertionList.assertContainsInOrder("Eighth");
-		//Assert wrong paths in pre-test:
+
+		//Assert did not convert elements on wrong path:
 		assertionList.assertNotContains("First Page --> Second Page"); 
 		assertionList.assertNotContains("Second");
+		assertionList.assertNotContains("Fourth Page --> Fifth Page");
+		assertionList.assertNotContains("Fifth");
+		assertionList.assertNotContains("Sixth Page --> Eighth Page");
+		assertionList.assertNotContains("Eighth");
+
+		assertionList.verifySize();
 	}
-	
-	/**
-	 * Test with ExtensionStartPoint that only path to given extension point is converted.
-	 */
-	@org.junit.Test
-	public void testTraversesPreTestToExtensionPoint2() {
-		String fileName = "src/test/resources/org/cubictest/common/converters/purchase crate.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
-		testWalker.convertTest(test, assertionList, null);
-		
-		assertionList.assertContainsInOrder("http://localhost:8080/cubicshop");
-		assertionList.assertContainsInOrder("SearchLink"); 
-		assertionList.assertContainsInOrder("WebshopLink"); 
-		assertionList.assertContainsInOrder("First Page --> Webshop"); 
-		assertionList.assertContainsInOrder("Webshop"); 
-		assertionList.assertContainsInOrder("Shipping crate");
-		//Assert wrong paths in pre-test:
-		assertionList.assertNotContains("Search");
-		assertionList.assertNotContains("First Page --> Search"); 
-	}
+
 	
 	
 	/**

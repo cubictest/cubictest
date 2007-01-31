@@ -5,6 +5,7 @@
 package org.cubictest.testutils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.AssertionFailedError;
 
@@ -18,21 +19,10 @@ public class AssertionList<T> extends ArrayList<T> {
 	
 	private static final long serialVersionUID = 1L;
 	private int knownMinPosition = 0;
+	private List<Object> assertedElements = new ArrayList<Object>();
 
 	public void resetCounter() {
 		knownMinPosition = 0;
-	}
-
-	/**
-	 * Checks that object is in the list with position x. 
-	 * @param obj the object to check.
-	 * @param index the index the object should have.
-	 * @return
-	 */
-	public void assertContains(Object obj, int index) {
-		if (size() < index || get(index) == null || !get(index).equals(obj)) {
-			throw new AssertionFailedError("\"" + obj + "\" is not in list with position " + index + "." + getDebugInfo()); 
-		}
 	}
 
 
@@ -42,6 +32,7 @@ public class AssertionList<T> extends ArrayList<T> {
 	 * @return
 	 */
 	public void assertContainsInOrder(Object obj) {
+		assertedElements.add(obj);
 		
 		if (!contains(obj))
 			throw new AssertionFailedError("\"" + obj + "\" is not in list." + getDebugInfo()); 
@@ -53,23 +44,7 @@ public class AssertionList<T> extends ArrayList<T> {
 		knownMinPosition = currentPosition + 1;
 	}
 	
-	
-	/**
-	 * Checks that object is present in list. 
-	 * @param obj the object to check
-	 * @return
-	 */
-	public void assertContains(Object obj) {
-		
-		if (!contains(obj))
-			throw new AssertionFailedError("\"" + obj + "\" is not in list." + getDebugInfo()); 
 
-		int currentPosition = indexOf(obj);
-		if (currentPosition > knownMinPosition) {
-			knownMinPosition = currentPosition + 1;
-		}
-
-	}
 	
 	/**
 	 * Checks that object is <i>not</i> present in list. 
@@ -84,8 +59,16 @@ public class AssertionList<T> extends ArrayList<T> {
 	
 	
 	public String getDebugInfo() {
-		return "\nElements asserted in assertionList: " + subList(0, knownMinPosition) + 
-			"\nMin pos: " + knownMinPosition +
-			"\nContents in list: " + this;
+		return 
+			"\nMin pos for element: " + knownMinPosition +
+			"\nContents in list: " + this +
+			"\nAsserted elements: " + assertedElements;
+	}
+
+	public void verifySize() {
+		if (knownMinPosition < this.size()) {
+			throw new AssertionFailedError("There were more elements in the converted list than were asserted in test."
+					+ getDebugInfo());
+		}		
 	}
 }
