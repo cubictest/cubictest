@@ -5,3 +5,4 @@ To edit these test tests,
 		src/test/resources/org/cubictest/common/converters/
 	to	
 		/IntegrationTest/tests/
+	(use e.g. global search and replace)
