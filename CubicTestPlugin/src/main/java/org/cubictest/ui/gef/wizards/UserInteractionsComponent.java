@@ -193,7 +193,7 @@ public class UserInteractionsComponent {
 		}
 		elementNames[a] = "";
 
-		cellEditors[0] = new ActionComboBoxCellEditor(table, elementNames, SWT.READ_ONLY);
+		cellEditors[0] = new ActionElementComboBoxCellEditor(table, elementNames, SWT.READ_ONLY);
 		cellEditors[1] = new ComboBoxCellEditor(table, new String[]{""}, SWT.READ_ONLY);
 		cellEditors[2] = new TextCellEditor(table);
 		
@@ -204,9 +204,9 @@ public class UserInteractionsComponent {
 	}
 	
 	
-	class ActionComboBoxCellEditor extends ComboBoxCellEditor {
+	class ActionElementComboBoxCellEditor extends ComboBoxCellEditor {
 		
-		public ActionComboBoxCellEditor(Table table, String[] elementNames, int read_only) {
+		public ActionElementComboBoxCellEditor(Table table, String[] elementNames, int read_only) {
 				super(table,elementNames, read_only);
 		}
 
@@ -217,9 +217,9 @@ public class UserInteractionsComponent {
 	        comboBox.addSelectionListener(new SelectionAdapter() {
 	            public void widgetSelected(SelectionEvent event) {
 	                Integer selectedIndex = (Integer) doGetValue();
-					String name = elementNames[selectedIndex.intValue()];
+					String elementName = elementNames[selectedIndex.intValue()];
 					for (IActionElement iae : allActionElements){	
-						if ( (iae.getType() + ": " + iae.getDescription()).equals(name)){
+						if ( (iae.getType() + ": " + iae.getDescription()).equals(elementName)){
 							activeAction.setElement(iae);
 							break;
 						}
@@ -247,6 +247,8 @@ public class UserInteractionsComponent {
 	        return comboBox;
 		}
 	}
+	
+	
 	class ActionInputCellModifier implements ICellModifier{
 
 		public boolean canModify(Object element, String property) {
