@@ -6,8 +6,6 @@
 
 package org.cubictest.ui.gef.actions;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 
 import org.cubictest.common.utils.ErrorHandler;
@@ -15,23 +13,16 @@ import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.recorder.CubicRecorder;
-import org.cubictest.recorder.CubicRecorderTest;
 import org.cubictest.recorder.GUIAwareRecorder;
 import org.cubictest.recorder.IRecorder;
+import org.cubictest.recorder.selenium.SeleniumRecorder;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.interfaces.IDisposeListener;
 import org.eclipse.gef.ui.actions.EditorPartAction;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IPropertyListener;
-import org.cubictest.recorder.CubicRecorderTest;
-import org.cubictest.recorder.selenium.SeleniumRecorder;
-import org.cubictest.runner.cubicunit.CubicUnitRunner;
-
-import com.thoughtworks.selenium.SeleniumException;
 
 public class RecordAction extends EditorPartAction {
 
@@ -47,11 +38,13 @@ public class RecordAction extends EditorPartAction {
 	protected boolean calculateEnabled() {
 		return true;
 	}
+
 	
 	@Override
 	protected void init() {
 		super.init();
 		setRunning(false);
+		setLazyEnablementCalculation(true);
 		setId(ACTION_ID);
 	}
 	
@@ -90,8 +83,8 @@ public class RecordAction extends EditorPartAction {
 		setRunning(!running);
 	}
 
-	private void setRunning(boolean running) {
-		this.running = running;
+	private void setRunning(boolean run) {
+		running = run;
 		if(!running) {
 			setText("Start Recording");
 		} else {

@@ -4,19 +4,16 @@ import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.UserInteraction;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
+import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.commands.CommandStack;
-
-import sun.awt.geom.AreaOp.AddOp;
 
 public class CubicRecorder implements IRecorder {
 	private Test test;
@@ -96,6 +93,7 @@ public class CubicRecorder implements IRecorder {
 		if(this.userInteractionsTransition == null) {
 			addUserActions(this.cursor);
 		}
+		
 		this.userInteractionsTransition.addUserInteraction(action);
 	}
 	
@@ -105,38 +103,50 @@ public class CubicRecorder implements IRecorder {
 	private AbstractPage addUserActions(TransitionNode from) {
 		Page page = new Page();
 		page.setAutoPosition(true);
-		if(cursor != null) {
-			page.setName(cursor.getName());			
-		} else {
-			page.setName("untitled");
-		}
+				
 		UserInteractionsTransition ua = new UserInteractionsTransition(from, page);
 		
 		/* Add Page */
 		AddAbstractPageCommand addPageCmd = new AddAbstractPageCommand();
 		addPageCmd.setPage(page);
 		addPageCmd.setTest(test);
-		this.commandStack.execute(addPageCmd);
+		commandStack.execute(addPageCmd);
 
+		/* Change Page Name */
+		ChangeAbstractPageNameCommand changePageNameCmd = new ChangeAbstractPageNameCommand();
+		changePageNameCmd.setAbstractPage(page);
+		changePageNameCmd.setOldName("");
+		if(cursor != null) {
+			changePageNameCmd.setName(cursor.getName());	
+		} else {
+			changePageNameCmd.setName("untitled");
+		}
+		commandStack.execute(changePageNameCmd);
+		
 		/* Add Transition */
 		CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
 		createTransitionCmd.setTransition(ua);
 		createTransitionCmd.setTest(test);
 		createTransitionCmd.setSource(from);
 		createTransitionCmd.setTarget(page);
-		this.commandStack.execute(createTransitionCmd);
+		commandStack.execute(createTransitionCmd);
 
-		this.autoLayout.layout(page);
+		autoLayout.layout(page);
 		
-		this.userInteractionsTransition = ua;
+		userInteractionsTransition = ua;
 		return page;
 	}
 
 	public void setStateTitle(String title) {
-		if(this.userInteractionsTransition != null) {
-			this.userInteractionsTransition.getEnd().setName(title);
+		ChangeAbstractPageNameCommand changePageNameCmd = new ChangeAbstractPageNameCommand();
+		if(userInteractionsTransition != null) {
+			changePageNameCmd.setAbstractPage((AbstractPage) userInteractionsTransition.getEnd());
+			changePageNameCmd.setOldName(userInteractionsTransition.getEnd().getName());
 		} else {
-			this.cursor.setName(title);
+			changePageNameCmd.setAbstractPage(cursor);
+			changePageNameCmd.setOldName(cursor.getName());
 		}
+		changePageNameCmd.setName(title);	
+		this.commandStack.execute(changePageNameCmd);
 	}
 }

@@ -3,7 +3,6 @@ package org.cubictest.layout;
 import java.util.List;
 
 import org.cubictest.model.Page;
-import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
@@ -13,8 +12,6 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-
-import com.thoughtworks.xstream.io.binary.Token.StartNode;
 
 public class AutoLayout {
 	private final TestEditPart testEditPart;

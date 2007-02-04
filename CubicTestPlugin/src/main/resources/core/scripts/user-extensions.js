@@ -48,7 +48,7 @@ Cubic.load('scripts/YahooUI/logger/assets/logger.css');
 Event.observe(window, 'load', function() {
 var temp = document.createElement("div");
 document.body.appendChild(temp);
-temp.innerHTML = '<a href="http://www.google.no/" target="myiframe" style="position: absolute; display: block; top: 0">google.no</a>';
+temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="position: absolute; display: block; top: 0">google.no</a>';
 
 	var iframeName = 'myiframe';
 	var myLogReader = new YAHOO.widget.LogReader(); 
@@ -57,22 +57,25 @@ temp.innerHTML = '<a href="http://www.google.no/" target="myiframe" style="posit
 	var cubicContextMenu;
 	
 	$(iframeName).name = iframeName;
+	
 	/* iframe load handler */
-	Event.observe($(iframeName), 'load', function() {		
+	Event.observe($(iframeName), 'load', function() {
+		var frameDoc = $(iframeName).contentDocument;
 		/* Hack to make the YAHOO menu work across frames */		
-		YAHOO.widget.MenuManager.oDoc = frames[iframeName].document;
+		YAHOO.widget.MenuManager.oDoc = frameDoc;
 		
-		jsonrpc.recorder.setStateTitle(frames[iframeName].document.title);
+		jsonrpc.recorder.setStateTitle(frameDoc.title);
 
 		/* Add menu.css to the page in the iframe */
-		Cubic.load('/selenium-server/core/scripts/YahooUI/menu/assets/menu.css', frames[iframeName].document);
-		
+		Cubic.load('/selenium-server/core/scripts/YahooUI/menu/assets/menu.css', frameDoc);
+		Cubic.load('/selenium-server/core/scripts/cubic/contextmenu.css', frameDoc);
+
 		/* Rebuild the context menu */
 		if(yuiContextMenu) {
 			yuiContextMenu.destroy();
 		}
 		
-		yuiContextMenu = new YAHOO.widget.ContextMenu("cubicContextMenu", { trigger: frames[iframeName].document, width: "auto" });
+		yuiContextMenu = new YAHOO.widget.ContextMenu("cubicContextMenu", { trigger: frameDoc, width: "", zIndex: 1000 });
 		cubicContextMenu = new Cubic.recorder.ContextMenu(yuiContextMenu);
 		
 		var yuiMenuItem;
@@ -107,7 +110,7 @@ temp.innerHTML = '<a href="http://www.google.no/" target="myiframe" style="posit
 		}
 		
 		cubicMenuItem.execute = function() {
-			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(frames[iframeName].document.getElementsByTagName("TITLE")[0]));
+			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(frameDoc.getElementsByTagName("TITLE")[0]));
 		}
 		
 		cubicContextMenu.addItem(cubicMenuItem);
@@ -123,7 +126,6 @@ temp.innerHTML = '<a href="http://www.google.no/" target="myiframe" style="posit
 		}
 		
 		cubicMenuItem.execute = function() {
-			alert(this._selectedText)
 			jsonrpc.recorder.assertTextPresent(this._selectedText);
 		}
 		
@@ -133,7 +135,10 @@ temp.innerHTML = '<a href="http://www.google.no/" target="myiframe" style="posit
 		}
 		
 		cubicMenuItem.generateLabelFor = function(element) {
-			var s = this.selectedText;
+			var s = this._selectedText;
+			if(!s) {
+				return "";
+			}
 			if(s.length > 10) {
 				s = s.substring(0, 7) + "...";
 			}
@@ -143,8 +148,8 @@ temp.innerHTML = '<a href="http://www.google.no/" target="myiframe" style="posit
 		// Temporary hack until we figure out why the selection disappears when the contextmenu is displayed
 		var temp = function(item) {
 			YAHOO.log("observing..")
-			Event.observe(frames[iframeName].document.body, 'mouseup', function(e) {
-				item.selectedText = Cubic.dom.getSelectedText(frames[iframeName]).toString();
+			Event.observe(frameDoc.body, 'mouseup', function(e) {
+				item.selectedText = Cubic.dom.getSelectedText($(iframeName).contentWindow).toString();
 			}, false);
 		}
 		temp(cubicMenuItem);
@@ -153,10 +158,10 @@ temp.innerHTML = '<a href="http://www.google.no/" target="myiframe" style="posit
 	
 	
 		/* Render Menu */
-		cubicContextMenu.render(frames[iframeName].document.body);		
+		cubicContextMenu.render(frameDoc.body);		
 		
 		/* Set up the action listener */
-		var actionRecorder = new Cubic.recorder.ActionRecorder(jsonrpc.recorder, frames[iframeName].document.body);
+		var actionRecorder = new Cubic.recorder.ActionRecorder(jsonrpc.recorder, frameDoc.body);
 		actionRecorder.ignore(yuiContextMenu.element);
 		
 	}, false);

@@ -15,12 +15,14 @@ import org.openqa.selenium.server.SeleniumServer;
 
 import com.metaparadigm.jsonrpc.JSONRPCServlet;
 import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.SeleniumException;
 
 public class SeleniumRecorder implements IRunnableWithProgress {
 	private DefaultSelenium selenium;
 	private SeleniumServer seleniumProxy;
 	private int port = 4444;
 	private final String url;
+	private Thread serverThread;
 
 	public SeleniumRecorder(IRecorder recorder, String url) {
 		this.url = url;
@@ -29,8 +31,9 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 		
 		try {
 			port = findAvailablePort();
+			System.out.println("Port: " + port);
 			seleniumProxy = new SeleniumServer(port);
-
+			
 			Server server = seleniumProxy.getServer();
 			HttpContext cubicRecorder = server.getContext("/selenium-server/cubic-recorder/");
 			ServletHandler servletHandler = new ServletHandler();
@@ -43,28 +46,38 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 	}
 	
 	public void stop() {
-		selenium.stop();
 		try {
 			seleniumProxy.stop();
-		} catch (InterruptedException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+			selenium.stop();
+			serverThread.stop();			
+		} catch(SeleniumException e) {
+			ErrorHandler.logAndShowErrorDialog(e);
 		}
 	}
 
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-        try {
-			seleniumProxy.start();
-			selenium = new DefaultSelenium("localhost", seleniumProxy.getPort(), "*firefox", url);
-			selenium.start();
-			selenium.open(url);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		serverThread = new Thread() {
+			@Override
+			public void run() {
+		        try {
+					seleniumProxy.start();
+					selenium = new DefaultSelenium("localhost", seleniumProxy.getPort(), "*firefox", url);
+					selenium.start();
+					selenium.open(url);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+					}
+		        } catch (Exception e) {
+					ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+				}
 			}
-        } catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
-		}
+			
+			
+		};
+		
+		serverThread.start();
 	}
 	
 	private int findAvailablePort() throws IOException {

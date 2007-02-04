@@ -1,0 +1,22 @@
+#cubicContextMenu {
+	z-index: 1000;
+	font-size: 12px;
+}
+
+#cubicContextMenu ul {
+	padding: 0;
+}
+
+#cubicContextMenu li {
+	padding: 0 2px;
+	margin: 0;
+}
+
+div.yuimenu ul {
+	padding: 2px 0;
+}
+
+div.yuimenu li.yuimenuitem {
+	padding: 0 2px;
+	margin: 0;
+}
