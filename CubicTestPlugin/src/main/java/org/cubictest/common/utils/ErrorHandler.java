@@ -49,6 +49,11 @@ public class ErrorHandler {
 		rethrow(e, message);
 	}
 
+	public static void logAndShowErrorDialog(String message) {
+		log(IStatus.ERROR, null, message);
+		showErrorDialog(null, message);
+	}
+	
 	public static void logAndShowErrorDialog(Throwable e) {
 		log(IStatus.ERROR, e, e.getMessage());
 		showErrorDialog(e);
@@ -59,12 +64,19 @@ public class ErrorHandler {
 		showErrorDialog(e, message);
 	}
 	
+	public static void logAndShowErrorDialogAndThrow(String message) {
+		log(IStatus.ERROR, null, message);
+		showErrorDialog(message);
+		throw new CubicException(message);
+	}
+	
 	public static void logAndShowErrorDialogAndRethrow(Throwable e) {
 		log(IStatus.ERROR, e, e.getMessage());
 		showErrorDialog(e);
 		rethrow(e);
 	}
 
+	
 	public static void logAndShowErrorDialogAndRethrow(Throwable e, String message) {
 		log(IStatus.ERROR, e, message);
 		showErrorDialog(e, message);
@@ -73,22 +85,39 @@ public class ErrorHandler {
 	
 	public static void showErrorDialog(Throwable e) {
 		e = getCause(e);
-		MessageDialog.openError(new Shell(), UiText.APP_TITLE, e.toString());
+		try {
+			MessageDialog.openError(new Shell(), UiText.APP_TITLE, e.toString());
+		}
+		catch (Throwable t) {
+			System.out.println("Could not show message dialog: " + e.toString());
+		}
 	}
 
 	public static void showErrorDialog(String userMessage) {
-		MessageDialog.openError(new Shell(), UiText.APP_TITLE, userMessage);
+		try {
+			MessageDialog.openError(new Shell(), UiText.APP_TITLE, userMessage);
+		}
+		catch (Throwable t) {
+			System.out.println("Could not show message dialog: " + userMessage);
+		}
 	}
 
 	
 	public static void showErrorDialog(Throwable e, String userMessage) {
 		e = getCause(e);
-		if(e instanceof InterruptedException) {
-			MessageDialog.openError(new Shell(), UiText.APP_TITLE, UiText.INTERRUPTED_MESSAGE);
+		String msg = null;
+		
+		try {
+			if(e instanceof InterruptedException) {
+				msg = UiText.INTERRUPTED_MESSAGE;
+			}
+			else {
+				msg = userMessage + ": " + ((e == null) ? "" : "\n" + e.toString());
+			}
+			MessageDialog.openError(new Shell(), UiText.APP_TITLE, msg);
 		}
-		else {
-			MessageDialog.openError(new Shell(), UiText.APP_TITLE, userMessage + ": " +
-					((e == null) ? "" : "\n" + e.toString()));
+		catch (Throwable t) {
+			System.out.println("Could not show message dialog: " + msg);
 		}
 	}
 
@@ -125,8 +154,13 @@ public class ErrorHandler {
 			e = getCause(e);
 		}
 		CubicTestPlugin plugin = CubicTestPlugin.getDefault();
-		IStatus status = new Status(severity, plugin.getId(), IStatus.OK, message, e);
-		plugin.getLog().log(status);
+		if (plugin != null) {
+			IStatus status = new Status(severity, plugin.getId(), IStatus.OK, message, e);
+			plugin.getLog().log(status);
+		}
+		else {
+			System.out.println("Could not log error: " + message + ", " + e);
+		}
 	}
 
 	private static Throwable getCause(Throwable e) {

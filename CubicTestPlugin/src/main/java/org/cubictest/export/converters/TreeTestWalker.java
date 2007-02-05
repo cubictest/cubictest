@@ -13,6 +13,7 @@ import java.util.List;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.exception.UnknownExtensionPointException;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.export.utils.TestWalkerUtils;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStep;
 import org.cubictest.model.ExtensionPoint;
@@ -30,7 +31,6 @@ import org.cubictest.model.UserInteractionsTransition;
  * Uses a connection point converter, a page converter and a transition
  * converter to convert a test into e.g. test steps.
  * 
- * @author ovstetun
  * @author SK
  * @author chr_schwarz
  * 
@@ -47,6 +47,10 @@ public class TreeTestWalker<T> {
 
 	private Class<? extends ICustomTestStepConverter<T>> customTestStepConverter;
 
+	
+	/**
+	 * Public constructor.
+	 */
 	public TreeTestWalker(Class<? extends IUrlStartPointConverter<T>> urlSpc,
 			Class<? extends IPageElementConverter<T>> pec,
 			Class<? extends IContextConverter<T>> cc,
@@ -59,40 +63,31 @@ public class TreeTestWalker<T> {
 		this.customTestStepConverter = ctsc;
 	}
 
+	
 	/**
-	 * Convert a test to test steps and populate steps into e.g. a step list. If
-	 * targetExtensionPoint is non-null, only converts test on path to that
-	 * ExtensionPoint.
+	 * Convert a test to test steps and populate steps into e.g. a step list.
+	 * Converts all paths in test (tree).
 	 * 
 	 * @param test
 	 * @param t
-	 * @param targetExtensionPoint
-	 *            if non-null, only convert test on path to this ExtensionPoint.
 	 */
-	public void convertTest(Test test, T t, ConnectionPoint targetExtensionPoint) {
+	public void convertTest(Test test, T t) {
 		try {
-			ConnectionPoint startPoint = test.getStartPoint();
-			convertTransitionNode(t, startPoint, targetExtensionPoint);
-
-			for (Transition outTransition : startPoint.getOutTransitions()) {
-				TransitionNode node = (TransitionNode) outTransition.getEnd();
-
-				if (convertedNodes.contains(node))
-					continue;
-
-				if (startPoint instanceof ExtensionStartPoint) {
-					convertTransitionNode(t, node, targetExtensionPoint);
-				} else {
-					convertTransitionNode(t, node, null);
-				}
+			//be sure to cover all paths:
+			for (int path = 0; path < 42; path++) {
+				convertTransitionNode(t, test.getStartPoint(), null);
 			}
-		} catch (IllegalAccessException e) {
+		} 
+		catch (IllegalAccessException e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
-		} catch (InstantiationException e) {
+		}
+		catch (InstantiationException e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
-
+	
+	
+	
 	/**
 	 * Converts test node and its children. If targetExtensionPoint is non-null,
 	 * only converts test on path to that ExtensionPoint. If node is subtest,
@@ -104,113 +99,87 @@ public class TreeTestWalker<T> {
 	 * @param targetExtensionPoint
 	 *            if non-null, only convert node on path to this ExtensionPoint.
 	 */
-	private void convertTransitionNode(T t, TransitionNode node,
-			ConnectionPoint targetExtensionPoint)
+	protected boolean convertTransitionNode(T t, TransitionNode node, ConnectionPoint targetExtensionPoint)
 			throws InstantiationException, IllegalAccessException {
 
-		if (targetExtensionPoint == null
-				|| isOnExtensionPointPath(node, targetExtensionPoint)) {
+		boolean nodeFinished = true; //init
+
+		if (convertedNodes.contains(node)) {
+			return true;
+		}
+
+		if (targetExtensionPoint == null || TestWalkerUtils.isOnExtensionPointPath(node, targetExtensionPoint)) {
 
 			if (node instanceof UrlStartPoint) {
 				urlStartPointConverter.newInstance().handleUrlStartPoint(t,
 						(UrlStartPoint) node);
-			} else if (node instanceof ExtensionStartPoint) {
-				convertTest(((SubTest) node).getTest(), t,
-						(ExtensionStartPoint) node);
-			} else if (node instanceof SubTest) {
+			} 
+			else if (node instanceof ExtensionStartPoint) {
+				convertTransitionNode(t, (((SubTest) node).getTest()).getStartPoint(), (ExtensionStartPoint) node);
+			} 
+			else if (node instanceof SubTest) {
 				Test test = ((SubTest) node).getTest();
 				List<Transition> out = node.getOutTransitions();
-				if (out.size() > 1) {
-					throw new CubicException(
-							"More than one out transition from subtest is not allowed.");
-				} else if (out.size() == 1) {
-					// only convert path in subtest leading to the extension
-					// point that is extended from
-					convertTest(test, t, ((ExtensionTransition) out.get(0))
-							.getExtensionPoint());
-				} else {
-					convertTest(test, t, null);
-				}
-			} else if (node instanceof Page) {
+				// only convert path in subtest leading to the extension
+				// point that is extended from
+				convertTransitionNode(t, test.getStartPoint(), ((ExtensionTransition) out.get(0)).getExtensionPoint());
+			} 
+			else if (node instanceof Page) {
 				pageWalker.handlePage(t, (Page) node);
-			} else if (node instanceof CustomTestStep) {
+			} 
+			else if (node instanceof CustomTestStep) {
 				customTestStepConverter.newInstance().handleCustomStep(t,
 						(CustomTestStep) node);
-			} else {
-				return;
+			}
+			else if (node instanceof ExtensionPoint) {
+				//do nothing
+			} 
+			else {
+				ErrorHandler.logAndShowErrorDialogAndThrow("Encountered unknown node type during export: " + node);
 			}
 
+			int pathNum = 0;
+			
 			for (Transition outTransition : node.getOutTransitions()) {
-				TransitionNode endNode = (TransitionNode) outTransition
-						.getEnd();
+				pathNum++;
+				TransitionNode endNode = (TransitionNode) outTransition.getEnd();
 
-				if (convertedNodes.contains(endNode))
+				if (convertedNodes.contains(endNode)) {
 					continue;
-
-				if (targetExtensionPoint == null
-						|| isOnExtensionPointPath(endNode, targetExtensionPoint)) {
-					if (outTransition instanceof UserInteractionsTransition) {
-						transitionConverter.newInstance().handleUserInteractions(t,(UserInteractionsTransition) outTransition);
-					}
-					else {
-						//only follow transition, no export
-					}
-					// recursive:
-					convertTransitionNode(t, endNode, targetExtensionPoint);
 				}
+				else {
+					if (targetExtensionPoint == null || TestWalkerUtils.isOnExtensionPointPath(endNode, targetExtensionPoint)) {
+						if (outTransition instanceof UserInteractionsTransition) {
+							transitionConverter.newInstance().handleUserInteractions(t,(UserInteractionsTransition) outTransition);
+						}
+						else {
+							//only follow connection, no export
+						}
+						
+						// convert end node recursively: 
+						nodeFinished = convertTransitionNode(t, endNode, targetExtensionPoint);
+
+						if (pathNum < node.getOutTransitions().size()) {
+							//end node converted, skip to root of tree to start traversal of the other paths from there.
+							nodeFinished = false;
+							break;
+						}
+					}
+				}
+				
 			}
-
-			convertedNodes.add(node);
+			if (nodeFinished) {
+				convertedNodes.add(node);
+			}
+			
 		}
-
-		else if (targetExtensionPoint != null
-				&& (node instanceof UrlStartPoint || node instanceof ExtensionStartPoint)) {
-			// start point was not on path to extension point. Not possible to
-			// continue.
-			// show decent error message:
-			String pageId = "unknownId";
-			if (targetExtensionPoint instanceof ExtensionStartPoint)
-				pageId = ((ExtensionStartPoint) targetExtensionPoint)
-						.getSourceExtensionPointPageId();
-			else if (targetExtensionPoint instanceof ExtensionPoint)
-				pageId = ((ExtensionPoint) targetExtensionPoint).getPageId();
-			throw new UnknownExtensionPointException(
-					"Target extension point connected to page with ID "
-							+ pageId + " not present in test.");
+		else {
+			String msg = "Target extension point connected to page not present in test: " + node + ", " + targetExtensionPoint;
+			ErrorHandler.logAndShowErrorDialogAndRethrow(new UnknownExtensionPointException(msg), msg);;
 		}
+		
+		return nodeFinished;
 	}
 
-	/**
-	 * Checks whether a node is on the path to the targeted extension point.
-	 */
-	public boolean isOnExtensionPointPath(TransitionNode node,
-			ConnectionPoint targetExtensionPoint)
-			throws InstantiationException, IllegalAccessException {
-
-		String targetPageId = "";
-		if (targetExtensionPoint instanceof ExtensionStartPoint) {
-			targetPageId = ((ExtensionStartPoint) targetExtensionPoint)
-					.getSourceExtensionPointPageId();
-		} else if (targetExtensionPoint instanceof ExtensionPoint) {
-			targetPageId = ((ExtensionPoint) targetExtensionPoint).getPageId();
-		} else {
-			throw new CubicException("Unsupported connection point: "
-					+ targetExtensionPoint.toString());
-		}
-
-		if (node instanceof Page) {
-			if (node.getId().equals(targetPageId)) {
-				return true;
-			}
-		}
-
-		for (Transition outTransition : node.getOutTransitions()) {
-			TransitionNode endNode = (TransitionNode) outTransition.getEnd();
-			if (isOnExtensionPointPath(endNode, targetExtensionPoint)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
+	
 }

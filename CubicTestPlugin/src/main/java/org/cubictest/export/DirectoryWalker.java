@@ -125,7 +125,7 @@ public class DirectoryWalker<T> implements IRunnableWithProgress  {
 		//load Test and start the conversion:
 		Test test = TestPersistance.loadFromFile(aatFile);
 		T resultHolder = resultHolderClass.newInstance();
-		testWalker.convertTest(test, resultHolder, null);
+		testWalker.convertTest(test, resultHolder);
 
 		//write result to file:
 		String aatFileName = aatFile.getName();

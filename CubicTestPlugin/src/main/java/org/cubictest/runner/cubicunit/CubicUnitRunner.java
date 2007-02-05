@@ -40,7 +40,7 @@ public class CubicUnitRunner implements IRunnableWithProgress, ILaunchConfigurat
 		
 		monitor.beginTask("Traversing the test model...", IProgressMonitor.UNKNOWN);
 		
-		testWalker.convertTest(test, holder, null);
+		testWalker.convertTest(test, holder);
 		
 		monitor.done();
 	}

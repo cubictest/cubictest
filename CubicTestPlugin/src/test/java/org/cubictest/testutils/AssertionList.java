@@ -18,12 +18,9 @@ import junit.framework.AssertionFailedError;
 public class AssertionList<T> extends ArrayList<T> {
 	
 	private static final long serialVersionUID = 1L;
-	private int knownMinPosition = 0;
+	private int currentPosition = 0;
 	private List<Object> assertedElements = new ArrayList<Object>();
 
-	public void resetCounter() {
-		knownMinPosition = 0;
-	}
 
 
 	/**
@@ -34,14 +31,11 @@ public class AssertionList<T> extends ArrayList<T> {
 	public void assertContainsInOrder(Object obj) {
 		assertedElements.add(obj);
 		
-		if (!contains(obj))
-			throw new AssertionFailedError("\"" + obj + "\" is not in list." + getDebugInfo()); 
-		
-		int currentPosition = indexOf(obj);
-		if (currentPosition < knownMinPosition) {
-			throw new AssertionFailedError("\"" + obj + "\" was before another object that was already asserted." + getDebugInfo());
+		if (!get(currentPosition).equals((obj))) {
+			throw new AssertionFailedError("\"" + obj + "\" is not in list with index " + currentPosition + getDebugInfo()); 
 		}
-		knownMinPosition = currentPosition + 1;
+		
+		currentPosition++;
 	}
 	
 
@@ -60,13 +54,13 @@ public class AssertionList<T> extends ArrayList<T> {
 	
 	public String getDebugInfo() {
 		return 
-			"\nMin pos for element: " + knownMinPosition +
+			"\nRequired position : " + currentPosition +
 			"\nContents in list: " + this +
 			"\nAsserted elements: " + assertedElements;
 	}
 
 	public void verifySize() {
-		if (knownMinPosition < this.size()) {
+		if (currentPosition < this.size()) {
 			throw new AssertionFailedError("There were more elements in the converted list than were asserted in test."
 					+ getDebugInfo());
 		}		

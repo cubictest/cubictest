@@ -2,7 +2,7 @@
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  */
-package org.cubictest.common.converters;
+package org.cubictest.export.converters;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.common.exception.UnknownExtensionPointException;
-import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
@@ -21,7 +20,6 @@ import org.cubictest.persistence.TestPersistance;
 import org.cubictest.testutils.AssertionList;
 import org.cubictest.testutils.DummyConverter;
 import org.eclipse.core.runtime.CoreException;
-import org.junit.After;
 import org.junit.Before;
 
 /**
@@ -53,18 +51,20 @@ public class TreeTestWalkerTest {
 	public void testTraversesSimpleTree() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTree.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
-		testWalker.convertTest(test, assertionList, null);
+		testWalker.convertTest(test, assertionList);
 		
 		//first path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
 		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Second Page");
 		assertionList.assertContainsInOrder("Second");
 		
 		//second path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
 		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
@@ -74,16 +74,20 @@ public class TreeTestWalkerTest {
 	
 	/**
 	 * Test that only path to given extension point is converted.
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
 	@org.junit.Test
-	public void testTraversesSimpleTreeOnlyToExtensionPoint() {
+	public void testTraversesSimpleTreeOnlyToExtensionPoint() throws InstantiationException, IllegalAccessException {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		
 		//only convert path to extension point:
-		testWalker.convertTest(test, assertionList, setUpTargetExtensionPoint("page297923971162115959945_2"));
+		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page297923971162115959945_2"));
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
 		
@@ -104,7 +108,8 @@ public class TreeTestWalkerTest {
 		Test test = TestPersistance.loadFromFile(fileName);
 		
 		try {
-			testWalker.convertTest(test, assertionList, setUpTargetExtensionPoint("not present"));
+			System.out.println("Testing. Error about unknown extension point should follow.");
+			testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("Dummy, should not be present"));
 			fail("Should throw UnknownExtensionPointException when invalid extension point");
 		}
 		catch (UnknownExtensionPointException e) {
@@ -125,29 +130,39 @@ public class TreeTestWalkerTest {
 		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeExtensionPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		
-		testWalker.convertTest(test, assertionList, null);
+		testWalker.convertTest(test, assertionList);
 		
 		//the order here might be fragile. Consider only using assertContains(..)
 		
 		//first path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Second Page");
 		assertionList.assertContainsInOrder("Second");
 		
 		//second path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
+		assertionList.assertContainsInOrder("InputThird");
+		assertionList.assertContainsInOrder("ButtonThird");
 		assertionList.assertContainsInOrder("Third Page --> Fifth Page");
 		assertionList.assertContainsInOrder("Fifth");
 		
 		//third path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
+		assertionList.assertContainsInOrder("InputThird");
+		assertionList.assertContainsInOrder("ButtonThird");
 		assertionList.assertContainsInOrder("Third Page --> Fourth Page");
 		assertionList.assertContainsInOrder("Fourth");
 
@@ -157,19 +172,25 @@ public class TreeTestWalkerTest {
 	/**
 	 * Test that only path to given extension point is converted.
 	 * Form elements, user actions and three-level tree.
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
 	@org.junit.Test
-	public void testTraversesMediumTreeOnlyToExtensionPoint() {
+	public void testTraversesMediumTreeOnlyToExtensionPoint() throws InstantiationException, IllegalAccessException {
 		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeExtensionPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
 		
 		//only convert path to extension point:
-		testWalker.convertTest(test, assertionList, setUpTargetExtensionPoint("page299655571162117362723"));
+		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page299655571162117362723"));
 		
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
+		assertionList.assertContainsInOrder("InputThird");
+		assertionList.assertContainsInOrder("ButtonThird");
 		assertionList.assertContainsInOrder("Third Page --> Fifth Page");
 		assertionList.assertContainsInOrder("Fifth");
 		
@@ -190,12 +211,15 @@ public class TreeTestWalkerTest {
 	public void testTraversesSubTestToExtensionPoint() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleUsingSubTest.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
-		testWalker.convertTest(test, assertionList, null);
+		testWalker.convertTest(test, assertionList);
 		
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("Alpha");
 		assertionList.assertContainsInOrder("First Page --> SimpleTreeExtensionPoint (SimpleTreeExtensionPoint.aat)");
+		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
 		assertionList.assertContainsInOrder("Beta");
@@ -215,10 +239,12 @@ public class TreeTestWalkerTest {
 	public void testTraversesPreTestToExtensionPoint() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleUsingExtensionStartPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
-		testWalker.convertTest(test, assertionList, null);
+		testWalker.convertTest(test, assertionList);
 		
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
 		assertionList.assertContainsInOrder("Fourth");
@@ -238,23 +264,30 @@ public class TreeTestWalkerTest {
 	public void testTraversesTreeAfterExtensionStartPoint() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/TreeUsingExtensionStartPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
-		testWalker.convertTest(test, assertionList, null);
+		testWalker.convertTest(test, assertionList);
 		
 		//first path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
 		assertionList.assertContainsInOrder("Fourth");
+		assertionList.assertContainsInOrder("LinkToSixth");
+		assertionList.assertContainsInOrder("LinkToFifth");
 		assertionList.assertContainsInOrder("Fourth Page --> Fifth Page");
 		assertionList.assertContainsInOrder("Fifth");
 		
 		//second path:
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
 		assertionList.assertContainsInOrder("Fourth");
+		assertionList.assertContainsInOrder("LinkToSixth");
 		assertionList.assertContainsInOrder("Fourth Page --> Sixth Page");
 		assertionList.assertContainsInOrder("Sixth");
 
@@ -269,20 +302,28 @@ public class TreeTestWalkerTest {
 	/**
 	 * Test that tree is traversed only to extension point after extension start point.
 	 * Tree test with two levels and an extension point.
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
 	@org.junit.Test
-	public void testTraversesTreeWithExtensionPointAfterExtensionStartPoint() {
+	public void testTraversesTreeWithExtensionPointAfterExtensionStartPoint() throws InstantiationException, IllegalAccessException {
 		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeWithExtensionPointUsingExtensionStartPoint.aat";
 		Test test = TestPersistance.loadFromFile(fileName);
-		testWalker.convertTest(test, assertionList, setUpTargetExtensionPoint("page8469831163802373773"));
+		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page8469831163802373773"));
 		
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
 		assertionList.assertContainsInOrder("First Page --> Third Page");
 		assertionList.assertContainsInOrder("Third");
 		assertionList.assertContainsInOrder("Fourth");
+		assertionList.assertContainsInOrder("LinkToSixth");
+		assertionList.assertContainsInOrder("LinkToFifth");
 		assertionList.assertContainsInOrder("Fourth Page --> Sixth Page");
 		assertionList.assertContainsInOrder("Sixth");
+		assertionList.assertContainsInOrder("LinkToSeventh");
+		assertionList.assertContainsInOrder("LinkToEighth");
 		assertionList.assertContainsInOrder("Sixth Page --> Seventh Page");
 		assertionList.assertContainsInOrder("Seventh");
 
