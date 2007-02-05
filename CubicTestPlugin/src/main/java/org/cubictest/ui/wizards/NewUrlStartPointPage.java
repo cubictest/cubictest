@@ -7,15 +7,19 @@ package org.cubictest.ui.wizards;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class NewUrlStartPointPage extends WizardPage implements ModifyListener {
+public class NewUrlStartPointPage extends WizardPage implements ModifyListener, KeyListener, MouseListener {
 
 	public static final String NAME = "newUrlStartPointPage";
 	private Label urlLabel;
@@ -47,6 +51,8 @@ public class NewUrlStartPointPage extends WizardPage implements ModifyListener {
 		urlText.setLayoutData(gridData);
 		urlText.setText("http://");
 		urlText.addModifyListener(this);
+		urlText.addKeyListener(this);
+		urlText.addMouseListener(this);
 		
 		urlExampleLabel = new Label(container, SWT.NONE);
 		urlExampleLabel.setText("E.g. http://www.cubictest.org");
@@ -58,6 +64,10 @@ public class NewUrlStartPointPage extends WizardPage implements ModifyListener {
 	}
 
 	public void modifyText(ModifyEvent e) {
+		handleUrlInput();
+	}
+
+	private void handleUrlInput() {
 		if (hasValidUrl()) {
 			updateStatus(null, STATUS_OK);
 			startPointTypeSelectionPage.urlStartPointSelected = true;
@@ -107,4 +117,24 @@ public class NewUrlStartPointPage extends WizardPage implements ModifyListener {
 		      urlText.setFocus();
 		   }
 		}
+
+	public void keyPressed(KeyEvent e) {
+		handleUrlInput();
+	}
+
+	public void keyReleased(KeyEvent e) {
+		handleUrlInput();
+	}
+
+	public void mouseDoubleClick(MouseEvent e) {
+		handleUrlInput();
+	}
+
+	public void mouseDown(MouseEvent e) {
+		handleUrlInput();
+	}
+
+	public void mouseUp(MouseEvent e) {
+		handleUrlInput();
+	}
 }
