@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<fragment>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="CubicRecorder.viewerContribution1"
+            targetID="cubicTestPlugin.editor.contextmenu">
+         <action
+               class="org.cubictest.recorder.ui.RecordEditorAction"
+               id="CubicRecorder.record"
+               label="Record"
+               menubarPath="additions"
+               state="false"
+               style="toggle"
+               tooltip="Record test in web browser"/>
+      </viewerContribution>
+   </extension>
+
+</fragment>

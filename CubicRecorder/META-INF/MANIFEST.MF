@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CubicRecorder Fragment
+Bundle-SymbolicName: CubicRecorder;singleton:=true
+Bundle-Version: 1.0.0
+Fragment-Host: org.cubictest;bundle-version="1.0.0"
+Bundle-Localization: plugin
+Bundle-ClassPath: lib/jsonrpc-1.0.jar,
+ lib/org.mortbay.jetty.jar,
+ lib/selenium-java-client-driver.jar,
+ lib/selenium-server.jar,
+ lib/commons-io-1.0.jar,
+ .
