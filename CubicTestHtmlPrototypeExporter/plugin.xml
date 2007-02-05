@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+
+   <extension
+         point="org.cubictest.org.cubictest.exporters"
+         name="CubicTestHtmlPrototypeExporter">
+   </extension>
+   
+   
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="cubictest.contribution1"
+            objectClass="org.eclipse.core.resources.IResource">
+         <menu
+               label="CubicTest"
+               path="additions"
+               id="cubictest.menu1">
+            <separator
+                  name="CubicTest">
+            </separator>
+         </menu>
+    
+         <action
+               enablesFor="1"
+               label="Create HTML prototype"
+               icon="icons/html_export_icon.gif"
+               class="org.cubictest.exporters.htmlPrototype.ui.ExportToHtmlAction"
+               menubarPath="cubictest.menu1/group1"
+               id="org.cubictest.exporters.htmlPrototype.ui.ExportToHtmlAction">
+         </action>  
+      </objectContribution>
+      <viewerContribution
+            id="CubicTestHtmlPrototypeExporter.viewerContribution1"
+            targetID="cubicTestPlugin.editor.contextmenu">
+         <action
+               class="org.cubictest.exporters.htmlPrototype.ui.ExportToHtmlEditorAction"
+               icon="icons/html_export_icon.gif"
+               id="org.cubictest.exporters.htmlPrototype.ui.ExportToHtmlAction"
+               label="Create HTML prototype"
+               menubarPath="additions"/>
+      </viewerContribution>
+   </extension>
+</plugin>
