@@ -72,6 +72,12 @@ public class TreeTestWalker<T> {
 	 * @param t
 	 */
 	public void convertTest(Test test, T t) {
+		
+		//If multiple paths in tree test, we should start from the very beginning for each path.
+		//As we use extension points etc., we do not know in advance how many times to process a node.
+		//We therefore use a strategy of looping over the tree many times and maintaing a list of converted nodes.
+		//See JUnit test case.
+		
 		try {
 			//be sure to cover all paths:
 			for (int path = 0; path < 42; path++) {
@@ -102,6 +108,12 @@ public class TreeTestWalker<T> {
 	protected boolean convertTransitionNode(T t, TransitionNode node, ConnectionPoint targetExtensionPoint)
 			throws InstantiationException, IllegalAccessException {
 
+		//If multiple paths in tree test, we should start from the very beginning for each path.
+		//As we use extension points etc., we do not know in advance how many times to process a node.
+		//We therefore use a strategy of looping over the tree many times and maintaing a list of converted nodes.
+		//See JUnit test case.
+
+		
 		boolean nodeFinished = true; //init
 
 		if (convertedNodes.contains(node)) {
@@ -139,7 +151,6 @@ public class TreeTestWalker<T> {
 			}
 
 			int pathNum = 0;
-			
 			for (Transition outTransition : node.getOutTransitions()) {
 				pathNum++;
 				TransitionNode endNode = (TransitionNode) outTransition.getEnd();
@@ -168,6 +179,11 @@ public class TreeTestWalker<T> {
 				}
 				
 			}
+			if (targetExtensionPoint != null) {
+				//there possibly exists a tree test *after* this test, we do not know whether we are finished
+				nodeFinished = false;
+			}
+			
 			if (nodeFinished) {
 				convertedNodes.add(node);
 			}

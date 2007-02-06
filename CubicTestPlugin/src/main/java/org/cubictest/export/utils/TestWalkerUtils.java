@@ -24,27 +24,30 @@ public class TestWalkerUtils {
 	/**
 	 * Checks whether a node is on the path to the targeted extension point.
 	 */
-	public static boolean isOnExtensionPointPath(TransitionNode node,
-			ConnectionPoint targetExtensionPoint)
+	public static boolean isOnExtensionPointPath(TransitionNode node, ConnectionPoint targetExtensionPoint)
 			throws InstantiationException, IllegalAccessException {
 
 		String targetPageId = "";
+		
 		if (targetExtensionPoint instanceof ExtensionStartPoint) {
-			targetPageId = ((ExtensionStartPoint) targetExtensionPoint)
-					.getSourceExtensionPointPageId();
-		} else if (targetExtensionPoint instanceof ExtensionPoint) {
+			targetPageId = ((ExtensionStartPoint) targetExtensionPoint).getSourceExtensionPointPageId();
+		} 
+		else if (targetExtensionPoint instanceof ExtensionPoint) {
 			targetPageId = ((ExtensionPoint) targetExtensionPoint).getPageId();
-		} else {
+		}
+		else {
 			throw new CubicException("Unsupported connection point: "
 					+ targetExtensionPoint.toString());
 		}
 
+		
 		if (node instanceof Page) {
 			if (node.getId().equals(targetPageId)) {
 				return true;
 			}
 		}
-
+		
+		//recursively check all end nodes:
 		for (Transition outTransition : node.getOutTransitions()) {
 			TransitionNode endNode = (TransitionNode) outTransition.getEnd();
 			if (isOnExtensionPointPath(endNode, targetExtensionPoint)) {

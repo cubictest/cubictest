@@ -108,7 +108,7 @@ public class TreeTestWalkerTest {
 		Test test = TestPersistance.loadFromFile(fileName);
 		
 		try {
-			System.out.println("Testing. Error about unknown extension point should follow.");
+			System.out.println("\n== Testing traversal to unknown extension point. Error(s) about unknown extension point should follow ==");
 			testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("Dummy, should not be present"));
 			fail("Should throw UnknownExtensionPointException when invalid extension point");
 		}
@@ -288,6 +288,7 @@ public class TreeTestWalkerTest {
 		assertionList.assertContainsInOrder("Third");
 		assertionList.assertContainsInOrder("Fourth");
 		assertionList.assertContainsInOrder("LinkToSixth");
+		assertionList.assertContainsInOrder("LinkToFifth");
 		assertionList.assertContainsInOrder("Fourth Page --> Sixth Page");
 		assertionList.assertContainsInOrder("Sixth");
 

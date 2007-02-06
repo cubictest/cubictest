@@ -5,22 +5,23 @@
 package org.cubictest.ui.gef.controller;
 
 import org.cubictest.model.ExtensionStartPoint;
-import org.cubictest.model.SubTest;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 
+/**
+ * Controller for ExtensionStartPoints.
+ * 
+ * @author chr_schwarz
+ */
 public class ExtensionStartPointEditPart extends SubTestEditPart {
 
 	public ExtensionStartPointEditPart(ExtensionStartPoint startPoint) {
 		super(startPoint);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#createEditPolicies()
-	 */
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new StartPointNodeEditPolicy());
@@ -31,7 +32,6 @@ public class ExtensionStartPointEditPart extends SubTestEditPart {
 		AbstractTransitionNodeFigure figure = (AbstractTransitionNodeFigure)super.createFigure();
 		figure.setLabelLength(200);
 		figure.setBackgroundColor(ColorConstants.buttonDarker);
-		String name = ((SubTest)getModel()).getName();
 		figure.setToolTipText("Test to start from: $labelText\nDouble click to open file");
 		return figure;
 	}
