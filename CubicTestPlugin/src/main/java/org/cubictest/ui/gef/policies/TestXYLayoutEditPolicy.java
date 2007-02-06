@@ -11,6 +11,8 @@ import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.command.MovePageCommand;
 import org.cubictest.ui.gef.command.PageResizeCommand;
 import org.cubictest.ui.gef.controller.AbstractNodeEditPart;
+import org.cubictest.ui.gef.controller.ExtensionStartPointEditPart;
+import org.cubictest.ui.gef.controller.UrlStartPointEditPart;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -23,8 +25,9 @@ import org.eclipse.gef.requests.CreateRequest;
 
 
 /**
+ * 
  * @author SK Skytteren
- *
+ * @author chr_schwarz
  */
 public class TestXYLayoutEditPolicy extends XYLayoutEditPolicy {
 
@@ -41,6 +44,10 @@ public class TestXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	protected Command createChangeConstraintCommand(EditPart child,
 			Object constraint) {
 		if (!(child instanceof AbstractNodeEditPart))
+			return null;
+		if (child instanceof UrlStartPointEditPart)
+			return null;
+		if (child instanceof ExtensionStartPointEditPart)
 			return null;
 		if (!(constraint instanceof Rectangle))
 			return null;

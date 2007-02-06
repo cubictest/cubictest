@@ -22,6 +22,7 @@ import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.geometry.Point;
 
+
 /**
  * Util for new test wizards.
  * 
@@ -31,12 +32,7 @@ public class WizardUtils {
 	
 	
 	/**
-	 * Creates an empty test, without any pages or commons, but with a startpoint.
-	 * 
-	 * @param id The id of the test.
-	 * @param name The name of the test.
-	 * @param description The description of the test.
-	 * @return A xml representation of the test as a string.
+	 * Creates an empty test with a ExtensionStartPoint.
 	 */
 	public static Test createEmptyTest(String id, String name, 
 			String description, IFile file, ExtensionPoint point) {
@@ -47,6 +43,7 @@ public class WizardUtils {
 		esp.setProject(file.getProject());
 		esp.setSourceExtensionPointName(point.getName());
 		esp.setSourceExtensionPointPageId(point.getPageId());
+		esp.setPosition(new Point(4, 4));
 		test.setStartPoint(esp);
 		
 		ExtensionTransition startTransition = 
@@ -56,6 +53,9 @@ public class WizardUtils {
 		return test;
 	}
 	
+	/**
+	 * Creates an empty test with a UrlStartPoint.
+	 */
 	public static Test createEmptyTest(String id, String name, 
 			String description, String url) {
 		Test test = createTest(id,name,description);
@@ -63,7 +63,8 @@ public class WizardUtils {
 		UrlStartPoint startpoint = new UrlStartPoint();
 		startpoint.setId(id);
 		startpoint.setBeginAt(url);
-		startpoint.setName("URL ");	
+		startpoint.setName("URL ");
+		startpoint.setPosition(new Point(4, 4));
 		test.setStartPoint(startpoint);
 		
 		SimpleTransition startTransition = new SimpleTransition(startpoint, test.getPages().get(0));	
