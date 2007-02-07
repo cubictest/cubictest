@@ -29,6 +29,9 @@ import org.cubictest.model.formElement.TextField;
 
 /**
  * This class is responsible for creating Watir steps for each element that can be checked for on a page.
+ * 
+ * @author chr_schwarz
+ * @author stinelil
  */
 public class PageElementConverter implements IPageElementConverter<IStepList> {	
 	
