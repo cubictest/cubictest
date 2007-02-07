@@ -19,6 +19,11 @@ import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
 
+/**
+ * Converter for contexts.
+ * 
+ * @author chr_schwarz
+ */
 public class ContextConverter implements IContextConverter<IStepList> {
 
 	
