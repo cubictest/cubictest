@@ -95,7 +95,7 @@ public class TransitionConverter implements ITransitionConverter<IStepList> {
 				step = new TestStep("ie." + elementType + "(" + idType + ", \"" + idText + "\").click");
 				step.setDescription("Clicking on " + elementType + " with " + idType + " = '" + idText + "'");
 			}
-			if (action.equals(SELECT) && element instanceof Option) {
+			else if (action.equals(SELECT) && element instanceof Option) {
 				//Option in SelectList:
 				Select parent = (Select) ((Option) element).getParent();
 				String parentIdText = parent.getText();
