@@ -51,7 +51,8 @@ public class RecordEditorAction implements IEditorActionDelegate {
 	public void run(IAction action) {
 		if(!running) {
 //			GraphicalTestEditor testEditor = (GraphicalTestEditor)getEditorPart();
-			
+			setRunning(true);
+
 			Test test = testEditor.getTest();
 			AutoLayout autoLayout = new AutoLayout((TestEditPart) testEditor.getGraphicalViewer().getContents());
 
@@ -76,11 +77,14 @@ public class RecordEditorAction implements IEditorActionDelegate {
 			}
 
 		} else {
-			seleniumRecorder.stop();
+			try {
+				setRunning(false);
+				seleniumRecorder.stop();				
+			} catch(Exception e) {
+				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+			}
 		}
-		
-		setRunning(!running);
-		
+				
 		try {
 		} 
 		catch (Exception e) {

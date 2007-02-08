@@ -5,7 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="lib" path="lib/selenium-server.jar" sourcepath="/selenium-server-coreless/src"/>
-	<classpathentry kind="lib" path="lib/selenium-java-client-driver.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-java-client-driver.jar" sourcepath="/selenium-java-client-driver"/>
 	<classpathentry kind="lib" path="lib/org.mortbay.jetty.jar"/>
 	<classpathentry kind="lib" path="lib/jsonrpc-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-1.0.jar"/>
