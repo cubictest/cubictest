@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CubicTestWatirExporter Plug-in
+Bundle-SymbolicName: org.cubictest.exporters.WatirExporter;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.cubictest.exporters.selenium.ui.Activator
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.cubictest,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ org.junit4
+Eclipse-LazyStart: true
+Bundle-ClassPath: lib/commons-lang-2.0.jar,
+ .

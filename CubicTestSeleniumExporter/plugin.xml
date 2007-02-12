@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+
+   <extension
+         point="org.cubictest.org.cubictest.exporters"
+         name="CubicTestSeleniumExporter">
+   </extension>
+   
+   
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="cubictest.contribution1"
+            objectClass="org.eclipse.core.resources.IResource">
+         <menu
+               label="CubicTest"
+               path="additions"
+               id="cubictest.menu1">
+            <separator
+                  name="CubicTest">
+            </separator>
+         </menu>
+    
+         <action
+               enablesFor="1"
+               label="Create Selenium tests"
+               icon="icons/selenium_export_icon.gif"
+               class="org.cubictest.exporters.selenium.ui.ExportToSeleniumAction"
+               menubarPath="cubictest.menu1/group1"
+               id="org.cubictest.exporters.selenium.ui.ExportToSeleniumAction">
+         </action>
+      </objectContribution>
+   </extension>
+</plugin>
