@@ -14,7 +14,6 @@ import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.ContextEditPart;
 import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
-import org.cubictest.ui.utils.ModelUtil;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
@@ -55,7 +54,7 @@ public class SelectContextContainerEditPolicy extends
 		}
 		
 		if(obj instanceof ExtensionPoint) {
-			PageEditPart pageEditPart = (PageEditPart) ModelUtil.getSurroundingPagePart((PropertyChangePart) getHost());
+			PageEditPart pageEditPart = (PageEditPart) ViewUtil.getSurroundingPagePart((PropertyChangePart) getHost());
 			AddExtensionPointCommand cmd = new AddExtensionPointCommand();
 			cmd.setPageEditPart(pageEditPart);
 			cmd.setTest((Test) pageEditPart.getParent().getModel());

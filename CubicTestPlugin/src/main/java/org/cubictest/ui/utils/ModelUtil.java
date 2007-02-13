@@ -28,33 +28,6 @@ public class ModelUtil {
 	public static int TRANSITION_EDIT_VALID = 2;
 	public static int TRANSITION_EDIT_NOT_VALID = 4;
 
-	/**
-	 * Get the AbstractPage model object surronding an PropertyChangePart.
-	 * @param editPart
-	 * @return
-	 */
-	public static AbstractPageEditPart getSurroundingPagePart(PropertyChangePart editPart) {
-		if (editPart instanceof TestEditPart) {
-			return null;
-		}
-		if (editPart instanceof AbstractPageEditPart) {
-			return (AbstractPageEditPart) editPart;
-		}
-		
-		editPart = (PropertyChangePart) editPart.getParent();
-		
-		while (!(editPart.getModel() instanceof AbstractPage)) {
-			editPart = (PropertyChangePart) editPart.getParent();
-		}
-		
-		
-		if (!(editPart instanceof AbstractPageEditPart)) {
-			throw new CubicException("Did not find surronding AbstractPage of edit part: " + editPart);
-		}
-		
-		return (AbstractPageEditPart) editPart;
-		
-	}
 	
 	public static int isLegalTransition(TransitionNode sourceNode, TransitionNode targetNode, Transition transition, boolean isReconnectingSourceNode) {
 		if (sourceNode.equals(targetNode))

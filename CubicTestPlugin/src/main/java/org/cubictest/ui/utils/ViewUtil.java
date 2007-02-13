@@ -6,12 +6,16 @@ package org.cubictest.ui.utils;
 
 import java.util.List;
 
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.PageResizeCommand;
+import org.cubictest.ui.gef.controller.AbstractPageEditPart;
+import org.cubictest.ui.gef.controller.PropertyChangePart;
+import org.cubictest.ui.gef.controller.TestEditPart;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPart;
@@ -143,5 +147,34 @@ public class ViewUtil {
 			i++;
 		}
 		return node;
+	}
+	
+	
+	/**
+	 * Get the AbstractPage model object surronding an PropertyChangePart.
+	 * @param editPart
+	 * @return
+	 */
+	public static AbstractPageEditPart getSurroundingPagePart(PropertyChangePart editPart) {
+		if (editPart instanceof TestEditPart) {
+			return null;
+		}
+		if (editPart instanceof AbstractPageEditPart) {
+			return (AbstractPageEditPart) editPart;
+		}
+		
+		editPart = (PropertyChangePart) editPart.getParent();
+		
+		while (!(editPart.getModel() instanceof AbstractPage)) {
+			editPart = (PropertyChangePart) editPart.getParent();
+		}
+		
+		
+		if (!(editPart instanceof AbstractPageEditPart)) {
+			throw new CubicException("Did not find surronding AbstractPage of edit part: " + editPart);
+		}
+		
+		return (AbstractPageEditPart) editPart;
+		
 	}
 }
