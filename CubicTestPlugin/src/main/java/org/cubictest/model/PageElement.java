@@ -31,6 +31,9 @@ public abstract class PageElement extends PropertyAwareObject
 	private SationType sationType = SationType.NONE;
 	private String key = "";
 	
+	public String toString() {
+		return getType() + ": " + getIdentifierType() + " = " + getText();
+	}
 	
 	/**
 	 * Get the user interaction types that is possible on this page elemenent.
