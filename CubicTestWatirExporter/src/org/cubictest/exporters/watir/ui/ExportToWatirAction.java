@@ -23,8 +23,7 @@ import org.eclipse.ui.IActionDelegate;
  * Action for starting Watir export. Will be in context menu in the 
  * Navigator or Package Explorer.
  * 
- * @author Christian Schwarz
- *
+ * @author chr_schwarz
  */
 public class ExportToWatirAction implements IActionDelegate {
 	ISelection selection;

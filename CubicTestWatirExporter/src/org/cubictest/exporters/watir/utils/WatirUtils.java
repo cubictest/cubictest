@@ -46,6 +46,11 @@ import org.cubictest.model.formElement.Select;
 import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
 
+/**
+ * Util class for watir export.
+ *  
+ * @author chr_schwarz
+ */
 public class WatirUtils {
 
 	public static String getIdType(PageElement pe) {
