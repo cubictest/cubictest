@@ -4,86 +4,67 @@
  */
 package org.cubictest.exporters.selenium.utils;
 
-import static org.cubictest.model.ActionType.BLUR;
-import static org.cubictest.model.ActionType.CHECK;
-import static org.cubictest.model.ActionType.CLEAR_ALL_TEXT;
-import static org.cubictest.model.ActionType.CLICK;
-import static org.cubictest.model.ActionType.DBLCLICK;
-import static org.cubictest.model.ActionType.DRAG_END;
-import static org.cubictest.model.ActionType.DRAG_START;
-import static org.cubictest.model.ActionType.ENTER_PARAMETER_TEXT;
-import static org.cubictest.model.ActionType.ENTER_TEXT;
-import static org.cubictest.model.ActionType.FOCUS;
-import static org.cubictest.model.ActionType.GO_BACK;
-import static org.cubictest.model.ActionType.GO_FORWARD;
-import static org.cubictest.model.ActionType.KEY_PRESSED;
-import static org.cubictest.model.ActionType.MOUSE_OUT;
-import static org.cubictest.model.ActionType.MOUSE_OVER;
-import static org.cubictest.model.ActionType.NEXT_WINDOW;
-import static org.cubictest.model.ActionType.NO_ACTION;
-import static org.cubictest.model.ActionType.PREVIOUS_WINDOW;
-import static org.cubictest.model.ActionType.REFRESH;
-import static org.cubictest.model.ActionType.UNCHECK;
-import static org.cubictest.model.IdentifierType.ID;
-import static org.cubictest.model.IdentifierType.LABEL;
-import static org.cubictest.model.IdentifierType.NAME;
-import static org.cubictest.model.IdentifierType.VALUE;
+import static org.cubictest.model.ActionType.*;
+
+import static org.cubictest.model.IdentifierType.*;
 
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.model.ActionType;
+import org.cubictest.model.FormElement;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.context.AbstractContext;
-import org.cubictest.model.formElement.Button;
-import org.cubictest.model.formElement.Checkbox;
-import org.cubictest.model.formElement.Option;
-import org.cubictest.model.formElement.Password;
-import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.Select;
-import org.cubictest.model.formElement.TextArea;
-import org.cubictest.model.formElement.TextField;
 
+
+/**
+ * Util class for Selenium export.
+ * 
+ * @author chr_schwarz
+ */
 public class SeleniumUtils {
 
-	public static String getIdType(PageElement pe) {
+	public static String getLocator(PageElement pe) {
 		IdentifierType type = pe.getIdentifierType();
-		if (type.equals(ID))
-			return "id=";
-		if (type.equals(NAME))
-			return "name=";
-		if (type.equals(VALUE))
+		String text = pe.getText();
+		
+		if (type.equals(ID)) {
+			return "id=" + text;
+		}
+		if (type.equals(NAME)) {
+			return "name=" + text;
+		}
+		if (type.equals(VALUE)) {
+			throw new ExporterException("VALUE IdentifierType not supported.");
+		}
+		if (type.equals(LABEL)) {
+			if (pe instanceof Link) {
+				return "link=" + text;
+			}
+			else {
+				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
+				return "xpath=//" + getElementType(pe) + "[@id=(//label[text()=\"" + text + "\"][1]/@for)][1]";
+			}
+		}
+		else {
 			throw new ExporterException("Identifier type not recognized.");
-		if (type.equals(LABEL))
-			if (pe instanceof Link)
-				return "link=";
-			else
-				throw new ExporterException("Identifier type not recognized.");
-		else
-			throw new ExporterException("Identifier type not recognized.");
+		}
 	}
 	
 	public static String getElementType(PageElement pe) {
-		if (pe instanceof TextField || pe instanceof Password || pe instanceof TextArea)
-			return "text_field";
-		if (pe instanceof Checkbox)
-			return "checkbox";
-		if (pe instanceof RadioButton)
-			return "radio";
-		if (pe instanceof Button)
-			return "button";
 		if (pe instanceof Select)
-			return "select_list";
-		if (pe instanceof Option)
-			return "option";
+			return "select";
+		if (pe instanceof FormElement)
+			return "input";
 		if (pe instanceof Link)
-			return "link";
+			return "a";
+		if (pe instanceof Image)
+			return "img";
 		if (pe instanceof AbstractContext)
 			return "div";
-		if (pe instanceof Image)
-			return "image";
 		if (pe instanceof Text)
 			throw new ExporterException("Text is not a supported element type for identification.");
 		
@@ -135,39 +116,4 @@ public class SeleniumUtils {
 
 		throw new ExporterException("Unknown ActionType type");
 	}
-
-	
-	public static void appendGetLabelTargetId(StringBuffer buff, PageElement pe, String idText) {
-		append(buff, "labelTargetId = \"\"", 3);
-		append(buff, "ie.labels.each do |label|", 3);
-			append(buff, "if(label.innerText() == \"" + idText + "\")", 4);
-				append(buff, "labelTargetId = label.for()", 5);
-			append(buff, "end", 4);
-		append(buff, "end", 3);
-		append(buff, "if (labelTargetId.length == 0)", 3);
-			append(buff, "puts \"Did not find label with text '" + idText + "'\"", 4);
-		append(buff, "end", 3);
-	}
-	
-	
-	public static void appendCheckOptionPresent(StringBuffer buff, String selectList, String text) {
-		append(buff, "optionFound = false", 3);
-		append(buff, selectList + ".getAllContents().each do |opt|", 3);
-			append(buff, "if(opt.to_s() == \"" + text + "\")", 4);
-				append(buff, "optionFound = true", 5);
-			append(buff, "end", 4);
-		append(buff, "end", 3);
-		append(buff, "if (!optionFound)", 3);
-			append(buff, "puts \"Did not find option with text '" + text + "' in select list " + selectList.replace("\"", "'") + "\"", 4);
-		append(buff, "end", 3);
-	}
-	
-	private static void append(StringBuffer buff, String s, int indent) {
-		for (int i = 0; i < indent; i++) {
-			buff.append("\t");			
-		}
-		buff.append(s);
-		buff.append("\n");
-	}
-
 }

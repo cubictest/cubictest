@@ -78,7 +78,7 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 			String input = peAction.getTextualInput();
 			PageElement element = (PageElement)peAction.getElement();
 			String elementType = SeleniumUtils.getElementType(element);
-			String idType = SeleniumUtils.getIdType(element);
+			String idType = SeleniumUtils.getLocator(element);
 			String idText = element.getText();
 	
 			//If label, inject script to get the ID from the label and modify variables with the injected value:
@@ -99,7 +99,7 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 				//Option in SelectList:
 				Select parent = (Select) ((Option) element).getParent();
 				String parentIdText = parent.getText();
-				String parentIdType = SeleniumUtils.getIdType(parent);
+				String parentIdType = SeleniumUtils.getLocator(parent);
 				
 				if (parent.getIdentifierType().equals(IdentifierType.LABEL)) {
 					//If label, inject script to get the ID from the label and modify variables with the injected value:

@@ -17,14 +17,6 @@ public class Command extends Element {
 	/**
 	 * Create a new command (selenese table row).
 	 */
-	public Command(String commandName, String target) {
-		this(commandName, target, "");
-	}
-	
-	
-	/**
-	 * Create a new command (selenese table row).
-	 */
 	public Command(String commandName, String target, String value) {
 		super("tr");
 		addContent(new Element("td").setText(commandName));

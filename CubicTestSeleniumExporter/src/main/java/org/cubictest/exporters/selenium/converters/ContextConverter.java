@@ -18,15 +18,13 @@ import org.cubictest.model.context.IContext;
 public class ContextConverter implements IContextConverter<SeleneseDocument> {
 
 	
-	public PostContextHandle handlePostContext(SeleneseDocument steps, IContext a) {
-		//TODO: Fixme
-		return PostContextHandle.DONE;
-	}
-	
-
-	public PreContextHandle handlePreContext(SeleneseDocument steps, IContext ctx) {
-		//TODO: Fixme
+	public PreContextHandle handlePreContext(SeleneseDocument doc, IContext ctx) {
+		doc.pushContext(ctx);
 		return PreContextHandle.CONTINUE;
 	}
 
+	public PostContextHandle handlePostContext(SeleneseDocument doc, IContext ctx) {
+		doc.popContext();
+		return PostContextHandle.DONE;
+	}
 }
