@@ -17,7 +17,12 @@ import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 
-
+/**
+ * Base class for contexts that are "part of page"-contexts.
+ * More specifically it represents a HTML element containing child elements/descendants.
+ * 
+ * @author chr_schwarz
+ */
 public abstract class AbstractContext extends PageElement implements IContext {
 	
 	private List<PageElement> elements = new ArrayList<PageElement>();

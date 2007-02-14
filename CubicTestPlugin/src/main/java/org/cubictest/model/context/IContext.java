@@ -11,6 +11,12 @@ import java.util.List;
 
 import org.cubictest.model.PageElement;
 
+/**
+ * Interface for elements that holds/maintains child elements.
+ * Can be the page itself or a part of it (a HTML element containing child elements/descendants).
+ * 
+ * @author SK SKytteren
+ */
 public interface IContext {
 	
 	public void addElement(PageElement pe);
