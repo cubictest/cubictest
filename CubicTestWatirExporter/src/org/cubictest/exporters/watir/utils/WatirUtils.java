@@ -95,19 +95,24 @@ public class WatirUtils {
 		throw new ExporterException("Unknown element type");
 	}
 	
+	/**
+	 * Get the JavaScript/Watir event type of the specified ActionType.
+	 * @param a the Action type to convert.
+	 * @return the JavaScript/Watir event type.
+	 */
 	public static String getEventType(ActionType a) {
 		if (a.equals(CLICK))
-			throw new ExporterException("\"Click\" should not be used as event");
+			throw new ExporterException("Internal error: \"Click\" should not be used as javascript event. Use watir action instead.");
 		if (a.equals(CHECK))
-			throw new ExporterException("\"Check\" should not be used as event");
+			throw new ExporterException("Internal error: \"Check\" should not be used as javascript event. Use watir action instead.");
 		if (a.equals(UNCHECK))
-			throw new ExporterException("\"Uncheck\" should not be used as event");
+			throw new ExporterException("Internal error: \"Uncheck\" should not be used as javascript event. Use watir action instead.");
 		if (a.equals(ENTER_TEXT))
-			throw new ExporterException("\"Enter text\" should not be used as event");
+			throw new ExporterException("Internal error: \"Enter text\" should not be used as javascript event. Use watir action instead.");
 		if (a.equals(KEY_PRESSED))
 			return "onkeypress";
 		if (a.equals(CLEAR_ALL_TEXT))
-			throw new ExporterException("\"Clear all text\" should not be used as event");
+			throw new ExporterException("Internal error: \"Clear all text\" should not be used as javascript event. Use watir action instead.");
 		if (a.equals(MOUSE_OVER))
 			return "onmouseover";
 		if (a.equals(MOUSE_OUT))
@@ -142,6 +147,9 @@ public class WatirUtils {
 	}
 
 	
+	/**
+	 * Gets the element ID that the label is for and stores it in ruby variable "labelTargetId".
+	 */
 	public static void appendGetLabelTargetId(StringBuffer buff, PageElement pe, String idText) {
 		append(buff, "labelTargetId = \"\"", 3);
 		append(buff, "ie.labels.each do |label|", 3);
