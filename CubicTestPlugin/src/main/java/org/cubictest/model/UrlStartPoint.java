@@ -32,4 +32,7 @@ public class UrlStartPoint extends ConnectionPoint {
 		inTransition.getStart().removeOutTransition(inTransition);
 	}
 	
+	public String toString() {
+		return "URL: " + getBeginAt();
+	}
 }

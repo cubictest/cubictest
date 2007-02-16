@@ -6,7 +6,6 @@ package org.cubictest.export.utils;
 
 import java.io.File;
 
-import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
