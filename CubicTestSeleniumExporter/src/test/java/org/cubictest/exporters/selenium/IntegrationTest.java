@@ -14,9 +14,6 @@ import org.cubictest.exporters.selenium.converters.PageElementConverter;
 import org.cubictest.exporters.selenium.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.holders.SeleneseDocument;
-import org.cubictest.model.Test;
-import org.cubictest.persistence.TestPersistance;
-
 import org.eclipse.core.runtime.CoreException;
 import org.junit.Before;
 
@@ -47,9 +44,9 @@ public class IntegrationTest extends TestCase {
 	@org.junit.Test
 	public void testAssertElements() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTree.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
-		DirectoryWalker<SeleneseDocument> walker = new DirectoryWalker<SeleneseDocument>();
-		walker.convertCubicTestFile(aatFile, outFolder, monitor);
+//		Test test = TestPersistance.loadFromFile(fileName);
+//		DirectoryWalker<SeleneseDocument> walker = new DirectoryWalker<SeleneseDocument>();
+//		walker.convertCubicTestFile(aatFile, outFolder, monitor);
 		//fire up Jetty and run the tests
 
 		

@@ -13,14 +13,12 @@ import org.cubictest.exporters.selenium.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.holders.SeleneseDocument;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 
 /**
- * Action for starting Watir export. Will be in context menu in the 
+ * Action for starting Selenium export. Will be in context menu in the 
  * Navigator or Package Explorer.
  * 
  * @author Christian Schwarz
@@ -36,7 +34,7 @@ public class ExportToSeleniumAction implements IActionDelegate {
 		
 		try {
 			//callback to CubicTest with the selected files
-			CubicTestExport.exportSelection((IStructuredSelection) selection, ".html",
+			CubicTestExport.exportSelection((IStructuredSelection) selection, "html",
 					UrlStartPointConverter.class, 
 					TransitionConverter.class, 
 					CustomTestStepConverter.class, 
@@ -45,7 +43,7 @@ public class ExportToSeleniumAction implements IActionDelegate {
 					SeleneseDocument.class);
 		} 
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in CubicTest Watir exporter.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in CubicTest Selenium exporter.");
 		}
 		
 	}

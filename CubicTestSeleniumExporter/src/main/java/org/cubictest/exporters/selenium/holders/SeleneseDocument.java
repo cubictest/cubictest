@@ -6,7 +6,7 @@ package org.cubictest.exporters.selenium.holders;
 
 import java.util.Stack;
 
-import org.cubictest.common.utils.XmlUtils;
+import org.cubictest.exporters.selenium.utils.XmlUtils;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;

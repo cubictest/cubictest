@@ -9,22 +9,17 @@ package org.cubictest.exporters.selenium.converters;
 
 import org.cubictest.export.converters.IUrlStartPointConverter;
 import org.cubictest.exporters.selenium.holders.SeleneseDocument;
-import org.cubictest.exporters.selenium.holders.ITestStep;
-import org.cubictest.exporters.selenium.holders.Command;
 import org.cubictest.model.UrlStartPoint;
 
 /**
- * Class for converting Connection points to Watir steps.
+ * Class for converting UrlStartPoint to Selenese row.
  * 
  * @author chr_schwarz
  */
 public class UrlStartPointConverter implements IUrlStartPointConverter<SeleneseDocument> {
 	
 	
-	public void handleUrlStartPoint(SeleneseDocument steps, UrlStartPoint cp) {
-		UrlStartPoint sp = (UrlStartPoint) cp;
-		String start = "ie.goto(\"" + sp.getBeginAt() + "\")";
-		ITestStep step = new Command(start).setDescription("Invoking page: " + sp.getBeginAt());
-		steps.add(step);
+	public void handleUrlStartPoint(SeleneseDocument doc, UrlStartPoint sp) {
+		doc.addCommand("open", sp.getBeginAt()).setDescription("Opening " + sp);
 	}
 }

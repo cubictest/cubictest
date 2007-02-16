@@ -25,8 +25,8 @@ import java.util.List;
 
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.selenium.holders.SeleneseDocument;
 import org.cubictest.exporters.selenium.holders.Command;
+import org.cubictest.exporters.selenium.holders.SeleneseDocument;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.FormElement;
@@ -48,7 +48,7 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 	
 	
 	/**
-	 * Converts a user interactions transition to a list of Watir steps.
+	 * Converts a user interactions transition to a list of Selenese rows.
 	 * 
 	 * @param userInteractions The transition to convert.
 	 */
@@ -63,7 +63,7 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 	
 	
 	/**
-	 * Converts a UserInteraction to a Watir Step.
+	 * Converts a UserInteraction to a Selenese row.
 	 * 
 	 * @param peAction The FormInput to convert.
 	 */
