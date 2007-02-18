@@ -26,16 +26,17 @@ public class SeleneseDocument {
 	/** The table to add commands (rows) to */
 	private Element table;
 	
-	/** Context is the XPath starting point (path) for lookup of elements */
+	/** The XPath starting point (path) for lookup of elements. */
 	private Stack<String> context = new Stack<String>(); 
 
+	
 	/**
 	 * Public constructor.
 	 */
 	public SeleneseDocument() {
 
+		//Setting ut HTML page:
 		rootElement = new Element("html");
-
 		Element header = new Element("head");
 		Element title = new Element("title");
 		title.setText("CubicTest exported test");
