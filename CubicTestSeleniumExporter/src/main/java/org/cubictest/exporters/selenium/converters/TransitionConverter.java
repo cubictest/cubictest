@@ -16,6 +16,8 @@ import org.cubictest.model.IActionElement;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.model.formElement.Option;
+import org.cubictest.model.formElement.Select;
 
 /**
  * Class to convert transitions to selenium commands.
@@ -51,14 +53,23 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 	 */
 	private void handleUserInteraction(SeleneseDocument doc, UserInteraction userInteraction) {
 
-		PageElement element = (PageElement) userInteraction.getElement();
+		IActionElement element = userInteraction.getElement();
 		ActionType actionType = userInteraction.getActionType();
 		
 		//Getting selenium commands, locators and values:
 		String commandName = SeleniumUtils.getCommandName(actionType);
 		String commandDesc = SeleniumUtils.getCommandDescription(actionType, element);
-		String locator = SeleniumUtils.getLocator(element);
-		String value = SeleniumUtils.getValue(userInteraction);
+
+		String locator = "";
+		if (element instanceof Option) {
+			//get locator of select-box:
+			locator = SeleniumUtils.getLocator(((Option) element).getParent(), doc);
+		}
+		else {
+			locator = SeleniumUtils.getLocator(element, doc);
+		}
+		
+		String value = SeleniumUtils.getValue(userInteraction, doc);
 
 		doc.addCommand(commandName, locator, value).setDescription(commandDesc);
 	}

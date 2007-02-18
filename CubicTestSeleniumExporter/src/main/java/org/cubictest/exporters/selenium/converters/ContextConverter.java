@@ -18,15 +18,23 @@ import org.cubictest.model.context.IContext;
  */
 public class ContextConverter implements IContextConverter<SeleneseDocument> {
 
-	
+	/**
+	 * Handle entry into a new context.
+	 */
 	public PreContextHandle handlePreContext(SeleneseDocument doc, IContext ctx) {
+		
 		if (ctx instanceof AbstractContext) {
 			doc.pushContext(ctx);
 		}
 		return PreContextHandle.CONTINUE;
 	}
 
+	
+	/**
+	 * Handle exit from context.
+	 */
 	public PostContextHandle handlePostContext(SeleneseDocument doc, IContext ctx) {
+		
 		if (ctx instanceof AbstractContext) {
 			doc.popContext();
 		}

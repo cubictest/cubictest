@@ -77,11 +77,11 @@ public class SeleneseDocument {
 	public void pushContext(IContext ctx) {
 		if (ctx instanceof Select) {
 			Select select = (Select) ctx;
-			context.push("select[@id=\"" + select.getText() + "\"][1]//");
+			context.push("select[@id=\"" + select.getText() + "\"]//");
 		}
 		else if (ctx instanceof AbstractContext) {
 			AbstractContext abstractContext = (AbstractContext) ctx;
-			context.push("div[@id=\"" + abstractContext.getText() + "\"][1]//");
+			context.push("div[@id=\"" + abstractContext.getText() + "\"]//");
 		}
 	}
 
@@ -99,13 +99,13 @@ public class SeleneseDocument {
 	 * that can be used for lookup of elements.
 	 * @return 
 	 */
-	public String getCurrentFullContext() {
+	public String getFullContext() {
 		StringBuffer buff = new StringBuffer();
 		
 		//Concatenate known contexts to a single XPath line:
 		//First in First Out: 
 		for (String contextPart : context) {
-			buff.insert(0, contextPart);
+			buff.append(contextPart);
 		}
 		
 		//return the full, concatenated context:

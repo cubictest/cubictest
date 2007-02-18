@@ -25,6 +25,7 @@ import static org.cubictest.model.IdentifierType.NAME;
 import static org.cubictest.model.IdentifierType.VALUE;
 
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.selenium.holders.SeleneseDocument;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.IActionElement;
@@ -34,6 +35,7 @@ import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.UserInteraction;
+import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Select;
@@ -52,32 +54,38 @@ public class SeleniumUtils {
 	 * @param element
 	 * @return
 	 */
-	public static String getLocator(PageElement element) {
-		if (element instanceof Option) {
-			//should locate the surrounding select-box:
-			Select select = ((Option) element).getParent();
-			return getLocator(select); 
+	public static String getLocator(IActionElement element, SeleneseDocument doc) {
+		if (element instanceof WebBrowser) {
+			return "";
 		}
+		PageElement pe = (PageElement) element;
 
-		IdentifierType idType = element.getIdentifierType();
-		String text = element.getText();
+		IdentifierType idType = pe.getIdentifierType();
+		String text = pe.getText();
+		String context = doc.getFullContext();
 		
 		if (idType.equals(ID)) {
-			return "id=" + text;
+			return "xpath=" + context + getElementType(pe) + "[@id=\"" + text + "\"]";
 		}
 		if (idType.equals(NAME)) {
-			return "name=" + text;
+			return "xpath=" + context + getElementType(pe) + "[@name=\"" + text + "\"]";
 		}
 		if (idType.equals(VALUE)) {
-			throw new ExporterException("VALUE IdentifierType not supported.");
+			throw new ExporterException("\"Value\" identifier type not supported as locator.");
 		}
 		if (idType.equals(LABEL)) {
-			if (element instanceof Link) {
-				return "link=" + text;
+			if (element instanceof Text) {
+				return "xpath=" + context;
+			}
+			else if (element instanceof Link) {
+				return "xpath=" + context + getElementType(pe) + "[text()=\"" + text + "\"]";
+			}
+			else if (element instanceof Option) {
+				return "xpath=" + context + "option[text()=\"" + text + "\"]";
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
-				return "xpath=//" + getElementType(element) + "[@id=(//label[text()=\"" + text + "\"][1]/@for)][1]";
+				return "xpath=" + context + getElementType(pe) + "[@id=(//label[text()=\"" + text + "\"]/@for)]";
 			}
 		}
 		else {
@@ -94,6 +102,8 @@ public class SeleniumUtils {
 	public static String getElementType(PageElement pe) {
 		if (pe instanceof Select)
 			return "select";
+		if (pe instanceof Option)
+			return "option";
 		if (pe instanceof FormElement)
 			return "input";
 		if (pe instanceof Link)
@@ -216,13 +226,13 @@ public class SeleniumUtils {
 	 * Get the value for a Selenium command (get value for third column in a Selenese row).
 	 * @param userInteraction
 	 */
-	public static String getValue(UserInteraction userInteraction) {
+	public static String getValue(UserInteraction userInteraction, SeleneseDocument doc) {
 		ActionType a = userInteraction.getActionType();
 		
 		if (a.equals(ENTER_TEXT))
 			return userInteraction.getTextualInput();
 		if (a.equals(SELECT))
-			return getLocator((Option) userInteraction.getElement());
+			return getLocator((Option) userInteraction.getElement(), doc);
 		if (a.equals(KEY_PRESSED))
 			return "onkeypress";
 		if (a.equals(MOUSE_OVER))
