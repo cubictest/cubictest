@@ -35,27 +35,16 @@ public class SeleneseDocument {
 	 */
 	public SeleneseDocument() {
 
-		//Setting ut HTML page:
-		rootElement = new Element("html");
-		Element header = new Element("head");
-		Element title = new Element("title");
-		title.setText("CubicTest exported test");
-		header.addContent(title);
-		rootElement.addContent(header);
-
-		Element body = new Element("body");
-		rootElement.addContent(body);
-
-		table = new Element("table");
-		body.addContent(table);
+		setUpHtmlPage();
 		
-		//root context is anywhere in the document ("//" in XPath)
+		//Setting default context to be anywhere in the document ("//" in XPath)
 		context.push("//");
 	}
 
+
 	
 	/**
-	 * Add command-row to command table (with value).
+	 * Add command row to command table (with value).
 	 */
 	public Command addCommand(String commandName, String target, String value) {
 		Command command = new Command(commandName, target, value);
@@ -64,7 +53,7 @@ public class SeleneseDocument {
 	}
 
 	/**
-	 * Add command-row to command table (without value).
+	 * Add command row to command table (without value).
 	 */
 	public Command addCommand(String commandName, String target) {
 		Command command = new Command(commandName, target, "");
@@ -82,6 +71,10 @@ public class SeleneseDocument {
 	}
 	
 	
+	/**
+	 * Set new context, i.e. XPath starting point (path) for lookup of elements.
+	 * @param ctx
+	 */
 	public void pushContext(IContext ctx) {
 		if (ctx instanceof Select) {
 			Select select = (Select) ctx;
@@ -92,17 +85,49 @@ public class SeleneseDocument {
 			context.push("div[@id=\"" + abstractContext.getText() + "\"][1]//");
 		}
 	}
+
 	
+	/**
+	 * Get the previous context, i.e. the previous XPath starting point (path) for lookup of elements.
+	 */
 	public void popContext() {
 		context.pop();
 	}
 	
 	
-	public String getContextString() {
+	/**
+	 * Get the currenct active context, appending all known contexts into an XPath string 
+	 * that can be used for lookup of elements.
+	 * @return 
+	 */
+	public String getCurrentFullContext() {
 		StringBuffer buff = new StringBuffer();
-		for (String element : context) {
-			buff.append(element);
+		
+		//Concatenate known contexts to a single XPath line:
+		//First in First Out: 
+		for (String contextPart : context) {
+			buff.insert(0, contextPart);
 		}
+		
+		//return the full, concatenated context:
 		return buff.toString();
+	}
+	
+	
+	/**
+	 * Sets up a HTML page for the tests, including a table for the commands.
+	 */
+	private void setUpHtmlPage() {
+		rootElement = new Element("html");
+		Element header = new Element("head");
+		Element title = new Element("title");
+		title.setText("CubicTest exported test");
+		header.addContent(title);
+		rootElement.addContent(header);
+		
+		Element body = new Element("body");
+		rootElement.addContent(body);
+		table = new Element("table");
+		body.addContent(table);
 	}
 }
