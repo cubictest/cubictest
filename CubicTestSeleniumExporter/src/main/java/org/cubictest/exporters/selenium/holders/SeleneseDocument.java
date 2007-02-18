@@ -12,6 +12,7 @@ import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.EntityRef;
 
 /**
  * Selenium (Selenese) step list. HTML document with test steps (commands / rows).
@@ -126,7 +127,9 @@ public class SeleneseDocument {
 		
 		Element style = new Element("style");
 		style.setAttribute("type", "text/css");
-		style.setText("td {padding-right: 25px}");
+		style.setText(
+				"td {padding-right: 25px}\n" + 
+				".comment {color: #AAF; padding-top: 10px;}\n");
 		header.addContent(style);
 		
 		rootElement.addContent(header);
@@ -135,6 +138,7 @@ public class SeleneseDocument {
 		rootElement.addContent(body);
 		table = new Element("table");
 		table.setAttribute("border", "1");
+		table.setAttribute("cellspacing", "0");
 		body.addContent(table);
 	}
 }

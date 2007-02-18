@@ -115,7 +115,7 @@ public class SeleniumUtils {
 		if (pe instanceof Text)
 			throw new ExporterException("Text is not a supported element type for identification.");
 		
-		throw new ExporterException("Unknown element type");
+		throw new ExporterException("Unknown element type: " + pe);
 	}
 
 	
@@ -186,7 +186,7 @@ public class SeleniumUtils {
 		if (a.equals(UNCHECK))
 			return "Unchecking " + element;
 		
-		if (a.equals(ENTER_TEXT))
+		if (a.equals(ENTER_TEXT) || a.equals(ENTER_PARAMETER_TEXT))
 			return "Typing text " + element;
 		
 		if (a.equals(CLEAR_ALL_TEXT))

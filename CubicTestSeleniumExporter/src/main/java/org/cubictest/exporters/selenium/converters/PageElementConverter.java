@@ -30,12 +30,15 @@ public class PageElementConverter implements IPageElementConverter<SeleneseDocum
 	 * @param pe The Page element to convert to Selenese row.
 	 */
 	public void handlePageElement(SeleneseDocument doc, PageElement pe) {
-		String locator = SeleniumUtils.getLocator(pe, doc);
-		
+
 		if (pe instanceof Title) {
 			doc.addCommand("verifyTitle", pe.getText()).setDescription("Check present = " + pe);
+			return;
 		}
-		else if (pe instanceof Link) {
+
+		String locator = SeleniumUtils.getLocator(pe, doc);
+		
+		if (pe instanceof Link) {
 			doc.addCommand("assertElementPresent", locator).setDescription("Check present: " + pe);
 		}
 		else if (pe instanceof Text) {

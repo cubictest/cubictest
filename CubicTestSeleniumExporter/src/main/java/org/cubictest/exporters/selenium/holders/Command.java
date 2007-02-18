@@ -1,7 +1,9 @@
 package org.cubictest.exporters.selenium.holders;
 
+import org.apache.commons.lang.StringUtils;
 import org.jdom.Comment;
 import org.jdom.Element;
+import org.jdom.EntityRef;
 
 
 /**
@@ -19,11 +21,11 @@ public class Command extends Element {
 	 */
 	public Command(String commandName, String target, String value) {
 		super("tr");
-		addContent(new Element("td").setText(commandName));
-		addContent(new Element("td").setText(target));
-		addContent(new Element("td").setText(value));
+		addCell(commandName);
+		addCell(target);
+		addCell(value);
 	}
-	
+
 	
 	/**
 	 * Set description for command (comment as content of row).
@@ -31,7 +33,20 @@ public class Command extends Element {
 	 * @return
 	 */
 	public Command setDescription(String description) {
-		addContent(0, new Comment(description));
+		int pos = ((Element) getParent()).indexOf(this);
+		Element comment = new Element("td").setText(description + ":");
+		comment.setAttribute("class", "comment");
+		((Element) getParent()).addContent(pos, new Element("tr").addContent(comment));
 		return this;
+	}
+	
+	
+	private void addCell(String text) {
+		if (StringUtils.isBlank(text)) {
+			addContent(new Element("td").addContent(new EntityRef("nbsp")));
+		}
+		else {
+			addContent(new Element("td").setText(text));
+		}
 	}
 }
