@@ -44,7 +44,7 @@ public class SeleneseDocument {
 
 	
 	/**
-	 * Add command row to command table (with value).
+	 * Add command (with value).
 	 */
 	public Command addCommand(String commandName, String target, String value) {
 		Command command = new Command(commandName, target, value);
@@ -52,13 +52,12 @@ public class SeleneseDocument {
 		return command;
 	}
 
+	
 	/**
-	 * Add command row to command table (without value).
+	 * Add command (without value).
 	 */
 	public Command addCommand(String commandName, String target) {
-		Command command = new Command(commandName, target, " ");
-		table.addContent(command);
-		return command;
+		return addCommand(commandName, target, "");
 	}
 	
 	
