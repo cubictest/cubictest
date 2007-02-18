@@ -8,6 +8,7 @@ import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.exporters.selenium.holders.SeleneseDocument;
+import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 
 /**
@@ -19,12 +20,16 @@ public class ContextConverter implements IContextConverter<SeleneseDocument> {
 
 	
 	public PreContextHandle handlePreContext(SeleneseDocument doc, IContext ctx) {
-		doc.pushContext(ctx);
+		if (ctx instanceof AbstractContext) {
+			doc.pushContext(ctx);
+		}
 		return PreContextHandle.CONTINUE;
 	}
 
 	public PostContextHandle handlePostContext(SeleneseDocument doc, IContext ctx) {
-		doc.popContext();
+		if (ctx instanceof AbstractContext) {
+			doc.popContext();
+		}
 		return PostContextHandle.DONE;
 	}
 }

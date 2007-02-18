@@ -59,19 +59,19 @@ public class SeleniumUtils {
 			return getLocator(select); 
 		}
 
-		IdentifierType type = element.getIdentifierType();
+		IdentifierType idType = element.getIdentifierType();
 		String text = element.getText();
 		
-		if (type.equals(ID)) {
+		if (idType.equals(ID)) {
 			return "id=" + text;
 		}
-		if (type.equals(NAME)) {
+		if (idType.equals(NAME)) {
 			return "name=" + text;
 		}
-		if (type.equals(VALUE)) {
+		if (idType.equals(VALUE)) {
 			throw new ExporterException("VALUE IdentifierType not supported.");
 		}
-		if (type.equals(LABEL)) {
+		if (idType.equals(LABEL)) {
 			if (element instanceof Link) {
 				return "link=" + text;
 			}

@@ -56,7 +56,7 @@ public class SeleneseDocument {
 	 * Add command row to command table (without value).
 	 */
 	public Command addCommand(String commandName, String target) {
-		Command command = new Command(commandName, target, "");
+		Command command = new Command(commandName, target, " ");
 		table.addContent(command);
 		return command;
 	}
@@ -119,15 +119,23 @@ public class SeleneseDocument {
 	 */
 	private void setUpHtmlPage() {
 		rootElement = new Element("html");
+		
 		Element header = new Element("head");
 		Element title = new Element("title");
 		title.setText("CubicTest exported test");
 		header.addContent(title);
+		
+		Element style = new Element("style");
+		style.setAttribute("type", "text/css");
+		style.setText("td {padding-right: 25px}");
+		header.addContent(style);
+		
 		rootElement.addContent(header);
 		
 		Element body = new Element("body");
 		rootElement.addContent(body);
 		table = new Element("table");
+		table.setAttribute("border", "1");
 		body.addContent(table);
 	}
 }

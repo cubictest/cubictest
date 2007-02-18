@@ -31,7 +31,7 @@ public class Command extends Element {
 	 * @return
 	 */
 	public Command setDescription(String description) {
-		addContent(new Comment(description));
+		addContent(0, new Comment(description));
 		return this;
 	}
 }
