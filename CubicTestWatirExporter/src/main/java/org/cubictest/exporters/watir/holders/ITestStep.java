@@ -14,4 +14,6 @@ public interface ITestStep {
 	public String getStep();
 	
 	public String getDescription();
+	
+	public TestStep setDescription(String desc);
 }

@@ -35,7 +35,7 @@ public class ExportToWatirAction implements IActionDelegate {
 		
 		try {
 			//callback to CubicTest with the selected files
-			CubicTestExport.exportSelection((IStructuredSelection) selection, ".rb",
+			CubicTestExport.exportSelection((IStructuredSelection) selection, "rb",
 					UrlStartPointConverter.class, 
 					TransitionConverter.class, 
 					CustomTestStepConverter.class, 

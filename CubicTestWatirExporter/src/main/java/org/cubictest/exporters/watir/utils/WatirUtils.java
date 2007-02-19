@@ -54,14 +54,14 @@ import org.cubictest.model.formElement.TextField;
 public class WatirUtils {
 
 	public static String getIdType(PageElement pe) {
-		IdentifierType type = pe.getIdentifierType();
-		if (type.equals(ID))
+		IdentifierType idType = pe.getIdentifierType();
+		if (idType.equals(ID))
 			return ":id";
-		if (type.equals(NAME))
+		if (idType.equals(NAME))
 			return ":name";
-		if (type.equals(VALUE))
+		if (idType.equals(VALUE))
 			return ":value";
-		if (type.equals(LABEL))
+		if (idType.equals(LABEL))
 			if (pe instanceof Link)
 				return ":text";
 			else
