@@ -15,10 +15,13 @@ import org.cubictest.model.context.IContext;
 public interface IContextConverter<T> {
 	
 	/**
-	 * Converts an Context to a list of test steps. 
-	 * The list of TestSteps should verify that all contents of the context is present on the page.
-	 * @param a The context to convert.
+	 * Handle entry into a new context.
 	 */
 	public PreContextHandle handlePreContext(T t,IContext a);
+	
+	
+	/**
+	 * Handle exit from context.
+	 */
 	public PostContextHandle handlePostContext(T t,IContext a);
 }
