@@ -37,6 +37,7 @@ import org.cubictest.model.Text;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.AbstractContext;
+import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Select;
 
@@ -82,6 +83,9 @@ public class SeleniumUtils {
 			}
 			else if (element instanceof Option) {
 				return "xpath=" + context + "option[text()=\"" + text + "\"]";
+			}
+			else if (element instanceof Button) {
+				return "xpath=" + context + "input[@type=\"button\" or @type=\"submit\" and @value=\"" + text + "\"]";
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
