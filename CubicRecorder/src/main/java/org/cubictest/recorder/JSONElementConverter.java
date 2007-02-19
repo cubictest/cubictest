@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import javax.swing.text.IconView;
+
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
@@ -116,12 +118,12 @@ public class JSONElementConverter {
 				pe.setText(getString(properties, "value"));
 				pe.setIdentifierType(IdentifierType.LABEL);
 			} else if(getString(properties, "tagName").equals("A")) {
-				pe.setText(getString(properties, "innerHTML"));
+				pe.setText(getString(properties, "innerHTML").trim());
 				pe.setIdentifierType(IdentifierType.LABEL);
 			} else if(getString(properties, "tagName").equals("TITLE")) {
-				pe.setText(getString(properties, "innerHTML"));
+				pe.setText(getString(properties, "innerHTML").trim());
 			} else if(getString(element, "label") != null && !getString(element, "label").equals("")) {
-				pe.setText(getString(element, "label"));
+				pe.setText(getString(element, "label").trim());
 				pe.setIdentifierType(IdentifierType.LABEL);
 			} else if(getString(properties, "id") != null && !getString(properties, "id").equals("")) {
 				pe.setText(getString(properties, "id"));
