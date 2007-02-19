@@ -39,13 +39,13 @@ public class PageElementConverter implements IPageElementConverter<SeleneseDocum
 		String locator = SeleniumUtils.getLocator(pe, doc);
 		
 		if (pe instanceof Link) {
-			doc.addCommand("assertElementPresent", locator).setDescription("Check present: " + pe);
+			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
 		}
 		else if (pe instanceof Text) {
-			doc.addCommand("waitForText", locator, pe.getText()).setDescription("Check present: " + pe);
+			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
 		}
 		else if (pe instanceof FormElement) {
-			doc.addCommand("assertElementPresent", locator).setDescription("Check present: " + pe);
+			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
 		}
 	}
 }

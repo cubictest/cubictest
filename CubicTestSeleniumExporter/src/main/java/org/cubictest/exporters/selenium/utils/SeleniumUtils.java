@@ -75,7 +75,7 @@ public class SeleniumUtils {
 		}
 		if (idType.equals(LABEL)) {
 			if (element instanceof Text) {
-				return "xpath=" + context;
+				return "xpath=" + context + "*[contains(text(), \"" + text + "\")]";
 			}
 			else if (element instanceof Link) {
 				return "xpath=" + context + getElementType(pe) + "[text()=\"" + text + "\"]";
@@ -229,7 +229,7 @@ public class SeleniumUtils {
 	public static String getValue(UserInteraction userInteraction, SeleneseDocument doc) {
 		ActionType a = userInteraction.getActionType();
 		
-		if (a.equals(ENTER_TEXT))
+		if (a.equals(ENTER_TEXT) || a.equals(ENTER_PARAMETER_TEXT))
 			return userInteraction.getTextualInput();
 		if (a.equals(SELECT))
 			return getLocator((Option) userInteraction.getElement(), doc);

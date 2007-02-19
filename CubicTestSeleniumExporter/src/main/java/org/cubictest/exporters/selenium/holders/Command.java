@@ -36,6 +36,7 @@ public class Command extends Element {
 		int pos = ((Element) getParent()).indexOf(this);
 		Element comment = new Element("td").setText(description + ":");
 		comment.setAttribute("class", "comment");
+		comment.setAttribute("colspan", "3");
 		((Element) getParent()).addContent(pos, new Element("tr").addContent(comment));
 		return this;
 	}
