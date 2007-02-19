@@ -1,7 +1,6 @@
 /*
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
- * 
  */
 package org.cubictest.ui.gef.actions;
 
@@ -9,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.PageElement;
@@ -19,7 +19,6 @@ import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.MovePageCommand;
 import org.cubictest.ui.utils.ViewUtil;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -71,7 +70,7 @@ public class PasteAction extends SelectionAction {
 	public void run() {
 		Object clipContents = getClipboardContents();
 		if (!(clipContents instanceof List)) {
-			ErrorHandler.logWarning("Clipboard contents was not a list: " + clipContents);
+			Logger.warn("Clipboard contents was not a list: " + clipContents);
 			return;
 		}
 		List clipboardList = (List) clipContents;
@@ -79,7 +78,7 @@ public class PasteAction extends SelectionAction {
 		StructuredSelection selection = (StructuredSelection) getSelection();
 		Object selectedObj = selection.getFirstElement();
 		if (!(selectedObj instanceof EditPart)) {
-			ErrorHandler.logWarning("Selected item was not an editpart: " + selectedObj);
+			Logger.warn("Selected item was not an editpart: " + selectedObj);
 			return;
 		}
 		EditPart targetPart = (EditPart) selectedObj;
@@ -89,7 +88,7 @@ public class PasteAction extends SelectionAction {
 		for (Iterator iter = clipboardList.iterator(); iter.hasNext();){
 			Object currentClip = iter.next();
 			if(!(currentClip instanceof EditPart)) {
-				ErrorHandler.logWarning("Clipboard item was not an editpart: " + currentClip);
+				Logger.warn("Clipboard item was not an editpart: " + currentClip);
 				return;
 			}
 			EditPart clipboardPart = (EditPart) currentClip;			
@@ -113,7 +112,7 @@ public class PasteAction extends SelectionAction {
 					}
 				}
 				else {
-					ErrorHandler.logWarning("Parent of page element was not an IContext. Skipping it: " + targetPart.getModel());
+					Logger.warn("Parent of page element was not an IContext. Skipping it: " + targetPart.getModel());
 				}
 				
 			}
@@ -138,7 +137,7 @@ public class PasteAction extends SelectionAction {
 					}
 				}
 				else {
-					ErrorHandler.logWarning("Parent of selected item did not have path to test. Skipping it: " + targetPart.getModel());
+					Logger.warn("Parent of selected item did not have path to test. Skipping it: " + targetPart.getModel());
 				}
 				
 			}

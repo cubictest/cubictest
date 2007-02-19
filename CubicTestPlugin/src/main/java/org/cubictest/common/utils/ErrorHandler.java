@@ -40,45 +40,45 @@ public class ErrorHandler {
 	}
 	
 	public static void logAndRethrow(Throwable e) {
-		log(IStatus.ERROR, e, e.getMessage());
+		Logger.error(e, e.getMessage());
 		rethrow(e);
 	}
 
 	public static void logAndRethrow(Throwable e, String message) {
-		log(IStatus.ERROR, e, message);
+		Logger.error(e, message);
 		rethrow(e, message);
 	}
 
 	public static void logAndShowErrorDialog(String message) {
-		log(IStatus.ERROR, null, message);
+		Logger.error(null, message);
 		showErrorDialog(null, message);
 	}
 	
 	public static void logAndShowErrorDialog(Throwable e) {
-		log(IStatus.ERROR, e, e.getMessage());
+		Logger.error(e, e.getMessage());
 		showErrorDialog(e);
 	}
 
 	public static void logAndShowErrorDialog(Throwable e, String message) {
-		log(IStatus.ERROR, e, message);
+		Logger.error(e, message);
 		showErrorDialog(e, message);
 	}
 	
 	public static void logAndShowErrorDialogAndThrow(String message) {
-		log(IStatus.ERROR, null, message);
+		Logger.error(null, message);
 		showErrorDialog(message);
 		throw new CubicException(message);
 	}
 	
 	public static void logAndShowErrorDialogAndRethrow(Throwable e) {
-		log(IStatus.ERROR, e, e.getMessage());
+		Logger.error(e, e.getMessage());
 		showErrorDialog(e);
 		rethrow(e);
 	}
 
 	
 	public static void logAndShowErrorDialogAndRethrow(Throwable e, String message) {
-		log(IStatus.ERROR, e, message);
+		Logger.error(e, message);
 		showErrorDialog(e, message);
 		rethrow(e, message);
 	}
@@ -121,49 +121,7 @@ public class ErrorHandler {
 		}
 	}
 
-
-	public static void log(Throwable e) {
-		log(IStatus.ERROR, e, e.toString());
-	}
-
-	public static void log(Throwable e, String message) {
-		log(IStatus.ERROR, e, message);
-	}
-	
-	
-	public static void logWarning(String message) {
-		log(IStatus.WARNING, null, message);
-	}
-	
-	/**
-	 * Log an error to the Eclipse log system and a printStackTrace.
-	 * 
-	 * @param severity the severity; one of <code>IStatus.OK</code>, <code>IStatus.ERROR</code>, 
-	 * <code>IStatus.INFO</code>, <code>IStatus.WARNING</code>,  or <code>IStatus.CANCEL</code>
-	 * @param e the throwable to log
-	 * @param message the message (humanly readable)
-	 */
-	public static void log(int severity, Throwable e, String message) {
-		if (StringUtils.isBlank(message)) {
-			message = "An error has occurred";
-		}
-		
-		System.out.println(message);
-		if (e != null) {
-			e.printStackTrace();
-			e = getCause(e);
-		}
-		CubicTestPlugin plugin = CubicTestPlugin.getDefault();
-		if (plugin != null) {
-			IStatus status = new Status(severity, plugin.getId(), IStatus.OK, message, e);
-			plugin.getLog().log(status);
-		}
-		else {
-			System.out.println("Could not log error: " + message + ", " + e);
-		}
-	}
-
-	private static Throwable getCause(Throwable e) {
+	public static Throwable getCause(Throwable e) {
 		if (e instanceof InvocationTargetException) {
 			return ((InvocationTargetException) e).getCause();
 		}

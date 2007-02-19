@@ -1,5 +1,7 @@
 package org.cubictest.persistence;
 
+import java.util.List;
+
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
@@ -122,5 +124,9 @@ public class CubicTestXStream extends XStream {
 		this.alias("parameter", Parameter.class);
 		this.alias("parameterList", ParameterList.class);
 		this.alias("paramMapper", ParamMapper.class);
+		
+		//misc:
+		this.alias("userInteractions", List.class);
+		
 	}
 }
