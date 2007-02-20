@@ -13,11 +13,9 @@ import org.cubictest.exporters.selenium.holders.SeleneseDocument;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
-import org.cubictest.model.PageElement;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.formElement.Option;
-import org.cubictest.model.formElement.Select;
 
 /**
  * Class to convert transitions to selenium commands.
@@ -69,9 +67,9 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 			locator = SeleniumUtils.getLocator(element, doc);
 		}
 		
-		String value = SeleniumUtils.getValue(userInteraction, doc);
+		String inputValue = SeleniumUtils.getValue(userInteraction, doc);
 
-		doc.addCommand(commandName, locator, value).setDescription(commandDesc);
+		doc.addCommand(commandName, locator, inputValue).setDescription(commandDesc);
 	}
 
 	

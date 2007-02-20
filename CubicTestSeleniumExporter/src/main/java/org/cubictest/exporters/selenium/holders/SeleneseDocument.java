@@ -12,7 +12,6 @@ import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.EntityRef;
 
 /**
  * Selenium (Selenese) step list. HTML document with test steps (commands / rows).
@@ -82,7 +81,7 @@ public class SeleneseDocument {
 		}
 		else if (ctx instanceof AbstractContext) {
 			AbstractContext abstractContext = (AbstractContext) ctx;
-			context.push("div[@id=\"" + abstractContext.getText() + "\"]//");
+			context.push("*[@id=\"" + abstractContext.getText() + "\"]//");
 		}
 	}
 
@@ -140,5 +139,7 @@ public class SeleneseDocument {
 		table.setAttribute("border", "1");
 		table.setAttribute("cellspacing", "0");
 		body.addContent(table);
+		
+		table.addContent(new Command("setTimeout", "10000"));
 	}
 }

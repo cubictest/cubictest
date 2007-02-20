@@ -10,10 +10,7 @@ package org.cubictest.exporters.selenium.converters;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.selenium.holders.SeleneseDocument;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
-import org.cubictest.model.FormElement;
-import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 
 /**
@@ -33,19 +30,13 @@ public class PageElementConverter implements IPageElementConverter<SeleneseDocum
 
 		if (pe instanceof Title) {
 			doc.addCommand("verifyTitle", pe.getText()).setDescription("Check present = " + pe);
-			return;
+		}
+		else {
+			//all other elements
+			String locator = SeleniumUtils.getLocator(pe, doc);
+			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
 		}
 
-		String locator = SeleniumUtils.getLocator(pe, doc);
 		
-		if (pe instanceof Link) {
-			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
-		}
-		else if (pe instanceof Text) {
-			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
-		}
-		else if (pe instanceof FormElement) {
-			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
-		}
 	}
 }

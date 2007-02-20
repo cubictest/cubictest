@@ -76,16 +76,14 @@ public class SeleniumUtils {
 		}
 		if (idType.equals(LABEL)) {
 			if (element instanceof Text) {
-				return "xpath=" + context + "*[contains(text(), \"" + text + "\")]";
+				String axis = (context.equals("//")) ? "" : "descendant-or-self::";
+				return "xpath=" + context + axis + "*[contains(text(), \"" + text + "\")]";
 			}
-			else if (element instanceof Link) {
+			else if (element instanceof Link || element instanceof Option) {
 				return "xpath=" + context + getElementType(pe) + "[text()=\"" + text + "\"]";
 			}
-			else if (element instanceof Option) {
-				return "xpath=" + context + "option[text()=\"" + text + "\"]";
-			}
 			else if (element instanceof Button) {
-				return "xpath=" + context + "input[@type=\"button\" or @type=\"submit\" and @value=\"" + text + "\"]";
+				return "xpath=" + context + "input[(@type=\"button\" or @type=\"submit\") and @value=\"" + text + "\"]";
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:

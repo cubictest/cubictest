@@ -26,6 +26,12 @@ public class Command extends Element {
 		addCell(value);
 	}
 
+	/**
+	 * Create a new command (selenese table row).
+	 */
+	public Command(String commandName, String target) {
+		this(commandName, target, "");
+	}
 	
 	/**
 	 * Set description for command (comment as content of row).
