@@ -1,6 +1,5 @@
 package org.cubictest.export;
 
-import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.ICustomTestStepConverter;

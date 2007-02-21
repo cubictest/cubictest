@@ -7,7 +7,6 @@ package org.cubictest.export;
 import java.io.File;
 import java.io.FileWriter;
 
-import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.exception.ResourceNotCubicTestFileException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.TreeTestWalker;
