@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.ExtensionPoint;
@@ -225,9 +226,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 
 		try {
 			if (project == null) {
-				MessageDialog.openError(new Shell(), UiText.APP_TITLE, 
-						"Could create new test (could not get project). Please try again.");
-				
+				throw new CubicException("Could create new test (could not get project). Please try again.");
 			}
 			IResourceMonitor monitor = new ResourceMonitor(project);
 			CustomElementLoader loader = new CustomElementLoader(project, monitor);
