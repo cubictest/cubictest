@@ -18,6 +18,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -110,9 +111,9 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			libFolder.create(false, true, monitor);
 			
 			try {
-				FileUtils.copyFile(new Path(Platform.asLocalURL(CubicTestPlugin.getDefault().find(new Path("lib/CubicTestElementAPI.jar"))).getPath()).toFile(), 
+				FileUtils.copyFile(new Path(FileLocator.toFileURL(CubicTestPlugin.getDefault().find(new Path("lib/CubicTestElementAPI.jar"))).getPath()).toFile(),
 						libFolder.getFile("CubicTestElementAPI.jar").getLocation().toFile());
-				FileUtils.copyFile(new Path(Platform.asLocalURL(CubicTestPlugin.getDefault().find(new Path("lib/CubicUnit.jar"))).getPath()).toFile(),
+				FileUtils.copyFile(new Path(FileLocator.toFileURL(CubicTestPlugin.getDefault().find(new Path("lib/CubicUnit.jar"))).getPath()).toFile(),
 						libFolder.getFile("CubicUnit.jar").getLocation().toFile());
 			} catch (IOException e) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
@@ -161,9 +162,8 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 		//Create the wizard dialog
 		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wiz);
 		dialog.open();
-}
+	}
 
-    
     public boolean canFinish() {
     	if (getContainer().getCurrentPage() instanceof NewProjectSummaryPage) {
     		return true;
