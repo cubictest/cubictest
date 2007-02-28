@@ -91,5 +91,9 @@ public class SubTest extends ConnectionPoint {
 
 	public void setCustomTestStepLoader(CustomElementLoader customTestStepLoader) {
 		this.customTestStepLoader = customTestStepLoader;	
-	}	
+	} 
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 }
