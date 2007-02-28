@@ -12,7 +12,11 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IContributionItem; 
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager; 
+import org.eclipse.jface.action.SubMenuManager; 
+import org.eclipse.swt.widgets.Menu; 
 import org.eclipse.ui.actions.ActionFactory;
 
 /**
@@ -69,7 +73,7 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 
 		action = actionRegistry.getAction(AddExtensionPointAction.ACTION_ID);
-		menu.appendToGroup(GEFActionConstants.GROUP_EDIT,action);		
+		menu.appendToGroup(GEFActionConstants.GROUP_EDIT,action); 
 		
 		action = actionRegistry.getAction(PopulateCommonAction.ID);
 		if (action.isEnabled())
@@ -84,5 +88,8 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		action = actionRegistry.getAction(AutoLayoutAction.ACTION_ID);
 		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
 
+		action = actionRegistry.getAction(AddPageElementAction.ACTION_ID);
+		if(action.isEnabled())
+			menu.appendToGroup(GEFActionConstants.GROUP_EDIT,action);
 	}
 }

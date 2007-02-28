@@ -15,11 +15,13 @@ import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Test;
+import org.cubictest.model.Text;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.resources.ResourceMonitor;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.cubictest.ui.gef.actions.AddExtensionPointAction;
+import org.cubictest.ui.gef.actions.AddPageElementAction;
 import org.cubictest.ui.gef.actions.AutoLayoutAction;
 import org.cubictest.ui.gef.actions.CopyAction;
 import org.cubictest.ui.gef.actions.CutAction;
@@ -115,7 +117,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	};
 	private ISelectionListener selectionListener = new ISelectionListener(){
 		public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-			updateActions(editPartActionIDs);		
+			updateActions(editPartActionIDs);
 		}
 	};
 	private PaletteViewer paletteViewer;
@@ -287,7 +289,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		setInput(editorInput);
 		
 		setPartName(editorInput.getName());
-				
+		
 		getCommandStack().addCommandStackListener(getCommandStackListener());
 		getCommandStack().setUndoLimit(16);
 		
@@ -313,7 +315,8 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		addEditPartAction(new PresentAction((IWorkbenchPart) this));
 		addEditPartAction(new PopulateCommonAction((IWorkbenchPart) this));
 		addEditPartAction(new AddExtensionPointAction((IWorkbenchPart) this));
-		
+		addEditPartAction(new AddPageElementAction((IWorkbenchPart) this,Text.class));
+
 		addEditorAction(new SaveAction(this));
 		addEditorAction(new RunCubicUnitAction(this));
 		addEditorAction(new ResetTestAction(this));
