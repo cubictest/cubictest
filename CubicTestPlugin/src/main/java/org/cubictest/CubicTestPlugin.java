@@ -5,9 +5,16 @@
 
 package org.cubictest;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Properties;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -17,20 +24,16 @@ import org.osgi.framework.BundleContext;
 public class CubicTestPlugin extends AbstractUIPlugin {
 	//The shared instance.
 	private static CubicTestPlugin plugin;
-	//Resource bundle.
-	private ResourceBundle resourceBundle;
-	
+
+	private static final String INI = "myplugin.ini";
+    private Properties myProperties = null;
 	/**
 	 * The constructor.
 	 */
 	public CubicTestPlugin() {
-		super();
+
 		plugin = this;
-		try {
-			resourceBundle = ResourceBundle.getBundle("org.cubictest.CubicTestPluginResources");
-		} catch (MissingResourceException x) {
-			resourceBundle = null;
-		}
+
 	}
 
 	public String getId() {
@@ -41,6 +44,7 @@ public class CubicTestPlugin extends AbstractUIPlugin {
 	 * This method is called upon plug-in activation
 	 */
 	public void start(BundleContext context) throws Exception {
+		System.out.println("Activating CubicTest ");
 		super.start(context);
 	}
 
@@ -48,6 +52,7 @@ public class CubicTestPlugin extends AbstractUIPlugin {
 	 * This method is called when the plug-in is stopped
 	 */
 	public void stop(BundleContext context) throws Exception {
+		System.out.println("Deactivating CubicTest ");
 		super.stop(context);
 	}
 
@@ -55,26 +60,10 @@ public class CubicTestPlugin extends AbstractUIPlugin {
 	 * Returns the shared instance.
 	 */
 	public static CubicTestPlugin getDefault() {
+		if(plugin == null){
+			plugin = new CubicTestPlugin();
+		}
 		return plugin;
 	}
 
-	/**
-	 * Returns the string from the plugin's resource bundle,
-	 * or 'key' if not found.
-	 */
-	public static String getResourceString(String key) {
-		ResourceBundle bundle = CubicTestPlugin.getDefault().getResourceBundle();
-		try {
-			return (bundle != null) ? bundle.getString(key) : key;
-		} catch (MissingResourceException e) {
-			return key;
-		}
-	}
-
-	/**
-	 * Returns the plugin's resource bundle,
-	 */
-	public ResourceBundle getResourceBundle() {
-		return resourceBundle;
-	}
 }

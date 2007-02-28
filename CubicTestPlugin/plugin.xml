@@ -104,10 +104,10 @@
                id="org.cubictest.tab.test"
                label="Test"/>
          <propertyTab
-               afterTab="org.cubictest.tab.test"
+               afterTab="org.cubictest.tab.properties"
                category="CubicTest"
-               id="org.cubictest.tab.properties"
-               label="Properties"/>
+               id="org.cubictest.tab.oldProperties"
+               label="Old Properties"/>
          <propertyTab
                afterTab="org.cubictest.tab.test"
                category="CubicTest"
@@ -127,6 +127,11 @@
                category="CubicTest"
                id="org.cubictest.tab.setUpAndTearDown"
                label="SetUp and TearDown"/>
+         <propertyTab
+               afterTab="org.cubictest.tab.test"
+               category="CubicTest"
+               id="org.cubictest.tab.properties"
+               label="Properties"/>
       </propertyTabs>
    </extension>
    <extension
@@ -141,7 +146,7 @@
          <propertySection
                class="org.cubictest.ui.sections.OldFashionPropertySection"
                id="org.cubictest.page.general"
-               tab="org.cubictest.tab.properties">
+               tab="org.cubictest.tab.oldProperties">
             <input type="org.cubictest.model.AbstractPage"/>
             <input type="org.cubictest.model.PageElement"/>
          </propertySection>
@@ -190,6 +195,19 @@
                tab="org.cubictest.tab.setUpAndTearDown">
             <input type="org.cubictest.model.Test"/>
          </propertySection>
+         <propertySection
+               class="org.cubictest.ui.sections.properties.IdPropertySection"
+               id="org.cubictest.propertyType.id"
+               tab="org.cubictest.tab.properties">
+            <input type="org.cubictest.model.Link"/>
+         </propertySection>
+         <propertySection
+               afterSection="org.cubictest.propertyType.id"
+               class="org.cubictest.ui.sections.properties.NamePropertySection"
+               id="org.cubictest.propertyType.name"
+               tab="org.cubictest.tab.properties">
+            <input type="org.cubictest.model.propertyType.NameProperty"/>
+         </propertySection>
       </propertySections>
    </extension>
    <extension
@@ -201,5 +219,17 @@
             id="org.cubictest.launch.runner"
             modes="CubicTestPlugin.launchConfigurationType1"
             name="CubicTestPlugin.launchConfigurationType1"/>
+   </extension>
+   <extension
+         id="org.cubictest.help"
+         name="CubicTestHelp"
+         point="org.eclipse.help.toc">
+      <toc
+            file="src/main/resources/org/cubictest/help/toc.xml"
+            primary="true"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup class="org.cubictest.CubicTestStartup"/>
    </extension>
 </plugin>
