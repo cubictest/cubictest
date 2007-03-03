@@ -15,7 +15,7 @@ import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.PageResizeCommand;
 import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
-import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.gef.controller.exported.TestEditPart;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPart;
@@ -176,5 +176,14 @@ public class ViewUtil {
 		
 		return (AbstractPageEditPart) editPart;
 		
+	}
+	
+	public static String getType(Class<? extends PageElement> element) {
+		try {
+			return element.newInstance().getType();
+		} 
+		catch (Exception e) {
+			throw new CubicException(e);
+		}
 	}
 }

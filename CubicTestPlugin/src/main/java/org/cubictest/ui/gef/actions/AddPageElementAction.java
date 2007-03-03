@@ -1,20 +1,17 @@
+/*
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ */
 package org.cubictest.ui.gef.actions;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.Text;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
-import org.cubictest.ui.gef.factory.DataCreationFactory;
-import org.cubictest.ui.utils.ModelUtil;
 import org.cubictest.ui.utils.ViewUtil;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.requests.CreateRequest;
-import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -29,12 +26,15 @@ public class AddPageElementAction extends SelectionAction {
 	public AddPageElementAction(IWorkbenchPart part,Class<? extends PageElement> newElement) {
 		super(part);
 		this.newElement = newElement;
+		setActionText();
 	}
 
 	/**
 	 * The Actions ID which can be used to set and get it from acion registers.
 	 */
-	public static final String ACTION_ID = "cubicTestPlugin.action.addText";
+	public static String getActionId(Class<? extends PageElement> element) {
+		return "cubicTestPlugin.action.add" + ViewUtil.getType(element); 
+	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.ui.actions.WorkbenchPartAction#calculateEnabled()
@@ -52,16 +52,15 @@ public class AddPageElementAction extends SelectionAction {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.ui.actions.WorkbenchPartAction#init()
 	 */
-	protected void init() {
-		super.init();
+	protected void setActionText() {
 		try {
-			setText(newElement.newInstance().getType());
+			setText("Add new " + newElement.newInstance().getType());
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+			Logger.error(e, "Could not set action text.");
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			Logger.error(e, "Could not set action text.");
 		}
-    	setId(ACTION_ID);
+    	setId(getActionId(newElement));
 	}
 
 	@Override

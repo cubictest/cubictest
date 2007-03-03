@@ -7,6 +7,8 @@
  */
 package org.cubictest.ui.gef.actions;
 
+import org.cubictest.model.PageElement;
+import org.cubictest.ui.gef.view.AddElementContextMenuList;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
@@ -17,6 +19,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager; 
 import org.eclipse.jface.action.SubMenuManager; 
 import org.eclipse.swt.widgets.Menu; 
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
 
 /**
@@ -88,8 +91,15 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		action = actionRegistry.getAction(AutoLayoutAction.ACTION_ID);
 		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
 
-		action = actionRegistry.getAction(AddPageElementAction.ACTION_ID);
-		if(action.isEnabled())
-			menu.appendToGroup(GEFActionConstants.GROUP_EDIT,action);
+		if(action.isEnabled()) {
+			MenuManager submenu = new MenuManager("Add page element ", action.getId());
+			for (Class<? extends PageElement> elementClass : AddElementContextMenuList.getList()) {
+				action = actionRegistry.getAction(AddPageElementAction.getActionId(elementClass));
+				submenu.add(action);
+			}
+			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, submenu);
+		}
+		
+
 	}
 }

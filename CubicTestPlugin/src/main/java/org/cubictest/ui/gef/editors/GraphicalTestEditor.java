@@ -14,6 +14,7 @@ import java.util.EventObject;
 import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.Text;
 import org.cubictest.persistence.TestPersistance;
@@ -37,6 +38,7 @@ import org.cubictest.ui.gef.factory.PaletteRootCreator;
 import org.cubictest.ui.gef.factory.TestEditPartFactory;
 import org.cubictest.ui.gef.interfaces.IDisposeListener;
 import org.cubictest.ui.gef.interfaces.IDisposeSubject;
+import org.cubictest.ui.gef.view.AddElementContextMenuList;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -315,7 +317,10 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		addEditPartAction(new PresentAction((IWorkbenchPart) this));
 		addEditPartAction(new PopulateCommonAction((IWorkbenchPart) this));
 		addEditPartAction(new AddExtensionPointAction((IWorkbenchPart) this));
-		addEditPartAction(new AddPageElementAction((IWorkbenchPart) this,Text.class));
+		
+		for (Class<? extends PageElement> elementClass : AddElementContextMenuList.getList()) {
+			addEditPartAction(new AddPageElementAction((IWorkbenchPart) this, elementClass));
+		}
 
 		addEditorAction(new SaveAction(this));
 		addEditorAction(new RunCubicUnitAction(this));
