@@ -3,7 +3,6 @@
  * 
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
- * 
  */
 package org.cubictest.ui.gef.actions;
 
@@ -14,18 +13,15 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IContributionItem; 
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager; 
-import org.eclipse.jface.action.SubMenuManager; 
-import org.eclipse.swt.widgets.Menu; 
-import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
 /**
- * @author Stein Kåre Skytteren
- *
  * Provides the "right-click" menu found in the GraphicalTestEditor.
+ * 
+ * @author SK Skytteren
+ * @author chr_schwarz 
  */
 public class TestContextMenuProvider extends ContextMenuProvider{
 
@@ -91,15 +87,16 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		action = actionRegistry.getAction(AutoLayoutAction.ACTION_ID);
 		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
 
-		if(action.isEnabled()) {
-			MenuManager submenu = new MenuManager("Add page element ", action.getId());
-			for (Class<? extends PageElement> elementClass : AddElementContextMenuList.getList()) {
-				action = actionRegistry.getAction(AddPageElementAction.getActionId(elementClass));
+		MenuManager submenu = new MenuManager("Add page element ", action.getId());
+		for (Class<? extends PageElement> elementClass : AddElementContextMenuList.getList()) {
+			action = actionRegistry.getAction(AddPageElementAction.getActionId(elementClass));
+			if(action.isEnabled()) {
 				submenu.add(action);
 			}
+		}
+		if (!submenu.isEmpty()) {
 			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, submenu);
 		}
-		
 
 	}
 }

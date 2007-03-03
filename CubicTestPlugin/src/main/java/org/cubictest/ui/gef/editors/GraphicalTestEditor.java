@@ -5,7 +5,6 @@
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  * 
  */
-
 package org.cubictest.ui.gef.editors;
 
 
@@ -16,7 +15,6 @@ import java.util.List;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
-import org.cubictest.model.Text;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.resources.ResourceMonitor;
@@ -94,10 +92,11 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributo
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 
-/** 
+/**
+ * The graphical editor for editing the tests.
+ * 
  * @author SK Skytteren
- *
- * The graphical editor for editing the tests. 
+ * @author chr_schwarz 
  */
 public class GraphicalTestEditor extends EditorPart implements IAdaptable, 
 		ITabbedPropertySheetPageContributor, IDisposeSubject {
