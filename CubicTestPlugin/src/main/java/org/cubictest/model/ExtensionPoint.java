@@ -27,7 +27,7 @@ public class ExtensionPoint extends ConnectionPoint {
 			return getPage().getName() + " Extension Point";
 		}
 		else {
-			return null;
+			return "Extension Point";
 		}
 	}
 	
