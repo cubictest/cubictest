@@ -9,10 +9,13 @@ import org.cubictest.common.utils.Logger;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
+import org.cubictest.ui.gef.view.AddElementContextMenuList;
+import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Event;
@@ -20,12 +23,13 @@ import org.eclipse.ui.IWorkbenchPart;
 
 public class AddPageElementAction extends SelectionAction {
 
+	private static CubicTestImageRegistry imageRegistry = new CubicTestImageRegistry();
 	private Object selected;
-	private Class<? extends PageElement> newElement;
+	private Class<? extends PageElement> element;
 
 	public AddPageElementAction(IWorkbenchPart part,Class<? extends PageElement> newElement) {
 		super(part);
-		this.newElement = newElement;
+		this.element = newElement;
 		setActionText();
 	}
 
@@ -33,7 +37,7 @@ public class AddPageElementAction extends SelectionAction {
 	 * The Actions ID which can be used to set and get it from acion registers.
 	 */
 	public static String getActionId(Class<? extends PageElement> element) {
-		return "cubicTestPlugin.action.add" + ViewUtil.getType(element); 
+		return "cubicTestPlugin.action.add" + AddElementContextMenuList.getType(element); 
 	}
 
 	/* (non-Javadoc)
@@ -54,13 +58,13 @@ public class AddPageElementAction extends SelectionAction {
 	 */
 	protected void setActionText() {
 		try {
-			setText("Add new " + newElement.newInstance().getType());
+			setText("Add new " + element.newInstance().getType());
 		} catch (InstantiationException e) {
 			Logger.error(e, "Could not set action text.");
 		} catch (IllegalAccessException e) {
 			Logger.error(e, "Could not set action text.");
 		}
-    	setId(getActionId(newElement));
+    	setId(getActionId(element));
 	}
 
 	@Override
@@ -70,9 +74,9 @@ public class AddPageElementAction extends SelectionAction {
 			CreatePageElementCommand command = new CreatePageElementCommand();
 			PageElement pe;
 			try {
-				if(newElement == null)
+				if(element == null)
 					return;
-				pe = newElement.newInstance();
+				pe = element.newInstance();
 			} catch (Exception e) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e,"Problems with adding the new element");
 				return;
@@ -99,7 +103,8 @@ public class AddPageElementAction extends SelectionAction {
 				if (obj instanceof EditPart) {
 					EditPart ep = (EditPart) obj;
 					if(ep.getModel().equals(pe)){
-						ep.setSelected(EditPart.SELECTED_PRIMARY);
+						//The element needs to be selected to start direct edit: 
+						ep.setSelected(EditPart.SELECTED);
 						break;
 					}
 				}
@@ -118,5 +123,12 @@ public class AddPageElementAction extends SelectionAction {
 			selected = selection.toList().get(0);
 		}
 		refresh();
+	}
+	
+	@Override
+	public ImageDescriptor getImageDescriptor() {
+		String type = AddElementContextMenuList.getType(element);
+		type = type.substring(0, 1).toLowerCase() + type.substring(1, type.length());
+		return imageRegistry.getDescriptor(type);
 	}
 }

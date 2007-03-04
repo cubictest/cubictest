@@ -7,6 +7,7 @@ package org.cubictest.ui.gef.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
@@ -51,5 +52,15 @@ public class AddElementContextMenuList {
 
 	public static List<Class<? extends PageElement>> getList() {
 		return list;
+	}
+	
+	
+	public static String getType(Class<? extends PageElement> element) {
+		try {
+			return element.newInstance().getType();
+		} 
+		catch (Exception e) {
+			throw new CubicException(e);
+		}
 	}
 }

@@ -16,7 +16,7 @@ import org.cubictest.model.IdentifierType;
 public class RadioButton extends Checkable{
 
 	public String getType() {
-		return "Radiobutton";
+		return "RadioButton";
 	}
 	
 	public List<IdentifierType> getIdentifierTypes() {	

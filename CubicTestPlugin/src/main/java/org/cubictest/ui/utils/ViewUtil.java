@@ -178,12 +178,4 @@ public class ViewUtil {
 		
 	}
 	
-	public static String getType(Class<? extends PageElement> element) {
-		try {
-			return element.newInstance().getType();
-		} 
-		catch (Exception e) {
-			throw new CubicException(e);
-		}
-	}
 }

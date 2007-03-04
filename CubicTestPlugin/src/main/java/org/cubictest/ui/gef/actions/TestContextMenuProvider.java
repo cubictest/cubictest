@@ -87,7 +87,7 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		action = actionRegistry.getAction(AutoLayoutAction.ACTION_ID);
 		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
 
-		MenuManager submenu = new MenuManager("Add page element ", action.getId());
+		MenuManager submenu = new MenuManager("Add page element ", "cubicTestPlugin.action.addPageElement");
 		for (Class<? extends PageElement> elementClass : AddElementContextMenuList.getList()) {
 			action = actionRegistry.getAction(AddPageElementAction.getActionId(elementClass));
 			if(action.isEnabled()) {

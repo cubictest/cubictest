@@ -9,6 +9,7 @@ package org.cubictest.ui.gef.directEdit;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editparts.ZoomListener;
 import org.eclipse.gef.editparts.ZoomManager;
@@ -180,5 +181,10 @@ public class CubicTestDirectEditManager extends DirectEditManager {
 			text.setFont(scaledFont = new Font(null, fd));
 		}
 	}
-
+	
+	@Override
+	protected void commit() {
+		super.commit();
+		getEditPart().setSelected(EditPart.SELECTED_NONE);
+	}
 }
