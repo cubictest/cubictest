@@ -49,7 +49,7 @@ public class CubicTestImageRegistry {
 	public static final String CONNECTION_IMAGE = "connection";
 	public static final String USER_INTERACTION_IMAGE = "userInteraction";
 	public static final String CUSTOM_STEP_IMAGE = "customStep";
-	public static final String CONTEXT_IMAGE = "simpleContext";
+	public static final String CONTEXT_IMAGE = "context";
 	public static final String ROW_IMAGE = "row";
 
 	/**

@@ -11,6 +11,6 @@ package org.cubictest.model.context;
 public class SimpleContext extends AbstractContext {
 	
 	public String getType(){
-		return "SimpleContext";
+		return "Context";
 	}
 }
