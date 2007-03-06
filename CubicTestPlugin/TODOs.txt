@@ -1,6 +1,6 @@
 Cubic-notes from usability test
 -------------------------------
-For 1.0 tutorial:
+For M3 / 1.0 tutorial:
    Does Common apply to more than one test?
    ExPoint hard to understand ==> Tutorial
    None used subtest! ==> Tutorial
@@ -43,6 +43,7 @@ General:
 --------
 Done	The open file should be highlighted
 Done	Invoke "IDE.saveAllEditors" before create new test from extension point
+M3   Decide naming of products
 M4   How to specify popup and alerts
 M4?   Should be able to test PDF (at least existance)
 2.0   Should be some form of refactoring support (select states -> extract etc)
@@ -63,7 +64,7 @@ Page:
 -----
 Done   Header: Better contrast
 Done   Resize vertically on drag'n'drop (bug)
-M3   Context menu for adding page elements
+Done   Context menu for adding page elements
 M3   Context meny for adding user interaction
 	(Wider figure, Auto resize width)
 
@@ -117,6 +118,7 @@ Done   Undo on "Cut" does not work => Use command stack
 Done   Select all -> ctrl-x had problems / not implemented
 Done   Issues with delete of SelectBox
 Done   Copy Common, paste, then connection --> bug (connections stacked in background, wrong placement)
+M3	 Fix bug with deletion of all pages, then add page
 M3   Limit context menu of elements
 M3	 Delete file -> File can still be open in editor. => Editor should be closed on delete.
 M3   Right-click on ExStartPoint -> "Open test" (none double clicked)
@@ -129,8 +131,10 @@ M4?   Bigger canvas, should be easier to extend (place elements at edge) (bug in
    (Show page name from extenison point (?))
    
    
-HTML export:
-2.0?   Have a ID on page, such that HTML exporter can merge different tests to better site?
+Export:
+M3	  Make it possible to store output directory in a cubics-project.properties file
+M3	  Watir export: Use XPath
+2.0?  HTML export: Have a ID on page, such that HTML exporter can merge different tests to better site?
 
 
 
@@ -157,6 +161,11 @@ Create new page with name from Link or form params(?)
 - HTML skeleton: Checkbox bug? (when checked required)
 - HTML skeleton: Alignment error (transition taking up too much horizontal space)
 
+
+
+============================================
+Even older TODOs (in norwegian)
+============================================
 
 SK & C
 	Lage bedre opplegg for starting av tester fra extensionpoints.
