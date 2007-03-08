@@ -5,7 +5,6 @@
 package org.cubictest.ui.utils;
 
 import org.cubictest.common.exception.CubicException;
-import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
