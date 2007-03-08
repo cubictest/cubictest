@@ -4,28 +4,21 @@
  */
 package org.cubictest.ui.wizards;
 
+import java.util.Map;
+
 import org.cubictest.model.ExtensionPoint;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-
-import java.util.Collection;
-import java.util.Map;
-
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Text;
 
 
 public class ExtentionStartPointSelectorPage extends WizardPage implements Listener {

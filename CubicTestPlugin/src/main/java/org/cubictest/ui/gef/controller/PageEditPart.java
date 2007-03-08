@@ -10,7 +10,6 @@ package org.cubictest.ui.gef.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
@@ -42,7 +41,6 @@ public class PageEditPart extends AbstractPageEditPart {
 	protected IFigure createFigure() {
 		CubicTestScrollableGroupFigure figure = (CubicTestScrollableGroupFigure) super.createFigure();
 		figure.getHeader().setBackgroundColor(new Color(null, 172, 170, 255));
-		String name = ((AbstractPage)getModel()).getName();
 		figure.setTooltipText("Page/state: $labelText");
 		return figure;
 	}

@@ -5,7 +5,6 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Preferences;
 import org.eclipse.ui.IStartup;
-import org.eclipse.ui.IWorkbenchPreferenceConstants;
 
 public class CubicTestStartup implements IStartup {
 

@@ -1,15 +1,6 @@
 package org.cubictest.recorder;
 
-import java.io.File;
-
-import org.cubictest.model.ActionType;
-import org.cubictest.model.Image;
-import org.cubictest.model.UserInteraction;
 import org.cubictest.model.Test;
-import org.cubictest.model.Text;
-import org.cubictest.model.formElement.Button;
-import org.cubictest.persistence.TestPersistance;
-import org.cubictest.ui.utils.WizardUtils;
 
 public class CubicRecorderTest {
 	public static void testRecorderSimpleTest(Test test) {

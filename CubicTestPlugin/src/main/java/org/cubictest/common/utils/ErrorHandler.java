@@ -10,8 +10,6 @@ import org.apache.commons.lang.StringUtils;
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 

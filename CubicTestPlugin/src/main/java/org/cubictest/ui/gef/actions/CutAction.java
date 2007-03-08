@@ -9,7 +9,6 @@ import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.List;
 
-import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.model.CustomTestStep;
 import org.cubictest.model.ExtensionPoint;

@@ -7,22 +7,18 @@
  */
 package org.cubictest.ui.gef.command;
 
-import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
-import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
-import org.cubictest.model.UrlStartPoint;
 import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.gef.commands.Command;
 
 
 /**
- * @author Stein Kare Skytteren
- *
  * A command that reconnect a <code>Transition</code>'s target to another <code>TransitonNode</code>.
- * 
+ *
+ * @author SK Skytteren 
  */
 public class ReconnectTrasitionTargetCommand extends Command {
 

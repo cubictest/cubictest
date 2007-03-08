@@ -10,7 +10,6 @@ package org.cubictest.export.converters;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.exception.UnknownExtensionPointException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.utils.TestWalkerUtils;
