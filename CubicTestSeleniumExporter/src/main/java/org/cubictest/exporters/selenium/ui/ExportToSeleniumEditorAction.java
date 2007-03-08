@@ -12,7 +12,6 @@ import org.cubictest.exporters.selenium.converters.PageElementConverter;
 import org.cubictest.exporters.selenium.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.holders.SeleneseDocument;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
