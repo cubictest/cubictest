@@ -11,9 +11,6 @@ import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
-import org.cubictest.ui.gef.controller.AbstractPageEditPart;
-import org.cubictest.ui.gef.controller.PropertyChangePart;
-import org.cubictest.ui.gef.controller.TestEditPart;
 
 
 /**

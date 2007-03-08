@@ -25,7 +25,6 @@ import org.cubictest.ui.gef.command.DeletePageCommand;
 import org.cubictest.ui.gef.command.DeletePageElementCommand;
 import org.cubictest.ui.gef.command.DeleteSubTestCommand;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
-import org.cubictest.ui.gef.controller.TestEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
