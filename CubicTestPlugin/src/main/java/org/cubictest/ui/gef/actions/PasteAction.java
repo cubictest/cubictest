@@ -14,6 +14,7 @@ import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
+import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
@@ -98,7 +99,7 @@ public class PasteAction extends SelectionAction {
 			}
 			else if (clipboardPart.getModel() instanceof PageElement && !parentPageIsOnClipboard(clipboardPart, clipboardList)) {
 				PageElement clipboardElement = (PageElement) clipboardPart.getModel();
-				if (targetPart.getModel() instanceof PageElement)
+				if (targetPart.getModel() instanceof PageElement && !(targetPart.getModel() instanceof AbstractContext))
 					targetPart = targetPart.getParent();
 				if (targetPart.getModel() instanceof IContext){
 					try {
