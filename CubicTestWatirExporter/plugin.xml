@@ -32,5 +32,16 @@
                id="org.cubictest.exporters.watir.ui.ExportToWatirAction">
          </action>
       </objectContribution>
+      <viewerContribution
+            id="CubicTestWatirExporter.viewerContribution1"
+            targetID="cubicTestPlugin.editor.contextmenu">
+         <action
+               class="org.cubictest.exporters.watir.ui.ExportToWatirEditorAction"
+               icon="icons/watir_export_icon.gif"
+               id="org.cubictest.exporters.watir.ui.ExportToWatirEditorAction"
+               label="Create Watir tests"
+               menubarPath="additions"/>
+      </viewerContribution>
+      
    </extension>
 </plugin>
