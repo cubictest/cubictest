@@ -38,7 +38,7 @@
          <action
                class="org.cubictest.exporters.htmlPrototype.ui.ExportToHtmlEditorAction"
                icon="icons/html_export_icon.gif"
-               id="org.cubictest.exporters.htmlPrototype.ui.ExportToHtmlAction"
+               id="org.cubictest.exporters.htmlPrototype.ui.ExportToHtmlEditorAction"
                label="Create HTML prototype"
                menubarPath="additions"/>
       </viewerContribution>
