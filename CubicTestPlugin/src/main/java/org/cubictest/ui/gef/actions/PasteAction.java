@@ -147,7 +147,7 @@ public class PasteAction extends SelectionAction {
 
 	private boolean parentPageIsOnClipboard(EditPart clipboardPart, List clipboardList) {
 		EditPart parent = clipboardPart.getParent();
-		while(parent.getModel() instanceof PageElement) {
+		while(parent != null && parent.getModel() instanceof PageElement) {
 			parent = parent.getParent();
 		}
 		return clipboardList.contains(parent);
