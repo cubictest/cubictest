@@ -109,7 +109,7 @@ public class AddPageElementAction extends SelectionAction {
 				if (obj instanceof EditPart) {
 					EditPart ep = (EditPart) obj;
 					if(ep.getModel().equals(pe)){
-						//The pageElement needs to be selectedObj to start direct edit: 
+						//The pageElement needs to be selected to start direct edit: 
 						ep.setSelected(EditPart.SELECTED);
 						break;
 					}
