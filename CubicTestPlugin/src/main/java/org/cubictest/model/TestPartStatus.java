@@ -4,9 +4,22 @@
  */
 package org.cubictest.model;
 
+/**
+ * Status of test part after running a test.
+ * 
+ * @author chr_schwarz
+ */
 public enum TestPartStatus {
+	
+	/** Status unknown / test not run */
 	UNKNOWN,
+	
+	/** Test part passed test */
 	PASS,
+
+	/** Test part failed test */
 	FAIL,
+	
+	/** Exception when running test / test part */
 	EXCEPTION
 }
