@@ -9,6 +9,7 @@ import java.util.List;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.Test;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
@@ -148,7 +149,20 @@ public class ViewUtil {
 		}
 		return node;
 	}
-	
+
+	public static Test getSurroundingTest(EditPart host) {
+		Test test = null;
+		int i = 0;
+		while(i < 42) {
+			if (host.getModel() instanceof Test) {
+				test = (Test) host.getModel();
+				break;
+			}
+			host = host.getParent();
+			i++;
+		}
+		return test;
+	}
 	
 	/**
 	 * Get the AbstractPage model object surronding an PropertyChangePart.

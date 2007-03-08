@@ -7,8 +7,13 @@ package org.cubictest.ui.gef.policies;
 
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.Page;
+import org.cubictest.model.SimpleTransition;
+import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
+import org.cubictest.ui.gef.command.CreateTransitionCommand;
+import org.cubictest.ui.gef.factory.DataCreationFactory;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
@@ -40,7 +45,19 @@ public class AbstractPageDirectEditPolicy extends DirectEditPolicy {
 				return cmd;
 			}
 			else {
-				AddAbstractPageCommand addPageCmd = (AddAbstractPageCommand) commandStack.getUndoCommand();
+				Command addPageCmd = (AddAbstractPageCommand) commandStack.getUndoCommand();
+				
+				Test test = ViewUtil.getSurroundingTest(getHost());
+				if (test.getPages().size() == 1 && page instanceof Page){
+					DataCreationFactory fac = new DataCreationFactory(SimpleTransition.class);
+					CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
+					createTransitionCmd.setSource(test.getStartPoint());
+					createTransitionCmd.setTarget(((AddAbstractPageCommand) addPageCmd).getPage());
+					createTransitionCmd.setTest(test);
+					createTransitionCmd.setTransition((SimpleTransition)fac.getNewObject());
+					addPageCmd = addPageCmd.chain(createTransitionCmd);
+				}
+				
 				return addPageCmd.chain(cmd);
 			}
 		}

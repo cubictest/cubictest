@@ -8,10 +8,7 @@
 package org.cubictest.ui.gef.command;
 
 import org.cubictest.model.AbstractPage;
-import org.cubictest.model.Page;
-import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.Test;
-import org.cubictest.ui.gef.factory.DataCreationFactory;
 import org.eclipse.gef.commands.Command;
 
 
@@ -24,7 +21,6 @@ public class AddAbstractPageCommand extends Command {
 
 	private Test test;
 	private AbstractPage page;
-	private CreateTransitionCommand createTransitionCmd;
 
 	/**
 	 * @param test
@@ -39,16 +35,6 @@ public class AddAbstractPageCommand extends Command {
 	public void execute(){
 		super.execute();
 		test.addPage(page);
-
-		if (test.getPages().size() == 1 && page instanceof Page){
-			DataCreationFactory fac = new DataCreationFactory(SimpleTransition.class);
-			createTransitionCmd = new CreateTransitionCommand();
-			createTransitionCmd.setSource(test.getStartPoint());
-			createTransitionCmd.setTarget(page);
-			createTransitionCmd.setTest(test);
-			createTransitionCmd.setTransition((SimpleTransition)fac.getNewObject());
-			createTransitionCmd.execute();
-		}
 	}
 	
 	/* (non-Javadoc)
@@ -57,8 +43,6 @@ public class AddAbstractPageCommand extends Command {
 	public void undo() {
 		super.undo();
 		test.removePage(page);
-		if (createTransitionCmd != null)
-			createTransitionCmd.undo();
 	}
 
 	public AbstractPage getPage() {
@@ -77,7 +61,5 @@ public class AddAbstractPageCommand extends Command {
 	 */
 	public void redo() {
 		test.addPage(page);
-		if (createTransitionCmd != null)
-			createTransitionCmd.redo();
 	}
 }
