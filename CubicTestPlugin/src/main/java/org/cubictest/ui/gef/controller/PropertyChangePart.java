@@ -175,4 +175,22 @@ public abstract class PropertyChangePart extends AbstractGraphicalEditPart imple
 				removeChild(partToRemove);
 		}
 	}
+	
+	/**
+	 * Get whether part is cuttable.
+	 * Should be overrided by parts that are not cuttable.
+	 * @return whether part is cuttable.
+	 */
+	public boolean isCuttable() {
+		return true;
+	}
+	
+	/**
+	 * Get whether part is copyable.
+	 * Should be overrided by parts that are not copyable.
+	 * @return whether part is copyable.
+	 */
+	public boolean isCopyable() {
+		return true;
+	}
 }

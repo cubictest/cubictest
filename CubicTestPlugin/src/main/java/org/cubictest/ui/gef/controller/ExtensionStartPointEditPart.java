@@ -35,4 +35,14 @@ public class ExtensionStartPointEditPart extends SubTestEditPart {
 		figure.setToolTipText("Test to start from: $labelText\nDouble click to open file");
 		return figure;
 	}
+	
+	@Override
+	public boolean isCopyable() {
+		return false;
+	}
+	
+	@Override
+	public boolean isCuttable() {
+		return false;
+	}
 }

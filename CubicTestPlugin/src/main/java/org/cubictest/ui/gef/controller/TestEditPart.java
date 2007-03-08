@@ -129,4 +129,14 @@ public class TestEditPart extends PropertyChangePart{
 	public DragTracker getDragTracker(Request request) {
 		return new MarqueeDragTracker();
 	}
+	
+	@Override
+	public boolean isCopyable() {
+		return false;
+	}
+	
+	@Override
+	public boolean isCuttable() {
+		return false;
+	}
 }

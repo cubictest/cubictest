@@ -83,4 +83,14 @@ public class UrlStartPointEditPart extends AbstractNodeEditPart {
 		refresh();
 		refreshVisuals();
 	}
+	
+	@Override
+	public boolean isCopyable() {
+		return false;
+	}
+	
+	@Override
+	public boolean isCuttable() {
+		return false;
+	}
 }

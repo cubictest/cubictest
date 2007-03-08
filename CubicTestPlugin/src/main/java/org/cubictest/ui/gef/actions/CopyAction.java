@@ -7,6 +7,8 @@ package org.cubictest.ui.gef.actions;
 
 import java.util.List;
 
+import org.cubictest.ui.gef.controller.PropertyChangePart;
+import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.ui.actions.Clipboard;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -39,9 +41,18 @@ public class CopyAction extends SelectionAction{
 	
 	@Override
 	protected boolean calculateEnabled() {
-		if (model != null)
+		if (model == null) {
+			return false;
+		}
+		else if(model.size() == 1 && model.get(0) instanceof AbstractConnectionEditPart) {
+			return false;
+		}
+		else if (model.size() == 1 && model.get(0) instanceof PropertyChangePart) {
+			return ((PropertyChangePart) model.get(0)).isCopyable();
+		}
+		else {
 			return true;
-		return false;
+		}
 	}
 	
 	@Override

@@ -47,17 +47,14 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		IAction action;
 		
 		action = actionRegistry.getAction(PresentAction.ACTION_ID);
-		menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+		if (action.isEnabled())
+			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 		
 		action = actionRegistry.getAction(ActionFactory.UNDO.getId());
 		menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
 
 		action = actionRegistry.getAction(ActionFactory.REDO.getId());
 		menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
-
-		action = actionRegistry.getAction(ActionFactory.DELETE.getId());
-		if (action.isEnabled())
-			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 		
 		action = actionRegistry.getAction(ActionFactory.CUT.getId());
 		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
@@ -69,10 +66,12 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
 		
 		action = actionRegistry.getAction(GEFActionConstants.DIRECT_EDIT);
-		menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+		if (action.isEnabled())
+			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 
 		action = actionRegistry.getAction(AddExtensionPointAction.ACTION_ID);
-		menu.appendToGroup(GEFActionConstants.GROUP_EDIT,action); 
+		if (action.isEnabled())
+			menu.appendToGroup(GEFActionConstants.GROUP_EDIT,action); 
 		
 		action = actionRegistry.getAction(PopulateCommonAction.ID);
 		if (action.isEnabled())
