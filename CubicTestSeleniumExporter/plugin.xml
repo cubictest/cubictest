@@ -32,5 +32,16 @@
                id="org.cubictest.exporters.selenium.ui.ExportToSeleniumAction">
          </action>
       </objectContribution>
+      <viewerContribution
+            id="CubicTestSeleniumExporter.viewerContribution1"
+            targetID="cubicTestPlugin.editor.contextmenu">
+         <action
+               class="org.cubictest.exporters.selenium.ui.ExportToSeleniumEditorAction"
+               icon="icons/selenium_export_icon.gif"
+               id="org.cubictest.exporters.selenium.ui.ExportToSeleniumEditorAction"
+               label="Create Selenium tests"
+               menubarPath="additions"/>
+      </viewerContribution>
+      
    </extension>
 </plugin>
