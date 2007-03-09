@@ -193,4 +193,13 @@ public abstract class PropertyChangePart extends AbstractGraphicalEditPart imple
 	public boolean isCopyable() {
 		return true;
 	}
+	
+	/**
+	 * Get whether part can be target for paste.
+	 * Should be overrided by parts that can not be target of paste.
+	 * @return whether part can be target for paste.
+	 */
+	public boolean canBeTargetForPaste() {
+		return true;
+	}
 }

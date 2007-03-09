@@ -162,4 +162,10 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements IPro
 	public void setPropertyValue(Object property, Object value) {
 		((CustomTestStep) getModel()).getConfig().put((String) property, (String) value);
 	}
+		
+	@Override
+	public boolean canBeTargetForPaste() {
+		return false;
+	}
+
 }

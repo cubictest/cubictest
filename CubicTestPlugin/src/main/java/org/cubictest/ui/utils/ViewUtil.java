@@ -18,6 +18,7 @@ import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.PageResizeCommand;
 import org.cubictest.ui.gef.controller.AbstractPageEditPart;
+import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.eclipse.draw2d.FlowLayout;
@@ -232,8 +233,24 @@ public class ViewUtil {
 	public static boolean containsAPage(List parts) {
 		for (Iterator iter = parts.iterator(); iter.hasNext();){
 			Object selected = iter.next();
-			if (selected instanceof AbstractPageEditPart) {
+			if (selected instanceof AbstractPageEditPart || selected instanceof AbstractPage) {
 				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean containsAPageElement(Object o) {
+		if (o instanceof PageElementEditPart || o instanceof PageElement)
+			return true;
+		
+		if (o instanceof List) {
+			List parts = (List) o;
+			for (Iterator iter = parts.iterator(); iter.hasNext();){
+				Object selected = iter.next();
+				if (selected instanceof PageElementEditPart || selected instanceof PageElement) {
+					return true;
+				}
 			}
 		}
 		return false;

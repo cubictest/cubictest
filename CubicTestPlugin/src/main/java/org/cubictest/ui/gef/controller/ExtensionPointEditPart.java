@@ -76,4 +76,10 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 		refresh();
 		refreshVisuals();
 	}
+	
+	@Override
+	public boolean canBeTargetForPaste() {
+		return false;
+	}
+
 }

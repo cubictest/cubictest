@@ -93,4 +93,9 @@ public class UrlStartPointEditPart extends AbstractNodeEditPart {
 	public boolean isCuttable() {
 		return false;
 	}
+	
+	@Override
+	public boolean canBeTargetForPaste() {
+		return false;
+	}
 }

@@ -19,10 +19,14 @@ import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.MovePageCommand;
+import org.cubictest.ui.gef.controller.ExtensionStartPointEditPart;
+import org.cubictest.ui.gef.controller.PropertyChangePart;
+import org.cubictest.ui.gef.controller.UrlStartPointEditPart;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.ui.actions.Clipboard;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -50,9 +54,23 @@ public class PasteAction extends SelectionAction {
 
 	@Override
 	protected boolean calculateEnabled() {
-		if (getClipboardContents() != null)
-			return true;
-		return false;
+		StructuredSelection selection = (StructuredSelection) getSelection();
+		if (selection.size() > 1)
+			return false;
+		
+		if (!(selection.getFirstElement() instanceof EditPart)) {
+			return false;
+		}
+
+		EditPart selectedPart = (EditPart) selection.getFirstElement();
+
+		if(selectedPart instanceof AbstractConnectionEditPart ||
+				selectedPart instanceof PropertyChangePart && !((PropertyChangePart) selectedPart).canBeTargetForPaste() ||
+				!(selectedPart.getModel() instanceof IContext) && ViewUtil.containsAPageElement(getClipboardContents())) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	@Override
@@ -78,10 +96,6 @@ public class PasteAction extends SelectionAction {
 		
 		StructuredSelection selection = (StructuredSelection) getSelection();
 		Object selectedObj = selection.getFirstElement();
-		if (!(selectedObj instanceof EditPart)) {
-			Logger.warn("Selected item was not an editpart: " + selectedObj);
-			return;
-		}
 		EditPart targetPart = (EditPart) selectedObj;
 		
 		CompoundCommand compoundCmd = new CompoundCommand();

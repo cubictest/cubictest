@@ -45,4 +45,10 @@ public class ExtensionStartPointEditPart extends SubTestEditPart {
 	public boolean isCuttable() {
 		return false;
 	}
+	
+	@Override
+	public boolean canBeTargetForPaste() {
+		return false;
+	}
+
 }
