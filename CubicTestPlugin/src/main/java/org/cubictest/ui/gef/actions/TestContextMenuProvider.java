@@ -55,6 +55,9 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 
 		action = actionRegistry.getAction(ActionFactory.REDO.getId());
 		menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
+
+		action = actionRegistry.getAction(ActionFactory.DELETE.getId());
+		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
 		
 		action = actionRegistry.getAction(ActionFactory.CUT.getId());
 		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
