@@ -5,9 +5,15 @@
  */
 package org.cubictest.ui.gef.actions;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.cubictest.common.utils.Logger;
+import org.cubictest.model.PageElement;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
+import org.cubictest.ui.utils.ViewUtil;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.ui.actions.Clipboard;
 import org.eclipse.gef.ui.actions.SelectionAction;
@@ -18,9 +24,14 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 
+/**
+ * Action for copying selected test elements to the clipboard. 
+ * 
+ * @author chr_schwarz
+ */
 public class CopyAction extends SelectionAction{
 	
-	private List model = null;
+	private List parts = null;
 	
 	public CopyAction(IWorkbenchPart part) {
 		super(part);
@@ -41,14 +52,14 @@ public class CopyAction extends SelectionAction{
 	
 	@Override
 	protected boolean calculateEnabled() {
-		if (model == null) {
+		if (parts == null) {
 			return false;
 		}
-		else if(model.size() == 1 && model.get(0) instanceof AbstractConnectionEditPart) {
+		else if(parts.size() == 1 && parts.get(0) instanceof AbstractConnectionEditPart) {
 			return false;
 		}
-		else if (model.size() == 1 && model.get(0) instanceof PropertyChangePart) {
-			return ((PropertyChangePart) model.get(0)).isCopyable();
+		else if (parts.size() == 1 && parts.get(0) instanceof PropertyChangePart) {
+			return ((PropertyChangePart) parts.get(0)).isCopyable();
 		}
 		else {
 			return true;
@@ -57,17 +68,22 @@ public class CopyAction extends SelectionAction{
 	
 	@Override
 	public void run() {
-		Clipboard.getDefault().setContents(model);
+		List<EditPart> newClips = ViewUtil.getPartsForClipboard(parts);
+		Clipboard.getDefault().setContents(newClips);
 	}
+
+
+	
+	
 	@Override
 	protected void handleSelectionChanged() {
 		ISelection s = getSelection();
 		if (!(s instanceof IStructuredSelection))
 			return;
 		IStructuredSelection selection = (IStructuredSelection)s;
-		model = null;
+		parts = null;
 		if (selection != null && selection.size() > 0) {
-			model = selection.toList();
+			parts = selection.toList();
 		}
 		refresh();
 	}

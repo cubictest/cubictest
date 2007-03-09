@@ -4,9 +4,12 @@
  */
 package org.cubictest.ui.utils;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.cubictest.common.exception.CubicException;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
@@ -192,4 +195,31 @@ public class ViewUtil {
 		
 	}
 	
+	
+	public static boolean parentPageIsOnClipboard(EditPart clipboardPart, List clipboardList) {
+		EditPart parent = clipboardPart.getParent();
+		while(parent != null && parent.getModel() instanceof PageElement) {
+			parent = parent.getParent();
+		}
+		return clipboardList.contains(parent);
+	}
+	
+	public static List<EditPart> getPartsForClipboard(List parts) {
+		List<EditPart> newClips = new ArrayList<EditPart>();
+		
+		for (Iterator iter = parts.iterator(); iter.hasNext();){
+			Object selected = iter.next();
+			if(!(selected instanceof EditPart)) {
+				Logger.warn("Clipboard item was not an editpart: " + selected);
+				continue;
+			}
+			EditPart part = (EditPart) selected;			
+			
+			if (part.getModel() instanceof PageElement && ViewUtil.parentPageIsOnClipboard(part, parts)) {
+				continue;
+			}
+			newClips.add(part);
+		}
+		return newClips;
+	}
 }

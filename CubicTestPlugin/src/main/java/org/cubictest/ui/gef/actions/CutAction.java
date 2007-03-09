@@ -25,6 +25,7 @@ import org.cubictest.ui.gef.command.DeletePageCommand;
 import org.cubictest.ui.gef.command.DeletePageElementCommand;
 import org.cubictest.ui.gef.command.DeleteSubTestCommand;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
+import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
@@ -81,8 +82,10 @@ public class CutAction extends SelectionAction{
 	
 	@Override
 	public void run() {
-		Clipboard.getDefault().setContents(model);
-		Iterator iter = model.iterator();
+		List<EditPart> newClips = ViewUtil.getPartsForClipboard(model);
+		Clipboard.getDefault().setContents(newClips);
+		
+		Iterator iter = newClips.iterator();
 		CompoundCommand compoundCmd = new CompoundCommand();
 		while(iter.hasNext()) {
 			EditPart item = (EditPart) iter.next();

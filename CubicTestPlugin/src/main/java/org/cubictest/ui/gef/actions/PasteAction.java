@@ -97,7 +97,7 @@ public class PasteAction extends SelectionAction {
 			if (clipboardPart.getModel() instanceof ExtensionStartPoint || clipboardPart.getModel() instanceof UrlStartPoint) {
 				continue;
 			}
-			else if (clipboardPart.getModel() instanceof PageElement && !parentPageIsOnClipboard(clipboardPart, clipboardList)) {
+			else if (clipboardPart.getModel() instanceof PageElement && !ViewUtil.parentPageIsOnClipboard(clipboardPart, clipboardList)) {
 				PageElement clipboardElement = (PageElement) clipboardPart.getModel();
 				if (targetPart.getModel() instanceof PageElement && !(targetPart.getModel() instanceof AbstractContext))
 					targetPart = targetPart.getParent();
@@ -146,13 +146,6 @@ public class PasteAction extends SelectionAction {
 		getCommandStack().execute(compoundCmd);
 	}
 
-	private boolean parentPageIsOnClipboard(EditPart clipboardPart, List clipboardList) {
-		EditPart parent = clipboardPart.getParent();
-		while(parent != null && parent.getModel() instanceof PageElement) {
-			parent = parent.getParent();
-		}
-		return clipboardList.contains(parent);
-	}
 
 	private Object getClipboardContents() {
 		return Clipboard.getDefault().getContents();
