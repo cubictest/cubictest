@@ -210,16 +210,32 @@ public class ViewUtil {
 		for (Iterator iter = parts.iterator(); iter.hasNext();){
 			Object selected = iter.next();
 			if(!(selected instanceof EditPart)) {
-				Logger.warn("Clipboard item was not an editpart: " + selected);
 				continue;
 			}
+
 			EditPart part = (EditPart) selected;			
-			
-			if (part.getModel() instanceof PageElement && ViewUtil.parentPageIsOnClipboard(part, parts)) {
-				continue;
+			if (part.getModel() instanceof PageElement) {
+				if (ViewUtil.parentPageIsOnClipboard(part, parts)) {
+					continue;
+				}
+				else if (containsAPage(parts)) {
+					//Clip is a "loose element" and clipboard contains other pages
+					//Skip element (not mix loose elements and other pages)
+					continue;
+				}
 			}
 			newClips.add(part);
 		}
 		return newClips;
+	}
+	
+	public static boolean containsAPage(List parts) {
+		for (Iterator iter = parts.iterator(); iter.hasNext();){
+			Object selected = iter.next();
+			if (selected instanceof AbstractPageEditPart) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
