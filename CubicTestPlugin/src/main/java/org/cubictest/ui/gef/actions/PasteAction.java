@@ -55,7 +55,7 @@ public class PasteAction extends SelectionAction {
 	@Override
 	protected boolean calculateEnabled() {
 		StructuredSelection selection = (StructuredSelection) getSelection();
-		if (selection.size() > 1)
+		if (selection == null || selection.size() > 1)
 			return false;
 		
 		if (!(selection.getFirstElement() instanceof EditPart)) {
