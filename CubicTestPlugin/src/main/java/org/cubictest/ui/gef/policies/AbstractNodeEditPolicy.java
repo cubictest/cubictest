@@ -22,8 +22,9 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 
 /**
- * @author Stein Kåre Skytteren
  * Abstract class for the nodes in the graphical test editor.
+ * 
+ * @author SK Skytteren
  */
 public abstract class AbstractNodeEditPolicy extends GraphicalNodeEditPolicy {
 
