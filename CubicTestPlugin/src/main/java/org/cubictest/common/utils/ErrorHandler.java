@@ -125,4 +125,13 @@ public class ErrorHandler {
 		}
 		return e;
 	}
+
+	public static void showInfoDialog(String message) {
+		try {
+			MessageDialog.openInformation(new Shell(), UiText.APP_TITLE, message);
+		}
+		catch (Throwable t) {
+			System.out.println("Could not show info dialog: " + message);
+		}
+	}
 }

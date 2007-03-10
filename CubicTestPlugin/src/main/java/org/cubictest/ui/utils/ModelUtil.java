@@ -5,6 +5,7 @@
 package org.cubictest.ui.utils;
 
 import org.cubictest.common.exception.CubicException;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Common;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
@@ -48,6 +49,8 @@ public class ModelUtil {
 		if (isReconnectingSourceNode) {
 			if (sourceNode.hasInTransition() && sourceNode.getInTransition().getStart().equals(targetNode)) {
 				//cycle between source and target
+				ErrorHandler.showInfoDialog("Cycles are not allowed.\n" +
+						"Hint: Create a new page/state instead.");
 				return TRANSITION_EDIT_NOT_VALID;
 			}
 		}
@@ -56,6 +59,8 @@ public class ModelUtil {
 			
 			if (sourceNode.hasInTransition() && sourceNode.getInTransition().getStart().equals(targetNode))  {
 				//cycle between source and target
+				ErrorHandler.showInfoDialog("Cycles are not allowed.\n" +
+						"Hint: Create a new page/state instead.");
 				return TRANSITION_EDIT_NOT_VALID;
 			}
 
@@ -67,6 +72,8 @@ public class ModelUtil {
 				}
 				else {
 					//multiple in-transitions not allowed, unless from Common
+					ErrorHandler.showInfoDialog("Multiple in-connections to a page are not allowed, unless from a Common.\n" +
+							"Hint: Create a new page/state instead.");
 					return TRANSITION_EDIT_NOT_VALID;
 				}
 			}
