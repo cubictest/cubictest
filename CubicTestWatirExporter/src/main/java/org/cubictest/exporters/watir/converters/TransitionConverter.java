@@ -137,6 +137,7 @@ public class TransitionConverter implements ITransitionConverter<IStepList> {
 			step = new TestStep("ie." + elementType + "(" + idType + ", \"" + idText + "\").fireEvent(\"" + eventType + "\")");
 			step.setDescription("FireEvent '" + eventType + "' on " + element.getType() + " with " + idType + " = '" + idText + "'");
 		}
+		steps.add(step);
 	}
 
 	
