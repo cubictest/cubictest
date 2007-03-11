@@ -92,7 +92,7 @@ public class ContextContainerEditPolicy extends ContainerEditPolicy {
 		createElementCmd.setPageElement(pageElement);
 		createElementCmd.setIndex(index);
 		
-		IContext node = (IContext) getHost().getModel(); 
+		//IContext node = (IContext) getHost().getModel(); 
 		return ViewUtil.getCompoundCommandWithResize(createElementCmd, ViewUtil.ADD, getHost());
 	}
 }

@@ -70,7 +70,7 @@ public class SelectContextContainerEditPolicy extends
 		createElementCmd.setPageElement(option);
 		createElementCmd.setIndex(index);
 		
-		IContext node = (IContext) getHost().getModel(); 
+		//IContext node = (IContext) getHost().getModel(); 
 		return ViewUtil.getCompoundCommandWithResize(createElementCmd, ViewUtil.ADD, getHost());
 	}
 }
