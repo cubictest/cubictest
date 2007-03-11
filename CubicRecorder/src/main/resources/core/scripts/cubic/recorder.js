@@ -13,14 +13,24 @@ Cubic.recorder.ContextMenu.prototype = {
 		this.menuItems = [];
 		this.contextMenu = contextMenu;
 		this.contextMenu.beforeShowEvent.subscribe(this.onBeforeShow, this, true);
+		this.contextMenu.showEvent.subscribe(this.onShow, this, true);
 	},
 	
 	onBeforeShow: function() {
 		YAHOO.log("onBeforeShow");
-		
+		/* FIX for scrolling bug in Firefox (page scrolls to the bottom the first time the menu is triggered) */
+		this.scrollLeft = this.contextMenu.element.ownerDocument.defaultView.scrollX;
+		this.scrollTop = this.contextMenu.element.ownerDocument.defaultView.scrollY;
 		for(var i=0; i < this.menuItems.length; i++) {
 			this.menuItems[i].setTarget(this.contextMenu.contextEventTarget);
 		}
+	},
+	
+	onShow: function() {
+		YAHOO.log("onShow");
+		/* FIX for scrolling bug in Firefox (page scrolls to the bottom the first time the menu is triggered) */
+		this.contextMenu.element.ownerDocument.defaultView.scrollTo(this.scrollLeft, this.scrollTop);
+		//Element.scrollTo(this.contextMenu.element);
 	},
 	
 	addItem: function(menuItem) {
@@ -194,7 +204,7 @@ Cubic.recorder.ActionRecorder.prototype = {
 	mouseClick: function(e) {
 		var element = Event.element(e);
 		if(!this.isIgnored(element)) {
-			if(element.tagName != "A") {
+			if(element.tagName != "A" && element.tagName != "IMG") {
 				var temp = Event.findElement(e, "A");
 				if(temp.tagName == "A") {
 					element = temp;
@@ -202,7 +212,7 @@ Cubic.recorder.ActionRecorder.prototype = {
 			}
 
 			if((element.tagName == "INPUT" && element.type != "text" && element.type != "password")
-				|| element.tagName == "A"
+				|| element.tagName == "A" || element.tagName == "IMG"
 			) {
 				this.rpcRecorder.addAction(this.CLICK, Cubic.dom.serializeDomNode(element));
 			}
@@ -211,21 +221,20 @@ Cubic.recorder.ActionRecorder.prototype = {
 	
 	keyDown: function(e) {
 		var element = Event.element(e);
-		if(!this.isIgnored(element)) {
-			YAHOO.log("keyDown: " + element.tagName);
-			
-			if(e.keyCode == Event.KEY_RETURN) {
-				return this.inputOnBlur(e);
-			}
-			
-			if(element.tagName == "INPUT") {
-				if((element.type == "text" || element.type == "password") && !element.cubic_inputOnBlur) {
-					Event.observe(element, 'blur', this.inputOnBlur.bindAsEventListener(this), true);
-					element.cubic_inputOnBlur=true;
-				}
-			}
-		} else {
-			YAHOO.log("KeyDown Ignored");
+		if(this.isIgnored(element) || !this.isTextInput(element)) {
+			return;
+		}
+		
+		YAHOO.log("keyDown: " + element.tagName);
+		
+		if(e.keyCode == Event.KEY_RETURN) {
+			return this.inputOnBlur(e);
+		}
+	
+		if(!element.cubic_inputOnBlur) {
+			element.cubic_oldInputValue = element.value;
+			Event.observe(element, 'blur', this.inputOnBlur.bindAsEventListener(this), true);
+			element.cubic_inputOnBlur=true;
 		}
 	},
 	
@@ -238,5 +247,9 @@ Cubic.recorder.ActionRecorder.prototype = {
 		}
 		this.rpcRecorder.addAction(this.ENTER_TEXT, Cubic.dom.serializeDomNode(input), input.value);
 		input.cubic_oldInputValue = input.value;
+	},
+	
+	isTextInput : function(element) {
+		return (element.tagName == "INPUT" && (element.type == "text" || element.type == "password")) || element.tagName == "TEXTAREA";
 	}
 }

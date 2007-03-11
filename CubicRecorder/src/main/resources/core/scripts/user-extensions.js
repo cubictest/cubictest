@@ -46,12 +46,19 @@ Cubic.load('scripts/YahooUI/reset/reset.css');
 Cubic.load('scripts/YahooUI/logger/assets/logger.css');
 
 Event.observe(window, 'load', function() {
+	// Hide output
+	document.getElementsByTagName("TABLE")[0].style.width = "100%";
+	document.getElementsByTagName("TABLE")[0].style.border = "1px solid red";
+	document.getElementsByTagName("TR")[0].style.display = "none";
+
+/*
 var temp = document.createElement("div");
 document.body.appendChild(temp);
 temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="position: absolute; display: block; top: 0">google.no</a>';
+*/
 
 	var iframeName = 'myiframe';
-	var myLogReader = new YAHOO.widget.LogReader(); 
+//	var myLogReader = new YAHOO.widget.LogReader(); 
 	var jsonrpc = new JSONRpcClient("/selenium-server/cubic-recorder/JSON-RPC");
 	var yuiContextMenu;
 	var cubicContextMenu;
@@ -75,6 +82,9 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 			yuiContextMenu.destroy();
 		}
 		
+		var menuElement = frameDoc.createElement("div");
+		menuElement.id = "cubicContextMenu";
+		frameDoc.body.insertBefore(menuElement, frameDoc.body.firstChild);
 		yuiContextMenu = new YAHOO.widget.ContextMenu("cubicContextMenu", { trigger: frameDoc, width: "", zIndex: 1000 });
 		cubicContextMenu = new Cubic.recorder.ContextMenu(yuiContextMenu);
 		

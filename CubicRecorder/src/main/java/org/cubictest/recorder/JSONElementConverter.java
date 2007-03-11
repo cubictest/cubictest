@@ -112,14 +112,31 @@ public class JSONElementConverter {
 				return null;
 			}
 			
-			if(getString(properties, "tagName").equals("BUTTON") || 
+			if(getString(properties, "tagName").equals("DIV")) {
+				pe.setIdentifierType(IdentifierType.ID);
+				pe.setDescription(getString(properties, "id"));
+				pe.setText(getString(properties, "id"));
+			} else if(getString(properties, "tagName").equals("IMG")) {
+				if(getString(properties, "id") != null && !getString(properties, "id").equals("")) {
+					pe.setIdentifierType(IdentifierType.ID);
+					pe.setText(getString(properties, "id"));
+					pe.setDescription(getString(properties, "id"));
+				} else {
+					pe.setIdentifierType(IdentifierType.LABEL);
+					pe.setText(getString(properties, "src"));			
+				}
+			} else if(getString(properties, "tagName").equals("BUTTON") || 
 			  (getString(properties, "tagName").equals("INPUT") && 
 			    (getString(properties, "type").equals("button") || getString(properties, "type").equals("submit")))) {
 				pe.setText(getString(properties, "value"));
 				pe.setIdentifierType(IdentifierType.LABEL);
 			} else if(getString(properties, "tagName").equals("A")) {
-				pe.setText(getString(properties, "innerHTML").trim());
+				String text = getString(properties, "innerHTML").trim();
 				pe.setIdentifierType(IdentifierType.LABEL);
+				pe.setText(text);
+//				if(text.length() > 60) {					
+//					pe.setDescription(text.substring(0, 60) + "...");
+//				}
 			} else if(getString(properties, "tagName").equals("TITLE")) {
 				pe.setText(getString(properties, "innerHTML").trim());
 			} else if(getString(element, "label") != null && !getString(element, "label").equals("")) {
