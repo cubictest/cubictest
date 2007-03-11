@@ -92,7 +92,7 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 			append(str, "begin", 3);
 			append(str, "textIndex = " + steps.getPrefix() + ".text.index(\"" + text.getText() + "\")", 4);
 			append(str, "if(textIndex != nil)", 4);
-			append(str, "raise " + StepList.TEXT_ASSERTION_EXCEPTION, 5);
+			append(str, "raise " + StepList.TEXT_ASSERTION_FAILURE, 5);
 			append(str, "end", 4);
 		} else {
 			append(str, "textIndex = nil", 2);
@@ -100,11 +100,11 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 			append(str, "begin", 3);
 			append(str, "textIndex = "+ steps.getPrefix() +".text.index(\"" + text.getText() + "\")", 4);
 			append(str, "if(textIndex == nil)", 4);
-			append(str, "raise " + StepList.TEXT_ASSERTION_EXCEPTION, 5);
+			append(str, "raise " + StepList.TEXT_ASSERTION_FAILURE, 5);
 			append(str, "end", 4);
 		}
 		append(str, "passedSteps += 1 ", 4);
-		append(str, "rescue " + StepList.TEXT_ASSERTION_EXCEPTION, 3);
+		append(str, "rescue " + StepList.TEXT_ASSERTION_FAILURE, 3);
 		append(str, "pass += 1", 4);
 		append(str, "sleep 0.1", 4);
 		append(str, "if ( pass >= 20 ) then", 4);

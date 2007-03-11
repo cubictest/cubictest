@@ -17,7 +17,7 @@ public class StepList implements IStepList {
 	private StringBuffer buffer;
 	private boolean browserStarted = false;
 	private static final String URL_INVOKE_PATTERN = "ie.goto(";
-	public static final String TEXT_ASSERTION_EXCEPTION = "TextAssertionException";
+	public static final String TEXT_ASSERTION_FAILURE = "TextAssertionFailure";
 	private String prefix = "ie";
 	
 	/**
@@ -30,7 +30,7 @@ public class StepList implements IStepList {
 		add("require 'rubygems'", 0);
 		add("require 'watir'", 0);
 		add("require 'test/unit'", 0);
-		add("class " + TEXT_ASSERTION_EXCEPTION + " < RuntimeError", 0);
+		add("class " + TEXT_ASSERTION_FAILURE + " < RuntimeError", 0);
 		add("end", 0);
 		add("class TC_cubicTestWatirExport_" + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
 		add("def test_exported", 1);
