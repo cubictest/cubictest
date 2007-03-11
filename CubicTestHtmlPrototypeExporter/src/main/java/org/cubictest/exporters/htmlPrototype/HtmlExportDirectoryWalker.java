@@ -10,6 +10,7 @@ import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
 import org.cubictest.export.DirectoryWalker;
+import org.cubictest.exporters.htmlPrototype.delegates.HtmlPageCreator;
 import org.cubictest.exporters.htmlPrototype.delegates.TestConverter;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
@@ -32,7 +33,7 @@ public class HtmlExportDirectoryWalker<T> extends DirectoryWalker<T>  {
 	 * This exporter uses its own test converter, not the common TreeTestWalker
 	 */
 	private TestConverter testConverter;
-
+	
 	public HtmlExportDirectoryWalker(IResource resource, TestConverter testConverter, String outFileExtension) {
 		super(resource, null, outFileExtension, null);
 		this.testConverter = testConverter;
@@ -50,6 +51,8 @@ public class HtmlExportDirectoryWalker<T> extends DirectoryWalker<T>  {
 		if(!destinationFolder.exists()) {
 			destinationFolder.create(false, true, null);				
 		}
+		
+		
 		testConverter.convert(test, destinationFolder.getRawLocation().toFile(), null);
 		
 		try {

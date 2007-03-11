@@ -138,11 +138,6 @@ public class HtmlPageCreator {
 	}
 	
 	private void addPageElement(PageElement pe, Element result) {
-		if(pe instanceof IContext) {
-			addPageElements(((IContext) pe).getElements());
-			return;
-		}
-		
 		try {
 			Element element = pageElementConverter.convert(pe);
 			elements.put(pe, element);
@@ -217,19 +212,21 @@ public class HtmlPageCreator {
 					}
 					
 					String attributeValue = "";
-					if(element.getAttributeValue(actionAttribute) != null) {
-						attributeValue += element.getAttributeValue(actionAttribute);
-						attributeValue = attributeValue.replaceAll("return false;", "");
-					}
-					
-					attributeValue += "UserInteractions.test('" + uaId + "', " + i + ", this); return false;";
-					element.setAttribute(actionAttribute, attributeValue);
-					if(element.getAttribute("class") == null || element.getAttribute("class").toString().indexOf("actionable") == -1) {
-						String classes = element.getAttributeValue("class");
-						if(classes == null) {
-							classes = "";
+					if(element != null) {						
+						if(element.getAttributeValue(actionAttribute) != null) {
+							attributeValue += element.getAttributeValue(actionAttribute);
+							attributeValue = attributeValue.replaceAll("return false;", "");
 						}
-						element.setAttribute("class", "actionable " + classes);
+						
+						attributeValue += "UserInteractions.test('" + uaId + "', " + i + ", this); return false;";
+						element.setAttribute(actionAttribute, attributeValue);
+						if(element.getAttribute("class") == null || element.getAttribute("class").toString().indexOf("actionable") == -1) {
+							String classes = element.getAttributeValue("class");
+							if(classes == null) {
+								classes = "";
+							}
+							element.setAttribute("class", "actionable " + classes);
+						}
 					}
 					actionJs += "['" + attribute + "'," + value + ", false],";
 					i++;					
