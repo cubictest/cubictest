@@ -84,30 +84,30 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 		
 		StringBuffer str = new StringBuffer();
 		
-		append(str, "count = 0", 2);
+		append(str, "pass = 0", 2);
 		
 		if (text.isNot()){
-			append(str, "i = 0", 2);
-			append(str, "while i != nil and count < 20 do", 2);
+			append(str, "textIndex = 0", 2);
+			append(str, "while textIndex != nil and pass < 20 do", 2);
 			append(str, "begin", 3);
-			append(str, "i = " + steps.getPrefix() + ".text.index(\"" + text.getText() + "\")", 4);
-			append(str, "if(i != nil)", 4);
+			append(str, "textIndex = " + steps.getPrefix() + ".text.index(\"" + text.getText() + "\")", 4);
+			append(str, "if(textIndex != nil)", 4);
 			append(str, "raise " + StepList.TEXT_ASSERTION_EXCEPTION, 5);
 			append(str, "end", 4);
 		} else {
-			append(str, "i = nil", 2);
-			append(str, "while i == nil and count < 20 do", 2);
+			append(str, "textIndex = nil", 2);
+			append(str, "while textIndex == nil and pass < 20 do", 2);
 			append(str, "begin", 3);
-			append(str, "i = "+ steps.getPrefix() +".text.index(\"" + text.getText() + "\")", 4);
-			append(str, "if(i == nil)", 4);
+			append(str, "textIndex = "+ steps.getPrefix() +".text.index(\"" + text.getText() + "\")", 4);
+			append(str, "if(textIndex == nil)", 4);
 			append(str, "raise " + StepList.TEXT_ASSERTION_EXCEPTION, 5);
 			append(str, "end", 4);
 		}
 		append(str, "passedSteps += 1 ", 4);
 		append(str, "rescue " + StepList.TEXT_ASSERTION_EXCEPTION, 3);
-		append(str, "count += 1", 4);
+		append(str, "pass += 1", 4);
 		append(str, "sleep 0.1", 4);
-		append(str, "if ( count >= 20 ) then", 4);
+		append(str, "if ( pass >= 20 ) then", 4);
 		append(str, "failedSteps += 1 ", 5);
 		String prefixEsc = StringUtils.replace(steps.getPrefix(),"\"", "\\\"");
 		String ctxMessage = "";
@@ -231,10 +231,10 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 	 */
 	private void appendWaitStatement(StringBuffer buff, String element, String type, String value, String prefix) {
 		
-		append(buff, "count = 0", 3);
-		append(buff, "while not " + prefix + "." + element + "(" + type + ", \"" + value + "\").exists? and count < 20 do", 3);
+		append(buff, "pass = 0", 3);
+		append(buff, "while not " + prefix + "." + element + "(" + type + ", \"" + value + "\").exists? and pass < 20 do", 3);
 		append(buff, "sleep 0.1", 4);
-		append(buff, "count += 1", 4);
+		append(buff, "pass += 1", 4);
 		append(buff, "end", 3);
 	}
 	
