@@ -21,6 +21,7 @@ import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.MovePageCommand;
 import org.cubictest.ui.gef.controller.ExtensionStartPointEditPart;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
+import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.controller.UrlStartPointEditPart;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.geometry.Point;
@@ -54,17 +55,19 @@ public class PasteAction extends SelectionAction {
 
 	@Override
 	protected boolean calculateEnabled() {
-		StructuredSelection selection = (StructuredSelection) getSelection();
-		if (selection == null || selection.size() > 1)
+		Object selectionObj = getSelection();
+		if (selectionObj == null || !(selectionObj instanceof StructuredSelection)){
 			return false;
+		}
 		
-		if (!(selection.getFirstElement() instanceof EditPart)) {
+		StructuredSelection selection = (StructuredSelection) selectionObj;
+		if (selection.size() > 1 || !(selection.getFirstElement() instanceof EditPart)) {
 			return false;
 		}
 
 		EditPart selectedPart = (EditPart) selection.getFirstElement();
 
-		if(selectedPart instanceof AbstractConnectionEditPart ||
+		if(selectedPart instanceof AbstractConnectionEditPart || selectedPart instanceof TestEditPart ||
 				selectedPart instanceof PropertyChangePart && !((PropertyChangePart) selectedPart).canBeTargetForPaste() ||
 				!(selectedPart.getModel() instanceof IContext) && ViewUtil.containsAPageElement(getClipboardContents())) {
 			return false;
