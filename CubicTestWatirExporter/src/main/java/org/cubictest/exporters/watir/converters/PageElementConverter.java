@@ -12,6 +12,7 @@ import static org.cubictest.model.IdentifierType.LABEL;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.watir.holders.IStepList;
+import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.exporters.watir.holders.TestStep;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.FormElement;
@@ -91,7 +92,7 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 			append(str, "begin", 3);
 			append(str, "i = " + steps.getPrefix() + ".text.index(\"" + text.getText() + "\")", 4);
 			append(str, "if(i != nil)", 4);
-			append(str, "raise \"string found exception\"", 5);
+			append(str, "raise " + StepList.TEXT_ASSERTION_EXCEPTION, 5);
 			append(str, "end", 4);
 		} else {
 			append(str, "i = nil", 2);
@@ -99,11 +100,11 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 			append(str, "begin", 3);
 			append(str, "i = "+ steps.getPrefix() +".text.index(\"" + text.getText() + "\")", 4);
 			append(str, "if(i == nil)", 4);
-			append(str, "raise \"string NOT found exception\"", 5);
+			append(str, "raise " + StepList.TEXT_ASSERTION_EXCEPTION, 5);
 			append(str, "end", 4);
 		}
 		append(str, "passedSteps += 1 ", 4);
-		append(str, "rescue => e", 3);
+		append(str, "rescue " + StepList.TEXT_ASSERTION_EXCEPTION, 3);
 		append(str, "count += 1", 4);
 		append(str, "sleep 0.1", 4);
 		append(str, "if ( count >= 20 ) then", 4);
