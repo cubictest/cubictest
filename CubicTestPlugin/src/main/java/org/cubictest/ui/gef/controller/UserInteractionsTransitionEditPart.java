@@ -36,6 +36,7 @@ import org.eclipse.gef.EditPart;
 
 
 public class UserInteractionsTransitionEditPart extends TransitionEditPart{
+	static int MAX_LABEL_LENGTH = 40;
 	
 	private Figure figure;
 	/**
@@ -88,7 +89,15 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			
 			for(UserInteraction input : inputs){
 				IActionElement element = input.getElement();
-				String inputLabelText = ((element != null)?element.getDescription() + ": " : "") + input.getActionType().getText();
+				String description = "";
+				if(element != null) {
+					description = element.getDescription();
+					if(description.length() > MAX_LABEL_LENGTH) {
+						description = description.substring(0, MAX_LABEL_LENGTH - 3) + "...";
+					}
+					description += ": ";
+				}
+				String inputLabelText = description + input.getActionType().getText();
 				
 				if (ActionType.ENTER_TEXT.equals(input.getActionType()) 
 						&& element instanceof AbstractTextInput) {
