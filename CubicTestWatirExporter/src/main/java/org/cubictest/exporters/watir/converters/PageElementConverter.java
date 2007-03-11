@@ -67,7 +67,6 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 	private void handleTitle(IStepList steps, Title title) {
 		String titleText = StringUtils.replace(title.getText(),"\"", "\\\"");
 		String verify = "assert_equal(\"" + titleText + "\"," + steps.getPrefix() + ".title())";
-		
 		steps.add(new TestStep(verify).setDescription("Check title = '" + titleText + "'"));
 	}
 	
@@ -147,16 +146,16 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 	private void handleLink(IStepList steps, Link link) {
 		String idText = StringUtils.replace(link.getText(),"\"", "\\\"");
 		String idType = WatirUtils.getIdType(link);
+		TestStep step = null;
 		
-		StringBuffer buff = new StringBuffer();
-		appendWaitStatement(buff, "link", idType, idText, steps.getPrefix());
-		append(buff, "assert_equal(\"" + link.getDescription() + "\", ie.link(" + idType + ", \"" + idText + "\").innerText())", 3);
-		TestStep step = new TestStep(buff.toString()).setDescription("Check link present with " + idType + " = '" + idText + "'");
-	
-		if (link.isNot())
-		{
+		if (link.isNot()) {
 			step = new TestStep("assert(!ie.link(" + idType + ", \"" + idText + "/\").exists?)");
 			step.setDescription("Check link NOT present with " + idType + " = '" + idText + "'");
+		}
+		else {
+			StringBuffer buff = new StringBuffer();
+			appendWaitStatement(buff, "link", idType, idText, steps.getPrefix());
+			step = new TestStep(buff.toString()).setDescription("Check link present with " + idType + " = '" + idText + "'");			
 		}
 		
 		steps.add(step);
@@ -182,29 +181,20 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 		
 		if (fe instanceof TextField || fe instanceof Password || fe instanceof TextArea){
 			appendWaitStatement(buff, elementType, idType, idText, steps.getPrefix());
+			//Assert contents of field:
 			append(buff, "assert_equal(\"" + value + "\", " + steps.getPrefix() + "." + elementType + "(" + idType + ", \"" + idText + "\").getContents())", 3);
 		}
-		else if (fe instanceof Option) {
-			if (fe.getIdentifierType().equals(LABEL)) {
-				WatirUtils.appendCheckOptionPresent(buff, steps.getPrefix(), fe.getText());
-			}
-			else {
-				appendWaitStatement(buff, elementType, idType, idText, steps.getPrefix());
-				append(buff, steps.getPrefix() + "." + elementType + "(" + idType + ", \"" + idText + "\").to_s()", 3);
-			}
+		else if (fe instanceof Option && fe.getIdentifierType().equals(LABEL)) {
+			WatirUtils.appendCheckOptionPresent(buff, steps.getPrefix(), fe.getText());
 		}
 		else if (fe instanceof Checkable){
 			value = ((Checkable)fe).isChecked() + "";
 			appendWaitStatement(buff, elementType, idType, idText, steps.getPrefix());
+			//assert checked status:
 			append(buff, "assert(" + steps.getPrefix() + "." + elementType + "(" + idType + ", \"" + idText + "\").checked? == " + value + ")", 3);
 		}
-		else if (fe instanceof Button) {
+		else {
 			appendWaitStatement(buff, elementType, idType, idText, steps.getPrefix());
-			append(buff, steps.getPrefix() + "." + elementType + "(" + idType + ", \"" + idText + "\").to_s()", 3);
-		}
-		else if (fe instanceof Select){
-			appendWaitStatement(buff, elementType, idType, idText, steps.getPrefix());
-			append(buff, steps.getPrefix() + "." + elementType + "(" + idType + ", \"" + idText + "\").to_s()", 3);
 		}
 		
 		if (StringUtils.isNotBlank(buff.toString())) {
@@ -217,24 +207,27 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 			if (fe instanceof Option) {
 				step.setDecorated(true); //do not wrap in retry logic
 			}
+			steps.add(step);
 		}
-}
-
+	}
 
 
 	
 	/**
-	 * @param element The element that are checked to be present. 
-	 * @param type The type of the value representing the element in Watir (name, value, etc)
-	 * @param value The value representing the element on the wep-page.
+	 * @param elementType The element that are checked to be present. 
+	 * @param idType The type of the value representing the element in Watir (name, value, etc)
+	 * @param idText The value representing the element on the wep-page.
 	 * @return A Watir statement that will wait for the element, maximum 2 secounds. 
 	 */
-	private void appendWaitStatement(StringBuffer buff, String element, String type, String value, String prefix) {
+	private void appendWaitStatement(StringBuffer buff, String elementType, String idType, String idText, String prefix) {
 		
 		append(buff, "pass = 0", 3);
-		append(buff, "while not " + prefix + "." + element + "(" + type + ", \"" + value + "\").exists? and pass < 20 do", 3);
+		append(buff, "while not " + prefix + "." + elementType + "(" + idType + ", \"" + idText + "\").exists? do", 3);
 		append(buff, "sleep 0.1", 4);
 		append(buff, "pass += 1", 4);
+		append(buff, "if (pass > 20)", 4);
+		append(buff, "raise " + StepList.ELEMENT_ASSERTION_FAILURE, 5);
+		append(buff, "end", 4);
 		append(buff, "end", 3);
 	}
 	
