@@ -130,12 +130,6 @@ public class AssertionListTest {
 
 
 	@Test
-	public void shouldPassForCorrectOrder2() {
-		list.assertContainsInOrder("Second");
-		list.assertContainsInOrder("Third");
-	}
-
-	@Test
 	public void shouldPassForCorrectOrder3() {
 		list.assertContainsInOrder("First");
 		list.assertContainsInOrder("Second");
