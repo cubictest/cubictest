@@ -6,6 +6,7 @@ package org.cubictest.exporters.selenium.holders;
 
 import java.util.Stack;
 
+import org.cubictest.export.IResultHolder;
 import org.cubictest.exporters.selenium.utils.XmlUtils;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
@@ -18,7 +19,7 @@ import org.jdom.Element;
  * 
  * @author chr_schwarz
  */
-public class SeleneseDocument {
+public class SeleneseDocument implements IResultHolder {
 
 	/** The root element of the document */
 	private Element rootElement;
@@ -64,7 +65,7 @@ public class SeleneseDocument {
 	/**
 	 * Get string representation of the document (for e.g. file write).
 	 */
-	public String toString() {
+	public String toResultString() {
 		Document document = new Document(rootElement);
 		return XmlUtils.getNewXmlOutputter().outputString(document);
 	}
