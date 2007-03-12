@@ -1,8 +1,8 @@
 package org.cubictest.export;
 
 /**
- * Holder to put things into when exporting.
- * Has method for getting the final result of the export.
+ * Holds the exported test.
+ * Has method for getting the final result of the export as a string.
  * 
  * @author chr_schwarz 
  *
