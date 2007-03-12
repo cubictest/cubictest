@@ -4,8 +4,9 @@
  */
 package org.cubictest.export.converters;
 
+import org.cubictest.export.IResultHolder;
 import org.cubictest.model.CustomTestStep;
 
-public interface ICustomTestStepConverter<T> {
+public interface ICustomTestStepConverter<T extends IResultHolder> {
 	public void handleCustomStep(T t, CustomTestStep cts);
 }

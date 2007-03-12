@@ -4,6 +4,7 @@
  */
 package org.cubictest.export.converters;
 
+import org.cubictest.export.IResultHolder;
 import org.cubictest.model.UserInteractionsTransition;
 
 
@@ -12,7 +13,7 @@ import org.cubictest.model.UserInteractionsTransition;
  * 
  * @author chr_schwarz
  */
-public interface ITransitionConverter<T> {
+public interface ITransitionConverter<T extends IResultHolder> {
 	public void handleUserInteractions(T t, UserInteractionsTransition userInteractions);
 
 }

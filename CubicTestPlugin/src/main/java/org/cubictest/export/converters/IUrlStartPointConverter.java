@@ -4,6 +4,7 @@
  */
 package org.cubictest.export.converters;
 
+import org.cubictest.export.IResultHolder;
 import org.cubictest.model.UrlStartPoint;
 
 
@@ -13,13 +14,13 @@ import org.cubictest.model.UrlStartPoint;
  * @author chr_schwarz
  *
  */
-public interface IUrlStartPointConverter<T> {
+public interface IUrlStartPointConverter<T extends IResultHolder> {
 	
 	/**
 	 * Convert a StartPoint to a test step (e.g. invoke a specific URL).
 	 * @param urlStartPoint the UrlStartPoint to convert.
 	 * @return a test step representing the start point.
 	 */
-	public void handleUrlStartPoint(T t, UrlStartPoint urlStartPoint);
+	public void handleUrlStartPoint(T resultHolder, UrlStartPoint urlStartPoint);
 
 }

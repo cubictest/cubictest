@@ -4,6 +4,7 @@
  */
 package org.cubictest.export.converters;
 
+import org.cubictest.export.IResultHolder;
 import org.cubictest.model.PageElement;
 
 
@@ -13,7 +14,7 @@ import org.cubictest.model.PageElement;
  *
  * @author chr_schwarz
 */
-public interface IPageElementConverter<T> {
+public interface IPageElementConverter<T extends IResultHolder> {
 
 	/**
 	 * Converts a page element to a list of test steps verifying that the page element is present.

@@ -7,6 +7,8 @@ package org.cubictest.testutils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.export.IResultHolder;
+
 import junit.framework.AssertionFailedError;
 
 /**
@@ -15,7 +17,7 @@ import junit.framework.AssertionFailedError;
  * 
  * @author chr_schwarz
  */
-public class AssertionList<T> extends ArrayList<T> {
+public class AssertionList<T> extends ArrayList<T> implements IResultHolder {
 	
 	private static final long serialVersionUID = 1L;
 	private int currentPosition = 0;
@@ -64,5 +66,11 @@ public class AssertionList<T> extends ArrayList<T> {
 			throw new AssertionFailedError("There were more elements in the converted list than were asserted in test."
 					+ getDebugInfo());
 		}		
+	}
+
+
+
+	public String toResultString() {
+		return toString();
 	}
 }

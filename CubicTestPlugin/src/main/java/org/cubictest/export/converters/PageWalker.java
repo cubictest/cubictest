@@ -7,6 +7,7 @@
  */
 package org.cubictest.export.converters;
 
+import org.cubictest.export.IResultHolder;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.Page;
@@ -20,7 +21,7 @@ import org.cubictest.model.Page;
  * @author skyt
  * 
  */
-public class PageWalker<T> extends ContextWalker<T> {
+public class PageWalker<T extends IResultHolder> extends ContextWalker<T> {
 
 
 

@@ -4,6 +4,7 @@
  */
 package org.cubictest.export.converters;
 
+import org.cubictest.export.IResultHolder;
 import org.cubictest.model.context.IContext;
 
 
@@ -12,7 +13,7 @@ import org.cubictest.model.context.IContext;
  * 
  * @author chr_schwarz
  */
-public interface IContextConverter<T> {
+public interface IContextConverter<T extends IResultHolder> {
 	
 	/**
 	 * Handle entry into a new context.

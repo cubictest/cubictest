@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.cubictest.common.exception.UnknownExtensionPointException;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.export.IResultHolder;
 import org.cubictest.export.utils.TestWalkerUtils;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStep;
@@ -34,7 +35,7 @@ import org.cubictest.model.UserInteractionsTransition;
  * @author chr_schwarz
  * 
  */
-public class TreeTestWalker<T> {
+public class TreeTestWalker<T extends IResultHolder> {
 
 	private List<TransitionNode> convertedNodes = new ArrayList<TransitionNode>();
 
@@ -57,7 +58,6 @@ public class TreeTestWalker<T> {
 			Class<? extends ICustomTestStepConverter<T>> ctsc) {
 		this.urlStartPointConverter = urlSpc;
 		this.pageWalker = new PageWalker<T>(pec,cc);
-		;
 		this.transitionConverter = tc;
 		this.customTestStepConverter = ctsc;
 	}
@@ -68,9 +68,9 @@ public class TreeTestWalker<T> {
 	 * Converts all paths in test (tree).
 	 * 
 	 * @param test
-	 * @param t
+	 * @param resultHolder
 	 */
-	public void convertTest(Test test, T t) {
+	public void convertTest(Test test, T resultHolder) {
 		
 		//If multiple paths in tree test, we should start from the very beginning for each path.
 		//As we use extension points etc., we do not know in advance how many times to process a node.
@@ -80,7 +80,7 @@ public class TreeTestWalker<T> {
 		try {
 			//be sure to cover all paths:
 			for (int path = 0; path < 42; path++) {
-				convertTransitionNode(t, test.getStartPoint(), null);
+				convertTransitionNode(resultHolder, test.getStartPoint(), null);
 			}
 		} 
 		catch (IllegalAccessException e) {
@@ -99,12 +99,12 @@ public class TreeTestWalker<T> {
 	 * only convert the used path in the subtest (the path leading to the
 	 * extension point that is extended from)
 	 * 
-	 * @param t
+	 * @param resultHolder
 	 * @param node
 	 * @param targetExtensionPoint
 	 *            if non-null, only convert node on path to this ExtensionPoint.
 	 */
-	protected boolean convertTransitionNode(T t, TransitionNode node, ConnectionPoint targetExtensionPoint)
+	protected boolean convertTransitionNode(T resultHolder, TransitionNode node, ConnectionPoint targetExtensionPoint)
 			throws InstantiationException, IllegalAccessException {
 
 		//If multiple paths in tree test, we should start from the very beginning for each path.
@@ -122,24 +122,24 @@ public class TreeTestWalker<T> {
 		if (targetExtensionPoint == null || TestWalkerUtils.isOnExtensionPointPath(node, targetExtensionPoint)) {
 
 			if (node instanceof UrlStartPoint) {
-				urlStartPointConverter.newInstance().handleUrlStartPoint(t,
+				urlStartPointConverter.newInstance().handleUrlStartPoint(resultHolder,
 						(UrlStartPoint) node);
 			} 
 			else if (node instanceof ExtensionStartPoint) {
-				convertTransitionNode(t, (((SubTest) node).getTest()).getStartPoint(), (ExtensionStartPoint) node);
+				convertTransitionNode(resultHolder, (((SubTest) node).getTest()).getStartPoint(), (ExtensionStartPoint) node);
 			} 
 			else if (node instanceof SubTest) {
 				Test test = ((SubTest) node).getTest();
 				List<Transition> out = node.getOutTransitions();
 				// only convert path in subtest leading to the extension
 				// point that is extended from
-				convertTransitionNode(t, test.getStartPoint(), ((ExtensionTransition) out.get(0)).getExtensionPoint());
+				convertTransitionNode(resultHolder, test.getStartPoint(), ((ExtensionTransition) out.get(0)).getExtensionPoint());
 			} 
 			else if (node instanceof Page) {
-				pageWalker.handlePage(t, (Page) node);
+				pageWalker.handlePage(resultHolder, (Page) node);
 			} 
 			else if (node instanceof CustomTestStep) {
-				customTestStepConverter.newInstance().handleCustomStep(t,
+				customTestStepConverter.newInstance().handleCustomStep(resultHolder,
 						(CustomTestStep) node);
 			}
 			else if (node instanceof ExtensionPoint) {
@@ -160,14 +160,14 @@ public class TreeTestWalker<T> {
 				else {
 					if (targetExtensionPoint == null || TestWalkerUtils.isOnExtensionPointPath(endNode, targetExtensionPoint)) {
 						if (outTransition instanceof UserInteractionsTransition) {
-							transitionConverter.newInstance().handleUserInteractions(t,(UserInteractionsTransition) outTransition);
+							transitionConverter.newInstance().handleUserInteractions(resultHolder,(UserInteractionsTransition) outTransition);
 						}
 						else {
 							//only follow connection, no export
 						}
 						
 						// convert end node recursively: 
-						nodeFinished = convertTransitionNode(t, endNode, targetExtensionPoint);
+						nodeFinished = convertTransitionNode(resultHolder, endNode, targetExtensionPoint);
 
 						if (pathNum < node.getOutTransitions().size()) {
 							//end node converted, skip to root of tree to start traversal of the other paths from there.

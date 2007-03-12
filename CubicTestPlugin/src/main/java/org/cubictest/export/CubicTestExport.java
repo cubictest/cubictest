@@ -21,7 +21,7 @@ import org.eclipse.ui.ide.IDE;
  */
 public class CubicTestExport {
 
-	public static <T> void exportSelection(IStructuredSelection selection,
+	public static <T extends IResultHolder> void exportSelection(IStructuredSelection selection,
 			String outFileExtension,
 			Class<? extends IUrlStartPointConverter<T>> urlSpc,
 			Class<? extends ITransitionConverter<T>> tc,

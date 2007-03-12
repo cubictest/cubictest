@@ -6,6 +6,7 @@
 package org.cubictest.export.converters;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.export.IResultHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 
@@ -18,7 +19,7 @@ import org.cubictest.model.context.IContext;
  * @author skyt
  * 
  */
-public class ContextWalker<T> {
+public class ContextWalker<T extends IResultHolder> {
 
 	private Class<? extends IPageElementConverter<T>> pec;
 

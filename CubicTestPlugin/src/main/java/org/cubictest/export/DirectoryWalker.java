@@ -26,7 +26,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
  * @author ovstetun
  * @author chr_schwarz
  */
-public class DirectoryWalker<T> implements IRunnableWithProgress  {
+public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithProgress  {
 	private IResource resource;
 	private String outFileExtension;
 	private TreeTestWalker<T> testWalker;
@@ -135,7 +135,7 @@ public class DirectoryWalker<T> implements IRunnableWithProgress  {
 		}
 		File outFile = outFolder.getFile(outFileName).getRawLocation().toFile();
     	FileWriter out = new FileWriter(outFile);
-        out.write(resultHolder.toString());
+        out.write(resultHolder.toResultString());
         out.close();
 	}
 

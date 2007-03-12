@@ -10,13 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.cubictest.custom.IElementContext;
+import org.cubictest.export.IResultHolder;
 import org.cubictest.model.PageElement;
 import org.cubicunit.Browser;
 import org.cubicunit.Container;
 import org.cubicunit.Document;
 import org.cubicunit.Element;
 
-public class Holder {
+public class Holder implements IResultHolder {
 
 	private Container container;
 	
@@ -75,5 +76,9 @@ public class Holder {
 			context = new ElementContext();
 		}
 		return context;
+	}
+
+	public String toResultString() {
+		return "runner";
 	}
 }
