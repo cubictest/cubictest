@@ -6,11 +6,11 @@
 
 package org.cubictest.ui.gef.actions;
 
-import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
+import org.cubictest.ui.gef.layout.AutoLayout;
 import org.eclipse.gef.ui.actions.EditorPartAction;
 import org.eclipse.ui.IEditorPart;
 
