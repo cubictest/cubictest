@@ -12,6 +12,7 @@ import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.FormElement;
+import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
@@ -97,6 +98,9 @@ public class CubicTestXStream extends XStream {
 		this.alias("userInteractionsTransition", UserInteractionsTransition.class);
 		this.alias("webBrowser", WebBrowser.class);
 		this.alias("customTestStep", CustomTestStep.class);
+		this.alias("identifier", Identifier.class);
+		this.alias("identifierType",IdentifierType.class);
+		
 		this.omitField(Language.class, "properties");
 		
 		//contexts:
@@ -129,4 +133,5 @@ public class CubicTestXStream extends XStream {
 		this.alias("userInteractions", List.class);
 		
 	}
+	
 }

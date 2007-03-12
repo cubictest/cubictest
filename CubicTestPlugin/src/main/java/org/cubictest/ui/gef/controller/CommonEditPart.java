@@ -7,7 +7,6 @@
  */
 package org.cubictest.ui.gef.controller;
 
-import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
 import org.eclipse.draw2d.ColorConstants;

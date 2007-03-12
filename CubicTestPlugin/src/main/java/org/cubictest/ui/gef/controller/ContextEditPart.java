@@ -6,13 +6,11 @@
  */
 package org.cubictest.ui.gef.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
-import org.cubictest.ui.gef.command.ChangePageElementTextCommand;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
 import org.cubictest.ui.gef.directEdit.CubicTestEditorLocator;
 import org.cubictest.ui.gef.policies.ContextContainerEditPolicy;
@@ -27,9 +25,6 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-import org.eclipse.ui.views.properties.IPropertySource;
-import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 
 /**
@@ -69,24 +64,12 @@ public class ContextEditPart extends PageElementEditPart {
 	@Override
 	protected CubicTestGroupFigure createFigure() {
 		CubicTestGroupFigure figure = 
-			new CubicTestGroupFigure(((AbstractContext)getModel()).getDescription(), false);
+			new CubicTestGroupFigure(((AbstractContext)getModel()).getText(), false);
 		figure.setBackgroundColor(ColorConstants.listBackground);
 		figure.getHeader().setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.CONTEXT_IMAGE));
 		figure.setTooltipText("Check context present: $labelText"
 				+ "\nContexts are used for identyfying a part of the page or a single page element.");
 		return figure;
-	}
-	
-	/*
-	 *  (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
-	 */
-	@Override
-	protected void refreshVisuals(){
-		super.refreshVisuals();
-		AbstractContext context = (AbstractContext)getModel();
-		CubicTestGroupFigure figure = (CubicTestGroupFigure) getFigure();
-		figure.setText(context.getDescription());
 	}
 	
 	protected void startDirectEdit(){
@@ -95,8 +78,8 @@ public class ContextEditPart extends PageElementEditPart {
 					TextCellEditor.class,
 					new CubicTestEditorLocator(
 							((CubicTestGroupFigure)getFigure()).getHeader()),
-					((PageElement)getModel()).getDescription());
-		manager.setText(((PageElement)getModel()).getDescription());
+					((PageElement)getModel()).getText());
+		manager.setText(((PageElement)getModel()).getText());
 		manager.show();
 	}
 
@@ -114,79 +97,5 @@ public class ContextEditPart extends PageElementEditPart {
 		CommandStack stack = getViewer().getEditDomain().getCommandStack();
 		if (manager == null && ViewUtil.pageElementHasJustBeenCreated(stack, getModel()))
 			startDirectEdit();
-	}
-	
-	/*
-	 * @see org.eclipse.ui.views.properties.IPropertySource#getPropertyDescriptors()
-	 */
-	public IPropertyDescriptor[] getPropertyDescriptors() {
-		int i = 0;
-		List<IPropertyDescriptor> properties = new ArrayList<IPropertyDescriptor>();
-
-		TextPropertyDescriptor desc = new TextPropertyDescriptor(this + "-DESCRIPTION", 
-				i++ + ": Description:");
-		properties.add(desc);
-
-		TextPropertyDescriptor idText = new TextPropertyDescriptor(this + "-IDTEXT", 
-				i++ + ": Element ID:");
-		properties.add(idText);
-
-		
-		for (Object object : getChildren()){
-			if (object instanceof IPropertySource){
-				if (object instanceof PageElementEditPart){
-					PageElementEditPart child = (PageElementEditPart)object;
-					properties.add(new TextPropertyDescriptor(child,
-							i++ + ": " + child.getType()));
-				}
-			}
-		}
-		IPropertyDescriptor[] ipdA = (IPropertyDescriptor[])properties.toArray( new IPropertyDescriptor[] {});
-
-		return ipdA;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.views.properties.IPropertySource#getPropertyValue(java.lang.Object)
-	 */
-	public Object getPropertyValue(Object id) {
-		if (id.toString().endsWith("-DESCRIPTION")) {
-			return ((AbstractContext)getModel()).getDescription();
-		}
-		else if (id.toString().endsWith("-IDTEXT")) {
-			return ((AbstractContext)getModel()).getText();
-		}
-		else {
-			for (Object child:getChildren()){
-				if (child.equals(id)){
-					return child;
-				}
-			}
-		}
-		return "getProperty Value " + id.toString();
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.views.properties.IPropertySource#setPropertyValue(java.lang.Object, java.lang.Object)
-	 */
-	public void setPropertyValue(Object id, Object value) {
-		if (id.toString().endsWith("-DESCRIPTION")) {
-			super.setPropertyValue(id, value);
-		}
-		else if (id.toString().endsWith("-IDTEXT")) {
-			AbstractContext modelObj = ((AbstractContext)getModel());
-			ChangePageElementTextCommand cmd = new ChangePageElementTextCommand();
-			cmd.setPageElement(modelObj);
-			cmd.setOldText(modelObj.getText());
-			cmd.setNewText((String)value);
-			getViewer().getEditDomain().getCommandStack().execute(cmd);
-			
-		} else {
-			for (Object child : getChildren()){
-				if (child.equals(id)){
-					((IPropertySource)child).setPropertyValue(id,value);
-				}
-			}
-		}
 	}
 }

@@ -32,7 +32,7 @@ public class CubicTestImageRegistry {
 	public static final String NOT_LINK_IMAGE 	= "notLink";
 	public static final String BUTTON_IMAGE		= "button";
 	public static final String TEXT_IMAGE 		= "text";
-	public static final String NOT_TEXT_IMAGE 	= "notTxt";
+	public static final String NOT_TEXT_IMAGE 	= "notText";
 	public static final String TITLE_IMAGE 		= "title";
 	public static final String NOT_TITLE_IMAGE  = "notTitle";
 	public static final String PASSWORD_IMAGE 	= "password";
@@ -140,7 +140,7 @@ public class CubicTestImageRegistry {
 		return imageRegistry.get(key);
 	}
 
-	public ImageDescriptor getDescriptor(String key){
+	public static ImageDescriptor getDescriptor(String key){
 		return imageRegistry.getDescriptor(key);
 	}
 

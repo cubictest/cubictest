@@ -22,11 +22,12 @@ public class UserInteraction extends PropertyAwareObject
 	/** The action the user performs */
 	private  ActionType action = ActionType.NO_ACTION;
 	
-	private SationType sationType = SationType.NONE;
-	private String key = "";
+	private String i18nKey = "";
+	private String paramKey = "";
+	private boolean useI18n;
+	private boolean useParam;
 	
 	public UserInteraction(){}
-	
 	
 	/**
 	 * Construct a new UserInteraction representing a single user interaction on a single page element.
@@ -40,7 +41,6 @@ public class UserInteraction extends PropertyAwareObject
 		this.input = input;
 	}
 	
-	
 	/** 
 	 * Get the action element (e.g. page element) that the action is applied to.
 	 * @return the action element (e.g. page element) that the action is applied to.
@@ -48,7 +48,6 @@ public class UserInteraction extends PropertyAwareObject
 	public IActionElement getElement() {
 		return element;
 	}
-	
 	
 	/** 
 	 * Set the action element (e.g. page element) that the action is applied to.
@@ -106,17 +105,6 @@ public class UserInteraction extends PropertyAwareObject
 	public void resetStatus() {
 		setStatus(TestPartStatus.UNKNOWN);
 	}
-	
-	public void setSationType(SationType type) {
-		SationType oldType = sationType;
-		sationType = type;
-		firePropertyChange(PropertyAwareObject.NAME, oldType, type);
-	}
-	
-	public SationType getSationType() {
-		return sationType;
-	}
-	
 
 	@Override
 	public boolean equals(Object arg) {
@@ -130,19 +118,25 @@ public class UserInteraction extends PropertyAwareObject
 			return toString().equals(arg.toString()); 
 	}
 
-	
-	public void setText(String text){
-		setTextualInput(text);
+	public void setValue(String value){
+		setTextualInput(value);
 	}
-	public String getText() {
+	public String getValue() {
 		return getTextualInput();
 	}
 
-	public String getKey() {
-		return key;
+	public String getI18nKey() {
+		return i18nKey;
 	}
-	public void setKey(String key){
-		this.key = key;
+	public void setI18nKey(String i18nKey){
+		this.i18nKey = i18nKey;
+	}
+	
+	public String getParamKey() {
+		return paramKey;
+	}
+	public void setParamKey(String paramKey) {
+		this.paramKey = paramKey;
 	}
 	
 	public String toString() {
@@ -156,5 +150,21 @@ public class UserInteraction extends PropertyAwareObject
 		else
 			result += " @ " + element.getDescription();
 		return result;
+	}
+
+	public void setUseI18n(boolean useI18n) {
+		this.useI18n = useI18n;
+	}
+
+	public void setUseParam(boolean useParam) {
+		this.useParam = useParam;
+	}
+
+	public boolean useI18n() {
+		return useI18n;
+	}
+
+	public boolean useParam() {
+		return useParam;
 	}
 }

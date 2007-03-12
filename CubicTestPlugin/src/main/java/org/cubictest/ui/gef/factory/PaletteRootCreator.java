@@ -81,8 +81,6 @@ import org.eclipse.swt.widgets.Display;
  */
 public class PaletteRootCreator extends PaletteRoot implements IClassChangeListener {
 
-
-	private static CubicTestImageRegistry imageRegistry = new CubicTestImageRegistry();
 	private PaletteDrawer customTestSteps;
 	private CustomElementLoader customTestStepLoader;
 
@@ -137,50 +135,50 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		tool = new CombinedTemplateCreationEntry(
 				"Add Page/State",
 				"Create a new page/state, representing a stable state of the application between user interations.", Page.class,
-				new DataCreationFactory(Page.class), imageRegistry
+				new DataCreationFactory(Page.class), CubicTestImageRegistry
 						.getDescriptor(PAGE_IMAGE), null);
 		controls.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add Common",
 				"Create a new Common used for holding elements common to several pages/states.", Common.class, new DataCreationFactory(
-						Common.class), imageRegistry
+						Common.class), CubicTestImageRegistry
 						.getDescriptor(COMMON_IMAGE), null);
 		controls.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add a Title",
 				"Check for Title of the document", Title.class,
-				new DataCreationFactory(Title.class), imageRegistry
+				new DataCreationFactory(Title.class), CubicTestImageRegistry
 						.getDescriptor(TITLE_IMAGE), null);
 		controls.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add a Text",
 				"Check for a Text", Text.class, new DataCreationFactory(
-						Text.class), imageRegistry.getDescriptor(TEXT_IMAGE),
+						Text.class), CubicTestImageRegistry.getDescriptor(TEXT_IMAGE),
 				null);
 		controls.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add a Link",
 				"Check for a Link", Link.class, new DataCreationFactory(
-						Link.class), imageRegistry.getDescriptor(LINK_IMAGE),
+						Link.class), CubicTestImageRegistry.getDescriptor(LINK_IMAGE),
 				null);
 		controls.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add an Image",
 				"Check for an Image", Image.class, new DataCreationFactory(
-						Image.class), imageRegistry.getDescriptor(IMAGE_IMAGE),
+						Image.class), CubicTestImageRegistry.getDescriptor(IMAGE_IMAGE),
 				null);
 		controls.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add an Extension Point",
 				"Add an extension point that other tests can start from or include.", ExtensionPoint.class,
-				new DataCreationFactory(ExtensionPoint.class), imageRegistry
+				new DataCreationFactory(ExtensionPoint.class), CubicTestImageRegistry
 						.getDescriptor(EXTENSION_POINT_IMAGE), null);
 		controls.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add a Custom Step",
 				"Create a new Custom Step that lets you write code to do operations not available in the graphical test editor.",
 				CustomTestStep.class, new CustomTestStepCreationFactory(customTestStepLoader), 
-				imageRegistry.getDescriptor(CUSTOM_STEP_IMAGE), null);
+				CubicTestImageRegistry.getDescriptor(CUSTOM_STEP_IMAGE), null);
 		controls.add(tool);
 			
 		// -- Creating Connections --
 		tool = new ConnectionCreationToolEntry("Add Connection",
 				"Creates a new Connection. Typically used for transition from \"Common\"-pages to other pages, and for subtests.", 
-				new DataCreationFactory(Transition.class), imageRegistry.getDescriptor(CONNECTION_IMAGE), null);
+				new DataCreationFactory(Transition.class), CubicTestImageRegistry.getDescriptor(CONNECTION_IMAGE), null);
 		tool.setToolClass(ConnectionDragCreationTool.class);
 		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.TRUE);
 		connections.add(tool);
@@ -189,7 +187,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		tool = new ConnectionCreationToolEntry(
 				"Add User Interaction",
 				"Creates a new User Interaction to change the state of a page (e.g. press a link or fill out and submit a form).",
-				new DataCreationFactory(UserInteractionsTransition.class), imageRegistry.getDescriptor(USER_INTERACTION_IMAGE), null);
+				new DataCreationFactory(UserInteractionsTransition.class), CubicTestImageRegistry.getDescriptor(USER_INTERACTION_IMAGE), null);
 		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED,
 				Boolean.TRUE);
 		tool.setToolClass(ConnectionDragCreationTool.class);
@@ -199,60 +197,60 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		tool = new CombinedTemplateCreationEntry("Add Context",
 				"Creates a new Context used for identyfying a part of the page or a single element.",
 				SimpleContext.class, new DataCreationFactory(
-						SimpleContext.class), imageRegistry.getDescriptor(CONTEXT_IMAGE), null);
+						SimpleContext.class), CubicTestImageRegistry.getDescriptor(CONTEXT_IMAGE), null);
 		contexts.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add Row",
 				"Creates a new table Row",
 				Row.class, new DataCreationFactory(
-						Row.class), imageRegistry.getDescriptor(ROW_IMAGE), null);
+						Row.class), CubicTestImageRegistry.getDescriptor(ROW_IMAGE), null);
 		contexts.add(tool);
 
 		
 		// -- Creating Form Elements --
 		tool = new CombinedTemplateCreationEntry("Add TextField",
 				"Check for a TextField", TextField.class,
-				new DataCreationFactory(TextField.class), imageRegistry
+				new DataCreationFactory(TextField.class), CubicTestImageRegistry
 						.getDescriptor(TEXT_FIELD_IMAGE), null);
 		formElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add CheckBox",
 				"Check for a CheckBox", Checkbox.class,
-				new DataCreationFactory(Checkbox.class), imageRegistry
+				new DataCreationFactory(Checkbox.class), CubicTestImageRegistry
 						.getDescriptor(CHECKBOX_UNCHECKED_IMAGE), null);
 		formElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add RadioButton",
 				"Check for a RadioButton.",
 				RadioButton.class, new DataCreationFactory(RadioButton.class),
-				imageRegistry.getDescriptor(RADIO_BUTTON_CHECKED_IMAGE), null);
+				CubicTestImageRegistry.getDescriptor(RADIO_BUTTON_CHECKED_IMAGE), null);
 		formElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add Button",
 				"Check for a Button. This is any kind of button",
 				Button.class, new DataCreationFactory(Button.class),
-				imageRegistry.getDescriptor(BUTTON_IMAGE), null);
+				CubicTestImageRegistry.getDescriptor(BUTTON_IMAGE), null);
 		formElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add SelectList",
 				"Check for a SelectList", Select.class,
-				new DataCreationFactory(Select.class), imageRegistry
+				new DataCreationFactory(Select.class), CubicTestImageRegistry
 						.getDescriptor(SELECT_IMAGE), null);
 		formElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add Option",
 				"Check for a Option for the SelectList", Option.class,
-				new DataCreationFactory(Option.class), imageRegistry
+				new DataCreationFactory(Option.class), CubicTestImageRegistry
 						.getDescriptor(OPTION_IMAGE), null);
 		formElements.add(tool);
 		
 		tool = new CombinedTemplateCreationEntry("Add TextArea",
 				"Check for a TextArea", TextArea.class,
-				new DataCreationFactory(TextArea.class), imageRegistry
+				new DataCreationFactory(TextArea.class), CubicTestImageRegistry
 						.getDescriptor(TEXT_AREA_IMAGE), null);
 		formElements.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add PasswordField",
 				"Check for a PasswordField", Password.class,
-				new DataCreationFactory(Password.class), imageRegistry
+				new DataCreationFactory(Password.class), CubicTestImageRegistry
 						.getDescriptor(PASSWORD_IMAGE), null);
 		formElements.add(tool);
 		

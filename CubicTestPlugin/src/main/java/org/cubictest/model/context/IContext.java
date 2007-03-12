@@ -9,6 +9,7 @@ package org.cubictest.model.context;
 
 import java.util.List;
 
+import org.cubictest.model.IDescription;
 import org.cubictest.model.PageElement;
 
 /**
@@ -17,7 +18,7 @@ import org.cubictest.model.PageElement;
  * 
  * @author SK SKytteren
  */
-public interface IContext {
+public interface IContext extends IDescription {
 	
 	public void addElement(PageElement pe);
 	public void addElement(PageElement pe, int index);

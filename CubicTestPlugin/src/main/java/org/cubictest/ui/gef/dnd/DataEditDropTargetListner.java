@@ -22,8 +22,6 @@ import org.eclipse.gef.requests.CreationFactory;
  */
 public class DataEditDropTargetListner extends TemplateTransferDropTargetListener{
 
-	private IProject project;
-
 	/**
 	 * The constructor for the <code>DataEditDropTargetListner</code>.
 	 * Uses only the <code>TemplateTransferDropTargetListener</code>'s constructor.
@@ -32,7 +30,6 @@ public class DataEditDropTargetListner extends TemplateTransferDropTargetListene
 	 */
 	public DataEditDropTargetListner(IProject project, EditPartViewer viewer) {
 		super(viewer);
-		this.project = project;
 	}
 
 	/* (non-Javadoc)

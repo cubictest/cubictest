@@ -48,14 +48,6 @@ public class PageTitleEditPart extends PageElementEditPart{
 		return label;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
-	 */
-	protected void refreshVisuals() {
-		super.refreshVisuals();
-		((TestStepLabel)getFigure()).setText(((Title)getModel()).getDescription());
-	}
-
 	/**
 	 * As the <code>getPropertyDescriptors()</code> method but uses the <code>i</code>
 	 * for setting the catergory.
@@ -73,7 +65,7 @@ public class PageTitleEditPart extends PageElementEditPart{
 		return (IPropertyDescriptor[])properties.toArray( new IPropertyDescriptor[] {});
 	}
 	
-	private Image getImage(boolean not) {
+	protected Image getImage(boolean not) {
 		String key = not ? CubicTestImageRegistry.NOT_TITLE_IMAGE : CubicTestImageRegistry.TITLE_IMAGE;
 		return  CubicTestImageRegistry.get(key);
 	}

@@ -9,9 +9,9 @@ package org.cubictest.ui.gef.controller.formElement;
 
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.CubicTestLabel;
 import org.cubictest.ui.gef.view.TestStepLabel;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.swt.graphics.Image;
 
 
 /**
@@ -44,18 +44,14 @@ public class FormCheckboxEditPart extends FormElementEditPart {
 		return figure;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
-	 */
-	protected void refreshVisuals() {
-		super.refreshVisuals();
-		CubicTestLabel figure = (CubicTestLabel) getFigure();
+	@Override
+	protected Image getImage(boolean isNot) {
 		if (getModel() instanceof Checkbox) {
 			Checkbox box = (Checkbox)getModel();
 			String key = box.isChecked() ? CubicTestImageRegistry.CHECKBOX_CHECKED_IMAGE : 
 				CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE;
-			figure.setIcon(CubicTestImageRegistry.get(key));
+			return CubicTestImageRegistry.get(key);
 		}
-		
+		return super.getImage(isNot);
 	}
 }

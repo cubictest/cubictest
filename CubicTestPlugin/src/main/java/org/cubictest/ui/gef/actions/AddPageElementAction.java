@@ -29,7 +29,6 @@ import org.eclipse.ui.IWorkbenchPart;
  */
 public class AddPageElementAction extends SelectionAction {
 
-	private static CubicTestImageRegistry imageRegistry = new CubicTestImageRegistry();
 	private Object selectedObj;
 	private Class<? extends PageElement> pageElement;
 
@@ -135,6 +134,6 @@ public class AddPageElementAction extends SelectionAction {
 	public ImageDescriptor getImageDescriptor() {
 		String type = AddElementContextMenuList.getType(pageElement);
 		type = type.substring(0, 1).toLowerCase() + type.substring(1, type.length());
-		return imageRegistry.getDescriptor(type);
+		return CubicTestImageRegistry.getDescriptor(type);
 	}
 }

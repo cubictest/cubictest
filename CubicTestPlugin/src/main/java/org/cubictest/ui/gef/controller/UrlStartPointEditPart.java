@@ -8,8 +8,8 @@
 package org.cubictest.ui.gef.controller;
 
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.UrlStartPoint;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
 import org.eclipse.draw2d.ColorConstants;

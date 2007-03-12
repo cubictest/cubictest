@@ -24,7 +24,7 @@ public enum IdentifierType {
 	LABEL("Label"),
 
 	/** HTML ID attribute */
-	ID("ID"),
+	ID("Id"),
 
 	/** HTML name attribute */
 	NAME("Name"),
@@ -36,7 +36,15 @@ public enum IdentifierType {
 	HREF("Href"),
 
 	/** HTML src attribute */
-	SRC("Src")
+	SRC("Src"),
+	
+	/** HTML checked attribute */
+	CHECKED("Checked"),
+	
+	//TEXT("Text"),
+	
+	/** HTML title attribute */
+	TITLE("Title")
 	;
 
 	private String displayValue;

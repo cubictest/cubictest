@@ -15,7 +15,6 @@ import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.views.properties.IPropertySource;
 
 
 /**
@@ -23,7 +22,7 @@ import org.eclipse.ui.views.properties.IPropertySource;
  * Contoller for the <code>Link</code> model.
  *
  */
-public class PageLinkEditPart extends PageElementEditPart implements IPropertySource{
+public class PageLinkEditPart extends PageElementEditPart{
 
 	/**
 	 * Constructor for <code>PageLinkEditPart</code>.
@@ -49,19 +48,8 @@ public class PageLinkEditPart extends PageElementEditPart implements IPropertySo
 		return label;
 	}	
 	
-	private Image getImage(boolean not) {
+	protected Image getImage(boolean not) {
 		String key = not ? CubicTestImageRegistry.NOT_LINK_IMAGE : CubicTestImageRegistry.LINK_IMAGE;
 		return  CubicTestImageRegistry.get(key);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
-	 */
-	protected void refreshVisuals() {
-		super.refreshVisuals();
-		TestStepLabel figure = (TestStepLabel)getFigure();
-		PageElement element = (PageElement) getModel();
-		figure.setText(element.getDescription());
-		figure.setIcon(getImage(element.isNot()));
 	}
 }

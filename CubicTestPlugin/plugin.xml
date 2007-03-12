@@ -104,11 +104,6 @@
                id="org.cubictest.tab.test"
                label="Test"/>
          <propertyTab
-               afterTab="org.cubictest.tab.properties"
-               category="CubicTest"
-               id="org.cubictest.tab.oldProperties"
-               label="Old Properties"/>
-         <propertyTab
                afterTab="org.cubictest.tab.test"
                category="CubicTest"
                id="org.cubictest.tab.userActions"
@@ -144,14 +139,6 @@
             <input type="org.cubictest.model.Test"/>
          </propertySection>
          <propertySection
-               class="org.cubictest.ui.sections.OldFashionPropertySection"
-               id="org.cubictest.page.general"
-               tab="org.cubictest.tab.oldProperties">
-            <input type="org.cubictest.model.AbstractPage"/>
-            <input type="org.cubictest.model.PageElement"/>
-         </propertySection>
-         <propertySection
-               afterSection="org.cubictest.test.general"
                class="org.cubictest.ui.sections.StartPointPropertySection"
                id="org.cubictest.test.startPoint"
                tab="org.cubictest.tab.test">
@@ -196,17 +183,24 @@
             <input type="org.cubictest.model.Test"/>
          </propertySection>
          <propertySection
-               class="org.cubictest.ui.sections.properties.IdPropertySection"
-               id="org.cubictest.propertyType.id"
+               afterSection="org.cubitest.element.not"
+               class="org.cubictest.ui.sections.IdentifierSection"
+               id="org.cubictest.element.identifierType"
                tab="org.cubictest.tab.properties">
-            <input type="org.cubictest.model.Link"/>
+            <input type="org.cubictest.model.PageElement"/>
          </propertySection>
          <propertySection
-               afterSection="org.cubictest.propertyType.id"
-               class="org.cubictest.ui.sections.properties.NamePropertySection"
-               id="org.cubictest.propertyType.name"
+               class="org.cubictest.ui.sections.DescriptionSection"
+               id="org.cubictest.element.description"
                tab="org.cubictest.tab.properties">
-            <input type="org.cubictest.model.propertyType.NameProperty"/>
+            <input type="org.cubictest.model.IDescription"/>
+         </propertySection>
+         <propertySection
+               afterSection="org.cubictest.element.description"
+               class="org.cubictest.ui.sections.NotSection"
+               id="org.cubitest.element.not"
+               tab="org.cubictest.tab.properties">
+            <input type="org.cubictest.model.PageElement"/>
          </propertySection>
       </propertySections>
    </extension>

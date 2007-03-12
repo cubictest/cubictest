@@ -7,12 +7,12 @@
  */
 package org.cubictest.ui.gef.actions;
 
-import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.Text;
-import org.cubictest.ui.gef.command.ChangePresentCommand;
-import org.eclipse.gef.EditPart;
+import org.cubictest.ui.gef.command.ChangePageElementNotCommand;
+import org.cubictest.ui.gef.controller.PageElementEditPart;
+import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.eclipse.gef.ui.actions.SelectionAction;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
 
@@ -45,12 +45,13 @@ public class PresentAction extends SelectionAction {
 	protected boolean calculateEnabled() {
 		if (!(getSelection() instanceof StructuredSelection )) return false;
 		Object selection = ((StructuredSelection)getSelection()).getFirstElement();
-		if (selection instanceof EditPart){
-			Object model = ((EditPart)selection).getModel();
-			if (model instanceof Link || model instanceof Text)
-				return true;
+		if (selection instanceof PageElementEditPart){
+			setText((((PageElementEditPart)selection).getModel().isNot())?"set present":"set NOT present");
+			setImageDescriptor(getImageDescriptor());
+			return true;
 		}
 		return false;
+		
 	}
 	
 	/* (non-Javadoc)
@@ -68,16 +69,33 @@ public class PresentAction extends SelectionAction {
 	 * @see org.eclipse.jface.action.Action#run()
 	 */
 	public void run() {
-		ChangePresentCommand command = new ChangePresentCommand();
+		
 		if (!(getSelection() instanceof StructuredSelection )) return;
 		Object selection = ((StructuredSelection)getSelection()).getFirstElement();
-		if (selection instanceof EditPart){
-			Object model = ((EditPart)selection).getModel();
-			if (model instanceof Link || model instanceof Text){
-				command.setPageElement((PageElement)model);
-				getCommandStack().execute(command);
-			}
+		if (selection instanceof PageElementEditPart){
+			ChangePageElementNotCommand command = new ChangePageElementNotCommand();
+			PageElement pe = (PageElement) ((PageElementEditPart)selection).getModel();
+			command.setPageElement(pe);
+			command.setNewNot(!pe.isNot());
+			command.setOldNot(pe.isNot());
+			getCommandStack().execute(command);
 		}
 	}
 
+	@Override
+	public ImageDescriptor getImageDescriptor() {
+		if (!(getSelection() instanceof StructuredSelection )) 
+			return super.getImageDescriptor();
+		Object selection = ((StructuredSelection)getSelection()).getFirstElement();
+		if (selection instanceof PageElementEditPart){
+			PageElement pe = (PageElement) ((PageElementEditPart)selection).getModel();
+			String type = pe.getType();
+			if (pe.isNot())
+				type = type.substring(0, 1).toLowerCase() + type.substring(1, type.length());
+			else
+				type = "not" + type.substring(0, type.length());
+			return CubicTestImageRegistry.getDescriptor(type);
+		}
+		return super.getImageDescriptor();
+	}
 }

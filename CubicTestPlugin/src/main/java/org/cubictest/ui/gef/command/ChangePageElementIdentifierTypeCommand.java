@@ -4,8 +4,8 @@
  */
 package org.cubictest.ui.gef.command;
 
+import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
-import org.cubictest.model.PageElement;
 import org.eclipse.gef.commands.Command;
 
 /**
@@ -15,11 +15,11 @@ import org.eclipse.gef.commands.Command;
  */
 public class ChangePageElementIdentifierTypeCommand extends Command {
 
-	private PageElement element;
+	private Identifier identifier;
 	private IdentifierType oldIdentifierType, newIdentifierType;
 	
-	public void setPageElement(PageElement element) {
-		this.element = element;
+	public void setIdenfier(Identifier identifier) {
+		this.identifier = identifier;
 		
 	}
 	
@@ -34,13 +34,13 @@ public class ChangePageElementIdentifierTypeCommand extends Command {
 	@Override
 	public void execute() {
 		super.execute();
-		element.setIdentifierType(newIdentifierType);
+		identifier.setType(newIdentifierType);
 	}
 	
 	@Override
 	public void undo() {
 		super.undo();
-		element.setIdentifierType(oldIdentifierType);
+		identifier.setType(oldIdentifierType);
 	}
 
 }

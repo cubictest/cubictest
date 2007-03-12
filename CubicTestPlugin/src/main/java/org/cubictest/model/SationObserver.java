@@ -6,20 +6,17 @@ package org.cubictest.model;
 
 public interface SationObserver{
 
-	public enum SationType{
-		NONE,
-		PARAMETERISATION,
-		INTERNATIONALISATION,
-		BOTH;
-	}
+	public void setUseParam(boolean useParam);
+	public boolean useParam();
+	
+	public void setUseI18n(boolean useI18n);
+	public boolean useI18n();
+	
+	public void setValue(String value);
+	
+	public String getParamKey();
+	
+	public String getI18nKey();
 
-	public void setSationType(SationType type);
-	
-	public SationType getSationType();
-	
-	public void setText(String text);
-	
-	public String getKey();
-
-	public String getText();
+	public String getValue();
 }

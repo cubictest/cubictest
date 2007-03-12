@@ -7,13 +7,11 @@
  */
 package org.cubictest.ui.gef.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.IContext;
-import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
 import org.cubictest.ui.gef.directEdit.CubicTestEditorLocator;
 import org.cubictest.ui.gef.policies.AbstractPageDirectEditPolicy;
@@ -34,13 +32,9 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-import org.eclipse.ui.views.properties.IPropertySource;
-import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 
-public abstract class AbstractPageEditPart extends AbstractNodeEditPart 
-		implements IPropertySource{
+public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	
 	private CubicTestDirectEditManager manager;
 
@@ -48,80 +42,8 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart
 	public Object getEditableValue() {
 		return this;
 	}
-	/*
-	 * @see org.eclipse.ui.views.properties.IPropertySource#getPropertyDescriptors()
-	 */
-	public IPropertyDescriptor[] getPropertyDescriptors() {
-		int i = 0;
-		List<IPropertyDescriptor> properties = new ArrayList<IPropertyDescriptor>();
-		TextPropertyDescriptor pd = new TextPropertyDescriptor(this, 
-				i++ + ": " + getType() + " - Description:");
-		properties.add(pd);
-		
-		for (Object object : getChildren()){
-			if (object instanceof IPropertySource){
-				if (object instanceof PageElementEditPart){
-					PageElementEditPart child = (PageElementEditPart)object;
-					properties.add(new TextPropertyDescriptor(child,
-							i++ + ": " + child.getType()));
-				}
-			}
-		}
-		IPropertyDescriptor[] ipdA = (IPropertyDescriptor[])properties.toArray( new IPropertyDescriptor[] {});
-
-		return ipdA;
-	}
 
 	protected abstract String getType();
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.views.properties.IPropertySource#getPropertyValue(java.lang.Object)
-	 */
-	public Object getPropertyValue(Object id) {
-		if (id.equals(this)) return ((AbstractPage)getModel()).getName();
-		else {
-			for (Object child:getChildren()){
-				if (child.equals(id)){
-					return child;
-				}
-			}
-		}
-		return "getProperty Value " + id.toString();
-		//return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.views.properties.IPropertySource#isPropertySet(java.lang.Object)
-	 */
-	public boolean isPropertySet(Object id) {
-		return true;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.views.properties.IPropertySource#resetPropertyValue(java.lang.Object)
-	 */
-	public void resetPropertyValue(Object id) {
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.views.properties.IPropertySource#setPropertyValue(java.lang.Object, java.lang.Object)
-	 */
-	public void setPropertyValue(Object id, Object value) {
-		if (id.equals(this)){
-			AbstractPage page = ((AbstractPage)getModel());			
-			ChangeAbstractPageNameCommand cmd = new ChangeAbstractPageNameCommand();
-			cmd.setAbstractPage(page);
-			cmd.setOldName(page.getName());
-			cmd.setName((String) value);
-			getViewer().getEditDomain().getCommandStack().execute(cmd);
-		}else {
-			for (Object child : getChildren()){
-				if (child.equals(id)){
-					((IPropertySource)child).setPropertyValue(id,value);
-				}
-			}
-		}
-	}
 
 	private void startDirectEdit() {
 		if (manager == null)

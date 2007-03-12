@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.Test;
-import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.TestContainerEditPolicy;
 import org.cubictest.ui.gef.policies.TestXYLayoutEditPolicy;
 import org.cubictest.ui.gef.view.TestFigure;

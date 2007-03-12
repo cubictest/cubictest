@@ -136,10 +136,10 @@ public class CubicTestDirectEditManager extends DirectEditManager {
 	
 	/**
 	 * Sets the text <code>String</code> to edit.
-	 * @param string
+	 * @param text
 	 */
-	public void setText(String string) {
-		this.label = string;
+	public void setText(String text) {
+		this.label = text;
 	}
 
 	private void restoreSavedActions(IActionBars actionBars){

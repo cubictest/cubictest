@@ -15,6 +15,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.model.Common;
 import org.cubictest.model.FormElement;
+import org.cubictest.model.Identifier;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Transition;
@@ -88,11 +89,24 @@ public class PopulateCommonCommand extends Command{
 			return false;
 		}
 		else {
-			//other page elements such as Text, Link, Image and Title
+			if(e2.getIdentifiers().size() != e3.getIdentifiers().size()){
+				return false;
+			}
+			for(int i = 0; i < e2.getIdentifiers().size(); i++){
+				Identifier id2 = e2.getIdentifiers().get(i);
+				Identifier id3 = e3.getIdentifiers().get(i);
+				if(!StringUtils.equals(id2.getActual(),id3.getActual())||
+						(id2.getProbability() != id3.getProbability()) ||
+						!StringUtils.equals(id2.getI18nKey(),id3.getI18nKey()) ||
+						!StringUtils.equals(id2.getParamKey(),id3.getParamKey()) ||
+						(id2.useI18n() != id3.useI18n()) ||
+						(id2.useParam() != id3.useParam()) ||
+						(id2.getType() != id3.getType()) ||
+						!StringUtils.equals(id2.getValue(),id3.getValue()))
+					return false;
+			}
 			return (StringUtils.equals(e2.getDescription(), e3.getDescription()) &&
-					e2.isNot() == e3.isNot() &&
-					StringUtils.equals(e2.getKey(), e3.getKey()) &&
-					e2.getSationType().equals(e3.getSationType()));
+					e2.isNot() == e3.isNot());
 		}
 	}
 

@@ -24,6 +24,7 @@ public abstract class PropertyAwareObject{
 	public static final String LAYOUT = "LAYOUT";
 	public static final String STATUS = "STATUS";
 	public static final String PARAM = "PARAM";
+	public static final String NOT = "NOT";
 	
 	protected TestPartStatus status;
 	
@@ -41,7 +42,8 @@ public abstract class PropertyAwareObject{
 	}
 	
 	protected void firePropertyChange(String prop, Object old, Object newValue){
-		getListeners().firePropertyChange(prop, old, newValue);
+		PropertyChangeSupport list = getListeners();
+		list.firePropertyChange(prop, old, newValue);
 	}	
 
 	public TestPartStatus getStatus(){

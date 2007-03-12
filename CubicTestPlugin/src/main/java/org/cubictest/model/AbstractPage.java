@@ -21,6 +21,7 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 
 	private List<PageElement> elements = new ArrayList<PageElement>();
 	private String name;
+	private String description = "";
 	
 	public void addElement(PageElement pe, int index){
 		//idempotent:
@@ -118,6 +119,16 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 	@Override
 	public String toString() {
 		return getClass().getName() + ": " + getName();
+	}
+	
+	public String getDescription() {
+		if (description == null)
+			return "";
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

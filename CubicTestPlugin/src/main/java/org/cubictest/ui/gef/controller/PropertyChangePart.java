@@ -12,6 +12,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Iterator;
 import java.util.List;
 
+import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.ui.gef.view.TestStepLabel;
@@ -78,9 +79,14 @@ public abstract class PropertyChangePart extends AbstractGraphicalEditPart imple
 			if(this instanceof TestEditPart){
 				((TestEditPart)this).updateParams();
 			}
+		}else if (PageElement.NOT.equals(property)){
+			if(this instanceof PageElementEditPart){
+				((PageElementEditPart)this).refresh();
+			}
 		}
 		refreshChildren();
 		refreshVisuals();
+		refresh();
 	}
 	
 	private void handleStatusChange(PropertyChangeEvent evt) {

@@ -4,17 +4,17 @@
  */
 package org.cubictest.ui.gef.command;
 
-import org.cubictest.model.PageElement;
+import org.cubictest.model.IDescription;
 import org.eclipse.gef.commands.Command;
 
 
-public class ChangePageElementDescriptionCommand extends Command {
+public class ChangeDescriptionCommand extends Command {
 
-	private PageElement element;
+	private IDescription description;
 	private String oldDescription, newDescription;
 	
-	public void setPageElement(PageElement element) {
-		this.element = element;
+	public void setDesctription(IDescription description) {
+		this.description = description;
 		
 	}
 	public void setOldDescription(String oldDescription) {
@@ -27,13 +27,13 @@ public class ChangePageElementDescriptionCommand extends Command {
 	@Override
 	public void execute() {
 		super.execute();
-		element.setDescription(newDescription);
+		description.setDescription(newDescription);
 	}
 	
 	@Override
 	public void undo() {
 		super.undo();
-		element.setDescription(oldDescription);
+		description.setDescription(oldDescription);
 	}
 
 }

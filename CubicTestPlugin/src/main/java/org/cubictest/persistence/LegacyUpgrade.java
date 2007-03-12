@@ -25,10 +25,9 @@ public class LegacyUpgrade {
 		xml = upgradeModel1to2(xml, version);
 		xml = upgradeModel2to3(xml, project, version);
 		xml = upgradeModel3to4(xml, version);
-		
+		xml = upgradeModel4to5(xml, version);
 		return xml;
 	}
-
 
 	private static String upgradeModel1to2(String xml, ModelVersion version) {
 		if (version.getVersion() != 1) {
@@ -88,6 +87,18 @@ public class LegacyUpgrade {
 		return xml;
 	}
 	
+	private static String upgradeModel4to5(String xml, ModelVersion version) {
+		if (version.getVersion() != 4) {
+			return xml;
+		}
+		
+		
+		
+		//version.increment();
+		return xml;
+	}
+
+	
 	private static ModelVersion getModelVersion(String xml) {
 		String start = "<modelVersion>";
 		String end = "</modelVersion>";
@@ -97,9 +108,7 @@ public class LegacyUpgrade {
 
 		// only supporting integer versions:
 		return new ModelVersion(version.intValue());
-	}
-	
-	
+	}	
 	
 	static class ModelVersion {
 		private int version;

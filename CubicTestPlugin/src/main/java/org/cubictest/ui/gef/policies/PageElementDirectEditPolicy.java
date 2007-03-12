@@ -6,7 +6,7 @@
 package org.cubictest.ui.gef.policies;
 
 import org.cubictest.model.PageElement;
-import org.cubictest.ui.gef.command.ChangePageElementDescriptionCommand;
+import org.cubictest.ui.gef.command.ChangePageElementTextCommand;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
@@ -22,12 +22,12 @@ public class PageElementDirectEditPolicy extends DirectEditPolicy{
 	protected Command getDirectEditCommand(DirectEditRequest request) {
 		
 		
-		ChangePageElementDescriptionCommand changeDescriptionCmd = new ChangePageElementDescriptionCommand();
+		ChangePageElementTextCommand changeDescriptionCmd = new ChangePageElementTextCommand();
 		PageElement element = (PageElement) getHost().getModel();
 		changeDescriptionCmd.setPageElement(element);
-		changeDescriptionCmd.setOldDescription(element.getDescription());
+		changeDescriptionCmd.setOldText(element.getText());
 		CellEditor cellEditor = request.getCellEditor();
-		changeDescriptionCmd.setNewDescription((String) cellEditor.getValue());
+		changeDescriptionCmd.setNewText((String) cellEditor.getValue());
 		
 
 		//make "undo" an atomic operation for a newly created page element:

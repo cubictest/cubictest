@@ -23,7 +23,6 @@ import org.cubictest.model.Test;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.WebBrowser;
-import org.cubictest.model.SationObserver.SationType;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.parameterization.ParameterList;
@@ -257,7 +256,7 @@ public class UserInteractionsComponent {
 			if (property.equals(INPUT)){
 				if (((UserInteraction)element).getElement() instanceof AbstractTextInput){
 					UserInteraction input = (UserInteraction)element;
-					if(SationType.PARAMETERISATION.equals(input.getSationType())){
+					if(input.useParam()){
 						ParameterList list = test.getParamList();
 						String[] keys = list.getHeaders().toArray();
 						cellEditors[2] = new ComboBoxCellEditor(table,keys,SWT.READ_ONLY);
@@ -331,7 +330,7 @@ public class UserInteractionsComponent {
 					break;
 				case 2:
 					if(ActionType.ENTER_PARAMETER_TEXT.equals(fInput.getActionType())){
-						String key = fInput.getKey();
+						String key = fInput.getParamKey();
 						if(key == null || "".equals(key))
 							return 0;
 						return test.getParamList().getHeaders().indexOf(key);
@@ -364,10 +363,7 @@ public class UserInteractionsComponent {
 						for(ActionType action :rowItem.getElement().getActionTypes()){
 							if(i == (Integer) value){
 								rowItem.setActionType(action);
-								if(ActionType.ENTER_PARAMETER_TEXT.equals(action))
-									rowItem.setSationType(SationType.PARAMETERISATION);
-								else
-									rowItem.setSationType(SationType.NONE);
+								rowItem.setUseI18n(ActionType.ENTER_PARAMETER_TEXT.equals(action));
 								break;
 							}
 							if(ActionType.ENTER_PARAMETER_TEXT.equals(action) 
@@ -379,7 +375,7 @@ public class UserInteractionsComponent {
 						break;
 					case 2:
 						if(ActionType.ENTER_PARAMETER_TEXT.equals(rowItem.getActionType())){
-							rowItem.setKey(test.getParamList().getHeaders().get((Integer)value));
+							rowItem.setParamKey(test.getParamList().getHeaders().get((Integer)value));
 							test.getParamList().getParameters().get((Integer) value).addObserver(rowItem);
 							test.updateObservers();
 						}
@@ -430,8 +426,8 @@ public class UserInteractionsComponent {
 				case 1:
 					return fInput.getActionType().getText();
 				case 2:
-					if (SationType.PARAMETERISATION.equals(fInput.getSationType()))
-						return fInput.getKey();
+					if (fInput.useParam())
+						return fInput.getParamKey();
 					if (fInput.getActionType().acceptsInput()) {
 						return fInput.getTextualInput();
 					}

@@ -16,6 +16,7 @@
 	<classpathentry kind="lib" path="lib/xpp3_min-1.1.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/CubicUnit.jar"/>
 	<classpathentry kind="lib" path="lib/CubicTestElementAPI.jar"/>
-	<classpathentry kind="lib" path="lib/xstream-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/xstream-1.2.1.jar"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

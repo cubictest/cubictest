@@ -48,7 +48,7 @@ public class Parameter {
 	public void setParameterIndex(int parameterIndex) {
 		if(parameterIndex < size()){
 			for(SationObserver observer: observers){
-				observer.setText(inputs.get(parameterIndex));
+				observer.setValue(inputs.get(parameterIndex));
 			}
 		}
 	}

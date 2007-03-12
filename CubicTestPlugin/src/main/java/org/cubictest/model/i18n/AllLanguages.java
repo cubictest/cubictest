@@ -11,7 +11,6 @@ import java.util.Set;
 
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SationObserver;
-import org.cubictest.model.SationObserver.SationType;
 import org.cubictest.ui.i18n.I18nMessage;
 
 
@@ -77,11 +76,11 @@ public class AllLanguages {
 			currentLanguage = getLanguages().get(0);
 		
 		for(SationObserver observer : observers){
-			String key = observer.getKey();
-			if(observer.getSationType().equals(SationType.BOTH)){
-				key = observer.getText();
+			String key = observer.getI18nKey();
+			if(observer.useI18n() && observer.useParam()){
+				key = observer.getValue();
 			}
-			observer.setText(currentLanguage.get(key));
+			observer.setValue(currentLanguage.get(key));
 		}
 	}
 }

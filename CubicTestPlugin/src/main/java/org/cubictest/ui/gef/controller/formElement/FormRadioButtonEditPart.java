@@ -6,9 +6,9 @@ package org.cubictest.ui.gef.controller.formElement;
 
 import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.CubicTestLabel;
 import org.cubictest.ui.gef.view.TestStepLabel;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.swt.graphics.Image;
 
 
 public class FormRadioButtonEditPart extends FormElementEditPart{
@@ -31,14 +31,16 @@ public class FormRadioButtonEditPart extends FormElementEditPart{
 	 */
 	protected void refreshVisuals() {
 		super.refreshVisuals();
-		CubicTestLabel figure = (CubicTestLabel) getFigure();
+		RadioButton button = (RadioButton)getModel();
+		((TestStepLabel)getFigure()).setTooltipText("Check radiobutton present: $labelText"
+				+ (button.isChecked() ? " (checked)" : " (unchecked)"));
+	}
+	
+	@Override
+	protected Image getImage(boolean isNot) {
 		RadioButton button = (RadioButton)getModel();
 		String key = button.isChecked() ? CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE : 
 			CubicTestImageRegistry.RADIO_BUTTON_UNCHECKED_IMAGE;
-		figure.setIcon(CubicTestImageRegistry.get(key));
-		figure.setTooltipText("Check radiobutton present: $labelText"
-				+ (button.isChecked() ? " (checked)" : " (unchecked)"));
-		
-		
+		return CubicTestImageRegistry.get(key);
 	}
 }
