@@ -1,4 +1,4 @@
-package org.cubictest.layout;
+package org.cubictest.ui.gef.layout;
 
 import java.util.List;
 
