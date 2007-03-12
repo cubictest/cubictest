@@ -10,7 +10,6 @@ package org.cubictest.exporters.watir.holders;
  * Watir test step (one or more lines of code).
  * Represents a step in a greater test, e.g. a user interaction or an assertion.
 
- * @see autat.common.interfaces.TestStep
  * @author chr_schwarz
  */
 public class TestStep {

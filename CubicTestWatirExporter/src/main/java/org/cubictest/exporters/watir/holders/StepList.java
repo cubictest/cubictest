@@ -8,10 +8,9 @@ import org.cubictest.export.IResultHolder;
 
 
 /**
- * Stores lines of watir (ruby) code in text format (StringBuffer).
+ * Stores the watir test as a series of test steps.
  * Provides methods for adding steps to list and getting the final list. 
  * 
- * @see autat.common.interfaces.StepList
  * @author chr_schwarz
  */
 public class StepList implements IResultHolder {
@@ -21,6 +20,8 @@ public class StepList implements IResultHolder {
 	private static final String URL_INVOKE_PATTERN = "ie.goto(";
 	public static final String TEXT_ASSERTION_FAILURE = "TextAssertionFailure";
 	public static final String ELEMENT_ASSERTION_FAILURE = "ElementAssertionFailure";
+	
+	/** Initial prefix */
 	private String prefix = "ie";
 	
 	/**
@@ -30,20 +31,9 @@ public class StepList implements IResultHolder {
 	public StepList() {
 		this.rubyBuffer = new RubyBuffer();
 		
-		rubyBuffer.add("require 'rubygems'", 0);
-		rubyBuffer.add("require 'watir'", 0);
-		rubyBuffer.add("require 'test/unit'", 0);
-		rubyBuffer.add("class " + TEXT_ASSERTION_FAILURE + " < RuntimeError", 0);
-		rubyBuffer.add("end", 0);
-		rubyBuffer.add("class " + ELEMENT_ASSERTION_FAILURE + " < RuntimeError", 0);
-		rubyBuffer.add("end", 0);
-		rubyBuffer.add("class TC_cubicTestWatirExport_" + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
-		rubyBuffer.add("def test_exported", 1);
-		rubyBuffer.add("failedSteps = 0", 2);
-		rubyBuffer.add("passedSteps = 0", 2);
-		rubyBuffer.add("ie = Watir::IE.new", 2);
-		rubyBuffer.add("labelTargetId = \"\"", 2);
+		setUpWatirTest();
 	}
+
 	
 	/**
 	 * Adds step to the step list with the specified indent.
@@ -66,7 +56,7 @@ public class StepList implements IResultHolder {
 			rubyBuffer.add(step, 0);
 		}
 		else {
-			//Wrap in logic (decorate):
+			//Wrap in ajax-friendly logic (decorate):
 			rubyBuffer.add("", 2);
 			rubyBuffer.add("begin", 2);
 			rubyBuffer.add(step, 3);
@@ -78,8 +68,6 @@ public class StepList implements IResultHolder {
 		}
 		
 	}
-
-
 
 	
 	/**
@@ -152,4 +140,19 @@ public class StepList implements IResultHolder {
 		return prefix;
 	}
 
+	private void setUpWatirTest() {
+		rubyBuffer.add("require 'rubygems'", 0);
+		rubyBuffer.add("require 'watir'", 0);
+		rubyBuffer.add("require 'test/unit'", 0);
+		rubyBuffer.add("class " + TEXT_ASSERTION_FAILURE + " < RuntimeError", 0);
+		rubyBuffer.add("end", 0);
+		rubyBuffer.add("class " + ELEMENT_ASSERTION_FAILURE + " < RuntimeError", 0);
+		rubyBuffer.add("end", 0);
+		rubyBuffer.add("class TC_cubicTestWatirExport_" + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
+		rubyBuffer.add("def test_exported", 1);
+		rubyBuffer.add("failedSteps = 0", 2);
+		rubyBuffer.add("passedSteps = 0", 2);
+		rubyBuffer.add("ie = Watir::IE.new", 2);
+		rubyBuffer.add("labelTargetId = \"\"", 2);
+	}
 }
