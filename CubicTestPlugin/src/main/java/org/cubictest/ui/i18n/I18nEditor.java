@@ -50,10 +50,7 @@ public class I18nEditor extends EditorPart {
 	private TableViewer tableViewer;
 
 	private AllLanguages languages;
-	
-	private final String MESSAGE_COLUMN = "Message";
-
-	
+		
 	/*
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.ISaveablePart#doSave(org.eclipse.core.runtime.IProgressMonitor)

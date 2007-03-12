@@ -17,10 +17,8 @@ import org.eclipse.swt.graphics.Image;
  */
 public class I18nLabelProvider extends LabelProvider implements ITableLabelProvider {
 
-	private I18nEditor editor;
 	
 	public I18nLabelProvider(I18nEditor editor) {
-		this.editor = editor;
 	}
 	
 	public Image getColumnImage(Object element, int columnIndex) {
