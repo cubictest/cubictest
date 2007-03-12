@@ -5,12 +5,8 @@
  */
 package org.cubictest.ui.gef.actions;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import org.cubictest.common.utils.Logger;
-import org.cubictest.model.PageElement;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;

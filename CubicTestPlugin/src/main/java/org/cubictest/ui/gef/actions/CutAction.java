@@ -5,7 +5,6 @@
  */
 package org.cubictest.ui.gef.actions;
 
-import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.List;
 
