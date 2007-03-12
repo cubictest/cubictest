@@ -71,7 +71,7 @@ public class ElementConverter implements IPageElementConverter<Holder> {
 			}else if (pe instanceof FormElement){
 				FormElement formElement = (FormElement)pe;
 				IdentifierType it = IdentifierType.valueOf(formElement.
-						getIdentifierType().toString().toUpperCase()); 			
+						getDirectEditIdentifier().getType().toString().toUpperCase()); 			
 				InputType type;
 				if(pe instanceof TextArea)
 					type = TEXTAREA;
