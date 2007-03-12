@@ -20,6 +20,8 @@ public class RubyBuffer {
 	
 	/**
 	 * Adds string with the specified indent.
+	 * If text starts with tab, indenting will not take place.
+	 * Adds newline after text if not already present.
 	 */
 	public void add(String s, int indent) {
 		if (!s.startsWith("\t")) {
@@ -29,6 +31,7 @@ public class RubyBuffer {
 		}
 		
 		buffer.append(s);
+
 		if (!s.endsWith("\n")) {
 			buffer.append("\n");
 		}
