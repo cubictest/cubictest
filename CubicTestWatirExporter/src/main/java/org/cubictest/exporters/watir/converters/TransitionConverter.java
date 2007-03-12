@@ -25,8 +25,7 @@ import java.util.List;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.watir.holders.IStepList;
-import org.cubictest.exporters.watir.holders.ITestStep;
+import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.exporters.watir.holders.TestStep;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.ActionType;
@@ -46,7 +45,7 @@ import org.cubictest.model.formElement.Select;
  * 
  * @author chr_schwarz
  */
-public class TransitionConverter implements ITransitionConverter<IStepList> {
+public class TransitionConverter implements ITransitionConverter<StepList> {
 	
 	
 	/**
@@ -54,7 +53,7 @@ public class TransitionConverter implements ITransitionConverter<IStepList> {
 	 * 
 	 * @param transition The transition to convert.
 	 */
-	public void handleUserInteractions(IStepList steps, UserInteractionsTransition transition) {
+	public void handleUserInteractions(StepList steps, UserInteractionsTransition transition) {
 		List actions = transition.getUserInteractions();
 		Iterator it = actions.iterator();
 		while(it.hasNext()) {
@@ -79,14 +78,14 @@ public class TransitionConverter implements ITransitionConverter<IStepList> {
 	/**
 	 * Converts a UserInteraction on a page element to a Watir Step.
 	 */
-	private void handlePageElementAction(IStepList steps, UserInteraction userInteraction) {
+	private void handlePageElementAction(StepList steps, UserInteraction userInteraction) {
 
 		PageElement element = (PageElement) userInteraction.getElement();
 		String elementType = WatirUtils.getElementType(element);
 		String idType = WatirUtils.getIdType(element);
 		String idText = element.getText();
 		ActionType actionType = userInteraction.getActionType();
-		ITestStep step = null;
+		TestStep step = null;
 
 		//If Label, inject watir code to get the ID from the label and modify variables with the injected value:
 		
@@ -145,8 +144,8 @@ public class TransitionConverter implements ITransitionConverter<IStepList> {
 	/**
 	 * Selects the specified option in a select list.
 	 */
-	private void selectOptionInSelectList(IStepList steps, Option option, String idType, String idText) {
-		ITestStep step = null;
+	private void selectOptionInSelectList(StepList steps, Option option, String idType, String idText) {
+		TestStep step = null;
 		Select select = (Select) option.getParent();
 		String selectIdText = select.getText();
 		String selectIdType = WatirUtils.getIdType(select);
@@ -182,10 +181,10 @@ public class TransitionConverter implements ITransitionConverter<IStepList> {
 	/**
 	 * Converts a Web browser user interaction to a Watir step.
 	 */
-	private void handleWebBrowserAction(IStepList steps, UserInteraction userInteraction) {
+	private void handleWebBrowserAction(StepList steps, UserInteraction userInteraction) {
 
 		ActionType actionType = userInteraction.getActionType();
-		ITestStep step = null;
+		TestStep step = null;
 			
 		if (actionType.equals(GO_BACK)) {
 			step = new TestStep("ie.back()");

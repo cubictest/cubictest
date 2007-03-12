@@ -8,8 +8,7 @@
 package org.cubictest.exporters.watir.converters;
 
 import org.cubictest.export.converters.IUrlStartPointConverter;
-import org.cubictest.exporters.watir.holders.IStepList;
-import org.cubictest.exporters.watir.holders.ITestStep;
+import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.exporters.watir.holders.TestStep;
 import org.cubictest.model.UrlStartPoint;
 
@@ -18,12 +17,12 @@ import org.cubictest.model.UrlStartPoint;
  * 
  * @author chr_schwarz
  */
-public class UrlStartPointConverter implements IUrlStartPointConverter<IStepList> {
+public class UrlStartPointConverter implements IUrlStartPointConverter<StepList> {
 	
 	
-	public void handleUrlStartPoint(IStepList steps, UrlStartPoint sp) {
+	public void handleUrlStartPoint(StepList steps, UrlStartPoint sp) {
 		String start = "ie.goto(\"" + sp.getBeginAt() + "\")";
-		ITestStep step = new TestStep(start).setDescription("Opening " + sp);
+		TestStep step = new TestStep(start).setDescription("Opening " + sp);
 		steps.add(step);
 	}
 }

@@ -11,7 +11,7 @@ import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.watir.holders.IStepList;
+import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.exporters.watir.holders.TestStep;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.IdentifierType;
@@ -24,18 +24,18 @@ import org.cubictest.model.formElement.Select;
  * 
  * @author chr_schwarz
  */
-public class ContextConverter implements IContextConverter<IStepList> {
+public class ContextConverter implements IContextConverter<StepList> {
 
 	
 	public static final String ROOT_CONTEXT = "ie";
 
-	public PostContextHandle handlePostContext(IStepList steps, IContext a) {
+	public PostContextHandle handlePostContext(StepList steps, IContext a) {
 		steps.setPrefix(ROOT_CONTEXT);
 		return PostContextHandle.DONE;
 	}
 	
 
-	public PreContextHandle handlePreContext(IStepList steps, IContext ctx) {
+	public PreContextHandle handlePreContext(StepList steps, IContext ctx) {
 		if (ctx instanceof Select) {
 			Select element = (Select) ctx;
 			

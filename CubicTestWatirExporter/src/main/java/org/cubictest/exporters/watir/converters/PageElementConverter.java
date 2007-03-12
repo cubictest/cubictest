@@ -11,7 +11,6 @@ import static org.cubictest.model.IdentifierType.LABEL;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.converters.IPageElementConverter;
-import org.cubictest.exporters.watir.holders.IStepList;
 import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.exporters.watir.holders.TestStep;
 import org.cubictest.exporters.watir.utils.WatirUtils;
@@ -24,7 +23,6 @@ import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkable;
 import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Password;
-import org.cubictest.model.formElement.Select;
 import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
 
@@ -34,7 +32,7 @@ import org.cubictest.model.formElement.TextField;
  * @author chr_schwarz
  * @author stinelil
  */
-public class PageElementConverter implements IPageElementConverter<IStepList> {	
+public class PageElementConverter implements IPageElementConverter<StepList> {	
 	
 	/**
 	 * Converts one element located on a page to a list of Watir Steps.
@@ -42,7 +40,7 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 	 * @param pe The Page element to convert.
 	 * @return An <code>java.util.List</code> with Watir Steps.
 	 */
-	public void handlePageElement(IStepList steps, PageElement pe) {
+	public void handlePageElement(StepList steps, PageElement pe) {
 		
 		if (pe instanceof Title) {
 			handleTitle(steps, (Title) pe);
@@ -64,7 +62,7 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 	 * @param title The title to check for.
 	 * @return A test step
 	 */
-	private void handleTitle(IStepList steps, Title title) {
+	private void handleTitle(StepList steps, Title title) {
 		String titleText = StringUtils.replace(title.getText(),"\"", "\\\"");
 		String verify = "assert_equal(\"" + titleText + "\"," + steps.getPrefix() + ".title())";
 		steps.add(new TestStep(verify).setDescription("Check title = '" + titleText + "'"));
@@ -78,7 +76,7 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 	 * @param text The text to check for.
 	 * @return The Watir Step.
 	 */
-	private void handleText(IStepList steps, PageElement text) {
+	private void handleText(StepList steps, PageElement text) {
 		String txt = StringUtils.replace(text.getText(),"\"", "\\\"");
 		
 		StringBuffer str = new StringBuffer();
@@ -143,7 +141,7 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 	 * @param link The link to check for.
 	 * @return the Watir Step
 	 */
-	private void handleLink(IStepList steps, Link link) {
+	private void handleLink(StepList steps, Link link) {
 		String idText = StringUtils.replace(link.getText(),"\"", "\\\"");
 		String idType = WatirUtils.getIdType(link);
 		TestStep step = null;
@@ -165,7 +163,7 @@ public class PageElementConverter implements IPageElementConverter<IStepList> {
 	/**
 	 * Creates a test element verifying that the form element in the argument is present.
 	 */
-	private void handleFormElement(IStepList steps, FormElement fe) {
+	private void handleFormElement(StepList steps, FormElement fe) {
 		String elementType = WatirUtils.getElementType(fe);
 		String idType = WatirUtils.getIdType(fe);
 		String idText = fe.getText();

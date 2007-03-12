@@ -4,17 +4,19 @@
  */
 package org.cubictest.exporters.watir.holders;
 
+import org.cubictest.export.IResultHolder;
+
 
 /**
  * Stores lines of watir (ruby) code in text format (StringBuffer).
  * Provides methods for adding steps to list and getting the final list. 
  * 
- * @see autat.common.interfaces.IStepList
+ * @see autat.common.interfaces.StepList
  * @author chr_schwarz
  */
-public class StepList implements IStepList {
+public class StepList implements IResultHolder {
 	
-	private StringBuffer buffer;
+	private RubyBuffer rubyBuffer;
 	private boolean browserStarted = false;
 	private static final String URL_INVOKE_PATTERN = "ie.goto(";
 	public static final String TEXT_ASSERTION_FAILURE = "TextAssertionFailure";
@@ -26,21 +28,21 @@ public class StepList implements IStepList {
 	 * @param testName
 	 */
 	public StepList() {
-		this.buffer = new StringBuffer();
+		this.rubyBuffer = new RubyBuffer();
 		
-		add("require 'rubygems'", 0);
-		add("require 'watir'", 0);
-		add("require 'test/unit'", 0);
-		add("class " + TEXT_ASSERTION_FAILURE + " < RuntimeError", 0);
-		add("end", 0);
-		add("class " + ELEMENT_ASSERTION_FAILURE + " < RuntimeError", 0);
-		add("end", 0);
-		add("class TC_cubicTestWatirExport_" + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
-		add("def test_exported", 1);
-		add("failedSteps = 0", 2);
-		add("passedSteps = 0", 2);
-		add("ie = Watir::IE.new", 2);
-		add("labelTargetId = \"\"", 2);
+		rubyBuffer.add("require 'rubygems'", 0);
+		rubyBuffer.add("require 'watir'", 0);
+		rubyBuffer.add("require 'test/unit'", 0);
+		rubyBuffer.add("class " + TEXT_ASSERTION_FAILURE + " < RuntimeError", 0);
+		rubyBuffer.add("end", 0);
+		rubyBuffer.add("class " + ELEMENT_ASSERTION_FAILURE + " < RuntimeError", 0);
+		rubyBuffer.add("end", 0);
+		rubyBuffer.add("class TC_cubicTestWatirExport_" + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
+		rubyBuffer.add("def test_exported", 1);
+		rubyBuffer.add("failedSteps = 0", 2);
+		rubyBuffer.add("passedSteps = 0", 2);
+		rubyBuffer.add("ie = Watir::IE.new", 2);
+		rubyBuffer.add("labelTargetId = \"\"", 2);
 	}
 	
 	/**
@@ -48,7 +50,7 @@ public class StepList implements IStepList {
 	 * Will check whether step already is decorated.
 	 * If not, will decorate with console ouput, retry logic etc.
 	 */
-	public void add(ITestStep testStep) {
+	public void add(TestStep testStep) {
 		if (testStep == null) {
 			System.out.println("Warning: Element was null.");
 			return;
@@ -60,30 +62,23 @@ public class StepList implements IStepList {
 		}
 		else if (((TestStep)testStep).isDecorated() && testStep instanceof TestStep){
 			//step already contains wrapped logic (e.g. console output and "begin-rescue-end")
-			append(buffer, "", 0);
-			append(buffer, step, 0);
+			rubyBuffer.add("", 0);
+			rubyBuffer.add(step, 0);
 		}
 		else {
 			//Wrap in logic (decorate):
-			append(buffer, "", 2);
-			append(buffer, "begin", 2);
-			append(buffer, step, 3);
-			append(buffer, "passedSteps += 1", 3);
-			append(buffer, "rescue => e", 2);
-			append(buffer, "puts(\"Step failed: " + ((TestStep)testStep).getDescription() + "\")", 3);
-			append(buffer, "failedSteps += 1", 3);
-			append(buffer, "end", 2);
+			rubyBuffer.add("", 2);
+			rubyBuffer.add("begin", 2);
+			rubyBuffer.add(step, 3);
+			rubyBuffer.add("passedSteps += 1", 3);
+			rubyBuffer.add("rescue => e", 2);
+			rubyBuffer.add("puts(\"Step failed: " + ((TestStep)testStep).getDescription() + "\")", 3);
+			rubyBuffer.add("failedSteps += 1", 3);
+			rubyBuffer.add("end", 2);
 		}
 		
 	}
 
-	
-	/**
-	 * Adds step to the step list with the specified indent.
-	 */
-	public void add(String step, int indent) {
-		append(buffer, step, indent);
-	}
 
 
 	
@@ -91,25 +86,24 @@ public class StepList implements IStepList {
 	 * Get the String representation of the step list.
 	 * This can be stored to file and excecuted.
 	 */
-	public String toString() {
-		StringBuffer buff = new StringBuffer(buffer.toString());
-		append(buff, "", 0);
-		append(buff, "", 0);
-		append(buff, "puts \"Done.\"", 2);
-		append(buff, "puts \"\"", 2);
+	public String toResultString() {
+		rubyBuffer.add("", 0);
+		rubyBuffer.add("", 0);
+		rubyBuffer.add("puts \"Done.\"", 2);
+		rubyBuffer.add("puts \"\"", 2);
 		
-		append(buff, "if (failedSteps == 0)", 2);
-		append(buff, "puts (passedSteps.to_s + \" steps passed, no steps failed.\")", 3);
-		append(buff, "else", 2);
-		append(buff, "puts(passedSteps.to_s + \" steps passed, \" + failedSteps.to_s + \" steps failed!\")", 3);
-		append(buff, "end", 2);
+		rubyBuffer.add("if (failedSteps == 0)", 2);
+		rubyBuffer.add("puts (passedSteps.to_s + \" steps passed, no steps failed.\")", 3);
+		rubyBuffer.add("else", 2);
+		rubyBuffer.add("puts(passedSteps.to_s + \" steps passed, \" + failedSteps.to_s + \" steps failed!\")", 3);
+		rubyBuffer.add("end", 2);
 		
-		append(buff, "puts \"Press enter to exit\"", 2);
-		append(buff, "gets", 2);
-		append(buff, "ie.close()", 2);
-		append(buff, "end", 1);
-		append(buff, "end", 0);
-		return buff.toString(); 
+		rubyBuffer.add("puts \"Press enter to exit\"", 2);
+		rubyBuffer.add("gets", 2);
+		rubyBuffer.add("ie.close()", 2);
+		rubyBuffer.add("end", 1);
+		rubyBuffer.add("end", 0);
+		return rubyBuffer.toString(); 
 	}
 
 	
@@ -119,12 +113,12 @@ public class StepList implements IStepList {
 	 */
 	private String addUrlInvokeStep(String invokeStep) {
 		if (browserStarted) {
-			append(buffer, "ie.close()\n\n", 2);
-			append(buffer, "ie = Watir::IE.new", 2);
-			append(buffer, "ie.restore()", 2);
+			rubyBuffer.add("ie.close()\n\n", 2);
+			rubyBuffer.add("ie = Watir::IE.new", 2);
+			rubyBuffer.add("ie.restore()", 2);
 			browserStarted = true;
 		}
-		append(buffer, invokeStep, 2);
+		rubyBuffer.add(invokeStep, 2);
 		return invokeStep;
 	}
 	
@@ -140,21 +134,7 @@ public class StepList implements IStepList {
 		return false;
 	}
 	
-	/**
-	 * Utility method that appends the string to the passed 
-	 * in StringBuffer with the specified indent.
-	 */
-	private void append(StringBuffer buff, String s, int indent) {
-		if (!s.startsWith("\t")) {
-			for (int i = 0; i < indent; i++) {
-				buff.append("\t");			
-			}
-		}
-		
-		buff.append(s);
-		if (!s.endsWith("\n"))
-			buff.append("\n");
-	}
+
 
 	/**
 	 * Set prefix to use (e.g. for contexts).
