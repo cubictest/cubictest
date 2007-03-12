@@ -66,10 +66,10 @@ public class SeleniumUtils {
 		String context = doc.getFullContext();
 		
 		if (idType.equals(ID)) {
-			return "xpath=" + context + getElementType(pe) + "[@id=\"" + text + "\"]";
+			return "xpath=" + context + getHtmlElementType(pe) + "[@id=\"" + text + "\"]";
 		}
 		if (idType.equals(NAME)) {
-			return "xpath=" + context + getElementType(pe) + "[@name=\"" + text + "\"]";
+			return "xpath=" + context + getHtmlElementType(pe) + "[@name=\"" + text + "\"]";
 		}
 		if (idType.equals(VALUE)) {
 			throw new ExporterException("\"Value\" identifier type not supported as locator.");
@@ -80,14 +80,14 @@ public class SeleniumUtils {
 				return "xpath=" + context + axis + "*[contains(text(), \"" + text + "\")]";
 			}
 			else if (element instanceof Link || element instanceof Option) {
-				return "xpath=" + context + getElementType(pe) + "[text()=\"" + text + "\"]";
+				return "xpath=" + context + getHtmlElementType(pe) + "[text()=\"" + text + "\"]";
 			}
 			else if (element instanceof Button) {
 				return "xpath=" + context + "input[(@type=\"button\" or @type=\"submit\") and @value=\"" + text + "\"]";
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
-				return "xpath=" + context + getElementType(pe) + "[@id=(//label[text()=\"" + text + "\"]/@for)]";
+				return "xpath=" + context + getHtmlElementType(pe) + "[@id=(//label[text()=\"" + text + "\"]/@for)]";
 			}
 		}
 		else {
@@ -101,7 +101,7 @@ public class SeleniumUtils {
 	 * @param pe
 	 * @return
 	 */
-	public static String getElementType(PageElement pe) {
+	public static String getHtmlElementType(PageElement pe) {
 		if (pe instanceof Select)
 			return "select";
 		if (pe instanceof Option)
