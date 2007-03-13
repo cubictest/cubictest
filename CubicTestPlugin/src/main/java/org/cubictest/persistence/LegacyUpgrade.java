@@ -138,11 +138,13 @@ public class LegacyUpgrade {
 							identifiers.addContent(identifier);
 							
 							Element text = pageElement.getChild("text");
-							if(text != null){
+							if(text == null){
+								text = new Element("value");
+							}else{
 								text.setName("value");
 								pageElement.removeContent(text);
-								identifier.addContent(text);
 							}
+							identifier.addContent(text);
 							
 							Element identifierType = pageElement.getChild("identifierType");
 							if(identifierType != null){
@@ -151,6 +153,9 @@ public class LegacyUpgrade {
 							}else{
 								identifierType = new Element("type");
 								identifierType.setText("LABEL");
+								if(text.getText() == null || "".equals(text.getText())){
+									text.setText(pageElement.getChildText("description"));
+								}
 							}
 							identifier.addContent(identifierType);
 							
@@ -221,7 +226,7 @@ public class LegacyUpgrade {
 				}
 			}
 			xml = new XMLOutputter().outputString(document);
-			//System.out.println(xml);
+			System.out.println(xml);
 		} catch (JDOMException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
