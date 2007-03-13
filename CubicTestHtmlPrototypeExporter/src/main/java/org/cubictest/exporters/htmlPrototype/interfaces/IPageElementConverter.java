@@ -9,7 +9,9 @@ import org.cubictest.model.PageElement;
 import org.jdom.Element;
 
 public interface IPageElementConverter {
-	public class UnknownPageElementException extends Exception {}
+	public class UnknownPageElementException extends Exception {
+
+	private static final long serialVersionUID = 1L;}
 
 	public Element convert(PageElement pe)
 			throws UnknownPageElementException;

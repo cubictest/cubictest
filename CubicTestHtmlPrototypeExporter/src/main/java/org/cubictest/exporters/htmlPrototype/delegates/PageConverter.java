@@ -5,8 +5,6 @@
 package org.cubictest.exporters.htmlPrototype.delegates;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 import org.cubictest.exporters.htmlPrototype.interfaces.IPageConverter;
@@ -19,7 +17,6 @@ import org.cubictest.model.UserInteractionsTransition;
 public class PageConverter implements IPageConverter {
 	private IPageElementConverter pageElementConverter;
 	private String extension;
-	private Map<String, HtmlPageCreator> pages = new HashMap<String, HtmlPageCreator>();
 	
 	public PageConverter(String extension, IPageElementConverter pageElementConverter) {
 		this.pageElementConverter = pageElementConverter;
