@@ -8,7 +8,6 @@
 package org.cubictest.exporters.watir.converters;
 
 import org.cubictest.export.converters.IUrlStartPointConverter;
-import org.cubictest.exporters.watir.holders.RubyBuffer;
 import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.model.UrlStartPoint;
 

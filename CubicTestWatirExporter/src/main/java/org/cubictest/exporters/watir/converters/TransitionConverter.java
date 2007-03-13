@@ -19,18 +19,15 @@ import java.util.List;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.watir.holders.RubyBuffer;
 import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.ActionType;
-import org.cubictest.model.FormElement;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.WebBrowser;
-import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Select;
 

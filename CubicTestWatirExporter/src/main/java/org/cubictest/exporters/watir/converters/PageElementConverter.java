@@ -16,7 +16,6 @@ import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
-import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkable;
 import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Password;

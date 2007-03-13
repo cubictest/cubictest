@@ -11,7 +11,6 @@ import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.watir.holders.RubyBuffer;
 import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.IdentifierType;
