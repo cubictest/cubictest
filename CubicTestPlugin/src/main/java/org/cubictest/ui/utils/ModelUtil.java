@@ -4,7 +4,6 @@
  */
 package org.cubictest.ui.utils;
 
-import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Common;
 import org.cubictest.model.ExtensionStartPoint;
