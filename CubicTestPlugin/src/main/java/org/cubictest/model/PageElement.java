@@ -85,7 +85,7 @@ public abstract class PageElement extends PropertyAwareObject
 	}
 	
 	public String getText() {
-		return directEditIdentifier.getValue();
+		return getDirectEditIdentifier().getValue();
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public abstract class PageElement extends PropertyAwareObject
 	 */
 	public void setText(String text) {
 		String oldText = getText();
-		directEditIdentifier.setValue(text);
+		getDirectEditIdentifier().setValue(text);
 		firePropertyChange(PropertyAwareObject.NAME, oldText, text);
 	}
 	
@@ -130,7 +130,7 @@ public abstract class PageElement extends PropertyAwareObject
 	 * Set the identifier types that this page elements supports.
 	 */
 	public void addIdentifier(Identifier identifier) {
-		identifiers .add(identifier);
+		identifiers.add(identifier);
 		firePropertyChange(PropertyAwareObject.NAME, null, identifier);
 	}
 	

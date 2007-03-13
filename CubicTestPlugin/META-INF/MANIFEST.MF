@@ -14,7 +14,7 @@ Bundle-ClassPath: cubicTestPlugin.jar,
  lib/xstream-1.2.1.jar,
  lib/jiffie.jar,
  lib/jacob.jar,
- lib/jaxen-core.jar,
+ lib/jaxen-1.1.jar,
  lib/saxpath.jar,
  lib/jsonrpc-1.0.jar,
  .

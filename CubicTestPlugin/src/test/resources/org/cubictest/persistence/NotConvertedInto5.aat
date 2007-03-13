@@ -1,0 +1,366 @@
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>http://www.eclipse.org</beginAt>
+    <outTransitions>
+      <userInteractionsTransition>
+        <userInteractions/>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <link>
+              <not>false</not>
+              <text>Finalist for the Eclipse Community Awards</text>
+              <identifierType>LABEL</identifierType>
+              <description>Finalist for the Eclipse Community Awards</description>
+              <sationType>NONE</sationType>
+              <key></key>
+            </link>
+            <link>
+              <not>false</not>
+              <text>New to Eclipse?</text>
+              <identifierType reference="../../link/identifierType"/>
+              <description>New to Eclipse?</description>
+              <sationType reference="../../link/sationType"/>
+              <key></key>
+            </link>
+            <text>
+              <not>false</not>
+              <text>Eclipse - an open development platform</text>
+              <description>Eclipse - an open development platform</description>
+              <sationType reference="../../link/sationType"/>
+              <key></key>
+            </text>
+            <title>
+              <not>false</not>
+              <text>Eclipse.org home</text>
+              <description>Eclipse.org home</description>
+              <sationType reference="../../link/sationType"/>
+              <key></key>
+            </title>
+          </elements>
+          <name>Eclipse.org home</name>
+          <inTransition class="userInteractionsTransition" reference="../.."/>
+          <outTransitions>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <sationType reference="../../../../../elements/link/sationType"/>
+                  <key></key>
+                </userInteraction>
+              </userInteractions>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <link>
+                    <not>false</not>
+                    <text>2007 Eclipse Community Awards.</text>
+                    <identifierType reference="../../../../../../elements/link/identifierType"/>
+                    <description>2007 Eclipse Community Awards.</description>
+                    <sationType reference="../../../../../../elements/link/sationType"/>
+                    <key></key>
+                  </link>
+                  <text>
+                    <not>false</not>
+                    <text>Community Bulletin</text>
+                    <description>Community Bulletin</description>
+                    <sationType reference="../../../../../../elements/link/sationType"/>
+                    <key></key>
+                  </text>
+                  <title>
+                    <not>false</not>
+                    <text>Finalist for Eclipse Community Awards 2007</text>
+                    <description>Finalist for Eclipse Community Awards 2007</description>
+                    <sationType reference="../../../../../../elements/link/sationType"/>
+                    <key></key>
+                  </title>
+                  <text>
+                    <not>false</not>
+                    <text>Finalist for Eclipse Community Awards 2007</text>
+                    <description>Finalist for Eclipse Community Awards 2007</description>
+                    <sationType reference="../../../../../../elements/link/sationType"/>
+                    <key></key>
+                  </text>
+                </elements>
+                <name>Finalist for Eclipse Community Awards 2007</name>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions>
+                  <userInteractionsTransition>
+                    <userInteractions>
+                      <userInteraction>
+                        <element class="link" reference="../../../../../elements/link"/>
+                        <input></input>
+                        <action reference="../../../../../../userInteractions/userInteraction/action"/>
+                        <sationType reference="../../../../../../../../elements/link/sationType"/>
+                        <key></key>
+                      </userInteraction>
+                    </userInteractions>
+                    <start class="page" reference="../../.."/>
+                    <end class="page">
+                      <commons/>
+                      <elements>
+                        <link reference="../../../../../elements/link"/>
+                      </elements>
+                      <name>Finalist for Eclipse Community Awards 2007</name>
+                      <inTransition class="userInteractionsTransition" reference="../.."/>
+                      <outTransitions>
+                        <userInteractionsTransition>
+                          <userInteractions>
+                            <userInteraction>
+                              <element class="link" reference="../../../../../../../../elements/link"/>
+                              <input></input>
+                              <action reference="../../../../../../../../../userInteractions/userInteraction/action"/>
+                              <sationType reference="../../../../../../../../../../../elements/link/sationType"/>
+                              <key></key>
+                            </userInteraction>
+                          </userInteractions>
+                          <start class="page" reference="../../.."/>
+                          <end class="page">
+                            <commons/>
+                            <elements/>
+                            <name>Finalist for Eclipse Community Awards 2007</name>
+                            <inTransition class="userInteractionsTransition" reference="../.."/>
+                            <outTransitions/>
+                            <id>page257606211172077677464</id>
+                            <position>
+                              <x>296</x>
+                              <y>685</y>
+                            </position>
+                            <dimension>
+                              <width>100</width>
+                              <height>25</height>
+                            </dimension>
+                            <name defined-in="transitionNode"></name>
+                            <autoPosition>true</autoPosition>
+                          </end>
+                        </userInteractionsTransition>
+                      </outTransitions>
+                      <id>page236619461172077672493</id>
+                      <position>
+                        <x>258</x>
+                        <y>539</y>
+                      </position>
+                      <dimension>
+                        <width>177</width>
+                        <height>46</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                      <autoPosition>true</autoPosition>
+                    </end>
+                  </userInteractionsTransition>
+                </outTransitions>
+                <id>page133830371172077630652</id>
+                <position>
+                  <x>258</x>
+                  <y>330</y>
+                </position>
+                <dimension>
+                  <width>177</width>
+                  <height>109</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+                <autoPosition>true</autoPosition>
+              </end>
+            </userInteractionsTransition>
+          </outTransitions>
+          <id>page23807311172077519023</id>
+          <position>
+            <x>256</x>
+            <y>121</y>
+          </position>
+          <dimension>
+            <width>180</width>
+            <height>109</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+          <autoPosition>true</autoPosition>
+        </end>
+      </userInteractionsTransition>
+    </outTransitions>
+    <id>/CubicTest.org/tests/testtest2.aat</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name>URL </name>
+    <autoPosition>false</autoPosition>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page>
+      <commons/>
+      <elements>
+        <select>
+          <multiselect>false</multiselect>
+          <elements>
+            <option>
+              <checked>true</checked>
+              <not>false</not>
+              <text></text>
+              <identifierType>NAME</identifierType>
+              <description>xvlkj</description>
+              <sationType reference="../../../../../../../startPoint/outTransitions/userInteractionsTransition/end/elements/link/sationType"/>
+              <key></key>
+            </option>
+          </elements>
+          <not>false</not>
+          <text></text>
+          <description>joda</description>
+          <sationType reference="../../../../../startPoint/outTransitions/userInteractionsTransition/end/elements/link/sationType"/>
+          <key></key>
+        </select>
+        <radioButton>
+          <checked>false</checked>
+          <not>false</not>
+          <text></text>
+          <description>kjhilhu</description>
+          <sationType reference="../../../../../startPoint/outTransitions/userInteractionsTransition/end/elements/link/sationType"/>
+          <key></key>
+        </radioButton>
+        <checkbox>
+          <checked>false</checked>
+          <not>false</not>
+          <text></text>
+          <description>lkjliji</description>
+          <sationType reference="../../../../../startPoint/outTransitions/userInteractionsTransition/end/elements/link/sationType"/>
+          <key></key>
+        </checkbox>
+      </elements>
+      <name>First Page</name>
+      <outTransitions>
+        <userInteractionsTransition>
+          <userInteractions>
+            <userInteraction>
+              <element class="select" reference="../../../../../elements/select"/>
+              <input></input>
+              <action reference="../../../../../../../startPoint/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/userInteractions/userInteraction/action"/>
+              <sationType reference="../../../../../../../startPoint/outTransitions/userInteractionsTransition/end/elements/link/sationType"/>
+              <key></key>
+            </userInteraction>
+            <userInteraction>
+              <element class="option" reference="../../../../../elements/select/elements/option"/>
+              <input></input>
+              <action>UNCHECK</action>
+              <sationType reference="../../../../../../../startPoint/outTransitions/userInteractionsTransition/end/elements/link/sationType"/>
+              <key></key>
+            </userInteraction>
+          </userInteractions>
+          <page class="page" reference="../../.."/>
+          <start class="page" reference="../../.."/>
+          <end class="page">
+            <commons/>
+            <elements>
+              <select>
+                <multiselect>false</multiselect>
+                <elements>
+                  <option>
+                    <checked>false</checked>
+                    <not>false</not>
+                    <text></text>
+                    <description>sdsd</description>
+                    <sationType reference="../../../../../../../../../../startPoint/outTransitions/userInteractionsTransition/end/elements/link/sationType"/>
+                    <key></key>
+                  </option>
+                </elements>
+                <not>false</not>
+                <text></text>
+                <description>sdfsd</description>
+                <sationType reference="../../../../../../../../startPoint/outTransitions/userInteractionsTransition/end/elements/link/sationType"/>
+                <key></key>
+              </select>
+              <radioButton>
+                <checked>false</checked>
+                <not>false</not>
+                <text></text>
+                <description>jgkuyg</description>
+                <sationType reference="../../../../../../../../startPoint/outTransitions/userInteractionsTransition/end/elements/link/sationType"/>
+                <key></key>
+              </radioButton>
+            </elements>
+            <name>lkjhiluh</name>
+            <inTransition class="userInteractionsTransition" reference="../.."/>
+            <outTransitions>
+              <userInteractionsTransition>
+                <userInteractions>
+                  <userInteraction>
+                    <element class="option" reference="../../../../../elements/select/elements/option"/>
+                    <input></input>
+                    <action>MOUSE_OVER</action>
+                    <sationType reference="../../../../../../../../../../startPoint/outTransitions/userInteractionsTransition/end/elements/link/sationType"/>
+                    <key></key>
+                  </userInteraction>
+                </userInteractions>
+                <page class="page" reference="../../.."/>
+                <start class="page" reference="../../.."/>
+                <end class="page">
+                  <commons/>
+                  <elements/>
+                  <name>sfasdfløj</name>
+                  <inTransition class="userInteractionsTransition" reference="../.."/>
+                  <outTransitions/>
+                  <id>page100091991162141366562</id>
+                  <position>
+                    <x>27</x>
+                    <y>582</y>
+                  </position>
+                  <dimension>
+                    <width>100</width>
+                    <height>25</height>
+                  </dimension>
+                  <name defined-in="transitionNode"></name>
+                  <autoPosition>false</autoPosition>
+                </end>
+              </userInteractionsTransition>
+            </outTransitions>
+            <id>1162049054750</id>
+            <position>
+              <x>27</x>
+              <y>399</y>
+            </position>
+            <dimension>
+              <width>100</width>
+              <height>108</height>
+            </dimension>
+            <name defined-in="transitionNode"></name>
+            <autoPosition>false</autoPosition>
+          </end>
+        </userInteractionsTransition>
+      </outTransitions>
+      <id>page166701031162043027531</id>
+      <position>
+        <x>27</x>
+        <y>195</y>
+      </position>
+      <dimension>
+        <width>100</width>
+        <height>129</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+      <autoPosition>false</autoPosition>
+    </page>
+    <page reference="../page/outTransitions/userInteractionsTransition/end"/>
+    <page reference="../page/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page reference="../../startPoint/outTransitions/userInteractionsTransition/end"/>
+    <page reference="../../startPoint/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page reference="../../startPoint/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page reference="../../startPoint/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
+  </pages>
+  <subTests/>
+  <transitions>
+    <userInteractionsTransition reference="../../pages/page/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../pages/page/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <name>testtest</name>
+  <description></description>
+  <id>/CubicTest.org/tests/testtest2.aat</id>
+  <modelVersion>4</modelVersion>
+</test>
