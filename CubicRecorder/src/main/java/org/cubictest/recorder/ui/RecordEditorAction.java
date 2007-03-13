@@ -7,7 +7,6 @@ package org.cubictest.recorder.ui;
 import java.lang.reflect.InvocationTargetException;
 
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.recorder.CubicRecorder;
@@ -17,6 +16,7 @@ import org.cubictest.recorder.selenium.SeleniumRecorder;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.interfaces.IDisposeListener;
+import org.cubictest.ui.gef.layout.AutoLayout;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;

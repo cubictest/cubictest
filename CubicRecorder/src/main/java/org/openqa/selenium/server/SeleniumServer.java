@@ -17,13 +17,27 @@
 
 package org.openqa.selenium.server;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.URL;
+import java.net.URLConnection;
 
-import org.mortbay.http.*;
-import org.mortbay.jetty.*;
-import org.openqa.selenium.server.browserlaunchers.*;
-import org.openqa.selenium.server.htmlrunner.*;
+import org.mortbay.http.HttpContext;
+import org.mortbay.http.NCSARequestLog;
+import org.mortbay.http.SocketListener;
+import org.mortbay.jetty.Server;
+import org.openqa.selenium.server.browserlaunchers.AsyncExecute;
+import org.openqa.selenium.server.browserlaunchers.BrowserLauncher;
+import org.openqa.selenium.server.htmlrunner.HTMLLauncher;
+import org.openqa.selenium.server.htmlrunner.HTMLResultsListener;
+import org.openqa.selenium.server.htmlrunner.SeleniumHTMLRunnerResultsHandler;
+import org.openqa.selenium.server.htmlrunner.SingleTestSuiteResourceHandler;
 
 /**
  * Provides a server that can launch/terminate browsers and can receive remote Selenium commands

@@ -1,7 +1,6 @@
 package org.cubictest.recorder;
 
 import java.text.ParseException;
-import java.util.HashMap;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.ActionType;

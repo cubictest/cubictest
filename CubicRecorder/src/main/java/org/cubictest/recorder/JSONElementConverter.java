@@ -4,8 +4,6 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
-import javax.swing.text.IconView;
-
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;

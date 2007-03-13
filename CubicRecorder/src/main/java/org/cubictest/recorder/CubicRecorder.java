@@ -1,6 +1,5 @@
 package org.cubictest.recorder;
 
-import org.cubictest.layout.AutoLayout;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
@@ -13,6 +12,7 @@ import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
+import org.cubictest.ui.gef.layout.AutoLayout;
 import org.eclipse.gef.commands.CommandStack;
 
 public class CubicRecorder implements IRecorder {
