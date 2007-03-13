@@ -7,9 +7,9 @@ package org.cubictest.testutils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cubictest.export.IResultHolder;
-
 import junit.framework.AssertionFailedError;
+
+import org.cubictest.export.IResultHolder;
 
 /**
  * List used for asserting that object is present.

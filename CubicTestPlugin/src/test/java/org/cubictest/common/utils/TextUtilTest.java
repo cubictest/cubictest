@@ -5,8 +5,6 @@
 package org.cubictest.common.utils;
 import junit.framework.TestCase;
 
-import org.cubictest.common.utils.TextUtil;
-
 /**
  * Tests the TextUtil class.
  * 

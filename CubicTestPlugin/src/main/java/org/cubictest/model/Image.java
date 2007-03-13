@@ -8,7 +8,8 @@
 package org.cubictest.model;
 
 import static org.cubictest.model.IdentifierType.ID;
-import static org.cubictest.model.IdentifierType.*;
+import static org.cubictest.model.IdentifierType.SRC;
+import static org.cubictest.model.IdentifierType.TITLE;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -11,6 +11,7 @@ import static org.cubictest.ui.gef.view.CubicTestImageRegistry.BUTTON_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.COMMON_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONNECTION_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONTEXT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CUSTOM_STEP_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.EXTENSION_POINT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.IMAGE_IMAGE;
@@ -19,14 +20,13 @@ import static org.cubictest.ui.gef.view.CubicTestImageRegistry.OPTION_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.PAGE_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.PASSWORD_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.ROW_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.SELECT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TEXT_AREA_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TEXT_FIELD_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TEXT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TITLE_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.USER_INTERACTION_IMAGE;
-import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONTEXT_IMAGE;
-import static org.cubictest.ui.gef.view.CubicTestImageRegistry.ROW_IMAGE;
 
 import java.util.ArrayList;
 

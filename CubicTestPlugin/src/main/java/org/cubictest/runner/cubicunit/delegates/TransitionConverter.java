@@ -9,8 +9,8 @@ package org.cubictest.runner.cubicunit.delegates;
 
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.UserInteraction;
 import org.cubictest.model.TestPartStatus;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubicunit.Browser;
 import org.cubicunit.Checkbox;
