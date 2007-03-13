@@ -61,7 +61,7 @@ public class SeleniumUtils {
 		}
 		PageElement pe = (PageElement) element;
 
-		IdentifierType idType = pe.getIdentifierType();
+		IdentifierType idType = pe.getDirectEditIdentifier().getType();
 		String text = pe.getText();
 		String context = doc.getFullContext();
 		
