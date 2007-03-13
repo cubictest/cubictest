@@ -1,7 +1,6 @@
 package org.cubictest.exporters.selenium.holders;
 
 import org.apache.commons.lang.StringUtils;
-import org.jdom.Comment;
 import org.jdom.Element;
 import org.jdom.EntityRef;
 
