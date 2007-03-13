@@ -41,7 +41,8 @@ public enum IdentifierType {
 	/** HTML checked attribute */
 	CHECKED("Checked"),
 	
-	//TEXT("Text"),
+	/** HTML is mulitselectEnabled */
+	MULTISELECT("Multiselect"),
 	
 	/** HTML title attribute */
 	TITLE("Title")

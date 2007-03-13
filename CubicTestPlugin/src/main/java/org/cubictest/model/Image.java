@@ -8,7 +8,7 @@
 package org.cubictest.model;
 
 import static org.cubictest.model.IdentifierType.ID;
-import static org.cubictest.model.IdentifierType.LABEL;
+import static org.cubictest.model.IdentifierType.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,8 @@ public class Image extends PageElement {
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(ID);
-		list.add(LABEL);
+		list.add(SRC);
+		list.add(TITLE);
 		return list;
 	}
 }

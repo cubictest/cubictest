@@ -7,13 +7,19 @@
  */
 package org.cubictest.model.formElement;
 
-import static org.cubictest.model.ActionType.*;
+import static org.cubictest.model.ActionType.CLEAR_ALL_TEXT;
+import static org.cubictest.model.ActionType.ENTER_PARAMETER_TEXT;
+import static org.cubictest.model.ActionType.ENTER_TEXT;
+import static org.cubictest.model.ActionType.KEY_PRESSED;
+import static org.cubictest.model.IdentifierType.ID;
+import static org.cubictest.model.IdentifierType.LABEL;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.model.ActionType;
 import org.cubictest.model.FormElement;
+import org.cubictest.model.IdentifierType;
 
 /**
  * Base class for text input.
@@ -38,4 +44,15 @@ public abstract class AbstractTextInput extends FormElement {
 	public ActionType getDefaultAction() {
 		return ActionType.ENTER_TEXT;
 	}
+	
+	public List<IdentifierType> getIdentifierTypes() {	
+		List<IdentifierType> list = new ArrayList<IdentifierType>();
+		list.add(LABEL);
+		list.add(ID);
+		list.add(IdentifierType.NAME);
+		list.add(IdentifierType.VALUE);
+		list.add(IdentifierType.TITLE);
+		return list;
+	}
+	
 }

@@ -3,7 +3,6 @@ package org.cubictest.persistence;
 import java.io.IOException;
 import java.io.StringReader;
 import java.math.BigDecimal;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IProject;
@@ -15,9 +14,6 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
-import org.jdom.xpath.XPath;
-
-import com.tapsterrock.jiffie.xpath.JiffieXPath;
 
 /**
  * Used for upgrading old CubicTest XML files to the newest standard.
@@ -144,6 +140,7 @@ public class LegacyUpgrade {
 								text.setName("value");
 								pageElement.removeContent(text);
 							}
+							text.setText("100");
 							identifier.addContent(text);
 							
 							Element identifierType = pageElement.getChild("identifierType");
@@ -186,6 +183,29 @@ public class LegacyUpgrade {
 								pageElement.removeContent(key);
 							}
 							pageElement.removeContent(sationType);
+							Element multiSelect = pageElement.getChild("multiselect");
+							if(multiSelect != null){
+								identifier = new Element("identifier");
+								identifiers.addContent(identifier);
+								
+								identifierType = new Element("type");
+								identifierType.setText("MULTISELECT");
+								identifier.addContent(identifierType);
+								
+								text = new Element("value");
+								text.setText("100");
+								pageElement.removeContent(text);
+								identifier.addContent(text);
+								
+								Element useI18n = new Element("useI18n");
+								Element useParam = new Element("useParam");
+								useI18n.setText("false");
+								useParam.setText("false");
+								identifier.addContent(useI18n);
+								identifier.addContent(useParam);
+								
+								pageElement.removeContent(multiSelect);
+							}
 						}
 					}
 				}

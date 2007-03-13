@@ -44,6 +44,7 @@ public abstract class FormElement extends PageElement{
 		list.add(LABEL);
 		list.add(IdentifierType.NAME);
 		list.add(ID);
+		list.add(IdentifierType.TITLE);
 		return list;
 	}
 }

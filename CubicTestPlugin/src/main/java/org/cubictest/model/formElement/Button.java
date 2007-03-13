@@ -6,11 +6,7 @@
 */
 package org.cubictest.model.formElement;
 
-import java.util.List;
-
 import org.cubictest.model.FormElement;
-import org.cubictest.model.IdentifierType;
-import static org.cubictest.model.IdentifierType.*;
 
 
 

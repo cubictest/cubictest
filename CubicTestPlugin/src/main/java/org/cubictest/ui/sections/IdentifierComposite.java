@@ -183,7 +183,6 @@ public class IdentifierComposite implements PropertyChangeListener {
 			paramLabel.setVisible(false);
 			param.setVisible(false);
 			paramCombo.setVisible(false);
-			
 		}else{
 			paramLabel.setVisible(true);
 			param.setVisible(true);
@@ -197,6 +196,9 @@ public class IdentifierComposite implements PropertyChangeListener {
 			paramCombo.select(paramCombo.indexOf(identifier.getParamKey()));
 			paramCombo.addSelectionListener(paramComboListener);
 		}
+		secondRow.setVisible(paramLabel.getVisible() || i18nLabel.getVisible());
+		secondRow.pack(false);
+		secondRow.redraw();
 	}
 	
 	private void setProbability(int newProbability){

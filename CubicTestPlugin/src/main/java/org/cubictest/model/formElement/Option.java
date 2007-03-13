@@ -26,6 +26,7 @@ public class Option extends Checkable{
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(LABEL);
 		list.add(IdentifierType.VALUE);
+		list.add(IdentifierType.CHECKED);
 		//ID type is not supported in Watir, so not added here.
 		return list;
 	}

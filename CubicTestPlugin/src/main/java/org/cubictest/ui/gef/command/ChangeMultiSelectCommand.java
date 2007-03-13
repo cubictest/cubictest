@@ -4,18 +4,17 @@
  */
 package org.cubictest.ui.gef.command;
 
-import org.cubictest.model.formElement.Select;
+import org.cubictest.model.Identifier;
 import org.eclipse.gef.commands.Command;
 
 public class ChangeMultiSelectCommand extends Command {
 
-	private Select model;
+	private Identifier identifier;
 	private boolean oldMulti;
 	private boolean newMulti;
 
-	public void setSelect(Select model) {
-		this.model = model;
-	
+	public void setIdentifier(Identifier identifier) {
+		this.identifier = identifier;
 	}
 
 	public void setOldMulti(boolean oldMulti) {
@@ -28,11 +27,11 @@ public class ChangeMultiSelectCommand extends Command {
 
 	@Override
 	public void execute() {
-		model.setMultiselect(newMulti);
+		identifier.setValue(newMulti + "");
 	}
 	
 	@Override
 	public void undo() {
-		model.setMultiselect(oldMulti);
+		identifier.setValue(oldMulti + "");
 	}
 }

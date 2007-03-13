@@ -18,7 +18,6 @@ import org.cubictest.model.context.IContext;
 //TODO: Temporarily extending text input, later add option elements
 public class Select extends FormElement implements IContext {
 
-	private boolean multiselect = false;
 	private List<PageElement> elements = new ArrayList<PageElement>();
 
 	public String getType() {
@@ -31,17 +30,9 @@ public class Select extends FormElement implements IContext {
 		identifierTypes.add(IdentifierType.LABEL);
 		identifierTypes.add(IdentifierType.NAME);
 		identifierTypes.add(IdentifierType.ID);
+		identifierTypes.add(IdentifierType.MULTISELECT);
+		identifierTypes.add(IdentifierType.TITLE);
 		return identifierTypes;
-	}
-
-	public boolean isMultiselect() {
-		return multiselect;
-	}
-	
-	public void setMultiselect(boolean multiselect) {
-		boolean old = this.multiselect;
-		this.multiselect = multiselect;
-		firePropertyChange(PARAM, old, multiselect);
 	}
 	
 	public void addElement(PageElement pe, int index){

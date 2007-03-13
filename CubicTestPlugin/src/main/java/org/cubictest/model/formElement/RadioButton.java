@@ -4,8 +4,10 @@
  */
 package org.cubictest.model.formElement;
 
+import static org.cubictest.model.IdentifierType.CHECKED;
 import static org.cubictest.model.IdentifierType.ID;
 import static org.cubictest.model.IdentifierType.LABEL;
+import static org.cubictest.model.IdentifierType.TITLE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,9 @@ public class RadioButton extends Checkable{
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(LABEL);
 		list.add(ID);
+		list.add(IdentifierType.NAME);
+		list.add(CHECKED);
+		list.add(TITLE);
 		return list;
 	}
 

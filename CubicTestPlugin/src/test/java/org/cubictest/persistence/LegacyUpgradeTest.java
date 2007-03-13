@@ -3,7 +3,6 @@ package org.cubictest.persistence;
 
 import java.io.File;
 
-import org.cubictest.model.Test;
 import org.junit.Before;
 
 public class LegacyUpgradeTest {
@@ -21,7 +20,6 @@ public class LegacyUpgradeTest {
 		File dir = new File(dirName);
 		for(File file : dir.listFiles()){
 			if(file.getAbsolutePath().endsWith("aat")){
-				
 				System.out.println("Testing: " + file.getName());
 				TestPersistance.loadFromFile(dirName + file.getName());
 			}
