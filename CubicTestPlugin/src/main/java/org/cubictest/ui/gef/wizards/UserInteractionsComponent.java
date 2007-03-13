@@ -349,7 +349,7 @@ public class UserInteractionsComponent {
 					case 0: 
 						String name = elementNames[((Integer) value).intValue()];
 						
-						for (IActionElement iae : allActionElements){	
+						for (int i = 0; i < allActionElements.size(); i++){	
 							if (name.equals(CHOOSE) || name.equals("")) {
 								rowItem.setElement(null);
 								rowItem.setActionType(ActionType.NO_ACTION);
