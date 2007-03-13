@@ -11,8 +11,8 @@ import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.watir.holders.RubyBuffer;
 import org.cubictest.exporters.watir.holders.StepList;
-import org.cubictest.exporters.watir.holders.TestStep;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.context.AbstractContext;
@@ -35,21 +35,20 @@ public class ContextConverter implements IContextConverter<StepList> {
 	}
 	
 
-	public PreContextHandle handlePreContext(StepList steps, IContext ctx) {
+	public PreContextHandle handlePreContext(StepList stepList, IContext ctx) {
 		if (ctx instanceof Select) {
 			Select element = (Select) ctx;
 			
-			String idText = element.getText();
+			String idText = "\"" + element.getText() + "\"";
 			String idType = WatirUtils.getIdType(element);
 			if (element.getIdentifierType().equals(IdentifierType.LABEL)) {
-				//If label, inject script to get the ID from the label and modify variables with the injected value:
-				StringBuffer buff = new StringBuffer();
-				WatirUtils.appendGetLabelTargetId(buff, element, element.getDescription());
-				idText = "\" + labelTargetId + \"";
+				//Handle label:
+				stepList.add(WatirUtils.getLabelTargetId(element));
+				stepList.addSeparator();
+				idText = "labelTargetId";
 				idType = ":id";
-				steps.add(new TestStep(buff.toString()).setDescription("Getting select list with text = '" + element.getText()));
 			}
-			steps.setPrefix("ie.select_list(" + idType + ", \"" + idText + "\")");
+			stepList.setPrefix("ie.select_list(" + idType + ", " + idText + ")");
 		}
 		else if (ctx instanceof AbstractContext) {
 			AbstractContext context = (AbstractContext)ctx;
@@ -60,7 +59,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 			String idText = StringUtils.replace(context.getText(),"\"", "\\\"");
 			String idType = WatirUtils.getIdType(context);
 	
-			steps.setPrefix("(ie.div(" + idType + ",'" + idText + "'))");
+			stepList.setPrefix("(ie.div(" + idType + "," + idText + "))");
 		}
 		
 		return PreContextHandle.CONTINUE;

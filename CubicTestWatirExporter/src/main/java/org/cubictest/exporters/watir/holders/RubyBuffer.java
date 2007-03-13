@@ -37,6 +37,14 @@ public class RubyBuffer {
 		}
 	}
 	
+	/**
+	 * Add raw string to buffer.
+	 * @param s the String to add.
+	 */
+	public void add(String s) {
+		buffer.append(s);
+	}
+	
 	
 	public String toString() {
 		return buffer.toString();

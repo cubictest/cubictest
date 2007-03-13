@@ -8,21 +8,24 @@
 package org.cubictest.exporters.watir.converters;
 
 import org.cubictest.export.converters.IUrlStartPointConverter;
+import org.cubictest.exporters.watir.holders.RubyBuffer;
 import org.cubictest.exporters.watir.holders.StepList;
-import org.cubictest.exporters.watir.holders.TestStep;
 import org.cubictest.model.UrlStartPoint;
 
 /**
- * Class for converting UrlStartPoint to Watir steps.
+ * Converts a UrlStartPoint to a Watir step.
  * 
  * @author chr_schwarz
  */
 public class UrlStartPointConverter implements IUrlStartPointConverter<StepList> {
 	
 	
-	public void handleUrlStartPoint(StepList steps, UrlStartPoint sp) {
-		String start = "ie.goto(\"" + sp.getBeginAt() + "\")";
-		TestStep step = new TestStep(start).setDescription("Opening " + sp);
-		steps.add(step);
+	public void handleUrlStartPoint(StepList stepList, UrlStartPoint sp) {
+		if (!stepList.isBrowserStarted()) {
+			stepList.add("ie = Watir::IE.new");
+			stepList.setBrowserStarted(true);
+		}
+		stepList.add("ie.goto(\"" + sp.getBeginAt() + "\")");
 	}
+	
 }

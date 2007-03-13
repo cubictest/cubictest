@@ -14,15 +14,10 @@ import static org.cubictest.model.ActionType.DRAG_START;
 import static org.cubictest.model.ActionType.ENTER_PARAMETER_TEXT;
 import static org.cubictest.model.ActionType.ENTER_TEXT;
 import static org.cubictest.model.ActionType.FOCUS;
-import static org.cubictest.model.ActionType.GO_BACK;
-import static org.cubictest.model.ActionType.GO_FORWARD;
 import static org.cubictest.model.ActionType.KEY_PRESSED;
 import static org.cubictest.model.ActionType.MOUSE_OUT;
 import static org.cubictest.model.ActionType.MOUSE_OVER;
-import static org.cubictest.model.ActionType.NEXT_WINDOW;
 import static org.cubictest.model.ActionType.NO_ACTION;
-import static org.cubictest.model.ActionType.PREVIOUS_WINDOW;
-import static org.cubictest.model.ActionType.REFRESH;
 import static org.cubictest.model.ActionType.UNCHECK;
 import static org.cubictest.model.IdentifierType.ID;
 import static org.cubictest.model.IdentifierType.LABEL;
@@ -30,12 +25,14 @@ import static org.cubictest.model.IdentifierType.NAME;
 import static org.cubictest.model.IdentifierType.VALUE;
 
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.watir.holders.RubyBuffer;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
@@ -96,91 +93,70 @@ public class WatirUtils {
 	}
 	
 	/**
-	 * Get the JavaScript/Watir event type of the specified ActionType.
-	 * @param a the Action type to convert.
-	 * @return the JavaScript/Watir event type.
+	 * Get the Watir interaction substring.
 	 */
-	public static String getEventType(ActionType a) {
+	public static String getInteraction(UserInteraction userInteraction) {
+		ActionType a = userInteraction.getActionType();
+		String textualInput = userInteraction.getTextualInput();
+		
 		if (a.equals(CLICK))
-			throw new ExporterException("Internal error: \"Click\" should not be used as javascript event. Use watir action instead.");
+			return "click";
 		if (a.equals(CHECK))
-			throw new ExporterException("Internal error: \"Check\" should not be used as javascript event. Use watir action instead.");
+			return "set";
 		if (a.equals(UNCHECK))
-			throw new ExporterException("Internal error: \"Uncheck\" should not be used as javascript event. Use watir action instead.");
+			return "clear";
 		if (a.equals(ENTER_TEXT))
-			throw new ExporterException("Internal error: \"Enter text\" should not be used as javascript event. Use watir action instead.");
+			return "set(\"" + textualInput +"\")";
+		if (a.equals(ENTER_PARAMETER_TEXT))
+			return "set(\"" + textualInput +"\")";
 		if (a.equals(KEY_PRESSED))
-			return "onkeypress";
+			return "fireEvent(\"onkeypress\")";
 		if (a.equals(CLEAR_ALL_TEXT))
-			throw new ExporterException("Internal error: \"Clear all text\" should not be used as javascript event. Use watir action instead.");
+			return "clear";
 		if (a.equals(MOUSE_OVER))
-			return "onmouseover";
+			return "fireEvent(\"onmouseover\")";
 		if (a.equals(MOUSE_OUT))
-			return "onmouseout";
+			return "fireEvent(\"onmouseout\")";
 		if (a.equals(DBLCLICK))
-			return "ondblclick";
+			return "fireEvent(\"ondblclick\")";
 		if (a.equals(FOCUS))
-			return "onfocus";
+			return "fireEvent(\"onfocus\")";
 		if (a.equals(BLUR))
-			return "onblur";
+			return "fireEvent(\"onblur\")";
 		if (a.equals(DRAG_START))
 			throw new ExporterException(a.getText() + " is not a supported action type");
 		if (a.equals(DRAG_END))
 			throw new ExporterException(a.getText() + " is not a supported action type");
 		if (a.equals(NO_ACTION))
 			throw new ExporterException(a.getText() + " is not a supported action type");
-		if (a.equals(GO_BACK))
-			throw new ExporterException(a.getText() + " is not a supported action type");
-		if (a.equals(GO_FORWARD))
-			throw new ExporterException(a.getText() + " is not a supported action type");
-		if (a.equals(REFRESH))
-			throw new ExporterException(a.getText() + " is not a supported action type");
-		if (a.equals(NEXT_WINDOW))
-			throw new ExporterException(a.getText() + " is not a supported action type");
-		if (a.equals(PREVIOUS_WINDOW))
-			throw new ExporterException(a.getText() + " is not a supported action type");
-		if (a.equals(ENTER_PARAMETER_TEXT))
-			throw new ExporterException(a.getText() + " is not a supported action type");
-		
 
-		throw new ExporterException("Unknown ActionType type");
+		throw new ExporterException("Unknown ActionType");
 	}
 
 	
 	/**
 	 * Gets the element ID that the label is for and stores it in ruby variable "labelTargetId".
 	 */
-	public static void appendGetLabelTargetId(StringBuffer buff, PageElement pe, String idText) {
-		append(buff, "labelTargetId = \"\"", 3);
-		append(buff, "ie.labels.each do |label|", 3);
-			append(buff, "if(label.innerText() == \"" + idText + "\")", 4);
-				append(buff, "labelTargetId = label.for()", 5);
-			append(buff, "end", 4);
-		append(buff, "end", 3);
-		append(buff, "if (labelTargetId.length == 0)", 3);
-			append(buff, "puts \"Did not find label with text '" + idText + "'\"", 4);
-		append(buff, "end", 3);
-	}
-	
-	
-	public static void appendCheckOptionPresent(StringBuffer buff, String selectList, String text) {
-		append(buff, "optionFound = false", 3);
-		append(buff, selectList + ".getAllContents().each do |opt|", 3);
-			append(buff, "if(opt.to_s() == \"" + text + "\")", 4);
-				append(buff, "optionFound = true", 5);
-			append(buff, "end", 4);
-		append(buff, "end", 3);
-		append(buff, "if (!optionFound)", 3);
-			append(buff, "puts \"Did not find option with text '" + text + "' in select list " + selectList.replace("\"", "'") + "\"", 4);
-		append(buff, "end", 3);
-	}
-	
-	private static void append(StringBuffer buff, String s, int indent) {
-		for (int i = 0; i < indent; i++) {
-			buff.append("\t");			
-		}
-		buff.append(s);
-		buff.append("\n");
-	}
+	public static String getLabelTargetId(PageElement pe) {
+		String label = pe.getDescription();
 
+		RubyBuffer buff = new RubyBuffer();
+		buff.add("# getting element associated with label '" + label + "'", 2);
+		buff.add("labelTargetId = nil", 2);
+		buff.add("ie.labels.each do |label|", 2);
+		buff.add("if (label.innerText() == \"" + label + "\")", 3);
+		buff.add("labelTargetId = label.for()", 4);
+		buff.add("end", 3);
+		buff.add("end", 2);
+		buff.add("if (labelTargetId == nil)",2);
+		buff.add("puts \"Did not find label with text '" + label + "'\"", 3);
+		buff.add("end", 2);
+		return buff.toString();
+	}
+	
+
+
+	public static boolean shouldExamineHtmlLabelTag(PageElement pe) {
+		return pe.getIdentifierType().equals(LABEL) && !(pe instanceof Text) && !(pe instanceof Button) && !(pe instanceof Option);
+	}
 }
