@@ -1,7 +1,5 @@
 package org.cubictest.ui.gef.layout;
 
-import java.util.List;
-
 import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
@@ -79,9 +77,9 @@ public class AutoLayout {
 	}
 	
 	private AbstractEditPart findTransitionNodeEditPart(TransitionNode transitionNode) {
-		for(AbstractEditPart child : (List<AbstractEditPart>) this.testEditPart.getChildren()) {
-			if(child.getModel() == transitionNode) {
-				return child;
+		for(Object child : this.testEditPart.getChildren()) {
+			if(((AbstractEditPart)child).getModel() == transitionNode) {
+				return (AbstractEditPart)child;
 			}
 		}
 		return null;
