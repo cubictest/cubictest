@@ -5,8 +5,6 @@
 
 package org.cubictest;
 
-import java.util.Properties;
-
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -17,8 +15,6 @@ public class CubicTestPlugin extends AbstractUIPlugin {
 	//The shared instance.
 	private static CubicTestPlugin plugin;
 
-	private static final String INI = "myplugin.ini";
-    private Properties myProperties = null;
 	/**
 	 * The constructor.
 	 */

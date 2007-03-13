@@ -82,7 +82,6 @@ public class ParameterList extends PropertyAwareObject {
 
 	public ParamMapper createInputRow() {
 		ParamMapper mapper = new ParamMapper(this,this.inputParameterSize());
-		int i = 0;
 		for(Parameter param : parameters ){
 			param.addParameterInput("");
 		}
