@@ -11,7 +11,6 @@ import java.net.URL;
 import org.apache.commons.io.FileUtils;
 import org.cubictest.export.DirectoryWalker;
 import org.cubictest.export.IResultHolder;
-import org.cubictest.exporters.htmlPrototype.delegates.HtmlPageCreator;
 import org.cubictest.exporters.htmlPrototype.delegates.TestConverter;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;

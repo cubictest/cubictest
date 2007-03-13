@@ -5,7 +5,6 @@
 package org.cubictest.exporters.htmlPrototype.delegates;
 
 import org.cubictest.exporters.htmlPrototype.interfaces.IPageElementConverter;
-import org.cubictest.exporters.htmlPrototype.interfaces.IPageElementConverter.UnknownPageElementException;
 import org.cubictest.exporters.htmlPrototype.utils.TextUtil;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.IdentifierType;
@@ -14,7 +13,6 @@ import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.context.AbstractContext;
-import org.cubictest.model.context.IContext;
 import org.jdom.Element;
 
 public class PageElementConverter implements IPageElementConverter {
