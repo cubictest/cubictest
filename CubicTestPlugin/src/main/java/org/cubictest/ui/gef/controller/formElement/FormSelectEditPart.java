@@ -25,6 +25,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.graphics.Image;
 
 
 /**
@@ -56,9 +57,9 @@ public class FormSelectEditPart extends FormElementEditPart {
 	@Override
 	protected CubicTestGroupFigure createFigure() {
 		CubicTestGroupFigure figure = 
-			new CubicTestGroupFigure(getModel().getDescription(), false);
+			new CubicTestGroupFigure(getModel().getText(), false);
 		figure.setBackgroundColor(ColorConstants.listBackground);
-		figure.getHeader().setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.SELECT_IMAGE));
+		figure.getHeader().setIcon(getImage(getModel().isNot()));
 		figure.setTooltipText("Check select box present: $labelText");
 		return figure;
 	}
@@ -100,6 +101,11 @@ public class FormSelectEditPart extends FormElementEditPart {
 		installEditPolicy(EditPolicy.CONTAINER_ROLE, new SelectContextContainerEditPolicy(layoutPolicy));
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new PageElementComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new PageElementDirectEditPolicy());
+	}
+
+	@Override
+	protected Image getImage(boolean isNot) {
+		return CubicTestImageRegistry.get(CubicTestImageRegistry.SELECT_IMAGE,isNot);
 	}
 	
 }

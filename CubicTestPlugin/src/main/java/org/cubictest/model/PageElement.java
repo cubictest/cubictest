@@ -122,6 +122,8 @@ public abstract class PageElement extends PropertyAwareObject
 				identifier.setType(type);
 				identifiers.add(identifier);
 			}
+			if(identifiers.size() > 0)
+				identifiers.get(0).setProbability(Identifier.MAX_PROBABILITY);
 		}
 		return identifiers;
 	}

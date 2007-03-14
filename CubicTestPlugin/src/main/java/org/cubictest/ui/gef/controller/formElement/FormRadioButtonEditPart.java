@@ -41,6 +41,6 @@ public class FormRadioButtonEditPart extends FormElementEditPart{
 		RadioButton button = (RadioButton)getModel();
 		String key = button.isChecked() ? CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE : 
 			CubicTestImageRegistry.RADIO_BUTTON_UNCHECKED_IMAGE;
-		return CubicTestImageRegistry.get(key);
+		return CubicTestImageRegistry.get(key,isNot);
 	}
 }

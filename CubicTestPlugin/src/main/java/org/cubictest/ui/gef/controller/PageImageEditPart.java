@@ -36,8 +36,7 @@ public class PageImageEditPart extends PageElementEditPart {
 	}
 	
 	protected org.eclipse.swt.graphics.Image getImage(boolean not) {
-		String key = not ? CubicTestImageRegistry.IMAGE_IMAGE : 
-										CubicTestImageRegistry.IMAGE_IMAGE;
-		return  CubicTestImageRegistry.get(key);
+		String key = CubicTestImageRegistry.IMAGE_IMAGE;
+		return  CubicTestImageRegistry.get(key,not);
 	}
 }

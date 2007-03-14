@@ -11,6 +11,7 @@ import org.cubictest.model.formElement.TextField;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.cubictest.ui.gef.view.TestStepLabel;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.swt.graphics.Image;
 
 
 /**
@@ -33,8 +34,12 @@ public class FormTextFieldEditPart extends FormElementEditPart {
 	 */
 	protected IFigure createFigure() {
 		TestStepLabel label = (TestStepLabel)super.createFigure();
-		label.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_FIELD_IMAGE));
 		label.setTooltipText("Check text field present: $labelText");
 		return label;
+	}
+
+	@Override
+	protected Image getImage(boolean isNot) {
+		return CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_FIELD_IMAGE,isNot);
 	}
 }

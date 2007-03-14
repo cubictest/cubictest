@@ -31,6 +31,7 @@ public abstract class FormElementEditPart extends PageElementEditPart{
 	 */
 	protected IFigure createFigure(){
 		TestStepLabel label = new TestStepLabel(((FormElement)getModel()).getDescription());
+		label.setIcon(getImage(getModel().isNot()));
 		label.setLabelAlignment(PositionConstants.LEFT);
 		return label;
 	}

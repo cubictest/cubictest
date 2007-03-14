@@ -11,6 +11,7 @@ import org.cubictest.model.formElement.Password;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.cubictest.ui.gef.view.TestStepLabel;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.swt.graphics.Image;
 
 
 /**
@@ -35,8 +36,13 @@ public class FormPasswordEditPart extends FormElementEditPart {
 	 */
 	protected IFigure createFigure() {
 		TestStepLabel label = (TestStepLabel) super.createFigure();
-		label.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.PASSWORD_IMAGE));
 		label.setTooltipText("Check password present: $labelText");
 		return label;
+	}
+
+	@Override
+	protected Image getImage(boolean isNot) {
+		return CubicTestImageRegistry.get(
+				CubicTestImageRegistry.PASSWORD_IMAGE,getModel().isNot());
 	}
 }

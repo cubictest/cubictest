@@ -90,11 +90,8 @@ public class PresentAction extends SelectionAction {
 		if (selection instanceof PageElementEditPart){
 			PageElement pe = (PageElement) ((PageElementEditPart)selection).getModel();
 			String type = pe.getType();
-			if (pe.isNot())
-				type = type.substring(0, 1).toLowerCase() + type.substring(1, type.length());
-			else
-				type = "not" + type.substring(0, type.length());
-			return CubicTestImageRegistry.getDescriptor(type);
+			type = type.substring(0, 1).toLowerCase() + type.substring(1, type.length());
+			return CubicTestImageRegistry.getDescriptor(type,!pe.isNot());
 		}
 		return super.getImageDescriptor();
 	}

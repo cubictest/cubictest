@@ -39,7 +39,6 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 	 * @see org.eclipse.gef.EditPart#performRequest(org.eclipse.gef.Request)
 	 */
 	public void performRequest(Request request) {
-		
 		if(request.getType() == RequestConstants.REQ_DIRECT_EDIT || 
 				request.getType() == RequestConstants.REQ_OPEN){
 			startDirectEdit();
@@ -83,16 +82,17 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 		super.refreshVisuals();
 		PageElement element = getModel();
 		
-		
+		Image newImage = getImage(element.isNot());
 		if(getFigure() instanceof TestStepLabel){
 			TestStepLabel figure = (TestStepLabel)getFigure();
-			Image newImage = getImage(element.isNot());
 			if(newImage != null)
 				figure.setIcon(newImage);
 			figure.setText(element.getText());
 		}else{
 			CubicTestGroupFigure figure = (CubicTestGroupFigure)getFigure();
 			figure.setText(element.getText());
+			if(newImage != null)
+				figure.getHeader().setIcon(newImage);
 		}
 		
 		if (manager != null)
@@ -101,10 +101,10 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 		super.refreshVisuals();
 	}
 	
-	protected Image getImage(boolean isNot) {
+	protected abstract Image getImage(boolean isNot);/* {
 		return null;
 	}
-
+	 */
 	public final String getType(){
 		return getModel().getType();
 	}

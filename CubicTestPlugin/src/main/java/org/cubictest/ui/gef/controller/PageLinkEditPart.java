@@ -49,7 +49,7 @@ public class PageLinkEditPart extends PageElementEditPart{
 	}	
 	
 	protected Image getImage(boolean not) {
-		String key = not ? CubicTestImageRegistry.NOT_LINK_IMAGE : CubicTestImageRegistry.LINK_IMAGE;
-		return  CubicTestImageRegistry.get(key);
+		String key = CubicTestImageRegistry.LINK_IMAGE;
+		return  CubicTestImageRegistry.get(key,not);
 	}
 }

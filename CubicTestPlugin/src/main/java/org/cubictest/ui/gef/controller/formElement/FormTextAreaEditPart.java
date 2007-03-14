@@ -11,6 +11,7 @@ import org.cubictest.model.formElement.TextArea;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.cubictest.ui.gef.view.TestStepLabel;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.swt.graphics.Image;
 
 
 /**
@@ -33,8 +34,12 @@ public class FormTextAreaEditPart extends FormElementEditPart {
 	 */
 	protected IFigure createFigure() {
 		TestStepLabel label = (TestStepLabel) super.createFigure();
-		label.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_AREA_IMAGE));
 		label.setTooltipText("Check text area present: $labelText");
 		return label;
+	}
+
+	@Override
+	protected Image getImage(boolean isNot) {
+		return CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_AREA_IMAGE,isNot);
 	}
 }

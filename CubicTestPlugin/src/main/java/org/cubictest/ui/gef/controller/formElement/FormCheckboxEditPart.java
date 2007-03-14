@@ -36,9 +36,7 @@ public class FormCheckboxEditPart extends FormElementEditPart {
 	protected IFigure createFigure() {
 		TestStepLabel figure = (TestStepLabel) super.createFigure();
 		Checkbox model = (Checkbox)getModel();
-		String key = model.isChecked() ? CubicTestImageRegistry.CHECKBOX_CHECKED_IMAGE : 
-			CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE;
-		figure.setIcon(CubicTestImageRegistry.get(key));
+		figure.setIcon(getImage(model.isNot()));
 		figure.setTooltipText("Check checkbox present: $labelText"
 				+ (model.isChecked() ? " (checked)" : " (unchecked)"));
 		return figure;
@@ -50,8 +48,8 @@ public class FormCheckboxEditPart extends FormElementEditPart {
 			Checkbox box = (Checkbox)getModel();
 			String key = box.isChecked() ? CubicTestImageRegistry.CHECKBOX_CHECKED_IMAGE : 
 				CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE;
-			return CubicTestImageRegistry.get(key);
+			return CubicTestImageRegistry.get(key,isNot);
 		}
-		return super.getImage(isNot);
+		return null;
 	}
 }

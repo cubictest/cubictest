@@ -48,8 +48,7 @@ public class PageTextEditPart extends PageElementEditPart{
 	}
 	
 	protected Image getImage(boolean not) {
-		String key = not ? CubicTestImageRegistry.NOT_TEXT_IMAGE : 
-										CubicTestImageRegistry.TEXT_IMAGE;
-		return CubicTestImageRegistry.get(key);
+		String key = CubicTestImageRegistry.TEXT_IMAGE;
+		return CubicTestImageRegistry.get(key,not);
 	}
 }

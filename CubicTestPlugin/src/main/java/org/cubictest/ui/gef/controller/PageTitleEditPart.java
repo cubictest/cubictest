@@ -66,8 +66,8 @@ public class PageTitleEditPart extends PageElementEditPart{
 	}
 	
 	protected Image getImage(boolean not) {
-		String key = not ? CubicTestImageRegistry.NOT_TITLE_IMAGE : CubicTestImageRegistry.TITLE_IMAGE;
-		return  CubicTestImageRegistry.get(key);
+		String key = CubicTestImageRegistry.TITLE_IMAGE;
+		return  CubicTestImageRegistry.get(key,not);
 	}
 
 }

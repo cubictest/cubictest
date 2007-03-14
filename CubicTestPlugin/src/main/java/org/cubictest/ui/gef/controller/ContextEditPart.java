@@ -25,6 +25,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.graphics.Image;
 
 
 /**
@@ -66,7 +67,7 @@ public class ContextEditPart extends PageElementEditPart {
 		CubicTestGroupFigure figure = 
 			new CubicTestGroupFigure(((AbstractContext)getModel()).getText(), false);
 		figure.setBackgroundColor(ColorConstants.listBackground);
-		figure.getHeader().setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.CONTEXT_IMAGE));
+		figure.getHeader().setIcon(getImage(getModel().isNot()));
 		figure.setTooltipText("Check context present: $labelText"
 				+ "\nContexts are used for identyfying a part of the page or a single page element.");
 		return figure;
@@ -97,5 +98,10 @@ public class ContextEditPart extends PageElementEditPart {
 		CommandStack stack = getViewer().getEditDomain().getCommandStack();
 		if (manager == null && ViewUtil.pageElementHasJustBeenCreated(stack, getModel()))
 			startDirectEdit();
+	}
+
+	@Override
+	protected Image getImage(boolean isNot) {
+		return CubicTestImageRegistry.get(CubicTestImageRegistry.CONTEXT_IMAGE, isNot);
 	}
 }
