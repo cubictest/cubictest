@@ -26,6 +26,7 @@ import static org.cubictest.model.IdentifierType.VALUE;
 
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.RubyBuffer;
+import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
@@ -51,7 +52,7 @@ import org.cubictest.model.formElement.TextField;
 public class WatirUtils {
 
 	public static String getIdType(PageElement pe) {
-		IdentifierType idType = pe.getDirectEditIdentifier().getType();
+		IdentifierType idType = pe.getIdentifierType();
 		if (idType.equals(ID))
 			return ":id";
 		if (idType.equals(NAME))
@@ -141,21 +142,20 @@ public class WatirUtils {
 		String label = pe.getDescription();
 
 		RubyBuffer buff = new RubyBuffer();
-		buff.add("# getting element associated with label '" + label + "'", 2);
-		buff.add("labelTargetId = nil", 2);
-		buff.add("ie.labels.each do |label|", 2);
-		buff.add("if (label.innerText() == \"" + label + "\")", 3);
-		buff.add("labelTargetId = label.for()", 4);
+		buff.add("# getting element associated with label '" + label + "'", 3);
+		buff.add("labelTargetId = nil", 3);
+		buff.add("ie.labels.each do |label|", 3);
+		buff.add("if (label.innerText() == \"" + label + "\")", 4);
+		buff.add("labelTargetId = label.for()", 5);
+		buff.add("end", 4);
 		buff.add("end", 3);
-		buff.add("end", 2);
-		buff.add("if (labelTargetId == nil)",2);
-		buff.add("puts \"Did not find label with text '" + label + "'\"", 3);
-		buff.add("end", 2);
+		buff.add("if (labelTargetId == nil)", 3);
+		buff.add("raise " + StepList.TEST_STEP_FAILED, 4);
+		buff.add("end", 3);
 		return buff.toString();
 	}
 	
-
-
+	
 	public static boolean shouldExamineHtmlLabelTag(PageElement pe) {
 		return pe.getIdentifierType().equals(LABEL) && !(pe instanceof Text) && !(pe instanceof Button) && !(pe instanceof Option);
 	}
