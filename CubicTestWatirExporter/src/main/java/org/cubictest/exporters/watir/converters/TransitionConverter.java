@@ -16,6 +16,7 @@ import static org.cubictest.model.IdentifierType.LABEL;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.exceptions.ExporterException;
@@ -75,7 +76,10 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 		String idType = WatirUtils.getIdType(pe);
 		String idText = "\"" + pe.getText() + "\"";
 
-		//Handle Label identifier:		
+		stepList.add("# user interaction");
+		stepList.add("begin");
+
+		//Handle Label identifier:
 		if (WatirUtils.shouldExamineHtmlLabelTag(pe)) {
 			stepList.add(WatirUtils.getLabelTargetId(pe));
 			stepList.addSeparator();
@@ -83,29 +87,22 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 			idType = ":id";
 		}
 		
-		stepList.add("# user interaction");
 		if (userInteraction.getActionType().equals(SELECT)) {
 			//select option in select list:
 			selectOptionInSelectList(stepList, (Option) pe, idType, idText);	
 		}
 		else {
 			//handle all other interaction types:
-			int indent = 2;
-			if (WatirUtils.shouldExamineHtmlLabelTag(pe)) {
-				stepList.add("if (labelTargetId == nil)", 2);
-				stepList.add("puts \"Could not " + WatirUtils.getInteraction(userInteraction) + " " + 
-						WatirUtils.getElementType(pe) + " with " + pe.getIdentifierType() + " = '" + pe.getText() +
-						"' (element not found in page)", 3);
-				stepList.add("else", 2);
-				indent = 3;
-			}
-			
-			//the action:
-			stepList.add("ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idText + ")." + WatirUtils.getInteraction(userInteraction), indent);
+			stepList.add("ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idText + ")." + WatirUtils.getInteraction(userInteraction), 3);
+			stepList.add("passedSteps += 1 ", 3);
 
-			if (WatirUtils.shouldExamineHtmlLabelTag(pe)) {
-				stepList.add("end", 2);
-			}
+			stepList.add("rescue " + StepList.TEST_STEP_FAILED, 2);
+			stepList.add("failedSteps += 1 ", 3);
+			String interactionType = StringUtils.replace(WatirUtils.getInteraction(userInteraction) ,"\"", "\\\"");
+			stepList.add("puts \"Could not " + interactionType + " " + 
+					WatirUtils.getElementType(pe) + " with " + pe.getIdentifierType() + " = '" + pe.getText() + "'\"", 3);
+	
+			stepList.add("end", 2);
 		}
 	}
 
