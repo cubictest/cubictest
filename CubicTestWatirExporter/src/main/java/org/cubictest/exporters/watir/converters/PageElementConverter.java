@@ -38,7 +38,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		String idType = WatirUtils.getIdType(pe);
 		
 		String not = pe.isNot() ? " not" : ""; 
-		stepList.add("# asserting " + pe.getType() + " with " + idType.substring(1) + " = " + idText + not + " present", 2);
+		stepList.add("# asserting " + pe.getType() + " with " + pe.getIdentifierType().displayValue() + " = " + idText + not + " present", 2);
 		stepList.add("begin", 2);
 
 		if (WatirUtils.shouldExamineHtmlLabelTag(pe)) {
@@ -125,7 +125,8 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		}
 		
 		String not = pe.isNot() ? " not" : ""; 
-		stepList.add("puts \"Step failed: Check " + pe.getType() + not + " present: '" + pe.getText() + "'" + contextInfo + "\"", 3);
+		stepList.add("puts \"Step failed: Check " + pe.getType() + not + " present with " + pe.getIdentifierType().displayValue() +
+				" = '" + pe.getText() + "'" + contextInfo + "\"", 3);
 		stepList.add("end", 2);
 	}
 
