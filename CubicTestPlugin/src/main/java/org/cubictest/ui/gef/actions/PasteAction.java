@@ -65,7 +65,7 @@ public class PasteAction extends SelectionAction {
 
 		EditPart selectedPart = (EditPart) selection.getFirstElement();
 
-		if(selectedPart instanceof AbstractConnectionEditPart || selectedPart instanceof TestEditPart ||
+		if(selectedPart instanceof AbstractConnectionEditPart ||
 				selectedPart instanceof PropertyChangePart && !((PropertyChangePart) selectedPart).canBeTargetForPaste() ||
 				!(selectedPart.getModel() instanceof IContext) && ViewUtil.containsAPageElement(getClipboardContents())) {
 			return false;
