@@ -52,8 +52,7 @@ public class ViewUtil {
 		
 		Command undoCommand = stack.getUndoCommand();
 		if (undoCommand instanceof CompoundCommand) {
-			List<Command> commands = ((CompoundCommand) undoCommand).getCommands();
-			for (Command command : commands) {
+			for (Object command : ((CompoundCommand) undoCommand).getCommands()) {
 				if (command instanceof CreatePageElementCommand) {
 					isCreatePageElementCommand = true;
 					cmdPageElement = ((CreatePageElementCommand)command).getPageElement();

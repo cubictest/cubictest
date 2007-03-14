@@ -20,7 +20,6 @@ import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.MovePageCommand;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
-import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
