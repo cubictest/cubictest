@@ -80,7 +80,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 		stepList.add("begin");
 
 		//Handle Label identifier:
-		if (WatirUtils.shouldExamineHtmlLabelTag(pe)) {
+		if (WatirUtils.shouldGetLabelTargetId(pe)) {
 			stepList.add(WatirUtils.getLabelTargetId(pe));
 			stepList.addSeparator();
 			idText = "labelTargetId";

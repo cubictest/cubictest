@@ -13,7 +13,10 @@ import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.exporters.watir.utils.WatirUtils;
+import org.cubictest.model.AbstractPage;
 import org.cubictest.model.IdentifierType;
+import org.cubictest.model.PageElement;
+import org.cubictest.model.Text;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
@@ -35,31 +38,58 @@ public class ContextConverter implements IContextConverter<StepList> {
 	
 
 	public PreContextHandle handlePreContext(StepList stepList, IContext ctx) {
+		if (ctx instanceof AbstractPage) {
+			return PreContextHandle.CONTINUE;
+		}
+
+		stepList.addSeparator();
+
 		if (ctx instanceof Select) {
-			Select element = (Select) ctx;
+			Select select = (Select) ctx;
+			stepList.add("# asserting Select box present with " + select.getIdentifierType().displayValue() + 
+					" = " + select.getText(), 2);
 			
-			String idText = "\"" + element.getText() + "\"";
-			String idType = WatirUtils.getIdType(element);
-			if (element.getIdentifierType().equals(IdentifierType.LABEL)) {
+			String idText = "\"" + select.getText() + "\"";
+			String idType = WatirUtils.getIdType(select);
+			stepList.add("selectListId = nil", 2);
+			stepList.add("begin", 2);
+			if (select.getIdentifierType().equals(IdentifierType.LABEL)) {
 				//Handle label:
-				stepList.add(WatirUtils.getLabelTargetId(element));
-				stepList.addSeparator();
-				idText = "labelTargetId";
+				stepList.add(WatirUtils.getLabelTargetId(select));
+				idText = "selectListId";
 				idType = ":id";
 			}
+			stepList.add("selectListId = labelTargetId", 3);
 			stepList.setPrefix("ie.select_list(" + idType + ", " + idText + ")");
 		}
 		else if (ctx instanceof AbstractContext) {
-			AbstractContext context = (AbstractContext)ctx;
-			
+			AbstractContext context = (AbstractContext) ctx;
 			if (!(context.getIdentifierType().equals(ID)))
-				throw new ExporterException("Contexts must have identifier type = ID");
+				throw new ExporterException("Contexts must have identifier type = ID for Watir export");
+
+			stepList.add("# asserting " + context.getType() + "present with " + context.getIdentifierType().displayValue() + " = " + context.getText(), 2);
+			
+			stepList.add("begin", 2);
 	
-			String idText = StringUtils.replace(context.getText(),"\"", "\\\"");
+			String idText = "\"" + StringUtils.replace(context.getText(),"\"", "\\\"") + "\"";
 			String idType = WatirUtils.getIdType(context);
 	
 			stepList.setPrefix("(ie.div(" + idType + "," + idText + "))");
+			stepList.add("if (ie.div(" + idType + "," + idText + ") == nil)", 3);
+			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
+			stepList.add("end", 3);
 		}
+
+		PageElement element = (PageElement) ctx;
+
+		stepList.add("passedSteps += 1 ", 3);
+		stepList.add("rescue " + StepList.TEST_STEP_FAILED, 2);
+		stepList.add("failedSteps += 1 ", 3);
+
+		stepList.add("puts \"Step failed: Check " + element.getType() + " present with " + element.getIdentifierType().displayValue() +
+				" = '" + element.getText() + "'\"", 3);
+		stepList.add("end", 2);
+
 		
 		return PreContextHandle.CONTINUE;
 	}

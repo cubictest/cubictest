@@ -16,8 +16,10 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.formElement.Checkable;
+import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Password;
+import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
 
@@ -41,7 +43,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		stepList.add("# asserting " + pe.getType() + " with " + pe.getIdentifierType().displayValue() + " = " + idText + not + " present", 2);
 		stepList.add("begin", 2);
 
-		if (WatirUtils.shouldExamineHtmlLabelTag(pe)) {
+		if (WatirUtils.shouldGetLabelTargetId(pe)) {
 			stepList.add(WatirUtils.getLabelTargetId(pe));
 			stepList.addSeparator();
 			idText = "labelTargetId";
@@ -50,7 +52,8 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		
 		assertElementPresent(stepList, pe, idText, idType);
 
-		assertInputElementContents(stepList, pe, idText, idType);
+		// Not enabled since we do not yet support setting a default value:
+//		assertInputElementContents(stepList, pe, idText, idType);
 
 		handleAssertionFailure(stepList, pe);
 	}
@@ -64,15 +67,18 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		}
 		else if (pe instanceof Option && pe.getIdentifierType().equals(LABEL)) {
 			String selectList = stepList.getPrefix();
-			stepList.add("optionFound = false", 2);
-			stepList.add(selectList + ".getAllContents().each do |opt|", 2);
-			stepList.add("if(opt.to_s() == \"" + pe.getText() + "\")", 3);
-			stepList.add("optionFound = true", 4);
+			stepList.add("if (selectListId == nil)", 3);
+			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
 			stepList.add("end", 3);
-			stepList.add("end", 2);
-			stepList.add("if (!optionFound)", 2);
-			stepList.add("puts \"Did not find option with text '" + pe.getText() + "' in select list " + selectList.replace("\"", "'") + "\"", 3);
-			stepList.add("end", 2);
+			stepList.add("optionFound = false", 3);
+			stepList.add(selectList + ".getAllContents().each do |opt|", 3);
+			stepList.add("if(opt.to_s() == \"" + pe.getText() + "\")", 4);
+			stepList.add("optionFound = true", 5);
+			stepList.add("end", 4);
+			stepList.add("end", 3);
+			stepList.add("if (!optionFound)", 3);
+			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
+			stepList.add("end", 3);
 		}
 		else {
 			//handle all other page elements:			
@@ -83,7 +89,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 			}
 			else {
 				String not = pe.isNot() ? "not " : ""; 
-				stepList.add("while " + not + stepList.getPrefix() + "." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idText + ") == nil do", 3);
+				stepList.add("while " + not + "ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idText + ") == nil do", 3);
 			}
 			stepList.add("if (pass > 20)", 4);
 			stepList.add("raise " + StepList.TEST_STEP_FAILED, 5);
@@ -100,15 +106,15 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 	private void assertInputElementContents(StepList stepList, PageElement pe, String idText, String idType) {
 		if (pe instanceof TextField || pe instanceof Password || pe instanceof TextArea){
 			//Assert contents of field to be blank:
-			stepList.add("if not (" + stepList.getPrefix() + "." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idText + ").getContents() == \"\")", 3);
+			stepList.add("if not (ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idText + ").getContents() == \"\")", 3);
 			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
 			stepList.add("end", 3);
 		}
-		else if (pe instanceof Checkable){
-			String checked = ((Checkable)pe).isChecked() + "";
+		else if (pe instanceof RadioButton || pe instanceof Checkbox){
+			String not = ((Checkable)pe).isChecked() ? "not " : "";
 			//Assert checked status:
-			stepList.add("if not (" + stepList.getPrefix() + "." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idText + ").checked? == " + checked + ")", 3);
-			stepList.add("raise " + StepList.TEST_STEP_FAILED, 3);
+			stepList.add("if " + not + " (ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idText + ").checked?)", 3);
+			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
 			stepList.add("end", 3);
 		}
 	}
@@ -120,7 +126,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 
 		String prefix = StringUtils.replace(stepList.getPrefix(),"\"", "\\\"");
 		String contextInfo = "";
-		if (!prefix.equalsIgnoreCase("ie")) {
+		if (!prefix.equalsIgnoreCase("ie") && pe instanceof Text) {
 			contextInfo = " (context: '" + prefix + "')";
 		}
 		

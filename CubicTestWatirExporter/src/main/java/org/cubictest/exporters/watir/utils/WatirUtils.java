@@ -156,7 +156,9 @@ public class WatirUtils {
 	}
 	
 	
-	public static boolean shouldExamineHtmlLabelTag(PageElement pe) {
+	public static boolean shouldGetLabelTargetId(PageElement pe) {
+		//Link, Text, Button and Option has label accessible in Watir directly, 
+		//so getLabelTarget ID is not necessary for these elements
 		return pe.getIdentifierType().equals(LABEL) && !(pe instanceof Link) && !(pe instanceof Text) && !(pe instanceof Button) && !(pe instanceof Option);
 	}
 }
