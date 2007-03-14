@@ -157,6 +157,6 @@ public class WatirUtils {
 	
 	
 	public static boolean shouldExamineHtmlLabelTag(PageElement pe) {
-		return pe.getIdentifierType().equals(LABEL) && !(pe instanceof Text) && !(pe instanceof Button) && !(pe instanceof Option);
+		return pe.getIdentifierType().equals(LABEL) && !(pe instanceof Link) && !(pe instanceof Text) && !(pe instanceof Button) && !(pe instanceof Option);
 	}
 }

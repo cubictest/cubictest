@@ -96,11 +96,11 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 			stepList.add("ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idText + ")." + WatirUtils.getInteraction(userInteraction), 3);
 			stepList.add("passedSteps += 1 ", 3);
 
-			stepList.add("rescue " + StepList.TEST_STEP_FAILED, 2);
+			stepList.add("rescue", 2);
 			stepList.add("failedSteps += 1 ", 3);
 			String interactionType = StringUtils.replace(WatirUtils.getInteraction(userInteraction) ,"\"", "\\\"");
 			stepList.add("puts \"Could not " + interactionType + " " + 
-					WatirUtils.getElementType(pe) + " with " + pe.getIdentifierType() + " = '" + pe.getText() + "'\"", 3);
+					WatirUtils.getElementType(pe) + " with " + pe.getIdentifierType().displayValue() + " = '" + pe.getText() + "'\"", 3);
 	
 			stepList.add("end", 2);
 		}
