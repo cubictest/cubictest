@@ -24,6 +24,9 @@ public class UrlStartPointConverter implements IUrlStartPointConverter<StepList>
 			stepList.add("ie = Watir::IE.new");
 			stepList.setBrowserStarted(true);
 		}
+
+		stepList.addSeparator();
+		stepList.add("# URL start point");
 		stepList.add("ie.goto(\"" + sp.getBeginAt() + "\")");
 	}
 	
