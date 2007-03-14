@@ -52,6 +52,7 @@ public class IdentifierComposite implements PropertyChangeListener {
 	private GraphicalTestEditor editor;
 	private Label paramLabel;
 	private ValueListener valueListener = new ValueListener();
+	private int listeners = 0;
 
 	public IdentifierComposite(Composite parent, 
 			TabbedPropertySheetWidgetFactory factory, int lableWidth) {
@@ -148,8 +149,12 @@ public class IdentifierComposite implements PropertyChangeListener {
 	}
 
 	public void setIdentifier(PageElement pageElement, Identifier identifier) {
+		if(this.pageElement != null && this.identifier != null){
+			removeListeners();
+		}
 		this.pageElement = pageElement;
 		this.identifier = identifier;
+		addListeners();
 		type.setText(identifier.getType().displayValue() + ":");
 		value.setText(identifier.getValue());
 		
@@ -249,18 +254,20 @@ public class IdentifierComposite implements PropertyChangeListener {
 		}
 	}
 
-	public void aboutToBeHidden() {
+	public void removeListeners() {
 		if(identifier != null)
 			identifier.removePropertyChangeListener(this);
 		if(pageElement != null)
 			pageElement.removePropertyChangeListener(this);
+		listeners--;
 	}
 
-	public void aboutToBeShown() {
+	public void addListeners() {
 		if(identifier != null)
 			identifier.addPropertyChangeListener(this);
 		if(pageElement != null)
 			pageElement.addPropertyChangeListener(this);
+		listeners++;
 	}
 	
 	public void setPart(GraphicalTestEditor editor) {

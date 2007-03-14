@@ -76,24 +76,13 @@ public class IdentifierSection extends AbstractPropertySection {
 		super.refresh();
 		parent.redraw();
 		parent.pack(true);
-		composite.redraw();
-		composite.pack(true);
-		composite.redraw();
 	}
 	
 	@Override
 	public void aboutToBeHidden() {
 		super.aboutToBeHidden();
 		for (IdentifierComposite idCom : composites) {
-			idCom.aboutToBeHidden();
-		}
-	}
-	
-	@Override
-	public void aboutToBeShown() {
-		super.aboutToBeShown();
-		for (IdentifierComposite idCom : composites) {
-			idCom.aboutToBeShown();
+			idCom.removeListeners();
 		}
 	}
 }
