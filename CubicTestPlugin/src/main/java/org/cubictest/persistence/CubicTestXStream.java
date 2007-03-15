@@ -35,6 +35,7 @@ import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.AbstractContext;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.OrderedContext;
 import org.cubictest.model.context.Row;
 import org.cubictest.model.context.SimpleContext;
@@ -112,6 +113,9 @@ public class CubicTestXStream extends XStream {
 		this.alias("orderedContext", OrderedContext.class);
 		this.alias("simpleContext", SimpleContext.class);
 		this.alias("row", Row.class);
+		//Added by Genesis Campos
+		this.alias("frame", Frame.class);
+		//End;
 		
 		//formElement:
 		this.alias("abstractTextInput", AbstractTextInput.class);

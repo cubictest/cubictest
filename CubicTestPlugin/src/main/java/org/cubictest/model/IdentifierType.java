@@ -45,7 +45,13 @@ public enum IdentifierType {
 	MULTISELECT("Multiselect"),
 	
 	/** HTML title attribute */
-	TITLE("Title")
+	TITLE("Title"),
+	
+	//Added by Genesis Campos
+	/** element index in page */
+	INDEX("Index")
+	//End;
+	
 	;
 
 	private String displayValue;

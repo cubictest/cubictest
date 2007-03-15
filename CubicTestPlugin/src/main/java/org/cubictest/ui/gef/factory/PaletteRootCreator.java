@@ -43,6 +43,7 @@ import org.cubictest.model.Title;
 import org.cubictest.model.Transition;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.Row;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;
@@ -204,7 +205,13 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				Row.class, new DataCreationFactory(
 						Row.class), CubicTestImageRegistry.getDescriptor(ROW_IMAGE), null);
 		contexts.add(tool);
-
+		//Added by Genesis Campos
+		tool = new CombinedTemplateCreationEntry("Add Frame",
+				"Creates a new Frame",
+				Frame.class, new DataCreationFactory(
+						Frame.class), null, null);
+		contexts.add(tool);
+		//End;
 		
 		// -- Creating Form Elements --
 		tool = new CombinedTemplateCreationEntry("Add TextField",
