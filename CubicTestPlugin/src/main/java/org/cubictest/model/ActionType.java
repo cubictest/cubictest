@@ -40,6 +40,11 @@ public enum ActionType {
 	PREVIOUS_WINDOW("Previous window", false),
 	ENTER_PARAMETER_TEXT("Enter parameter text", true),
 	SELECT("Select", false),
+	//Added by Genesis Campos
+	SWITCH_BY_TITLE("Switch by Title", true),
+	SWITCH_BY_URL("Switch by URL", true),
+	CLOSE("Close Window", false)
+	//End;	
 	;
 	
 	private String text;

@@ -7,6 +7,7 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.ConnectionPoint;
+import org.cubictest.model.ContextWindow;
 import org.cubictest.model.CustomTestStep;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -97,6 +98,9 @@ public class CubicTestXStream extends XStream {
 		this.alias("transitionNode", TransitionNode.class);
 		this.alias("userInteractionsTransition", UserInteractionsTransition.class);
 		this.alias("webBrowser", WebBrowser.class);
+		//Added by Genesis Campos
+		this.alias("contextWindow", ContextWindow.class);
+		//End;
 		this.alias("customTestStep", CustomTestStep.class);
 		this.alias("identifier", Identifier.class);
 		this.alias("identifierType",IdentifierType.class);
