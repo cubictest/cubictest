@@ -182,18 +182,44 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 
 		String input = userInteraction.getTextualInput();
 		ActionType action = userInteraction.getActionType();
+		String atribute = null;
 		
-		if (action.equals(SWITCH_BY_TITLE)) {
-			steps.add("ie2 = ie");
-			steps.add("ie = Watir::IE.attach(:title, '"+input+"')");
+		steps.add("# user interaction");
+		steps.add("begin");
+		
+		if(action.equals(CLOSE)){
+				steps.add("# closing the last context window",3);
+				steps.add("if (ie2 == nil)",3);
+					steps.add("raise TestStepFailed",4);
+				steps.add("end",3);
+				steps.add("ie2.close()",3);
+				steps.add("passedSteps += 1",3);
+				steps.add("rescue TestStepFailed",2);
+					steps.add("failedSteps += 1 ",3);
+					steps.add("puts \"Step failed: You must switch context window before\"",3);		
+			steps.add("end", 2);
+			return;
 		}
-		else if (action.equals(SWITCH_BY_URL)) {
-			steps.add("ie2 = ie");
-			steps.add("ie = Watir::IE.attach(:url, '"+input+"')");
+		else{
+				steps.add("# storing the last context window",3);
+				steps.add("ie2 = ie",3);
+			if (action.equals(SWITCH_BY_TITLE)) {
+				atribute = "title";
+			}
+			else if (action.equals(SWITCH_BY_URL)) {
+				atribute = "url";
+			}
+			steps.add("# changing context to the window with "+ atribute +" equals \""+ input +"\"",3);
+			steps.add("ie = Watir::IE.attach(:"+ atribute +", '"+input+"')",3);
+			steps.add("if (ie == nil)",3);
+				steps.add("raise TestStepFailed",4);
+			steps.add("end",3);
+			steps.add("passedSteps += 1",3);
+			steps.add("rescue TestStepFailed",2);
+				steps.add("failedSteps += 1 ",3);
+				steps.add("puts \"Step failed: Check context window present with "+ atribute +" equals '"+ input +"'\"",3);		
 		}
-		else if(action.equals(CLOSE)){
-			steps.add("ie2.close()");
-		}
+		steps.add("end", 2);
 	}
 	//End;
 }
