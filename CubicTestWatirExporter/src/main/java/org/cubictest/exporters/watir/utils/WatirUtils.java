@@ -35,6 +35,7 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.context.AbstractContext;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Option;
@@ -83,6 +84,10 @@ public class WatirUtils {
 			return "option";
 		if (pe instanceof Link)
 			return "link";
+		//Added by Genesis Campos
+		if (pe instanceof Frame)
+			return "frame";
+		//End;
 		if (pe instanceof AbstractContext)
 			return "div";
 		if (pe instanceof Image)

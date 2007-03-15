@@ -18,6 +18,7 @@ import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.context.AbstractContext;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
 
@@ -30,6 +31,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 
 	
 	public static final String ROOT_CONTEXT = "ie";
+
 
 	public PostContextHandle handlePostContext(StepList steps, IContext a) {
 		steps.setPrefix(ROOT_CONTEXT);
@@ -62,6 +64,24 @@ public class ContextConverter implements IContextConverter<StepList> {
 			stepList.add("selectListId = labelTargetId", 3);
 			stepList.setPrefix("ie.select_list(" + idType + ", " + idText + ")");
 		}
+		//Added by Genesis Campos
+		else if (ctx instanceof Frame){
+			Frame frame = (Frame) ctx;
+			
+			stepList.add("# asserting " + frame.getType() + "present with " + frame.getIdentifierType().displayValue() + " = " + frame.getText(), 2);
+			
+			stepList.add("begin", 2);
+	
+			String idText = "\"" + StringUtils.replace(frame.getText(),"\"", "\\\"") + "\"";
+			String idType = WatirUtils.getIdType(frame);
+	
+			stepList.setPrefix("(ie.frame(" + idType + "," + idText + "))");
+			stepList.add("if (ie.frame(" + idType + "," + idText + ") == nil)", 3);
+			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
+			stepList.add("end", 3);
+			
+		}
+		//End;
 		else if (ctx instanceof AbstractContext) {
 			AbstractContext context = (AbstractContext) ctx;
 			if (!(context.getIdentifierType().equals(ID)))
@@ -92,6 +112,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 
 		
 		return PreContextHandle.CONTINUE;
+		
 	}
 
 }
