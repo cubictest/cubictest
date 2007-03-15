@@ -11,6 +11,9 @@ import static org.cubictest.model.ActionType.NEXT_WINDOW;
 import static org.cubictest.model.ActionType.PREVIOUS_WINDOW;
 import static org.cubictest.model.ActionType.REFRESH;
 import static org.cubictest.model.ActionType.SELECT;
+import static org.cubictest.model.ActionType.SWITCH_BY_TITLE;
+import static org.cubictest.model.ActionType.SWITCH_BY_URL;
+import static org.cubictest.model.ActionType.CLOSE;
 import static org.cubictest.model.IdentifierType.LABEL;
 
 import java.util.Iterator;
@@ -23,6 +26,7 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.ActionType;
+import org.cubictest.model.ContextWindow;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
@@ -64,6 +68,11 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 			else if (actionElement instanceof WebBrowser) {
 				handleWebBrowserAction(stepList, action);
 			}
+			//Added by Genesis Campos
+			else if (actionElement instanceof ContextWindow){
+				handleContextWindowAction(stepList, action);
+			}
+			//End;
 		}
 	}
 	
@@ -164,4 +173,27 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 			throw new ExporterException("Previous window not supported by Watir");
 		}
 	}
+	
+	//Added by Genesis Campos	
+	/**
+	 * Converts a Context Window user interaction to a Watir step.
+	 */
+	private void handleContextWindowAction(StepList steps, UserInteraction userInteraction) {
+
+		String input = userInteraction.getTextualInput();
+		ActionType action = userInteraction.getActionType();
+		
+		if (action.equals(SWITCH_BY_TITLE)) {
+			steps.add("ie2 = ie");
+			steps.add("ie = Watir::IE.attach(:title, '"+input+"')");
+		}
+		else if (action.equals(SWITCH_BY_URL)) {
+			steps.add("ie2 = ie");
+			steps.add("ie = Watir::IE.attach(:url, '"+input+"')");
+		}
+		else if(action.equals(CLOSE)){
+			steps.add("ie2.close()");
+		}
+	}
+	//End;
 }
