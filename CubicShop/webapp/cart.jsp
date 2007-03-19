@@ -44,7 +44,7 @@
 
 <%
 		if (cartItems == null || cartItems.size() == 0) {
-		   out.print("None<br><br><br>");
+		   out.print("<div>None</div><br><br>");
 		}
 		else {
 		   out.print("<form name=\"removeForm\"><table>");
