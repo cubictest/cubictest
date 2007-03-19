@@ -132,4 +132,14 @@ public class ErrorHandler {
 			System.out.println("Could not show info dialog: " + message);
 		}
 	}
+	
+	
+	public static void showWarnDialog(String message) {
+		try {
+			MessageDialog.openWarning(new Shell(), UiText.APP_TITLE, message);
+		}
+		catch (Throwable t) {
+			System.out.println("Could not show warn dialog: " + message);
+		}
+	}
 }

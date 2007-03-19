@@ -7,6 +7,9 @@
  */
 package org.cubictest.ui.gef.command;
 
+import java.util.List;
+
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.ConnectionPoint;
@@ -75,17 +78,34 @@ public class CreateTransitionCommand extends Command {
 		super.execute();
 		if(transition == null) {
 			if (sourceNode instanceof SubTest && (targetNode instanceof Page || targetNode instanceof SubTest)) {
-				ExposeExtensionPointWizard exposeExtensionPointWizard = new ExposeExtensionPointWizard(
-						(SubTest) sourceNode, test);
-				WizardDialog dlg = new WizardDialog(new Shell(),
-						exposeExtensionPointWizard);
-				if (dlg.open() == WizardDialog.CANCEL) {
+				//transition from SubTest
+				SubTest subTest = (SubTest) sourceNode;
+				List<ExtensionPoint> exPoints = subTest.getTest().getAllExtensionPoints();
+				if (exPoints == null || exPoints.size() == 0) {
+					ErrorHandler.showErrorDialog("The \"" + subTest.getFileName() + "\" subtest does not contain any extension points.\n" +
+							"To continue, first add an extension point to the subtest and then retry this operation.");
 					return;
 				}
-				transition = new ExtensionTransition(sourceNode, targetNode,
-						exposeExtensionPointWizard.getSelectedExtensionPoint());
-			}else if(sourceNode instanceof Page && (targetNode instanceof Page || 
-					targetNode instanceof SubTest || targetNode instanceof CustomTestStep)){
+				else if (exPoints.size() == 1) {
+					//auto select the single exPoint 
+					transition = new ExtensionTransition(sourceNode, targetNode, exPoints.get(0));
+				}
+				else {
+					//open dialog to select which exPoint to extend from:
+					ExposeExtensionPointWizard exposeExtensionPointWizard = new ExposeExtensionPointWizard(
+							(SubTest) sourceNode, test);
+					WizardDialog dlg = new WizardDialog(new Shell(),
+							exposeExtensionPointWizard);
+					if (dlg.open() == WizardDialog.CANCEL) {
+						return;
+					}
+					transition = new ExtensionTransition(sourceNode, targetNode,
+							exposeExtensionPointWizard.getSelectedExtensionPoint());
+				}
+			}
+			else if(sourceNode instanceof Page && (targetNode instanceof Page || 
+					targetNode instanceof SubTest || targetNode instanceof CustomTestStep)) {
+				//transition to SubTest
 				transition = new UserInteractionsTransition(sourceNode,targetNode);
 				NewUserInteractionsWizard userActionWizard = new NewUserInteractionsWizard(
 						(UserInteractionsTransition) transition, test);
@@ -98,13 +118,16 @@ public class CreateTransitionCommand extends Command {
 					transition.resetStatus();
 					return;
 				}
-			} else if (sourceNode instanceof Common && targetNode instanceof Page) {
+			}
+			else if (sourceNode instanceof Common && targetNode instanceof Page) {
 				transition = new CommonTransition((Common) sourceNode,
 						(Page) targetNode);
-			} else if (sourceNode instanceof ConnectionPoint) {
+			}
+			else if (sourceNode instanceof ConnectionPoint) {
 				transition = new SimpleTransition((ConnectionPoint) sourceNode,
 						targetNode);
-			} else if (targetNode instanceof ExtensionPoint) {
+			}
+			else if (targetNode instanceof ExtensionPoint) {
 				transition = new SimpleTransition(sourceNode, targetNode);
 			}			
 		}

@@ -1,9 +1,6 @@
 /*
- * Created on 28.may.2005
- * 
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
- * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
- * 
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html 
  */
 package org.cubictest.ui.gef.wizards;
 
@@ -16,7 +13,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 /**
- * @author SK Skytteren Wizard for creating a new <code>FormTransition</code>.
+ * Wizard for creating a new transition from an extension point.
+ * 
+ * @author SK Skytteren 
  */
 public class ExposeExtensionPointWizard extends Wizard {
 
@@ -31,7 +30,7 @@ public class ExposeExtensionPointWizard extends Wizard {
 	public ExposeExtensionPointWizard(SubTest subTest, Test test) {
 		this.subTest = subTest;
 		this.test = test;
-
+		setWindowTitle("CubicTest");
 		setNeedsProgressMonitor(true);
 	}
 

@@ -26,6 +26,8 @@ public class WizardSelectExtensionPointPage extends WizardPage {
 		super("selectExtensionPointPage");
 		this.subTest = subTest;
 		this.listener = listener;
+		setTitle("New connection");
+		setDescription("Select extension point to continue from");
 	}
 	
 	public List<ExtensionPoint> getExtensionPoints() {

@@ -130,10 +130,14 @@ public class TreeTestWalker<T extends IResultHolder> {
 			} 
 			else if (node instanceof SubTest) {
 				Test test = ((SubTest) node).getTest();
-				List<Transition> out = node.getOutTransitions();
+				List<Transition> outTransitions = node.getOutTransitions();
 				// only convert path in subtest leading to the extension
 				// point that is extended from
-				convertTransitionNode(resultHolder, test.getStartPoint(), ((ExtensionTransition) out.get(0)).getExtensionPoint());
+				ExtensionPoint targetExPoint = null;
+				if (outTransitions != null && outTransitions.size() > 0) {
+					targetExPoint = ((ExtensionTransition) outTransitions.get(0)).getExtensionPoint();
+				}
+				convertTransitionNode(resultHolder, test.getStartPoint(), targetExPoint);
 			} 
 			else if (node instanceof Page) {
 				pageWalker.handlePage(resultHolder, (Page) node);
