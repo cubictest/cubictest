@@ -26,6 +26,12 @@ For M3 / 1.0 tutorial:
 For 2.0 tutorial
    What is i18n and params?
 
+For 2.0 release?
+	Anonymous elements and datatypes (assert number, use as param later in test).
+	Better support for XPath as ID type
+	Better custom elements
+	Inheritance of aspects
+	
 
 Observations/questions/opinions:
 --------------------------------
@@ -44,6 +50,7 @@ General:
 Done	The open file should be highlighted
 Done	Invoke "IDE.saveAllEditors" before create new test from extension point
 M3   Decide naming of products
+M3   Button for "Add test"
 M4   How to specify popup and alerts
 M4?   Should be able to test PDF (at least existance)
 2.0   Should be some form of refactoring support (select states -> extract etc)
@@ -122,6 +129,7 @@ Done	 Fix bug with deletion of all pages, then add page
 Done   Limit context menu of elements
 Done   Problem with URL startpoint -> Sub Test (no page in between)
 M3	 Delete file -> File can still be open in editor. => Editor should be closed on delete.
+M3   Create connection / user interaction from context menu
 M3   Right-click on ExStartPoint -> "Open test" (none double clicked)
 M3   ID on page elements was deleted when description was set (empty desc first?) (bug)
 	(When holding ctrl key --> Move should become "Copy-paste" (attempted fixed, bug in GEF?))
