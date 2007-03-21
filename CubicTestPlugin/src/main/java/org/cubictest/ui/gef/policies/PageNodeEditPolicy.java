@@ -8,7 +8,6 @@
 package org.cubictest.ui.gef.policies;
 
 import org.cubictest.model.Test;
-import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.controller.AbstractNodeEditPart;

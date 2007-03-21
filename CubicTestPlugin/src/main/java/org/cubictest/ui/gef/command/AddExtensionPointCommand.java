@@ -6,11 +6,9 @@ package org.cubictest.ui.gef.command;
 
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
-import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.ui.gef.controller.PageEditPart;
-import org.cubictest.ui.gef.factory.DataCreationFactory;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
