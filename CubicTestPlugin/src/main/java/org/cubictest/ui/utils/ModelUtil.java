@@ -25,7 +25,7 @@ public class ModelUtil {
 	public static int TRANSITION_EDIT_NOT_VALID = 4;
 
 	
-	public static int isLegalTransition(TransitionNode sourceNode, TransitionNode targetNode, Transition transition, boolean isReconnectingSourceNode) {
+	public static int isLegalTransition(TransitionNode sourceNode, TransitionNode targetNode, boolean isReconnectingSourceNode) {
 		if (sourceNode.equals(targetNode))
 			return TRANSITION_EDIT_NOT_VALID;
 

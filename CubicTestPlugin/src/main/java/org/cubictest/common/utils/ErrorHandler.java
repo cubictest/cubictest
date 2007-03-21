@@ -40,6 +40,11 @@ public class ErrorHandler {
 		rethrow(e);
 	}
 
+	public static void logAndThrow(String message) {
+		Logger.error(null, message);
+		throw new CubicException(message);
+	}
+	
 	public static void logAndRethrow(Throwable e, String message) {
 		Logger.error(e, message);
 		rethrow(e, message);

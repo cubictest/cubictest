@@ -7,22 +7,24 @@
  */
 package org.cubictest.ui.gef.factory;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.gef.requests.CreationFactory;
 
 /**
- * @author Stein Kåre Skytteren
  * Used for creating the the different objects in the model by the tools in the Palette.
+ * 
+ * @author SK Skytteren
  */
 public class DataCreationFactory implements CreationFactory {
 
-	private Object object;
+	private Object clazz;
 
 	/**
 	 * 
 	 * @param object the class to create a new instance of 
 	 */
 	public DataCreationFactory(Object object){
-		this.object = object;
+		this.clazz = object;
 	}
 	
 	/*
@@ -31,10 +33,11 @@ public class DataCreationFactory implements CreationFactory {
 	 */
 	public Object getNewObject(){
 		try{
-			return ((Class) object).newInstance();
+			return ((Class) clazz).newInstance();
 		}
 		catch (Exception e){
-			return null;
+			ErrorHandler.logAndThrow("Error creating object of class " + clazz);
+			return null; //unreachable
 		}
 	}
 
@@ -43,7 +46,7 @@ public class DataCreationFactory implements CreationFactory {
 	 * @see org.eclipse.gef.requests.CreationFactory#getObjectType()
 	 */
 	public Object getObjectType(){
-		return object;
+		return clazz;
 	}
 
 

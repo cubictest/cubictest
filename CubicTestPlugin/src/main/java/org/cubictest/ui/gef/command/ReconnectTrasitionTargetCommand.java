@@ -85,7 +85,7 @@ public class ReconnectTrasitionTargetCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#canExecute()
 	 */
 	public boolean canExecute() {
-		int status = ModelUtil.isLegalTransition(transition.getStart(), newTarget, transition, false);
+		int status = ModelUtil.isLegalTransition(transition.getStart(), newTarget, false);
 		isNoModelChanges = (status == ModelUtil.TRANSITION_EDIT_NO_CHANGES);
 		return (status == ModelUtil.TRANSITION_EDIT_NO_CHANGES || status == ModelUtil.TRANSITION_EDIT_VALID);
 	}

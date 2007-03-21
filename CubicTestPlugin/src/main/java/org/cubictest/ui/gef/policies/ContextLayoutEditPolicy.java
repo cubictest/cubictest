@@ -9,15 +9,25 @@ package org.cubictest.ui.gef.policies;
 
 import java.util.List;
 
+import org.cubictest.model.AbstractPage;
+import org.cubictest.model.Common;
+import org.cubictest.model.CommonTransition;
+import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.SimpleTransition;
+import org.cubictest.model.Transition;
 import org.cubictest.model.context.IContext;
+import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.command.MovePageElementCommand;
 import org.cubictest.ui.gef.command.TransferPageElementCommand;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
+import org.cubictest.ui.gef.factory.DataCreationFactory;
+import org.cubictest.ui.utils.ModelUtil;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editpolicies.FlowLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 
@@ -79,7 +89,31 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 		
 		cmd.setNewIndex(newIndex);
 		
-		return ViewUtil.getCompoundCommandWithResize(cmd, ViewUtil.ADD, getHost());
+		CompoundCommand compoundCmd = (CompoundCommand) ViewUtil.getCompoundCommandWithResize(cmd, ViewUtil.ADD, getHost());
+		
+		//creating common transition automatically if applicable:
+		AbstractPage targetPage = ViewUtil.getSurroundingPage(getHost());
+		AbstractPage sourcePage = ViewUtil.getSurroundingPage(child);
+		if (targetPage instanceof Common && sourcePage instanceof Page) {
+			List<CommonTransition> commons = ((Page) sourcePage).getCommonTransitions();
+			boolean createTrans = true;
+
+			for (CommonTransition transition : commons) {
+				if (transition.getEnd().equals(sourcePage)) {
+					createTrans = false;
+				}
+			}
+		
+			if (createTrans) {
+				CreateTransitionCommand transitionCmd = new CreateTransitionCommand();
+				transitionCmd.setTest(ViewUtil.getSurroundingTest(getHost()));
+				transitionCmd.setSource(targetPage);
+				transitionCmd.setTarget(sourcePage);
+				compoundCmd = (CompoundCommand) compoundCmd.chain(transitionCmd);
+			}
+		}
+		
+		return compoundCmd;
 	}
 
 	/* (non-Javadoc)

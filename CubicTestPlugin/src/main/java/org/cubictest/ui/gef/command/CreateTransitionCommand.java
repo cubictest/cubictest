@@ -41,6 +41,7 @@ public class CreateTransitionCommand extends Command {
 
 	private TransitionNode targetNode;
 
+	/** Internal cache variable */
 	private Transition transition;
 
 	private Test test;
@@ -63,7 +64,7 @@ public class CreateTransitionCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#canExecute()
 	 */
 	public boolean canExecute() {
-		return (ModelUtil.isLegalTransition(sourceNode, targetNode, transition, false) == ModelUtil.TRANSITION_EDIT_VALID);
+		return (ModelUtil.isLegalTransition(sourceNode, targetNode, false) == ModelUtil.TRANSITION_EDIT_VALID);
 	}
 
 
@@ -161,10 +162,4 @@ public class CreateTransitionCommand extends Command {
 		this.test = test;
 	}
 
-	/**
-	 * @param transition
-	 */
-	public void setTransition(Transition transition) {
-		this.transition = transition;
-	}
 }

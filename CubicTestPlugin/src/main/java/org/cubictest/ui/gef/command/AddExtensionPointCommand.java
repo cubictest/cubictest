@@ -43,13 +43,10 @@ public class AddExtensionPointCommand extends Command {
 		
 		extensionPoint.setName(page.getName() + " Extension Point");
 
-		DataCreationFactory fac = new DataCreationFactory(SimpleTransition.class);
-		
 		transitionCreateCommand = new CreateTransitionCommand();
 		transitionCreateCommand.setSource(page);
 		transitionCreateCommand.setTarget(extensionPoint);
 		transitionCreateCommand.setTest(test);
-		transitionCreateCommand.setTransition((SimpleTransition)fac.getNewObject());
 		transitionCreateCommand.execute();
 		test.addExtensionPoint(extensionPoint);
 	}

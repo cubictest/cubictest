@@ -49,12 +49,10 @@ public class AbstractPageDirectEditPolicy extends DirectEditPolicy {
 				
 				Test test = ViewUtil.getSurroundingTest(getHost());
 				if (test.getPages().size() == 1 && page instanceof Page){
-					DataCreationFactory fac = new DataCreationFactory(SimpleTransition.class);
 					CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
 					createTransitionCmd.setSource(test.getStartPoint());
 					createTransitionCmd.setTarget(((AddAbstractPageCommand) addPageCmd).getPage());
 					createTransitionCmd.setTest(test);
-					createTransitionCmd.setTransition((SimpleTransition)fac.getNewObject());
 					addPageCmd = addPageCmd.chain(createTransitionCmd);
 				}
 				
