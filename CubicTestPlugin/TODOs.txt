@@ -35,26 +35,26 @@ For 2.0 release?
 
 Observations/questions/opinions:
 --------------------------------
-M3  Most users right click often to see what is possible
-M3  What is Extension point? (hard to understand. Can several tests extend from one point?)
-M3  Messed with IdText etc in property view ==> tooltips?
-M3  Wants to enter text into checkbox user action => Remove header?
-M3  Tries to put extension points on canvas, not on test. => Anonymous, then gets name from page
-   (Cycles in test was *very* popular, flow diagram style)
-   (Own view for customers? (e.g. not property view and not contexts))
-   (ExStartPoint should be more flexible (be possible to create user interactions from it?))
+Most users right click often to see what is possible
+What is Extension point? (hard to understand. Can several tests extend from one point?)
+Messed with IdText etc in property view ==> tooltips?
+Wants to enter text into checkbox user action => Remove header?
+Tries to put extension points on canvas, not on test. => Anonymous, then gets name from page
+Cycles in test was *very* popular, flow diagram style
+Own view for customers? (e.g. not property view and not contexts)
+ExStartPoint should be more flexible (be possible to create user interactions from it?)
 
    
 General:
 --------
 Done	The open file should be highlighted
 Done	Invoke "IDE.saveAllEditors" before create new test from extension point
-M3   Decide naming of products
 M3   Button for "Add test"
 M4   How to specify popup and alerts
 M4?   Should be able to test PDF (at least existance)
 2.0   Should be some form of refactoring support (select states -> extract etc)
 2.0   Provide a "TODO" element   
+   (Decide naming of products)
    (Confusing package explorer. Only interested in tests in the beginning. -> Better now that open file is highlighted).
    (Users want to model cycles (go back to a state) ==> Show error message or allow? Use sequence numbers?)
    (Test that print dialog box shows)
