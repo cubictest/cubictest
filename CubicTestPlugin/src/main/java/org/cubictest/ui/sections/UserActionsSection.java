@@ -6,9 +6,12 @@ package org.cubictest.ui.sections;
 
 import org.cubictest.model.Test;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.ui.gef.controller.PropertyChangePart;
+import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.controller.UserInteractionsTransitionEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.wizards.UserInteractionsComponent;
+import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -44,9 +47,10 @@ public class UserActionsSection extends AbstractPropertySection {
 		actions = (UserInteractionsTransition) ((UserInteractionsTransitionEditPart) input).getModel();
 		Assert.isTrue(part instanceof GraphicalTestEditor);
 		test = ((GraphicalTestEditor)part).getTest();
+		TestEditPart testPart = (TestEditPart) ((GraphicalTestEditor) part).getGraphicalViewer().getContents();
 
 		if(actions != null && !created && parent != null){
-			component = new UserInteractionsComponent(actions, test);
+			component = new UserInteractionsComponent(actions, test, testPart, true);
 			component.createControl(parent);
 			this.parent.setSize(400, 300);
 			created  = true;

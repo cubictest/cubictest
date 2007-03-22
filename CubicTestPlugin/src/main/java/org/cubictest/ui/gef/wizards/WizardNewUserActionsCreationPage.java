@@ -25,7 +25,7 @@ public class WizardNewUserActionsCreationPage extends WizardPage {
 
 	protected WizardNewUserActionsCreationPage(UserInteractionsTransition actions, Test test) {
 		super("userActionsInputPage");
-		component = new UserInteractionsComponent(actions, test);
+		component = new UserInteractionsComponent(actions, test, null, false);
 	}
 
 	public void createControl(Composite parent) {

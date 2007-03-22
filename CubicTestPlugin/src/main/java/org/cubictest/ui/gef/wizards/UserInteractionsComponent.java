@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
@@ -27,6 +28,8 @@ import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.parameterization.ParameterList;
+import org.cubictest.ui.gef.command.AddUserInteractionCommand;
+import org.cubictest.ui.gef.controller.TestEditPart;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
@@ -75,13 +78,21 @@ public class UserInteractionsComponent {
 	private UserInteractionsTransition transition;
 	private List<IActionElement> allActionElements = new ArrayList<IActionElement>();
 	private Test test;
+	private TestEditPart testPart;
+	private boolean useCommandForActionChanges;
 	
 	private String[] currentActions;
 	private UserInteraction activeAction;
 
-	public UserInteractionsComponent(UserInteractionsTransition transition, Test test) {
+	public UserInteractionsComponent(UserInteractionsTransition transition, Test test, TestEditPart testPart, boolean useCommandForActionChanges) {
+		if (useCommandForActionChanges && testPart == null) {
+			ErrorHandler.logAndThrow("Must supply a TestEditPart if command should be used for action changes");
+		}
+		
 		this.test = test;
+		this.testPart = testPart;
 		this.transition = transition;
+		this.useCommandForActionChanges = useCommandForActionChanges;
 		
 		List<PageElement> elementsTree = new ArrayList<PageElement>();
 		AbstractPage start = (AbstractPage)transition.getStart();
@@ -123,7 +134,17 @@ public class UserInteractionsComponent {
 			public void widgetSelected(SelectionEvent e) {
 				List<UserInteraction> currentInputs = transition.getUserInteractions();
 				UserInteraction newInput = new UserInteraction();
-				transition.addUserInteraction(newInput);
+
+				if (useCommandForActionChanges) {
+					AddUserInteractionCommand addActionCmd = new AddUserInteractionCommand();
+					addActionCmd.setUserInteractionsTransition(transition);
+					addActionCmd.setNewUserInteraction(newInput);
+					testPart.getViewer().getEditDomain().getCommandStack().execute(addActionCmd);
+				}
+				else {
+					transition.addUserInteraction(newInput);
+				}
+			
 				viewer.setInput(currentInputs);
 			}
 		});
@@ -218,11 +239,17 @@ public class UserInteractionsComponent {
 		protected Control createControl(Composite parent) {
 			CCombo comboBox = (CCombo) super.createControl(parent);
 	        comboBox.addSelectionListener(new SelectionAdapter() {
+	        	
+	        	/**
+	        	 * Handle selection of action element.
+	        	 */
 	            public void widgetSelected(SelectionEvent event) {
 	                Integer selectedIndex = (Integer) doGetValue();
 					String elementName = elementNames[selectedIndex.intValue()];
 					for (IActionElement iae : allActionElements){	
 						if ( (iae.getType() + ": " + iae.getDescription()).equals(elementName)){
+							
+							//TODO: Use command
 							activeAction.setElement(iae);
 							break;
 						}

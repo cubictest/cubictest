@@ -167,7 +167,7 @@ public class ViewUtil {
 	}
 	
 	/**
-	 * Get the AbstractPage model object surronding an PropertyChangePart.
+	 * Get the AbstractPage edit part surronding an PropertyChangePart.
 	 * @param editPart
 	 * @return
 	 */
@@ -194,6 +194,30 @@ public class ViewUtil {
 		
 	}
 	
+	
+	/**
+	 * Get the TestEditPart edit part surronding an PropertyChangePart.
+	 * @param editPart
+	 * @return
+	 */
+	public static TestEditPart getSurroundingTestPart(PropertyChangePart editPart) {
+		if (editPart instanceof TestEditPart) {
+			return (TestEditPart) editPart;
+		}
+		
+		editPart = (PropertyChangePart) editPart.getParent();
+		
+		while (editPart != null && !(editPart instanceof TestEditPart)) {
+			editPart = (PropertyChangePart) editPart.getParent();
+		}
+		
+		
+		if (!(editPart instanceof TestEditPart)) {
+			throw new CubicException("Did not find surronding TestEditPart for edit part: " + editPart);
+		}
+		
+		return (TestEditPart) editPart;
+	}
 	
 	public static boolean parentPageIsOnClipboard(EditPart clipboardPart, List clipboardList) {
 		EditPart parent = clipboardPart.getParent();
