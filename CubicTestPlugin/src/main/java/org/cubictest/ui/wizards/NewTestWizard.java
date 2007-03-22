@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.ErrorHandler;
@@ -80,6 +81,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	/**
 	 * Adding the pages to the wizard.
 	 */
+	@Override
 	public void addPages() {
 		page = new TestDetailsPage(selection, !extensionPointMap.isEmpty());
 		addPage(page);
@@ -95,6 +97,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	 * the wizard. We will create an operation and run it
 	 * using wizard as execution context.
 	 */
+	@Override
 	public boolean performFinish() {
 		final String containerName = page.getContainerName();
 		final String fileName = page.getFileName();
@@ -205,13 +208,12 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		// Set "Link with editor" preference to see the test to be created
 		// If the desired part isn't available, getFromActivePerspective() returns null
 		try {
-			PackageExplorerPart.getFromActivePerspective().setLinkingEnabled(true);			
-		} catch(NullPointerException e) {}
-		
-		try {
-			ResourceNavigatorGetter.getFromActivePerspective().setLinkingEnabled(true);			
-		} catch(NullPointerException e) {} 
-		
+			PackageExplorerPart.getFromActivePerspective().setLinkingEnabled(true);	
+		} catch(NullPointerException e) {
+			try {
+				ResourceNavigatorGetter.getFromActivePerspective().setLinkingEnabled(true);			
+			} catch(NullPointerException e1) {} 
+		}
 		
 		IStructuredSelection iss = (IStructuredSelection) selection;
 		if (iss.getFirstElement() instanceof IResource) {
