@@ -222,7 +222,6 @@ public class CustomElementLoader implements IResourceListener {
 	}
 
 	public void notifyResourceChange(IResource resource) {
-		System.out.println("Recreating class loader");
 		recreateClassLoader();
 		notifyClassChangeListeners();
 	}

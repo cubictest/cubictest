@@ -64,4 +64,8 @@ public enum IdentifierType {
 		return displayValue;
 	}
 
+	public String getDescription() {
+		return "";
+	}
+
 }

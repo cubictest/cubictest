@@ -26,6 +26,18 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 	
 	protected CubicTestDirectEditManager manager;
 
+	@Override
+	public void activate() {
+		super.activate();
+		getModel().getDirectEditIdentifier().addPropertyChangeListener(this);
+	}
+	
+	@Override
+	public void deactivate() {
+		super.deactivate();
+		getModel().getDirectEditIdentifier().removePropertyChangeListener(this);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#createEditPolicies()
 	 */
@@ -101,10 +113,8 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 		super.refreshVisuals();
 	}
 	
-	protected abstract Image getImage(boolean isNot);/* {
-		return null;
-	}
-	 */
+	protected abstract Image getImage(boolean isNot);
+	
 	public final String getType(){
 		return getModel().getType();
 	}
@@ -113,4 +123,5 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 	public PageElement getModel() {
 		return (PageElement) super.getModel();
 	}
+
 }

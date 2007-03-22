@@ -15,6 +15,7 @@ import org.cubictest.model.PropertyAwareObject;
 
 public class ParameterList extends PropertyAwareObject {
 
+	private static final String INDEX = "index";
 	private List<Parameter> parameters;
 	private int parameterIndex;
 	private String fileName;
@@ -48,8 +49,10 @@ public class ParameterList extends PropertyAwareObject {
 	public void setParameterIndex(int parameterIndex){
 		if (parameterIndex >= inputParameterSize())
 			return;
+		int oldParameterIndex = this.parameterIndex;
 		this.parameterIndex = parameterIndex;
 		updateObservers();
+		firePropertyChange(INDEX, oldParameterIndex, parameterIndex);
 	}
 	
 	public int getParameterIndex(){

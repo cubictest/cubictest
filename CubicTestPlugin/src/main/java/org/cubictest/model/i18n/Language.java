@@ -49,6 +49,10 @@ public class Language{
 	}
 
 	public String get(String key) {
+		if(key == null)
+			key = keySet().iterator().next();
+		if(key == null)
+			return "";
 		return getProperties().getProperty(key);
 	}
 

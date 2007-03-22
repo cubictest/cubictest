@@ -7,12 +7,13 @@ package org.cubictest.model.parameterization;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.model.SationObserver;
 
 public class Parameter {
 
-	private List<String> inputs;
 	private String header;
+	private List<String> inputs;
 	private List<SationObserver> observers;
 	
 	public Parameter(){
@@ -48,7 +49,16 @@ public class Parameter {
 	public void setParameterIndex(int parameterIndex) {
 		if(parameterIndex < size()){
 			for(SationObserver observer: observers){
-				observer.setValue(inputs.get(parameterIndex));
+				String paramValue = inputs.get(parameterIndex);
+				if(observer.useI18n()){
+					String[] values = paramValue.split(";");
+					paramValue = observer.getValue();
+					if(paramValue == null)
+						paramValue = "";
+					for(int i = 0; i < values.length; i++)
+						paramValue = StringUtils.replace(paramValue,"{" + i + "}", values[i]);
+				}
+				observer.setValue(paramValue);
 			}
 		}
 	}
@@ -66,6 +76,18 @@ public class Parameter {
 	}
 	public void removeObserver(SationObserver observer){
 		observers.remove(observer);
+	}
+
+	public List<SationObserver> getObservers() {
+		List<SationObserver> clone = new ArrayList<SationObserver>();
+		for(SationObserver ob : observers){
+			clone.add(ob);
+		}
+		return clone;
+	}
+
+	public void setObservers(List<SationObserver> observers) {
+		this.observers = observers; 
 	}
 
 }

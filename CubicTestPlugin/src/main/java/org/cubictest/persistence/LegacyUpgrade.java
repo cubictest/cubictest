@@ -246,7 +246,6 @@ public class LegacyUpgrade {
 				}
 			}
 			xml = new XMLOutputter().outputString(document);
-			System.out.println(xml);
 		} catch (JDOMException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

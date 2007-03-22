@@ -43,8 +43,10 @@ public class IdentifierSection extends AbstractPropertySection {
 					composite, getWidgetFactory(),	STANDARD_LABEL_WIDTH);
 				newIdComs.add(identifierComposite);
 			}
-			if(part instanceof GraphicalTestEditor)
+			if(part instanceof GraphicalTestEditor){
 				identifierComposite.setPart((GraphicalTestEditor) part);
+				identifierComposite.setTest(((GraphicalTestEditor) part).getTest());
+			}
 			identifierComposite.setIdentifier(pageElement, identifier);
 			identifierComposite.setVisible(true);
 		}
@@ -66,16 +68,16 @@ public class IdentifierSection extends AbstractPropertySection {
 			composite = getWidgetFactory().createFlatFormComposite(parent);
 		
 		GridLayout layout = new GridLayout();
-		layout.makeColumnsEqualWidth = false;
 		layout.numColumns = 1;
+		layout.verticalSpacing = 2;
 		composite.setLayout(layout);
 	}
 
 	@Override
 	public void refresh() {
-		super.refresh();
-		parent.redraw();
 		parent.pack(true);
+		parent.redraw();
+		parent.update();
 	}
 	
 	@Override

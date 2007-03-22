@@ -223,6 +223,8 @@
             primary="true"/>
    </extension>
    <extension
+         id="org.cubictest.startup"
+         name="CubicTestStartup"
          point="org.eclipse.ui.startup">
       <startup class="org.cubictest.CubicTestStartup"/>
    </extension>

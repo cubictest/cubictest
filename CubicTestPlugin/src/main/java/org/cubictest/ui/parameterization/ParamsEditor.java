@@ -66,9 +66,10 @@ public class ParamsEditor extends EditorPart {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.ISaveablePart#doSave(org.eclipse.core.runtime.IProgressMonitor)
 	 */
+	@Override
 	public void doSave(IProgressMonitor monitor) {
 		
-		ParameterPersistance.toFile(paramList, ((IFileEditorInput)getEditorInput()).getFile());
+		ParameterPersistance.saveToFile(paramList, ((IFileEditorInput)getEditorInput()).getFile());
 		
 		try {
 			((IFileEditorInput)getEditorInput()).getFile().refreshLocal(1, monitor);
@@ -83,6 +84,7 @@ public class ParamsEditor extends EditorPart {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.ISaveablePart#doSaveAs()
 	 */
+	@Override
 	public void doSaveAs() {
 		//not applicable
 	}
@@ -90,6 +92,7 @@ public class ParamsEditor extends EditorPart {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.IEditorPart#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
 	 */
+	@Override
 	public void init(IEditorSite site, IEditorInput editorInput)
 			throws PartInitException {
 		if(!(editorInput instanceof IFileEditorInput)) {
@@ -97,7 +100,7 @@ public class ParamsEditor extends EditorPart {
 		}
 		IFileEditorInput input = (IFileEditorInput)editorInput;
 		
-		paramList = ParameterPersistance.fromFile(input.getFile());
+		paramList = ParameterPersistance.loadFromFile(input.getFile());
 		
 		setSite(site);
 		setInput(editorInput);
@@ -108,6 +111,7 @@ public class ParamsEditor extends EditorPart {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.IWorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createPartControl(Composite parent) {
 		GridData gridData = new GridData (GridData.HORIZONTAL_ALIGN_FILL //| 
 				//GridData.VERTICAL_ALIGN_FILL | 
@@ -213,6 +217,7 @@ public class ParamsEditor extends EditorPart {
 		
 		addInput.addSelectionListener(new SelectionAdapter() {
        		// Add a task to the ExampleTaskList and refresh the view
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ParamMapper input = paramList.createInputRow();
 				tableViewer.add(input);
@@ -231,9 +236,8 @@ public class ParamsEditor extends EditorPart {
 		addKey.setLayoutData(gridData);
 		
 		addKey.addSelectionListener(new SelectionAdapter() {
-       		
-
 			// Add a task to the ExampleTaskList and refresh the view
+			@Override
 			public void widgetSelected(SelectionEvent e) {			
 				InputDialog dialog = new InputDialog(new Shell(),
 						"Key Name", "Please enter key name:","",new IInputValidator(){
@@ -284,6 +288,7 @@ public class ParamsEditor extends EditorPart {
 		});
 	}
 	
+	@Override
 	public boolean isDirty() {
 		return isDirty;
 	}
@@ -294,10 +299,12 @@ public class ParamsEditor extends EditorPart {
 		firePropertyChange(IEditorPart.PROP_DIRTY);
 	}
 
+	@Override
 	public boolean isSaveAsAllowed() {
 		return false;
 	}
 
+	@Override
 	public void setFocus() {
 		tableViewer.getControl().setFocus();
 	}

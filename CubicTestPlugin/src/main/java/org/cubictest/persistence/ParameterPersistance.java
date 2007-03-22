@@ -1,12 +1,12 @@
 package org.cubictest.persistence;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.parameterization.Parameter;
 import org.cubictest.model.parameterization.ParameterList;
@@ -15,26 +15,49 @@ import org.eclipse.core.resources.IFile;
 
 public class ParameterPersistance {
 
-	public static void toFile(ParameterList paramList, IFile iFile) {
+	/**
+	 * Writes properties to the given IFile. For Eclipse-internal use.
+	 * 
+	 * @param paramList The ParameterList to save.
+	 * @param iFile The file to save to.
+	 */
+	public static void saveToFile(ParameterList paramList, IFile iFile) {
+		File f = iFile.getLocation().toFile();
+		saveToFile(paramList, f);
+	}
+	
+	public static void saveToFile(ParameterList paramList, File file) {
+		String xml = new CubicTestXStream().toXML(paramList);
 		try {
-			FileWriter fw = new FileWriter(iFile.getLocation().toFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			for(Parameter param: paramList.getParameters()){
-				bw.write(param.getHeader() + " ;");
-			}
-			bw.newLine();
-			for (int i = 0; i < paramList.inputParameterSize(); i++){
-				for(Parameter param: paramList.getParameters())
-					bw.write(param.getParameterInput(i) + " ;");
-				bw.newLine();
-			}
-			bw.close();
-		} catch (IOException ioe) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(ioe);
+			FileUtils.writeStringToFile(file, xml, "ISO-8859-1");
+		} catch (IOException e) {
+			ErrorHandler.logAndRethrow(e);
 		}
 	}
 
-	public static ParameterList fromFile(IFile iFile) {
+	/**
+	 * Reads a paramaterList from IFile.
+	 * 
+	 * @param iFile The file containing the test.
+	 * @return The parameterList.
+	 */	
+	public static ParameterList loadFromFile(IFile iFile) {
+		String xml = "";
+		try {
+			xml = FileUtils.readFileToString(iFile.getLocation().toFile(), "ISO-8859-1");
+		} catch (IOException e) {
+			ErrorHandler.logAndRethrow(e);
+		}
+		try {
+			ParameterList list = (ParameterList) new CubicTestXStream().fromXML(xml);
+			list.setFileName(iFile.getFullPath().toString());
+			return list;
+		}catch (Exception e) {
+			return fromFile(iFile);
+		}
+	}
+	
+	private static ParameterList fromFile(IFile iFile) {
 		ParameterList list = new ParameterList();
 		list.setFileName(iFile.getFullPath().toString());
 		FileReader fr;
@@ -69,5 +92,4 @@ public class ParameterPersistance {
 		}
 		return list;
 	}
-
 }

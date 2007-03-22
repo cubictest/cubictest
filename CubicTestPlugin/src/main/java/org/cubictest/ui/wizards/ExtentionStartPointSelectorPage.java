@@ -26,7 +26,6 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 	public static final String NAME = "extensionStartPointSelector";
 	
 	private Map<ExtensionPoint, IFile> extensionPoints;
-	private IProject project;
 	private boolean pageShown;
 	
 	List list;
@@ -38,7 +37,6 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 	public ExtentionStartPointSelectorPage(Map<ExtensionPoint,IFile> extensionPoints, IProject project) {
 		super(NAME);
 		this.extensionPoints = extensionPoints;
-		this.project = project;
 		setTitle("Choose startpoint for new Test");
 		setDescription("Choose startpoint for the new Test");
 		

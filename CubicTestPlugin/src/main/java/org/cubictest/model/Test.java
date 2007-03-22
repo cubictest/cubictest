@@ -190,6 +190,9 @@ public class Test extends PropertyAwareObject {
 			p.resetStatus();
 	}
 	public AllLanguages getAllLanuages() {
+		if(allLanguages == null){
+			allLanguages = new AllLanguages();
+		}
 		return allLanguages;
 	}
 	public void setAllLanuages(AllLanguages allLanguages) {
@@ -253,11 +256,11 @@ public class Test extends PropertyAwareObject {
 		firePropertyChange(CHILD, null, customTestStep);
 	}
 	public void updateObservers() {
-		if(paramList != null){
-			paramList.updateObservers();
-		}
 		if(allLanguages != null){
 			allLanguages.updateObservers();
+		}
+		if(paramList != null){
+			paramList.updateObservers();
 		}
 	}
 	public void setResourceMonitor(IResourceMonitor resourceMonitor) {

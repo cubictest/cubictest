@@ -7,6 +7,7 @@
  */
 package org.cubictest.ui.gef.command;
 
+import org.cubictest.model.Test;
 import org.cubictest.model.parameterization.ParameterList;
 import org.eclipse.gef.commands.Command;
 
@@ -16,6 +17,7 @@ public class ChangeParameterListIndexCommand extends Command {
 	private ParameterList list;
 	private int index;
 	private int oldIndex;
+	private Test test;
 
 	public void setNewIndex(int index) {
 		this.index = index;
@@ -25,15 +27,20 @@ public class ChangeParameterListIndexCommand extends Command {
 		this.list = list;
 	}
 	
+	public void setTest(Test test){
+		this.test = test;
+	}
+	
 	@Override
 	public void execute() {
 		oldIndex = list.getParameterIndex();
 		list.setParameterIndex(index);
+		test.updateObservers();
 	}
 	
 	@Override
 	public void undo() {
 		list.setParameterIndex(oldIndex);
+		test.updateObservers();
 	}
-
 }

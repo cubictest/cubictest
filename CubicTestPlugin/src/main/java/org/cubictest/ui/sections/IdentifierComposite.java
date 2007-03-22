@@ -16,14 +16,19 @@ import org.cubictest.ui.gef.command.ChangePageElementTextCommand;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -32,7 +37,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 
-public class IdentifierComposite implements PropertyChangeListener {
+public class IdentifierComposite extends Composite implements PropertyChangeListener {
 
 	private Text value;
 	private CCombo probability;
@@ -45,7 +50,7 @@ public class IdentifierComposite implements PropertyChangeListener {
 	private CCombo i18nCombo;
 	private Button param;
 	private CCombo paramCombo;
-	private Composite composite;
+	//private Composite composite;
 	private Composite secondRow;
 	private Label i18nLabel;
 	private PageElement pageElement;
@@ -53,26 +58,32 @@ public class IdentifierComposite implements PropertyChangeListener {
 	private Label paramLabel;
 	private ValueListener valueListener = new ValueListener();
 	private int listeners = 0;
+	private Test test;
 
 	public IdentifierComposite(Composite parent, 
 			TabbedPropertySheetWidgetFactory factory, int lableWidth) {
-		composite = factory.createComposite(parent,SWT.BORDER);
+		super(parent, SWT.NONE);
+		//composite = factory.createComposite(parent,);
+		setBackground(ColorConstants.white);
+		
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 1;
-		composite.setLayout(layout);
+		layout.verticalSpacing = 2;
+		this.setLayout(layout);
 		
 		//First Row
 		
-		firstRow = factory.createFlatFormComposite(composite);
+		firstRow = factory.createFlatFormComposite(this);
 		//Adding primary idendifier input
 		
 		FormData data = new FormData();
 		data.left = new FormAttachment(0, 0);
-		data.width = lableWidth;
+		//data.width = lableWidth / 2;
 		
-		dirEdit = factory.createButton(firstRow, "DirectEdit" , SWT.RADIO);
+		dirEdit = factory.createButton(firstRow, "" , SWT.RADIO);
 		dirEdit.setLayoutData(data);
 		dirEdit.addSelectionListener(dirEditListener);
+		dirEdit.setToolTipText("Select for direct edit in the graphical test editor");
 		
 		//Adding type
 		data = new FormData();
@@ -108,7 +119,7 @@ public class IdentifierComposite implements PropertyChangeListener {
 		value.addSelectionListener(valueListener);
 		value.addFocusListener(valueListener);
 		//Adding secondRow
-		secondRow = factory.createFlatFormComposite(composite);
+		secondRow = factory.createFlatFormComposite(this);
 		
 		//Adding I18n
 		i18nLabel = factory.createLabel(secondRow,"Internationalization:");
@@ -145,17 +156,46 @@ public class IdentifierComposite implements PropertyChangeListener {
 		data = new FormData();
 		data.left = new FormAttachment(param);
 		paramCombo.setLayoutData(data);
-
+		
+		Composite margin = new Composite(this,SWT.NONE){
+			@Override
+			public Point computeSize(int wHint, int hHint, boolean b) {
+				return new Point(10,4);
+			}
+		};
+		margin.setBackground(ColorConstants.white);
+		
+		Composite line = new Composite(this,SWT.BORDER){
+			@Override
+			public Point computeSize(int wHint, int hHint, boolean changed) {
+				return new Point(getParent().getSize().x,1);
+			}
+			
+			@Override
+			public int getBorderWidth() {
+				return 1;
+			}
+		};
+		line.setBackground(ColorConstants.lightGray);
 	}
-
+		
 	public void setIdentifier(PageElement pageElement, Identifier identifier) {
+		if(pageElement != null && pageElement.equals(this.pageElement) && 
+				identifier != null && pageElement.equals(this.identifier)){
+			return;
+		}
+		
 		if(this.pageElement != null && this.identifier != null){
 			removeListeners();
 		}
 		this.pageElement = pageElement;
 		this.identifier = identifier;
 		addListeners();
+		refresh();
+	}
+	public void refresh(){
 		type.setText(identifier.getType().displayValue() + ":");
+		type.setToolTipText(identifier.getType().getDescription());
 		value.setText(identifier.getValue());
 		
 		probability.removeSelectionListener(probabilityListener);
@@ -178,10 +218,14 @@ public class IdentifierComposite implements PropertyChangeListener {
 			i18n.setSelection(identifier.useI18n());
 			i18n.addSelectionListener(i18nListener);
 			i18nCombo.setVisible(true);
+			i18nCombo.setEnabled(identifier.useI18n());
 			i18nCombo.removeSelectionListener(i18nComboListener);
 			i18nCombo.setItems(
 				test.getAllLanuages().getAllKeys().toArray(new String[]{}));
-			i18nCombo.select(i18nCombo.indexOf(identifier.getI18nKey()));
+			if(identifier.getI18nKey() == null || "".equals(identifier.getI18nKey()))
+				i18nCombo.select(0);
+			else
+				i18nCombo.select(i18nCombo.indexOf(identifier.getI18nKey()));
 			i18nCombo.addSelectionListener(i18nComboListener);
 		}
 		if(test.getParamList() == null || test.getParamList().size() == 0){
@@ -192,18 +236,20 @@ public class IdentifierComposite implements PropertyChangeListener {
 			paramLabel.setVisible(true);
 			param.setVisible(true);
 			param.removeSelectionListener(paramListener);
-			param.setSelection(identifier.useI18n());
+			param.setSelection(identifier.useParam());
 			param.addSelectionListener(paramListener);
 			paramCombo.setVisible(true);
+			paramCombo.setEnabled(identifier.useParam());
 			paramCombo.removeSelectionListener(paramComboListener);
 			paramCombo.setItems(
 				test.getParamList().getHeaders().toArray());
-			paramCombo.select(paramCombo.indexOf(identifier.getParamKey()));
+			if(identifier.getParamKey() == null || "".equals(identifier.getParamKey()))
+				paramCombo.select(0);
+			else
+				paramCombo.select(paramCombo.indexOf(identifier.getParamKey()));
 			paramCombo.addSelectionListener(paramComboListener);
 		}
 		secondRow.setVisible(paramLabel.getVisible() || i18nLabel.getVisible());
-		secondRow.pack(false);
-		secondRow.redraw();
 	}
 	
 	private void setProbability(int newProbability){
@@ -227,14 +273,11 @@ public class IdentifierComposite implements PropertyChangeListener {
 			probability.select(6);
 	}
 
-	public void setVisible(boolean visible) {
-		composite.setVisible(visible);
-	}
 	/**
 	 * The identifier has changed
 	 */
 	public void propertyChange(PropertyChangeEvent event) {
-		if(!composite.isDisposed()){
+		if(!this.isDisposed()){
 			String eventName = event.getPropertyName();
 			if(Identifier.VALUE.equals(eventName)){
 				value.setText((String) event.getNewValue());
@@ -251,6 +294,7 @@ public class IdentifierComposite implements PropertyChangeListener {
 				dirEdit.setSelection(pageElement.getDirectEditIdentifier().equals(identifier));
 				dirEdit.addSelectionListener(dirEditListener);
 			}
+			refresh();
 		}
 	}
 
@@ -272,6 +316,21 @@ public class IdentifierComposite implements PropertyChangeListener {
 	
 	public void setPart(GraphicalTestEditor editor) {
 		this.editor = editor;
+	}
+	
+	@Override
+	public Point computeSize(int wHint, int hHint, boolean b) {
+		Point point = super.computeSize(wHint, hHint, b);
+		if(!secondRow.isVisible()){
+			point.y = point.y / 2;	
+		}
+		return point;
+	}
+	
+	@Override
+	public int getStyle() {
+		System.out.println("Calling getStyle");
+		return super.getStyle();
 	}
 	
 	private SelectionListener probabilityListener = new SelectionListener(){
@@ -339,19 +398,21 @@ public class IdentifierComposite implements PropertyChangeListener {
 		}
 		private void updateValue(){
 			if(!value.getText().equals( identifier.getValue())){
+				CompoundCommand compundCommand = new CompoundCommand();
 				if(pageElement.getDirectEditIdentifier().equals(identifier)){
 					ChangePageElementTextCommand command = new ChangePageElementTextCommand();
 					command.setNewText(value.getText());
 					command.setOldText(identifier.getValue());
 					command.setPageElement(pageElement);
-					executeCommand(command);
+					compundCommand.add(command);
 				}else{
 					ChangeIdentifierValueCommand command = new ChangeIdentifierValueCommand();
 					command.setIdentifer(identifier);
 					command.setNewValue(value.getText());
 					command.setOldValue(identifier.getValue());
-					executeCommand(command);
-				}
+					compundCommand.add(command);
+				}		
+				executeCommand(compundCommand);
 			}
 		}
 	};
@@ -365,6 +426,7 @@ public class IdentifierComposite implements PropertyChangeListener {
 				command.setNewUseI18n(i18n.getSelection());
 				command.setOldUseI18n(identifier.useI18n());
 				command.setIdentifier(identifier);
+				command.setTest(test);
 				executeCommand(command);
 			}
 		}
@@ -378,6 +440,7 @@ public class IdentifierComposite implements PropertyChangeListener {
 			command.setIndentifier(identifier);
 			command.setNewI18nKey(i18nKey);
 			command.setOldI18nKey(identifier.getI18nKey());
+			command.setTest(test);
 			executeCommand(command);
 		}
 	};
@@ -391,6 +454,7 @@ public class IdentifierComposite implements PropertyChangeListener {
 				command.setNewUseParam(param.getSelection());
 				command.setOldUseParam(identifier.useParam());
 				command.setIdentifier(identifier);
+				command.setTest(test);
 				executeCommand(command);
 			}
 		}
@@ -403,9 +467,11 @@ public class IdentifierComposite implements PropertyChangeListener {
 			command.setIndentifier(identifier);
 			command.setNewParamKey(paramKey);
 			command.setOldParamKey(identifier.getParamKey());
+			command.setTest(test);
 			executeCommand(command);
 		}
 	};
+	
 	
 	private void executeCommand(Command command){
 		pageElement.removePropertyChangeListener(this);
@@ -413,5 +479,10 @@ public class IdentifierComposite implements PropertyChangeListener {
 		editor.getCommandStack().execute(command);
 		identifier.addPropertyChangeListener(this);
 		pageElement.addPropertyChangeListener(this);
+		refresh();
+	}
+
+	public void setTest(Test test) {
+		this.test = test;
 	}
 }

@@ -9,12 +9,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.cubictest.model.PageElement;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SationObserver;
 import org.cubictest.ui.i18n.I18nMessage;
 
 
-public class AllLanguages {
+public class AllLanguages extends PropertyAwareObject{
 	private List<Language> languages;
 	private List<SationObserver> observers;
 	private Language currentLanguage;
@@ -29,8 +29,14 @@ public class AllLanguages {
 	}
 	
 	public void addLanguage(Language language){
-		//TODO legg til kompliteringskode
 		languages.add(language);
+		firePropertyChange(CHILD, null, language);
+	}
+	public void removeLanguage(Language language) {
+		languages.remove(language);
+		if(language.equals(currentLanguage))
+			currentLanguage = null;
+		firePropertyChange(CHILD, language, null);
 	}
 
 	public Set<String> getAllKeys() {
@@ -63,12 +69,13 @@ public class AllLanguages {
 		return currentLanguage;
 	}
 	public void setCurrentLanguage(Language currentLanguage) {
+		Language oldCurrentLanguage = this.currentLanguage;
 		this.currentLanguage = currentLanguage;
-		updateObservers();
+		firePropertyChange(CHILD, oldCurrentLanguage, currentLanguage);
 	}
 
-	public void removeObserver(PageElement pe) {
-		observers.remove(pe);
+	public void removeObserver(SationObserver observer) {
+		observers.remove(observer);
 	}
 
 	public void updateObservers() {
@@ -77,10 +84,11 @@ public class AllLanguages {
 		
 		for(SationObserver observer : observers){
 			String key = observer.getI18nKey();
-			if(observer.useI18n() && observer.useParam()){
-				key = observer.getValue();
-			}
 			observer.setValue(currentLanguage.get(key));
 		}
+	}
+
+	@Override
+	public void resetStatus() {
 	}
 }
