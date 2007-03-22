@@ -95,7 +95,7 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 			boolean createTrans = true;
 
 			for (CommonTransition transition : commons) {
-				if (transition.getEnd().equals(sourcePage)) {
+				if (transition.getEnd().equals(sourcePage) && transition.getStart().equals(targetPage)) {
 					createTrans = false;
 				}
 			}

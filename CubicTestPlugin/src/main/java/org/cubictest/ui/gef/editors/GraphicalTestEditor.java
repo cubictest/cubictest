@@ -292,7 +292,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		setPartName(editorInput.getName());
 		
 		getCommandStack().addCommandStackListener(getCommandStackListener());
-		getCommandStack().setUndoLimit(26);
+		getCommandStack().setUndoLimit(99);
 		
 		
 		getSite()
