@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.cubictest</groupId>
+  <artifactId>CubicTestPlugin</artifactId>
+  <version>0.0.1</version>
+  <description>CubicTest eclipse plugin</description>
+</project>
