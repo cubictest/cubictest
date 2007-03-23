@@ -17,7 +17,6 @@ import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
-import org.cubictest.model.ContextWindow;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
@@ -25,10 +24,12 @@ import org.cubictest.model.Test;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.WebBrowser;
+import org.cubictest.model.SationObserver.SationType;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.ui.gef.command.AddUserInteractionCommand;
+import org.cubictest.ui.gef.command.EditUserInteractionCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -64,15 +65,15 @@ import org.eclipse.swt.widgets.TableItem;
 public class UserInteractionsComponent {
 	
 	private static final String CHOOSE = "--Choose--";
-	private TableViewer viewer;
+	private TableViewer tableViewer;
 	private Table table;
 	
-	private static final String ELEMENT = "element";
-	private static final String ACTION = "action";
-	private static final String INPUT = "input";
+	private static final String ACTION_ELEMENT = "actionElement";
+	private static final String ACTION_TYPE = "actionType";
+	private static final String TEXT_INPUT = "textInput";
 	
 	private CellEditor[] cellEditors;
-	private String[] columnNames = new String[] {ELEMENT, ACTION, INPUT};
+	private String[] columnNames = new String[] {ACTION_ELEMENT, ACTION_TYPE, TEXT_INPUT};
 	private String[] elementNames;
 	
 	private UserInteractionsTransition transition;
@@ -82,7 +83,7 @@ public class UserInteractionsComponent {
 	private boolean useCommandForActionChanges;
 	
 	private String[] currentActions;
-	private UserInteraction activeAction;
+	private UserInteraction activeUserinteraction;
 
 	public UserInteractionsComponent(UserInteractionsTransition transition, Test test, TestEditPart testPart, boolean useCommandForActionChanges) {
 		if (useCommandForActionChanges && testPart == null) {
@@ -115,7 +116,6 @@ public class UserInteractionsComponent {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
 	 */
-
 	public Composite createControl(Composite parent) {
 		Composite content = new Composite(parent, SWT.NULL);
 		
@@ -145,7 +145,7 @@ public class UserInteractionsComponent {
 					transition.addUserInteraction(newInput);
 				}
 			
-				viewer.setInput(currentInputs);
+				tableViewer.setInput(currentInputs);
 			}
 		});
 		
@@ -164,11 +164,12 @@ public class UserInteractionsComponent {
 			initialUserInteractions.add(new UserInteraction());
 		}
 		
-		viewer.setInput(initialUserInteractions);
+		tableViewer.setInput(initialUserInteractions);
 		transition.setUserInteractions(initialUserInteractions);
 		
 		return content;
 	}
+	
 	
 	private void createTable(Composite parent) {
 		int style = SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | 
@@ -186,25 +187,27 @@ public class UserInteractionsComponent {
 		table.setHeaderVisible(true);
 		
 		TableColumn tc1 = new TableColumn(table, SWT.LEFT, 0);
-		tc1.setText(ELEMENT);
+		tc1.setText(ACTION_ELEMENT);
 		tc1.setWidth(120);
 		tc1.setResizable(true);
 		
 		TableColumn tc2 = new TableColumn(table, SWT.LEFT, 1);
-		tc2.setText(ACTION);
+		tc2.setText(ACTION_TYPE);
 		tc2.setWidth(120);
 		tc2.setResizable(true);
 		
 		TableColumn tc3 = new TableColumn(table, SWT.LEFT, 2);
-		tc3.setText(INPUT);
+		tc3.setText(TEXT_INPUT);
 		tc3.setWidth(160);
 		tc3.setResizable(true);
 		
 	}
+	
+	
 	private void createTableViewer() {
-		viewer = new TableViewer(table);
-		viewer.setUseHashlookup(true);
-		viewer.setColumnProperties(columnNames);
+		tableViewer = new TableViewer(table);
+		tableViewer.setUseHashlookup(true);
+		tableViewer.setColumnProperties(columnNames);
 		
 		cellEditors = new CellEditor[3];
 		elementNames = new String[allActionElements.size() + 2];
@@ -221,13 +224,17 @@ public class UserInteractionsComponent {
 		cellEditors[1] = new ComboBoxCellEditor(table, new String[]{""}, SWT.READ_ONLY);
 		cellEditors[2] = new TextCellEditor(table);
 		
-		viewer.setCellEditors(cellEditors);
-		viewer.setContentProvider(new ActionContentProvider());
-		viewer.setLabelProvider(new ActionLabelProvider());
-		viewer.setCellModifier(new ActionInputCellModifier());
+		tableViewer.setCellEditors(cellEditors);
+		tableViewer.setContentProvider(new ActionContentProvider());
+		tableViewer.setLabelProvider(new ActionLabelProvider());
+		tableViewer.setCellModifier(new ActionInputCellModifier());
 	}
 	
 	
+	/**
+	 * Cell editor for the fist column (action element).
+	 * Presents a list of action elements in a drop down.
+	 */
 	class ActionElementComboBoxCellEditor extends ComboBoxCellEditor {
 		
 		public ActionElementComboBoxCellEditor(Table table, String[] elementNames, int read_only) {
@@ -241,20 +248,31 @@ public class UserInteractionsComponent {
 	        comboBox.addSelectionListener(new SelectionAdapter() {
 	        	
 	        	/**
-	        	 * Handle selection of action element.
+	        	 * Handles selection / change of the action element.
 	        	 */
 	            public void widgetSelected(SelectionEvent event) {
 	                Integer selectedIndex = (Integer) doGetValue();
 					String elementName = elementNames[selectedIndex.intValue()];
 					for (IActionElement iae : allActionElements){	
-						if ( (iae.getType() + ": " + iae.getDescription()).equals(elementName)){
-							
-							//TODO: Use command
-							activeAction.setElement(iae);
+						if ((iae.getType() + ": " + iae.getDescription()).equals(elementName)){
+							//edit model:
+							if (useCommandForActionChanges) {
+								EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
+								editActionCmd.setUserInteraction(activeUserinteraction);
+								editActionCmd.setNewElement(iae);
+								editActionCmd.setOldElement(activeUserinteraction.getElement());
+								testPart.getViewer().getEditDomain().getCommandStack().execute(editActionCmd);
+							}
+							else {
+								activeUserinteraction.setElement(iae);
+							}
 							break;
 						}
 					}
-					IActionElement pe = ((UserInteraction)activeAction).getElement();
+					
+					//Get the action types of the newly selected action element:
+					
+					IActionElement pe = ((UserInteraction)activeUserinteraction).getElement();
 					if(pe != null){
 						
 						List<String> actionList = new ArrayList<String>();
@@ -271,6 +289,7 @@ public class UserInteractionsComponent {
 							currentActions = actions;
 						}
 					}
+					//make the change immediately visible in the graphical test editor:
 					deactivate();
 	            }
 	        });
@@ -279,12 +298,44 @@ public class UserInteractionsComponent {
 	}
 	
 	
+	/**
+	 * Cell modifier that
+	 * - Checks whether a cell can be edited.
+	 * - Retrieves values of a model element's property.
+	 * - Stores a cell editor's value back into the model.
+	 *  
+	 */
 	class ActionInputCellModifier implements ICellModifier{
 
+		/**
+		 * Checks whether a cell can be edited.
+		 */
 		public boolean canModify(Object element, String property) {
-			activeAction = (UserInteraction) element;
+			activeUserinteraction = (UserInteraction) element;
 			
-			if (property.equals(INPUT)){
+			if (property.equals(ACTION_ELEMENT)){
+				return true;
+			}
+			else if (property.equals(ACTION_TYPE)){
+				IActionElement pe = ((UserInteraction)element).getElement();
+				if(pe != null){
+					
+					List<String> actionList = new ArrayList<String>();
+					for(ActionType action : pe.getActionTypes()){
+						if(ActionType.ENTER_PARAMETER_TEXT.equals(action) 
+								&& test.getParamList() == null) {
+							continue;
+						}
+						actionList.add(action.getText());
+					}
+					String[] actions = actionList.toArray(new String[0]);
+					if (!ArrayUtils.isEquals(actions, currentActions)) {
+						cellEditors[1] = new ComboBoxCellEditor(table,actions, SWT.READ_ONLY);
+						currentActions = actions;
+					}
+				}
+			}
+			else if (property.equals(TEXT_INPUT)){
 				if (((UserInteraction)element).getElement() instanceof AbstractTextInput){
 					UserInteraction input = (UserInteraction)element;
 					if(input.useParam()){
@@ -304,28 +355,14 @@ public class UserInteractionsComponent {
 					((UserInteraction) element).setTextualInput("");
 					return false;
 				}
-			} else if(property.equals(ACTION)){
-				IActionElement pe = ((UserInteraction)element).getElement();
-				if(pe != null){
-					
-					List<String> actionList = new ArrayList<String>();
-					for(ActionType action : pe.getActionTypes()){
-						if(ActionType.ENTER_PARAMETER_TEXT.equals(action) 
-								&& test.getParamList() == null) {
-							continue;
-						}
-						actionList.add(action.getText());
-					}
-					String[] actions = actionList.toArray(new String[0]);
-					if (!ArrayUtils.isEquals(actions, currentActions)) {
-						cellEditors[1] = new ComboBoxCellEditor(table,actions, SWT.READ_ONLY);
-						currentActions = actions;
-					}
-				}
+
 			}
 			return true;
 		}
 		
+		/**
+		 * Retrieves values of a model element's property.
+		 */
 		public Object getValue(Object element, String property) {
 			UserInteraction fInput = (UserInteraction) element;
 			int columnIndex = Arrays.asList(columnNames).indexOf(property);
@@ -371,6 +408,9 @@ public class UserInteractionsComponent {
 			return result;
 		}
 
+		/**
+		 * Stores a cell editor's value back into the model.
+		 */
 		public void modify(Object element, String property, Object value) {
 			
 			int columnIndex = java.util.Arrays.asList(columnNames).indexOf(property);
@@ -414,7 +454,7 @@ public class UserInteractionsComponent {
 							rowItem.setTextualInput((String)value);			
 						break;
 				}
-				viewer.update(rowItem, null);
+				tableViewer.update(rowItem, null);
 			}
 		}
 	}
@@ -434,6 +474,9 @@ public class UserInteractionsComponent {
 
 	}
 	
+	/**
+	 * Class for getting text for cells (by columns).
+	 */
 	class ActionLabelProvider extends LabelProvider implements ITableLabelProvider {
 
 		public ActionLabelProvider() {
@@ -474,6 +517,9 @@ public class UserInteractionsComponent {
 	}
 	
 	
+	/**
+	 * Util method for getting all page elements of a page (traverse contexts). 
+	 */
 	private List<PageElement> getFlattenedPageElements(List<PageElement> elements) {
 		List<PageElement> flattenedElements = new ArrayList<PageElement>(); 
 
