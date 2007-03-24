@@ -72,23 +72,32 @@ public class UserInteractionsTransition extends Transition {
 	
 	/**
 	 * Add user interaction to collection of user interactions.
+	 * @param index the index
 	 * @param userInteraction the user interaction to add.
 	 */
-	public void addUserInteraction(UserInteraction userInteraction){
-		userInteractions.add(userInteraction);
+	public void addUserInteraction(int index, UserInteraction userInteraction){
+		userInteractions.add(index, userInteraction);
 		for(int i = 0 ; i < getListeners().getPropertyChangeListeners().length; i++ )
 			userInteraction.addPropertyChangeListener(
 					getListeners().getPropertyChangeListeners()[i]);
 		firePropertyChange(CHILD, null, userInteraction);
 	}
+
+	/**
+	 * Add user interaction to collection of user interactions.
+	 * @param userInteraction the user interaction to add.
+	 */
+	public void addUserInteraction(UserInteraction userInteraction){
+		addUserInteraction(userInteractions.size(), userInteraction);
+	}
 	
 	/**
 	 * Remove user interaction from collection of user interactions.
-	 * @param input the user interaction to remove.
+	 * @param userInteraction the user interaction to remove.
 	 */
-	public void removeUserInteraction(UserInteraction input){
-		userInteractions.remove(input);
-		firePropertyChange(CHILD, null, input);
+	public void removeUserInteraction(UserInteraction userInteraction){
+		userInteractions.remove(userInteraction);
+		firePropertyChange(CHILD, null, userInteraction);
 	}
 
 	/**

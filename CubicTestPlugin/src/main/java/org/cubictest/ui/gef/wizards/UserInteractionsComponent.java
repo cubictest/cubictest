@@ -24,9 +24,9 @@ import org.cubictest.model.Test;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.WebBrowser;
-import org.cubictest.model.context.IContext;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.ui.gef.command.AddUserInteractionCommand;
+import org.cubictest.ui.gef.command.DeleteUserInteractionCommand;
 import org.cubictest.ui.gef.command.EditUserInteractionCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
@@ -64,6 +64,7 @@ import org.eclipse.swt.widgets.TableItem;
 public class UserInteractionsComponent {
 	
 	private static final String CHOOSE = "--Choose--";
+	private static final String DELETE_ROW = "--Delete row--";
 	private TableViewer tableViewer;
 	private Table table;
 	
@@ -214,6 +215,7 @@ public class UserInteractionsComponent {
 		
 		cellEditors = new CellEditor[3];
 		actionElements = new String[allActionElements.size() + 2];
+		
 		actionElements[ACTION_ELEMENT_COLINDEX] = CHOOSE;
 		int a = 1;
 		for (IActionElement element: allActionElements) {
@@ -221,7 +223,7 @@ public class UserInteractionsComponent {
 				actionElements[a++] = element.getType() + ": " + element.getDescription();
 			}
 		}
-		actionElements[a] = "";
+		actionElements[a] = DELETE_ROW;
 
 		cellEditors[ACTION_ELEMENT_COLINDEX] = new ActionElementComboBoxCellEditor(table, actionElements, SWT.READ_ONLY);
 		cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, new String[]{""}, SWT.READ_ONLY);
@@ -261,9 +263,11 @@ public class UserInteractionsComponent {
 					
 					//get the IActionElement object:
 					IActionElement selectedActionElement = null;
+					boolean delete = false;
 					for (IActionElement actionElement : allActionElements){	
-						if (elementName.equals(CHOOSE) || elementName.equals("")) {
+						if (elementName.equals(DELETE_ROW)) {
 							selectedActionElement = null;
+							delete = true;
 							break;
 						}
 						else if ((actionElement.getType() + ": " + actionElement.getDescription()).equals(elementName)){
@@ -271,25 +275,44 @@ public class UserInteractionsComponent {
 							break;
 						}
 					}
-					//edit model:
-					if (useCommandForActionChanges) {
-						EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
-						editActionCmd.setUserInteraction(activeUserinteraction);
-						editActionCmd.setNewElement(selectedActionElement);
-						editActionCmd.setOldElement(activeUserinteraction.getElement());
-						testPart.getViewer().getEditDomain().getCommandStack().execute(editActionCmd);
+					if (delete) {
+						//delete the user interaction-row:
+						if (useCommandForActionChanges) {
+							DeleteUserInteractionCommand deleteActionCmd = new DeleteUserInteractionCommand();
+							deleteActionCmd.setIndex(transition.getUserInteractions().indexOf(activeUserinteraction));
+							deleteActionCmd.setUserInteractionsTransition(transition);
+							deleteActionCmd.setUserInteraction(activeUserinteraction);
+							testPart.getViewer().getEditDomain().getCommandStack().execute(deleteActionCmd);
+						}
+						else {
+							transition.removeUserInteraction(activeUserinteraction);
+						}
+						activeUserinteraction = null;
+						List<UserInteraction> currentUserInteractions = transition.getUserInteractions();
+						tableViewer.setInput(currentUserInteractions);
 					}
 					else {
-						activeUserinteraction.setElement(selectedActionElement);
+						//edit the user interaction:
+						if (useCommandForActionChanges) {
+							EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
+							editActionCmd.setUserInteraction(activeUserinteraction);
+							editActionCmd.setNewElement(selectedActionElement);
+							editActionCmd.setOldElement(activeUserinteraction.getElement());
+							testPart.getViewer().getEditDomain().getCommandStack().execute(editActionCmd);
+						}
+						else {
+							activeUserinteraction.setElement(selectedActionElement);
+						}
 					}
 
 					
 					//Get and populate the action types of the newly selected action element:
-					
-					IActionElement element = ((UserInteraction) activeUserinteraction).getElement();
-					if(element != null) {
-						currentActions = UserInteractionDialogUtil.getActionTypeLabelsForElement(element, test);
-						cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY);
+					if (activeUserinteraction != null) {
+						IActionElement element = ((UserInteraction) activeUserinteraction).getElement();
+						if(element != null) {
+							currentActions = UserInteractionDialogUtil.getActionTypeLabelsForElement(element, test);
+							cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY);
+						}
 					}
 					//make the change immediately visible in the graphical test editor:
 					deactivate();

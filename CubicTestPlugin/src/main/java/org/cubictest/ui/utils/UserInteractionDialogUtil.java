@@ -36,6 +36,10 @@ public class UserInteractionDialogUtil {
 	
 	public static List<ActionType> getActionTypesForElement(IActionElement pe, Test test) {
 		List<ActionType> actionTypes = new ArrayList<ActionType>();
+
+		if (pe == null)
+			return actionTypes;
+		
 		for(ActionType action : pe.getActionTypes()){
 			if(ActionType.ENTER_PARAMETER_TEXT.equals(action) && test.getParamList() == null) {
 				continue;

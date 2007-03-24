@@ -109,18 +109,6 @@ public class UserInteraction extends PropertyAwareObject
 		setStatus(TestPartStatus.UNKNOWN);
 	}
 
-	@Override
-	public boolean equals(Object arg) {
-		if (arg.toString().endsWith("-ACTION"))
-			return toString().concat("-ACTION").equals(arg.toString());
-		else if (arg.toString().endsWith("-INPUT"))
-			return toString().concat("-INPUT").equals(arg.toString());
-		else if (arg.toString().endsWith("-ELEMENT"))
-			return toString().concat("-ELEMENT").equals(arg.toString());
-		else
-			return toString().equals(arg.toString()); 
-	}
-
 	public void setValue(String value){
 		setTextualInput(value);
 	}
