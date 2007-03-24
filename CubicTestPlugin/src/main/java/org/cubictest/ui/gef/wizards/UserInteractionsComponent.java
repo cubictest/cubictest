@@ -70,7 +70,11 @@ public class UserInteractionsComponent {
 	private static final String ACTION_ELEMENT = "actionElement";
 	private static final String ACTION_TYPE = "actionType";
 	private static final String TEXT_INPUT = "textInput";
-	
+
+	private static final int ACTION_ELEMENT_COLINDEX = 0;
+	private static final int ACTION_TYPE_COLINDEX = 1;
+	private static final int TEXT_INPUT_COLINDEX = 2;
+
 	private CellEditor[] cellEditors;
 	private String[] columnNames = new String[] {ACTION_ELEMENT, ACTION_TYPE, TEXT_INPUT};
 	private String[] actionElements;
@@ -210,7 +214,7 @@ public class UserInteractionsComponent {
 		
 		cellEditors = new CellEditor[3];
 		actionElements = new String[allActionElements.size() + 2];
-		actionElements[0] = CHOOSE;
+		actionElements[ACTION_ELEMENT_COLINDEX] = CHOOSE;
 		int a = 1;
 		for (IActionElement element: allActionElements) {
 			if (element.getActionTypes().size() > 0) {
@@ -219,9 +223,9 @@ public class UserInteractionsComponent {
 		}
 		actionElements[a] = "";
 
-		cellEditors[0] = new ActionElementComboBoxCellEditor(table, actionElements, SWT.READ_ONLY);
-		cellEditors[1] = new ComboBoxCellEditor(table, new String[]{""}, SWT.READ_ONLY);
-		cellEditors[2] = new TextCellEditor(table);
+		cellEditors[ACTION_ELEMENT_COLINDEX] = new ActionElementComboBoxCellEditor(table, actionElements, SWT.READ_ONLY);
+		cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, new String[]{""}, SWT.READ_ONLY);
+		cellEditors[TEXT_INPUT_COLINDEX] = new TextCellEditor(table);
 		
 		tableViewer.setCellEditors(cellEditors);
 		tableViewer.setContentProvider(new ActionContentProvider());
@@ -282,8 +286,8 @@ public class UserInteractionsComponent {
 					
 					IActionElement element = ((UserInteraction) activeUserinteraction).getElement();
 					if(element != null) {
-						currentActions = UserInteractionDialogUtil.getActionTypesForElement(element, test);
-						cellEditors[1] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY);
+						currentActions = UserInteractionDialogUtil.getActionTypeLabelsForElement(element, test);
+						cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY);
 					}
 					//make the change immediately visible in the graphical test editor:
 					deactivate();
@@ -316,8 +320,8 @@ public class UserInteractionsComponent {
 			}
 			else if (property.equals(ACTION_TYPE)){
 				//populate selected dropdown:
-				currentActions = UserInteractionDialogUtil.getActionTypesForElement(activeUserinteraction.getElement(), test);
-				cellEditors[1] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY);
+				currentActions = UserInteractionDialogUtil.getActionTypeLabelsForElement(activeUserinteraction.getElement(), test);
+				cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY);
 			}
 			
 			else if (property.equals(TEXT_INPUT)){
@@ -325,13 +329,13 @@ public class UserInteractionsComponent {
 					//get parameterization keys:
 					ParameterList list = test.getParamList();
 					String[] keys = list.getHeaders().toArray();
-					cellEditors[2] = new ComboBoxCellEditor(table,keys,SWT.READ_ONLY);
+					cellEditors[TEXT_INPUT_COLINDEX] = new ComboBoxCellEditor(table,keys,SWT.READ_ONLY);
 				}
 				else if (activeUserinteraction.getActionType().acceptsInput()) {
-					cellEditors[2] = new TextCellEditor(table);
+					cellEditors[TEXT_INPUT_COLINDEX] = new TextCellEditor(table);
 				}
 				else {
-					cellEditors[2] = new TextCellEditor(table, SWT.READ_ONLY);
+					cellEditors[TEXT_INPUT_COLINDEX] = new TextCellEditor(table, SWT.READ_ONLY);
 					activeUserinteraction.setTextualInput("");
 					return false;
 				}
@@ -350,7 +354,8 @@ public class UserInteractionsComponent {
 			Object result = null;
 			
 			switch(columnIndex){
-				case 0: 
+			
+				case ACTION_ELEMENT_COLINDEX: 
 					IActionElement element = userInteraction.getElement();
 					String elementName = CHOOSE;
 					if (element != null)
@@ -360,7 +365,8 @@ public class UserInteractionsComponent {
 						if (elementName.equals(actionElements[i]))
 							return i;
 					}
-				case 1: 
+					
+				case ACTION_TYPE_COLINDEX: 
 					ActionType action = userInteraction.getActionType();
 					int j = 0;
 					if(userInteraction.getElement() == null)
@@ -375,7 +381,8 @@ public class UserInteractionsComponent {
 						j++;
 					}
 					break;
-				case 2:
+					
+				case TEXT_INPUT_COLINDEX:
 					if(ActionType.ENTER_PARAMETER_TEXT.equals(userInteraction.getActionType())){
 						String key = userInteraction.getParamKey();
 						if(key == null || "".equals(key))
@@ -399,34 +406,31 @@ public class UserInteractionsComponent {
 				UserInteraction userInteraction = (UserInteraction) ((TableItem) tableItem).getData();
 				
 				switch (columnIndex) {
-					case 0: 
-						//Update of model is done by the SelectionAdapter of the dropdown.
+				
+					case ACTION_ELEMENT_COLINDEX: 
+						//Update of element on model is done by the SelectionAdapter of the dropdown.
 						break;
-					case 1:
+						
+					case ACTION_TYPE_COLINDEX:
 						if(userInteraction.getElement() == null)
 							break;
-						int i = 0;
-						for(ActionType action :userInteraction.getElement().getActionTypes()){
-							if(i == (Integer) value){
-								userInteraction.setActionType(action);
-								userInteraction.setUseI18n(ActionType.ENTER_PARAMETER_TEXT.equals(action));
-								break;
-							}
-							if(ActionType.ENTER_PARAMETER_TEXT.equals(action) 
-									&& test.getParamList() == null) {
-								continue;
-							}
-							i++;
-						}			
+						
+						//Update action type:
+						int index = (Integer) value;
+						ActionType action = UserInteractionDialogUtil.getActionTypesForElement(userInteraction.getElement(), test).get(index);
+						userInteraction.setActionType(action);
+						userInteraction.setUseI18n(ActionType.ENTER_PARAMETER_TEXT.equals(action));
 						break;
-					case 2:
+						
+					case TEXT_INPUT_COLINDEX:
 						if(ActionType.ENTER_PARAMETER_TEXT.equals(userInteraction.getActionType())){
 							userInteraction.setParamKey(test.getParamList().getHeaders().get((Integer)value));
 							test.getParamList().getParameters().get((Integer) value).addObserver(userInteraction);
 							test.updateObservers();
 						}
-						else
-							userInteraction.setTextualInput((String)value);			
+						else {
+							userInteraction.setTextualInput((String)value);
+						}
 						break;
 				}
 				tableViewer.update(userInteraction, null);
@@ -434,6 +438,10 @@ public class UserInteractionsComponent {
 		}
 	}
 	
+	
+	/**
+	 * Gets content for the dropdowns. Just loops back input.
+	 */
 	class ActionContentProvider implements IStructuredContentProvider {
 
 		public void dispose() {
@@ -450,7 +458,7 @@ public class UserInteractionsComponent {
 	}
 	
 	/**
-	 * Class for getting text for cells (by columns).
+	 * Class for getting text content for display in a cell.
 	 */
 	class ActionLabelProvider extends LabelProvider implements ITableLabelProvider {
 
@@ -461,25 +469,32 @@ public class UserInteractionsComponent {
 		    return null;
 		}
 
-		public String getColumnText(Object element, int columnIndex) {
-			UserInteraction fInput = (UserInteraction) element;
+		/**
+		 * Get text content to display in cell.
+		 */
+		public String getColumnText(Object obj, int columnIndex) {
+			UserInteraction userInteraction = (UserInteraction) obj;
 			String result = "";
 			
 			switch (columnIndex) {
-				case 0:
-					IActionElement p = fInput.getElement();
-					if (p!=null)
-						return p.getType() + ": " + p.getDescription();
+				case ACTION_ELEMENT_COLINDEX:
+					IActionElement element = userInteraction.getElement();
+					if (element != null)
+						return element.getType() + ": " + element.getDescription();
 					else
-						return actionElements[0];
-				case 1:
-					return fInput.getActionType().getText();
-				case 2:
-					if (fInput.useParam())
-						return fInput.getParamKey();
-					if (fInput.getActionType().acceptsInput()) {
-						return fInput.getTextualInput();
+						return CHOOSE;
+					
+				case ACTION_TYPE_COLINDEX:
+					return userInteraction.getActionType().getText();
+					
+				case TEXT_INPUT_COLINDEX:
+					if (userInteraction.useParam()) {
+						return userInteraction.getParamKey();
 					}
+					if (userInteraction.getActionType().acceptsInput()) {
+						return userInteraction.getTextualInput();
+					}
+					
 				default:
 					break;
 			}

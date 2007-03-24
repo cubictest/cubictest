@@ -20,15 +20,26 @@ import org.cubictest.model.Test;
  */
 public class UserInteractionDialogUtil {
 
-	public static String[] getActionTypesForElement(IActionElement pe, Test test) {
-		List<String> actionTypes = new ArrayList<String>();
+	public static String[] getActionTypeLabelsForElement(IActionElement pe, Test test) {
+		List<ActionType> types = getActionTypesForElement(pe, test);
+		String[] actionTypes = new String[types.size()];
+		int i = 0;
+		for (ActionType type : types) {
+			actionTypes[i] = type.getText();
+			i++;
+		}
+		return actionTypes;
+	}
+	
+	
+	public static List<ActionType> getActionTypesForElement(IActionElement pe, Test test) {
+		List<ActionType> actionTypes = new ArrayList<ActionType>();
 		for(ActionType action : pe.getActionTypes()){
 			if(ActionType.ENTER_PARAMETER_TEXT.equals(action) && test.getParamList() == null) {
 				continue;
 			}
-			actionTypes.add(action.getText());
+			actionTypes.add(action);
 		}
-		String[] actions = actionTypes.toArray(new String[0]);
-		return actions;
+		return actionTypes;
 	}
 }

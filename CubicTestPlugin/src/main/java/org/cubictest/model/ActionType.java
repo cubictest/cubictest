@@ -61,6 +61,10 @@ public enum ActionType {
 		ActionType.actions.put(text, this);
 	}
 	
+	/**
+	 * Get the text describing the action type, e.g. "Click".
+	 * @return
+	 */
 	public String getText(){
 		return text;
 	}

@@ -40,7 +40,6 @@ public abstract class PageElement extends PropertyAwareObject
 		actions.add(ActionType.MOUSE_OVER);
 		actions.add(ActionType.MOUSE_OUT);
 		actions.add(ActionType.DBLCLICK);
-		actions.add(ActionType.NO_ACTION);
 		return actions;
 	}
 	
