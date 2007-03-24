@@ -32,6 +32,13 @@ public class EditUserInteractionCommand extends Command {
 	private ActionType oldActionType;
 	private String oldTextInput;
 
+	private boolean newElementSet;
+	private boolean newActionTypeSet;
+	private boolean newTextInputSet;
+	private boolean oldElementSet;
+	private boolean oldActionTypeSet;
+	private boolean oldTextInputSet;
+
 
 	public void setUserInteraction(UserInteraction userInteraction) {
 		this.userInteraction = userInteraction;
@@ -46,48 +53,74 @@ public class EditUserInteractionCommand extends Command {
 			ErrorHandler.logAndThrow("Cannot excecute command. UserInteraction was null.");
 		}
 		
-		if (newElement != null)
+		if (newElementSet) {
+			if (!oldElementSet) {
+				ErrorHandler.logAndThrow("Old element was not set. Cannot execute.");
+			}
 			userInteraction.setElement(newElement);
-		if (newActionType != null)
+		}
+		
+		if (newActionTypeSet) {
+			if (!oldActionTypeSet) {
+				ErrorHandler.logAndThrow("Old ActionType was not set. Cannot execute.");
+			}
 			userInteraction.setActionType(newActionType);
-		if (newTextInput != null)
+		}
+		
+		if (newTextInputSet) {
+			if (!oldTextInputSet) {
+				ErrorHandler.logAndThrow("Old text input was not set. Cannot execute.");
+			}
 			userInteraction.setTextualInput(newTextInput);
+		}
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo() {
-		if (newElement != null)
+		if (newElementSet) {
 			userInteraction.setElement(oldElement);
-		if (newActionType != null)
+		}
+		
+		if (newActionTypeSet) {
 			userInteraction.setActionType(oldActionType);
-		if (newTextInput != null)
+		}
+		
+		if (newTextInputSet) {
 			userInteraction.setTextualInput(oldTextInput);
+		}
 	}
 
+	
 	public void setNewTextInput(String newInput) {
+		newTextInputSet = true;
 		this.newTextInput = newInput;
 	}
 	
 	public void setNewActionType(ActionType type) {
+		newActionTypeSet = true;
 		this.newActionType = type;
 	}
 
 	public void setNewElement(IActionElement element) {
+		newElementSet = true;
 		this.newElement = element;
 	}
 
 	
 	public void setOldTextInput(String newInput) {
+		oldTextInputSet = true;
 		this.oldTextInput = newInput;
 	}
 	
 	public void setOldActionType(ActionType type) {
+		oldActionTypeSet = true;
 		this.oldActionType = type;
 	}
 
 	public void setOldElement(IActionElement element) {
+		oldElementSet = true;
 		this.oldElement = element;
 	}
 	

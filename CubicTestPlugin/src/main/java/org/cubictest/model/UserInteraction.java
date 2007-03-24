@@ -58,7 +58,10 @@ public class UserInteraction extends PropertyAwareObject
 		this.element = element;
 		firePropertyChange(CHILD, oldPE, element);
 		firePropertyChange(LAYOUT, oldPE, element);
-		if (element != null) {
+		if (element == null) {
+			setActionType(ActionType.NO_ACTION);
+		}
+		else {
 			setActionType(element.getDefaultAction());
 		}
 	}

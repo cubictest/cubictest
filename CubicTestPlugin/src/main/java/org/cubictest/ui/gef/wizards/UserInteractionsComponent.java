@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
@@ -26,11 +25,11 @@ import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.IContext;
-import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.ui.gef.command.AddUserInteractionCommand;
 import org.cubictest.ui.gef.command.EditUserInteractionCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.utils.UserInteractionDialogUtil;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
@@ -56,7 +55,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 /**
- * Component view (GUI) nfor creating new user interaction input.
+ * Component view (GUI) for creating new user interaction.
  * Both used in dialog box for new user interaction and for properties view.
  * 
  * @author SK Skytteren
@@ -74,7 +73,7 @@ public class UserInteractionsComponent {
 	
 	private CellEditor[] cellEditors;
 	private String[] columnNames = new String[] {ACTION_ELEMENT, ACTION_TYPE, TEXT_INPUT};
-	private String[] elementNames;
+	private String[] actionElements;
 	
 	private UserInteractionsTransition transition;
 	private List<IActionElement> allActionElements = new ArrayList<IActionElement>();
@@ -132,20 +131,20 @@ public class UserInteractionsComponent {
 		button.pack();
 		button.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				List<UserInteraction> currentInputs = transition.getUserInteractions();
-				UserInteraction newInput = new UserInteraction();
+				List<UserInteraction> currentUserInteractions = transition.getUserInteractions();
+				UserInteraction newUserInteraction = new UserInteraction();
 
 				if (useCommandForActionChanges) {
 					AddUserInteractionCommand addActionCmd = new AddUserInteractionCommand();
 					addActionCmd.setUserInteractionsTransition(transition);
-					addActionCmd.setNewUserInteraction(newInput);
+					addActionCmd.setNewUserInteraction(newUserInteraction);
 					testPart.getViewer().getEditDomain().getCommandStack().execute(addActionCmd);
 				}
 				else {
-					transition.addUserInteraction(newInput);
+					transition.addUserInteraction(newUserInteraction);
 				}
 			
-				tableViewer.setInput(currentInputs);
+				tableViewer.setInput(currentUserInteractions);
 			}
 		});
 		
@@ -210,24 +209,24 @@ public class UserInteractionsComponent {
 		tableViewer.setColumnProperties(columnNames);
 		
 		cellEditors = new CellEditor[3];
-		elementNames = new String[allActionElements.size() + 2];
-		elementNames[0] = CHOOSE;
+		actionElements = new String[allActionElements.size() + 2];
+		actionElements[0] = CHOOSE;
 		int a = 1;
 		for (IActionElement element: allActionElements) {
 			if (element.getActionTypes().size() > 0) {
-				elementNames[a++] = element.getType() + ": " + element.getDescription();
+				actionElements[a++] = element.getType() + ": " + element.getDescription();
 			}
 		}
-		elementNames[a] = "";
+		actionElements[a] = "";
 
-		cellEditors[0] = new ActionElementComboBoxCellEditor(table, elementNames, SWT.READ_ONLY);
+		cellEditors[0] = new ActionElementComboBoxCellEditor(table, actionElements, SWT.READ_ONLY);
 		cellEditors[1] = new ComboBoxCellEditor(table, new String[]{""}, SWT.READ_ONLY);
 		cellEditors[2] = new TextCellEditor(table);
 		
 		tableViewer.setCellEditors(cellEditors);
 		tableViewer.setContentProvider(new ActionContentProvider());
 		tableViewer.setLabelProvider(new ActionLabelProvider());
-		tableViewer.setCellModifier(new ActionInputCellModifier());
+		tableViewer.setCellModifier(new UserInteractionCellModifier());
 	}
 	
 	
@@ -252,46 +251,45 @@ public class UserInteractionsComponent {
 	        	 */
 	            public void widgetSelected(SelectionEvent event) {
 	                Integer selectedIndex = (Integer) doGetValue();
-					String elementName = elementNames[selectedIndex.intValue()];
-					for (IActionElement iae : allActionElements){	
-						if ((iae.getType() + ": " + iae.getDescription()).equals(elementName)){
-							//edit model:
-							if (useCommandForActionChanges) {
-								EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
-								editActionCmd.setUserInteraction(activeUserinteraction);
-								editActionCmd.setNewElement(iae);
-								editActionCmd.setOldElement(activeUserinteraction.getElement());
-								testPart.getViewer().getEditDomain().getCommandStack().execute(editActionCmd);
-							}
-							else {
-								activeUserinteraction.setElement(iae);
-							}
+					String elementName = actionElements[selectedIndex.intValue()];
+					
+					//get the IActionElement object:
+					IActionElement selectedActionElement = null;
+					for (IActionElement actionElement : allActionElements){	
+						if (elementName.equals(CHOOSE) || elementName.equals("")) {
+							selectedActionElement = null;
+							break;
+						}
+						else if ((actionElement.getType() + ": " + actionElement.getDescription()).equals(elementName)){
+							selectedActionElement = actionElement;
 							break;
 						}
 					}
+					//edit model:
+					if (useCommandForActionChanges) {
+						EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
+						editActionCmd.setUserInteraction(activeUserinteraction);
+						editActionCmd.setNewElement(selectedActionElement);
+						editActionCmd.setOldElement(activeUserinteraction.getElement());
+						testPart.getViewer().getEditDomain().getCommandStack().execute(editActionCmd);
+					}
+					else {
+						activeUserinteraction.setElement(selectedActionElement);
+					}
+
 					
-					//Get the action types of the newly selected action element:
+					//Get and populate the action types of the newly selected action element:
 					
-					IActionElement pe = ((UserInteraction)activeUserinteraction).getElement();
-					if(pe != null){
-						
-						List<String> actionList = new ArrayList<String>();
-						for(ActionType action : pe.getActionTypes()){
-							if(ActionType.ENTER_PARAMETER_TEXT.equals(action) 
-									&& test.getParamList() == null) {
-								continue;
-							}
-							actionList.add(action.getText());
-						}
-						String[] actions = actionList.toArray(new String[0]);
-						if (!ArrayUtils.isEquals(actions, currentActions)) {
-							cellEditors[1] = new ComboBoxCellEditor(table,actions, SWT.READ_ONLY);
-							currentActions = actions;
-						}
+					IActionElement element = ((UserInteraction) activeUserinteraction).getElement();
+					if(element != null) {
+						currentActions = UserInteractionDialogUtil.getActionTypesForElement(element, test);
+						cellEditors[1] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY);
 					}
 					//make the change immediately visible in the graphical test editor:
 					deactivate();
 	            }
+
+				
 	        });
 	        return comboBox;
 		}
@@ -305,54 +303,36 @@ public class UserInteractionsComponent {
 	 * - Stores a cell editor's value back into the model.
 	 *  
 	 */
-	class ActionInputCellModifier implements ICellModifier{
+	class UserInteractionCellModifier implements ICellModifier{
 
 		/**
 		 * Checks whether a cell can be edited.
 		 */
-		public boolean canModify(Object element, String property) {
-			activeUserinteraction = (UserInteraction) element;
+		public boolean canModify(Object obj, String property) {
+			activeUserinteraction = (UserInteraction) obj;
 			
 			if (property.equals(ACTION_ELEMENT)){
 				return true;
 			}
 			else if (property.equals(ACTION_TYPE)){
-				IActionElement pe = ((UserInteraction)element).getElement();
-				if(pe != null){
-					
-					List<String> actionList = new ArrayList<String>();
-					for(ActionType action : pe.getActionTypes()){
-						if(ActionType.ENTER_PARAMETER_TEXT.equals(action) 
-								&& test.getParamList() == null) {
-							continue;
-						}
-						actionList.add(action.getText());
-					}
-					String[] actions = actionList.toArray(new String[0]);
-					if (!ArrayUtils.isEquals(actions, currentActions)) {
-						cellEditors[1] = new ComboBoxCellEditor(table,actions, SWT.READ_ONLY);
-						currentActions = actions;
-					}
-				}
+				//populate selected dropdown:
+				currentActions = UserInteractionDialogUtil.getActionTypesForElement(activeUserinteraction.getElement(), test);
+				cellEditors[1] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY);
 			}
+			
 			else if (property.equals(TEXT_INPUT)){
-				if (((UserInteraction)element).getElement() instanceof AbstractTextInput){
-					UserInteraction input = (UserInteraction)element;
-					if(input.useParam()){
-						ParameterList list = test.getParamList();
-						String[] keys = list.getHeaders().toArray();
-						cellEditors[2] = new ComboBoxCellEditor(table,keys,SWT.READ_ONLY);
-						return true;
-					}else{
-						cellEditors[2] = new TextCellEditor(table);
-					}
+				if (activeUserinteraction.useParam()){
+					//get parameterization keys:
+					ParameterList list = test.getParamList();
+					String[] keys = list.getHeaders().toArray();
+					cellEditors[2] = new ComboBoxCellEditor(table,keys,SWT.READ_ONLY);
 				}
-				if (((UserInteraction) element).getActionType().acceptsInput()) {
+				else if (activeUserinteraction.getActionType().acceptsInput()) {
 					cellEditors[2] = new TextCellEditor(table);
 				}
 				else {
 					cellEditors[2] = new TextCellEditor(table, SWT.READ_ONLY);
-					((UserInteraction) element).setTextualInput("");
+					activeUserinteraction.setTextualInput("");
 					return false;
 				}
 
@@ -363,47 +343,46 @@ public class UserInteractionsComponent {
 		/**
 		 * Retrieves values of a model element's property.
 		 */
-		public Object getValue(Object element, String property) {
-			UserInteraction fInput = (UserInteraction) element;
+		public Object getValue(Object obj, String property) {
+			UserInteraction userInteraction = (UserInteraction) obj;
 			int columnIndex = Arrays.asList(columnNames).indexOf(property);
 			
 			Object result = null;
 			
 			switch(columnIndex){
 				case 0: 
-					IActionElement p = fInput.getElement();
+					IActionElement element = userInteraction.getElement();
 					String elementName = CHOOSE;
-					if (p != null)
-						elementName = p.getType() + ": " + p.getDescription();
+					if (element != null)
+						elementName = element.getType() + ": " + element.getDescription();
 					
-					for (int i = 0; i < elementNames.length; i++) {
-						if (elementName.equals(elementNames[i]))
+					for (int i = 0; i < actionElements.length; i++) {
+						if (elementName.equals(actionElements[i]))
 							return i;
 					}
 				case 1: 
-					ActionType action = fInput.getActionType();
+					ActionType action = userInteraction.getActionType();
 					int j = 0;
-					if(fInput.getElement() == null)
+					if(userInteraction.getElement() == null)
 						break;
 					result =  action;
-					for(ActionType actionType : fInput.getElement().getActionTypes()){
-						if(action.equals(actionType))
+					for (ActionType actionType : userInteraction.getElement().getActionTypes()){
+						if (action.equals(actionType))
 							return j;
-						if(ActionType.ENTER_PARAMETER_TEXT.equals(action) 
-								&& test.getParamList() == null) {
+						if (ActionType.ENTER_PARAMETER_TEXT.equals(action) && test.getParamList() == null) {
 							continue;
 						}
 						j++;
 					}
 					break;
 				case 2:
-					if(ActionType.ENTER_PARAMETER_TEXT.equals(fInput.getActionType())){
-						String key = fInput.getParamKey();
+					if(ActionType.ENTER_PARAMETER_TEXT.equals(userInteraction.getActionType())){
+						String key = userInteraction.getParamKey();
 						if(key == null || "".equals(key))
 							return 0;
 						return test.getParamList().getHeaders().indexOf(key);
 					}
-					return fInput.getTextualInput();
+					return userInteraction.getTextualInput();
 			}
 			return result;
 		}
@@ -411,30 +390,26 @@ public class UserInteractionsComponent {
 		/**
 		 * Stores a cell editor's value back into the model.
 		 */
-		public void modify(Object element, String property, Object value) {
+		public void modify(Object tableItem, String columnName, Object value) {
 			
-			int columnIndex = java.util.Arrays.asList(columnNames).indexOf(property);
-			if (element instanceof TableItem) {
-				UserInteraction rowItem = (UserInteraction) ((TableItem) element).getData();
+			int columnIndex = java.util.Arrays.asList(columnNames).indexOf(columnName);
+			
+			if (tableItem instanceof TableItem) {
+				
+				UserInteraction userInteraction = (UserInteraction) ((TableItem) tableItem).getData();
+				
 				switch (columnIndex) {
 					case 0: 
-						String name = elementNames[((Integer) value).intValue()];
-						
-						for (int i = 0; i < allActionElements.size(); i++){	
-							if (name.equals(CHOOSE) || name.equals("")) {
-								rowItem.setElement(null);
-								rowItem.setActionType(ActionType.NO_ACTION);
-							}
-						}
+						//Update of model is done by the SelectionAdapter of the dropdown.
 						break;
 					case 1:
-						if(rowItem.getElement() == null)
+						if(userInteraction.getElement() == null)
 							break;
 						int i = 0;
-						for(ActionType action :rowItem.getElement().getActionTypes()){
+						for(ActionType action :userInteraction.getElement().getActionTypes()){
 							if(i == (Integer) value){
-								rowItem.setActionType(action);
-								rowItem.setUseI18n(ActionType.ENTER_PARAMETER_TEXT.equals(action));
+								userInteraction.setActionType(action);
+								userInteraction.setUseI18n(ActionType.ENTER_PARAMETER_TEXT.equals(action));
 								break;
 							}
 							if(ActionType.ENTER_PARAMETER_TEXT.equals(action) 
@@ -445,16 +420,16 @@ public class UserInteractionsComponent {
 						}			
 						break;
 					case 2:
-						if(ActionType.ENTER_PARAMETER_TEXT.equals(rowItem.getActionType())){
-							rowItem.setParamKey(test.getParamList().getHeaders().get((Integer)value));
-							test.getParamList().getParameters().get((Integer) value).addObserver(rowItem);
+						if(ActionType.ENTER_PARAMETER_TEXT.equals(userInteraction.getActionType())){
+							userInteraction.setParamKey(test.getParamList().getHeaders().get((Integer)value));
+							test.getParamList().getParameters().get((Integer) value).addObserver(userInteraction);
 							test.updateObservers();
 						}
 						else
-							rowItem.setTextualInput((String)value);			
+							userInteraction.setTextualInput((String)value);			
 						break;
 				}
-				tableViewer.update(rowItem, null);
+				tableViewer.update(userInteraction, null);
 			}
 		}
 	}
@@ -468,8 +443,8 @@ public class UserInteractionsComponent {
 		}
 
 		public Object[] getElements(Object inputElement) {
-			List inputs = (List) inputElement;
-			return inputs.toArray();
+			List actionTypes = (List) inputElement;
+			return actionTypes.toArray();
 		}
 
 	}
@@ -496,7 +471,7 @@ public class UserInteractionsComponent {
 					if (p!=null)
 						return p.getType() + ": " + p.getDescription();
 					else
-						return elementNames[0];
+						return actionElements[0];
 				case 1:
 					return fInput.getActionType().getText();
 				case 2:
