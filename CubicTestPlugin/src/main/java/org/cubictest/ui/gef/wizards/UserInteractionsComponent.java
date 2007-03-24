@@ -28,6 +28,8 @@ import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.ui.gef.command.AddUserInteractionCommand;
 import org.cubictest.ui.gef.command.DeleteUserInteractionCommand;
 import org.cubictest.ui.gef.command.EditUserInteractionCommand;
+import org.cubictest.ui.gef.command.MoveUserInteractionCommand;
+import org.cubictest.ui.gef.command.MoveUserInteractionCommand.Direction;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
 import org.eclipse.jface.viewers.CellEditor;
@@ -65,6 +67,8 @@ public class UserInteractionsComponent {
 	
 	private static final String CHOOSE = "--Choose--";
 	private static final String DELETE_ROW = "--Delete row--";
+	private static final String MOVE_UP = "--Move up--";
+	private static final String MOVE_DOWN = "--Move down--";
 	private TableViewer tableViewer;
 	private Table table;
 	
@@ -214,7 +218,13 @@ public class UserInteractionsComponent {
 		tableViewer.setColumnProperties(columnNames);
 		
 		cellEditors = new CellEditor[3];
-		actionElements = new String[allActionElements.size() + 2];
+		if (useCommandForActionChanges) {
+			//reserve space for move up and move down:
+			actionElements = new String[allActionElements.size() + 4];
+		}
+		else {
+			actionElements = new String[allActionElements.size() + 2];
+		}
 		
 		actionElements[ACTION_ELEMENT_COLINDEX] = CHOOSE;
 		int a = 1;
@@ -223,7 +233,11 @@ public class UserInteractionsComponent {
 				actionElements[a++] = element.getType() + ": " + element.getDescription();
 			}
 		}
-		actionElements[a] = DELETE_ROW;
+		if (useCommandForActionChanges) {
+			actionElements[a++] = MOVE_UP;
+			actionElements[a++] = MOVE_DOWN;
+		}
+		actionElements[a++] = DELETE_ROW;
 
 		cellEditors[ACTION_ELEMENT_COLINDEX] = new ActionElementComboBoxCellEditor(table, actionElements, SWT.READ_ONLY);
 		cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, new String[]{""}, SWT.READ_ONLY);
@@ -264,11 +278,15 @@ public class UserInteractionsComponent {
 					//get the IActionElement object:
 					IActionElement selectedActionElement = null;
 					boolean delete = false;
+					boolean move = false;
 					for (IActionElement actionElement : allActionElements){	
 						if (elementName.equals(DELETE_ROW)) {
 							selectedActionElement = null;
 							delete = true;
 							break;
+						}
+						else if (elementName.equals(MOVE_UP) || elementName.equals(MOVE_DOWN)) {
+							move = true;
 						}
 						else if ((actionElement.getType() + ": " + actionElement.getDescription()).equals(elementName)){
 							selectedActionElement = actionElement;
@@ -287,6 +305,21 @@ public class UserInteractionsComponent {
 						else {
 							transition.removeUserInteraction(activeUserinteraction);
 						}
+						activeUserinteraction = null;
+						List<UserInteraction> currentUserInteractions = transition.getUserInteractions();
+						tableViewer.setInput(currentUserInteractions);
+					}
+					else if (move) {
+						Direction dir = Direction.UP;
+						if (elementName.equals(MOVE_DOWN))
+							dir = Direction.DOWN;
+						
+						MoveUserInteractionCommand moveActionCmd = new MoveUserInteractionCommand();
+						moveActionCmd.setDirection(dir);
+						moveActionCmd.setUserInteractionsTransition(transition);
+						moveActionCmd.setUserInteraction(activeUserinteraction);
+						testPart.getViewer().getEditDomain().getCommandStack().execute(moveActionCmd);
+
 						activeUserinteraction = null;
 						List<UserInteraction> currentUserInteractions = transition.getUserInteractions();
 						tableViewer.setInput(currentUserInteractions);
