@@ -66,7 +66,7 @@ import org.eclipse.swt.widgets.TableItem;
 public class UserInteractionsComponent {
 	
 	private static final String CHOOSE = "--Choose--";
-	private static final String DELETE_ROW = "--Delete row--";
+	private static final String DELETE_ROW = "--Delete--";
 	private static final String MOVE_UP = "--Move up--";
 	private static final String MOVE_DOWN = "--Move down--";
 	private TableViewer tableViewer;
