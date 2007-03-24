@@ -11,7 +11,9 @@ import java.util.List;
 
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
+import org.cubictest.model.context.IContext;
 
 /**
  * Utils for user interactions dialog.
@@ -41,5 +43,28 @@ public class UserInteractionDialogUtil {
 			actionTypes.add(action);
 		}
 		return actionTypes;
+	}
+	
+	
+	/**
+	 * Util method for getting all page elements of a page (traverse contexts). 
+	 */
+	public static List<PageElement> getFlattenedPageElements(List<PageElement> elements) {
+		List<PageElement> flattenedElements = new ArrayList<PageElement>(); 
+
+		for (PageElement element: elements){
+			if(element.getActionTypes().size() == 0) {
+				continue;
+			}
+
+			if(element instanceof IContext){
+				getFlattenedPageElements(((IContext) element).getElements());
+				flattenedElements.add(element);
+			}
+			else {
+				flattenedElements.add(element);
+			}
+		}
+		return flattenedElements;
 	}
 }

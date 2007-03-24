@@ -58,8 +58,8 @@ import org.eclipse.swt.widgets.TableItem;
  * Component view (GUI) for creating new user interaction.
  * Both used in dialog box for new user interaction and for properties view.
  * 
- * @author SK Skytteren
  * @author chr_schwarz
+ * @author SK Skytteren
  */
 public class UserInteractionsComponent {
 	
@@ -107,7 +107,7 @@ public class UserInteractionsComponent {
 				elementsTree.addAll(((Common)(at).getStart()).getElements());			
 		}
 		
-		allActionElements.addAll(getFlattenedPageElements(elementsTree));
+		allActionElements.addAll(UserInteractionDialogUtil.getFlattenedPageElements(elementsTree));
 		allActionElements.add(new WebBrowser());
 		//Added by Genesis Campos
 		allActionElements.add(new ContextWindow());
@@ -244,7 +244,9 @@ public class UserInteractionsComponent {
 				super(table,elementNames, read_only);
 		}
 
-		
+		/**
+		 * Create dropdown list with action elements.
+		 */
 		@Override
 		protected Control createControl(Composite parent) {
 			CCombo comboBox = (CCombo) super.createControl(parent);
@@ -344,8 +346,9 @@ public class UserInteractionsComponent {
 			return true;
 		}
 		
+		
 		/**
-		 * Retrieves values of a model element's property.
+		 * Retrieves the value of a model element's property.
 		 */
 		public Object getValue(Object obj, String property) {
 			UserInteraction userInteraction = (UserInteraction) obj;
@@ -418,7 +421,19 @@ public class UserInteractionsComponent {
 						//Update action type:
 						int index = (Integer) value;
 						ActionType action = UserInteractionDialogUtil.getActionTypesForElement(userInteraction.getElement(), test).get(index);
-						userInteraction.setActionType(action);
+						
+						//edit model:
+						if (useCommandForActionChanges) {
+							EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
+							editActionCmd.setUserInteraction(userInteraction);
+							editActionCmd.setNewActionType(action);
+							editActionCmd.setOldActionType(userInteraction.getActionType());
+							testPart.getViewer().getEditDomain().getCommandStack().execute(editActionCmd);
+						}
+						else {
+							userInteraction.setActionType(action);
+						}
+
 						userInteraction.setUseI18n(ActionType.ENTER_PARAMETER_TEXT.equals(action));
 						break;
 						
@@ -429,7 +444,17 @@ public class UserInteractionsComponent {
 							test.updateObservers();
 						}
 						else {
-							userInteraction.setTextualInput((String)value);
+							//edit model:
+							if (useCommandForActionChanges) {
+								EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
+								editActionCmd.setUserInteraction(userInteraction);
+								editActionCmd.setNewTextInput((String)value);
+								editActionCmd.setOldTextInput(userInteraction.getTextualInput());
+								testPart.getViewer().getEditDomain().getCommandStack().execute(editActionCmd);
+							}
+							else {
+								userInteraction.setTextualInput((String)value);
+							}
 						}
 						break;
 				}
@@ -450,6 +475,9 @@ public class UserInteractionsComponent {
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 
+		/**
+		 * Get contents to display in dropdown.
+		 */
 		public Object[] getElements(Object inputElement) {
 			List actionTypes = (List) inputElement;
 			return actionTypes.toArray();
@@ -470,7 +498,7 @@ public class UserInteractionsComponent {
 		}
 
 		/**
-		 * Get text content to display in cell.
+		 * Get text contents to display in cell.
 		 */
 		public String getColumnText(Object obj, int columnIndex) {
 			UserInteraction userInteraction = (UserInteraction) obj;
@@ -504,29 +532,8 @@ public class UserInteractionsComponent {
 
 		public void dispose() {		
 		}
+		
 	}
 	
-	
-	/**
-	 * Util method for getting all page elements of a page (traverse contexts). 
-	 */
-	private List<PageElement> getFlattenedPageElements(List<PageElement> elements) {
-		List<PageElement> flattenedElements = new ArrayList<PageElement>(); 
-
-		for (PageElement element: elements){
-			if(element.getActionTypes().size() == 0) {
-				continue;
-			}
-
-			if(element instanceof IContext){
-				getFlattenedPageElements(((IContext) element).getElements());
-				flattenedElements.add(element);
-			}
-			else {
-				flattenedElements.add(element);
-			}
-		}
-		return flattenedElements;
-	}
 }
 
