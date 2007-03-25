@@ -23,6 +23,8 @@ public class UserInteractionsTransition extends Transition {
 	private List<UserInteraction> userInteractions = new ArrayList<UserInteraction>();
 	private AbstractPage page;
 	
+	public UserInteractionsTransition() {}
+	
 	/**
 	 * Construct a new UserInteractionsTransition.
 	 * @param start the start node

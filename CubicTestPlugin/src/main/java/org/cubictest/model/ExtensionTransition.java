@@ -12,6 +12,7 @@ public class ExtensionTransition extends Transition {
 	private String id;
 	private transient ExtensionPoint extensionPoint;
 
+	public ExtensionTransition() {}
 	
 	public ExtensionTransition(TransitionNode sourceNode, TransitionNode targetNode, ExtensionPoint extensionPoint) {
 		super(sourceNode, targetNode);

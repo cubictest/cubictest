@@ -11,6 +11,8 @@ package org.cubictest.model;
  */
 public class CommonTransition extends Transition {
 
+	public CommonTransition() {}
+	
 	/**
 	 * @param start
 	 * @param end

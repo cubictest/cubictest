@@ -7,6 +7,9 @@
 package org.cubictest.model;
 
 public class SimpleTransition extends Transition {
+	
+	public SimpleTransition() {}
+	
 	public SimpleTransition(ConnectionPoint start, TransitionNode end) {
 		super(start, end);
 	}
