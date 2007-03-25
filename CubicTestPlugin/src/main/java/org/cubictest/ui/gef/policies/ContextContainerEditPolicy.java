@@ -17,6 +17,7 @@ import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.ContextEditPart;
 import org.cubictest.ui.gef.controller.PageEditPart;
+import org.cubictest.ui.gef.controller.PropertyChangePart;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
@@ -74,10 +75,13 @@ public class ContextContainerEditPolicy extends ContainerEditPolicy {
 		}
 		
 		if(obj instanceof ExtensionPoint) {
-			PageEditPart pageEditPart = (PageEditPart) getHost();
+			AbstractPageEditPart abstractPageEditPart = (AbstractPageEditPart) ViewUtil.getSurroundingPagePart((PropertyChangePart) getHost());
+			if (!(abstractPageEditPart instanceof PageEditPart))
+				return null;
+			
 			AddExtensionPointCommand cmd = new AddExtensionPointCommand();
-			cmd.setPageEditPart((PageEditPart) getHost());
-			cmd.setTest((Test) pageEditPart.getParent().getModel());
+			cmd.setPageEditPart((PageEditPart) abstractPageEditPart);
+			cmd.setTest((Test) abstractPageEditPart.getParent().getModel());
 			return cmd;
 		}
 		if (obj instanceof Option)
@@ -95,4 +99,6 @@ public class ContextContainerEditPolicy extends ContainerEditPolicy {
 		//IContext node = (IContext) getHost().getModel(); 
 		return ViewUtil.getCompoundCommandWithResize(createElementCmd, ViewUtil.ADD, getHost());
 	}
+	
+	
 }

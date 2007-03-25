@@ -12,6 +12,7 @@ import java.util.List;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
+import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
@@ -163,5 +164,14 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 		return null;
 	}
 
-	
+	@Override
+	public void showTargetFeedback(Request request) {
+		if (request instanceof CreateRequest) {
+			CreateRequest createReq = (CreateRequest) request;
+			if (createReq.getNewObject() instanceof ExtensionPoint) {
+				return;
+			}
+		}
+		super.showTargetFeedback(request);
+	}
 }

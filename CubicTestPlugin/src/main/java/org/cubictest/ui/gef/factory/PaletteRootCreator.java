@@ -176,14 +176,6 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				CubicTestImageRegistry.getDescriptor(CUSTOM_STEP_IMAGE), null);
 		controls.add(tool);
 			
-		// -- Creating Connections --
-		tool = new ConnectionCreationToolEntry("Add Connection",
-				"Creates a new Connection. Typically used for transition from \"Common\"-pages to other pages, and for subtests.", 
-				new DataCreationFactory(Transition.class), CubicTestImageRegistry.getDescriptor(CONNECTION_IMAGE), null);
-		tool.setToolClass(ConnectionDragCreationTool.class);
-		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.TRUE);
-		connections.add(tool);
-
 		// -- Creating User interactions --
 		tool = new ConnectionCreationToolEntry(
 				"Add User Interaction",
@@ -192,6 +184,14 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED,
 				Boolean.TRUE);
 		tool.setToolClass(ConnectionDragCreationTool.class);
+		connections.add(tool);
+
+		// -- Creating Connections --
+		tool = new ConnectionCreationToolEntry("Add Connection",
+				"Creates a new Connection. Typically used for transition from \"Common\"-pages to other pages, and for subtests.", 
+				new DataCreationFactory(Transition.class), CubicTestImageRegistry.getDescriptor(CONNECTION_IMAGE), null);
+		tool.setToolClass(ConnectionDragCreationTool.class);
+		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.TRUE);
 		connections.add(tool);
 
 		// -- Creating Contexts --
