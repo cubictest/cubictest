@@ -195,17 +195,17 @@ public class UserInteractionsComponent {
 		table.setHeaderVisible(true);
 		
 		TableColumn tc1 = new TableColumn(table, SWT.LEFT, 0);
-		tc1.setText(ACTION_ELEMENT);
+		tc1.setText("Action element");
 		tc1.setWidth(120);
 		tc1.setResizable(true);
 		
 		TableColumn tc2 = new TableColumn(table, SWT.LEFT, 1);
-		tc2.setText(ACTION_TYPE);
+		tc2.setText("Action type");
 		tc2.setWidth(120);
 		tc2.setResizable(true);
 		
 		TableColumn tc3 = new TableColumn(table, SWT.LEFT, 2);
-		tc3.setText(TEXT_INPUT);
+		tc3.setText("Text input");
 		tc3.setWidth(160);
 		tc3.setResizable(true);
 		
