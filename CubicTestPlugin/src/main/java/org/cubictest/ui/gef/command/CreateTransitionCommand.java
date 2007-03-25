@@ -82,6 +82,7 @@ public class CreateTransitionCommand extends Command {
 		}
 		if (autoCreateTargetPage) {
 			targetNode = new Page();
+			targetNode.setName("New page");
 			Point position = sourceNode.getPosition().getCopy();
 			if (pageEditPart == null) {
 				ErrorHandler.logAndThrow("PageEditPart not set. Cannot auto create target page.");
