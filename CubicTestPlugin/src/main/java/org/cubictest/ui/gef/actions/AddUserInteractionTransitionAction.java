@@ -10,6 +10,7 @@ import java.util.List;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.Test;
+import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.command.AddExtensionPointCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.controller.PageEditPart;
@@ -22,17 +23,17 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
- * Context menu action for adding an extension point to a page.
+ * Context menu action for adding a user interaction transition to a page.
  * 
  * @author Christian Schwarz
  *
  */
-public class AddExtensionPointAction extends SelectionAction {
+public class AddUserInteractionTransitionAction extends SelectionAction {
 
-	public static final String ACTION_ID = "CubicTestPlugin.action.addExtensionPoint";
+	public static final String ACTION_ID = "CubicTestPlugin.action.addUserInteractionTransition";
 	private List model;
 	
-	public AddExtensionPointAction(IWorkbenchPart part) {
+	public AddUserInteractionTransitionAction(IWorkbenchPart part) {
 		super(part);
 	}
 
@@ -51,7 +52,7 @@ public class AddExtensionPointAction extends SelectionAction {
 	@Override
 	protected void init() {
 		super.init();
-		setText("Add Extension Point");
+		setText("Add User Interaction");
 		setId(ACTION_ID);
 	}
 	
@@ -61,25 +62,14 @@ public class AddExtensionPointAction extends SelectionAction {
 			Object element = iter.next();
 			if(element instanceof PageEditPart) {
 				PageEditPart pageEditPart = (PageEditPart) element;
-				Test test = (Test) pageEditPart.getParent().getModel();
-				ExtensionPoint exPoint = new ExtensionPoint();
 
-				CompoundCommand compoundCmd = new CompoundCommand();
-
-				AddExtensionPointCommand cmd = new AddExtensionPointCommand();
+				CreateTransitionCommand cmd = new CreateTransitionCommand();
+				cmd.setTest((Test) pageEditPart.getParent().getModel());
+				cmd.setSource((TransitionNode) pageEditPart.getModel());
 				cmd.setPageEditPart(pageEditPart);
-				cmd.setExtensionPoint(exPoint);
-				cmd.setTest(test);
-				compoundCmd.add(cmd);
-				
-				CreateTransitionCommand transitionCreateCommand = new CreateTransitionCommand();
-				transitionCreateCommand.setSource((Page) pageEditPart.getModel());
-				transitionCreateCommand.setTarget(exPoint);
-				transitionCreateCommand.setTest(test);
-				transitionCreateCommand.setPageEditPart(pageEditPart);
-				compoundCmd.add(transitionCreateCommand);
+				cmd.setAutoCreateTargetPage(true);
 
-				getCommandStack().execute(compoundCmd);
+				getCommandStack().execute(cmd);
 			}
 		}
 	}
@@ -98,6 +88,6 @@ public class AddExtensionPointAction extends SelectionAction {
 	
 	@Override
 	public ImageDescriptor getImageDescriptor() {
-		return CubicTestImageRegistry.getDescriptor(CubicTestImageRegistry.EXTENSION_POINT_IMAGE);
+		return CubicTestImageRegistry.getDescriptor(CubicTestImageRegistry.USER_INTERACTION_IMAGE);
 	}
 }

@@ -21,6 +21,7 @@ import org.cubictest.resources.ResourceMonitor;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.cubictest.ui.gef.actions.AddExtensionPointAction;
 import org.cubictest.ui.gef.actions.AddPageElementAction;
+import org.cubictest.ui.gef.actions.AddUserInteractionTransitionAction;
 import org.cubictest.ui.gef.actions.AutoLayoutAction;
 import org.cubictest.ui.gef.actions.CopyAction;
 import org.cubictest.ui.gef.actions.CutAction;
@@ -315,6 +316,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		addEditPartAction(new DirectEditAction((IWorkbenchPart) this));
 		addEditPartAction(new PresentAction((IWorkbenchPart) this));
 		addEditPartAction(new PopulateCommonAction((IWorkbenchPart) this));
+		addEditPartAction(new AddUserInteractionTransitionAction((IWorkbenchPart) this));
 		addEditPartAction(new AddExtensionPointAction((IWorkbenchPart) this));
 		
 		for (Class<? extends PageElement> elementClass : AddElementContextMenuList.getList()) {

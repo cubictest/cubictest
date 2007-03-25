@@ -51,7 +51,7 @@ public class AddPageElementAction extends SelectionAction {
 	protected boolean calculateEnabled() {
 		if(selectedObj instanceof EditPart){
 			Object model = ((EditPart)selectedObj).getModel();
-			if(model instanceof PageElement || model instanceof IContext){
+			if(model instanceof IContext){
 				return true;
 			}
 		}
