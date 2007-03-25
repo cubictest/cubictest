@@ -26,12 +26,12 @@ public class AbstractPageDirectEditPolicy extends DirectEditPolicy {
 	 * @see org.eclipse.gef.editpolicies.DirectEditPolicy#getDirectEditCommand(org.eclipse.gef.requests.DirectEditRequest)
 	 */
 	protected Command getDirectEditCommand(DirectEditRequest request) {
-		ChangeAbstractPageNameCommand cmd = new ChangeAbstractPageNameCommand();
+		ChangeAbstractPageNameCommand editCommand = new ChangeAbstractPageNameCommand();
 		AbstractPage page = (AbstractPage) getHost().getModel();
-		cmd.setAbstractPage(page);
-		cmd.setOldName(page.getName());
+		editCommand.setAbstractPage(page);
+		editCommand.setOldName(page.getName());
 		CellEditor cellEditor = request.getCellEditor();
-		cmd.setName((String) cellEditor.getValue());
+		editCommand.setName((String) cellEditor.getValue());
 
 		// make "undo" an atomic operation for a newly created page:
 
@@ -40,25 +40,27 @@ public class AbstractPageDirectEditPolicy extends DirectEditPolicy {
 		if(ViewUtil.pageHasJustBeenCreated(commandStack, page)) {
 			if (page.getInTransition() != null && (page.getInTransition().getStart() instanceof ExtensionStartPoint)) {
 				//do not nest when extensionStart point:
-				return cmd;
+				return editCommand;
 			}
 			else {
-				Command addPageCmd = (AddAbstractPageCommand) commandStack.getUndoCommand();
+				Command previousCmd = (Command) commandStack.getUndoCommand();
 				
 				Test test = ViewUtil.getSurroundingTest(getHost());
 				if (test.getPages().size() == 1 && page instanceof Page){
+					//handle undo of "auto setup" page (first page in test)
 					CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
 					createTransitionCmd.setSource(test.getStartPoint());
-					createTransitionCmd.setTarget(((AddAbstractPageCommand) addPageCmd).getPage());
+					createTransitionCmd.setTarget(((AddAbstractPageCommand) previousCmd).getPage());
 					createTransitionCmd.setTest(test);
-					addPageCmd = addPageCmd.chain(createTransitionCmd);
+					previousCmd = previousCmd.chain(createTransitionCmd);
 				}
 				
-				return addPageCmd.chain(cmd);
+				//previous command must be idempotent
+				return previousCmd.chain(editCommand);
 			}
 		}
 		else {
-			return cmd;
+			return editCommand;
 		}
 	}
 

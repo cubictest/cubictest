@@ -15,6 +15,7 @@ import org.cubictest.model.Test;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
+import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.command.PageResizeCommand;
 import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
@@ -72,15 +73,19 @@ public class ViewUtil {
 	
 	/**
 	 * Get whether the page has just been created.
-	 * @param stack
-	 * @param pageElement
-	 * @return
 	 */
 	public static boolean pageHasJustBeenCreated(CommandStack stack, AbstractPage page) {
-		return stack.isDirty() && 
-			stack.getUndoCommand() instanceof AddAbstractPageCommand &&
-			((AddAbstractPageCommand)stack.getUndoCommand()).getPage().equals(page);
+		Command undoCommand = stack.getUndoCommand();
+		
+		if (undoCommand instanceof AddAbstractPageCommand) {
+			return stack.isDirty() && ((AddAbstractPageCommand) stack.getUndoCommand()).getPage().equals(page);
+		}
+		else if (undoCommand instanceof CreateTransitionCommand && ((CreateTransitionCommand) undoCommand).isAutoCreateTargetPage()) {
+			return stack.isDirty() && ((CreateTransitionCommand) stack.getUndoCommand()).getTarget().equals(page);
+		}
+		return false;
 	}
+	
 	
 	public static FlowLayout getFlowLayout() {
 		FlowLayout layout = new FlowLayout();

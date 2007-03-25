@@ -28,7 +28,11 @@ import org.cubictest.ui.gef.wizards.ExposeExtensionPointWizard;
 import org.cubictest.ui.gef.wizards.NewUserInteractionsWizard;
 import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 
@@ -52,6 +56,8 @@ public class CreateTransitionCommand extends Command {
 	private PageEditPart pageEditPart;
 	
 	private boolean autoCreateTargetPage = false;
+	
+	boolean executed = false;
 
 
 	/*
@@ -70,6 +76,10 @@ public class CreateTransitionCommand extends Command {
 	 */
 	public void execute() {
 		super.execute();
+		if (executed) {
+			//idempotent
+			return;
+		}
 		if (autoCreateTargetPage) {
 			targetNode = new Page();
 			Point position = sourceNode.getPosition().getCopy();
@@ -132,6 +142,21 @@ public class CreateTransitionCommand extends Command {
 					}
 					return;
 				}
+
+				if (autoCreateTargetPage) {
+					//start direct edit:
+					for(Object obj : pageEditPart.getParent().getChildren()){
+						if (obj instanceof EditPart) {
+							EditPart ep = (EditPart) obj;
+							if(ep.getModel().equals(targetNode)){
+								//Start direct edit: 
+								ep.performRequest(new DirectEditRequest());
+								break;
+							}
+						}
+					}
+				}
+				
 			}
 			else if (sourceNode instanceof Common && targetNode instanceof Page) {
 				transition = new CommonTransition((Common) sourceNode,
@@ -146,7 +171,9 @@ public class CreateTransitionCommand extends Command {
 			else if (targetNode instanceof ExtensionPoint) {
 				transition = new SimpleTransition(sourceNode, targetNode);
 				test.addTransition(transition);
-			}			
+			}		
+			
+			executed = true;
 		}
 
 	}
@@ -162,6 +189,7 @@ public class CreateTransitionCommand extends Command {
 		if (autoCreateTargetPage) {
 			test.removePage((Page) targetNode);
 		}
+		executed = false;
 	}
 
 	@Override
@@ -172,6 +200,7 @@ public class CreateTransitionCommand extends Command {
 		if (autoCreateTargetPage) {
 			test.addPage((Page) targetNode);
 		}
+		executed = true;
 	}
 
 
@@ -194,5 +223,15 @@ public class CreateTransitionCommand extends Command {
 
 	public void setAutoCreateTargetPage(boolean autoCreateTargetPage) {
 		this.autoCreateTargetPage = autoCreateTargetPage;
+	}
+
+
+	public boolean isAutoCreateTargetPage() {
+		return autoCreateTargetPage;
+	}
+
+
+	public TransitionNode getTarget() {
+		return targetNode;
 	}
 }
