@@ -177,13 +177,10 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		controls.add(tool);
 			
 		// -- Creating User interactions --
-		tool = new ConnectionCreationToolEntry(
+		tool = new CombinedTemplateCreationEntry(
 				"Add User Interaction",
 				"Creates a new User Interaction to change the state of a page (e.g. press a link or fill out and submit a form).",
 				new DataCreationFactory(UserInteractionsTransition.class), CubicTestImageRegistry.getDescriptor(USER_INTERACTION_IMAGE), null);
-		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED,
-				Boolean.TRUE);
-		tool.setToolClass(ConnectionDragCreationTool.class);
 		connections.add(tool);
 
 		// -- Creating Connections --

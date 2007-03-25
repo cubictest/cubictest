@@ -23,17 +23,20 @@ import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.wizards.ExposeExtensionPointWizard;
 import org.cubictest.ui.gef.wizards.NewUserInteractionsWizard;
 import org.cubictest.ui.utils.ModelUtil;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * @author Stein Kare Skytteren
- * 
  * A command that creates a <code>Transition</code>.
+ * 
+ * @author SK Skytteren
+ * @author chr_schwarz
  */
 public class CreateTransitionCommand extends Command {
 
@@ -41,45 +44,50 @@ public class CreateTransitionCommand extends Command {
 
 	private TransitionNode targetNode;
 
-	/** Internal cache variable */
+	/** Cached transition for redo */
 	private Transition transition;
 
 	private Test test;
+	
+	private PageEditPart pageEditPart;
+	
+	private boolean autoCreateTargetPage = false;
 
-	/**
-	 * @param sourceNode
-	 */
-	public void setSource(TransitionNode sourceNode) {
-		this.sourceNode = sourceNode;
-	}
-
-	/**
-	 * @param targetNode
-	 */
-	public void setTarget(TransitionNode targetNode) {
-		this.targetNode = targetNode;
-	}
 
 	/*
 	 * @see org.eclipse.gef.commands.Command#canExecute()
 	 */
 	public boolean canExecute() {
+		if (autoCreateTargetPage) {
+			return true;
+		}
 		return (ModelUtil.isLegalTransition(sourceNode, targetNode, false) == ModelUtil.TRANSITION_EDIT_VALID);
 	}
 
 
-
-	
 	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
 		super.execute();
-		if(transition == null) {
+		if (autoCreateTargetPage) {
+			targetNode = new Page();
+			Point position = sourceNode.getPosition().getCopy();
+			if (pageEditPart == null) {
+				ErrorHandler.logAndThrow("PageEditPart not set. Cannot auto create target page.");
+			}
+			position.y = position.y + this.pageEditPart.getContentPane().getClientArea().height + 80;
+			if (sourceNode.getOutTransitions() != null) {
+				int outTrans = sourceNode.getOutTransitions().size();
+				position.x = position.x + (outTrans * 160);
+			}
+			targetNode.setPosition(position);
+			test.addPage((Page) targetNode);
+		}
+		
+ 		if(transition == null) {
 			if (sourceNode instanceof SubTest && (targetNode instanceof Page || targetNode instanceof SubTest)) {
-				//transition from SubTest
+				//ExtensionTransition from SubTest
 				SubTest subTest = (SubTest) sourceNode;
 				List<ExtensionPoint> exPoints = subTest.getTest().getAllExtensionPoints();
 				if (exPoints == null || exPoints.size() == 0) {
@@ -106,8 +114,8 @@ public class CreateTransitionCommand extends Command {
 			}
 			else if(sourceNode instanceof Page && (targetNode instanceof Page || 
 					targetNode instanceof SubTest || targetNode instanceof CustomTestStep)) {
-				//transition to SubTest
-				transition = new UserInteractionsTransition(sourceNode,targetNode);
+				//User Interactions transition:
+				transition = new UserInteractionsTransition(sourceNode, targetNode);
 				NewUserInteractionsWizard userActionWizard = new NewUserInteractionsWizard(
 						(UserInteractionsTransition) transition, test);
 				WizardDialog dlg = new WizardDialog(new Shell(), userActionWizard);
@@ -117,6 +125,9 @@ public class CreateTransitionCommand extends Command {
 							transition, test);
 					cmd.execute();
 					transition.resetStatus();
+					if (autoCreateTargetPage) {
+						test.removePage((Page) targetNode);
+					}
 					return;
 				}
 			}
@@ -146,6 +157,9 @@ public class CreateTransitionCommand extends Command {
 	public void undo() {
 		super.undo();
 		test.removeTransition(transition);
+		if (autoCreateTargetPage) {
+			test.removePage((Page) targetNode);
+		}
 	}
 
 	@Override
@@ -153,13 +167,30 @@ public class CreateTransitionCommand extends Command {
 		if(transition != null) {
 			test.addTransition(transition);
 		}
+		if (autoCreateTargetPage) {
+			test.addPage((Page) targetNode);
+		}
 	}
-	
-	/**
-	 * @param test
-	 */
+
+
 	public void setTest(Test test) {
 		this.test = test;
 	}
 
+	public void setPageEditPart(PageEditPart pageEditPart) {
+		this.pageEditPart = pageEditPart;
+	}
+
+	public void setSource(TransitionNode sourceNode) {
+		this.sourceNode = sourceNode;
+	}
+
+	public void setTarget(TransitionNode targetNode) {
+		this.targetNode = targetNode;
+	}
+
+
+	public void setAutoCreateTargetPage(boolean autoCreateTargetPage) {
+		this.autoCreateTargetPage = autoCreateTargetPage;
+	}
 }
