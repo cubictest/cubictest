@@ -590,6 +590,10 @@ public class UserInteractionsComponent {
 		}
 		
 	}
+
+	public TableViewer getTableViewer() {
+		return tableViewer;
+	}
 	
 }
 

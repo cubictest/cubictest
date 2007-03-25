@@ -7,9 +7,14 @@
  */
 package org.cubictest.ui.gef.wizards;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Test;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 
@@ -31,6 +36,8 @@ public class WizardNewUserActionsCreationPage extends WizardPage {
 	public void createControl(Composite parent) {
 		Composite composite = component.createControl(parent);
 		setControl(composite);
+		UserInteraction action = (UserInteraction) component.getTableViewer().getElementAt(0); 
+		component.getTableViewer().editElement(action, 0);
 	}
 
 	public void setSelectedExtensionPoint(ExtensionPoint selectedExtensionPoint) {
