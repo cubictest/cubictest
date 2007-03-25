@@ -110,12 +110,14 @@ public class CreateTransitionCommand extends Command {
 					}
 					transition = new ExtensionTransition(sourceNode, targetNode,
 							exposeExtensionPointWizard.getSelectedExtensionPoint());
+					test.addTransition(transition);
 				}
 			}
 			else if(sourceNode instanceof Page && (targetNode instanceof Page || 
 					targetNode instanceof SubTest || targetNode instanceof CustomTestStep)) {
 				//User Interactions transition:
 				transition = new UserInteractionsTransition(sourceNode, targetNode);
+				test.addTransition(transition);
 				NewUserInteractionsWizard userActionWizard = new NewUserInteractionsWizard(
 						(UserInteractionsTransition) transition, test);
 				WizardDialog dlg = new WizardDialog(new Shell(), userActionWizard);
@@ -134,19 +136,19 @@ public class CreateTransitionCommand extends Command {
 			else if (sourceNode instanceof Common && targetNode instanceof Page) {
 				transition = new CommonTransition((Common) sourceNode,
 						(Page) targetNode);
+				test.addTransition(transition);
 			}
 			else if (sourceNode instanceof ConnectionPoint) {
 				transition = new SimpleTransition((ConnectionPoint) sourceNode,
 						targetNode);
+				test.addTransition(transition);
 			}
 			else if (targetNode instanceof ExtensionPoint) {
 				transition = new SimpleTransition(sourceNode, targetNode);
+				test.addTransition(transition);
 			}			
 		}
 
-		if(transition != null) {
-			test.addTransition(transition);
-		}
 	}
 
 	/*
