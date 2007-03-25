@@ -36,6 +36,7 @@ public class WizardNewUserActionsCreationPage extends WizardPage {
 	public void createControl(Composite parent) {
 		Composite composite = component.createControl(parent);
 		setControl(composite);
+		//select first cell to draw attention to action element:
 		UserInteraction action = (UserInteraction) component.getTableViewer().getElementAt(0); 
 		component.getTableViewer().editElement(action, 0);
 	}
