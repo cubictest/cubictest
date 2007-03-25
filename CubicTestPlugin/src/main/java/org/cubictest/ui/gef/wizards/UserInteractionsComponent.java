@@ -154,6 +154,8 @@ public class UserInteractionsComponent {
 				}
 			
 				tableViewer.setInput(currentUserInteractions);
+				tableViewer.editElement(newUserInteraction, 0);
+
 			}
 		});
 		
