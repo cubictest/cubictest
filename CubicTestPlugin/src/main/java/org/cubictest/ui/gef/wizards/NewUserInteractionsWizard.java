@@ -13,8 +13,10 @@ import org.eclipse.jface.wizard.Wizard;
 
 
 /**
- * @author SK Skytteren
  * Wizard for creating a new <code>UserInteractionsTransition</code>.
+ * 
+ * @author SK Skytteren
+ * @author Christian Schwarz
  */
 public class NewUserInteractionsWizard extends Wizard {
 
@@ -26,9 +28,9 @@ public class NewUserInteractionsWizard extends Wizard {
 	 * @param transition
 	 */
 	public NewUserInteractionsWizard(UserInteractionsTransition transition, Test test) {
+		setWindowTitle("CubicTest");
 		this.transition = transition;
 		this.test = test;
-		
 		setNeedsProgressMonitor(true);
 	}
 
@@ -39,7 +41,7 @@ public class NewUserInteractionsWizard extends Wizard {
 	public void addPages() {
 		super.addPages();
 		userActionsPage = new WizardNewUserActionsCreationPage(transition,test);
-		userActionsPage.setTitle("New CubicTest User Input Page");
+		userActionsPage.setTitle("New User Interaction");
 		userActionsPage.setDescription("Define user input to a page");
 			
 		addPage(userActionsPage);
