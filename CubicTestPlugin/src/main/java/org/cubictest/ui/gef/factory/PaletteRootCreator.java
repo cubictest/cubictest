@@ -135,12 +135,12 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		// -- Creates the Controls --
 		tool = new CombinedTemplateCreationEntry(
 				"Add Page/State",
-				"Create a new page/state, representing a stable state of the application between user interations.", Page.class,
+				"Create a new page/state, representing a stable state of the application between user interations", Page.class,
 				new DataCreationFactory(Page.class), CubicTestImageRegistry
 						.getDescriptor(PAGE_IMAGE), null);
 		controls.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add Common",
-				"Create a new Common used for holding elements common to several pages/states.", Common.class, new DataCreationFactory(
+				"Create a new Common used for holding elements common to several pages/states", Common.class, new DataCreationFactory(
 						Common.class), CubicTestImageRegistry
 						.getDescriptor(COMMON_IMAGE), null);
 		controls.add(tool);
@@ -165,13 +165,13 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				null);
 		controls.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add an Extension Point",
-				"Add an extension point that other tests can start from or include.", ExtensionPoint.class,
+				"Add an extension point that other tests can start from or include", ExtensionPoint.class,
 				new DataCreationFactory(ExtensionPoint.class), CubicTestImageRegistry
 						.getDescriptor(EXTENSION_POINT_IMAGE), null);
 		controls.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add a Custom Step",
-				"Create a new Custom Step that lets you write code to do operations not available in the graphical test editor.",
+				"Create a new Custom Step that lets you write code to do operations not available in the graphical test editor",
 				CustomTestStep.class, new CustomTestStepCreationFactory(customTestStepLoader), 
 				CubicTestImageRegistry.getDescriptor(CUSTOM_STEP_IMAGE), null);
 		controls.add(tool);
@@ -179,13 +179,13 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		// -- Creating User interactions --
 		tool = new CombinedTemplateCreationEntry(
 				"Add User Interaction",
-				"Creates a new User Interaction to change the state of a page (e.g. press a link or fill out and submit a form).",
+				"Adds a new User Interaction to a page (for e.g. pressing a link or filling out a form)",
 				new DataCreationFactory(UserInteractionsTransition.class), CubicTestImageRegistry.getDescriptor(USER_INTERACTION_IMAGE), null);
 		connections.add(tool);
 
 		// -- Creating Connections --
 		tool = new ConnectionCreationToolEntry("Add Connection",
-				"Creates a new Connection. Typically used for transition from \"Common\"-pages to other pages, and for subtests.", 
+				"Creates a new Connection or User Interaction to an existing target page. Use \"drag and drop\" from source page to target page", 
 				new DataCreationFactory(Transition.class), CubicTestImageRegistry.getDescriptor(CONNECTION_IMAGE), null);
 		tool.setToolClass(ConnectionDragCreationTool.class);
 		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.TRUE);
@@ -193,7 +193,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 
 		// -- Creating Contexts --
 		tool = new CombinedTemplateCreationEntry("Add Context",
-				"Creates a new Context used for identyfying a part of the page or a single element.",
+				"Creates a new Context used for identyfying a part of the page or a single element",
 				SimpleContext.class, new DataCreationFactory(
 						SimpleContext.class), CubicTestImageRegistry.getDescriptor(CONTEXT_IMAGE), null);
 		contexts.add(tool);
@@ -224,7 +224,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		formElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add RadioButton",
-				"Check for a RadioButton.",
+				"Check for a RadioButton",
 				RadioButton.class, new DataCreationFactory(RadioButton.class),
 				CubicTestImageRegistry.getDescriptor(RADIO_BUTTON_CHECKED_IMAGE), null);
 		formElements.add(tool);
