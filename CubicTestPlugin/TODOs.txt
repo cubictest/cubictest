@@ -153,95 +153,53 @@ M4	  Make it possible to store output directory in a cubics-project.properties f
 
 
 
-=============================================
-Previous TODOs:
-=============================================
 
-
-Christian suggests
--------------------
+===================
+Christian's notes
+===================
 - Flag for marking that test is spec and not regression test (such that the build is not broken)
-- Automatically create page when user interaction is about to be created and there are no target pages available.
-Create new page with name from Link or form params(?)
+- Create new page with name from Link or form params(?)
 - Make it possible to create extension start point from link on page with extension point.
 - Label on userActions should be possible to place manually (or edit properties on placement).
 - Make "Row" the default text for RowContext?
 - BUG (fixed for M3): Not-link did not work
 - Button for creating watir test (or context menu of test)
 - Be able to assert cells from column headers
-- With tree-test, use browser back instead of whole test again? Property?
-- BUG: Options are not asserted correctly? Only user interaction on options correct?
 - Be possible to start test from failed test ("Fix the test")
-- Select box: Not center aligned?
 - HTML skeleton: Checkbox bug? (when checked required)
 - HTML skeleton: Alignment error (transition taking up too much horizontal space)
 
 
 
-============================================
-Even older TODOs (in norwegian)
-============================================
 
-SK & C
-	Lage bedre opplegg for starting av tester fra extensionpoints.
-
-Christian
-	Fikse property view på user actions
-	Støtte endring av form element name, id osv.
-	Fikse project property view
-	Vise feilmelding på sletting av elementer fra side hvor element allerede ligger i en UserAction
-
-Stein Kåre
-	Cubic Runner
-	Params
-	i18n
-
-Erlend
-	Custom Elements
-	HTML exporter
-
-
-Espens Cubic Diary (norwegian):
-------------------------
-
-Jeg har delt det inn i tre kategorier.
-Funksjonelt: dette er funksjonalitet som jeg føler mangler, jeg ikke forstår, eller som jeg kunne ha tenkt meg å ha med
-Visuelt: dette er look and feel 
-Feil/Bugs: ting som jeg mener er feil og eventuelle kræsj/stacktraces
-
-
+===========================================
+Espen's Cubic Diary (norwegian):
 ------------------------------------------------------------------------
 Funksjonelt:
 ------------------------------------------------------------------------
-- Det mest kritiske er 
-	- å få inn den XPath støtten vi snakket om, samt 
-X	- at det må være mulig å redigere en User Action.
-	- Uten disse to blir prosessen med å skrive og vedlkeholde testene ekstremt vanskelig og tungvindt.
+[Done] - I Package Explorer burde man når man høyre-klikker "New" muligheten til å legge til en 
+[Done] 	- Det må være mulig å redigere en User Action.
+[Done]  Aspekt, hva er det?
+[Done] - Select box burde hete Select list ettersom det er hva den heter
 
+- Få inn XPath støtte 
 - Følgende burde vært bundlet med:
   - One click instalation med:
     - Et Cubic prosjekt
     - En batch fil som starter Jetty/Tomcat med en demo webshop installert som Cubic testen
       bruker. Da har man noe å se på slik at man kommer igang lettere
-X Aspekt, hva er det?
 - Bytte Add med Check for eller lignende
 - Hvorfor er det skille mellom Input elements og Controls
 
-- Vanskelig å forstå hva man skal gjøre når man har laget testen. Hvordan bygger/kjører jeg
-testene?
-     - Burde hatt en knapp i Toolbaren med "Generate" eller lignende slik at man kan kjøre
-          Cubic testene.
+- Vanskelig å forstå hva man skal gjøre når man har laget testen. Hvordan bygger/kjører jeg testene?
+     - Burde hatt en knapp i Toolbaren med "Generate" eller lignende slik at man kan kjøre Cubic testene.
      - Burde hatt muligheten til å velge Cubic under "Run as", slik at du ikke må inn under 
      den Cubic test greiene for å kjøre testen
 - Hvordan kan jeg sjekke på andre elementer enn de som er i toolboxen? f.eks Table, div, etc
 - Page vs State, burde være en av delene eller to ulike
-- "Description" feltet på "New Cubic Test" burde wrape linje når man kommer til slutten av 
-boksen. Brukeren burde ikke måtte trykke enter i feltet slik man må nå.
-X- Select box burde hete Select list ettersom det er hva den heter
+- "Description" feltet på "New Cubic Test" burde wrape linje når man kommer til slutten av boksen. Brukeren burde ikke måtte trykke enter i feltet slik man må nå.
 - Extension Point??? Hva er dette?
-X- I Package Explorer burde man når man høyre-klikker "New" muligheten til å legge til en 
-Folder også, uten å måtte gå til "Other". Foldere vil man bruker til å strukturere 
-testene.
+Folder også, uten å måtte gå til "Other". Foldere vil man bruker til å strukturere testene.
 - "Custom action": Enten burde man kunne definere sine egne Actions (det hadde egentlig vært det beste) slik at man 
 f.eks kan teste på back knappen eller andre ting som man kan gjøre vha Javascript. Å lage det som en custom action gjør 
 at man vil kunne skrive denne slik man selv vil. 
@@ -256,37 +214,27 @@ gjenbruke Aspecter på tvers av tester... muligens er dette ikke smart men...
 ------------------------------------------------------------------------
 Visuelt:
 ------------------------------------------------------------------------
-- Sidene man drar ut burde ha shading og i tillegg burde "tittel feltet" vært større, 
-følge boksen og en større font. Burde ikke trime strengen, dette burde brukerne besteme
-selv
-Startpage:
-     - Startpage er veldig uklart fremstilt, burde også være alignet midt på og ikke oppe i 
-     hjørnet når man starter
+[Done]- Toolbox panet er for stort, det trenger ikke være større enn den lengste teksten
+- Sidene man drar ut burde ha shading og i tillegg burde "tittel feltet" vært større, følge boksen og en større font. Burde ikke trime strengen, dette burde brukerne besteme selv
+- Startpage:
+     - Startpage er veldig uklart fremstilt, burde også være alignet midt på og ikke oppe i hjørnet når man starter
      - Burde gjemme URL'en slik at den vises bare i f.eks properties view'et
      - Burde hatt et annet icon for start, en running eller noe slik man bruker når man tegner prosessflyt
-- Toolbox panet er for stort, det trenger ikke være større enn den lengste teksten
 - Aspect og Page/State burde ha ulike bokser
-- Aspects burde komponeres inn i bokser eller lignende. Slik det er nå blir det veldig
-rotete skjema dersom man bruker et aspekt som går på f.eks 5-6 sider/tilstander
+- Aspects burde komponeres inn i bokser eller lignende. Slik det er nå blir det veldig rotete skjema dersom man bruker et aspekt som går på f.eks 5-6 sider/tilstander
 - Større font, alt er veldig smått og puslete slik det er nå.
 - Burde vist testene på en bedre måte i "Package Explorer"
-- Alle iconer burde vært større idet man trekker de inn i en Page/State/Aspect. Da ville det 
-vært enklere å få oversikt. Nå må man myse veldig før man ser hva det er.
-- Iconene burde i større grad lign elementene de skal teste, slik som knapper. 
-Muligens burde man sett på hva Web Tools bruker av iconer.
+- Alle iconer burde vært større idet man trekker de inn i en Page/State/Aspect. Da ville det vært enklere å få oversikt. Nå må man myse veldig før man ser hva det er.
+- Iconene burde i større grad lign elementene de skal teste, slik som knapper. Muligens burde man sett på hva Web Tools bruker av iconer.
 
 ------------------------------------------------------------------------
 Feil/Bugs:
 ------------------------------------------------------------------------
-X Kan ikke redigere en User Action. Properties er tomt og man kan ikke redigere.
-X- Undo på en Page/State med en selectbox fører til Exception
-- Tab order på New Cubic Test User Input er ikke riktig, burde kunne Tab'e seg fra element til action og til input. 
-Nå så går man fra element til "Add New User Input"
+[Done]- Kan ikke redigere en User Action. Properties er tomt og man kan ikke redigere.
+[Done]- Undo på en Page/State med en selectbox fører til Exception
+[Done]- Har du en TXT inne i en Page/State som er lengre enn Page/State boksen så vises ikke hele teksten når man markerer TXT kontrollen. Den ser ut til å bli liggende bak eller noe slik.
+[Done]- Fungerer ikke å generere Watir tester for kataloger, får følgende melding i Consolet: org.eclipse.core.internal.resources.ResourceException: Resource /PBA-Fondshandel/dev/runtime-EclipseApplication/PBA-Fondshandel/tests does not exist.
+- Tab order på New Cubic Test User Input er ikke riktig, burde kunne Tab'e seg fra element til action og til input. Nå så går man fra element til "Add New User Input"
 - Burde legge på Keyboard shortcuts på _alle_ knapper i alle Wizards
-- Properties view'et. F.eks når man har lagt til en kontroll og vil endre f.eks  Identifier Type sin value fra Name til ID, 
-så burde man kunne skrive med keyboardet ID ikke måtte bruke pilene. 
-- Har du en TXT inne i en Page/State som er lengre enn Page/State boksen så vises ikke hele teksten når man markerer TXT kontrollen.
-Den ser ut til å bli liggende bak eller noe slik.
-- Fungerer ikke å generere Watir tester for kataloger, får følgende melding i Consolet:
-     org.eclipse.core.internal.resources.ResourceException: Resource /PBA-Fondshandel/dev/runtime-EclipseApplication/PBA-Fondshandel/tests does not exist.
+- Properties view'et. F.eks når man har lagt til en kontroll og vil endre f.eks  Identifier Type sin value fra Name til ID, så burde man kunne skrive med keyboardet ID ikke måtte bruke pilene. 
 - Når jeg cut'n paster en Aspect fra en test inn til en annen så kan jeg ikke sette på Connectors fra Aspect'en til en Page/State
