@@ -232,7 +232,7 @@ public class UserInteractionsComponent {
 		int a = 1;
 		for (IActionElement element: allActionElements) {
 			if (element.getActionTypes().size() > 0) {
-				actionElements[a++] = element.getType() + ": " + element.getDescription();
+				actionElements[a++] = UserInteractionDialogUtil.getLabel(element);
 			}
 		}
 		if (useCommandForActionChanges) {
@@ -290,7 +290,7 @@ public class UserInteractionsComponent {
 						else if (elementName.equals(MOVE_UP) || elementName.equals(MOVE_DOWN)) {
 							move = true;
 						}
-						else if ((actionElement.getType() + ": " + actionElement.getDescription()).equals(elementName)){
+						else if (UserInteractionDialogUtil.getLabel(actionElement).equals(elementName)){
 							selectedActionElement = actionElement;
 							break;
 						}
@@ -420,7 +420,7 @@ public class UserInteractionsComponent {
 					IActionElement element = userInteraction.getElement();
 					String elementName = CHOOSE;
 					if (element != null)
-						elementName = element.getType() + ": " + element.getDescription();
+						elementName = UserInteractionDialogUtil.getLabel(element);
 					
 					for (int i = 0; i < actionElements.length; i++) {
 						if (elementName.equals(actionElements[i]))
@@ -565,8 +565,9 @@ public class UserInteractionsComponent {
 			switch (columnIndex) {
 				case ACTION_ELEMENT_COLINDEX:
 					IActionElement element = userInteraction.getElement();
-					if (element != null)
-						return element.getType() + ": " + element.getDescription();
+					if (element != null) {
+						return UserInteractionDialogUtil.getLabel(element);
+					}
 					else
 						return CHOOSE;
 					
@@ -597,5 +598,6 @@ public class UserInteractionsComponent {
 		return tableViewer;
 	}
 	
+
 }
 

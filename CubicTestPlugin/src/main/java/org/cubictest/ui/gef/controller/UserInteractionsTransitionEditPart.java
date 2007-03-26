@@ -12,6 +12,7 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.formElement.AbstractTextInput;
@@ -89,15 +90,15 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			
 			for(UserInteraction input : inputs){
 				IActionElement element = input.getElement();
-				String description = "";
+				String text = "";
 				if(element != null) {
-					description = element.getDescription();
-					if(description.length() > MAX_LABEL_LENGTH) {
-						description = description.substring(0, MAX_LABEL_LENGTH - 3) + "...";
+					text = getText(element);
+					if(text.length() > MAX_LABEL_LENGTH) {
+						text = text.substring(0, MAX_LABEL_LENGTH - 3) + "...";
 					}
-					description += ": ";
+					text += ": ";
 				}
-				String inputLabelText = description + input.getActionType().getText();
+				String inputLabelText = text + input.getActionType().getText();
 				
 				if (ActionType.ENTER_TEXT.equals(input.getActionType()) 
 						&& element instanceof AbstractTextInput) {
@@ -171,5 +172,15 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			((PolylineConnection) getFigure()).setLineWidth(2);
 		else
 			((PolylineConnection) getFigure()).setLineWidth(1);
+	}
+	
+	private String getText(IActionElement element) {
+		if (element instanceof PageElement) {
+			PageElement pe = (PageElement) element;
+			return pe.getDirectEditIdentifier().getValue();
+		}
+		else {
+			return element.getDescription();						
+		}
 	}
 }

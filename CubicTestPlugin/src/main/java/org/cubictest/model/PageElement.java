@@ -168,4 +168,21 @@ public abstract class PageElement extends PropertyAwareObject
 		firePropertyChange(PropertyAwareObject.NOT, oldNot, not);
 	}
 
+	
+	/**
+	 * Gets the Identifier with the highest probability (must be greater than "indifferent").
+	 * If more than one has the same probability, returns the first.
+	 */
+	public Identifier getMostSignificantIdentifier() {
+		int highestProbability = 0;
+		Identifier result = null;
+		
+		for (Identifier identifier : getIdentifiers()) {
+			if (identifier.getProbability() >  highestProbability) {
+				result = identifier;
+				highestProbability = identifier.getProbability();
+			}
+		}
+		return result;
+	}
 }
