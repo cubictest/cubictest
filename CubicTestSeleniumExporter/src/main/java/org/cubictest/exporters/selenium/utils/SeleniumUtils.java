@@ -63,14 +63,14 @@ public class SeleniumUtils {
 		PageElement pe = (PageElement) element;
 
 		IdentifierType idType = pe.getMostSignificantIdentifier().getType();
-		String text = pe.getText();
+		String idText = getIdText(pe);
 		String context = doc.getFullContext();
 		
 		if (idType.equals(ID)) {
-			return "xpath=" + context + getHtmlElementType(pe) + "[@id=\"" + text + "\"]";
+			return "xpath=" + context + getHtmlElementType(pe) + "[@id=\"" + idText + "\"]";
 		}
 		if (idType.equals(NAME)) {
-			return "xpath=" + context + getHtmlElementType(pe) + "[@name=\"" + text + "\"]";
+			return "xpath=" + context + getHtmlElementType(pe) + "[@name=\"" + idText + "\"]";
 		}
 		if (idType.equals(VALUE)) {
 			throw new ExporterException("\"Value\" identifier type not supported as locator.");
@@ -78,17 +78,17 @@ public class SeleniumUtils {
 		if (idType.equals(LABEL)) {
 			if (element instanceof Text) {
 				String axis = (context.equals("//")) ? "" : "descendant-or-self::";
-				return "xpath=" + context + axis + "*[contains(text(), \"" + text + "\")]";
+				return "xpath=" + context + axis + "*[contains(text(), \"" + idText + "\")]";
 			}
 			else if (element instanceof Link || element instanceof Option) {
-				return "xpath=" + context + getHtmlElementType(pe) + "[text()=\"" + text + "\"]";
+				return "xpath=" + context + getHtmlElementType(pe) + "[text()=\"" + idText + "\"]";
 			}
 			else if (element instanceof Button) {
-				return "xpath=" + context + "input[(@type=\"button\" or @type=\"submit\") and @value=\"" + text + "\"]";
+				return "xpath=" + context + "input[(@type=\"button\" or @type=\"submit\") and @value=\"" + idText + "\"]";
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
-				return "xpath=" + context + getHtmlElementType(pe) + "[@id=(//label[text()=\"" + text + "\"]/@for)]";
+				return "xpath=" + context + getHtmlElementType(pe) + "[@id=(//label[text()=\"" + idText + "\"]/@for)]";
 			}
 		}
 		else {
@@ -96,6 +96,15 @@ public class SeleniumUtils {
 		}
 	}
 	
+	
+	/**
+	 * Get the identifier value of the most significant identifier.
+	 * @param pe
+	 * @return
+	 */
+	public static String getIdText(PageElement pe) {
+		return pe.getMostSignificantIdentifier().getValue();
+	}
 	
 	/**
 	 * Get the HTML element type for the page element.

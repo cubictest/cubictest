@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import org.cubictest.export.IResultHolder;
 import org.cubictest.exporters.selenium.utils.XmlUtils;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
@@ -78,11 +79,11 @@ public class SeleneseDocument implements IResultHolder {
 	public void pushContext(IContext ctx) {
 		if (ctx instanceof Select) {
 			Select select = (Select) ctx;
-			context.push("select[@id=\"" + select.getText() + "\"]//");
+			context.push("select[@id=\"" + select.getIdentifier(IdentifierType.ID) + "\"]//");
 		}
 		else if (ctx instanceof AbstractContext) {
 			AbstractContext abstractContext = (AbstractContext) ctx;
-			context.push("*[@id=\"" + abstractContext.getText() + "\"]//");
+			context.push("*[@id=\"" + abstractContext.getIdentifier(IdentifierType.ID) + "\"]//");
 		}
 	}
 

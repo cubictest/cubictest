@@ -29,7 +29,7 @@ public class PageElementConverter implements IPageElementConverter<SeleneseDocum
 	public void handlePageElement(SeleneseDocument doc, PageElement pe) {
 
 		if (pe instanceof Title) {
-			doc.addCommand("verifyTitle", pe.getText()).setDescription("Check present = " + pe);
+			doc.addCommand("verifyTitle", SeleniumUtils.getIdText(pe)).setDescription("Check present = " + pe);
 		}
 		else {
 			//all other elements
