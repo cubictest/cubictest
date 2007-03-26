@@ -40,7 +40,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		String idType = WatirUtils.getIdType(pe);
 		
 		String not = pe.isNot() ? " not" : ""; 
-		stepList.add("# asserting " + pe.getType() + " with " + pe.getIdentifierType().displayValue() + " = " + idText + not + " present", 2);
+		stepList.add("# asserting " + pe.getType() + " with " + pe.getMostSignificantIdentifier().getType().displayValue() + " = " + idText + not + " present", 2);
 		stepList.add("begin", 2);
 
 		if (WatirUtils.shouldGetLabelTargetId(pe)) {
@@ -65,7 +65,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 			stepList.add("raise " + StepList.TEST_STEP_FAILED, 3);
 			stepList.add("end", 2);
 		}
-		else if (pe instanceof Option && pe.getIdentifierType().equals(LABEL)) {
+		else if (pe instanceof Option && pe.getMostSignificantIdentifier().getType().equals(LABEL)) {
 			String selectList = stepList.getPrefix();
 			stepList.add("if (selectListId == nil)", 3);
 			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
@@ -131,7 +131,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		}
 		
 		String not = pe.isNot() ? " not" : ""; 
-		stepList.add("puts \"Step failed: Check " + pe.getType() + not + " present with " + pe.getIdentifierType().displayValue() +
+		stepList.add("puts \"Step failed: Check " + pe.getType() + not + " present with " + pe.getMostSignificantIdentifier().getType().displayValue() +
 				" = '" + pe.getText() + "'" + contextInfo + "\"", 3);
 		stepList.add("end", 2);
 	}
