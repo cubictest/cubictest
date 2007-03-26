@@ -173,5 +173,8 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 				super.showTargetFeedback(request);
 			}
 		}
+		else {
+			super.showTargetFeedback(request);
+		}
 	}
 }
