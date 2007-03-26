@@ -80,8 +80,11 @@ public class SeleniumUtils {
 				String axis = (context.equals("//")) ? "" : "descendant-or-self::";
 				return "xpath=" + context + axis + "*[contains(text(), \"" + idText + "\")]";
 			}
-			else if (element instanceof Link || element instanceof Option) {
+			else if (element instanceof Link) {
 				return "xpath=" + context + getHtmlElementType(pe) + "[text()=\"" + idText + "\"]";
+			}
+			else if (element instanceof Option) {
+				return "label=" + idText;
 			}
 			else if (element instanceof Button) {
 				return "xpath=" + context + "input[(@type=\"button\" or @type=\"submit\") and @value=\"" + idText + "\"]";
@@ -145,6 +148,9 @@ public class SeleniumUtils {
 		if (a.equals(UNCHECK))
 			return "uncheck";
 		
+		if (a.equals(SELECT))
+			return "select";
+		
 		if (a.equals(ENTER_TEXT))
 			return "type";
 		
@@ -198,6 +204,9 @@ public class SeleniumUtils {
 		if (a.equals(UNCHECK))
 			return "Unchecking " + element;
 		
+		if (a.equals(SELECT))
+			return "Selecting " + element;
+
 		if (a.equals(ENTER_TEXT) || a.equals(ENTER_PARAMETER_TEXT))
 			return "Typing text " + element;
 		
