@@ -13,7 +13,7 @@
 		<option value="cubics">Cubics</option>
 	</select>
 	for
- 	<input type="text" name="query" />
+ 	<input type="text" name="query" id="query" />
  	<input type="submit" name="go" value="Go" />
 </form>
 
