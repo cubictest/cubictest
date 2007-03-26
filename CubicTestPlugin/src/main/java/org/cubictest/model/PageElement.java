@@ -185,4 +185,13 @@ public abstract class PageElement extends PropertyAwareObject
 		}
 		return result;
 	}
+	
+	public Identifier getIdentifier(IdentifierType idType) {
+		for (Identifier identifier : getIdentifiers()) {
+			if (identifier.getType().equals(idType)) {
+				return identifier;
+			}
+		}
+		return null;
+	}
 }
