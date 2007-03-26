@@ -1,3 +1,7 @@
+/*
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ */
 package org.cubictest.ui.sections;
 
 import java.beans.PropertyChangeEvent;
@@ -23,12 +27,9 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -37,6 +38,11 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 
+/**
+ * Composite for editing identifier of a Page Element.
+ * 
+ * @author SK Skytteren 
+ */
 public class IdentifierComposite extends Composite implements PropertyChangeListener {
 
 	private Text value;
@@ -50,7 +56,6 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private CCombo i18nCombo;
 	private Button param;
 	private CCombo paramCombo;
-	//private Composite composite;
 	private Composite secondRow;
 	private Label i18nLabel;
 	private PageElement pageElement;
@@ -63,7 +68,6 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	public IdentifierComposite(Composite parent, 
 			TabbedPropertySheetWidgetFactory factory, int lableWidth) {
 		super(parent, SWT.NONE);
-		//composite = factory.createComposite(parent,);
 		setBackground(ColorConstants.white);
 		
 		GridLayout layout = new GridLayout();
@@ -71,14 +75,13 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		layout.verticalSpacing = 2;
 		this.setLayout(layout);
 		
-		//First Row
+		//First Row:
 		
 		firstRow = factory.createFlatFormComposite(this);
 		//Adding primary idendifier input
 		
 		FormData data = new FormData();
 		data.left = new FormAttachment(0, 0);
-		//data.width = lableWidth / 2;
 		
 		dirEdit = factory.createButton(firstRow, "" , SWT.RADIO);
 		dirEdit.setLayoutData(data);
@@ -118,7 +121,9 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		value.setLayoutData(data);
 		value.addSelectionListener(valueListener);
 		value.addFocusListener(valueListener);
-		//Adding secondRow
+		
+		//Second Row:
+		
 		secondRow = factory.createFlatFormComposite(this);
 		
 		//Adding I18n
@@ -193,6 +198,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		addListeners();
 		refresh();
 	}
+	
 	public void refresh(){
 		type.setText(identifier.getType().displayValue() + ":");
 		type.setToolTipText(identifier.getType().getDescription());
