@@ -62,7 +62,7 @@ public class UserInteractionDialogUtil {
 			}
 
 			if(element instanceof IContext){
-				getFlattenedPageElements(((IContext) element).getElements());
+				flattenedElements.addAll(getFlattenedPageElements(((IContext) element).getElements()));
 				flattenedElements.add(element);
 			}
 			else {
