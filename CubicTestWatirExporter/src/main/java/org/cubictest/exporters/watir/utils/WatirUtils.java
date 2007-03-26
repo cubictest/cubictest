@@ -70,6 +70,20 @@ public class WatirUtils {
 			throw new ExporterException("Identifier type not recognized.");
 	}
 	
+	/**
+	 * Get the identifier value of the most significant identifier.
+	 * @param pe
+	 * @return
+	 */
+	public static String getIdText(PageElement pe) {
+		return pe.getMostSignificantIdentifier().getValue();
+	}
+	
+	/**
+	 * Get the Watir element type corresponding to the page element.
+	 * @param pe
+	 * @return
+	 */
 	public static String getElementType(PageElement pe) {
 		if (pe instanceof TextField || pe instanceof Password || pe instanceof TextArea)
 			return "text_field";

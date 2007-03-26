@@ -36,7 +36,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 	 */
 	public void handlePageElement(StepList stepList, PageElement pe) {
 		stepList.addSeparator();
-		String idText = "\"" + StringUtils.replace(pe.getText(),"\"", "\\\"") + "\"";
+		String idText = "\"" + StringUtils.replace(WatirUtils.getIdText(pe),"\"", "\\\"") + "\"";
 		String idType = WatirUtils.getIdType(pe);
 		
 		String not = pe.isNot() ? " not" : ""; 
@@ -72,7 +72,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 			stepList.add("end", 3);
 			stepList.add("optionFound = false", 3);
 			stepList.add(selectList + ".getAllContents().each do |opt|", 3);
-			stepList.add("if(opt.to_s() == \"" + pe.getText() + "\")", 4);
+			stepList.add("if(opt.to_s() == \"" + WatirUtils.getIdText(pe) + "\")", 4);
 			stepList.add("optionFound = true", 5);
 			stepList.add("end", 4);
 			stepList.add("end", 3);
@@ -132,7 +132,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		
 		String not = pe.isNot() ? " not" : ""; 
 		stepList.add("puts \"Step failed: Check " + pe.getType() + not + " present with " + pe.getMostSignificantIdentifier().getType().displayValue() +
-				" = '" + pe.getText() + "'" + contextInfo + "\"", 3);
+				" = '" + WatirUtils.getIdText(pe) + "'" + contextInfo + "\"", 3);
 		stepList.add("end", 2);
 	}
 

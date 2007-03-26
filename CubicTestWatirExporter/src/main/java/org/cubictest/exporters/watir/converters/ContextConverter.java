@@ -49,9 +49,9 @@ public class ContextConverter implements IContextConverter<StepList> {
 		if (ctx instanceof Select) {
 			Select select = (Select) ctx;
 			stepList.add("# asserting Select box present with " + select.getMostSignificantIdentifier().getType().displayValue() + 
-					" = " + select.getText(), 2);
+					" = " + WatirUtils.getIdText(select), 2);
 			
-			String idText = "\"" + select.getText() + "\"";
+			String idText = "\"" + WatirUtils.getIdText(select) + "\"";
 			String idType = WatirUtils.getIdType(select);
 			stepList.add("selectListId = nil", 2);
 			stepList.add("begin", 2);
@@ -68,11 +68,11 @@ public class ContextConverter implements IContextConverter<StepList> {
 		else if (ctx instanceof Frame){
 			Frame frame = (Frame) ctx;
 			
-			stepList.add("# asserting " + frame.getType() + "present with " + frame.getMostSignificantIdentifier().getType().displayValue() + " = " + frame.getText(), 2);
+			stepList.add("# asserting " + frame.getType() + "present with " + frame.getMostSignificantIdentifier().getType().displayValue() + " = " + WatirUtils.getIdText(frame), 2);
 			
 			stepList.add("begin", 2);
 	
-			String idText = "\"" + StringUtils.replace(frame.getText(),"\"", "\\\"") + "\"";
+			String idText = "\"" + StringUtils.replace(WatirUtils.getIdText(frame),"\"", "\\\"") + "\"";
 			String idType = WatirUtils.getIdType(frame);
 	
 			stepList.setPrefix("(ie.frame(" + idType + "," + idText + "))");
@@ -87,11 +87,11 @@ public class ContextConverter implements IContextConverter<StepList> {
 			if (!(context.getMostSignificantIdentifier().getType().equals(ID)))
 				throw new ExporterException("Contexts must have identifier type = ID for Watir export");
 
-			stepList.add("# asserting " + context.getType() + "present with " + context.getMostSignificantIdentifier().getType().displayValue() + " = " + context.getText(), 2);
+			stepList.add("# asserting " + context.getType() + "present with " + context.getMostSignificantIdentifier().getType().displayValue() + " = " + WatirUtils.getIdText(context), 2);
 			
 			stepList.add("begin", 2);
 	
-			String idText = "\"" + StringUtils.replace(context.getText(),"\"", "\\\"") + "\"";
+			String idText = "\"" + StringUtils.replace(WatirUtils.getIdText(context),"\"", "\\\"") + "\"";
 			String idType = WatirUtils.getIdType(context);
 	
 			stepList.setPrefix("(ie.div(" + idType + "," + idText + "))");
@@ -107,7 +107,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 		stepList.add("failedSteps += 1 ", 3);
 
 		stepList.add("puts \"Step failed: Check " + element.getType() + " present with " + element.getMostSignificantIdentifier().getType().displayValue() +
-				" = '" + element.getText() + "'\"", 3);
+				" = '" + WatirUtils.getIdText(element) + "'\"", 3);
 		stepList.add("end", 2);
 
 		

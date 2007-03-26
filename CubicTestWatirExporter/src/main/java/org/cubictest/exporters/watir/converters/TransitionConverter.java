@@ -83,7 +83,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 	private void handlePageElementAction(StepList stepList, UserInteraction userInteraction) {
 		PageElement pe = (PageElement) userInteraction.getElement();
 		String idType = WatirUtils.getIdType(pe);
-		String idText = "\"" + pe.getText() + "\"";
+		String idText = "\"" + WatirUtils.getIdText(pe) + "\"";
 
 		stepList.add("# user interaction");
 		stepList.add("begin");
@@ -109,7 +109,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 			stepList.add("failedSteps += 1 ", 3);
 			String interactionType = StringUtils.replace(WatirUtils.getInteraction(userInteraction) ,"\"", "\\\"");
 			stepList.add("puts \"Could not " + interactionType + " " + 
-					WatirUtils.getElementType(pe) + " with " + pe.getMostSignificantIdentifier().getType().displayValue() + " = '" + pe.getText() + "'\"", 3);
+					WatirUtils.getElementType(pe) + " with " + pe.getMostSignificantIdentifier().getType().displayValue() + " = '" + WatirUtils.getIdText(pe) + "'\"", 3);
 	
 			stepList.add("end", 2);
 		}
@@ -122,7 +122,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 	 */
 	private void selectOptionInSelectList(StepList stepList, Option option, String idType, String idText) {
 		Select select = (Select) option.getParent();
-		String selectIdText = "\"" + select.getText() + "\"";
+		String selectIdText = "\"" + WatirUtils.getIdText(select) + "\"";
 		String selectIdType = WatirUtils.getIdType(select);
 		
 		if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
@@ -144,7 +144,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 		
 		stepList.add("rescue",2);
 		stepList.add("failedSteps += 1 ",3);
-		stepList.add("puts \"Step failed: Select option with " + idType + " = '" + option.getText() + "'\"", 3);		
+		stepList.add("puts \"Step failed: Select option with " + idType + " = '" + WatirUtils.getIdText(option) + "'\"", 3);		
 		stepList.add("end", 2);
 
 	}
