@@ -9,6 +9,7 @@ package org.cubictest.ui.gef.command;
 
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
+import org.cubictest.model.formElement.Select;
 import org.eclipse.gef.commands.Command;
 
 
@@ -50,6 +51,11 @@ public class MovePageElementCommand extends Command {
 	 */
 	public void setNewIndex(int newIndex) {
 		this.newIndex = newIndex;
+	}
+	
+	@Override
+	public boolean canExecute() {
+		return true;
 	}
 	
 	/* (non-Javadoc)

@@ -68,6 +68,11 @@ public class TransferPageElementCommand extends Command {
 	 */
 	public boolean canExecute(){
 		if (child instanceof Option && !(newContext instanceof Select)) {
+			//do not move Option outside Select
+			return false;
+		}
+		else if (!(child instanceof Option) && newContext instanceof Select) {
+			//do not move non-Option inside Select
 			return false;
 		}
 		return true;
