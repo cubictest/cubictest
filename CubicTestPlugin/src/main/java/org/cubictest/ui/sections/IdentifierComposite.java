@@ -10,6 +10,7 @@ import java.beans.PropertyChangeListener;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
+import org.cubictest.ui.gef.command.ChangeDirectEditIdentifierCommand;
 import org.cubictest.ui.gef.command.ChangeIdentiferProbabilityCommand;
 import org.cubictest.ui.gef.command.ChangeIdentifierI18nKeyCommand;
 import org.cubictest.ui.gef.command.ChangeIdentifierParamKeyCommand;
@@ -388,7 +389,11 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		public void widgetDefaultSelected(SelectionEvent e) {}
 		public void widgetSelected(SelectionEvent e) {
 			if(dirEdit.getSelection()){
-				pageElement.setDirectEditIdentifier(identifier);
+				ChangeDirectEditIdentifierCommand cmd = new ChangeDirectEditIdentifierCommand();
+				cmd.setPageElement(pageElement);
+				cmd.setOldIdentifier(pageElement.getDirectEditIdentifier());
+				cmd.setNewIdentifier(identifier);
+				editor.getCommandStack().execute(cmd);
 			}
 		}
 	};
