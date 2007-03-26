@@ -11,6 +11,8 @@ import static org.cubictest.model.IdentifierType.LABEL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Base class for elements on a page.
  * 
@@ -181,6 +183,18 @@ public abstract class PageElement extends PropertyAwareObject
 			if (identifier.getProbability() >  highestProbability) {
 				result = identifier;
 				highestProbability = identifier.getProbability();
+			}
+			else if (identifier.getProbability() ==  highestProbability) {
+				//direct edit has precedence:
+				if (getDirectEditIdentifier().equals(identifier)) {
+					result = identifier;
+					highestProbability = identifier.getProbability();
+				}
+				else if (StringUtils.isNotBlank(identifier.getValue()) && StringUtils.isBlank(result.getValue())) {
+					//the ID with a non-null value has precedence:
+					result = identifier;
+					highestProbability = identifier.getProbability();
+				}
 			}
 		}
 		return result;
