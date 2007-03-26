@@ -137,6 +137,7 @@ Done	 Fix bug with deletion of all pages, then add page
 Done   Limit context menu of elements
 Done   Problem with URL startpoint -> Sub Test (no page in between)
 Done   ID on page elements was deleted when description was set (empty desc first?) (bug)
+M4   Add a "no action" start point
 M4   Create connection / user interaction from context menu
 M4   Right-click on ExStartPoint -> "Open test" (none double clicked)
 	(When holding ctrl key --> Move should become "Copy-paste" (attempted fixed, bug in GEF?))
