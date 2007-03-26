@@ -29,6 +29,7 @@ import org.cubictest.exporters.selenium.holders.SeleneseDocument;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.IActionElement;
+import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
@@ -61,7 +62,7 @@ public class SeleniumUtils {
 		}
 		PageElement pe = (PageElement) element;
 
-		IdentifierType idType = pe.getDirectEditIdentifier().getType();
+		IdentifierType idType = pe.getMostSignificantIdentifier().getType();
 		String text = pe.getText();
 		String context = doc.getFullContext();
 		
