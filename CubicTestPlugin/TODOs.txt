@@ -99,6 +99,7 @@ Done   Problem with drag and drop when holding down mouse button. Must click twi
 Done   The "auto-select default action" feature (e.g. "Click") was a bit confusing => Use event
 Done   Checkbox icon on "uncheck"-action is wrong in the user interaction figure (bug)
 Done   When two elements have the same description, display idText in user action dialog (tooltip)
+M3   Handle delete of page element -> Display warning -> remove from user interaction
 M3   Use command for edit of properties
 M3   Put options in the "value" dropdown of select list.
 M4   Put --Choose-- automatically, not button "Add new"
