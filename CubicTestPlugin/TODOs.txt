@@ -79,7 +79,7 @@ Page:
 Done   Header: Better contrast
 Done   Resize vertically on drag'n'drop (bug)
 Done   Context menu for adding page elements
-M4   Context meny for adding user interaction
+Done   Context meny for adding user interaction
 	(Wider figure, Auto resize width)
 
 Contexts:
@@ -101,11 +101,11 @@ Done   Checkbox icon on "uncheck"-action is wrong in the user interaction figure
 Done   When two elements have the same description, display idText in user action dialog (tooltip)
 Done   Use command for edit of properties
 Done   Put options in the "value" dropdown of select list.
+Done   "Delete row"-button in input dialog
+Done   "Move up" and "Move down" button wanted. Is sequence significant?
 M3   Handle delete of page element -> Display warning -> remove from user interaction
 M4   Put --Choose-- automatically, not button "Add new"
-M4   "Delete row"-button in input dialog
 M4   When form element text changes, must update label on connection automatically => subscriptions must be examined
-M4   "Move up" and "Move down" button wanted. Is sequence significant?
    
    
 Palette:
@@ -137,8 +137,8 @@ Done	 Fix bug with deletion of all pages, then add page
 Done   Limit context menu of elements
 Done   Problem with URL startpoint -> Sub Test (no page in between)
 Done   ID on page elements was deleted when description was set (empty desc first?) (bug)
+Done   Create connection / user interaction from context menu
 M4   Add a "no action" start point
-M4   Create connection / user interaction from context menu
 M4   Right-click on ExStartPoint -> "Open test" (none double clicked)
 	(When holding ctrl key --> Move should become "Copy-paste" (attempted fixed, bug in GEF?))
 M4?   Bigger canvas, should be easier to extend (place elements at edge) (bug in GEF?)
