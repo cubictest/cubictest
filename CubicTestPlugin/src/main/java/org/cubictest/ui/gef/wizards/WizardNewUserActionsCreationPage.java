@@ -7,14 +7,10 @@
  */
 package org.cubictest.ui.gef.wizards;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 

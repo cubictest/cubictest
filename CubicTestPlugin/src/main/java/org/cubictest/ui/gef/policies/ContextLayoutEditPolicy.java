@@ -169,7 +169,7 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 		if (request instanceof CreateRequest) {
 			CreateRequest createReq = (CreateRequest) request;
 			Class type = (Class) createReq.getNewObjectType();
-			if (PageElement.class.isAssignableFrom(type)) {
+			if (type != null && PageElement.class.isAssignableFrom(type)) {
 				super.showTargetFeedback(request);
 			}
 		}
