@@ -96,7 +96,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 			idType = ":id";
 		}
 		
-		if (userInteraction.getActionType().equals(SELECT)) {
+		if (userInteraction.getActionType().equals(SELECT) && userInteraction.getElement() instanceof Option) {
 			//select option in select list:
 			selectOptionInSelectList(stepList, (Option) pe, idType, idText);	
 		}
@@ -128,7 +128,6 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 		if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
 			//Handle label:
 			stepList.add(WatirUtils.getLabelTargetId(select));
-			stepList.addSeparator();
 			selectIdText = "labelTargetId";
 			selectIdType = ":id";
 		}
@@ -137,11 +136,17 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 		
 		//Select the option:
 		if (option.getMostSignificantIdentifier().getType().equals(LABEL)) {
-			stepList.add(selectList + ".select(" + idText + ")");
+			stepList.add(selectList + ".select(" + idText + ")", 3);
 		}
 		else {
-			stepList.add(selectList + ".option(" + idType + ", " + idText + ").select");
+			stepList.add(selectList + ".option(" + idType + ", " + idText + ").select", 3);
 		}
+		
+		stepList.add("rescue",2);
+		stepList.add("failedSteps += 1 ",3);
+		stepList.add("puts \"Step failed: Select option with " + idType + " = '" + option.getText() + "'\"", 3);		
+		stepList.add("end", 2);
+
 	}
 	
 	
@@ -217,7 +222,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 			steps.add("passedSteps += 1",3);
 			steps.add("rescue TestStepFailed",2);
 				steps.add("failedSteps += 1 ",3);
-				steps.add("puts \"Step failed: Check context window present with "+ atribute +" equals '"+ input +"'\"",3);		
+				steps.add("puts \"Step failed: Check context window present with " + atribute + " equals '" + input + "'\"",3);		
 		}
 		steps.add("end", 2);
 	}

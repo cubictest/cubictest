@@ -145,7 +145,7 @@ public class WatirUtils {
 	 * Gets the element ID that the label is for and stores it in ruby variable "labelTargetId".
 	 */
 	public static String getLabelTargetId(PageElement pe) {
-		String label = pe.getDescription();
+		String label = pe.getIdentifier(IdentifierType.LABEL).getValue();
 
 		RubyBuffer buff = new RubyBuffer();
 		buff.add("# getting element associated with label '" + label + "'", 3);
