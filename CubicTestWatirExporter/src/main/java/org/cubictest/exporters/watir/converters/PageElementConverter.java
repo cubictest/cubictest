@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.exporters.watir.utils.WatirUtils;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
@@ -67,9 +68,12 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		}
 		else if (pe instanceof Option && pe.getMostSignificantIdentifier().getType().equals(LABEL)) {
 			String selectList = stepList.getPrefix();
-			stepList.add("if (selectListId == nil)", 3);
-			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
-			stepList.add("end", 3);
+			if (((Option) pe).getParent().getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
+				//assert that label target ID was found:
+				stepList.add("if (selectListId == nil)", 3);
+				stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
+				stepList.add("end", 3);
+			}
 			stepList.add("optionFound = false", 3);
 			stepList.add(selectList + ".getAllContents().each do |opt|", 3);
 			stepList.add("if(opt.to_s() == \"" + WatirUtils.getIdText(pe) + "\")", 4);

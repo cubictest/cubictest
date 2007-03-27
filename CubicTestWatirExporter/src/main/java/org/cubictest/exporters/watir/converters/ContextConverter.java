@@ -47,24 +47,40 @@ public class ContextConverter implements IContextConverter<StepList> {
 		stepList.addSeparator();
 
 		if (ctx instanceof Select) {
+			//assert present and save selectListID in script to be able to select options
+			
 			Select select = (Select) ctx;
 			stepList.add("# asserting Select box present with " + select.getMostSignificantIdentifier().getType().displayValue() + 
 					" = " + WatirUtils.getIdText(select), 2);
 			
 			String idText = "\"" + WatirUtils.getIdText(select) + "\"";
 			String idType = WatirUtils.getIdType(select);
-			stepList.add("selectListId = nil", 2);
+
+			if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
+				//declare ID to save to be able to select options:
+				stepList.add("selectListId = nil", 2);
+			}
 			stepList.add("begin", 2);
 			if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
-				//Handle label:
 				stepList.add(WatirUtils.getLabelTargetId(select));
 				idText = "selectListId";
 				idType = ":id";
+				stepList.add("selectListId = labelTargetId", 3);
 			}
-			stepList.add("selectListId = labelTargetId", 3);
+			else if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.NAME)) {
+				idType = ":name";
+			}
+			else if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.ID)) {
+				idType = ":id";
+			}
+			//set prefix (context):
 			stepList.setPrefix("ie.select_list(" + idType + ", " + idText + ")");
+			
+			//assert select box present:
+			stepList.add("if (" + stepList.getPrefix() + " == nil)", 3);
+			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
+			stepList.add("end", 3);
 		}
-		//Added by Genesis Campos
 		else if (ctx instanceof Frame){
 			Frame frame = (Frame) ctx;
 			
@@ -81,7 +97,6 @@ public class ContextConverter implements IContextConverter<StepList> {
 			stepList.add("end", 3);
 			
 		}
-		//End;
 		else if (ctx instanceof AbstractContext) {
 			AbstractContext context = (AbstractContext) ctx;
 			if (!(context.getMostSignificantIdentifier().getType().equals(ID)))
