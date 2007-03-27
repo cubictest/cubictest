@@ -13,6 +13,8 @@ import org.cubictest.exporters.selenium.holders.SeleneseDocument;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
+import org.cubictest.model.Identifier;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.formElement.Option;
@@ -59,16 +61,20 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 		String commandDesc = SeleniumUtils.getCommandDescription(actionType, element);
 
 		String locator = "";
+		String inputValue = "";
+		
 		if (element instanceof Option) {
+			Option option = (Option) element;
+			Identifier optionId = option.getMostSignificantIdentifier();
 			//get locator of select-box:
-			locator = SeleniumUtils.getLocator(((Option) element).getParent(), doc);
+			locator = SeleniumUtils.getLocator(option.getParent(), doc);
+			inputValue = SeleniumUtils.getIdType(optionId) + "=" + optionId.getValue();
 		}
 		else {
 			locator = SeleniumUtils.getLocator(element, doc);
+			inputValue = SeleniumUtils.getValue(userInteraction, doc);
 		}
 		
-		String inputValue = SeleniumUtils.getValue(userInteraction, doc);
-
 		doc.addCommand(commandName, locator, inputValue).setDescription(commandDesc);
 	}
 

@@ -73,7 +73,7 @@ public class SeleniumUtils {
 			return "xpath=" + context + getHtmlElementType(pe) + "[@name=\"" + idText + "\"]";
 		}
 		if (idType.equals(VALUE)) {
-			throw new ExporterException("\"Value\" identifier type not supported as locator.");
+			return "xpath=" + context + getHtmlElementType(pe) + "[@value=\"" + idText + "\"]";
 		}
 		if (idType.equals(LABEL)) {
 			if (element instanceof Text) {
@@ -253,7 +253,7 @@ public class SeleniumUtils {
 		if (a.equals(ENTER_TEXT) || a.equals(ENTER_PARAMETER_TEXT))
 			return userInteraction.getTextualInput();
 		if (a.equals(SELECT))
-			return getLocator((Option) userInteraction.getElement(), doc);
+			throw new ExporterException("getValue not supported for Options.");
 		if (a.equals(KEY_PRESSED))
 			return "onkeypress";
 		if (a.equals(MOUSE_OVER))
@@ -268,6 +268,28 @@ public class SeleniumUtils {
 			return "onblur";
 		else
 			return "";
+	}
+	
+	
+	/**
+	 * Get the Selenium ID type based on the specified Identifier.
+	 * @param id
+	 * @return
+	 */
+	public static String getIdType(Identifier id) {
+		if (id.getType().equals(LABEL)) {
+			return "label";
+		}
+		else if (id.getType().equals(NAME)) {
+			return "name";
+		}
+		else if (id.getType().equals(ID)) {
+			return "id";
+		}
+		else if (id.getType().equals(VALUE)) {
+			return "value";
+		}
+		return null;
 	}
 
 }
