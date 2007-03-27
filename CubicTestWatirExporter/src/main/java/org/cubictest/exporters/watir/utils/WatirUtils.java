@@ -165,8 +165,8 @@ public class WatirUtils {
 		buff.add("# getting element associated with label '" + label + "'", 3);
 		buff.add("labelTargetId = nil", 3);
 		buff.add("ie.labels.each do |label|", 3);
-		buff.add("if (label.innerText() == \"" + label + "\")", 4);
-		buff.add("labelTargetId = label.for()", 5);
+		buff.add("if (label.text == \"" + label + "\")", 4);
+		buff.add("labelTargetId = label.for", 5);
 		buff.add("end", 4);
 		buff.add("end", 3);
 		buff.add("if (labelTargetId == nil)", 3);

@@ -66,23 +66,32 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 			stepList.add("raise " + StepList.TEST_STEP_FAILED, 3);
 			stepList.add("end", 2);
 		}
-		else if (pe instanceof Option && pe.getMostSignificantIdentifier().getType().equals(LABEL)) {
+		else if (pe instanceof Option) {
+			Option option = (Option) pe;
 			String selectList = stepList.getPrefix();
-			if (((Option) pe).getParent().getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
-				//assert that label target ID was found:
+			if (option.getParent().getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
+				//If parent select list had label idType, assert that its label target ID was found:
 				stepList.add("if (selectListId == nil)", 3);
 				stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
 				stepList.add("end", 3);
 			}
-			stepList.add("optionFound = false", 3);
-			stepList.add(selectList + ".getAllContents().each do |opt|", 3);
-			stepList.add("if(opt.to_s() == \"" + WatirUtils.getIdText(pe) + "\")", 4);
-			stepList.add("optionFound = true", 5);
-			stepList.add("end", 4);
-			stepList.add("end", 3);
-			stepList.add("if (!optionFound)", 3);
-			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
-			stepList.add("end", 3);
+			if (option.getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
+				stepList.add("optionFound = false", 3);
+				stepList.add(selectList + ".getAllContents().each do |opt|", 3);
+				stepList.add("if(opt == \"" + WatirUtils.getIdText(pe) + "\")", 4);
+				stepList.add("optionFound = true", 5);
+				stepList.add("end", 4);
+				stepList.add("end", 3);
+				stepList.add("if (!optionFound)", 3);
+				stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
+				stepList.add("end", 3);
+			}
+			else {
+				//value id type
+				stepList.add("if (" + selectList + ".option(:value, \"" + WatirUtils.getIdText(pe) + "\") == nil)", 2);
+				stepList.add("raise " + StepList.TEST_STEP_FAILED, 3);
+				stepList.add("end", 2);
+			}
 		}
 		else {
 			//handle all other page elements:			
@@ -106,7 +115,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 	}
 
 	
-
+	//use when default values of input elements should be checked
 	private void assertInputElementContents(StepList stepList, PageElement pe, String idText, String idType) {
 		if (pe instanceof TextField || pe instanceof Password || pe instanceof TextArea){
 			//Assert contents of field to be blank:

@@ -16,7 +16,6 @@ import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.Text;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.IContext;
@@ -47,7 +46,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 		stepList.addSeparator();
 
 		if (ctx instanceof Select) {
-			//assert present and save selectListID in script to be able to select options
+			//assert present, set prefix and if label, save selectListID in script to be able to select options
 			
 			Select select = (Select) ctx;
 			stepList.add("# asserting Select box present with " + select.getMostSignificantIdentifier().getType().displayValue() + 
@@ -98,6 +97,8 @@ public class ContextConverter implements IContextConverter<StepList> {
 			
 		}
 		else if (ctx instanceof AbstractContext) {
+			//assert present and set steplist prefix:
+			
 			AbstractContext context = (AbstractContext) ctx;
 			if (!(context.getMostSignificantIdentifier().getType().equals(ID)))
 				throw new ExporterException("Contexts must have identifier type = ID for Watir export");

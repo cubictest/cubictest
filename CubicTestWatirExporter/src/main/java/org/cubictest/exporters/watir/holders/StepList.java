@@ -73,7 +73,7 @@ public class StepList implements IResultHolder {
 		
 		rubyBuffer.add("puts \"Press enter to exit\"", 2);
 		rubyBuffer.add("gets", 2);
-		rubyBuffer.add("ie.close()", 2);
+		rubyBuffer.add("ie.close", 2);
 		rubyBuffer.add("end", 1);
 		rubyBuffer.add("end", 0);
 		return rubyBuffer.toString(); 
