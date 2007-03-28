@@ -190,7 +190,7 @@ public abstract class PageElement extends PropertyAwareObject
 					result = identifier;
 					highestProbability = identifier.getProbability();
 				}
-				else if (StringUtils.isNotBlank(identifier.getValue()) && StringUtils.isBlank(result.getValue())) {
+				else if (StringUtils.isNotBlank(identifier.getValue()) && (result == null || StringUtils.isBlank(result.getValue()))) {
 					//the ID with a non-null value has precedence:
 					result = identifier;
 					highestProbability = identifier.getProbability();
