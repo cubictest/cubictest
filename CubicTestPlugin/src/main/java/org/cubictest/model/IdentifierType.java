@@ -18,46 +18,51 @@ public enum IdentifierType {
 	/**
 	 * Returning the first hit when indentify in this order;
 	 * the text in a label element;
-	 * the value attritute for different buttons;
-	 * and the first input the after the text in that context.
+	 * the value attribute for different buttons;
+	 * and the text before or after the element.
 	 */
-	LABEL("Label"),
+	LABEL("Label", "Checks first for text in label element for most elements, \n" +
+			" then the text before or after the element \n. " +
+			" For buttons the value attribute is checked."),
 
 	/** HTML ID attribute */
-	ID("Id"),
+	ID("Id", "Check the ID attribute."),
 
 	/** HTML name attribute */
-	NAME("Name"),
+	NAME("Name", "Check the name attribute."),
 
 	/** HTML value attribute */
-	VALUE("Value"),
+	VALUE("Value", "Check the value attribute for input elements."),
 
 	/** HTML href attribute */
-	HREF("Href"),
+	HREF("Href", "Checking the href; meaning where the link points to."),
 
 	/** HTML src attribute */
-	SRC("Src"),
+	SRC("Src", "Checking if the source ends this attribute."),
 	
 	/** HTML checked attribute */
-	CHECKED("Checked"),
+	CHECKED("Checked", "Check it the element is checked or not."),
 	
 	/** HTML is mulitselectEnabled */
-	MULTISELECT("Multiselect"),
+	MULTISELECT("Multiselect", "Check if it is possible to select several elements."),
 	
 	/** HTML title attribute */
-	TITLE("Title"),
+	TITLE("Title", "Check the title attribute; meaning the tooltip text."),
 	
 	//Added by Genesis Campos
 	/** element index in page */
-	INDEX("Index")
+	INDEX("Index", "Checking the elements index in the page"),
 	//End;
 	
-	;
+	/** Path to the element relative to the */
+	PATH("Path", "Checking the path to the element");
 
 	private String displayValue;
+	private String description;
 
-	private IdentifierType(String displayValue){
+	private IdentifierType(String displayValue, String description){
 		this.displayValue = displayValue;
+		this.description = description;
 	}
 
 	public String displayValue() {
@@ -65,7 +70,7 @@ public enum IdentifierType {
 	}
 
 	public String getDescription() {
-		return "";
+		return description;
 	}
 
 }
