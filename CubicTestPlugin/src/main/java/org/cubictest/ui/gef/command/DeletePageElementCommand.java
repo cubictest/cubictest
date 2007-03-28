@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Transition;
@@ -36,7 +37,7 @@ public class DeletePageElementCommand extends Command {
 	private Page page;
 	private Map<UserInteractionsTransition, List<UserInteraction>> transUndoMap = new HashMap<UserInteractionsTransition, List<UserInteraction>>(); 
 	private boolean confirmDialogShowed = false;
-	private boolean deleteConfirmed = false;
+	private boolean deleteConfirmed = true;
 	
 	/**
 	 * @param context
@@ -68,7 +69,11 @@ public class DeletePageElementCommand extends Command {
 				UserInteractionsTransition actionsTrans = (UserInteractionsTransition) transition;
 				List<UserInteraction> toRemove = new ArrayList<UserInteraction>();
 				for (UserInteraction action : actionsTrans.getUserInteractions()) {
-					if (action.getElement().equals(element)) {
+					if (element instanceof IContext && ((IContext) element).getElements().size() > 0) {
+						ErrorHandler.logAndShowErrorDialogAndThrow("Cannot delete element. Remove the child elements within the element first");
+						return;
+					}
+					else if (action.getElement().equals(element)) {
 						//TODO: Check for contexts also
 						if (!confirmDialogShowed) {
 							deleteConfirmed = MessageDialog.openConfirm(new Shell(), "Confirm delete", 
