@@ -66,10 +66,13 @@ public class UserInteractionsTransition extends Transition {
 	 */
 	public void setUserInteractions(List<UserInteraction> userInteractions) {
 		this.userInteractions = userInteractions;
-		for(int i = 0 ; i < getListeners().getPropertyChangeListeners().length; i++ )
-			for (int j = 0; j < userInteractions.size(); j++)
-				((UserInteraction)userInteractions.get(j)).addPropertyChangeListener(
-							getListeners().getPropertyChangeListeners()[i]);
+		for(int i = 0 ; i < getListeners().getPropertyChangeListeners().length; i++ ) {
+			for (int j = 0; j < userInteractions.size(); j++) {
+				UserInteraction userInteraction = (UserInteraction)userInteractions.get(j); 
+				userInteraction.addPropertyChangeListener(getListeners().getPropertyChangeListeners()[i]);
+				firePropertyChange(CHILD, null, userInteraction);
+			}
+		}
 	}
 	
 	/**

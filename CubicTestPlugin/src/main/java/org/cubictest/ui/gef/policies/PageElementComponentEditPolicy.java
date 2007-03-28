@@ -7,6 +7,7 @@
  */
 package org.cubictest.ui.gef.policies;
 
+import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.IContext;
@@ -31,6 +32,8 @@ public class PageElementComponentEditPolicy extends ComponentEditPolicy {
 		DeletePageElementCommand deleteCmd = new DeletePageElementCommand();
 		deleteCmd.setContext((IContext)getHost().getParent().getModel());
 		deleteCmd.setPageElement((PageElement)getHost().getModel());
+		deleteCmd.setPage((Page) ViewUtil.getSurroundingPage(getHost()));
+
 
 		//only resize height if width has not been changed:
 		//find page:

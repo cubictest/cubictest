@@ -127,8 +127,8 @@ public class ViewUtil {
 			resizeCmd.setNewDimension(new Dimension(width, height - LABEL_HEIGHT));
 			
 		CompoundCommand compoundCmd = new CompoundCommand();
-		compoundCmd.add(resizeCmd);
 		compoundCmd.add(originatingCommand);
+		compoundCmd.add(resizeCmd);
 		return compoundCmd;
 	}
 
@@ -176,7 +176,11 @@ public class ViewUtil {
 	 * @param editPart
 	 * @return
 	 */
-	public static AbstractPageEditPart getSurroundingPagePart(PropertyChangePart editPart) {
+	public static AbstractPageEditPart getSurroundingPagePart(EditPart editPart) {
+		if (!(editPart instanceof PropertyChangePart)) {
+			return null;
+		}
+		
 		if (editPart instanceof TestEditPart) {
 			return null;
 		}
