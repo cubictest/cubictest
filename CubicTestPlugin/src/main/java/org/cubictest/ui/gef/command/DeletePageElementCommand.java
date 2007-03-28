@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
@@ -59,6 +60,7 @@ public class DeletePageElementCommand extends Command {
 		return true;
 	}
 	
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
@@ -73,8 +75,7 @@ public class DeletePageElementCommand extends Command {
 						ErrorHandler.logAndShowErrorDialogAndThrow("Cannot delete element. Remove the child elements within the element first");
 						return;
 					}
-					else if (action.getElement().equals(element)) {
-						//TODO: Check for contexts also
+					else if (action.getElement() != null && action.getElement().equals(element)) {
 						if (!confirmDialogShowed) {
 							deleteConfirmed = MessageDialog.openConfirm(new Shell(), "Confirm delete", 
 									"Element will be removed automatically from any user interactions it participates in. " +
@@ -82,7 +83,7 @@ public class DeletePageElementCommand extends Command {
 							confirmDialogShowed = true;
 						}
 						if (!deleteConfirmed) {
-							return;
+							throw new CubicException("Deletion of page element interrupted by user");
 						}
 						toRemove.add(action);
 					}
