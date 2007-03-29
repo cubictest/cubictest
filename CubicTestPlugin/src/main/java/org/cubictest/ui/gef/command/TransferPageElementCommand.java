@@ -19,7 +19,6 @@ import org.eclipse.gef.commands.Command;
  * Transfers a page element to a new IContext (new page or other context on same page).
  * 
  * @author Christian Schwarz
- * @author SK Skytteren
  */
 public class TransferPageElementCommand extends Command {
 
