@@ -92,7 +92,7 @@ public class CutAction extends SelectionAction{
 				DeletePageElementCommand deleteCmd = new DeletePageElementCommand();
 				deleteCmd.setContext((IContext) item.getParent().getModel());
 				deleteCmd.setPageElement((PageElement) item.getModel());
-				deleteCmd.setPage((Page) ViewUtil.getSurroundingPage(item));
+				deleteCmd.setPage(ViewUtil.getSurroundingPage(item));
 				compoundCmd.add(deleteCmd);
 			}
 			else if (item.getModel() instanceof Page) {

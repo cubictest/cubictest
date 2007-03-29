@@ -7,7 +7,6 @@
  */
 package org.cubictest.ui.gef.policies;
 
-import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.IContext;
