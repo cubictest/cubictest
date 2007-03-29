@@ -7,6 +7,7 @@
  */
 package org.cubictest.ui.gef.command;
 
+import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Option;
@@ -15,23 +16,29 @@ import org.eclipse.gef.commands.Command;
 
 
 /**
- * @author Stein Kare Skytteren
- *
- * A command that changes a <code>Form</code>'s name.
+ * Transfers a page element to a new IContext (new page or other context on same page).
+ * 
+ * @author Christian Schwarz
+ * @author SK Skytteren
  */
 public class TransferPageElementCommand extends Command {
 
-	private PageElement child;
+	private PageElement element;
 	private IContext originalContext;
 	private IContext newContext;
-	private int oldIndex;
 	private int newIndex;
-
+	private Page sourcePage;
+	
+	//util fields:
+	private boolean delegateCommandsCreated = false;
+	private DeletePageElementCommand deleteCmd;
+	private CreatePageElementCommand createCmd;
+	
 	/**
 	 * @param childModel
 	 */
-	public void setToMoveModel(PageElement child) {
-		this.child = child;
+	public void setElement(PageElement element) {
+		this.element = element;
 	}
 
 	/**
@@ -44,16 +51,10 @@ public class TransferPageElementCommand extends Command {
 	/**
 	 * @param newContext
 	 */
-	public void setNewPage(IContext newContext) {
+	public void setNewContext(IContext newContext) {
 		this.newContext = newContext;
 	}
 
-	/**
-	 * @param oldIndex
-	 */
-	public void setOldIndex(int oldIndex) {
-		this.oldIndex = oldIndex;
-	}
 
 	/**
 	 * @param newIndex
@@ -62,35 +63,62 @@ public class TransferPageElementCommand extends Command {
 		this.newIndex = newIndex;
 		
 	}
+
+	public void setSourcePage(Page sourcePage) {
+		this.sourcePage = sourcePage;
+	}
+
+	
+	
 	/*
 	 *  (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#canExecute()
 	 */
 	public boolean canExecute(){
-		if (child instanceof Option && !(newContext instanceof Select)) {
+		if (element instanceof Option && !(newContext instanceof Select)) {
 			//do not move Option outside Select
 			return false;
 		}
-		else if (!(child instanceof Option) && newContext instanceof Select) {
+		else if (!(element instanceof Option) && newContext instanceof Select) {
 			//do not move non-Option inside Select
 			return false;
 		}
 		return true;
 	}
+
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
-		originalContext.removeElement(child);
-		newContext.addElement(child,newIndex);
+		if (!delegateCommandsCreated) {
+			setUpDelegateCommands();
+		}
+		deleteCmd.execute();
+		createCmd.execute();
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo() {
-		newContext.removeElement(child);
-		originalContext.addElement(child,oldIndex);
+		createCmd.undo();
+		deleteCmd.undo();
+	}
+
+	
+	
+	private void setUpDelegateCommands() {
+		deleteCmd = new DeletePageElementCommand();
+		deleteCmd.setContext(originalContext);
+		deleteCmd.setPage(sourcePage);
+		deleteCmd.setPageElement(element);
+
+		createCmd = new CreatePageElementCommand();
+		createCmd.setContext(newContext);
+		createCmd.setIndex(newIndex);
+		createCmd.setPageElement(element);
+		
+		delegateCommandsCreated = true;
 	}
 }

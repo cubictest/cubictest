@@ -55,13 +55,14 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 		if (!(child instanceof PageElementEditPart)) 
 			return null;
 			
-		TransferPageElementCommand cmd = new TransferPageElementCommand();
+		TransferPageElementCommand transferCmd = new TransferPageElementCommand();
 		
 		PageElement childModel = (PageElement) child.getModel();
-		cmd.setToMoveModel(childModel);
+		transferCmd.setElement(childModel);
+		transferCmd.setSourcePage((Page) ViewUtil.getSurroundingPage(child));
 		
 		IContext originalPage = (IContext) child.getParent().getModel();
-		cmd.setOriginalContext(originalPage);
+		transferCmd.setOriginalContext(originalPage);
 		
 		IContext newPage = null;
 		
@@ -79,14 +80,11 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 			//element is moved to bottom of list
 			newIndex = children.size();
 		}
-		cmd.setNewPage(newPage);
+		transferCmd.setNewContext(newPage);
 		
-		int oldIndex = child.getParent().getChildren().indexOf(child);
-		cmd.setOldIndex(oldIndex);
+		transferCmd.setNewIndex(newIndex);
 		
-		cmd.setNewIndex(newIndex);
-		
-		CompoundCommand compoundCmd = (CompoundCommand) ViewUtil.getCompoundCommandWithResize(cmd, ViewUtil.ADD, getHost());
+		CompoundCommand compoundCmd = (CompoundCommand) ViewUtil.getCompoundCommandWithResize(transferCmd, ViewUtil.ADD, getHost());
 		
 		//creating common transition automatically if applicable:
 		AbstractPage targetPage = ViewUtil.getSurroundingPage(getHost());

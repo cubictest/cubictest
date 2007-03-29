@@ -35,6 +35,8 @@ public class DeletePageElementCommand extends Command {
 	private PageElement element;
 	private int index;
 	private Page page;
+	
+	//local fields:
 	private Map<UserInteractionsTransition, List<UserInteraction>> transUndoMap = new HashMap<UserInteractionsTransition, List<UserInteraction>>();
 	private List<PageElement> oldContextElements = new ArrayList<PageElement>();
 	private boolean confirmDialogShowed = false;
@@ -97,13 +99,12 @@ public class DeletePageElementCommand extends Command {
 						toRemove.add(action);
 					}
 				}
-				//delete the element to remove
+				if (!transUndoMap.containsKey(actionsTrans)) {
+					List<UserInteraction> oldActions = new ArrayList<UserInteraction>();
+					oldActions.addAll(actionsTrans.getUserInteractions());
+					transUndoMap.put(actionsTrans, oldActions);
+				}
 				for (UserInteraction interaction : toRemove) {
-					if (!transUndoMap.containsKey(actionsTrans)) {
-						List<UserInteraction> oldActions = new ArrayList<UserInteraction>();
-						oldActions.addAll(actionsTrans.getUserInteractions());
-						transUndoMap.put(actionsTrans, oldActions);
-					}
 					actionsTrans.removeUserInteraction(interaction);
 				}
 			}
@@ -128,7 +129,9 @@ public class DeletePageElementCommand extends Command {
 
 			//restore transitions
 			for (UserInteractionsTransition trans : transUndoMap.keySet()) {
-				trans.setUserInteractions(transUndoMap.get(trans));
+				List<UserInteraction> oldActions = new ArrayList<UserInteraction>();
+				oldActions.addAll(transUndoMap.get(trans));
+				trans.setUserInteractions(oldActions);
 			}
 		}
 	}
@@ -136,6 +139,7 @@ public class DeletePageElementCommand extends Command {
 	@Override
 	public void redo() {
 		if (deleteConfirmed) {
+			transUndoMap.clear();
 			super.redo();
 		}
 	}

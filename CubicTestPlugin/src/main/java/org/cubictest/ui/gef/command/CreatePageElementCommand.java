@@ -13,10 +13,9 @@ import org.eclipse.gef.commands.Command;
 
 
 /**
+ * Add a new <code>PageElement</code> to an <code>IContext</code>.
+ * 
  * @author Stein Kåre Skytteren
- *
- * Add a new <code>PageElement</code> to an <code>AbstractPage</code>.
- *
  */
 public class CreatePageElementCommand extends Command {
 
