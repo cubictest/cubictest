@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.cubictest.common.exception.CubicException;
-import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Transition;
@@ -26,7 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 
 
 /**
- * A command deletes a page element from a page and its user interactions.
+ * A command deletes a page element from a page and from its user interactions.
  * 
  * @author Christian Schwarz 
  */
@@ -36,9 +35,11 @@ public class DeletePageElementCommand extends Command {
 	private PageElement element;
 	private int index;
 	private Page page;
-	private Map<UserInteractionsTransition, List<UserInteraction>> transUndoMap = new HashMap<UserInteractionsTransition, List<UserInteraction>>(); 
+	private Map<UserInteractionsTransition, List<UserInteraction>> transUndoMap = new HashMap<UserInteractionsTransition, List<UserInteraction>>();
+	private List<PageElement> oldContextElements = new ArrayList<PageElement>();
 	private boolean confirmDialogShowed = false;
 	private boolean deleteConfirmed = true;
+	private String message = "";
 	
 	/**
 	 * @param context
@@ -54,32 +55,40 @@ public class DeletePageElementCommand extends Command {
 		this.element = element;
 	}
 	
-	@Override
-	public boolean canExecute() {
-		
-		return true;
-	}
-	
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
+		message = "Element will be removed automatically from the user interactions it participates in. OK to continue?";
+		if (element instanceof IContext) {
+			List<PageElement> elements = ((IContext) element).getElements();
+			oldContextElements.addAll(elements);
+			if (elements.size() > 0) {
+				message = "The element and all child elements within it will be removed automatically from the user interactions they participate in. OK to continue?";
+			}
+			for (PageElement pe : elements) {
+				deletePageElement(pe);
+			}
+			index = context.getElementIndex(element);
+			deletePageElement(element);
+		}
+		else {
+			index = context.getElementIndex(element);
+			deletePageElement(element);
+		}
+	}
+
+	private void deletePageElement(PageElement pe) {
 		//check wether element is participant in a user interaction:
 		for (Transition transition : page.getOutTransitions()) {
 			if (transition instanceof UserInteractionsTransition) {
 				UserInteractionsTransition actionsTrans = (UserInteractionsTransition) transition;
 				List<UserInteraction> toRemove = new ArrayList<UserInteraction>();
 				for (UserInteraction action : actionsTrans.getUserInteractions()) {
-					if (element instanceof IContext && ((IContext) element).getElements().size() > 0) {
-						ErrorHandler.logAndShowErrorDialogAndThrow("Cannot delete element. Remove the child elements within the element first");
-						return;
-					}
-					else if (action.getElement() != null && action.getElement().equals(element)) {
+					if (action.getElement() != null && action.getElement().equals(pe)) {
 						if (!confirmDialogShowed) {
-							deleteConfirmed = MessageDialog.openConfirm(new Shell(), "Confirm delete", 
-									"Element will be removed automatically from any user interactions it participates in. " +
-									"OK to continue?");
+							deleteConfirmed = MessageDialog.openConfirm(new Shell(), "Confirm delete", message);
 							confirmDialogShowed = true;
 						}
 						if (!deleteConfirmed) {
@@ -90,16 +99,16 @@ public class DeletePageElementCommand extends Command {
 				}
 				//delete the element to remove
 				for (UserInteraction interaction : toRemove) {
-					List<UserInteraction> backup = new ArrayList<UserInteraction>();
-					backup.addAll(actionsTrans.getUserInteractions());
-					transUndoMap.put(actionsTrans, backup);
+					if (!transUndoMap.containsKey(actionsTrans)) {
+						List<UserInteraction> oldActions = new ArrayList<UserInteraction>();
+						oldActions.addAll(actionsTrans.getUserInteractions());
+						transUndoMap.put(actionsTrans, oldActions);
+					}
 					actionsTrans.removeUserInteraction(interaction);
 				}
 			}
 		}
-
-		index = context.getElementIndex(element);
-		context.removeElement(element);
+		context.removeElement(pe);
 	}
 	
 	/* (non-Javadoc)
@@ -107,7 +116,16 @@ public class DeletePageElementCommand extends Command {
 	 */
 	public void undo() {
 		if (deleteConfirmed) {
+			//restore page element(s):
+			if (element instanceof IContext) {
+				IContext contextElement = (IContext) element;
+				for (PageElement pe : oldContextElements) {
+					contextElement.addElement(pe);
+				}
+				
+			}
 			context.addElement(element, index);
+
 			//restore transitions
 			for (UserInteractionsTransition trans : transUndoMap.keySet()) {
 				trans.setUserInteractions(transUndoMap.get(trans));
