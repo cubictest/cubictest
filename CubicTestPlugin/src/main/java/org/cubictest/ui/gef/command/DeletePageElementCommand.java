@@ -43,7 +43,6 @@ public class DeletePageElementCommand extends Command {
 	private List<PageElement> oldContextElements = new ArrayList<PageElement>();
 	private boolean infoDialogShowed = false;
 	private boolean informAboutDeletion = false;
-	private String message = "User interaction(s) were updated and element was removed.";
 	
 
 	/**
@@ -81,9 +80,6 @@ public class DeletePageElementCommand extends Command {
 			List<PageElement> elements = ((IContext) element).getElements();
 			//save a backup of the elements for undo:
 			oldContextElements.addAll(elements);
-			if (elements.size() > 1) {
-				message = "User interaction(s) were updated and elements was removed.";
-			}
 			for (PageElement pe : elements) {
 				deletePageElement(pe);
 			}
@@ -92,13 +88,6 @@ public class DeletePageElementCommand extends Command {
 		else {
 			deletePageElement(element);
 		}
-		
-		if (!infoDialogShowed && informAboutDeletion) {
-			//inform user if user interactions was updated
-			ErrorHandler.showWarnDialog(message);
-			infoDialogShowed = true;
-		}
-
 	}
 
 	/**
@@ -114,17 +103,14 @@ public class DeletePageElementCommand extends Command {
 			for (Transition transition : outTranses) {
 				Page pageTargetByCommon = (Page) transition.getEnd();
 				//clean up user interactions from page targeted by the common:
-				boolean updated = cleanUpUserInteractions(pe, pageTargetByCommon);
-				if (updated) {
-					message = "User interaction(s) were updated and element was removed from pages targeted by the Common.";
-				}
+				cleanUpUserInteractions(pe, pageTargetByCommon);
 			}
 		}
 		else {
 			//clean up user interactions from normal Page:
 			cleanUpUserInteractions(pe, (Page) abstractPage);
 		}
-		
+
 		//delete the page element:
 		context.removeElement(pe);
 	}
@@ -134,10 +120,9 @@ public class DeletePageElementCommand extends Command {
 	 * @param pe
 	 * @param page
 	 */
-	private boolean cleanUpUserInteractions(PageElement pe, Page page) {
-		boolean updated = false;
-		//Cleans up user interactions from one page. Do not worry about commons and their targets here.
-		
+	private void cleanUpUserInteractions(PageElement pe, Page page) {
+
+		//Clean up user interactions from one page. Do not worry about commons and their targets here.
 		for (Transition trans : page.getOutTransitions()) {
 			if (trans instanceof UserInteractionsTransition) {
 				//build a list of the actions to update:
@@ -147,7 +132,6 @@ public class DeletePageElementCommand extends Command {
 					if (action.getElement() != null && action.getElement().equals(pe)) {
 						informAboutDeletion = true;
 						toRemove.add(action);
-						updated = true;
 					}
 				}
 				//save a backup for undo:
@@ -156,14 +140,20 @@ public class DeletePageElementCommand extends Command {
 					oldActions.addAll(actionsTrans.getUserInteractions());
 					transUndoMap.put(actionsTrans, oldActions);
 				}
-				
+
+				if (!infoDialogShowed && informAboutDeletion) {
+					//inform user if user interactions was updated
+					ErrorHandler.showWarnDialog("Element to delete participates in user interaction(s).\n" +
+							"User interaction(s) will be updated and element will be removed. Undo to revert.");
+					infoDialogShowed = true;
+				}
+
 				//clean up the user interaction:
 				for (UserInteraction interaction : toRemove) {
 					actionsTrans.removeUserInteraction(interaction);
 				}
 			}
 		}
-		return updated;
 	}
 	
 	
