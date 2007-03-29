@@ -24,9 +24,9 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 
 /**
- * @author SK Skytteren
  * An abstract controller that listents to the <code>PropertyAwareObject</code>.
- *
+ * 
+ * @author SK Skytteren
  */
 public abstract class PropertyChangePart extends AbstractGraphicalEditPart implements
 		PropertyChangeListener {
@@ -67,19 +67,17 @@ public abstract class PropertyChangePart extends AbstractGraphicalEditPart imple
 
 		else if (PropertyAwareObject.NAME.equals(property)){
 			GraphicalEditPart graphicalEditPart = (GraphicalEditPart) (getViewer().getContents());
-//			if(graphicalEditPart instanceof PageEditPart){
-//				IFigure partFigure = graphicalEditPart.getFigure();
-//				partFigure.getUpdateManager().performUpdate();
-//			}
 			IFigure partFigure = graphicalEditPart.getFigure();
 			partFigure.getUpdateManager().performUpdate();
-		}else if (PropertyAwareObject.STATUS.equals(property))
+		}
+		else if (PropertyAwareObject.STATUS.equals(property))
 			handleStatusChange(evt);
 		else if (PropertyAwareObject.PARAM.equals(property)){
 			if(this instanceof TestEditPart){
 				((TestEditPart)this).updateParams();
 			}
-		}else if (PageElement.NOT.equals(property)){
+		}
+		else if (PageElement.NOT.equals(property)){
 			if(this instanceof PageElementEditPart){
 				((PageElementEditPart)this).refresh();
 			}
