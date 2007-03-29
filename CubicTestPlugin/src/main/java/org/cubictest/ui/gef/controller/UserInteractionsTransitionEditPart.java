@@ -13,6 +13,7 @@ import org.cubictest.model.IActionElement;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.formElement.AbstractTextInput;
@@ -35,17 +36,36 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.gef.EditPart;
 
-
+/**
+ * Controller for user interactions transition.
+ * 
+ * @author Christian Schwarz
+ *
+ */
 public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	static int MAX_LABEL_LENGTH = 40;
 	
 	private Figure figure;
+	
 	/**
 	 * Constructionr for the <code>UserInteractionsTransitionEditPart</code>.
 	 * @param transition
 	 */	
 	public UserInteractionsTransitionEditPart(UserInteractionsTransition userInteractionsTransition){
 		super(userInteractionsTransition);
+	}
+	
+	@Override
+	public void activate() {
+		super.activate();
+		
+		//listen to all action elements property changes
+		List<UserInteraction> actions = ((UserInteractionsTransition) getModel()).getUserInteractions();
+		for (UserInteraction action : actions) {
+			PropertyAwareObject element = (PropertyAwareObject) action.getElement();
+			element.addPropertyChangeListener(this);
+		}
+		
 	}
 
 	/* (non-Javadoc)
