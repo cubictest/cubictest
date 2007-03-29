@@ -59,7 +59,8 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 		
 		PageElement childModel = (PageElement) child.getModel();
 		transferCmd.setElement(childModel);
-		transferCmd.setSourcePage((Page) ViewUtil.getSurroundingPage(child));
+		transferCmd.setSourcePage(ViewUtil.getSurroundingPage(child));
+		transferCmd.setTargetPage(ViewUtil.getSurroundingPage(getHost()));
 		
 		IContext originalPage = (IContext) child.getParent().getModel();
 		transferCmd.setOriginalContext(originalPage);

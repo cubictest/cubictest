@@ -32,7 +32,7 @@ public class PageElementComponentEditPolicy extends ComponentEditPolicy {
 		DeletePageElementCommand deleteCmd = new DeletePageElementCommand();
 		deleteCmd.setContext((IContext)getHost().getParent().getModel());
 		deleteCmd.setPageElement((PageElement)getHost().getModel());
-		deleteCmd.setPage((Page) ViewUtil.getSurroundingPage(getHost()));
+		deleteCmd.setPage(ViewUtil.getSurroundingPage(getHost()));
 
 
 		//only resize height if width has not been changed:

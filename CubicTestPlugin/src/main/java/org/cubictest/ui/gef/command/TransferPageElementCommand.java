@@ -7,7 +7,7 @@
  */
 package org.cubictest.ui.gef.command;
 
-import org.cubictest.model.Page;
+import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Option;
@@ -27,12 +27,14 @@ public class TransferPageElementCommand extends Command {
 	private IContext originalContext;
 	private IContext newContext;
 	private int newIndex;
-	private Page sourcePage;
+	private AbstractPage sourcePage;
+	private AbstractPage targetPage;
 	
 	//util fields:
 	private boolean delegateCommandsCreated = false;
 	private DeletePageElementCommand deleteCmd;
 	private CreatePageElementCommand createCmd;
+	private int oldIndex;
 	
 	/**
 	 * @param childModel
@@ -64,7 +66,7 @@ public class TransferPageElementCommand extends Command {
 		
 	}
 
-	public void setSourcePage(Page sourcePage) {
+	public void setSourcePage(AbstractPage sourcePage) {
 		this.sourcePage = sourcePage;
 	}
 
@@ -91,19 +93,34 @@ public class TransferPageElementCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
-		if (!delegateCommandsCreated) {
-			setUpDelegateCommands();
+		if (sourcePage.equals(targetPage)) {
+			oldIndex = originalContext.getElementIndex(element);
+			originalContext.removeElement(element);
+			newContext.addElement(element,newIndex);
 		}
-		deleteCmd.execute();
-		createCmd.execute();
+		else {
+			//move between different pages. Must clean up user interaction tranisitions
+			if (!delegateCommandsCreated) {
+				setUpDelegateCommands();
+			}
+			deleteCmd.execute();
+			createCmd.execute();
+		}
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo() {
-		createCmd.undo();
-		deleteCmd.undo();
+		if (sourcePage.equals(targetPage)) {
+			newContext.removeElement(element);
+			originalContext.addElement(element,oldIndex);
+		}
+		else {
+			//different page. Move and reset user interactions transition
+			createCmd.undo();
+			deleteCmd.undo();
+		}
 	}
 
 	
@@ -120,5 +137,9 @@ public class TransferPageElementCommand extends Command {
 		createCmd.setPageElement(element);
 		
 		delegateCommandsCreated = true;
+	}
+
+	public void setTargetPage(AbstractPage targetPage) {
+		this.targetPage = targetPage;
 	}
 }
