@@ -46,7 +46,7 @@ public class PageElementConverter implements IPageElementConverter {
 	private Element fromImage(Image image) {
 		Element linkElement = new Element("a");
 		linkElement.setAttribute("href", "#");
-		if(image.getIdentifierType() == IdentifierType.LABEL) {
+		if(image.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 			Element imageElement = new Element("img");
 			imageElement.setAttribute("src", image.getText());
 			linkElement.addContent(imageElement);
