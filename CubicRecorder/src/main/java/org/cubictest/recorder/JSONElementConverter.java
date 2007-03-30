@@ -112,13 +112,11 @@ public class JSONElementConverter {
 			
 			if(getString(properties, "tagName").equals("DIV")) {
 				pe.setMainIdentifierType(IdentifierType.ID);
-				pe.setDescription(getString(properties, "id"));
 				pe.setMainIdentifierValue(getString(properties, "id"));
 			} else if(getString(properties, "tagName").equals("IMG")) {
 				if(getString(properties, "id") != null && !getString(properties, "id").equals("")) {
 					pe.setMainIdentifierType(IdentifierType.ID);
 					pe.setMainIdentifierValue(getString(properties, "id"));
-					pe.setDescription(getString(properties, "id"));
 				} else {
 					pe.setMainIdentifierType(IdentifierType.LABEL);
 					pe.setMainIdentifierValue(getString(properties, "src"));			
@@ -133,6 +131,7 @@ public class JSONElementConverter {
 				pe.setMainIdentifierType(IdentifierType.LABEL);
 				pe.setMainIdentifierValue(text);
 			} else if(getString(properties, "tagName").equals("TITLE")) {
+				pe.setMainIdentifierType(IdentifierType.TITLE);
 				pe.setMainIdentifierValue(getString(properties, "innerHTML").trim());
 			} else if(getString(element, "label") != null && !getString(element, "label").equals("")) {
 				pe.setMainIdentifierType(IdentifierType.LABEL);
