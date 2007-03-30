@@ -111,41 +111,38 @@ public class JSONElementConverter {
 			}
 			
 			if(getString(properties, "tagName").equals("DIV")) {
-				pe.setIdentifierType(IdentifierType.ID);
+				pe.setMainIdentifierType(IdentifierType.ID);
 				pe.setDescription(getString(properties, "id"));
-				pe.setText(getString(properties, "id"));
+				pe.setMainIdentifierValue(getString(properties, "id"));
 			} else if(getString(properties, "tagName").equals("IMG")) {
 				if(getString(properties, "id") != null && !getString(properties, "id").equals("")) {
-					pe.setIdentifierType(IdentifierType.ID);
-					pe.setText(getString(properties, "id"));
+					pe.setMainIdentifierType(IdentifierType.ID);
+					pe.setMainIdentifierValue(getString(properties, "id"));
 					pe.setDescription(getString(properties, "id"));
 				} else {
-					pe.setIdentifierType(IdentifierType.LABEL);
-					pe.setText(getString(properties, "src"));			
+					pe.setMainIdentifierType(IdentifierType.LABEL);
+					pe.setMainIdentifierValue(getString(properties, "src"));			
 				}
 			} else if(getString(properties, "tagName").equals("BUTTON") || 
 			  (getString(properties, "tagName").equals("INPUT") && 
 			    (getString(properties, "type").equals("button") || getString(properties, "type").equals("submit")))) {
-				pe.setText(getString(properties, "value"));
-				pe.setIdentifierType(IdentifierType.LABEL);
+				pe.setMainIdentifierType(IdentifierType.LABEL);
+				pe.setMainIdentifierValue(getString(properties, "value"));
 			} else if(getString(properties, "tagName").equals("A")) {
 				String text = getString(properties, "innerHTML").trim();
-				pe.setIdentifierType(IdentifierType.LABEL);
-				pe.setText(text);
-//				if(text.length() > 60) {					
-//					pe.setDescription(text.substring(0, 60) + "...");
-//				}
+				pe.setMainIdentifierType(IdentifierType.LABEL);
+				pe.setMainIdentifierValue(text);
 			} else if(getString(properties, "tagName").equals("TITLE")) {
-				pe.setText(getString(properties, "innerHTML").trim());
+				pe.setMainIdentifierValue(getString(properties, "innerHTML").trim());
 			} else if(getString(element, "label") != null && !getString(element, "label").equals("")) {
-				pe.setText(getString(element, "label").trim());
-				pe.setIdentifierType(IdentifierType.LABEL);
+				pe.setMainIdentifierType(IdentifierType.LABEL);
+				pe.setMainIdentifierValue(getString(element, "label").trim());
 			} else if(getString(properties, "id") != null && !getString(properties, "id").equals("")) {
-				pe.setText(getString(properties, "id"));
-				pe.setIdentifierType(IdentifierType.ID);				
+				pe.setMainIdentifierType(IdentifierType.ID);				
+				pe.setMainIdentifierValue(getString(properties, "id"));
 			} else if(getString(properties, "name") != null && !getString(properties, "name").equals("")) {
-				pe.setText(getString(properties, "name"));
-				pe.setIdentifierType(IdentifierType.NAME);
+				pe.setMainIdentifierType(IdentifierType.NAME);
+				pe.setMainIdentifierValue(getString(properties, "name"));
 			}
 			
 			pageElements.put(getString(properties, "cubicId"), pe);
