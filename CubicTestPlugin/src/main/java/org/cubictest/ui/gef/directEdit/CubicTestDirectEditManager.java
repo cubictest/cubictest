@@ -25,10 +25,10 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.CellEditorActionHandler;
 
 /**
+ * Manages the direct edit. Sets zoom and hooks actions (copy, paste etc.)
+ * 
  * @author SK Skytteren
  * @author chr_schwarz
- *
- * Manages the direct edit. Sets zoom and hooks actions (copy, paste etc.)
  */
 public class CubicTestDirectEditManager extends DirectEditManager {
 
