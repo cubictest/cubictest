@@ -8,6 +8,7 @@ package org.cubictest.ui.gef.actions;
 import java.util.Iterator;
 import java.util.List;
 
+import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.model.CustomTestStep;
 import org.cubictest.model.ExtensionPoint;
@@ -17,7 +18,7 @@ import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.IContext;
-import org.cubictest.ui.gef.command.DeleteAbstractPageCommand;
+import org.cubictest.ui.gef.command.DeleteCommonCommand;
 import org.cubictest.ui.gef.command.DeleteCustomTestStepCommand;
 import org.cubictest.ui.gef.command.DeleteExtensionPointCommand;
 import org.cubictest.ui.gef.command.DeletePageCommand;
@@ -90,8 +91,8 @@ public class CutAction extends SelectionAction{
 			EditPart item = (EditPart) iter.next();
 			if (item.getModel() instanceof PageElement) {
 				DeletePageElementCommand deleteCmd = new DeletePageElementCommand();
-				deleteCmd.setContext((IContext) item.getParent().getModel());
-				deleteCmd.setPageElement((PageElement) item.getModel());
+				deleteCmd.setElementParent((IContext) item.getParent().getModel());
+				deleteCmd.setElement((PageElement) item.getModel());
 				deleteCmd.setPage(ViewUtil.getSurroundingPage(item));
 				compoundCmd.add(deleteCmd);
 			}
@@ -120,9 +121,9 @@ public class CutAction extends SelectionAction{
 				compoundCmd.add(deleteCmd);
 			}
 			else if (item.getModel() instanceof Common) {
-				DeleteAbstractPageCommand deleteCmd = new DeleteAbstractPageCommand();
+				DeleteCommonCommand deleteCmd = new DeleteCommonCommand();
 				deleteCmd.setTest((Test) item.getParent().getModel());
-				deleteCmd.setTransitionNode((TransitionNode) item.getModel());
+				deleteCmd.setTransitionNode((AbstractPage) item.getModel());
 				compoundCmd.add(deleteCmd);
 			}
 		}

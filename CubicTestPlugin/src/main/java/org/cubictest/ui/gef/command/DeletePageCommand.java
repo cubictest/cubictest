@@ -16,14 +16,11 @@ import org.cubictest.model.Transition;
 
 
 /**
- * @author Stein Kåre Skytteren
- *
- *
- * A command that deletes an <code>AbstractPage</code>.
+ * A command that deletes a <code>Page</code>.
+ * 
+ * @author SK Skytteren
  */
 public class DeletePageCommand extends DeleteAbstractPageCommand {
-
-//	private AbstractPage transitionNode;
 
 	private List<CommonTransition> commonTransitions;
 

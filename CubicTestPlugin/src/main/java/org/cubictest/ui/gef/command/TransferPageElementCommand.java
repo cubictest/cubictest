@@ -126,9 +126,9 @@ public class TransferPageElementCommand extends Command {
 	
 	private void setUpDelegateCommands() {
 		deleteCmd = new DeletePageElementCommand();
-		deleteCmd.setContext(originalContext);
+		deleteCmd.setElementParent(originalContext);
 		deleteCmd.setPage(sourcePage);
-		deleteCmd.setPageElement(element);
+		deleteCmd.setElement(element);
 
 		createCmd = new CreatePageElementCommand();
 		createCmd.setContext(newContext);

@@ -33,15 +33,15 @@ import org.eclipse.gef.commands.Command;
  */
 public class DeletePageElementCommand extends Command {
 
-	private IContext context;
+	private IContext elementParent;
 	private PageElement element;
 	private int index;
 	private AbstractPage abstractPage;
+	private boolean infoDialogShowed;
 	
 	//local util:
 	private Map<UserInteractionsTransition, List<UserInteraction>> transUndoMap = new HashMap<UserInteractionsTransition, List<UserInteraction>>();
 	private List<PageElement> oldContextElements = new ArrayList<PageElement>();
-	private boolean infoDialogShowed = false;
 	private boolean informAboutDeletion = false;
 	
 
@@ -49,15 +49,15 @@ public class DeletePageElementCommand extends Command {
 	 * Set context to delete from.
 	 * @param context
 	 */
-	public void setContext(IContext context) {
-		this.context = context;
+	public void setElementParent(IContext context) {
+		this.elementParent = context;
 	}
 
 	/**
 	 * Set the page element to delete.
 	 * @param element
 	 */
-	public void setPageElement(PageElement element) {
+	public void setElement(PageElement element) {
 		this.element = element;
 	}
 	
@@ -74,13 +74,14 @@ public class DeletePageElementCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
-		index = context.getElementIndex(element);
+		index = elementParent.getElementIndex(element);
 		if (element instanceof IContext) {
 			//delete each child element in context seperately, removing them from their user interactions if applicable
 			List<PageElement> elements = ((IContext) element).getElements();
 			//save a backup of the elements for undo:
 			oldContextElements.addAll(elements);
-			for (PageElement pe : elements) {
+			//loop over backup-list to allow concurrent modifications:
+			for (PageElement pe : oldContextElements) {
 				deletePageElement(pe);
 			}
 			deletePageElement(element);
@@ -112,7 +113,7 @@ public class DeletePageElementCommand extends Command {
 		}
 
 		//delete the page element:
-		context.removeElement(pe);
+		elementParent.removeElement(pe);
 	}
 
 	/**
@@ -170,13 +171,18 @@ public class DeletePageElementCommand extends Command {
 			
 		}
 		//restore the element
-		context.addElement(element, index);
+		elementParent.addElement(element, index);
 
 		//restore transitions
 		for (UserInteractionsTransition trans : transUndoMap.keySet()) {
 			List<UserInteraction> oldActions = new ArrayList<UserInteraction>();
 			oldActions.addAll(transUndoMap.get(trans));
-			trans.setUserInteractions(oldActions);
+			for (UserInteraction interaction : oldActions) {
+				//fix for delete of common page with many elements participating in user interaction
+				if (!trans.getUserInteractions().contains(interaction)) {
+					trans.addUserInteraction(interaction);
+				}
+			}
 		}
 	}
 	
@@ -184,6 +190,10 @@ public class DeletePageElementCommand extends Command {
 	public void redo() {
 		transUndoMap.clear();
 		super.redo();
+	}
+
+	public void setInfoDialogShowed(boolean infoDialogShowed) {
+		this.infoDialogShowed = infoDialogShowed;
 	}
 
 

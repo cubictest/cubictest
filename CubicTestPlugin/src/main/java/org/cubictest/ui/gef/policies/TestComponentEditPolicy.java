@@ -7,6 +7,7 @@
  */
 package org.cubictest.ui.gef.policies;
 
+import org.cubictest.model.Common;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStep;
 import org.cubictest.model.ExtensionPoint;
@@ -14,7 +15,7 @@ import org.cubictest.model.Page;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
-import org.cubictest.ui.gef.command.DeleteAbstractPageCommand;
+import org.cubictest.ui.gef.command.DeleteCommonCommand;
 import org.cubictest.ui.gef.command.DeleteConnectionPointCommand;
 import org.cubictest.ui.gef.command.DeleteCustomTestStepCommand;
 import org.cubictest.ui.gef.command.DeleteExtensionPointCommand;
@@ -36,10 +37,10 @@ public class TestComponentEditPolicy extends ComponentEditPolicy {
 	 * @see org.eclipse.gef.editpolicies.ComponentEditPolicy#createDeleteCommand(org.eclipse.gef.requests.GroupRequest)
 	 */
 	protected Command createDeleteCommand(GroupRequest deleteRequest) {
-		Test parent = (Test)(getHost().getParent().getModel());
+		Test test = (Test)(getHost().getParent().getModel());
 		
 		TransitionNode transitionNode = (TransitionNode)getHost().getModel();
-		DeleteTransitionNodeCommand deleteCmd;
+		DeleteTransitionNodeCommand deleteCmd = null;
 		if (transitionNode instanceof Page) {
 			deleteCmd = new DeletePageCommand();
 		} else if (transitionNode instanceof SubTest) {
@@ -50,10 +51,10 @@ public class TestComponentEditPolicy extends ComponentEditPolicy {
 			deleteCmd = new DeleteCustomTestStepCommand();
 		} else if (transitionNode instanceof ConnectionPoint) {
 			deleteCmd = new DeleteConnectionPointCommand();
-		} else {
-			deleteCmd = new DeleteAbstractPageCommand();
+		} else if (transitionNode instanceof Common){
+			deleteCmd = new DeleteCommonCommand();
 		}
-		deleteCmd.setTest(parent);
+		deleteCmd.setTest(test);
 		deleteCmd.setTransitionNode(transitionNode);
 		return deleteCmd;
 	}

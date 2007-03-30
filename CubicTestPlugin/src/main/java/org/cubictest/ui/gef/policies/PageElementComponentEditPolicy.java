@@ -29,8 +29,8 @@ public class PageElementComponentEditPolicy extends ComponentEditPolicy {
 	 */
 	protected Command createDeleteCommand(GroupRequest deleteRequest) {
 		DeletePageElementCommand deleteCmd = new DeletePageElementCommand();
-		deleteCmd.setContext((IContext)getHost().getParent().getModel());
-		deleteCmd.setPageElement((PageElement)getHost().getModel());
+		deleteCmd.setElementParent((IContext)getHost().getParent().getModel());
+		deleteCmd.setElement((PageElement)getHost().getModel());
 		deleteCmd.setPage(ViewUtil.getSurroundingPage(getHost()));
 
 
