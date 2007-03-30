@@ -10,7 +10,7 @@ package org.cubictest.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WebBrowser implements IActionElement{
+public class WebBrowser extends PropertyAwareObject implements IActionElement{
 
 	public List<ActionType> getActionTypes() {
 		List<ActionType> actions = new ArrayList<ActionType>();
@@ -32,8 +32,11 @@ public class WebBrowser implements IActionElement{
 	}
 
 	public String getType() {
-		// TODO Auto-generated method stub
 		return "Web";
+	}
+
+	@Override
+	public void resetStatus() {
 	}
 
 }
