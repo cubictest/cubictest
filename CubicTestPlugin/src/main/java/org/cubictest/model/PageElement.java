@@ -90,13 +90,10 @@ public abstract class PageElement extends PropertyAwareObject
 	}
 	
 	/**
-	 * Set the text used to identify the element in the HTML page.
-	 * Can be e.g. text in label, ID or name, according to type in setIdentifierType().
+	 * Set the value of the Direct Edit identifieer.
 	 */
 	public void setText(String text) {
-		String oldText = getText();
-		getDirectEditIdentifier().setValue(text);
-		firePropertyChange(PropertyAwareObject.NAME, oldText, text);
+		setMainIdentifierValue(text);
 	}
 	
 	/**
@@ -173,9 +170,9 @@ public abstract class PageElement extends PropertyAwareObject
 	
 	/**
 	 * Gets the Identifier with the highest probability (must be greater than "indifferent").
-	 * If more than one has the same probability, returns the first.
+	 * If more than one has the same probability, returns the one with DirectEdit or the first.
 	 */
-	public Identifier getMostSignificantIdentifier() {
+	public Identifier getMainIdentifier() {
 		int highestProbability = 0;
 		Identifier result = null;
 		
@@ -200,6 +197,71 @@ public abstract class PageElement extends PropertyAwareObject
 		return result;
 	}
 	
+	/**
+	 * Gets the type of the Identifier with the highest probability (must be greater than "indifferent").
+	 * If more than one has the same probability, returns the one with DirectEdit or the first.
+	 */
+	public IdentifierType getMainIdentifierType() {
+		return getMainIdentifier().getType();
+	}
+	
+	/**
+	 * Gets the value of the Identifier with the highest probability (must be greater than "indifferent").
+	 * If more than one has the same probability, returns the one with DirectEdit or the first.
+	 */
+	public String getMainIdentifierValue() {
+		return getMainIdentifier().getValue();
+	}
+	
+	/**
+	 * Set main identifier that should have probability = 100 and direct edit set.
+	 * @param idType
+	 * @param value the value of the identifier.
+	 */
+	public void setMainIdentifier(IdentifierType idType, String value) {
+		getIdentifier(idType).setProbability(Identifier.MAX_PROBABILITY);
+		getIdentifier(idType).setValue(value);
+		setDirectEditIdentifier(getIdentifier(idType));
+	}
+
+	/**
+	 * Set identifier that should have probability = 100 and direct edit set.
+	 * @param idType
+	 * @param value the value of the identifier.
+	 */
+	public void setMainIdentifierType(IdentifierType idType) {
+		getIdentifier(idType).setProbability(Identifier.MAX_PROBABILITY);
+		setDirectEditIdentifier(getIdentifier(idType));
+	}
+	
+	/**
+	 * Set identifier that should have probability = 100 and direct edit set.
+	 * @param idType
+	 * @param value the value of the identifier.
+	 */
+	public void setMainIdentifierValue(String value) {
+		String oldText = getText();
+		getDirectEditIdentifier().setValue(value);
+		firePropertyChange(PropertyAwareObject.NAME, oldText, value);
+	}
+	
+	/**
+	 * Set identifier on page element.
+	 */
+	public void setIdentifier(IdentifierType idType, String value, int probability, boolean directEdit) {
+		getIdentifier(idType).setValue(value);
+		getIdentifier(idType).setProbability(probability);
+		if (directEdit) {
+			setDirectEditIdentifier(getIdentifier(idType));
+		}
+	}
+	
+	/**
+	 * Get the identifier of the supplied type.
+	 * If element does not have the type as legal identifieer, returns null.
+	 * @param idType
+	 * @return
+	 */
 	public Identifier getIdentifier(IdentifierType idType) {
 		for (Identifier identifier : getIdentifiers()) {
 			if (identifier.getType().equals(idType)) {
