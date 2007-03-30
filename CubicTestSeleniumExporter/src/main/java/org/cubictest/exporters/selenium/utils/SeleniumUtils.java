@@ -62,7 +62,7 @@ public class SeleniumUtils {
 		}
 		PageElement pe = (PageElement) element;
 
-		IdentifierType idType = pe.getMostSignificantIdentifier().getType();
+		IdentifierType idType = pe.getMainIdentifierType();
 		String idText = getIdText(pe);
 		String context = doc.getFullContext();
 		
@@ -106,7 +106,7 @@ public class SeleniumUtils {
 	 * @return
 	 */
 	public static String getIdText(PageElement pe) {
-		return pe.getMostSignificantIdentifier().getValue();
+		return pe.getMainIdentifierValue();
 	}
 	
 	/**

@@ -65,7 +65,7 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 		
 		if (element instanceof Option) {
 			Option option = (Option) element;
-			Identifier optionId = option.getMostSignificantIdentifier();
+			Identifier optionId = option.getMainIdentifier();
 			//get locator of select-box:
 			locator = SeleniumUtils.getLocator(option.getParent(), doc);
 			inputValue = SeleniumUtils.getIdType(optionId) + "=" + optionId.getValue();
