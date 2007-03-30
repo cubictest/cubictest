@@ -109,7 +109,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 			stepList.add("failedSteps += 1 ", 3);
 			String interactionType = StringUtils.replace(WatirUtils.getInteraction(userInteraction) ,"\"", "\\\"");
 			stepList.add("puts \"Could not " + interactionType + " " + 
-					WatirUtils.getElementType(pe) + " with " + pe.getMostSignificantIdentifier().getType().displayValue() + " = '" + WatirUtils.getIdText(pe) + "'\"", 3);
+					WatirUtils.getElementType(pe) + " with " + pe.getMainIdentifierType().displayValue() + " = '" + WatirUtils.getIdText(pe) + "'\"", 3);
 	
 			stepList.add("end", 2);
 		}
@@ -125,7 +125,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 		String selectIdText = "\"" + WatirUtils.getIdText(select) + "\"";
 		String selectIdType = WatirUtils.getIdType(select);
 		
-		if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
+		if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 			//Handle label:
 			stepList.add(WatirUtils.getLabelTargetId(select));
 			selectIdText = "labelTargetId";
@@ -135,7 +135,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 		String selectList = "ie.select_list(" + selectIdType + ", " + selectIdText + ")";
 		
 		//Select the option:
-		if (option.getMostSignificantIdentifier().getType().equals(LABEL)) {
+		if (option.getMainIdentifierType().equals(LABEL)) {
 			stepList.add(selectList + ".select(" + idText + ")", 3);
 		}
 		else {

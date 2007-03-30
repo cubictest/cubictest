@@ -49,27 +49,27 @@ public class ContextConverter implements IContextConverter<StepList> {
 			//assert present, set prefix and if label, save selectListID in script to be able to select options
 			
 			Select select = (Select) ctx;
-			stepList.add("# asserting Select box present with " + select.getMostSignificantIdentifier().getType().displayValue() + 
+			stepList.add("# asserting Select box present with " + select.getMainIdentifierType().displayValue() + 
 					" = " + WatirUtils.getIdText(select), 2);
 			
 			String idText = "\"" + WatirUtils.getIdText(select) + "\"";
 			String idType = WatirUtils.getIdType(select);
 
-			if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
+			if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 				//declare ID to save to be able to select options:
 				stepList.add("selectListId = nil", 2);
 			}
 			stepList.add("begin", 2);
-			if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
+			if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 				stepList.add(WatirUtils.getLabelTargetId(select));
 				idText = "selectListId";
 				idType = ":id";
 				stepList.add("selectListId = labelTargetId", 3);
 			}
-			else if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.NAME)) {
+			else if (select.getMainIdentifierType().equals(IdentifierType.NAME)) {
 				idType = ":name";
 			}
-			else if (select.getMostSignificantIdentifier().getType().equals(IdentifierType.ID)) {
+			else if (select.getMainIdentifierType().equals(IdentifierType.ID)) {
 				idType = ":id";
 			}
 			//set prefix (context):
@@ -83,7 +83,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 		else if (ctx instanceof Frame){
 			Frame frame = (Frame) ctx;
 			
-			stepList.add("# asserting " + frame.getType() + "present with " + frame.getMostSignificantIdentifier().getType().displayValue() + " = " + WatirUtils.getIdText(frame), 2);
+			stepList.add("# asserting " + frame.getType() + "present with " + frame.getMainIdentifierType().displayValue() + " = " + WatirUtils.getIdText(frame), 2);
 			
 			stepList.add("begin", 2);
 	
@@ -100,10 +100,10 @@ public class ContextConverter implements IContextConverter<StepList> {
 			//assert present and set steplist prefix:
 			
 			AbstractContext context = (AbstractContext) ctx;
-			if (!(context.getMostSignificantIdentifier().getType().equals(ID)))
+			if (!(context.getMainIdentifierType().equals(ID)))
 				throw new ExporterException("Contexts must have identifier type = ID for Watir export");
 
-			stepList.add("# asserting " + context.getType() + "present with " + context.getMostSignificantIdentifier().getType().displayValue() + " = " + WatirUtils.getIdText(context), 2);
+			stepList.add("# asserting " + context.getType() + "present with " + context.getMainIdentifierType().displayValue() + " = " + WatirUtils.getIdText(context), 2);
 			
 			stepList.add("begin", 2);
 	
@@ -122,7 +122,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 		stepList.add("rescue " + StepList.TEST_STEP_FAILED, 2);
 		stepList.add("failedSteps += 1 ", 3);
 
-		stepList.add("puts \"Step failed: Check " + element.getType() + " present with " + element.getMostSignificantIdentifier().getType().displayValue() +
+		stepList.add("puts \"Step failed: Check " + element.getType() + " present with " + element.getMainIdentifierType().displayValue() +
 				" = '" + WatirUtils.getIdText(element) + "'\"", 3);
 		stepList.add("end", 2);
 

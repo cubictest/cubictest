@@ -6,8 +6,6 @@
 */
 package org.cubictest.exporters.watir.converters;
 
-import static org.cubictest.model.IdentifierType.LABEL;
-
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.watir.holders.StepList;
@@ -41,7 +39,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		String idType = WatirUtils.getIdType(pe);
 		
 		String not = pe.isNot() ? " not" : ""; 
-		stepList.add("# asserting " + pe.getType() + " with " + pe.getMostSignificantIdentifier().getType().displayValue() + " = " + idText + not + " present", 2);
+		stepList.add("# asserting " + pe.getType() + " with " + pe.getMainIdentifierType().displayValue() + " = " + idText + not + " present", 2);
 		stepList.add("begin", 2);
 
 		if (WatirUtils.shouldGetLabelTargetId(pe)) {
@@ -69,13 +67,13 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		else if (pe instanceof Option) {
 			Option option = (Option) pe;
 			String selectList = stepList.getPrefix();
-			if (option.getParent().getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
+			if (option.getParent().getMainIdentifierType().equals(IdentifierType.LABEL)) {
 				//If parent select list had label idType, assert that its label target ID was found:
 				stepList.add("if (selectListId == nil)", 3);
 				stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
 				stepList.add("end", 3);
 			}
-			if (option.getMostSignificantIdentifier().getType().equals(IdentifierType.LABEL)) {
+			if (option.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 				stepList.add("optionFound = false", 3);
 				stepList.add(selectList + ".getAllContents().each do |opt|", 3);
 				stepList.add("if(opt == \"" + WatirUtils.getIdText(pe) + "\")", 4);
@@ -144,7 +142,7 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 		}
 		
 		String not = pe.isNot() ? " not" : ""; 
-		stepList.add("puts \"Step failed: Check " + pe.getType() + not + " present with " + pe.getMostSignificantIdentifier().getType().displayValue() +
+		stepList.add("puts \"Step failed: Check " + pe.getType() + not + " present with " + pe.getMainIdentifierType().displayValue() +
 				" = '" + WatirUtils.getIdText(pe) + "'" + contextInfo + "\"", 3);
 		stepList.add("end", 2);
 	}

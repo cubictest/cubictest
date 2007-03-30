@@ -28,7 +28,6 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.RubyBuffer;
 import org.cubictest.exporters.watir.holders.StepList;
 import org.cubictest.model.ActionType;
-import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
@@ -54,7 +53,7 @@ import org.cubictest.model.formElement.TextField;
 public class WatirUtils {
 
 	public static String getIdType(PageElement pe) {
-		IdentifierType idType = pe.getMostSignificantIdentifier().getType();
+		IdentifierType idType = pe.getMainIdentifierType();
 		if (idType.equals(ID))
 			return ":id";
 		if (idType.equals(NAME))
@@ -76,7 +75,7 @@ public class WatirUtils {
 	 * @return
 	 */
 	public static String getIdText(PageElement pe) {
-		return pe.getMostSignificantIdentifier().getValue();
+		return pe.getMainIdentifierValue();
 	}
 	
 	/**
@@ -179,7 +178,7 @@ public class WatirUtils {
 	public static boolean shouldGetLabelTargetId(PageElement pe) {
 		//Link, Text, Button and Option has label accessible in Watir directly, 
 		//so getLabelTarget ID is not necessary for these elements
-		return pe.getMostSignificantIdentifier().getType().equals(LABEL) && !(pe instanceof Link) && !(pe instanceof Text) && !(pe instanceof Button) && !(pe instanceof Option);
+		return pe.getMainIdentifierType().equals(LABEL) && !(pe instanceof Link) && !(pe instanceof Text) && !(pe instanceof Button) && !(pe instanceof Option);
 	}
 	
 }
