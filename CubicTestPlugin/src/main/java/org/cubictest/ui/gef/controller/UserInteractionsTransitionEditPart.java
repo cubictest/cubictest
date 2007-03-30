@@ -26,8 +26,8 @@ import org.cubictest.model.formElement.Select;
 import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.MidpointOffsetLocator;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.ConnectionEndpointLocator;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolygonDecoration;
@@ -63,7 +63,9 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 		List<UserInteraction> actions = ((UserInteractionsTransition) getModel()).getUserInteractions();
 		for (UserInteraction action : actions) {
 			PropertyAwareObject element = (PropertyAwareObject) action.getElement();
-			element.addPropertyChangeListener(this);
+			if (element != null) {
+				element.addPropertyChangeListener(this);
+			}
 		}
 		
 	}
@@ -178,7 +180,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 				figure.add(inputLabel);
 			}
 			
-			MidpointOffsetLocator locator = new MidpointOffsetLocator(conn);
+			ConnectionEndpointLocator locator = new ConnectionEndpointLocator(conn,true);
 			conn.add(figure,locator);
 		}
 	}
