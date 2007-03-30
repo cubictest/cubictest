@@ -131,7 +131,7 @@ public class JSONElementConverter {
 				pe.setMainIdentifierType(IdentifierType.LABEL);
 				pe.setMainIdentifierValue(text);
 			} else if(getString(properties, "tagName").equals("TITLE")) {
-				pe.setMainIdentifierType(IdentifierType.TITLE);
+				pe.setMainIdentifierType(IdentifierType.LABEL);
 				pe.setMainIdentifierValue(getString(properties, "innerHTML").trim());
 			} else if(getString(element, "label") != null && !getString(element, "label").equals("")) {
 				pe.setMainIdentifierType(IdentifierType.LABEL);
