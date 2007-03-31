@@ -20,6 +20,8 @@ import java.util.List;
  *
  */
 public class Link extends PageElement {
+	
+	@Override
 	public String getType(){
 		return "Link";
 	}

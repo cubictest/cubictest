@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Title extends PageElement {
+	
+	@Override
 	public String getType(){
 		return "Title";
 	}

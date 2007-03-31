@@ -38,7 +38,7 @@ public abstract class FormElement extends PageElement{
 		return actions;
 	}
 
-
+	@Override
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(LABEL);

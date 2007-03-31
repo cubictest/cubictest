@@ -51,6 +51,7 @@ public class Page extends AbstractPage {
 		return clone;
 	}
 
+	@Override
 	public ArrayList<Link> getLinkElements() {
 		ArrayList<Link> linkElements = super.getLinkElements();
 		for (CommonTransition trans : commons){

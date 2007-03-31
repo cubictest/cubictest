@@ -15,10 +15,13 @@ import java.util.List;
  *
  */
 public class Text extends PageElement {
+	
+	@Override
 	public String getType(){
 		return "Text";
 	}
 	
+	@Override
 	public List<ActionType> getActionTypes() {
 		//empty list. Must use contexts for action types on texts
 		return new ArrayList<ActionType>();

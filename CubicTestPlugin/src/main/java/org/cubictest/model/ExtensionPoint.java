@@ -21,7 +21,7 @@ public class ExtensionPoint extends ConnectionPoint {
 			return null;
 		}
 	}
-	
+	@Override
 	public String getName() {
 		if (getPage() != null) {
 			return getPage().getName() + " Extension Point";

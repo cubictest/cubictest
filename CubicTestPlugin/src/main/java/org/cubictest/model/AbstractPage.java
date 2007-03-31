@@ -77,6 +77,8 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 		return elements.indexOf(element);
 	}
 
+	
+	@Override
 	public String getName() {
 		if(name == null) {
 			name = "";
@@ -84,6 +86,7 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		String oldName = this.name;
 		this.name = name;

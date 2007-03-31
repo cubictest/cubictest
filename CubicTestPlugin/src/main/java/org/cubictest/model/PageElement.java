@@ -29,6 +29,7 @@ public abstract class PageElement extends PropertyAwareObject
 	private Identifier directEditIdentifier;
 	private boolean not;
 	
+	@Override
 	public String toString() {
 		return getType() + ": " + getDescription() + " = " + getText();
 	}

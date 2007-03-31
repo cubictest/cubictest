@@ -28,10 +28,12 @@ public class UrlStartPoint extends ConnectionPoint {
 		firePropertyChange(VALUE, oldBeginAt, beginAt);
 	}
 	
+	@Override
 	public void setInTransition(Transition inTransition) {
 		inTransition.getStart().removeOutTransition(inTransition);
 	}
 	
+	@Override
 	public String toString() {
 		return "URL: " + getBeginAt();
 	}

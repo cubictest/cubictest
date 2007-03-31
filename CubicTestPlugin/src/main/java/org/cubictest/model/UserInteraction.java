@@ -130,6 +130,7 @@ public class UserInteraction extends PropertyAwareObject
 		this.paramKey = paramKey;
 	}
 	
+	@Override
 	public String toString() {
 		String result = new String();
 		result += action.getText();

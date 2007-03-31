@@ -21,11 +21,13 @@ public class CommonTransition extends Transition {
 		super(start, end);
 	}
 
+	@Override
 	public void connect() {
 		((Common)getStart()).addOutTransition(this);
 		((Page)getEnd()).addCommonTransition(this);
 	}
 	
+	@Override
 	public void disconnect() {
 		getStart().removeOutTransition(this);
 		((Page)getEnd()).removeCommonTransition(this);

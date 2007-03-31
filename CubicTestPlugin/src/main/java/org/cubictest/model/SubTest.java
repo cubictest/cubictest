@@ -40,6 +40,7 @@ public class SubTest extends ConnectionPoint {
 		return test;
 	}
 	
+	@Override
 	public String getName() {
 		return getTest().getName() + " (" + getFileName() + ")";
 	}

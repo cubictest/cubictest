@@ -122,6 +122,7 @@ public class UserInteractionsTransition extends Transition {
 	 * (non-Javadoc)
 	 * @see org.cubictest.model.PropertyAwareObject#addPropertyChangeListener(java.beans.PropertyChangeListener)
 	 */
+	@Override
 	public void addPropertyChangeListener(PropertyChangeListener l) {
 		super.addPropertyChangeListener(l);
 		if (userInteractions == null) return;
@@ -133,6 +134,7 @@ public class UserInteractionsTransition extends Transition {
 	 * (non-Javadoc)
 	 * @see org.cubictest.model.PropertyAwareObject#removePropertyChangeListener(java.beans.PropertyChangeListener)
 	 */
+	@Override
 	public void removePropertyChangeListener(PropertyChangeListener l) {
 		super.removePropertyChangeListener(l);
 		if (userInteractions == null) return;
