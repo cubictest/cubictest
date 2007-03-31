@@ -15,8 +15,6 @@ public class UpdateTestsSubTests extends TraverseTestFilesWorkspaceJob{
 		super("Update Tests", resource);
 		this.movedToPath = movedToPath;
 		movedFromPath = resource.getFullPath();
-		System.out.println("moved from: " + resource.getFullPath() + " to: " +
-				movedToPath);
 	}				
 
 	@Override
