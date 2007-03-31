@@ -60,7 +60,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 	private Button chooseFileButton;
 	private Label paramIndexLabel;
 	private Spinner paramIndexSpinner;
-	private Button refreshButton;
+	private Button refreshParamButton;
 	
 	ResourcePatternFilter filter = new ResourcePatternFilter(){
 		@Override
@@ -107,7 +107,8 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		private void fileNameUpdated(){
 			String text = fileName.getText();
 			ParameterList list = test.getParamList();
-			if(list == null || !list.getFileName().equals(text))
+			if((list == null && !"".equals(text)) || 
+					(list != null && !list.getFileName().equals(text)))
 				filePathChanged();
 		}
 	}
@@ -157,14 +158,14 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 			}
 		});
 		
-		refreshButton = getWidgetFactory().createButton(composite, "Refresh parameters", SWT.PUSH);
-		refreshButton.addSelectionListener(new SelectionAdapter() {
+		refreshParamButton = getWidgetFactory().createButton(composite, "Refresh parameters", SWT.PUSH);
+		refreshParamButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				filePathChanged();
 			}
 		});
-		refreshButton.setLayoutData(data);
+		refreshParamButton.setLayoutData(data);
 		composite.setLayout(gridLayout);
 	}
 	
@@ -222,7 +223,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		boolean visibile = (test.getParamList() != null);
 		paramIndexLabel.setVisible(visibile);
 		paramIndexSpinner.setVisible(visibile);
-		refreshButton.setVisible(visibile);
+		refreshParamButton.setVisible(visibile);
 		if(test.getParamList() != null){
 			fileName.setText(test.getParamList().getFileName());
 			updateIndexSpinner();

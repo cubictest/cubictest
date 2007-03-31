@@ -16,6 +16,7 @@ import org.cubictest.model.i18n.Language;
 import org.cubictest.ui.gef.command.AddLanguageCommand;
 import org.cubictest.ui.gef.command.ChangeCurrentLanguageCommand;
 import org.cubictest.ui.gef.command.RemoveLanguageCommand;
+import org.cubictest.ui.gef.command.UpdateLangagesCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.core.resources.IFolder;
@@ -49,6 +50,8 @@ import org.eclipse.ui.views.navigator.ResourcePatternFilter;
 import org.eclipse.ui.views.navigator.ResourceSorter;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.TestGenerator;
 
 
 public class I18nSection extends AbstractPropertySection implements PropertyChangeListener {
@@ -111,7 +114,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 				return;
 			lang.setName(name);
 			
-			AllLanguages langs = test.getAllLanuages();
+			AllLanguages langs = test.getAllLanguages();
 			AddLanguageCommand command = new AddLanguageCommand();
 			command.setLanguage(lang);
 			command.setAllLanguages(langs);
@@ -124,13 +127,13 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 	private SelectionListener removeListener = new SelectionAdapter(){
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			if(test != null && test.getAllLanuages() != null){
+			if(test != null && test.getAllLanguages() != null){
 				int index = removeFile.getSelectionIndex();
 				if(index >= 0){
 					RemoveLanguageCommand command = new RemoveLanguageCommand();
 					command.setTest(test);
-					command.setAllLanguages(test.getAllLanuages());
-					command.setLanguage(test.getAllLanuages().getLanguages().get(index));
+					command.setAllLanguages(test.getAllLanguages());
+					command.setLanguage(test.getAllLanguages().getLanguages().get(index));
 					executeCommand(command);
 				}
 			}
@@ -185,9 +188,9 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
         	@Override
         	public void widgetSelected(SelectionEvent e) {
         		int index = languageCombo.getSelectionIndex();
-        		Language lang = test.getAllLanuages().getLanguages().get(index);
+        		Language lang = test.getAllLanguages().getLanguages().get(index);
         		ChangeCurrentLanguageCommand command = new ChangeCurrentLanguageCommand();
-        		command.setAllLanguages(test.getAllLanuages());
+        		command.setAllLanguages(test.getAllLanguages());
         		command.setCurrentLanguage(lang);
         		command.setTest(test);
         		executeCommand(command);
@@ -215,7 +218,9 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 		refreshButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				test.getAllLanuages().updateAllLanguages();
+				UpdateLangagesCommand command = new UpdateLangagesCommand();
+				command.addTest(test);
+				executeCommand(command);
 			}
 		});
 		refreshButton.setLayoutData(buttonData);
@@ -231,8 +236,8 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 	}
 	
 	private void updateLanguageCombo() {
-		if(test != null && test.getAllLanuages() != null){
-			AllLanguages langs = test.getAllLanuages();
+		if(test != null && test.getAllLanguages() != null){
+			AllLanguages langs = test.getAllLanguages();
 			languageCombo.removeAll();
 			removeFile.removeAll();
 			for(Language lang : langs.getLanguages()){
@@ -249,13 +254,13 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 	public void setInput(IWorkbenchPart part, ISelection selection) {
 		super.setInput(part, selection);
 		if(test != null){
-			test.getAllLanuages().removePropertyChangeListener(this);
+			test.getAllLanguages().removePropertyChangeListener(this);
 		}
 		Assert.isTrue(selection instanceof IStructuredSelection);
 		Object input = ((IStructuredSelection) selection).getFirstElement();
 		Assert.isTrue(input instanceof TestEditPart);
 		test = (Test) ((TestEditPart) input).getModel();
-		AllLanguages langs = test.getAllLanuages();
+		AllLanguages langs = test.getAllLanguages();
 		langs.addPropertyChangeListener(this);
 	}
 	
@@ -273,7 +278,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 	public void aboutToBeHidden() {
 		super.aboutToBeHidden();
 		if(test != null){
-			test.getAllLanuages().removePropertyChangeListener(this);
+			test.getAllLanguages().removePropertyChangeListener(this);
 		}
 	}
 }

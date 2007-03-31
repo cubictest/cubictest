@@ -214,7 +214,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		dirEdit.addSelectionListener(dirEditListener);
 		
 		Test test = editor.getTest();
-		if(test.getAllLanuages() == null || test.getAllLanuages().getLanguages().size() == 0){
+		if(test.getAllLanguages() == null || test.getAllLanguages().getLanguages().size() == 0){
 			i18nLabel.setVisible(false);
 			i18n.setVisible(false);
 			i18nCombo.setVisible(false);
@@ -228,7 +228,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			i18nCombo.setEnabled(identifier.useI18n());
 			i18nCombo.removeSelectionListener(i18nComboListener);
 			i18nCombo.setItems(
-				test.getAllLanuages().getAllKeys().toArray(new String[]{}));
+				test.getAllLanguages().getAllKeys().toArray(new String[]{}));
 			if(identifier.getI18nKey() == null || "".equals(identifier.getI18nKey()))
 				i18nCombo.select(0);
 			else

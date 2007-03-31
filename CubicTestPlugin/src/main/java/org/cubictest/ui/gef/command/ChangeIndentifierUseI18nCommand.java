@@ -37,10 +37,10 @@ public class ChangeIndentifierUseI18nCommand extends Command {
 	
 	private void fixListener(boolean addListener){
 		if(addListener)
-			test.getAllLanuages().addObserver(identifier);
+			test.getAllLanguages().addObserver(identifier);
 		else{
-			if(test.getAllLanuages() != null)
-				test.getAllLanuages().removeObserver(identifier);
+			if(test.getAllLanguages() != null)
+				test.getAllLanguages().removeObserver(identifier);
 		}
 		test.updateObservers();
 	}

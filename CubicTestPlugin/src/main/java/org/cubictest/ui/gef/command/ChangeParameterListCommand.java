@@ -1,8 +1,5 @@
 package org.cubictest.ui.gef.command;
 
-import java.util.List;
-
-import org.cubictest.model.SationObserver;
 import org.cubictest.model.Test;
 import org.cubictest.model.parameterization.Parameter;
 import org.cubictest.model.parameterization.ParameterList;

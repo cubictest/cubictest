@@ -189,7 +189,7 @@ public class Test extends PropertyAwareObject {
 		for (AbstractPage p : pages)
 			p.resetStatus();
 	}
-	public AllLanguages getAllLanuages() {
+	public AllLanguages getAllLanguages() {
 		if(allLanguages == null){
 			allLanguages = new AllLanguages();
 		}
