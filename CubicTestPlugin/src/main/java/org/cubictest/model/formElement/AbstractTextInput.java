@@ -44,7 +44,7 @@ public abstract class AbstractTextInput extends FormElement {
 	public ActionType getDefaultAction() {
 		return ActionType.ENTER_TEXT;
 	}
-	
+	@Override
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(LABEL);

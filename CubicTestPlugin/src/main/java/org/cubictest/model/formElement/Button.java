@@ -12,7 +12,7 @@ import org.cubictest.model.FormElement;
 
 public class Button extends FormElement {
 
-	
+	@Override
 	public String getType() {
 		return "Button";
 	}

@@ -19,7 +19,7 @@ import org.cubictest.model.context.IContext;
 public class Select extends FormElement implements IContext {
 
 	private List<PageElement> elements = new ArrayList<PageElement>();
-
+	@Override
 	public String getType() {
 		return "Select";
 	}

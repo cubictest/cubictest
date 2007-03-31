@@ -17,10 +17,11 @@ import org.cubictest.model.IdentifierType;
 
 public class RadioButton extends Checkable{
 
+	@Override
 	public String getType() {
 		return "RadioButton";
 	}
-	
+	@Override
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(LABEL);

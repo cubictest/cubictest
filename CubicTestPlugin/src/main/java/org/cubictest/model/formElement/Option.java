@@ -21,7 +21,7 @@ public class Option extends Checkable{
 	public String getType() {
 		return "Option";
 	}
-
+	@Override
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(LABEL);

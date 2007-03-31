@@ -12,6 +12,7 @@ package org.cubictest.model.formElement;
  */
 public class Checkbox extends Checkable {
 	
+	@Override
 	public String getType() {
 		return "Checkbox";
 	}

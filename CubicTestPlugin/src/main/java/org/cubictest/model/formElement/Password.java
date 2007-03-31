@@ -9,7 +9,7 @@ package org.cubictest.model.formElement;
 
 public class Password extends AbstractTextInput {
 
-	
+	@Override
 	public String getType() {
 		return "Password";
 	}

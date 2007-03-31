@@ -39,7 +39,7 @@ public abstract class Checkable extends FormElement {
 		this.checked = checked;
 		firePropertyChange(PropertyAwareObject.NAME, null, checked);
 	}
-	
+	@Override
 	public List<ActionType> getActionTypes() {
 		List<ActionType> actions = new ArrayList<ActionType>();
 		actions.add(ActionType.CHECK);

@@ -8,7 +8,7 @@ package org.cubictest.model.formElement;
 
 
 public class TextField extends AbstractTextInput {
-
+	@Override
 	public String getType() {
 		return "TextField";
 	}

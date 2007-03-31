@@ -9,9 +9,8 @@ package org.cubictest.model.formElement;
 
 public class TextArea extends AbstractTextInput {
 	
+	@Override
 	public String getType() {
 		return "TextArea";
 	}
-
-
 }
