@@ -6,7 +6,8 @@ package org.cubictest.common.exception;
 
 public class ResourceNotCubicTestFileException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
-
+	
+	@Override
 	public String toString() {
 		return "Resource is not an .aat file!";
 	}

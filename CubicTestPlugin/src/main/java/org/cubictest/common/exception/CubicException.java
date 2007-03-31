@@ -31,7 +31,7 @@ public class CubicException extends RuntimeException {
 		super(message);
 		this.cause = cause;
 	}
-	
+	@Override
 	public String toString() {
 		if (cause == null) {
 			return this.getMessage();
