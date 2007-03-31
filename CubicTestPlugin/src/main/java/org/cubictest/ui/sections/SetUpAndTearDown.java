@@ -79,6 +79,7 @@ public class SetUpAndTearDown extends AbstractPropertySection {
 	}
 	
 	SelectionListener selectionListener = new SelectionAdapter() {
+		@Override
 		public void widgetSelected(SelectionEvent e) {
 			test.setSetUpAndTearDownClassName(className.getText());
 		}

@@ -63,7 +63,7 @@ public class TestDescriptionSection extends AbstractPropertySection {
 		data.top = new FormAttachment(labelText, 0, SWT.CENTER);
 		labelLabel.setLayoutData(data);
 	}
-
+	@Override
 	public void setInput(IWorkbenchPart part, ISelection selection) {
 		super.setInput(part, selection);
 		Assert.isTrue(selection instanceof IStructuredSelection);
@@ -72,6 +72,7 @@ public class TestDescriptionSection extends AbstractPropertySection {
 		this.test = (Test) ((TestEditPart) input).getModel();
 	}
 
+	@Override
 	public void refresh() {
 		labelText.removeModifyListener(listener);
 		labelText.setText(test.getDescription());
