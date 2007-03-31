@@ -6,12 +6,10 @@ package org.cubictest.ui.sections;
 
 import org.cubictest.model.Test;
 import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.ui.gef.controller.PropertyChangePart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.controller.UserInteractionsTransitionEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.wizards.UserInteractionsComponent;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
