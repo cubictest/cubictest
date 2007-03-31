@@ -26,6 +26,10 @@ import org.eclipse.ui.IActionDelegate;
 public class ExportToWatirAction implements IActionDelegate {
 	ISelection selection;
 	
+	public static final String OK_MESSAGE = "Test exported OK to the \"generated\" directory.\n\n" +
+	"The exported test (.rb file) can be run by right clicking  -> " +
+	"Open With -> System Editor (Watir and Ruby must be installed)";
+	
 	/* 
 	 * @see IActionDelegate#run(IAction)
 	 */
@@ -40,6 +44,7 @@ public class ExportToWatirAction implements IActionDelegate {
 					PageElementConverter.class, 
 					ContextConverter.class,
 					StepList.class);
+			ErrorHandler.showInfoDialog(OK_MESSAGE);
 		} 
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in CubicTest Watir exporter.");
