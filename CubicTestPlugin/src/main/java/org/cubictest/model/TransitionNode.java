@@ -134,13 +134,13 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		TransitionNode clone = null;
 		try {
 			clone = this.getClass().newInstance();
+			clone.setDimension(this.getDimension());
+			clone.setName(this.getName());
+			clone.setId(getNewGeneratedId());
+			clone.setOutTransitions(new ArrayList<Transition>());
 		} catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
-		clone.setDimension(this.getDimension());
-		clone.setName(this.getName());
-		clone.setId(getNewGeneratedId());
-		clone.setOutTransitions(new ArrayList<Transition>());
 		return clone;
 	}
 	
