@@ -48,6 +48,7 @@ public class ExportToSeleniumEditorAction implements IEditorActionDelegate {
 					PageElementConverter.class, 
 					ContextConverter.class,
 					SeleneseDocument.class);
+			ErrorHandler.showInfoDialog(ExportToSeleniumAction.OK_MESSAGE);
 		} 
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in Selenium export.");
