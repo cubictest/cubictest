@@ -71,7 +71,7 @@ M4?   Should be able to test PDF (at least existance)
 Files and persistance:
 ----------------------
 Done   Move .aat file, problems with SubTest and ExStartPoint (refactoring support) => Update path on move
-M3   Move open .aat file, save again --> duplicated file  ==> Close file before moving? (Eclipse hook)
+Done   Move open .aat file, save again --> duplicated file  ==> Close file before moving? (Eclipse hook)
 2.0   Right click on file -> Run... (standard Eclipse menu) --> Run in Watir, etc.
    
 Page:
@@ -103,9 +103,9 @@ Done   Use command for edit of properties
 Done   Put options in the "value" dropdown of select list.
 Done   "Delete row"-button in input dialog
 Done   "Move up" and "Move down" button wanted. Is sequence significant?
-M3   Handle delete of page element -> Display warning -> remove from user interaction
+Done   Handle delete of page element -> Display warning -> remove from user interaction
+Done   When form element text changes, must update label on connection automatically => subscriptions must be examined
 M4   Put --Choose-- automatically, not button "Add new"
-M4   When form element text changes, must update label on connection automatically => subscriptions must be examined
    
    
 Palette:
@@ -161,10 +161,6 @@ Christian's notes
 - Flag for marking that test is spec and not regression test (such that the build is not broken)
 - Create new page with name from Link or form params(?)
 - Make it possible to create extension start point from link on page with extension point.
-- Label on userActions should be possible to place manually (or edit properties on placement).
-- Make "Row" the default text for RowContext?
-- BUG (fixed for M3): Not-link did not work
-- Button for creating watir test (or context menu of test)
 - Be able to assert cells from column headers
 - Be possible to start test from failed test ("Fix the test")
 - HTML skeleton: Checkbox bug? (when checked required)
