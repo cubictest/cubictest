@@ -69,6 +69,7 @@ public class StartPointPropertySection extends AbstractPropertySection {
 		data.top = new FormAttachment(urlText, 0, SWT.CENTER);
 		labelLabel.setLayoutData(data);
 	}
+	
 	@Override
 	public void refresh() {
 		urlText.removeModifyListener(listener);

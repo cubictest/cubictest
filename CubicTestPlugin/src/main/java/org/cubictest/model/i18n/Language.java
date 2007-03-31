@@ -39,13 +39,7 @@ public class Language{
 			this.fileName = file.getFullPath().toOSString();
 		}
 		
-		try {
-			properties.load(file.getContents());
-		} catch (IOException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
-		} catch (CoreException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
-		}
+		updateLanguage();
 	}
 
 	public String get(String key) {
@@ -97,5 +91,15 @@ public class Language{
 			}
 		}
 		return properties;
+	}
+
+	public void updateLanguage() {
+		try {
+			properties.load(file.getContents());
+		} catch (IOException e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		} catch (CoreException e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		}
 	}
 }

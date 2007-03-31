@@ -1,7 +1,3 @@
-/*
- * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
- * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
- */
 package org.cubictest.ui.wizards;
 
 import java.io.ByteArrayInputStream;
@@ -26,9 +22,9 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
-public class NewParamWizard extends Wizard implements INewWizard{
+public class NewPropertiesWizard extends Wizard implements INewWizard {
 
-	private WizardNewParamCreationPage namePage;
+	private WizardNewPropertiesCreationPage namePage;
 	
 	@Override
 	public boolean performFinish() {	
@@ -36,20 +32,18 @@ public class NewParamWizard extends Wizard implements INewWizard{
 			getContainer().run(false, false, new WorkspaceModifyOperation(null) {
 				@Override
 				protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-					createParams(monitor, namePage.getFileName(), namePage.getContainerName());
+					createProperties(monitor, namePage.getFileName(), namePage.getContainerName());
 				}
-
 			});
 		} catch (InvocationTargetException e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		} catch (InterruptedException e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
-		
 		return true;
 	}
 	
-	private void createParams(IProgressMonitor monitor, String fileName, String containerName) throws CoreException {
+	private void createProperties(IProgressMonitor monitor, String fileName, String containerName) throws CoreException {
 		monitor.beginTask("Creating " + fileName, 2);
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IResource resource = root.findMember(new Path(containerName));
@@ -73,21 +67,17 @@ public class NewParamWizard extends Wizard implements INewWizard{
 	@Override
 	public void addPages() {
 		super.addPages();
-		namePage = new WizardNewParamCreationPage("newCubicTestParamNamepage");
-		namePage.setTitle("New CubicTest parameters");
-		namePage.setDescription("Choose name of parameters");
-		
+		namePage = new WizardNewPropertiesCreationPage("newCubicTestPropertiesNamepage");
+		namePage.setTitle("New CubicTest properties");
+		namePage.setDescription("Choose name of propterties");
 		addPage(namePage);
 	}
 	
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		
 	}
 	
-
 	private void throwCoreException(String message) throws CoreException {
 		IStatus status = new Status(IStatus.ERROR, "cubicTestPlugin", IStatus.OK, message, null);
 		throw new CoreException(status);
 	}
-
 }

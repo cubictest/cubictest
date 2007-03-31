@@ -17,13 +17,14 @@
             class="org.cubictest.ui.parameterization.ParamsEditor"
             default="true"
             extensions="params"
-            icon="$nl$/icons/fileicon.gif"
+            icon="icons/fileicon_params.gif"
             id="org.cubictest.ui.paramterization.ParamsEditor"
             name="Parameterization Editor"/>
       <editor
-            class="org.cubictest.ui.i18n.I18nEditor"
+            class="org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor"
             default="true"
-            icon="icons/fileicon_l18n.gif"
+            extensions="properties"
+            icon="$nl$/icons/fileicon_l18n.gif"
             id="org.cubictest.ui.i18n.PropertiesEditor"
             name="I18n Editor"/>
    </extension>
@@ -59,6 +60,15 @@
             icon="icons/fileicon_params.gif"
             id="org.cubictest.ui.wizards.NewParamWizard"
             name="New CubicTest Param file"
+            preferredPerspectives="org.cubictest.CubicTestPerspective"
+            project="true"/>
+      <wizard
+            category="cubictest"
+            class="org.cubictest.ui.wizards.NewPropertiesWizard"
+            finalPerspective="org.cubictest.CubicTestPerspective"
+            icon="icons/fileicon_l18n.gif"
+            id="org.cubictest.ui.wizards.NewPropertiesWizard"
+            name="New CubicTest Properties file"
             preferredPerspectives="org.cubictest.CubicTestPerspective"
             project="true"/>
    </extension>

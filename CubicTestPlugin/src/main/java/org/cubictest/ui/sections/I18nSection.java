@@ -65,6 +65,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 	private CCombo removeFile = null;
 	private Button removeButton = null;
 	private Test test;
+	private Button refreshButton;
 	
 	ResourcePatternFilter filter = new ResourcePatternFilter(){
 		@Override
@@ -135,7 +136,6 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 			}
 		}
 	};
-	private Button refreshButton;
 	
 	@Override
 	public void createControls(Composite parent, TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -215,11 +215,11 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 		refreshButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
+				test.getAllLanuages().updateAllLanguages();
 			}
 		});
 		refreshButton.setLayoutData(buttonData);
-        
+		
         //composite.setSize(new Point(751, 305));
 	}
 	

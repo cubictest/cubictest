@@ -11,7 +11,6 @@ import java.util.Set;
 
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SationObserver;
-import org.cubictest.ui.i18n.I18nMessage;
 
 
 public class AllLanguages extends PropertyAwareObject{
@@ -48,13 +47,6 @@ public class AllLanguages extends PropertyAwareObject{
 		return keys;
 	}
 
-	public I18nMessage createMessage() {
-		String key = "";
-		for(Language lang : languages)
-			lang.keySet().add(key);
-		return new I18nMessage(this, key);
-	}
-
 	public Language createLanguage() {
 		Language lang = new Language();
 		lang.keySet().addAll(getAllKeys());
@@ -80,15 +72,25 @@ public class AllLanguages extends PropertyAwareObject{
 
 	public void updateObservers() {
 		if (currentLanguage == null)
-			currentLanguage = getLanguages().get(0);
-		
-		for(SationObserver observer : observers){
-			String key = observer.getI18nKey();
-			observer.setValue(currentLanguage.get(key));
+			if(getLanguages().size() > 0 )
+				currentLanguage = getLanguages().get(0);
+		if(currentLanguage != null){
+			for(SationObserver observer : observers){
+				String key = observer.getI18nKey();
+				observer.setValue(currentLanguage.get(key));
+			}
 		}
 	}
 
 	@Override
 	public void resetStatus() {
+	}
+
+	public void updateAllLanguages() {
+		for(Language language : languages){
+			language.updateLanguage();
+		}
+		updateObservers();
+		firePropertyChange(INPUT, null, languages);
 	}
 }
