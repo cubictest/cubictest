@@ -120,12 +120,12 @@ public class LegacyUpgrade {
 			}
 			//Fixing new sationObserver in Identifiers
 			xpath = new JDOMXPath("//elements");
-			for(Object obj : xpath.selectNodes(rootElement)){
-				if(obj instanceof Element){
-					Element elements = (Element) obj;
-					for(Object obj2 : elements.getChildren()){
-						if(obj2 instanceof Element){
-							Element pageElement = (Element) obj2;
+			for(Object node : xpath.selectNodes(rootElement)){
+				if(node instanceof Element){
+					Element elements = (Element) node;
+					for(Object child : elements.getChildren()){
+						if(child instanceof Element){
+							Element pageElement = (Element) child;
 							
 							Element identifiers = new Element("identifiers");
 							pageElement.addContent(identifiers);
@@ -133,28 +133,36 @@ public class LegacyUpgrade {
 							Element identifier = new Element("identifier");
 							identifiers.addContent(identifier);
 							
-							Element text = pageElement.getChild("text");
-							if(text == null){
-								text = new Element("value");
-							}else{
-								text.setName("value");
-								pageElement.removeContent(text);
-							}
-							text.setText("100");
-							identifier.addContent(text);
+							Element probability = new Element("probability");
+							probability.setText("100");
+							identifier.addContent(probability);
 							
+							Element value = new Element("value");
+							Element type = new Element("type");
 							Element identifierType = pageElement.getChild("identifierType");
-							if(identifierType != null){
-								pageElement.removeContent(identifierType);
-								identifierType.setName("type");
-							}else{
-								identifierType = new Element("type");
-								identifierType.setText("LABEL");
-								if(text.getText() == null || "".equals(text.getText())){
-									text.setText(pageElement.getChildText("description"));
-								}
+							String idType = "";
+							if (identifierType == null) {
+								idType = "LABEL";
 							}
-							identifier.addContent(identifierType);
+							else {
+								idType = identifierType.getText();
+								pageElement.removeContent(identifierType);
+							}
+							type.setText(idType);
+							
+							if (idType.equals("LABEL")) {
+								value.setText(pageElement.getChildText("description"));
+							}
+							else {
+								value.setText(pageElement.getChildText("description"));
+							}
+
+							identifier.addContent(type);
+							identifier.addContent(value);
+							
+							Element directEditID = new Element("directEditIdentifier");
+							directEditID.setAttribute("reference", "../identifiers/identifier");
+							pageElement.addContent(directEditID);
 							
 							Element sationType = pageElement.getChild("sationType");
 							if(sationType != null){
@@ -191,11 +199,6 @@ public class LegacyUpgrade {
 								identifierType = new Element("type");
 								identifierType.setText("MULTISELECT");
 								identifier.addContent(identifierType);
-								
-								text = new Element("value");
-								text.setText("100");
-								pageElement.removeContent(text);
-								identifier.addContent(text);
 								
 								Element useI18n = new Element("useI18n");
 								Element useParam = new Element("useParam");
