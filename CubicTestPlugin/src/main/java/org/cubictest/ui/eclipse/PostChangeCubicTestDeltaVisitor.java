@@ -75,7 +75,7 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 			
 			//close the editors:
 			if (toClose.size() > 0) {
-				ErrorHandler.showInfoDialog("Closing editor(s): " + names);
+				ErrorHandler.showInfoDialog("Closing editor: " + names);
 				pages[i].closeEditors(toCloseArray, save);
 			}
 		}
