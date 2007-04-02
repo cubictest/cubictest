@@ -8,12 +8,15 @@ import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.Identifier;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.context.SimpleContext;
 import org.cubicunit.Container;
 import org.cubicunit.Document;
 import org.cubicunit.Element;
+import org.cubicunit.ElementTypes;
+import org.cubicunit.types.DivType;
 
 public class ContextConverter implements IContextConverter<Holder> {
 
@@ -28,17 +31,34 @@ public class ContextConverter implements IContextConverter<Holder> {
 			SimpleContext sc = (SimpleContext) context;
 			try{
 				container = holder.getContainer();
+				DivType type = ElementTypes.DIV;
+				for(Identifier id : sc.getIdentifiers()){
+					switch(id.getType()){
+						case ID:
+							type = type.id(id.getProbability(), id.getValue());
+							break;
+						case PATH:
+							type = type.path(id.getProbability(), id.getValue());
+							break;
+						case VALUE:
+							type.text(id.getProbability(), id.getValue());
+							break;
+						default:
+							;	
+					}
+				}
+				Container subContainer = container.get(type);
 				if(sc.isNot()){
-					container.assertContainerNotPresent(sc.getText());
+					if(subContainer != null)
+						sc.setStatus(TestPartStatus.FAIL);
+					else
+						sc.setStatus(TestPartStatus.PASS);
 				}else{
-					Container subContainer = container.assertContainerPresent(sc.getText());
 					holder.setContainer(subContainer);
 					holder.put(sc, (Element)subContainer);
+					sc.setStatus(TestPartStatus.PASS);
 				}
-				sc.setStatus(TestPartStatus.PASS);
-			}catch (AssertionError e) {
-				sc.setStatus(TestPartStatus.FAIL);
-				throw e;
+				
 			}catch (RuntimeException e){
 				sc.setStatus(TestPartStatus.EXCEPTION);
 				throw e;
