@@ -34,11 +34,11 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 			if("aat".equals(resource.getFileExtension())) {
 				if (delta.getMovedToPath() == null){
 					//delete
-					closeOpenEditorsOfRemovedFiles(resource, false);
+					closeOpenEditorsOfRemovedFiles(resource, false, "delete");
 				}
 				else {
 					//move
-					closeOpenEditorsOfRemovedFiles(resource, true);
+					closeOpenEditorsOfRemovedFiles(resource, true, "move");
 					
 					UpdateTestsSubTests operation = new UpdateTestsSubTests(resource,delta.getMovedToPath());
 					operation.setRule(resource.getProject());
@@ -50,7 +50,7 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 	}
 
 	
-	private void closeOpenEditorsOfRemovedFiles(IResource resource, boolean save) throws PartInitException {
+	private void closeOpenEditorsOfRemovedFiles(IResource resource, boolean save, String operation) throws PartInitException {
 		//get references to windows that should be closed:
 		IWorkbenchWindow window = CubicTestPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow();
 		IWorkbenchPage[] pages = window.getPages();
@@ -75,7 +75,7 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 			
 			//close the editors:
 			if (toClose.size() > 0) {
-				ErrorHandler.showInfoDialog("Closing editor: " + names);
+				ErrorHandler.showInfoDialog("Closing editor due to " + operation + ": " + names);
 				pages[i].closeEditors(toCloseArray, save);
 			}
 		}
