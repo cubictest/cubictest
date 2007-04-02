@@ -46,7 +46,7 @@ public class CreateTransitionCommand extends Command {
 
 	private TransitionNode targetNode;
 
-	/** Cached transition for redo */
+	/** Transition cahced for redo, or initial transition to add */
 	private Transition transition;
 
 	private Test test;
@@ -99,7 +99,13 @@ public class CreateTransitionCommand extends Command {
 			test.addPage((Page) targetNode);
 		}
 		
- 		if(transition == null) {
+		if (transition != null) {
+			//pre-populated transition, add directly:
+			test.addTransition(transition);
+		}
+		else {
+			//transition not pre-populated: 
+			
 			if (sourceNode instanceof SubTest && (targetNode instanceof Page || targetNode instanceof SubTest)) {
 				//ExtensionTransition from SubTest
 				SubTest subTest = (SubTest) sourceNode;
@@ -237,5 +243,13 @@ public class CreateTransitionCommand extends Command {
 
 	public TransitionNode getTarget() {
 		return targetNode;
+	}
+
+
+	/** 
+	 * Set initial transition to add (do not display input wizard)
+	 */
+	public void setTransition(Transition transition) {
+		this.transition = transition;
 	}
 }
