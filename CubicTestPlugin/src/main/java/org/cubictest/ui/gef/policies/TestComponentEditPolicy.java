@@ -38,6 +38,7 @@ public class TestComponentEditPolicy extends ComponentEditPolicy {
 	 * 
 	 * @see org.eclipse.gef.editpolicies.ComponentEditPolicy#createDeleteCommand(org.eclipse.gef.requests.GroupRequest)
 	 */
+	@Override
 	protected Command createDeleteCommand(GroupRequest deleteRequest) {
 		Test test = (Test)(getHost().getParent().getModel());
 		
