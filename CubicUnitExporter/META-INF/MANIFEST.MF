@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CubicUnitExporter Plug-in
+Bundle-SymbolicName: org.cubictest.exporters.CubicUnitExporter;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.cubictest,
+ org.eclipse.ui.ide,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.gef,
+ org.eclipse.ui.views.properties.tabbed,
+ org.eclipse.debug.core
+Eclipse-LazyStart: true
+Bundle-ClassPath: .,
+ lib/CubicTestElementAPI.jar,
+ lib/CubicUnit.jar,
+ lib/jiffie.jar,
+ lib/jacob.jar,
+ lib/jaxen-core.jar,
+ lib/saxpath.jar

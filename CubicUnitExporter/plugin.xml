@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+
+   <extension
+         point="org.cubictest.org.cubictest.exporters"
+         name="CubicUnitExporter">
+   </extension>
+   
+   
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="cubictest.contribution1"
+            objectClass="org.eclipse.core.resources.IResource">
+         <menu
+               label="CubicTest"
+               path="additions"
+               id="cubictest.menu1">
+            <separator
+                  name="CubicTest">
+            </separator>
+         </menu>
+    
+        
+      </objectContribution>
+      <viewerContribution
+            id="CubicUnitExporter.viewerContribution1"
+            targetID="cubicTestPlugin.editor.contextmenu">
+         <action
+               class="org.cubictest.exporters.cubicunit.ui.RunCubicUnitAction"
+               icon="icons/cubicunit_run_icon.gif"
+               id="org.cubictest.exporters.cubicunit.ui.RunCubicUnitAction"
+               label="Run Test with CubicUnit"
+               menubarPath="additions"/>
+      </viewerContribution>
+      
+   </extension>
+</plugin>
