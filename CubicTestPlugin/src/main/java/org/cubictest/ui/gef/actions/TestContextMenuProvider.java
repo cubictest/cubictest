@@ -84,9 +84,6 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		if (action.isEnabled())
 			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 		
-		action = actionRegistry.getAction(RunCubicUnitAction.ACTION_ID);
-		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
-		
 		action = actionRegistry.getAction(ResetTestAction.ACTION_ID);
 		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
 

@@ -29,7 +29,6 @@ import org.cubictest.ui.gef.actions.PasteAction;
 import org.cubictest.ui.gef.actions.PopulateCommonAction;
 import org.cubictest.ui.gef.actions.PresentAction;
 import org.cubictest.ui.gef.actions.ResetTestAction;
-import org.cubictest.ui.gef.actions.RunCubicUnitAction;
 import org.cubictest.ui.gef.actions.TestContextMenuProvider;
 import org.cubictest.ui.gef.dnd.DataEditDropTargetListner;
 import org.cubictest.ui.gef.dnd.FileTransferDropTargetListener;
@@ -37,6 +36,7 @@ import org.cubictest.ui.gef.factory.PaletteRootCreator;
 import org.cubictest.ui.gef.factory.TestEditPartFactory;
 import org.cubictest.ui.gef.interfaces.IDisposeListener;
 import org.cubictest.ui.gef.interfaces.IDisposeSubject;
+import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.view.AddElementContextMenuList;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -100,7 +100,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  * @author chr_schwarz 
  */
 public class GraphicalTestEditor extends EditorPart implements IAdaptable, 
-		ITabbedPropertySheetPageContributor, IDisposeSubject {
+		ITabbedPropertySheetPageContributor, IDisposeSubject, ITestEditor {
 
 	private GraphicalViewer graphicalViewer;
 	
@@ -324,7 +324,6 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		}
 
 		addEditorAction(new SaveAction(this));
-		addEditorAction(new RunCubicUnitAction(this));
 		addEditorAction(new ResetTestAction(this));
 		addEditorAction(new AutoLayoutAction(this));
 

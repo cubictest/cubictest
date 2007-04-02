@@ -85,7 +85,7 @@ public class CreateTransitionCommand extends Command {
 			if (pageEditPart == null) {
 				ErrorHandler.logAndThrow("PageEditPart not set. Cannot auto create target page.");
 			}
-			position.y = position.y + this.pageEditPart.getContentPane().getClientArea().height + 80;
+			position.y = position.y + this.pageEditPart.getContentPane().getClientArea().height + 90;
 			int outTransitions = 0;
 			if (sourceNode.getOutTransitions() != null) {
 				for (Transition transition : sourceNode.getOutTransitions()) {

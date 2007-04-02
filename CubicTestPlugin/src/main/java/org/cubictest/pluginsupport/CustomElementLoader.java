@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.custom.ICustomTestStep;
+import org.cubictest.model.ICustomTestStep;
 import org.cubictest.pluginsupport.interfaces.IClassChangeListener;
 import org.cubictest.resources.interfaces.IResourceListener;
 import org.cubictest.resources.interfaces.IResourceMonitor;

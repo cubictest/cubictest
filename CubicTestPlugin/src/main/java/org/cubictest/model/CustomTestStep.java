@@ -8,12 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.custom.ICustomTestStep;
-import org.cubictest.custom.IElementContext;
 import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.pluginsupport.interfaces.IClassChangeListener;
-import org.cubicunit.Document;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.swt.widgets.Display;
 
@@ -52,13 +48,13 @@ public class CustomTestStep extends ConnectionPoint implements IClassChangeListe
 		}
 	}
 	
-	public void execute(IElementContext context, Document document) {
-		try {
-			getCustomTestStep().execute(config, context, document);
-		} catch (ClassNotFoundException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error excecuting custom test step");
-		}
-	}
+//	public void execute(IElementContext context, Document document) {
+//		try {
+//			getCustomTestStep().execute(config, context, document);
+//		} catch (ClassNotFoundException e) {
+//			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error excecuting custom test step");
+//		}
+//	}
 
 	private ICustomTestStep getCustomTestStep() throws ClassNotFoundException {
 		if(customTestStep == null) {

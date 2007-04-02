@@ -33,11 +33,11 @@ import static org.cubictest.ui.gef.view.CubicTestImageRegistry.USER_INTERACTION_
 
 import java.util.ArrayList;
 
-import org.cubictest.custom.ICustomTestStep;
 import org.cubictest.model.Common;
 import org.cubictest.model.CustomTestStep;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.ICustomTestStep;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.Page;
@@ -171,35 +171,35 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				null);
 		controls.add(tool);
 		
-		tool = new CombinedTemplateCreationEntry("Add an JavaScript Alert",
-				"Create a new JavaScript Alert", Image.class, new DataCreationFactory(
-						Alert.class), CubicTestImageRegistry.getDescriptor(ALERT_IMAGE),
-				null);
-		controls.add(tool);
-		
-		tool = new CombinedTemplateCreationEntry("Add an JavaScript Confirm",
-				"Create a new JavaScript Confirm", Image.class, new DataCreationFactory(
-						Confirm.class), CubicTestImageRegistry.getDescriptor(CONFIRM_IMAGE),
-				null);
-		controls.add(tool);
-		
-		tool = new CombinedTemplateCreationEntry("Add an JavaScript Prompt",
-				"Create a new JavaScript Prompt", Image.class, new DataCreationFactory(
-						Prompt.class), CubicTestImageRegistry.getDescriptor(PROMPT_IMAGE),
-				null);
-		controls.add(tool);
-		
+//		tool = new CombinedTemplateCreationEntry("Add an JavaScript Alert",
+//				"Create a new JavaScript Alert", Image.class, new DataCreationFactory(
+//						Alert.class), CubicTestImageRegistry.getDescriptor(ALERT_IMAGE),
+//				null);
+//		controls.add(tool);
+//		
+//		tool = new CombinedTemplateCreationEntry("Add an JavaScript Confirm",
+//				"Create a new JavaScript Confirm", Image.class, new DataCreationFactory(
+//						Confirm.class), CubicTestImageRegistry.getDescriptor(CONFIRM_IMAGE),
+//				null);
+//		controls.add(tool);
+//		
+//		tool = new CombinedTemplateCreationEntry("Add an JavaScript Prompt",
+//				"Create a new JavaScript Prompt", Image.class, new DataCreationFactory(
+//						Prompt.class), CubicTestImageRegistry.getDescriptor(PROMPT_IMAGE),
+//				null);
+//		controls.add(tool);
+
 		tool = new CombinedTemplateCreationEntry("Add an Extension Point",
 				"Add an extension point that other tests can start from or include", ExtensionPoint.class,
 				new DataCreationFactory(ExtensionPoint.class), CubicTestImageRegistry
 						.getDescriptor(EXTENSION_POINT_IMAGE), null);
 		controls.add(tool);
 
-		tool = new CombinedTemplateCreationEntry("Add a Custom Step",
-				"Create a new Custom Step that lets you write code to do operations not available in the graphical test editor",
-				CustomTestStep.class, new CustomTestStepCreationFactory(customTestStepLoader), 
-				CubicTestImageRegistry.getDescriptor(CUSTOM_STEP_IMAGE), null);
-		controls.add(tool);
+//		tool = new CombinedTemplateCreationEntry("Add a Custom Step",
+//				"Create a new Custom Step that lets you write code to do operations not available in the graphical test editor",
+//				CustomTestStep.class, new CustomTestStepCreationFactory(customTestStepLoader), 
+//				CubicTestImageRegistry.getDescriptor(CUSTOM_STEP_IMAGE), null);
+//		controls.add(tool);
 			
 		// -- Creating User interactions --
 		tool = new CombinedTemplateCreationEntry(
@@ -227,13 +227,12 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				Row.class, new DataCreationFactory(
 						Row.class), CubicTestImageRegistry.getDescriptor(ROW_IMAGE), null);
 		contexts.add(tool);
-		//Added by Genesis Campos
-		tool = new CombinedTemplateCreationEntry("Add Frame",
-				"Creates a new Frame",
-				Frame.class, new DataCreationFactory(
-						Frame.class), null, null);
-		contexts.add(tool);
-		//End;
+
+//		tool = new CombinedTemplateCreationEntry("Add Frame",
+//				"Creates a new Frame",
+//				Frame.class, new DataCreationFactory(
+//						Frame.class), null, null);
+//		contexts.add(tool);
 		
 		// -- Creating Form Elements --
 		tool = new CombinedTemplateCreationEntry("Add TextField",
@@ -284,14 +283,14 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		formElements.add(tool);
 		
 
-		rebuildCustomTestStepsCategory();
+//		rebuildCustomTestStepsCategory();
 		
 		categories.add(basics);
 		categories.add(controls);
 		categories.add(connections);
 		categories.add(contexts);
 		categories.add(formElements);
-		categories.add(customTestSteps);
+//		categories.add(customTestSteps);
 		addAll(categories);
 	}
 
