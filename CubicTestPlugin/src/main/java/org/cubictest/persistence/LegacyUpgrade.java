@@ -1,17 +1,15 @@
 package org.cubictest.persistence;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.math.BigDecimal;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.core.resources.IProject;
-import org.jaxen.JaxenException;
 import org.jaxen.jdom.JDOMXPath;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
@@ -104,21 +102,24 @@ public class LegacyUpgrade {
 		try {
 			Document document = new SAXBuilder().build(new StringReader(xml));
 			Element rootElement = document.getRootElement();
-			//fixing enums...
+
+			//Expanding references in elements:
 			JDOMXPath xpath = new JDOMXPath("//sationType|//identifierType|//action");
 			for(Object obj : xpath.selectNodes(rootElement)){
 				if(obj instanceof Element){
-					Element sationType = (Element) obj;
-					Attribute ref = sationType.getAttribute("reference");
-					if(ref != null){
-						JDOMXPath refXpath = new JDOMXPath(ref.getValue());
-						Element trueSationType = (Element)refXpath.selectSingleNode(sationType);
-						sationType.setText(trueSationType.getText());
-						sationType.removeAttribute(ref);
+					Element element = (Element) obj;
+					Attribute reference = element.getAttribute("reference");
+					if(reference != null){
+						//getting the referred element:
+						JDOMXPath refXpath = new JDOMXPath(reference.getValue());
+						Element realElement = (Element)refXpath.selectSingleNode(element);
+						element.setText(realElement.getText());
+						element.removeAttribute(reference);
 					}
 				}
 			}
-			//Fixing new sationObserver in Identifiers
+			
+			//Fixing Page Elements:
 			xpath = new JDOMXPath("//elements");
 			for(Object node : xpath.selectNodes(rootElement)){
 				if(node instanceof Element){
@@ -129,14 +130,11 @@ public class LegacyUpgrade {
 							
 							Element identifiers = new Element("identifiers");
 							pageElement.addContent(identifiers);
-							
 							Element identifier = new Element("identifier");
 							identifiers.addContent(identifier);
-							
 							Element probability = new Element("probability");
 							probability.setText("100");
 							identifier.addContent(probability);
-							
 							Element value = new Element("value");
 							Element type = new Element("type");
 							Element identifierType = pageElement.getChild("identifierType");
@@ -165,32 +163,9 @@ public class LegacyUpgrade {
 							pageElement.addContent(directEditID);
 							
 							Element sationType = pageElement.getChild("sationType");
-							if(sationType != null){
-								Element useI18n = new Element("useI18n");
-								Element useParam = new Element("useParam");
-								identifier.addContent(useI18n);
-								identifier.addContent(useParam);
-								Element key = pageElement.getChild("key");
-								Element newKey = new Element("paramKey");
-								if("NONE".equals(sationType.getText())){
-									useI18n.setText("false");
-									useParam.setText("false");
-								}else if(sationType.getText().contains("PARAM")){
-									useI18n.setText("false");
-									useParam.setText("true");
-								}else if(sationType.getText().contains("INTER")){
-									useI18n.setText("true");
-									useParam.setText("false");
-									newKey = new Element("i18nKey");
-								}else{
-									useI18n.setText("true");
-									useParam.setText("true");
-								}
-								newKey.setText(key.getText());
-								identifier.addContent(newKey);
-								pageElement.removeContent(key);
-							}
+							convertI18nAndParams4to5(pageElement, identifier, sationType);
 							pageElement.removeContent(sationType);
+							
 							Element multiSelect = pageElement.getChild("multiselect");
 							if(multiSelect != null){
 								identifier = new Element("identifier");
@@ -200,66 +175,62 @@ public class LegacyUpgrade {
 								identifierType.setText("MULTISELECT");
 								identifier.addContent(identifierType);
 								
-								Element useI18n = new Element("useI18n");
-								Element useParam = new Element("useParam");
-								useI18n.setText("false");
-								useParam.setText("false");
-								identifier.addContent(useI18n);
-								identifier.addContent(useParam);
-								
+								convertI18nAndParams4to5(multiSelect, identifier, sationType);
+
 								pageElement.removeContent(multiSelect);
 							}
 						}
 					}
 				}
 			}
-			//fixing new sationObserver in userInteraction
+			
+			//Fixing user interactions:
 			xpath = new JDOMXPath("//userInteraction");
 			for(Object obj : xpath.selectNodes(rootElement)){
 				if(obj instanceof Element){
 					Element element = (Element) obj;
 					
 					Element sationType = element.getChild("sationType");
-					if(sationType != null){
-						Element useI18n = new Element("useI18n");
-						Element useParam = new Element("useParam");
-						element.addContent(useI18n);
-						element.addContent(useParam);
-						Element key = element.getChild("key");
-						Element newKey = new Element("paramKey");
-						if("NONE".equals(sationType.getText())){
-							useI18n.setText("false");
-							useParam.setText("false");
-						}else if(sationType.getText().contains("PARAM")){
-							useI18n.setText("false");
-							useParam.setText("true");
-						}else if(sationType.getText().contains("INTER")){
-							useI18n.setText("true");
-							useParam.setText("false");
-							newKey = new Element("i18nKey");
-						}else{
-							useI18n.setText("true");
-							useParam.setText("true");
-						}
-						newKey.setText(key.getText());
-						element.addContent(newKey);
-						element.removeContent(key);
-					}
+					convertI18nAndParams4to5(element, element, sationType);
 					element.removeContent(sationType);
 				}
 			}
 			xml = new XMLOutputter().outputString(document);
-		} catch (JDOMException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JaxenException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}
+		catch (Exception e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Could not convert old file format to new format.");
 		}
 		
 		version.increment();
 		return xml;
+	}
+
+	private static void convertI18nAndParams4to5(Element element, Element identifier, Element sationType) {
+		Element useI18n = new Element("useI18n");
+		Element useParam = new Element("useParam");
+		identifier.addContent(useI18n);
+		identifier.addContent(useParam);
+		Element key = element.getChild("key");
+		Element newKey = new Element("paramKey");
+		if(sationType == null || "NONE".equals(sationType.getText())){
+			useI18n.setText("false");
+			useParam.setText("false");
+		}else if(sationType.getText().contains("PARAM")){
+			useI18n.setText("false");
+			useParam.setText("true");
+		}else if(sationType.getText().contains("INTER")){
+			useI18n.setText("true");
+			useParam.setText("false");
+			newKey = new Element("i18nKey");
+		}else{
+			useI18n.setText("true");
+			useParam.setText("true");
+		}
+		if (key != null) {
+			newKey.setText(key.getText());
+		}
+		identifier.addContent(newKey);
+		element.removeContent(key);
 	}
 
 	
