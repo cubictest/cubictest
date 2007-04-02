@@ -28,10 +28,9 @@ import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteractionsTransition;
 
 /**
- * Uses a connection point converter, a page converter and a transition
- * converter to convert a test into e.g. test steps.
+ * Converts a Test into test steps placed in the specified resultholder. 
  * 
- * @author SK
+ * @author SK Skytteren
  * @author chr_schwarz
  * 
  */
