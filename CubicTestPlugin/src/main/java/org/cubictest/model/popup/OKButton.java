@@ -8,4 +8,9 @@ public class OKButton extends JavaScriptButton {
 		return "OK button";
 	}
 	
+	@Override
+	public String getText() {
+		return "OK";
+	}
+	
 }

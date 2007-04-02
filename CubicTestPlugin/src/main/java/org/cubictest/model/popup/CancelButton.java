@@ -7,5 +7,10 @@ public class CancelButton extends JavaScriptButton {
 	public String getType() {
 		return "Cancel button";
 	}
+	
+	@Override
+	public String getText() {
+		return "Cancel";
+	}
 
 }
