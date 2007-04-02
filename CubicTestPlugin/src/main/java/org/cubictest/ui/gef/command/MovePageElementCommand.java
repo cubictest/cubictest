@@ -9,7 +9,6 @@ package org.cubictest.ui.gef.command;
 
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
-import org.cubictest.model.formElement.Select;
 import org.eclipse.gef.commands.Command;
 
 

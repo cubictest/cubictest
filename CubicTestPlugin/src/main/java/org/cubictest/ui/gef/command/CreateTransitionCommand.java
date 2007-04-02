@@ -29,8 +29,6 @@ import org.cubictest.ui.gef.wizards.NewUserInteractionsWizard;
 import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.Request;
-import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.jface.wizard.WizardDialog;

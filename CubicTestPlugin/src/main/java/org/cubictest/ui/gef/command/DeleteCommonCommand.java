@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.Test;
 
 
 /**
