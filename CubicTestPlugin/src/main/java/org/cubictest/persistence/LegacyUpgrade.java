@@ -124,61 +124,26 @@ public class LegacyUpgrade {
 			for(Object node : xpath.selectNodes(rootElement)){
 				if(node instanceof Element){
 					Element elements = (Element) node;
-					for(Object child : elements.getChildren()){
-						if(child instanceof Element){
-							Element pageElement = (Element) child;
-							
-							Element identifiers = new Element("identifiers");
-							pageElement.addContent(identifiers);
-							Element identifier = new Element("identifier");
-							identifiers.addContent(identifier);
-							Element probability = new Element("probability");
-							probability.setText("100");
-							identifier.addContent(probability);
-							Element value = new Element("value");
-							Element type = new Element("type");
-							Element identifierType = pageElement.getChild("identifierType");
-							String idType = "";
-							if (identifierType == null) {
-								idType = "LABEL";
-							}
-							else {
-								idType = identifierType.getText();
-								pageElement.removeContent(identifierType);
-							}
-							type.setText(idType);
-							
-							if (idType.equals("LABEL")) {
-								value.setText(pageElement.getChildText("description"));
-							}
-							else {
-								value.setText(pageElement.getChildText("description"));
-							}
-
-							identifier.addContent(type);
-							identifier.addContent(value);
-							
-							Element directEditID = new Element("directEditIdentifier");
-							directEditID.setAttribute("reference", "../identifiers/identifier");
-							pageElement.addContent(directEditID);
-							
-							Element sationType = pageElement.getChild("sationType");
-							convertI18nAndParams4to5(pageElement, identifier, sationType);
-							pageElement.removeContent(sationType);
-							
-							Element multiSelect = pageElement.getChild("multiselect");
-							if(multiSelect != null){
-								identifier = new Element("identifier");
-								identifiers.addContent(identifier);
-								
-								identifierType = new Element("type");
-								identifierType.setText("MULTISELECT");
-								identifier.addContent(identifierType);
-								
-								convertI18nAndParams4to5(multiSelect, identifier, sationType);
-
-								pageElement.removeContent(multiSelect);
-							}
+					for(Object pageElement : elements.getChildren()){
+						if(pageElement instanceof Element){
+							upgradePageElement4to5((Element) pageElement);
+						}
+					}
+				}
+			}
+			xpath = new JDOMXPath("//element");
+			for(Object pageElement : xpath.selectNodes(rootElement)){
+				if(pageElement instanceof Element){
+					upgradePageElement4to5((Element) pageElement);
+				}
+			}
+			xpath = new JDOMXPath("//observers");
+			for(Object node : xpath.selectNodes(rootElement)){
+				if(node instanceof Element){
+					Element elements = (Element) node;
+					for(Object pageElement : elements.getChildren()){
+						if(pageElement instanceof Element){
+							upgradePageElement4to5((Element) pageElement);
 						}
 					}
 				}
@@ -186,15 +151,16 @@ public class LegacyUpgrade {
 			
 			//Fixing user interactions:
 			xpath = new JDOMXPath("//userInteraction");
-			for(Object obj : xpath.selectNodes(rootElement)){
-				if(obj instanceof Element){
-					Element element = (Element) obj;
+			for(Object node : xpath.selectNodes(rootElement)){
+				if(node instanceof Element){
+					Element element = (Element) node;
 					
 					Element sationType = element.getChild("sationType");
 					convertI18nAndParams4to5(element, element, sationType);
 					element.removeContent(sationType);
 				}
 			}
+			
 			xml = new XMLOutputter().outputString(document);
 		}
 		catch (Exception e) {
@@ -203,6 +169,59 @@ public class LegacyUpgrade {
 		
 		version.increment();
 		return xml;
+	}
+
+	private static void upgradePageElement4to5(Element pageElement) {
+		//preparing new Id structure:
+		Element identifiers = new Element("identifiers");
+		pageElement.addContent(identifiers);
+		Element identifier = new Element("identifier");
+		identifiers.addContent(identifier);
+		Element probability = new Element("probability");
+		probability.setText("100");
+		identifier.addContent(probability);
+		Element value = new Element("value");
+		Element type = new Element("type");
+		Element identifierType = pageElement.getChild("identifierType");
+		String idType = "";
+		if (identifierType == null) {
+			idType = "LABEL";
+		}
+		else {
+			idType = identifierType.getText();
+			pageElement.removeContent(identifierType);
+		}
+		type.setText(idType);
+		
+		if (idType.equals("LABEL")) {
+			value.setText(pageElement.getChildText("description"));
+		}
+		else {
+			value.setText(pageElement.getChildText("description"));
+		}
+
+		identifier.addContent(type);
+		identifier.addContent(value);
+		
+		Element directEditID = new Element("directEditIdentifier");
+		directEditID.setAttribute("reference", "../identifiers/identifier");
+		pageElement.addContent(directEditID);
+		
+		Element sationType = pageElement.getChild("sationType");
+		pageElement.removeContent(sationType);
+		
+		Element multiSelect = pageElement.getChild("multiselect");
+		if(multiSelect != null){
+			identifier = new Element("identifier");
+			identifiers.addContent(identifier);
+			
+			identifierType = new Element("type");
+			identifierType.setText("MULTISELECT");
+			identifier.addContent(identifierType);
+			
+			pageElement.removeContent(multiSelect);
+		}
+		convertI18nAndParams4to5(pageElement, identifier, sationType);
 	}
 
 	private static void convertI18nAndParams4to5(Element element, Element identifier, Element sationType) {
