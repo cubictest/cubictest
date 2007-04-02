@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -50,8 +51,6 @@ import org.eclipse.ui.views.navigator.ResourcePatternFilter;
 import org.eclipse.ui.views.navigator.ResourceSorter;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.TestGenerator;
 
 
 public class I18nSection extends AbstractPropertySection implements PropertyChangeListener {
@@ -214,13 +213,15 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
         getWidgetFactory().createLabel(composite, "");
         getWidgetFactory().createLabel(composite, "");
         
-        refreshButton = getWidgetFactory().createButton(composite, "Refresh properties", SWT.PUSH);
+        refreshButton = getWidgetFactory().createButton(composite, "Refresh languages", SWT.PUSH);
 		refreshButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				UpdateLangagesCommand command = new UpdateLangagesCommand();
 				command.addTest(test);
-				executeCommand(command);
+				if (MessageDialog.openConfirm(new Shell(), "Confirm refreshing languages", 
+						"This action is irreversible. Do you want to continue?"))
+					executeCommand(command);
 			}
 		});
 		refreshButton.setLayoutData(buttonData);
@@ -270,7 +271,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 		updateLanguageCombo();
 	}
 
-	public void propertyChange(PropertyChangeEvent arg0) {
+	public void propertyChange(PropertyChangeEvent event) {
 		refresh();
 	}
 	
