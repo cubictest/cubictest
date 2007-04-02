@@ -19,7 +19,7 @@ import org.cubictest.model.context.IContext;
  */
 public abstract class AbstractPage extends TransitionNode implements Cloneable, IContext {
 
-	private List<PageElement> elements = new ArrayList<PageElement>();
+	protected List<PageElement> elements = new ArrayList<PageElement>();
 	private String name;
 	private String description = "";
 	

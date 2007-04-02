@@ -7,9 +7,11 @@
  */
 package org.cubictest.ui.gef.factory;
 
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.ALERT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.BUTTON_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.COMMON_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONFIRM_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONNECTION_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONTEXT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CUSTOM_STEP_IMAGE;
@@ -19,6 +21,7 @@ import static org.cubictest.ui.gef.view.CubicTestImageRegistry.LINK_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.OPTION_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.PAGE_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.PASSWORD_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.PROMPT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.ROW_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.SELECT_IMAGE;
@@ -54,6 +57,9 @@ import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.Select;
 import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
+import org.cubictest.model.popup.Alert;
+import org.cubictest.model.popup.Confirm;
+import org.cubictest.model.popup.Prompt;
 import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.pluginsupport.interfaces.IClassChangeListener;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
@@ -164,6 +170,25 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 						Image.class), CubicTestImageRegistry.getDescriptor(IMAGE_IMAGE),
 				null);
 		controls.add(tool);
+		
+		tool = new CombinedTemplateCreationEntry("Add an JavaScript Alert",
+				"Create a new JavaScript Alert", Image.class, new DataCreationFactory(
+						Alert.class), CubicTestImageRegistry.getDescriptor(ALERT_IMAGE),
+				null);
+		controls.add(tool);
+		
+		tool = new CombinedTemplateCreationEntry("Add an JavaScript Confirm",
+				"Create a new JavaScript Confirm", Image.class, new DataCreationFactory(
+						Confirm.class), CubicTestImageRegistry.getDescriptor(CONFIRM_IMAGE),
+				null);
+		controls.add(tool);
+		
+		tool = new CombinedTemplateCreationEntry("Add an JavaScript Prompt",
+				"Create a new JavaScript Prompt", Image.class, new DataCreationFactory(
+						Prompt.class), CubicTestImageRegistry.getDescriptor(PROMPT_IMAGE),
+				null);
+		controls.add(tool);
+		
 		tool = new CombinedTemplateCreationEntry("Add an Extension Point",
 				"Add an extension point that other tests can start from or include", ExtensionPoint.class,
 				new DataCreationFactory(ExtensionPoint.class), CubicTestImageRegistry

@@ -58,8 +58,8 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.EditPart#performRequest(org.eclipse.gef.Request)
 	 */
+	@Override
 	public void performRequest(Request request) {
-		
 		if(request.getType() == RequestConstants.REQ_DIRECT_EDIT || 
 				request.getType() == RequestConstants.REQ_OPEN){
 			startDirectEdit();
@@ -76,6 +76,7 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
+	@Override
 	protected IFigure createFigure() {
 		IFigure figure = new CubicTestScrollableGroupFigure(((AbstractPage)getModel()).getName(), true);
 		figure.setLocation(((TransitionNode)getModel()).getPosition());
@@ -86,6 +87,7 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#createEditPolicies()
 	 */
+	@Override
 	protected void createEditPolicies() {
 		ContextLayoutEditPolicy layoutPolicy = new ContextLayoutEditPolicy((IContext)getModel());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, layoutPolicy);
@@ -99,6 +101,7 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#getModelChildren()
 	 */
+	@Override
 	protected List getModelChildren(){
 		return ((AbstractPage)getModel()).getElements();
 	}
@@ -107,6 +110,7 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.EditPart#setSelected(int)
 	 */
+	@Override
 	public void setSelected(int value) {
 		super.setSelected(value);
 		if (value != EditPart.SELECTED_NONE)
@@ -126,6 +130,7 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
 	 */
+	@Override
 	protected void refreshVisuals(){
 		AbstractPage page = (AbstractPage)getModel();
 		CubicTestGroupFigure figure = (CubicTestGroupFigure) getFigure();

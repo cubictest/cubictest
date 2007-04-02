@@ -15,10 +15,12 @@ import org.cubictest.model.Page;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.popup.JavaScriptPopup;
 import org.cubictest.ui.gef.command.DeleteCommonCommand;
 import org.cubictest.ui.gef.command.DeleteConnectionPointCommand;
 import org.cubictest.ui.gef.command.DeleteCustomTestStepCommand;
 import org.cubictest.ui.gef.command.DeleteExtensionPointCommand;
+import org.cubictest.ui.gef.command.DeleteJavaScriptPopupCommand;
 import org.cubictest.ui.gef.command.DeletePageCommand;
 import org.cubictest.ui.gef.command.DeleteSubTestCommand;
 import org.cubictest.ui.gef.command.DeleteTransitionNodeCommand;
@@ -53,9 +55,12 @@ public class TestComponentEditPolicy extends ComponentEditPolicy {
 			deleteCmd = new DeleteConnectionPointCommand();
 		} else if (transitionNode instanceof Common){
 			deleteCmd = new DeleteCommonCommand();
+		} else if (transitionNode instanceof JavaScriptPopup)
+			deleteCmd = new DeleteJavaScriptPopupCommand();
+		if(deleteCmd != null){
+			deleteCmd.setTest(test);
+			deleteCmd.setTransitionNode(transitionNode);
 		}
-		deleteCmd.setTest(test);
-		deleteCmd.setTransitionNode(transitionNode);
 		return deleteCmd;
 	}
 }

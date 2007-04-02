@@ -37,7 +37,8 @@ public class PageEditPart extends AbstractPageEditPart {
 	protected String getType() {
 		return "Page";
 	}
-
+	
+	@Override
 	protected IFigure createFigure() {
 		CubicTestScrollableGroupFigure figure = (CubicTestScrollableGroupFigure) super.createFigure();
 		figure.getHeader().setBackgroundColor(new Color(null, 172, 170, 255));
@@ -45,6 +46,7 @@ public class PageEditPart extends AbstractPageEditPart {
 		return figure;
 	}
 
+	@Override
 	protected List getModelTargetConnections() {
 		Transition trans = ((TransitionNode)getModel()).getInTransition();
 		List<Transition> list = new ArrayList<Transition>();

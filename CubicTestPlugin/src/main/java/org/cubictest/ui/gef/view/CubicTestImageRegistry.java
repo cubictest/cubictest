@@ -63,6 +63,12 @@ public class CubicTestImageRegistry {
 	public static final String CHECKBOX_UNCHECKED_IMAGE = "checkbox";
 
 	public static final String IMAGE_IMAGE = "image";
+	
+	public static final String ALERT_IMAGE = "alert";
+	
+	public static final String CONFIRM_IMAGE = "confirm";
+	
+	public static final String PROMPT_IMAGE = "prompt";
 
 	public static final String CONNECTION_IMAGE = "connection";
 
