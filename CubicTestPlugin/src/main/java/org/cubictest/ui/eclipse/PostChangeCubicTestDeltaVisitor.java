@@ -51,6 +51,7 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 
 	
 	private void closeOpenEditorsOfRemovedFiles(IResource resource, boolean save) throws PartInitException {
+		//get references to windows that should be closed:
 		IWorkbenchWindow window = CubicTestPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow();
 		IWorkbenchPage[] pages = window.getPages();
 		for (int i = 0; i < pages.length; i++) {
@@ -63,6 +64,7 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 				}
 				
 			}
+			//build the array structure that Eclipse expects:
 			Object[] obj = toClose.toArray();
 			IEditorReference[] toCloseArray = new IEditorReference[obj.length];
 			String names = "";
@@ -70,6 +72,8 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 				toCloseArray[j] = (IEditorReference) obj[j];
 				names += toCloseArray[j].getName() + " ";
 			}
+			
+			//close the editors:
 			if (toClose.size() > 0) {
 				ErrorHandler.showInfoDialog("Closing editor(s): " + names);
 				pages[i].closeEditors(toCloseArray, save);
