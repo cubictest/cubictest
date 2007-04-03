@@ -253,8 +253,10 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	
 	public Test getTest(){
 		if (graphicalViewer == null) {
-			return null;
+			//read test from file:
+			return getContent();
 		}
+		//get test from viewer:
 		EditPart part = graphicalViewer.getContents();
 		return (Test)part.getModel();
 	}
