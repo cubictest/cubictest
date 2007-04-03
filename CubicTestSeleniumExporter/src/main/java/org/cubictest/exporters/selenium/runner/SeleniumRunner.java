@@ -8,6 +8,7 @@
 package org.cubictest.exporters.selenium.runner;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.CustomTestStepConverter;
@@ -35,13 +36,21 @@ public class SeleniumRunner implements IRunnableWithProgress {
 		server.start();
 		try {
 			//wait for server to start
-			Thread.sleep(4000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
 		
-		SeleniumHolder seleniumHolder = new SeleniumHolder(server.getPort(), ((UrlStartPoint) test.getStartPoint()).getBeginAt());
+		String url = ((UrlStartPoint) test.getStartPoint()).getBeginAt();
+		Logger.info("Connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + url);
+		SeleniumHolder seleniumHolder = new SeleniumHolder(server.getPort(), "*opera", url);
 		seleniumHolder.getSelenium().start();
+		seleniumHolder.getSelenium().open(url);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 		TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(UrlStartPointConverter.class, 
 				PageElementConverter.class, ContextConverter.class, 
@@ -57,6 +66,7 @@ public class SeleniumRunner implements IRunnableWithProgress {
 		catch (InterruptedException e) {
 			ErrorHandler.logAndShowErrorDialog(e, "Problems stopping the CubicSeleniumServer");
 		}
+		seleniumHolder.getSelenium().stop();
 		
 		monitor.done();
 	}

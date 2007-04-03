@@ -32,6 +32,7 @@ public class SeleniumRunnerServer {
 	                try {
 	        			Logger.info("Starting selenium server at port " + port);
 	                    seleniumServer.start();
+	                    Logger.info("Server started");
 	                }
 	                catch (Exception e) {
 	                    ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error starting selenium server.");

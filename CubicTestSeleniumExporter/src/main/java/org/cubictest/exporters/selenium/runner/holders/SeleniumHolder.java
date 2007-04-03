@@ -15,11 +15,11 @@ public class SeleniumHolder extends ContextHolder {
 
 	private Selenium selenium;
 	
-	public SeleniumHolder(int port, String initialUrl) {
+	public SeleniumHolder(int port, String browser, String initialUrl) {
 		if (port < 80) {
 			throw new ExporterException("Invalid port");
 		}
-		selenium = new DefaultSelenium("localhost", port, "*iexplore", initialUrl);
+		selenium = new DefaultSelenium("localhost", port, browser, initialUrl);
 	}
 	
 	public Selenium getSelenium() {
