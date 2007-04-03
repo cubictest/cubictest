@@ -222,11 +222,11 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				SimpleContext.class, new DataCreationFactory(
 						SimpleContext.class), CubicTestImageRegistry.getDescriptor(CONTEXT_IMAGE), null);
 		contexts.add(tool);
-		tool = new CombinedTemplateCreationEntry("Add Row",
-				"Creates a new table Row",
-				Row.class, new DataCreationFactory(
-						Row.class), CubicTestImageRegistry.getDescriptor(ROW_IMAGE), null);
-		contexts.add(tool);
+//		tool = new CombinedTemplateCreationEntry("Add Row",
+//				"Creates a new table Row",
+//				Row.class, new DataCreationFactory(
+//						Row.class), CubicTestImageRegistry.getDescriptor(ROW_IMAGE), null);
+//		contexts.add(tool);
 
 //		tool = new CombinedTemplateCreationEntry("Add Frame",
 //				"Creates a new Frame",
