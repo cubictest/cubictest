@@ -29,6 +29,10 @@ public class Logger {
 		log(IStatus.WARNING, null, message);
 	}
 
+	public static void warn(Throwable e, String message) {
+		log(IStatus.WARNING, e, message);
+	}
+	
 	public static void info(String message) {
 		log(IStatus.INFO, null, message);
 	}
