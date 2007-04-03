@@ -16,11 +16,6 @@ public class RunnerUtils {
 
 	
 	public static void setStatus(PageElement pe, String actual, String expected) {
-		if (actual.equals(expected)) {
-			pe.setStatus(TestPartStatus.PASS);
-		}
-		else {
-			pe.setStatus(TestPartStatus.FAIL);
-		}
+
 	}
 }

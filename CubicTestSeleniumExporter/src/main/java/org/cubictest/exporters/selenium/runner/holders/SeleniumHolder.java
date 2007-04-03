@@ -1,7 +1,12 @@
 package org.cubictest.exporters.selenium.runner.holders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.holders.ContextHolder;
+import org.cubictest.model.PageElement;
+import org.cubictest.model.TestPartStatus;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
@@ -14,6 +19,8 @@ import com.thoughtworks.selenium.Selenium;
 public class SeleniumHolder extends ContextHolder {
 
 	private Selenium selenium;
+	private List<PageElement> elementsAsserted = new ArrayList<PageElement>();
+	private List<TestPartStatus> results = new ArrayList<TestPartStatus>();
 	
 	public SeleniumHolder(int port, String browser, String initialUrl) {
 		if (port < 80) {
@@ -24,5 +31,19 @@ public class SeleniumHolder extends ContextHolder {
 	
 	public Selenium getSelenium() {
 		return selenium;
+	}
+	
+	public void addResult(PageElement element, TestPartStatus result) {
+		elementsAsserted.add(element);
+		results.add(result);
+	}
+	
+	public String showResults() {
+		int i = 0;
+		for (PageElement element : elementsAsserted) {
+			element.setStatus(results.get(i));
+			i++;
+		}
+		return "Done";
 	}
 }

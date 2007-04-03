@@ -25,7 +25,8 @@ public class SeleniumRunnerServer {
 	
 	public SeleniumRunnerServer() {
 		try {
-			port = findAvailablePort();
+			//port = findAvailablePort();
+			port = 28242; //cubic
 			seleniumServer = new SeleniumServer(port);
 			
 	        serverThread = new Thread(new Runnable() {

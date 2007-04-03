@@ -37,7 +37,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 			}
 
 			Logger.info("Connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + url);
-			seleniumHolder = new SeleniumHolder(server.getPort(), "*opera", url);
+			seleniumHolder = new SeleniumHolder(server.getPort(), "*iexplore", url);
 			seleniumHolder.getSelenium().start();
 			seleniumHolder.getSelenium().open(url);
 			return seleniumHolder;

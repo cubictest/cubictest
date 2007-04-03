@@ -78,6 +78,10 @@ public class SeleniumRunner implements IRunnableWithProgress {
 		monitor.done();
 	}
 
+	public void showResults() {
+		seleniumHolder.showResults();
+	}
+	
 	private String getStartUrl(Test test) {
 		if (test.getStartPoint() instanceof UrlStartPoint) {
 			return ((UrlStartPoint) test.getStartPoint()).getBeginAt();

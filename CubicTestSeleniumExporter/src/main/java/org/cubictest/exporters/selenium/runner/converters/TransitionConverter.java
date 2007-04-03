@@ -91,14 +91,17 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			inputValue = SeleniumUtils.getValue(userInteraction, seleniumHolder);
 		}
 		
-		Method method = null;
-		//invoke user interaction:
+		//invoke user interaction by reflection:
 		if (StringUtils.isBlank(inputValue)) {
-			method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class});
+			
+			//one parameter only
+			Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class});
 			method.invoke(seleniumHolder.getSelenium(), new Object[] {locator});
 		}
 		else {
-			method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class, String.class});
+			
+			//two parameters
+			Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class, String.class});
 			method.invoke(seleniumHolder.getSelenium(), new Object[] {locator, inputValue});
 		}
 	}

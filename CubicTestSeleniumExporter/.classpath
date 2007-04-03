@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-java-client-driver.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-server.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

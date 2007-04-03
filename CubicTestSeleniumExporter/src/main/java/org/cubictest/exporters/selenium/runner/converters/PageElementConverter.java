@@ -38,7 +38,13 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 		if (pe instanceof Title) {
 			String actual = seleniumHolder.getSelenium().getTitle();
 			String expected = pe.getIdentifier(LABEL).getValue();
-			RunnerUtils.setStatus(pe, actual, expected);
+
+			if (actual.equals(expected)) {
+				seleniumHolder.addResult(pe, TestPartStatus.PASS);
+			}
+			else {
+				seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+			}
 		}
 		else {
 			//all other elements
@@ -47,15 +53,15 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 				String value = seleniumHolder.getSelenium().getValue(locator);
 				String text = seleniumHolder.getSelenium().getText(locator);
 				if (value == null && text == null) {
-					pe.setStatus(TestPartStatus.FAIL);
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
 				}
 				else {
-					pe.setStatus(TestPartStatus.PASS);
+					seleniumHolder.addResult(pe, TestPartStatus.PASS);
 				}
 			}
 			catch (SeleniumException e) {
 				Logger.warn(e, "Test step failed");
-				pe.setStatus(TestPartStatus.FAIL);
+				seleniumHolder.addResult(pe, TestPartStatus.FAIL);
 			}
 		}
 	}

@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.internal.EditorPluginAction;
 
 /**
  * Action for running CubicUnit test.
@@ -27,8 +28,7 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	Test test;
 
 	public RunSeleniumRunnerAction() {
-		super();
-		
+		super();	
 	}
 		
 
@@ -36,13 +36,23 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	 * @see IActionDelegate#run(IAction)
 	 */
 	public void run(IAction action) {
+		if( test == null ) {
+			ErrorHandler.showErrorDialog("Could not get test. Close editor and retry");
+			return;
+		}
+
+		IRunnableWithProgress testRunner = null;
 		try {
-			if( test != null ){
-				IRunnableWithProgress testRunner = new SeleniumRunner(test);
-				
-				new ProgressMonitorDialog(new Shell()).run(true, true, testRunner);
+			testRunner = new SeleniumRunner(test);
+			
+			new ProgressMonitorDialog(new Shell()).run(true, true, testRunner);
+			
+			((SeleniumRunner) testRunner).showResults();
+		}
+		catch (Exception e) {
+			if (testRunner != null) {
+				((SeleniumRunner) testRunner).showResults();
 			}
-		}catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialog(e);
 		}
 	}
