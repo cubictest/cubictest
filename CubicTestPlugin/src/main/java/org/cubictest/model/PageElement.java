@@ -217,27 +217,6 @@ public abstract class PageElement extends PropertyAwareObject
 	}
 	
 	/**
-	 * Set main identifier that should have probability = 100 and direct edit set.
-	 * @param idType
-	 * @param value the value of the identifier.
-	 */
-	public void setMainIdentifier(IdentifierType idType, String value) {
-		getIdentifier(idType).setProbability(Identifier.MAX_PROBABILITY);
-		getIdentifier(idType).setValue(value);
-		setDirectEditIdentifier(getIdentifier(idType));
-	}
-
-	/**
-	 * Set identifier that should have probability = 100 and direct edit set.
-	 * @param idType
-	 * @param value the value of the identifier.
-	 */
-	public void setMainIdentifierType(IdentifierType idType) {
-		getIdentifier(idType).setProbability(Identifier.MAX_PROBABILITY);
-		setDirectEditIdentifier(getIdentifier(idType));
-	}
-	
-	/**
 	 * Set identifier on page element.
 	 */
 	public void setIdentifier(IdentifierType idType, String value, int probability, boolean directEdit) {
