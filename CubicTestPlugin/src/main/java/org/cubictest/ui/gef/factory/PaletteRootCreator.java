@@ -164,13 +164,13 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		// -- Creating User interactions --
 		tool = new CombinedTemplateCreationEntry(
 				"Add User Interaction",
-				"Adds a new User Interaction to a page (for e.g. pressing a link or filling out a form)",
+				"Add a new User Interaction to a page (for changing the state of the page, e.g. filling out a form)",
 				new DataCreationFactory(UserInteractionsTransition.class), CubicTestImageRegistry.getDescriptor(USER_INTERACTION_IMAGE), null);
 		controls.add(tool);
 
 		// -- Creating Connections --
 		tool = new ConnectionCreationToolEntry("Add Connection",
-				"Creates a new Connection or User Interaction to an existing target page. Use \"drag and drop\" from source page to target page", 
+				"Create a new Connection or User Interaction. Use \"drag and drop\" from source page to target page", 
 				new DataCreationFactory(Transition.class), CubicTestImageRegistry.getDescriptor(CONNECTION_IMAGE), null);
 		tool.setToolClass(ConnectionDragCreationTool.class);
 		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.TRUE);
@@ -179,7 +179,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 
 		// -- Creating Contexts --
 		tool = new CombinedTemplateCreationEntry("Add Context",
-				"Creates a new Context used for identyfying a part of the page or a single element",
+				"Create a new Context used for identyfying a part of the page. Other page elements can be put into the context.",
 				SimpleContext.class, new DataCreationFactory(
 						SimpleContext.class), CubicTestImageRegistry.getDescriptor(CONTEXT_IMAGE), null);
 		pageElements.add(tool);
@@ -201,25 +201,25 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		// -- Basic Page Elements --
 		
 		tool = new CombinedTemplateCreationEntry("Add a Title",
-				"Check for Title of the document", Title.class,
+				"Check for title of the document", Title.class,
 				new DataCreationFactory(Title.class), CubicTestImageRegistry
 						.getDescriptor(TITLE_IMAGE), null);
 		pageElements.add(tool);
 		
 		tool = new CombinedTemplateCreationEntry("Add a Text",
-				"Check for a Text", Text.class, new DataCreationFactory(
+				"Check for a text on the page", Text.class, new DataCreationFactory(
 						Text.class), CubicTestImageRegistry.getDescriptor(TEXT_IMAGE),
 				null);
 		pageElements.add(tool);
 		
 		tool = new CombinedTemplateCreationEntry("Add a Link",
-				"Check for a Link", Link.class, new DataCreationFactory(
+				"Check for a link on the page", Link.class, new DataCreationFactory(
 						Link.class), CubicTestImageRegistry.getDescriptor(LINK_IMAGE),
 				null);
 		pageElements.add(tool);
 		
 		tool = new CombinedTemplateCreationEntry("Add an Image",
-				"Check for an Image", Image.class, new DataCreationFactory(
+				"Check for an image on the page", Image.class, new DataCreationFactory(
 						Image.class), CubicTestImageRegistry.getDescriptor(IMAGE_IMAGE),
 				null);
 		pageElements.add(tool);
@@ -227,48 +227,48 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		
 		// -- Creating Form Elements --
 		tool = new CombinedTemplateCreationEntry("Add TextField",
-				"Check for a TextField", TextField.class,
+				"Check for a text field on the page", TextField.class,
 				new DataCreationFactory(TextField.class), CubicTestImageRegistry
 						.getDescriptor(TEXT_FIELD_IMAGE), null);
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add Button",
-				"Check for a Button. This is any kind of button",
+				"Check for a button on the page. This is any kind of button",
 				Button.class, new DataCreationFactory(Button.class),
 				CubicTestImageRegistry.getDescriptor(BUTTON_IMAGE), null);
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add CheckBox",
-				"Check for a CheckBox", Checkbox.class,
+				"Check for a check box on the page", Checkbox.class,
 				new DataCreationFactory(Checkbox.class), CubicTestImageRegistry
 						.getDescriptor(CHECKBOX_UNCHECKED_IMAGE), null);
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add RadioButton",
-				"Check for a RadioButton",
+				"Check for a radio button on the page",
 				RadioButton.class, new DataCreationFactory(RadioButton.class),
 				CubicTestImageRegistry.getDescriptor(RADIO_BUTTON_CHECKED_IMAGE), null);
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add SelectList",
-				"Check for a SelectList", Select.class,
+				"Check for a select list on the page", Select.class,
 				new DataCreationFactory(Select.class), CubicTestImageRegistry
 						.getDescriptor(SELECT_IMAGE), null);
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Add Option",
-				"Check for a Option for the SelectList", Option.class,
+				"Check for a option for the select list", Option.class,
 				new DataCreationFactory(Option.class), CubicTestImageRegistry
 						.getDescriptor(OPTION_IMAGE), null);
 		pageElements.add(tool);
 		
 		tool = new CombinedTemplateCreationEntry("Add TextArea",
-				"Check for a TextArea", TextArea.class,
+				"Check for a text area on the page", TextArea.class,
 				new DataCreationFactory(TextArea.class), CubicTestImageRegistry
 						.getDescriptor(TEXT_AREA_IMAGE), null);
 		pageElements.add(tool);
 		tool = new CombinedTemplateCreationEntry("Add PasswordField",
-				"Check for a PasswordField", Password.class,
+				"Check for a password field on the page", Password.class,
 				new DataCreationFactory(Password.class), CubicTestImageRegistry
 						.getDescriptor(PASSWORD_IMAGE), null);
 		pageElements.add(tool);
