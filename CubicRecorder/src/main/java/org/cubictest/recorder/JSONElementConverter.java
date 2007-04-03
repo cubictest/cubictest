@@ -143,9 +143,6 @@ public class JSONElementConverter {
 						if(pe instanceof AbstractTextInput)
 							key = "value";
 						break;
-					case PATH:
-						key = "path";
-						break;
 					case MULTISELECT:
 						key = "multiselect";
 						break;
