@@ -109,7 +109,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 			stepList.add("failedSteps += 1 ", 3);
 			String interactionType = StringUtils.replace(WatirUtils.getInteraction(userInteraction) ,"\"", "\\\"");
 			stepList.add("puts \"Could not " + interactionType + " " + 
-					WatirUtils.getElementType(pe) + " with " + pe.getMainIdentifierType().displayValue() + " = '" + WatirUtils.getIdText(pe) + "'\"", 3);
+					WatirUtils.getElementType(pe) + " with " + pe.getMainIdentifierType() + " = '" + WatirUtils.getIdText(pe) + "'\"", 3);
 	
 			stepList.add("end", 2);
 		}

@@ -49,7 +49,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 			//assert present, set prefix and if label, save selectListID in script to be able to select options
 			
 			Select select = (Select) ctx;
-			stepList.add("# asserting Select box present with " + select.getMainIdentifierType().displayValue() + 
+			stepList.add("# asserting Select box present with " + select.getMainIdentifierType() + 
 					" = " + WatirUtils.getIdText(select), 2);
 			
 			String idText = "\"" + WatirUtils.getIdText(select) + "\"";
@@ -83,7 +83,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 		else if (ctx instanceof Frame){
 			Frame frame = (Frame) ctx;
 			
-			stepList.add("# asserting " + frame.getType() + "present with " + frame.getMainIdentifierType().displayValue() + " = " + WatirUtils.getIdText(frame), 2);
+			stepList.add("# asserting " + frame.getType() + "present with " + frame.getMainIdentifierType() + " = " + WatirUtils.getIdText(frame), 2);
 			
 			stepList.add("begin", 2);
 	
@@ -103,7 +103,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 			if (!(context.getMainIdentifierType().equals(ID)))
 				throw new ExporterException("Contexts must have identifier type = ID for Watir export");
 
-			stepList.add("# asserting " + context.getType() + "present with " + context.getMainIdentifierType().displayValue() + " = " + WatirUtils.getIdText(context), 2);
+			stepList.add("# asserting " + context.getType() + "present with " + context.getMainIdentifierType() + " = " + WatirUtils.getIdText(context), 2);
 			
 			stepList.add("begin", 2);
 	
@@ -122,7 +122,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 		stepList.add("rescue " + StepList.TEST_STEP_FAILED, 2);
 		stepList.add("failedSteps += 1 ", 3);
 
-		stepList.add("puts \"Step failed: Check " + element.getType() + " present with " + element.getMainIdentifierType().displayValue() +
+		stepList.add("puts \"Step failed: Check " + element.getType() + " present with " + element.getMainIdentifierType() +
 				" = '" + WatirUtils.getIdText(element) + "'\"", 3);
 		stepList.add("end", 2);
 
