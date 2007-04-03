@@ -30,7 +30,7 @@ public abstract class FormElementEditPart extends PageElementEditPart{
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
 	protected IFigure createFigure(){
-		TestStepLabel label = new TestStepLabel(((FormElement)getModel()).getDescription());
+		TestStepLabel label = new TestStepLabel(((FormElement)getModel()).getDirectEditIdentifier().getValue());
 		label.setIcon(getImage(getModel().isNot()));
 		label.setLabelAlignment(PositionConstants.LEFT);
 		return label;

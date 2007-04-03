@@ -39,7 +39,7 @@ public class PageTitleEditPart extends PageElementEditPart{
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
 	protected IFigure createFigure() {
-		TestStepLabel label =  new TestStepLabel(((Title)getModel()).getDescription());
+		TestStepLabel label =  new TestStepLabel(((Title)getModel()).getDirectEditIdentifier().getValue());
 		
 		label.setLayoutManager(ViewUtil.getFlowLayout());
 		label.setLabelAlignment(PositionConstants.LEFT);

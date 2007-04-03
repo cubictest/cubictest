@@ -44,7 +44,7 @@ public class DummyConverter implements
 	}
 
 	public void handlePageElement(AssertionList<String> AssertionList, PageElement e) {
-		AssertionList.add(e.getDescription());
+		AssertionList.add(e.getDirectEditIdentifier().getValue());
 	}
 
 	public void handleUserInteractions(AssertionList<String> AssertionList, UserInteractionsTransition userInteractions) {

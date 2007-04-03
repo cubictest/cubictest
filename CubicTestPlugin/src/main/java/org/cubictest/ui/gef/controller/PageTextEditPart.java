@@ -37,7 +37,7 @@ public class PageTextEditPart extends PageElementEditPart{
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
 	protected IFigure createFigure() {
-		TestStepLabel label =  new TestStepLabel(((Text)getModel()).getDescription());
+		TestStepLabel label =  new TestStepLabel(((Text)getModel()).getDirectEditIdentifier().getValue());
 		label.setIcon(getImage(((Text)getModel()).isNot()));
 		
 		label.setLayoutManager(ViewUtil.getFlowLayout());

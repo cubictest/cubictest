@@ -70,8 +70,8 @@ public class FormSelectEditPart extends FormElementEditPart {
 					TextCellEditor.class,
 					new CubicTestEditorLocator(
 							((CubicTestGroupFigure)getFigure()).getHeader()),
-					getModel().getDescription());
-		manager.setText(getModel().getDescription());
+					getModel().getDirectEditIdentifier().getValue());
+		manager.setText(getModel().getDirectEditIdentifier().getValue());
 		manager.show();
 	}
 

@@ -26,7 +26,7 @@ public class PageImageEditPart extends PageElementEditPart {
 
 	@Override
 	protected IFigure createFigure() {
-		TestStepLabel label =  new TestStepLabel(getModel().getDescription());
+		TestStepLabel label =  new TestStepLabel(getModel().getDirectEditIdentifier().getValue());
 		label.setIcon(getImage(((Image)getModel()).isNot()));
 		
 		label.setLayoutManager(ViewUtil.getFlowLayout());
