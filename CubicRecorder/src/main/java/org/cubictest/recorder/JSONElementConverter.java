@@ -113,7 +113,7 @@ public class JSONElementConverter {
 			}
 			
 			for(IdentifierType type : pe.getIdentifierTypes()){
-				String key = "";
+				String key = null;
 				switch (type){
 					case CHECKED:
 						pe.getIdentifier(type).setValue("");
@@ -153,9 +153,11 @@ public class JSONElementConverter {
 						key = "index";
 						break;
 				}	
-				Identifier identifier = pe.getIdentifier(type);
-				identifier.setValue(getString(properties, key));
-				identifier.setProbability(100);	
+				if (pe != null){
+					Identifier identifier = pe.getIdentifier(type);
+					identifier.setValue(getString(properties, key));
+					identifier.setProbability(100);
+				}
 			}
 			pageElements.put(getString(properties, "cubicId"), pe);
 			
