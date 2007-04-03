@@ -18,9 +18,10 @@ import org.openqa.selenium.server.SeleniumServer;
  */
 public class SeleniumRunnerServer {
 
-	private SeleniumServer seleniumServer;
-	private Thread serverThread;
-	private int port;
+	SeleniumServer seleniumServer;
+	Thread serverThread;
+	int port;
+	boolean started;
 	
 	public SeleniumRunnerServer() {
 		try {
@@ -32,6 +33,7 @@ public class SeleniumRunnerServer {
 	                try {
 	        			Logger.info("Starting selenium server at port " + port);
 	                    seleniumServer.start();
+	                    started = true;
 	                    Logger.info("Server started");
 	                }
 	                catch (Exception e) {
@@ -73,5 +75,9 @@ public class SeleniumRunnerServer {
 
 	public int getPort() {
 		return port;
+	}
+
+	public boolean isStarted() {
+		return started;
 	}
 }

@@ -38,6 +38,9 @@ public class ExportToSeleniumEditorAction implements IEditorActionDelegate {
 	 * @see IActionDelegate#run(IAction)
 	 */
 	public void run(IAction action) {
+		if (selection == null) {
+			ErrorHandler.showErrorDialog("Could not export test (selection unavailable).");
+		}
 		
 		try {
 			//callback to CubicTest with the selected files
@@ -64,7 +67,9 @@ public class ExportToSeleniumEditorAction implements IEditorActionDelegate {
 
 
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
-		selection = new StructuredSelection(((FileEditorInput)targetEditor.getEditorInput()).getFile());
+		if (targetEditor != null) {
+			selection = new StructuredSelection(((FileEditorInput)targetEditor.getEditorInput()).getFile());
+		}
 	}
 
 }

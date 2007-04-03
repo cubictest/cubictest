@@ -40,7 +40,7 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 			if( test != null ){
 				IRunnableWithProgress testRunner = new SeleniumRunner(test);
 				
-				new ProgressMonitorDialog(new Shell()).run(false, false, testRunner);
+				new ProgressMonitorDialog(new Shell()).run(true, true, testRunner);
 			}
 		}catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialog(e);
@@ -52,7 +52,7 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	 * Set active editor and get the Test.
 	 */
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
-		if (targetEditor instanceof ITestEditor) {
+		if (targetEditor != null && targetEditor instanceof ITestEditor) {
 			test = ((ITestEditor) targetEditor).getTest();
 		}
 	}

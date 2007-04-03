@@ -9,6 +9,7 @@ package org.cubictest.exporters.selenium.runner.converters;
 
 import static org.cubictest.model.IdentifierType.LABEL;
 
+import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.selenium.runner.RunnerUtils;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
@@ -16,6 +17,8 @@ import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.Title;
+
+import com.thoughtworks.selenium.SeleniumException;
 
 /**
  * This class is responsible for converting PageElements to Selenese rows 
@@ -40,13 +43,19 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 		else {
 			//all other elements
 			String locator = SeleniumUtils.getLocator(pe, seleniumHolder);
-			String value = seleniumHolder.getSelenium().getValue(locator);
-			String text = seleniumHolder.getSelenium().getText(locator);
-			if (value == null && text == null) {
-				pe.setStatus(TestPartStatus.FAIL);
+			try {
+				String value = seleniumHolder.getSelenium().getValue(locator);
+				String text = seleniumHolder.getSelenium().getText(locator);
+				if (value == null && text == null) {
+					pe.setStatus(TestPartStatus.FAIL);
+				}
+				else {
+					pe.setStatus(TestPartStatus.PASS);
+				}
 			}
-			else {
-				pe.setStatus(TestPartStatus.PASS);
+			catch (SeleniumException e) {
+				Logger.warn(e, "Test step failed");
+				pe.setStatus(TestPartStatus.FAIL);
 			}
 		}
 	}

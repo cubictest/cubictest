@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
@@ -50,7 +51,8 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			try {
 				handleUserInteraction(seleniumHolder, action);
 			} catch (SeleniumException e) {
-				ErrorHandler.showWarnDialog("Test failed: Could not " + SeleniumUtils.getCommandDescription(action.getActionType(), actionElement));
+				Logger.warn(e, "Test step failed");
+				ErrorHandler.showWarnDialog("Test step failed: Could not " + SeleniumUtils.getCommandDescription(action.getActionType(), actionElement));
 			} catch (Exception e) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error invoking Selenium command.");
 			}
@@ -91,7 +93,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 		
 		Method method = null;
 		//invoke user interaction:
-		if (inputValue == null) {
+		if (StringUtils.isBlank(inputValue)) {
 			method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class});
 			method.invoke(seleniumHolder.getSelenium(), new Object[] {locator});
 		}
