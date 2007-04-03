@@ -4,12 +4,14 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Title;
 import org.cubictest.model.context.SimpleContext;
+import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Password;
@@ -110,40 +112,51 @@ public class JSONElementConverter {
 				return null;
 			}
 			
-			if(getString(properties, "tagName").equals("DIV")) {
-				pe.setMainIdentifierType(IdentifierType.ID);
-				pe.setMainIdentifierValue(getString(properties, "id"));
-			} else if(getString(properties, "tagName").equals("IMG")) {
-				if(getString(properties, "id") != null && !getString(properties, "id").equals("")) {
-					pe.setMainIdentifierType(IdentifierType.ID);
-					pe.setMainIdentifierValue(getString(properties, "id"));
-				} else {
-					pe.setMainIdentifierType(IdentifierType.LABEL);
-					pe.setMainIdentifierValue(getString(properties, "src"));			
-				}
-			} else if(getString(properties, "tagName").equals("BUTTON") || 
-			  (getString(properties, "tagName").equals("INPUT") && 
-			    (getString(properties, "type").equals("button") || getString(properties, "type").equals("submit")))) {
-				pe.setMainIdentifierType(IdentifierType.LABEL);
-				pe.setMainIdentifierValue(getString(properties, "value"));
-			} else if(getString(properties, "tagName").equals("A")) {
-				String text = getString(properties, "innerHTML").trim();
-				pe.setMainIdentifierType(IdentifierType.LABEL);
-				pe.setMainIdentifierValue(text);
-			} else if(getString(properties, "tagName").equals("TITLE")) {
-				pe.setMainIdentifierType(IdentifierType.LABEL);
-				pe.setMainIdentifierValue(getString(properties, "innerHTML").trim());
-			} else if(getString(element, "label") != null && !getString(element, "label").equals("")) {
-				pe.setMainIdentifierType(IdentifierType.LABEL);
-				pe.setMainIdentifierValue(getString(element, "label").trim());
-			} else if(getString(properties, "id") != null && !getString(properties, "id").equals("")) {
-				pe.setMainIdentifierType(IdentifierType.ID);				
-				pe.setMainIdentifierValue(getString(properties, "id"));
-			} else if(getString(properties, "name") != null && !getString(properties, "name").equals("")) {
-				pe.setMainIdentifierType(IdentifierType.NAME);
-				pe.setMainIdentifierValue(getString(properties, "name"));
+			for(IdentifierType type : pe.getIdentifierTypes()){
+				String key = "";
+				switch (type){
+					case CHECKED:
+						pe.getIdentifier(type).setValue("");
+						break;
+					case ID:
+						key = "id";
+						break;
+					case SRC:
+						key = "src";
+						break;
+					case LABEL:
+						if(pe instanceof Button)
+							key = "value";
+						else if (pe instanceof Link || pe instanceof Title)
+							key = "innerHTML";
+						break;
+					case NAME:
+						key = "name";
+						break;
+					case HREF:
+						key = "href";
+						break;
+					case TITLE:
+						key = "title";
+						break;
+					case VALUE:
+						if(pe instanceof AbstractTextInput)
+							key = "value";
+						break;
+					case PATH:
+						key = "path";
+						break;
+					case MULTISELECT:
+						key = "multiselect";
+						break;
+					case INDEX:
+						key = "index";
+						break;
+				}	
+				Identifier identifier = pe.getIdentifier(type);
+				identifier.setValue(getString(properties, key));
+				identifier.setProbability(100);	
 			}
-			
 			pageElements.put(getString(properties, "cubicId"), pe);
 			
 			return pe;
