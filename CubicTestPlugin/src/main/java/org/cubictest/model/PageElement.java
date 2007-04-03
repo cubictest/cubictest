@@ -96,7 +96,7 @@ public abstract class PageElement extends PropertyAwareObject
 	 * Set the value of the Direct Edit identifieer.
 	 */
 	public void setText(String text) {
-		setMainIdentifierValue(text);
+		getDirectEditIdentifier().setValue(text);
 	}
 	
 	/**
@@ -235,17 +235,6 @@ public abstract class PageElement extends PropertyAwareObject
 	public void setMainIdentifierType(IdentifierType idType) {
 		getIdentifier(idType).setProbability(Identifier.MAX_PROBABILITY);
 		setDirectEditIdentifier(getIdentifier(idType));
-	}
-	
-	/**
-	 * Set identifier that should have probability = 100 and direct edit set.
-	 * @param idType
-	 * @param value the value of the identifier.
-	 */
-	public void setMainIdentifierValue(String value) {
-		String oldText = getText();
-		getDirectEditIdentifier().setValue(value);
-		firePropertyChange(PropertyAwareObject.NAME, oldText, value);
 	}
 	
 	/**
