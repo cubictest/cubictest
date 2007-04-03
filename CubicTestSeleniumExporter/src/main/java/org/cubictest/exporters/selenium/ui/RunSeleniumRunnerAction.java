@@ -5,7 +5,7 @@
 package org.cubictest.exporters.selenium.ui;
 
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.exporters.selenium.runner.SeleniumRunner;
+import org.cubictest.exporters.selenium.runner.RunnerSetup;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.jface.action.IAction;
@@ -43,15 +43,15 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 
 		IRunnableWithProgress testRunner = null;
 		try {
-			testRunner = new SeleniumRunner(test);
+			testRunner = new RunnerSetup(test);
 			
 			new ProgressMonitorDialog(new Shell()).run(true, true, testRunner);
 			
-			((SeleniumRunner) testRunner).showResults();
+			((RunnerSetup) testRunner).showResults();
 		}
 		catch (Exception e) {
 			if (testRunner != null) {
-				((SeleniumRunner) testRunner).showResults();
+				((RunnerSetup) testRunner).showResults();
 			}
 			ErrorHandler.logAndShowErrorDialog(e);
 		}

@@ -21,7 +21,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 
 	public enum Operation {START, STOP};
 
-	SeleniumRunnerServer server;
+	CubicSeleniumServer server;
 	SeleniumHolder seleniumHolder;
 	public Operation operation = START;
 	private String url;
@@ -29,7 +29,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 	
 	public SeleniumHolder call() throws InterruptedException {
 		if (START.equals(operation)) {
-			server = new SeleniumRunnerServer();
+			server = new CubicSeleniumServer();
 			server.start();
 			while (!server.isStarted()) {
 				//wait for server thread to start
@@ -62,7 +62,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 					ErrorHandler.logAndRethrow(e, "Error when stopping server");
 				}
 			}	
-			return null;
+			return seleniumHolder;
 		}
 	}
 

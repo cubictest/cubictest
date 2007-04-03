@@ -1,4 +1,4 @@
-package org.cubictest.exporters.selenium.holders;
+package org.cubictest.exporters.selenium.selenese.holders;
 
 import org.apache.commons.lang.StringUtils;
 import org.jdom.Element;

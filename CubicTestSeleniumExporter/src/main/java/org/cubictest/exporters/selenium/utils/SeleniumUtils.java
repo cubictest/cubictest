@@ -25,8 +25,7 @@ import static org.cubictest.model.IdentifierType.NAME;
 import static org.cubictest.model.IdentifierType.VALUE;
 
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.selenium.holders.ContextHolder;
-import org.cubictest.exporters.selenium.holders.SeleneseDocument;
+import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.IActionElement;

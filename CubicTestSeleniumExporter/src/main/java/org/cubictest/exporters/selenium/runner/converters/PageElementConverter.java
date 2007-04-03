@@ -12,7 +12,6 @@ import static org.cubictest.model.IdentifierType.LABEL;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
-import org.cubictest.exporters.selenium.runner.util.RunnerUtils;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;

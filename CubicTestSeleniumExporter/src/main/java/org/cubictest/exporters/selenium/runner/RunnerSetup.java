@@ -34,7 +34,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
  * @author Christian
  *
  */
-public class SeleniumRunner implements IRunnableWithProgress {
+public class RunnerSetup implements IRunnableWithProgress {
 
 	Test test;
 	SeleniumHolder seleniumHolder;
@@ -42,7 +42,7 @@ public class SeleniumRunner implements IRunnableWithProgress {
 	private static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
 
 	
-	public SeleniumRunner(Test test) {
+	public RunnerSetup(Test test) {
 		this.test = test;
 	}
 	

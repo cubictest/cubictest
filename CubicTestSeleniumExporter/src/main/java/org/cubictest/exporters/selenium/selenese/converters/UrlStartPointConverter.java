@@ -5,10 +5,10 @@
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  * 
 */
-package org.cubictest.exporters.selenium.converters;
+package org.cubictest.exporters.selenium.selenese.converters;
 
 import org.cubictest.export.converters.IUrlStartPointConverter;
-import org.cubictest.exporters.selenium.holders.SeleneseDocument;
+import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
 import org.cubictest.model.UrlStartPoint;
 
 /**

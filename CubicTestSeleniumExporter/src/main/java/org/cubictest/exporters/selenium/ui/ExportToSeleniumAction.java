@@ -6,12 +6,12 @@ package org.cubictest.exporters.selenium.ui;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.CubicTestExport;
-import org.cubictest.exporters.selenium.converters.ContextConverter;
-import org.cubictest.exporters.selenium.converters.CustomTestStepConverter;
-import org.cubictest.exporters.selenium.converters.PageElementConverter;
-import org.cubictest.exporters.selenium.converters.TransitionConverter;
-import org.cubictest.exporters.selenium.converters.UrlStartPointConverter;
-import org.cubictest.exporters.selenium.holders.SeleneseDocument;
+import org.cubictest.exporters.selenium.selenese.converters.ContextConverter;
+import org.cubictest.exporters.selenium.selenese.converters.CustomTestStepConverter;
+import org.cubictest.exporters.selenium.selenese.converters.PageElementConverter;
+import org.cubictest.exporters.selenium.selenese.converters.TransitionConverter;
+import org.cubictest.exporters.selenium.selenese.converters.UrlStartPointConverter;
+import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;

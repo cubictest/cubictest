@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.selenium.holders.ContextHolder;
+import org.cubictest.exporters.selenium.utils.ContextHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 

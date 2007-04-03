@@ -16,14 +16,14 @@ import org.openqa.selenium.server.SeleniumServer;
  * 
  * @author Christian Schwarz
  */
-public class SeleniumRunnerServer {
+public class CubicSeleniumServer {
 
 	SeleniumServer seleniumServer;
 	Thread serverThread;
 	int port;
 	boolean started;
 	
-	public SeleniumRunnerServer() {
+	public CubicSeleniumServer() {
 		try {
 			//port = findAvailablePort();
 			port = 28242; //cubic
