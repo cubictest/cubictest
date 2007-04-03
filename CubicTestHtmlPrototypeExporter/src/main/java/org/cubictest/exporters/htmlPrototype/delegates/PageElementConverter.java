@@ -51,7 +51,7 @@ public class PageElementConverter implements IPageElementConverter {
 			imageElement.setAttribute("src", image.getText());
 			linkElement.addContent(imageElement);
 		} else {
-			linkElement.addContent("[IMG]" + image.getDescription());
+			linkElement.addContent("[IMG]" + image.getMainIdentifierType() + " = " + image.getMainIdentifierValue());
 		}
 		
 		return linkElement;
@@ -78,16 +78,16 @@ public class PageElementConverter implements IPageElementConverter {
 		String type = fe.getClass().getSimpleName().toLowerCase();
 		Element input;
 		
-		if(!type.equals("select")) {
-			input = new Element("input");
-			input.setAttribute("type", fe.getClass().getSimpleName().toLowerCase());
-			input.setAttribute("value", value);
-		} else {
+		if(type.equals("select")) {
 			input = new Element("select");
 			Element option = new Element("option");
 			option.setAttribute("value", value);
 			option.setText(value);
 			input.addContent(option);
+		} else {
+			input = new Element("input");
+			input.setAttribute("type", fe.getClass().getSimpleName().toLowerCase());
+			input.setAttribute("value", value);
 		}
 		input.setAttribute("name", name);
 		input.setAttribute("id", name);											

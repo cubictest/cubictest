@@ -19,6 +19,7 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.FormElement;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Link;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
@@ -150,7 +151,7 @@ public class HtmlPageCreator {
 
 		
 		if(pe instanceof Title) {
-			title.setText(pe.getDescription());
+			title.setText(pe.getIdentifier(IdentifierType.LABEL).getValue());
 		}
 		
 		
