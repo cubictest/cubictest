@@ -25,6 +25,7 @@ import static org.cubictest.model.IdentifierType.NAME;
 import static org.cubictest.model.IdentifierType.VALUE;
 
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.selenium.holders.ContextHolder;
 import org.cubictest.exporters.selenium.holders.SeleneseDocument;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.FormElement;
@@ -56,15 +57,15 @@ public class SeleniumUtils {
 	 * @param element
 	 * @return
 	 */
-	public static String getLocator(IActionElement element, SeleneseDocument doc) {
+	public static String getLocator(IActionElement element, ContextHolder contextHolder) {
 		if (element instanceof WebBrowser) {
 			return "";
 		}
 		PageElement pe = (PageElement) element;
 
 		IdentifierType idType = pe.getMainIdentifierType();
-		String idText = getIdText(pe);
-		String context = doc.getFullContext();
+		String idText = pe.getMainIdentifierValue();
+		String context = contextHolder.getFullContext();
 		
 		if (idType.equals(ID)) {
 			return "xpath=" + context + getHtmlElementType(pe) + "[@id=\"" + idText + "\"]";
@@ -99,15 +100,7 @@ public class SeleniumUtils {
 		}
 	}
 	
-	
-	/**
-	 * Get the identifier value of the most significant identifier.
-	 * @param pe
-	 * @return
-	 */
-	public static String getIdText(PageElement pe) {
-		return pe.getMainIdentifierValue();
-	}
+
 	
 	/**
 	 * Get the HTML element type for the page element.
@@ -247,7 +240,7 @@ public class SeleniumUtils {
 	 * Get the value for a Selenium command (get value for third column in a Selenese row).
 	 * @param userInteraction
 	 */
-	public static String getValue(UserInteraction userInteraction, SeleneseDocument doc) {
+	public static String getValue(UserInteraction userInteraction, ContextHolder contextHolder) {
 		ActionType a = userInteraction.getActionType();
 		
 		if (a.equals(ENTER_TEXT) || a.equals(ENTER_PARAMETER_TEXT))

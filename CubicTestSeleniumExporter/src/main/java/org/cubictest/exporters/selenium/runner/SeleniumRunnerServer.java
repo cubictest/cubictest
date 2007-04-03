@@ -1,0 +1,76 @@
+/*
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ */
+package org.cubictest.exporters.selenium.runner;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+
+import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
+import org.openqa.selenium.server.SeleniumServer;
+
+/**
+ * Selenium server used by the runner.
+ * 
+ * @author Christian Schwarz
+ */
+public class SeleniumRunnerServer {
+
+	private SeleniumServer seleniumServer;
+	private Thread serverThread;
+	private int port;
+	
+	public SeleniumRunnerServer() {
+		try {
+			port = findAvailablePort();
+			seleniumServer = new SeleniumServer(port);
+			
+	        serverThread = new Thread(new Runnable() {
+	            public void run() {
+	                try {
+	        			Logger.info("Starting selenium server at port " + port);
+	                    seleniumServer.start();
+	                }
+	                catch (Exception e) {
+	                    ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error starting selenium server.");
+	                }
+	            }
+	        });
+	        
+		} catch (Exception e) {
+            ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error starting selenium server.");
+		}
+	}
+	
+	/**
+	 * Starts the server.
+	 */
+	public void start() {
+        serverThread.start();
+		
+	}
+	
+	/**
+	 * Stops the server.
+	 * @throws InterruptedException
+	 */
+	public void stop() throws InterruptedException{
+		Logger.info("Stopping selenium server at port " + port);
+		seleniumServer.stop();
+	}
+	
+	
+	private int findAvailablePort() throws IOException {
+		ServerSocket s = new ServerSocket();
+		s.bind(null);
+		int port = s.getLocalPort();
+		s.close();
+		return port;
+	}
+
+	public int getPort() {
+		return port;
+	}
+}

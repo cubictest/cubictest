@@ -2,11 +2,11 @@
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  */
-package org.cubictest.exporters.selenium.converters;
+package org.cubictest.exporters.selenium.runner.converters;
 
 import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.selenium.holders.SeleneseDocument;
+import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.CustomTestStep;
 
 /**
@@ -14,10 +14,10 @@ import org.cubictest.model.CustomTestStep;
  * 
  * @author chr_schwarz
  */
-public class CustomTestStepConverter implements ICustomTestStepConverter<SeleneseDocument> {
+public class CustomTestStepConverter implements ICustomTestStepConverter<SeleniumHolder> {
 
-	public void handleCustomStep(SeleneseDocument t, CustomTestStep cts) {
-		throw new ExporterException("Custom test step not supported in Selenium exporter yet");
+	public void handleCustomStep(SeleniumHolder seleniumHolder, CustomTestStep cts) {
+		throw new ExporterException("Custom test step not supported in Selenium runner yet");
 	}
 
 }

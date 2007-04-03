@@ -13,4 +13,6 @@ Require-Bundle: org.eclipse.ui,
 Eclipse-LazyStart: true
 Bundle-ClassPath: .,
  lib/commons-lang-2.0.jar,
- lib/jdom.jar
+ lib/jdom.jar,
+ lib/selenium-java-client-driver.jar,
+ lib/selenium-server.jar

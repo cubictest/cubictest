@@ -7,9 +7,12 @@
 */
 package org.cubictest.exporters.selenium.converters;
 
+import static org.cubictest.model.IdentifierType.LABEL;
+
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.selenium.holders.SeleneseDocument;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Title;
 
@@ -29,7 +32,7 @@ public class PageElementConverter implements IPageElementConverter<SeleneseDocum
 	public void handlePageElement(SeleneseDocument doc, PageElement pe) {
 
 		if (pe instanceof Title) {
-			doc.addCommand("verifyTitle", SeleniumUtils.getIdText(pe)).setDescription("Check present = " + pe);
+			doc.addCommand("verifyTitle", pe.getIdentifier(LABEL).getValue()).setDescription("Check present = " + pe);
 		}
 		else {
 			//all other elements

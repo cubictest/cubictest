@@ -4,14 +4,8 @@
 */
 package org.cubictest.exporters.selenium.holders;
 
-import java.util.Stack;
-
 import org.cubictest.export.IResultHolder;
 import org.cubictest.exporters.selenium.utils.XmlUtils;
-import org.cubictest.model.IdentifierType;
-import org.cubictest.model.context.AbstractContext;
-import org.cubictest.model.context.IContext;
-import org.cubictest.model.formElement.Select;
 import org.jdom.Document;
 import org.jdom.Element;
 
@@ -20,7 +14,7 @@ import org.jdom.Element;
  * 
  * @author chr_schwarz
  */
-public class SeleneseDocument implements IResultHolder {
+public class SeleneseDocument extends ContextHolder implements IResultHolder {
 
 	/** The root element of the document */
 	private Element rootElement;
@@ -28,9 +22,6 @@ public class SeleneseDocument implements IResultHolder {
 	/** The table to add commands (rows) to */
 	private Element table;
 	
-	/** The XPath starting point (path) for lookup of elements. */
-	private Stack<String> context = new Stack<String>(); 
-
 	
 	/**
 	 * Public constructor.
@@ -38,9 +29,6 @@ public class SeleneseDocument implements IResultHolder {
 	public SeleneseDocument() {
 
 		setUpHtmlPage();
-		
-		//Setting default context to be anywhere in the document ("//" in XPath)
-		context.push("//");
 	}
 
 
@@ -66,53 +54,13 @@ public class SeleneseDocument implements IResultHolder {
 	/**
 	 * Get string representation of the document (for e.g. file write).
 	 */
+	@Override
 	public String toResultString() {
 		Document document = new Document(rootElement);
 		return XmlUtils.getNewXmlOutputter().outputString(document);
 	}
 	
-	
-	/**
-	 * Set new context, i.e. XPath starting point (path) for lookup of elements.
-	 * @param ctx
-	 */
-	public void pushContext(IContext ctx) {
-		if (ctx instanceof Select) {
-			Select select = (Select) ctx;
-			context.push("select[@id=\"" + select.getIdentifier(IdentifierType.ID) + "\"]//");
-		}
-		else if (ctx instanceof AbstractContext) {
-			AbstractContext abstractContext = (AbstractContext) ctx;
-			context.push("*[@id=\"" + abstractContext.getIdentifier(IdentifierType.ID) + "\"]//");
-		}
-	}
 
-	
-	/**
-	 * Get the previous context, i.e. the previous XPath starting point (path) for lookup of elements.
-	 */
-	public void popContext() {
-		context.pop();
-	}
-	
-	
-	/**
-	 * Get the currenct active context, appending all known contexts into an XPath string 
-	 * that can be used for lookup of elements.
-	 * @return 
-	 */
-	public String getFullContext() {
-		StringBuffer buff = new StringBuffer();
-		
-		//Concatenate known contexts to a single XPath line:
-		//First in First Out: 
-		for (String contextPart : context) {
-			buff.append(contextPart);
-		}
-		
-		//return the full, concatenated context:
-		return buff.toString();
-	}
 	
 	
 	/**
