@@ -8,6 +8,7 @@
 package org.cubictest.exporters.cubicunit.runner.converters;
 
 import org.cubictest.export.converters.ITransitionConverter;
+import org.cubictest.exporters.cubicunit.runner.holders.Holder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UserInteraction;

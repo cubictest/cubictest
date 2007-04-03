@@ -5,6 +5,7 @@
 package org.cubictest.exporters.cubicunit.runner.converters;
 
 import org.cubictest.export.converters.ICustomTestStepConverter;
+import org.cubictest.exporters.cubicunit.runner.holders.Holder;
 import org.cubictest.model.CustomTestStep;
 
 public class CustomTestStepConverter implements ICustomTestStepConverter<Holder> {

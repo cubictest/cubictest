@@ -8,6 +8,7 @@
 package org.cubictest.exporters.cubicunit.runner.converters;
 
 import org.cubictest.export.converters.IUrlStartPointConverter;
+import org.cubictest.exporters.cubicunit.runner.holders.Holder;
 import org.cubictest.model.UrlStartPoint;
 import org.cubicunit.Browser;
 import org.cubicunit.Document;
