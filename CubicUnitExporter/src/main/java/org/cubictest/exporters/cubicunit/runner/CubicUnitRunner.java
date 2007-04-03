@@ -7,6 +7,7 @@
  */
 package org.cubictest.exporters.cubicunit.runner;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.exporters.cubicunit.runner.converters.ContextConverter;
 import org.cubictest.exporters.cubicunit.runner.converters.CustomTestStepConverter;
@@ -15,6 +16,7 @@ import org.cubictest.exporters.cubicunit.runner.converters.Holder;
 import org.cubictest.exporters.cubicunit.runner.converters.TransitionConverter;
 import org.cubictest.exporters.cubicunit.runner.converters.UrlStartPointConverter;
 import org.cubictest.model.Test;
+import org.cubicunit.internal.selenium.CubicSeleniumServer;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
@@ -34,6 +36,8 @@ public class CubicUnitRunner implements IRunnableWithProgress, ILaunchConfigurat
 		//	Set up dependency hierarchy:
 		Holder holder = new Holder();
 		
+		CubicSeleniumServer server = new CubicSeleniumServer(4444);
+		
 		TreeTestWalker<Holder> testWalker = new TreeTestWalker<Holder>(UrlStartPointConverter.class, 
 				ElementConverter.class, ContextConverter.class, 
 				TransitionConverter.class,CustomTestStepConverter.class);
@@ -41,6 +45,13 @@ public class CubicUnitRunner implements IRunnableWithProgress, ILaunchConfigurat
 		monitor.beginTask("Traversing the test model...", IProgressMonitor.UNKNOWN);
 		
 		testWalker.convertTest(test, holder);
+		
+		try {
+			server.stop();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialog(e, "Problems stopping the CubicSeleniumServer");
+		}
 		
 		monitor.done();
 	}

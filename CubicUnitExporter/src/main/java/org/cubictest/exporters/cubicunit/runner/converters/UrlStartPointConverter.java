@@ -12,18 +12,19 @@ import org.cubictest.model.UrlStartPoint;
 import org.cubicunit.Browser;
 import org.cubicunit.Document;
 import org.cubicunit.WebTester;
+import org.cubicunit.internal.selenium.SeleniumBrowserType;
 
 public class UrlStartPointConverter implements IUrlStartPointConverter<Holder> {
 
-	public void handleUrlStartPoint(Holder holder, UrlStartPoint point) {
-		if (point instanceof UrlStartPoint) {
-			Browser browser = WebTester.internetExplorer();
-			browser.setVisible(true);
-			holder.addBrowser(browser);
-			UrlStartPoint urlStartPoint = (UrlStartPoint) point;
-			
-			Document document = browser.goTo(urlStartPoint.getBeginAt());
-			holder.setContainer(document);
-		}
+	public void handleUrlStartPoint(Holder holder, UrlStartPoint urlStartPoint) {	
+		String url = urlStartPoint.getBeginAt();
+		
+		Browser browser = WebTester.selenium(SeleniumBrowserType.FIREFOX);
+		browser.setVisible(true);
+		holder.addBrowser(browser);
+		
+		Document document = browser.goTo(url);
+		holder.setContainer(document);
+	
 	}
 }

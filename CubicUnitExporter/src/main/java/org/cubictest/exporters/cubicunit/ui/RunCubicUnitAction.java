@@ -8,6 +8,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.exporters.cubicunit.runner.CubicUnitRunner;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
+import org.cubicunit.internal.selenium.CubicSeleniumServer;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -37,9 +38,11 @@ public class RunCubicUnitAction implements IEditorActionDelegate {
 	 */
 	public void run(IAction action) {
 		try {
-			IRunnableWithProgress testRunner = new CubicUnitRunner(test);
-
-			new ProgressMonitorDialog(new Shell()).run(false, false, testRunner);
+			if( test != null ){
+				IRunnableWithProgress testRunner = new CubicUnitRunner(test);
+				
+				new ProgressMonitorDialog(new Shell()).run(false, false, testRunner);
+			}
 		}catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialog(e);
 		}
