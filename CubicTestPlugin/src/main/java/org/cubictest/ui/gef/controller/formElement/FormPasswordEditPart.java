@@ -30,16 +30,6 @@ public class FormPasswordEditPart extends FormElementEditPart {
 		super();
 		setModel(password);
 	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
-	protected IFigure createFigure() {
-		TestStepLabel label = (TestStepLabel) super.createFigure();
-		label.setTooltipText("Check password present: $labelText");
-		return label;
-	}
-
 	@Override
 	protected Image getImage(boolean isNot) {
 		return CubicTestImageRegistry.get(

@@ -29,15 +29,6 @@ public class FormTextFieldEditPart extends FormElementEditPart {
 		setModel(field);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
-	protected IFigure createFigure() {
-		TestStepLabel label = (TestStepLabel)super.createFigure();
-		label.setTooltipText("Check text field present: $labelText");
-		return label;
-	}
-
 	@Override
 	protected Image getImage(boolean isNot) {
 		return CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_FIELD_IMAGE,isNot);

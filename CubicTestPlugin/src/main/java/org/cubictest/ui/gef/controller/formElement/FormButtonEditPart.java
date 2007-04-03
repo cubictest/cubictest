@@ -9,8 +9,6 @@ package org.cubictest.ui.gef.controller.formElement;
 
 import org.cubictest.model.formElement.Button;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.TestStepLabel;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.graphics.Image;
 
 
@@ -28,15 +26,6 @@ public class FormButtonEditPart extends FormElementEditPart {
 	 */
 	public FormButtonEditPart(Button button) {
 		setModel(button);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
-	protected IFigure createFigure() {
-		TestStepLabel label = (TestStepLabel) super.createFigure();
-		label.setTooltipText("Check button present: $labelText");
-		return label;
 	}
 
 	@Override

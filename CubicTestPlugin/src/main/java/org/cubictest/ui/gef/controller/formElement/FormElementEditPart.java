@@ -7,12 +7,8 @@
  */
 package org.cubictest.ui.gef.controller.formElement;
 
-import org.cubictest.model.FormElement;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
-import org.cubictest.ui.gef.view.TestStepLabel;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.PositionConstants;
 
 
 /**
@@ -25,15 +21,5 @@ public abstract class FormElementEditPart extends PageElementEditPart{
 
 	CubicTestDirectEditManager manager;
 
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
-	protected IFigure createFigure(){
-		TestStepLabel label = new TestStepLabel(((FormElement)getModel()).getDirectEditIdentifier().getValue());
-		label.setIcon(getImage(getModel().isNot()));
-		label.setLabelAlignment(PositionConstants.LEFT);
-		return label;
-	}
 }
 

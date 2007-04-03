@@ -17,18 +17,11 @@ public class FormRadioButtonEditPart extends FormElementEditPart{
 		super();
 		setModel(button);
 	}
-
-	@Override
-	protected IFigure createFigure() {
-		TestStepLabel figure = (TestStepLabel) super.createFigure();
-		String key = CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE;
-		figure.setIcon(CubicTestImageRegistry.get(key));
-		return figure;
-	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
 	 */
+	@Override
 	protected void refreshVisuals() {
 		super.refreshVisuals();
 		RadioButton button = (RadioButton)getModel();

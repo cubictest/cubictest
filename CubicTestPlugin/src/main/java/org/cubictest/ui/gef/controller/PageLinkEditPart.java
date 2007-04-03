@@ -8,12 +8,7 @@
 package org.cubictest.ui.gef.controller;
 
 import org.cubictest.model.Link;
-import org.cubictest.model.PageElement;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.TestStepLabel;
-import org.cubictest.ui.utils.ViewUtil;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.graphics.Image;
 
 
@@ -29,27 +24,17 @@ public class PageLinkEditPart extends PageElementEditPart{
 	 * @param link the model
 	 */
 	public PageLinkEditPart(Link link) {
-		setModel(link);
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
-	protected IFigure createFigure(){
-		TestStepLabel label = new TestStepLabel(((Link)getModel()).getDirectEditIdentifier().getValue());
-		label.setIcon(getImage(((Link)getModel()).isNot()));
-		
-		label.setLayoutManager(ViewUtil.getFlowLayout());
-		label.setLabelAlignment(PositionConstants.LEFT);
-		label.setOpaque(true);
-		String not = ((PageElement) getModel()).isNot() ? "NOT " : "";
-		label.setTooltipText("Check link " + not + "present: $labelText");
-		return label;
+		setModel(link);	
 	}	
 	
+	@Override
 	protected Image getImage(boolean not) {
 		String key = CubicTestImageRegistry.LINK_IMAGE;
 		return  CubicTestImageRegistry.get(key,not);
+	}
+	
+	@Override
+	public Link getModel() {
+		return (Link) super.getModel();
 	}
 }

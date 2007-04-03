@@ -29,15 +29,6 @@ public class FormTextAreaEditPart extends FormElementEditPart {
 		setModel(area);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
-	protected IFigure createFigure() {
-		TestStepLabel label = (TestStepLabel) super.createFigure();
-		label.setTooltipText("Check text area present: $labelText");
-		return label;
-	}
-
 	@Override
 	protected Image getImage(boolean isNot) {
 		return CubicTestImageRegistry.get(CubicTestImageRegistry.TEXT_AREA_IMAGE,isNot);

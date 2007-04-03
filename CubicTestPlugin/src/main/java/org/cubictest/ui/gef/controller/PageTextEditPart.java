@@ -7,13 +7,8 @@
  */
 package org.cubictest.ui.gef.controller;
 
-import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.TestStepLabel;
-import org.cubictest.ui.utils.ViewUtil;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.graphics.Image;
 
 
@@ -33,22 +28,10 @@ public class PageTextEditPart extends PageElementEditPart{
 		setModel(text);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
-	protected IFigure createFigure() {
-		TestStepLabel label =  new TestStepLabel(((Text)getModel()).getDirectEditIdentifier().getValue());
-		label.setIcon(getImage(((Text)getModel()).isNot()));
-		
-		label.setLayoutManager(ViewUtil.getFlowLayout());
-		label.setLabelAlignment(PositionConstants.LEFT);
-		String not = ((PageElement) getModel()).isNot() ? "NOT " : "";
-		label.setTooltipText("Check text " + not + "present: $labelText");
-		return label;
-	}
-	
+	@Override
 	protected Image getImage(boolean not) {
 		String key = CubicTestImageRegistry.TEXT_IMAGE;
 		return CubicTestImageRegistry.get(key,not);
 	}
+
 }

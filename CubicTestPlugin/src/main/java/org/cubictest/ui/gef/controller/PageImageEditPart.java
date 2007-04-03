@@ -9,10 +9,6 @@ package org.cubictest.ui.gef.controller;
 
 import org.cubictest.model.Image;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.TestStepLabel;
-import org.cubictest.ui.utils.ViewUtil;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.PositionConstants;
 
 /**
  * Controller for Image model.
@@ -23,18 +19,8 @@ public class PageImageEditPart extends PageElementEditPart {
 	public PageImageEditPart(Image image) {
 		setModel(image);
 	}
-
-	@Override
-	protected IFigure createFigure() {
-		TestStepLabel label =  new TestStepLabel(getModel().getDirectEditIdentifier().getValue());
-		label.setIcon(getImage(((Image)getModel()).isNot()));
-		
-		label.setLayoutManager(ViewUtil.getFlowLayout());
-		label.setLabelAlignment(PositionConstants.LEFT);
-		label.setTooltipText("Check image present: $labelText");
-		return label;
-	}
 	
+	@Override
 	protected org.eclipse.swt.graphics.Image getImage(boolean not) {
 		String key = CubicTestImageRegistry.IMAGE_IMAGE;
 		return  CubicTestImageRegistry.get(key,not);

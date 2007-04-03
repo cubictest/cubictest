@@ -6,8 +6,6 @@ package org.cubictest.ui.gef.controller.formElement;
 
 import org.cubictest.model.formElement.Option;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.TestStepLabel;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.graphics.Image;
 
 public class FormOptionEditPart extends FormElementEditPart{
@@ -21,18 +19,9 @@ public class FormOptionEditPart extends FormElementEditPart{
 		setModel(option);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
-	protected IFigure createFigure() {
-		TestStepLabel label = (TestStepLabel) super.createFigure();
-		label.setTooltipText("Check option present: $labelText");
-		return label;
-	}
-
 	@Override
 	protected Image getImage(boolean isNot) {
 		return CubicTestImageRegistry.get(CubicTestImageRegistry.OPTION_IMAGE,getModel().isNot());
 	}
-
+	
 }

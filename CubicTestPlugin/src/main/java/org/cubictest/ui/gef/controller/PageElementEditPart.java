@@ -13,6 +13,8 @@ import org.cubictest.ui.gef.view.CubicTestGroupFigure;
 import org.cubictest.ui.gef.view.CubicTestLabel;
 import org.cubictest.ui.gef.view.TestStepLabel;
 import org.cubictest.ui.utils.ViewUtil;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
@@ -41,15 +43,35 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#createEditPolicies()
 	 */
+	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new PageElementComponentEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new PageElementDirectEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, null);
 	}
 	
+	@Override
+	protected IFigure createFigure() {
+		TestStepLabel label = new TestStepLabel(getModel().getDirectEditIdentifier().getValue());
+		label.setIcon(getImage(getModel().isNot()));
+		
+		label.setLayoutManager(ViewUtil.getFlowLayout());
+		label.setLabelAlignment(PositionConstants.LEFT);
+		label.setOpaque(true);
+		label.setTooltipText(getToolTipText());
+		return label;
+	}
+	
+	protected String getToolTipText(){
+		String not = getModel().isNot()? "NOT " : "";
+		return "Check " + not + getModel().getType().toLowerCase() + 
+			" present: $labelText";
+	}
+
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.EditPart#performRequest(org.eclipse.gef.Request)
 	 */
+	@Override
 	public void performRequest(Request request) {
 		if(request.getType() == RequestConstants.REQ_DIRECT_EDIT || 
 				request.getType() == RequestConstants.REQ_OPEN){
@@ -72,6 +94,7 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.EditPart#setSelected(int)
 	 */
+	@Override
 	public void setSelected(int value) {
 		super.setSelected(value);
 		if (getFigure() instanceof CubicTestLabel){

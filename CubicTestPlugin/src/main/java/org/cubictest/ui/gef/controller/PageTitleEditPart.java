@@ -11,10 +11,6 @@ import java.util.ArrayList;
 
 import org.cubictest.model.Title;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.TestStepLabel;
-import org.cubictest.ui.utils.ViewUtil;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
@@ -35,19 +31,6 @@ public class PageTitleEditPart extends PageElementEditPart{
 		setModel(title);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
-	protected IFigure createFigure() {
-		TestStepLabel label =  new TestStepLabel(((Title)getModel()).getDirectEditIdentifier().getValue());
-		
-		label.setLayoutManager(ViewUtil.getFlowLayout());
-		label.setLabelAlignment(PositionConstants.LEFT);
-		label.setIcon(getImage(((Title)getModel()).isNot()));
-		label.setTooltipText("Check page title equals: $labelText");
-		return label;
-	}
-
 	/**
 	 * As the <code>getPropertyDescriptors()</code> method but uses the <code>i</code>
 	 * for setting the catergory.
@@ -65,9 +48,16 @@ public class PageTitleEditPart extends PageElementEditPart{
 		return (IPropertyDescriptor[])properties.toArray( new IPropertyDescriptor[] {});
 	}
 	
+	@Override
 	protected Image getImage(boolean not) {
 		String key = CubicTestImageRegistry.TITLE_IMAGE;
 		return  CubicTestImageRegistry.get(key,not);
+	}
+
+	@Override
+	protected String getToolTipText() {
+		String not = getModel().isNot()? "NOT " : "";
+		return "Check " + not + "page title equals: $labelText";
 	}
 
 }

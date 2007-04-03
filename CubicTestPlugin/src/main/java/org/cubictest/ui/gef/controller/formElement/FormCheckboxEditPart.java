@@ -9,8 +9,6 @@ package org.cubictest.ui.gef.controller.formElement;
 
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.TestStepLabel;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.graphics.Image;
 
 
@@ -28,18 +26,6 @@ public class FormCheckboxEditPart extends FormElementEditPart {
 	 */
 	public FormCheckboxEditPart(Checkbox checkbox) {
 		setModel(checkbox);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
-	 */
-	protected IFigure createFigure() {
-		TestStepLabel figure = (TestStepLabel) super.createFigure();
-		Checkbox model = (Checkbox)getModel();
-		figure.setIcon(getImage(model.isNot()));
-		figure.setTooltipText("Check checkbox present: $labelText"
-				+ (model.isChecked() ? " (checked)" : " (unchecked)"));
-		return figure;
 	}
 	
 	@Override
