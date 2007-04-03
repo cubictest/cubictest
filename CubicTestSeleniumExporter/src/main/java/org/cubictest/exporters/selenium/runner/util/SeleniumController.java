@@ -10,7 +10,6 @@ import java.util.concurrent.Callable;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
-import org.cubictest.exporters.selenium.runner.SeleniumRunnerServer;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 
 /**

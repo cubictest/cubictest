@@ -22,11 +22,18 @@ import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation;
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
+/**
+ * The runner that starts servers and starts traversal of tests.
+ * 
+ * @author Christian
+ *
+ */
 public class SeleniumRunner implements IRunnableWithProgress {
 
 	Test test;
@@ -43,7 +50,7 @@ public class SeleniumRunner implements IRunnableWithProgress {
 		
 		try {
 			controller = new SeleniumController();
-			String url = ((UrlStartPoint) test.getStartPoint()).getBeginAt();
+			String url = getStartUrl(test);
 			controller.setUrl(url);
 			controller.setOperation(Operation.START);
 			seleniumHolder = call(controller, 20, TimeUnit.SECONDS);
@@ -69,6 +76,16 @@ public class SeleniumRunner implements IRunnableWithProgress {
 			}
 		}
 		monitor.done();
+	}
+
+	private String getStartUrl(Test test) {
+		if (test.getStartPoint() instanceof UrlStartPoint) {
+			return ((UrlStartPoint) test.getStartPoint()).getBeginAt();
+		}
+		else {
+			//ExtensionStartPoint
+			return getStartUrl(((ExtensionStartPoint) test.getStartPoint()).getTest());
+		}
 	}
 
 
