@@ -21,6 +21,7 @@ public class SeleniumHolder extends ContextHolder {
 	private Selenium selenium;
 	private List<PageElement> elementsAsserted = new ArrayList<PageElement>();
 	private List<TestPartStatus> results = new ArrayList<TestPartStatus>();
+	private boolean seleniumStarted;
 	
 	public SeleniumHolder(int port, String browser, String initialUrl) {
 		if (port < 80) {
@@ -45,5 +46,13 @@ public class SeleniumHolder extends ContextHolder {
 			i++;
 		}
 		return "Done";
+	}
+
+	public boolean isSeleniumStarted() {
+		return seleniumStarted;
+	}
+
+	public void setSeleniumStarted(boolean seleniumStarted) {
+		this.seleniumStarted = seleniumStarted;
 	}
 }

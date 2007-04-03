@@ -20,6 +20,7 @@ import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
 import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
+import org.cubictest.exporters.selenium.runner.util.Browser;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation;
 import org.cubictest.model.ExtensionStartPoint;
@@ -50,10 +51,14 @@ public class RunnerSetup implements IRunnableWithProgress {
 		
 		try {
 			controller = new SeleniumController();
-			String url = getStartUrl(test);
-			controller.setUrl(url);
+			controller.setStartUrl(getStartUrl(test));
+			controller.setBrowser(Browser.FIREFOX);
 			controller.setOperation(Operation.START);
-			seleniumHolder = call(controller, 20, TimeUnit.SECONDS);
+			seleniumHolder = call(controller, 40, TimeUnit.SECONDS);
+			while (!seleniumHolder.isSeleniumStarted()) {
+				//wait for selenium (server & test system) to start
+				Thread.sleep(100);
+			}
 			
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(UrlStartPointConverter.class, 
 					PageElementConverter.class, ContextConverter.class, 
@@ -68,9 +73,9 @@ public class RunnerSetup implements IRunnableWithProgress {
 			ErrorHandler.rethrow(e);
 		}
 		finally {
-			controller.setOperation(Operation.STOP);
 			try {
-				seleniumHolder = call(controller, 20, TimeUnit.SECONDS);
+				controller.setOperation(Operation.STOP);
+				call(controller, 20, TimeUnit.SECONDS);
 			} catch (Exception e) {
 				ErrorHandler.rethrow(e);
 			}
@@ -79,7 +84,9 @@ public class RunnerSetup implements IRunnableWithProgress {
 	}
 
 	public void showResults() {
-		seleniumHolder.showResults();
+		if (seleniumHolder != null) {
+			seleniumHolder.showResults();
+		}
 	}
 	
 	private String getStartUrl(Test test) {

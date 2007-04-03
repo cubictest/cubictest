@@ -20,12 +20,13 @@ import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 public class SeleniumController implements Callable<SeleniumHolder> {
 
 	public enum Operation {START, STOP};
-
+	
 	CubicSeleniumServer server;
 	SeleniumHolder seleniumHolder;
 	public Operation operation = START;
 	private String url;
-
+	private Browser browser;
+	private boolean seleniumStarted;
 	
 	public SeleniumHolder call() throws InterruptedException {
 		if (START.equals(operation)) {
@@ -37,16 +38,25 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 			}
 
 			Logger.info("Connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + url);
-			seleniumHolder = new SeleniumHolder(server.getPort(), "*iexplore", url);
+			seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), url);
 			seleniumHolder.getSelenium().start();
+			seleniumStarted = true;
+			//check connection and that browser profiles has been set correctly.
 			seleniumHolder.getSelenium().open(url);
+			//two started variables, as one of them has sanity check of invoking start URL built into it.
+			seleniumHolder.setSeleniumStarted(true);
+			Logger.info("Connected to Selenium Proxy.");
 			return seleniumHolder;
 		}
 		else {
 			//STOP
 			try {
-				if (seleniumHolder != null) {
+				if (seleniumHolder != null && seleniumStarted) {
 					seleniumHolder.getSelenium().stop();
+					Logger.info("Closed connection to selenium proxy.");
+					seleniumHolder.setSeleniumStarted(false);
+					//two started variables, as one of them has sanity check of invoking start URL built into it.
+					seleniumStarted = false;
 				}
 			} 
 			catch (Exception e) {
@@ -62,7 +72,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 					ErrorHandler.logAndRethrow(e, "Error when stopping server");
 				}
 			}	
-			return seleniumHolder;
+			return null;
 		}
 	}
 
@@ -70,7 +80,11 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 		this.operation = operation;
 	}
 
-	public void setUrl(String url) {
+	public void setStartUrl(String url) {
 		this.url = url;
+	}
+
+	public void setBrowser(Browser browser) {
+		this.browser = browser;
 	}
 }
