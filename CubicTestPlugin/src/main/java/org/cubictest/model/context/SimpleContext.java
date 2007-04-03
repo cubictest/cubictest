@@ -7,11 +7,23 @@
  */
 package org.cubictest.model.context;
 
+import java.util.List;
+
+import org.cubictest.model.IdentifierType;
+import static org.cubictest.model.IdentifierType.XPATH;
+
 
 public class SimpleContext extends AbstractContext {
 	
 	@Override
 	public String getType(){
 		return "Context";
+	}
+	
+	@Override
+	public List<IdentifierType> getIdentifierTypes() {
+		List<IdentifierType> list = super.getIdentifierTypes();
+		list.add(XPATH);
+		return list;
 	}
 }

@@ -201,7 +201,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	}
 	
 	public void refresh(){
-		type.setText(identifier.getType().displayValue() + ":");
+		type.setText(identifier.getType() + ":");
 		type.setToolTipText(identifier.getType().getDescription());
 		value.setText(identifier.getValue());
 		

@@ -31,7 +31,7 @@ public class IdentifierUtil {
 		String[] array = new String[list.size()];
 		int i = 0;
 		for (IdentifierType type : list) {
-			array[i] = type.displayValue();
+			array[i] = type.toString();
 			i++;
 		}
 		return array;

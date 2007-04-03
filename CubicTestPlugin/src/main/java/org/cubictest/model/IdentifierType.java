@@ -54,8 +54,8 @@ public enum IdentifierType {
 	INDEX("Index", "Checking the elements index in the page"),
 	//End;
 	
-	/** Path to the element relative to the */
-	PATH("Path", "Checking the path to the element");
+	/** XPath to the element */
+	XPATH("XPath", "Checking the XPath to the element");
 
 	private String displayValue;
 	private String description;
@@ -65,12 +65,13 @@ public enum IdentifierType {
 		this.description = description;
 	}
 
-	public String displayValue() {
-		return displayValue;
-	}
 
 	public String getDescription() {
 		return description;
+	}
+	
+	public String toString() {
+		return displayValue;
 	}
 
 }
