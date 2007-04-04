@@ -45,7 +45,7 @@
                class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
                icon="icons/selenium_run_icon.gif"
                id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               label="Run Test with Selenium runner"
+               label="Run Test with Cubic Selenium Runner"
                menubarPath="additions"/>
       </viewerContribution>
 
