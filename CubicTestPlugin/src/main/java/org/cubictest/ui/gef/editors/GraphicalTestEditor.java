@@ -172,6 +172,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 
 		paletteViewer = createPaletteViewer(sashForm);
 		graphicalViewer = createGraphicalViewer(sashForm);
+		registerContextMenus();
 		sashForm.setWeights(new int[]{13,87});
 	}
 	
@@ -189,17 +190,19 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		
 		getSite().setSelectionProvider(viewer);
 		
-		ContextMenuProvider provider = new TestContextMenuProvider(viewer, getActionRegistry());
-		viewer.setContextMenu(provider);
 				
 		viewer.addDropTargetListener(new DataEditDropTargetListner(((IFileEditorInput)getEditorInput()).getFile().getProject(), viewer));
 		viewer.addDropTargetListener(new FileTransferDropTargetListener(viewer));
 		viewer.setEditPartFactory(getEditPartFactory());
 		viewer.setContents(getContent());
 
-		getSite().registerContextMenu("cubicTestPlugin.editor.contextmenu", provider, viewer);
-
 		return viewer;
+	}
+
+	private void registerContextMenus() {
+		ContextMenuProvider provider = new TestContextMenuProvider(graphicalViewer, getActionRegistry());
+		graphicalViewer.setContextMenu(provider);
+		getSite().registerContextMenu("cubicTestPlugin.editor.contextmenu", provider, graphicalViewer);
 	}
 	
 	public GraphicalViewer getGraphicalViewer(){
