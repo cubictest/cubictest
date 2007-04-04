@@ -1,0 +1,2 @@
+content	ffkiller	kill.htm
+override chrome://killff/kill.html chrome://ffkiller/kill.htm
