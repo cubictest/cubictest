@@ -38,6 +38,8 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 	 * @param transition The transition to convert.
 	 */
 	public void handleUserInteractions(SeleniumHolder seleniumHolder, UserInteractionsTransition transition) {
+		boolean actionHandeled = false;
+		
 		for (UserInteraction action : transition.getUserInteractions()) {
 			IActionElement actionElement = action.getElement();
 			
@@ -47,6 +49,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			}
 			try {
 				handleUserInteraction(seleniumHolder, action);
+				actionHandeled = true;
 			} catch (SeleniumException e) {
 				Logger.warn(e, "Test step failed");
 				ErrorHandler.showWarnDialog("Test step failed: Could not " + SeleniumUtils.getCommandDescription(action.getActionType(), actionElement));
@@ -54,8 +57,8 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error invoking Selenium command.");
 			}
 		}
-		if (transition.getUserInteractions().size() > 0) {
-			waitForPageToLoad(seleniumHolder, 20);
+		if (actionHandeled) {
+			waitForPageToLoad(seleniumHolder, 15);
 		}
 	}
 
