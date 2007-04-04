@@ -179,7 +179,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 
 		// -- Creating Contexts --
 		tool = new CombinedTemplateCreationEntry("Context",
-				"Create a new Context used for identyfying a part of the page. Other page elements can be put into the context.",
+				"Create a new Context used for identyfying a part of the page. Other page elements can be put into the context",
 				SimpleContext.class, new DataCreationFactory(
 						SimpleContext.class), CubicTestImageRegistry.getDescriptor(CONTEXT_IMAGE), null);
 		pageElements.add(tool);
@@ -233,7 +233,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Button",
-				"Check for a button on the page. This is any kind of button",
+				"Check for a button on the page.",
 				Button.class, new DataCreationFactory(Button.class),
 				CubicTestImageRegistry.getDescriptor(BUTTON_IMAGE), null);
 		pageElements.add(tool);
