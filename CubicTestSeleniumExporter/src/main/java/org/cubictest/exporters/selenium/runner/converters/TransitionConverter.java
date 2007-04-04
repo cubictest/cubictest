@@ -57,6 +57,17 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error invoking Selenium command.");
 			}
 		}
+		waitForPageToLoad(seleniumHolder);
+	}
+
+
+	private void waitForPageToLoad(SeleniumHolder seleniumHolder) {
+		try {
+			seleniumHolder.getSelenium().waitForPageToLoad("4");
+		}
+		catch (SeleniumException e) {
+			//we just continue test
+		}
 	}
 	
 	

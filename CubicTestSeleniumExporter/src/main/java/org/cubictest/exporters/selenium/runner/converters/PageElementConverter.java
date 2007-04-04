@@ -13,9 +13,12 @@ import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
+import org.cubictest.model.FormElement;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
+import org.cubictest.model.Text;
 import org.cubictest.model.Title;
+import org.cubictest.model.formElement.Option;
 
 import com.thoughtworks.selenium.SeleniumException;
 
@@ -33,35 +36,53 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 	 * @param pe The Page element to convert to Selenese row.
 	 */
 	public void handlePageElement(SeleniumHolder seleniumHolder, PageElement pe) {
-
-		if (pe instanceof Title) {
-			String actual = seleniumHolder.getSelenium().getTitle();
-			String expected = pe.getIdentifier(LABEL).getValue();
-
-			if (actual.equals(expected)) {
-				seleniumHolder.addResult(pe, TestPartStatus.PASS);
+		try {
+			if (pe instanceof Title) {
+				String actual = seleniumHolder.getSelenium().getTitle();
+				String expected = pe.getIdentifier(LABEL).getValue();
+	
+				if (actual.equals(expected)) {
+					seleniumHolder.addResult(pe, TestPartStatus.PASS);
+				}
+				else {
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+				}
 			}
-			else {
-				seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+			if (pe instanceof Text) {
+				boolean present = seleniumHolder.getSelenium().isTextPresent(pe.getText());
+				if (present) {
+					seleniumHolder.addResult(pe, TestPartStatus.PASS);
+				}
+				else {
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+				}
 			}
-		}
-		else {
-			//all other elements
-			String locator = SeleniumUtils.getLocator(pe, seleniumHolder);
-			try {
+			else if (pe instanceof FormElement && !(pe instanceof Option)){
+				//html input elements
+				String locator = SeleniumUtils.getLocator(pe, seleniumHolder);
 				String value = seleniumHolder.getSelenium().getValue(locator);
-				String text = seleniumHolder.getSelenium().getText(locator);
-				if (value == null && text == null) {
+				if (value == null) {
 					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
 				}
 				else {
 					seleniumHolder.addResult(pe, TestPartStatus.PASS);
 				}
 			}
-			catch (SeleniumException e) {
-				Logger.warn(e, "Test step failed");
-				seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+			else {
+				//all other elements
+				String locator = SeleniumUtils.getLocator(pe, seleniumHolder);
+				String text = seleniumHolder.getSelenium().getText(locator);
+				if (text == null) {
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+				}
+				else {
+					seleniumHolder.addResult(pe, TestPartStatus.PASS);
+				}
 			}
+		}
+		catch (SeleniumException e) {
+			Logger.warn(e, "Test step failed");
+			seleniumHolder.addResult(pe, TestPartStatus.FAIL);
 		}
 	}
 }

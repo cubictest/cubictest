@@ -39,13 +39,12 @@ public class SeleniumHolder extends ContextHolder {
 		results.add(result);
 	}
 	
-	public String showResults() {
+	public void showResults() {
 		int i = 0;
 		for (PageElement element : elementsAsserted) {
 			element.setStatus(results.get(i));
 			i++;
 		}
-		return "Done";
 	}
 
 	public boolean isSeleniumStarted() {

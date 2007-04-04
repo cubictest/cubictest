@@ -40,7 +40,8 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 			ErrorHandler.showErrorDialog("Could not get test. Close editor and retry");
 			return;
 		}
-
+		test.resetStatus();
+		
 		IRunnableWithProgress testRunner = null;
 		try {
 			testRunner = new RunnerSetup(test);
