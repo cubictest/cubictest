@@ -9,6 +9,7 @@ package org.cubictest.ui.gef.controller;
 
 import java.beans.PropertyChangeEvent;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.SubTest;
@@ -42,7 +43,10 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 			tooltip = new Label("Connection from an extension point in another test");
 		}
 		conn.setToolTip(tooltip);
-		
+		if (getModel().getExtensionPoint() == null) {
+			ErrorHandler.logAndShowErrorDialogAndThrow("Did not find a required extension point (used in test). Has it been deleted?\n" +
+					"Unable to continue.");
+		}
 		label = new CubicTestLabel(getModel().getExtensionPoint().getName());
 		label.setTooltipText(tooltip.getText());
 		
