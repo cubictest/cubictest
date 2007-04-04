@@ -13,6 +13,7 @@ import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.AddExtensionPointCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.controller.PageEditPart;
+import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
@@ -40,7 +41,7 @@ public class AddExtensionPointAction extends SelectionAction {
 	protected boolean calculateEnabled() {
 		if(model != null) {
 			for(Object element : model) {
-				if(element instanceof PageEditPart) {
+				if(element instanceof PageEditPart || element instanceof PageElementEditPart) {
 					return true;
 				}
 			}			

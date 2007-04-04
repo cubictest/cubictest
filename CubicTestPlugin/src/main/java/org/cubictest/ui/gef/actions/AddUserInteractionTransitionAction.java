@@ -9,12 +9,16 @@ import java.util.List;
 
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.command.AddExtensionPointCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.controller.PageEditPart;
+import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
+import org.cubictest.ui.utils.ViewUtil;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -41,7 +45,7 @@ public class AddUserInteractionTransitionAction extends SelectionAction {
 	protected boolean calculateEnabled() {
 		if(model != null) {
 			for(Object element : model) {
-				if(element instanceof PageEditPart) {
+				if(element instanceof PageEditPart || element instanceof PageElementEditPart) {
 					return true;
 				}
 			}			
@@ -60,17 +64,21 @@ public class AddUserInteractionTransitionAction extends SelectionAction {
 	public void run() {
 		for (Iterator iter = this.model.iterator(); iter.hasNext();) {
 			Object element = iter.next();
-			if(element instanceof PageEditPart) {
-				PageEditPart pageEditPart = (PageEditPart) element;
-
-				CreateTransitionCommand cmd = new CreateTransitionCommand();
-				cmd.setTest((Test) pageEditPart.getParent().getModel());
-				cmd.setSource((TransitionNode) pageEditPart.getModel());
-				cmd.setPageEditPart(pageEditPart);
-				cmd.setAutoCreateTargetPage(true);
-
-				getCommandStack().execute(cmd);
+			PageEditPart pageEditPart = null;
+			if (element instanceof PageElementEditPart) {
+				pageEditPart = (PageEditPart) ViewUtil.getSurroundingPagePart((EditPart) element);
 			}
+			if(element instanceof PageEditPart) {
+				pageEditPart = (PageEditPart) element;
+			}
+			
+			CreateTransitionCommand cmd = new CreateTransitionCommand();
+			cmd.setTest((Test) pageEditPart.getParent().getModel());
+			cmd.setSource((TransitionNode) pageEditPart.getModel());
+			cmd.setPageEditPart(pageEditPart);
+			cmd.setAutoCreateTargetPage(true);
+
+			getCommandStack().execute(cmd);
 		}
 	}
 	
