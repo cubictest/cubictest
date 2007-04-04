@@ -70,7 +70,9 @@ public class SeleniumHolder extends ContextHolder {
 		int failed = 0;
 		int i = 0;
 		for (PageElement element : elementsAsserted) {
-			element.setStatus(results.get(i));
+			if (element != null) {
+				element.setStatus(results.get(i));
+			}
 			if (results.get(i).equals(TestPartStatus.PASS)) {
 				pass++;
 			}

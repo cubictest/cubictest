@@ -15,6 +15,7 @@ import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
+import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.formElement.Option;
@@ -35,7 +36,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 	 * @param transition The transition to convert.
 	 */
 	public void handleUserInteractions(SeleniumHolder seleniumHolder, UserInteractionsTransition transition) {
-		boolean actionHandeled = false;
+		boolean waitForPageToLoad = false;
 		
 		for (UserInteraction action : transition.getUserInteractions()) {
 			IActionElement actionElement = action.getElement();
@@ -45,16 +46,22 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				continue;
 			}
 			try {
-				handleUserInteraction(seleniumHolder, action);
-				actionHandeled = true;
-			} catch (SeleniumException e) {
+				String commandName = handleUserInteraction(seleniumHolder, action);
+				if (!commandName.equals(SeleniumUtils.FIREEVENT)) {
+					waitForPageToLoad = true;
+				}
+				seleniumHolder.addResult(null, TestPartStatus.PASS);
+			}
+			catch (SeleniumException e) {
+				seleniumHolder.addResult(null, TestPartStatus.PASS);
 				Logger.warn(e, "Test step failed");
-				ErrorHandler.showWarnDialog("Test step failed: Could not " + SeleniumUtils.getCommandDescription(action.getActionType(), actionElement));
-			} catch (Exception e) {
-				ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error invoking Selenium command.");
+			}
+			catch (Exception e) {
+				seleniumHolder.addResult(null, TestPartStatus.PASS);
+				ErrorHandler.logAndRethrow(e, "Error invoking Selenium command.");
 			}
 		}
-		if (actionHandeled) {
+		if (waitForPageToLoad) {
 			waitForPageToLoad(seleniumHolder, 15);
 		}
 	}
@@ -73,8 +80,9 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 	
 	/**
 	 * Converts a single user interaction to a Selenium command.
+	 * @return the Selenium command name invoked. 
 	 */
-	private void handleUserInteraction(SeleniumHolder seleniumHolder, UserInteraction userInteraction) throws Exception {
+	private String handleUserInteraction(SeleniumHolder seleniumHolder, UserInteraction userInteraction) throws Exception {
 
 		IActionElement element = userInteraction.getElement();
 		ActionType actionType = userInteraction.getActionType();
@@ -110,8 +118,6 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class, String.class});
 			method.invoke(seleniumHolder.getSelenium(), new Object[] {locator, inputValue});
 		}
+		return commandName;
 	}
-
-	
-	
 }
