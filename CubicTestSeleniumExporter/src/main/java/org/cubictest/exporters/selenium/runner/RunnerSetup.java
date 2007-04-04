@@ -54,8 +54,13 @@ public class RunnerSetup implements IRunnableWithProgress {
 			controller.setStartUrl(getStartUrl(test));
 			controller.setBrowser(Browser.OPERA);
 			controller.setOperation(Operation.START);
+			
+			//start Selenium (browser and server), guard by timeout:
 			seleniumHolder = call(controller, 40, TimeUnit.SECONDS);
+			
+			//ser monitor used to detect user cancel request:
 			seleniumHolder.setMonitor(monitor);
+			
 			while (!seleniumHolder.isSeleniumStarted()) {
 				//wait for selenium (server & test system) to start
 				Thread.sleep(100);
@@ -80,6 +85,9 @@ public class RunnerSetup implements IRunnableWithProgress {
 		}
 	}
 
+	/**
+	 * Method for stopping Selenium. Can be invoked by a client class.
+	 */
 	public void stopSelenium() {
 		try {
 			if (controller != null) {
@@ -91,6 +99,10 @@ public class RunnerSetup implements IRunnableWithProgress {
 		}
 	}
 
+	/**
+	 * Show the results of the test in the GUI.
+	 * @return
+	 */
 	public String showResults() {
 		if (seleniumHolder != null) {
 			return seleniumHolder.showResults();

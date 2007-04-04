@@ -26,7 +26,6 @@ public class CubicSeleniumServer {
 	
 	public CubicSeleniumServer() {
 		try {
-			//port = findAvailablePort();
 			port = 28242; //cubic
 			seleniumServer = new SeleniumServer(port);
 			
@@ -66,14 +65,6 @@ public class CubicSeleniumServer {
 		seleniumServer.stop();
 	}
 	
-	
-	private int findAvailablePort() throws IOException {
-		ServerSocket s = new ServerSocket();
-		s.bind(null);
-		int port = s.getLocalPort();
-		s.close();
-		return port;
-	}
 
 	public int getPort() {
 		return port;

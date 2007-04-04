@@ -5,6 +5,7 @@
 package org.cubictest.exporters.selenium.runner.util;
 
 import static org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation.START;
+import static org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation.STOP;
 
 import java.util.concurrent.Callable;
 
@@ -14,6 +15,7 @@ import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 
 /**
  * Controller that starts/stops the Selenium Server and Selenium test system (SeleniumHolder).
+ * Implements callable, and hence supports timeout of start/stop of Selenium.
  * 
  * @author Christian Schwarz
  */
@@ -28,6 +30,11 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 	private Browser browser;
 	private boolean seleniumStarted;
 	
+	/**
+	 * Method to start/stop the Selenium proxy server and Selenium test system.
+	 * Mehtod will be guarded by a timeout (ensured by client).
+	 * Start method returns a SeleniumHolder with a started Selenium test browser.
+	 */
 	public SeleniumHolder call() throws InterruptedException {
 		if (START.equals(operation)) {
 			server = new CubicSeleniumServer();
@@ -41,15 +48,18 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 			seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), url);
 			seleniumHolder.getSelenium().start();
 			seleniumStarted = true;
-			//check connection and that browser profiles has been set correctly.
+			
+			//open start URL and check connection (that browser profiles has been set correctly):
 			seleniumHolder.getSelenium().open(url);
-			//two started variables, as one of them has sanity check of invoking start URL built into it.
+			
+			//using two started variables, as one of them has sanity check of invoking start URL built into it.
 			seleniumHolder.setSeleniumStarted(true);
+			
 			Logger.info("Connected to Selenium Proxy.");
 			return seleniumHolder;
 		}
-		else {
-			//STOP
+		
+		else if (STOP.equals(operation)){
 			try {
 				if (seleniumHolder != null && seleniumStarted) {
 					seleniumHolder.getSelenium().stop();
@@ -72,8 +82,8 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 					ErrorHandler.logAndRethrow(e, "Error when stopping server");
 				}
 			}	
-			return null;
 		}
+		return null;
 	}
 
 	public void setOperation(Operation operation) {

@@ -48,10 +48,12 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 		try {
 			testRunner = new RunnerSetup(test);
 			shell = UIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
+			
+			//run the test:
 			new ProgressMonitorDialog(shell).run(true, true, testRunner);
 			
+			//show result:
 			String result = ((RunnerSetup) testRunner).showResults();
-
 			showCompletedMessage(shell, result);
 		}
 		catch (Exception e) {

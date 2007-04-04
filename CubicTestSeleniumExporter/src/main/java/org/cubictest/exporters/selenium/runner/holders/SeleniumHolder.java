@@ -7,7 +7,6 @@ package org.cubictest.exporters.selenium.runner.holders;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.utils.ContextHolder;
@@ -19,10 +18,9 @@ import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
 /**
- * Holder for Selenium runner session.
- * Has reference to the Selenium test system (for running Selenium commands).
- * Also holds the results of the test.
- * Handles user cancel.
+ * Holder that has reference to the Selenium test system (for running Selenium commands).
+ * Also holds the results of the test and the current contexts (@see ContextHolder).
+ * Handles user cancel of the test run.
  *  
  * @author Christian Schwarz
  */

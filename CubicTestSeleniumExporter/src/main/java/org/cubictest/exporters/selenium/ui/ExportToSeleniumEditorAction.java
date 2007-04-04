@@ -22,7 +22,8 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 
 /**
- * Action for exporting to HTML prototype.
+ * Action for exporting to Selenium's Selenese HTML table format.
+ * Context menu in the Graphical test editor.
  * 
  * @author Christian Schwarz
  *
