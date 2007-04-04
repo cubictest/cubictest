@@ -75,7 +75,7 @@ public class UserInteractionDialogUtil {
 	public static String getLabel(IActionElement element) {
 		if (element instanceof PageElement) {
 			PageElement pe = (PageElement) element;
-			return pe.getType() + ": " + pe.getDirectEditIdentifier().getValue();
+			return pe.getDirectEditIdentifier().getValue() + " (" + pe.getType() + ")";
 		}
 		else {
 			return element.getType() + ": " + element.getDescription();						
