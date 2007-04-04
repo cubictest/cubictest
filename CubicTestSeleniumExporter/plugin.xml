@@ -43,7 +43,7 @@
                menubarPath="additions"/>
          <action
                class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               icon="icons/cubicunit_run_icon.gif"
+               icon="icons/selenium_run_icon.gif"
                id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
                label="Run Test with Selenium runner"
                menubarPath="additions"/>
