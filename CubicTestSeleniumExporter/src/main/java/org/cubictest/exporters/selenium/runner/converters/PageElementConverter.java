@@ -68,6 +68,16 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 					seleniumHolder.addResult(pe, TestPartStatus.PASS);
 				}
 			}
+			if (pe instanceof Option && pe.getMainIdentifierType().equals(LABEL)) {
+				String locator = "xpath=" + seleniumHolder.getFullContext() + "option[text()=\"" + pe.getMainIdentifierValue() + "\"]";
+				String text = seleniumHolder.getSelenium().getText(locator);
+				if (text == null) {
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+				}
+				else {
+					seleniumHolder.addResult(pe, TestPartStatus.PASS);
+				}
+			}
 			else {
 				//all other elements
 				String locator = SeleniumUtils.getLocator(pe, seleniumHolder);

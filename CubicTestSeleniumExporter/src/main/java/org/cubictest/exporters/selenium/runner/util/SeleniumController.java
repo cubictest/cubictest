@@ -33,7 +33,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 	/**
 	 * Method to start/stop the Selenium proxy server and Selenium test system.
 	 * Mehtod will be guarded by a timeout (ensured by client).
-	 * Start method returns a SeleniumHolder with a started Selenium test browser.
+	 * If operation field is set to START, returns a SeleniumHolder with a started Selenium test browser.
 	 */
 	public SeleniumHolder call() throws InterruptedException {
 		if (START.equals(operation)) {
