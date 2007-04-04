@@ -48,7 +48,7 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
 				}
 			}
-			if (pe instanceof Text) {
+			else if (pe instanceof Text) {
 				boolean present = seleniumHolder.getSelenium().isTextPresent(pe.getText());
 				if (present) {
 					seleniumHolder.addResult(pe, TestPartStatus.PASS);
@@ -68,7 +68,7 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 					seleniumHolder.addResult(pe, TestPartStatus.PASS);
 				}
 			}
-			if (pe instanceof Option && pe.getMainIdentifierType().equals(LABEL)) {
+			else if (pe instanceof Option && pe.getMainIdentifierType().equals(LABEL)) {
 				String locator = "xpath=" + seleniumHolder.getFullContext() + "option[text()=\"" + pe.getMainIdentifierValue() + "\"]";
 				String text = seleniumHolder.getSelenium().getText(locator);
 				if (text == null) {

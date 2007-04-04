@@ -57,12 +57,11 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 			showCompletedMessage(shell, result);
 		}
 		catch (Exception e) {
-			String result = "";
 			if (testRunner != null) {
-				result = ((RunnerSetup) testRunner).showResults();
+				((RunnerSetup) testRunner).showResults();
 			}
-			ErrorHandler.logAndShowErrorDialog(e);
-			showCompletedMessage(shell, result);
+			shell.forceActive();
+			ErrorHandler.logAndShowErrorDialog(e, "Error when running test", shell);
 		}
 		finally {
 			((RunnerSetup) testRunner).stopSelenium();
