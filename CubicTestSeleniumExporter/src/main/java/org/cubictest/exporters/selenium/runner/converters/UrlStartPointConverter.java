@@ -12,7 +12,7 @@ import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.UrlStartPoint;
 
 /**
- * Class for converting UrlStartPoint to Selenese row.
+ * Class for converting UrlStartPoint to Selenium commands.
  * 
  * @author chr_schwarz
  */
@@ -20,6 +20,12 @@ public class UrlStartPointConverter implements IUrlStartPointConverter<SeleniumH
 	
 	
 	public void handleUrlStartPoint(SeleniumHolder seleniumHolder, UrlStartPoint sp) {
+		if (seleniumHolder.getInitialUrlStartPoint().equals(sp)) {
+			//initial start point is opened by the SeleniumController
+			return;
+		}
+		
+		//open URL:
 		seleniumHolder.getSelenium().open(sp.getBeginAt());
 	}
 }

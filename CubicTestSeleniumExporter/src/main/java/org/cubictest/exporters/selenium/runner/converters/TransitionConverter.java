@@ -6,8 +6,6 @@ package org.cubictest.exporters.selenium.runner.converters;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;

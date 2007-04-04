@@ -12,6 +12,7 @@ import java.util.concurrent.Callable;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
+import org.cubictest.model.UrlStartPoint;
 
 /**
  * Controller that starts/stops the Selenium Server and Selenium test system (SeleniumHolder).
@@ -26,7 +27,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 	CubicSeleniumServer server;
 	SeleniumHolder seleniumHolder;
 	public Operation operation = START;
-	private String url;
+	private UrlStartPoint initialUrlStartPoint;
 	private Browser browser;
 	private boolean seleniumStarted;
 	
@@ -44,18 +45,19 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 				Thread.sleep(100);
 			}
 
-			Logger.info("Opening test browser and connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + url);
-			seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), url);
+			Logger.info("Opening test browser and connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + initialUrlStartPoint);
+			seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), initialUrlStartPoint.getBeginAt());
 			seleniumHolder.getSelenium().start();
 			seleniumStarted = true;
 			
 			//open start URL and check connection (that browser profiles has been set correctly):
-			seleniumHolder.getSelenium().open(url);
+			seleniumHolder.getSelenium().open(initialUrlStartPoint.getBeginAt());
 			
 			//using two started variables, as one of them has sanity check of invoking start URL built into it.
 			seleniumHolder.setSeleniumStarted(true);
 			
 			Logger.info("Connected to Selenium Proxy.");
+			seleniumHolder.setInitialUrlStartPoint(initialUrlStartPoint);
 			return seleniumHolder;
 		}
 		
@@ -90,8 +92,8 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 		this.operation = operation;
 	}
 
-	public void setStartUrl(String url) {
-		this.url = url;
+	public void setInitialUrlStartPoint(UrlStartPoint initialUrlStartPoint) {
+		this.initialUrlStartPoint = initialUrlStartPoint;
 	}
 
 	public void setBrowser(Browser browser) {

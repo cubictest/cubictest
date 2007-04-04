@@ -12,6 +12,7 @@ import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.utils.ContextHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
+import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.thoughtworks.selenium.DefaultSelenium;
@@ -31,6 +32,7 @@ public class SeleniumHolder extends ContextHolder {
 	private List<TestPartStatus> results = new ArrayList<TestPartStatus>();
 	private boolean seleniumStarted;
 	private IProgressMonitor monitor;
+	private UrlStartPoint initialUrlStartPoint;
 	
 	public SeleniumHolder(int port, String browser, String initialUrl) {
 		if (port < 80) {
@@ -83,6 +85,14 @@ public class SeleniumHolder extends ContextHolder {
 		if (monitor != null && monitor.isCanceled()) {
 			throw new UserCancelledException("Operation cancelled");
 		}
+	}
+
+	public void setInitialUrlStartPoint(UrlStartPoint initialUrlStartPoint) {
+		this.initialUrlStartPoint = initialUrlStartPoint;
+	}
+
+	public UrlStartPoint getInitialUrlStartPoint() {
+		return initialUrlStartPoint;
 	}
 	
 

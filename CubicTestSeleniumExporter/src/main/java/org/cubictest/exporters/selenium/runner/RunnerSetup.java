@@ -51,7 +51,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 		
 		try {
 			controller = new SeleniumController();
-			controller.setStartUrl(getStartUrl(test));
+			controller.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
 			controller.setBrowser(Browser.OPERA);
 			
 			//start Selenium (browser and server), guard by timeout:
@@ -110,13 +110,13 @@ public class RunnerSetup implements IRunnableWithProgress {
 		return "";
 	}
 	
-	private String getStartUrl(Test test) {
+	private UrlStartPoint getInitialUrlStartPoint(Test test) {
 		if (test.getStartPoint() instanceof UrlStartPoint) {
-			return ((UrlStartPoint) test.getStartPoint()).getBeginAt();
+			return (UrlStartPoint) test.getStartPoint();
 		}
 		else {
-			//ExtensionStartPoint
-			return getStartUrl(((ExtensionStartPoint) test.getStartPoint()).getTest());
+			//ExtensionStartPoint, get url start point recursively:
+			return getInitialUrlStartPoint(((ExtensionStartPoint) test.getStartPoint()).getTest());
 		}
 	}
 

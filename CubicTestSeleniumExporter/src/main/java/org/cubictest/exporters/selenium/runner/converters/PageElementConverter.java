@@ -23,8 +23,7 @@ import org.cubictest.model.formElement.Option;
 import com.thoughtworks.selenium.SeleniumException;
 
 /**
- * This class is responsible for converting PageElements to Selenese rows 
- * asserting that elements are present. 
+ * This class is responsible for asserting PageElements present. 
  * 
  * @author chr_schwarz
  */
