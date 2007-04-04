@@ -45,6 +45,19 @@ public class SeleniumHolder extends ContextHolder {
 		return selenium;
 	}
 
+	public void addResult(PageElement element, TestPartStatus result, boolean isNot) {
+		if (isNot) {
+			//negate result
+			if (result.equals(TestPartStatus.PASS)) {
+				result = TestPartStatus.FAIL;
+			}
+			else if (result.equals(TestPartStatus.FAIL)) {
+				result = TestPartStatus.PASS;
+			}
+		}
+		addResult(element, result);
+	}
+	
 	public void addResult(PageElement element, TestPartStatus result) {
 		handleUserCancel();
 		elementsAsserted.add(element);

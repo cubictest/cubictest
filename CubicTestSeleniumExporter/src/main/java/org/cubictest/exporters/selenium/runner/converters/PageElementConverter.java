@@ -41,19 +41,19 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 				String expected = pe.getIdentifier(LABEL).getValue();
 	
 				if (actual.equals(expected)) {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS);
+					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
 				}
 				else {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 			}
 			else if (pe instanceof Text) {
 				boolean present = seleniumHolder.getSelenium().isTextPresent(pe.getText());
 				if (present) {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS);
+					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
 				}
 				else {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 			}
 			else if (pe instanceof FormElement && !(pe instanceof Option)){
@@ -61,20 +61,20 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 				String locator = SeleniumUtils.getLocator(pe, seleniumHolder);
 				String value = seleniumHolder.getSelenium().getValue(locator);
 				if (value == null) {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 				else {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS);
+					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
 				}
 			}
 			else if (pe instanceof Option && pe.getMainIdentifierType().equals(LABEL)) {
 				String locator = "xpath=" + seleniumHolder.getFullContext() + "option[text()=\"" + pe.getMainIdentifierValue() + "\"]";
 				String text = seleniumHolder.getSelenium().getText(locator);
 				if (text == null) {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 				else {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS);
+					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
 				}
 			}
 			else {
@@ -82,16 +82,16 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 				String locator = SeleniumUtils.getLocator(pe, seleniumHolder);
 				String text = seleniumHolder.getSelenium().getText(locator);
 				if (text == null) {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 				else {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS);
+					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
 				}
 			}
 		}
 		catch (SeleniumException e) {
 			Logger.warn(e, "Test step failed");
-			seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+			seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
 		}
 	}
 }
