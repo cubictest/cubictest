@@ -63,11 +63,17 @@ public class ErrorHandler {
 		Logger.error(e, e.getMessage());
 		showErrorDialog(e);
 	}
-
+	
 	public static void logAndShowErrorDialog(Throwable e, String message) {
 		Logger.error(e, message);
 		showErrorDialog(e, message);
 	}
+
+	public static void logAndShowErrorDialog(Throwable e, String message, Shell shell) {
+		Logger.error(e, message);
+		showErrorDialog(e, message, shell);
+	}
+
 	
 	public static void logAndShowErrorDialogAndThrow(String message) {
 		Logger.error(null, message);
@@ -107,8 +113,11 @@ public class ErrorHandler {
 		}
 	}
 
-	
 	public static void showErrorDialog(Throwable e, String userMessage) {
+		showErrorDialog(e, userMessage, new Shell());
+	}
+	
+	public static void showErrorDialog(Throwable e, String userMessage, Shell shell) {
 		e = getCause(e);
 		String msg = null;
 		
@@ -121,7 +130,7 @@ public class ErrorHandler {
 			}
 			CubicTestPlugin plugin = CubicTestPlugin.getDefault();
 			IStatus status = new Status(IStatus.ERROR, plugin.getId(), IStatus.OK, userMessage, e);
-			ErrorDialog.openError(new Shell(), UiText.APP_TITLE, msg, status);
+			ErrorDialog.openError(shell, UiText.APP_TITLE, msg, status);
 		}
 		catch (Throwable t) {
 			System.out.println("Could not show message dialog: " + msg);
