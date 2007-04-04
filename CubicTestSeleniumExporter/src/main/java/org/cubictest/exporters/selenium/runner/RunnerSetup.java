@@ -22,6 +22,7 @@ import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.Browser;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController;
+import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Test;
@@ -69,11 +70,15 @@ public class RunnerSetup implements IRunnableWithProgress {
 			
 			testWalker.convertTest(test, seleniumHolder);
 
+			monitor.done();
+
+		}
+		catch (UserCancelledException e) {
+			//ok, user cancelled
 		}
 		catch (Exception e) {
 			ErrorHandler.rethrow(e);
 		}
-		monitor.done();
 	}
 
 	public void stopSelenium() {

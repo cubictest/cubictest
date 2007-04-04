@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.utils.ContextHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
@@ -33,7 +34,6 @@ public class SeleniumHolder extends ContextHolder {
 	}
 	
 	public Selenium getSelenium() {
-		handleUserCancel();
 		return selenium;
 	}
 
@@ -66,7 +66,7 @@ public class SeleniumHolder extends ContextHolder {
 	
 	private void handleUserCancel() {
 		if (monitor != null && monitor.isCanceled()) {
-			throw new ExporterException("Operation cancelled");
+			throw new UserCancelledException("Operation cancelled");
 		}
 	}
 	
