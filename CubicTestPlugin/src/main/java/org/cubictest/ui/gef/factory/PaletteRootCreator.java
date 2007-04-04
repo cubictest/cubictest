@@ -201,7 +201,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		// -- Basic Page Elements --
 		
 		tool = new CombinedTemplateCreationEntry("Title",
-				"Check for title of the document", Title.class,
+				"Check page title", Title.class,
 				new DataCreationFactory(Title.class), CubicTestImageRegistry
 						.getDescriptor(TITLE_IMAGE), null);
 		pageElements.add(tool);
