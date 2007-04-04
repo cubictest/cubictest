@@ -6,8 +6,12 @@ package org.cubictest.common.utils;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
@@ -115,7 +119,9 @@ public class ErrorHandler {
 			else {
 				msg = userMessage + ": " + ((e == null) ? "" : "\n" + e.toString());
 			}
-			MessageDialog.openError(new Shell(), UiText.APP_TITLE, msg);
+			CubicTestPlugin plugin = CubicTestPlugin.getDefault();
+			IStatus status = new Status(IStatus.ERROR, plugin.getId(), IStatus.OK, userMessage, e);
+			ErrorDialog.openError(new Shell(), UiText.APP_TITLE, msg, status);
 		}
 		catch (Throwable t) {
 			System.out.println("Could not show message dialog: " + msg);
