@@ -72,15 +72,16 @@ public class RunnerSetup implements IRunnableWithProgress {
 		catch (Exception e) {
 			ErrorHandler.rethrow(e);
 		}
-		finally {
-			try {
-				controller.setOperation(Operation.STOP);
-				call(controller, 20, TimeUnit.SECONDS);
-			} catch (Exception e) {
-				ErrorHandler.rethrow(e);
-			}
-		}
 		monitor.done();
+	}
+
+	public void stopSelenium() {
+		try {
+			controller.setOperation(Operation.STOP);
+			call(controller, 20, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			ErrorHandler.rethrow(e);
+		}
 	}
 
 	public void showResults() {

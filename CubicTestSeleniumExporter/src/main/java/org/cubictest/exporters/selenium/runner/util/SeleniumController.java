@@ -37,7 +37,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 				Thread.sleep(100);
 			}
 
-			Logger.info("Connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + url);
+			Logger.info("Opening test browser and connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + url);
 			seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), url);
 			seleniumHolder.getSelenium().start();
 			seleniumStarted = true;
@@ -53,7 +53,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 			try {
 				if (seleniumHolder != null && seleniumStarted) {
 					seleniumHolder.getSelenium().stop();
-					Logger.info("Closed connection to selenium proxy.");
+					Logger.info("Closed test browser");
 					seleniumHolder.setSeleniumStarted(false);
 					//two started variables, as one of them has sanity check of invoking start URL built into it.
 					seleniumStarted = false;

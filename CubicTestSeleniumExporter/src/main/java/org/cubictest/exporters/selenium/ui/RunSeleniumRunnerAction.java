@@ -9,6 +9,7 @@ import org.cubictest.exporters.selenium.runner.RunnerSetup;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
@@ -17,6 +18,7 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.internal.EditorPluginAction;
+import org.eclipse.ui.internal.UIPlugin;
 
 /**
  * Action for running CubicUnit test.
@@ -45,16 +47,23 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 		IRunnableWithProgress testRunner = null;
 		try {
 			testRunner = new RunnerSetup(test);
-			
-			new ProgressMonitorDialog(new Shell()).run(true, true, testRunner);
+			Shell shell = UIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
+			new ProgressMonitorDialog(shell).run(true, true, testRunner);
 			
 			((RunnerSetup) testRunner).showResults();
+			
+			shell.forceActive();
+			MessageDialog.openInformation(shell, "CubicTest Selenium Exporter", 
+					"Test run finished. Press OK to close browser.");
 		}
 		catch (Exception e) {
 			if (testRunner != null) {
 				((RunnerSetup) testRunner).showResults();
 			}
 			ErrorHandler.logAndShowErrorDialog(e);
+		}
+		finally {
+			((RunnerSetup) testRunner).stopSelenium();
 		}
 	}
 	
