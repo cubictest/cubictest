@@ -12,7 +12,8 @@ import org.cubictest.common.utils.Logger;
 import org.openqa.selenium.server.SeleniumServer;
 
 /**
- * Selenium server used by the runner.
+ * Selenium proxy server used by the runner.
+ * Runs as a thread.
  * 
  * @author Christian Schwarz
  */

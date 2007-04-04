@@ -17,11 +17,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.internal.EditorPluginAction;
 import org.eclipse.ui.internal.UIPlugin;
 
 /**
- * Action for running CubicUnit test.
+ * Action for running a test using the Selenium runner.
  * 
  * @author Christian Schwarz
  */
@@ -51,16 +50,17 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 			shell = UIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 			new ProgressMonitorDialog(shell).run(true, true, testRunner);
 			
-			((RunnerSetup) testRunner).showResults();
+			String result = ((RunnerSetup) testRunner).showResults();
 
-			showCompletedMessage(shell);
+			showCompletedMessage(shell, result);
 		}
 		catch (Exception e) {
+			String result = "";
 			if (testRunner != null) {
-				((RunnerSetup) testRunner).showResults();
+				result = ((RunnerSetup) testRunner).showResults();
 			}
 			ErrorHandler.logAndShowErrorDialog(e);
-			showCompletedMessage(shell);
+			showCompletedMessage(shell, result);
 		}
 		finally {
 			((RunnerSetup) testRunner).stopSelenium();
@@ -68,10 +68,11 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	}
 
 
-	private void showCompletedMessage(Shell shell) {
+	private void showCompletedMessage(Shell shell, String result) {
 		shell.forceActive();
 		MessageDialog.openInformation(shell, "CubicTest Selenium Exporter", 
-				"Test run finished. Press OK to close browser.");
+				"Test run finished. " + result + "\n" +
+						"Press OK to close test browser.");
 	}
 	
 

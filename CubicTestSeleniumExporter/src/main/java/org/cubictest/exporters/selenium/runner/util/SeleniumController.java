@@ -13,7 +13,7 @@ import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 
 /**
- * Controller that starts/stops the Selenium Server and Selenium test runner.
+ * Controller that starts/stops the Selenium Server and Selenium test system (SeleniumHolder).
  * 
  * @author Christian Schwarz
  */

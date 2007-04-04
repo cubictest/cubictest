@@ -1,8 +1,13 @@
+/*
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ */
 package org.cubictest.exporters.selenium.runner.holders;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.utils.ContextHolder;
@@ -14,7 +19,10 @@ import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
 /**
- * Holder for a Selenium session.
+ * Holder for Selenium runner session.
+ * Has reference to the Selenium test system (for running Selenium commands).
+ * Also holds the results of the test.
+ * Handles user cancel.
  *  
  * @author Christian Schwarz
  */
@@ -43,13 +51,22 @@ public class SeleniumHolder extends ContextHolder {
 		results.add(result);
 	}
 	
-	public void showResults() {
+	public String showResults() {
 		handleUserCancel();
+		int pass = 0;
+		int failed = 0;
 		int i = 0;
 		for (PageElement element : elementsAsserted) {
 			element.setStatus(results.get(i));
+			if (results.get(i).equals(TestPartStatus.PASS)) {
+				pass++;
+			}
+			else {
+				failed++;
+			}
 			i++;
 		}
+		return pass + " steps passed, " + failed + " steps failed.";
 	}
 
 	public boolean isSeleniumStarted() {

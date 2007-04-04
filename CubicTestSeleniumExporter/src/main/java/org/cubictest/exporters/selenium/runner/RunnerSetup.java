@@ -31,10 +31,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 /**
- * The runner that starts servers and starts traversal of tests.
+ * The runner that starts the Selenium servers and test system and starts traversal of the test model.
  * 
- * @author Christian
- *
+ * @author Christian Schwarz
  */
 public class RunnerSetup implements IRunnableWithProgress {
 
@@ -92,10 +91,11 @@ public class RunnerSetup implements IRunnableWithProgress {
 		}
 	}
 
-	public void showResults() {
+	public String showResults() {
 		if (seleniumHolder != null) {
-			seleniumHolder.showResults();
+			return seleniumHolder.showResults();
 		}
+		return "";
 	}
 	
 	private String getStartUrl(Test test) {
