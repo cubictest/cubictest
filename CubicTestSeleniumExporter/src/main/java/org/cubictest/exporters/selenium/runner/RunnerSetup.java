@@ -52,7 +52,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 		try {
 			controller = new SeleniumController();
 			controller.setStartUrl(getStartUrl(test));
-			controller.setBrowser(Browser.FIREFOX);
+			controller.setBrowser(Browser.OPERA);
 			controller.setOperation(Operation.START);
 			seleniumHolder = call(controller, 40, TimeUnit.SECONDS);
 			while (!seleniumHolder.isSeleniumStarted()) {
