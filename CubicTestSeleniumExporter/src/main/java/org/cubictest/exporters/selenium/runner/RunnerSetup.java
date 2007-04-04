@@ -110,6 +110,9 @@ public class RunnerSetup implements IRunnableWithProgress {
 		return "";
 	}
 	
+	/**
+	 * Get the initial URL start point of the test (expands subtests).
+	 */
 	private UrlStartPoint getInitialUrlStartPoint(Test test) {
 		if (test.getStartPoint() instanceof UrlStartPoint) {
 			return (UrlStartPoint) test.getStartPoint();
