@@ -38,10 +38,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 	 * @param transition The transition to convert.
 	 */
 	public void handleUserInteractions(SeleniumHolder seleniumHolder, UserInteractionsTransition transition) {
-		List actions = transition.getUserInteractions();
-		Iterator it = actions.iterator();
-		while(it.hasNext()) {
-			UserInteraction action = (UserInteraction) it.next();
+		for (UserInteraction action : transition.getUserInteractions()) {
 			IActionElement actionElement = action.getElement();
 			
 			if (actionElement == null) {
@@ -57,7 +54,9 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error invoking Selenium command.");
 			}
 		}
-		waitForPageToLoad(seleniumHolder, 20);
+		if (transition.getUserInteractions().size() > 0) {
+			waitForPageToLoad(seleniumHolder, 20);
+		}
 	}
 
 
