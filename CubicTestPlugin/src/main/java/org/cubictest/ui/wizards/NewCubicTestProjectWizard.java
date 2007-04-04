@@ -110,24 +110,24 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			IFolder libFolder = project.getFolder("lib");
 			libFolder.create(false, true, monitor);
 			
-			try {
-				FileUtils.copyFile(new Path(FileLocator.toFileURL(CubicTestPlugin.getDefault().find(new Path("lib/CubicTestElementAPI.jar"))).getPath()).toFile(),
-						libFolder.getFile("CubicTestElementAPI.jar").getLocation().toFile());
-				FileUtils.copyFile(new Path(FileLocator.toFileURL(CubicTestPlugin.getDefault().find(new Path("lib/CubicUnit.jar"))).getPath()).toFile(),
-						libFolder.getFile("CubicUnit.jar").getLocation().toFile());
-			} catch (IOException e) {
-				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
-			}
-			
-			javaProject.setOutputLocation(binFolder.getFullPath(), monitor);
-			IClasspathEntry[] classpath;
-			classpath = new IClasspathEntry[] {
-				JavaCore.newSourceEntry(srcFolder.getFullPath()),
-				JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER")),
-				JavaCore.newLibraryEntry(libFolder.getFile("CubicTestElementAPI.jar").getFullPath(), null, null),
-				JavaCore.newLibraryEntry(libFolder.getFile("CubicUnit.jar").getFullPath(), null, null)
-			};
-			javaProject.setRawClasspath(classpath, binFolder.getFullPath(), monitor);
+//			try {
+//				FileUtils.copyFile(new Path(FileLocator.toFileURL(CubicTestPlugin.getDefault().find(new Path("lib/CubicTestElementAPI.jar"))).getPath()).toFile(),
+//						libFolder.getFile("CubicTestElementAPI.jar").getLocation().toFile());
+//				FileUtils.copyFile(new Path(FileLocator.toFileURL(CubicTestPlugin.getDefault().find(new Path("lib/CubicUnit.jar"))).getPath()).toFile(),
+//						libFolder.getFile("CubicUnit.jar").getLocation().toFile());
+//			} catch (IOException e) {
+//				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+//			}
+//			
+//			javaProject.setOutputLocation(binFolder.getFullPath(), monitor);
+//			IClasspathEntry[] classpath;
+//			classpath = new IClasspathEntry[] {
+//				JavaCore.newSourceEntry(srcFolder.getFullPath()),
+//				JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER")),
+//				JavaCore.newLibraryEntry(libFolder.getFile("CubicTestElementAPI.jar").getFullPath(), null, null),
+//				JavaCore.newLibraryEntry(libFolder.getFile("CubicUnit.jar").getFullPath(), null, null)
+//			};
+//			javaProject.setRawClasspath(classpath, binFolder.getFullPath(), monitor);
 			
 			ResourceNavigator navigator = null;
 			IViewPart viewPart = workbench.getActiveWorkbenchWindow().getActivePage().getViewReferences()[0].getView(false);
