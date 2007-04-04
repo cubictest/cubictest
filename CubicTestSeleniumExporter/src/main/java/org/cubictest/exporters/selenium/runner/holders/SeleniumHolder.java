@@ -7,6 +7,7 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.utils.ContextHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
@@ -22,6 +23,7 @@ public class SeleniumHolder extends ContextHolder {
 	private List<PageElement> elementsAsserted = new ArrayList<PageElement>();
 	private List<TestPartStatus> results = new ArrayList<TestPartStatus>();
 	private boolean seleniumStarted;
+	private IProgressMonitor monitor;
 	
 	public SeleniumHolder(int port, String browser, String initialUrl) {
 		if (port < 80) {
@@ -31,15 +33,18 @@ public class SeleniumHolder extends ContextHolder {
 	}
 	
 	public Selenium getSelenium() {
+		handleUserCancel();
 		return selenium;
 	}
-	
+
 	public void addResult(PageElement element, TestPartStatus result) {
+		handleUserCancel();
 		elementsAsserted.add(element);
 		results.add(result);
 	}
 	
 	public void showResults() {
+		handleUserCancel();
 		int i = 0;
 		for (PageElement element : elementsAsserted) {
 			element.setStatus(results.get(i));
@@ -54,4 +59,16 @@ public class SeleniumHolder extends ContextHolder {
 	public void setSeleniumStarted(boolean seleniumStarted) {
 		this.seleniumStarted = seleniumStarted;
 	}
+
+	public void setMonitor(IProgressMonitor monitor) {
+		this.monitor = monitor;
+	}
+	
+	private void handleUserCancel() {
+		if (monitor != null && monitor.isCanceled()) {
+			throw new ExporterException("Operation cancelled");
+		}
+	}
+	
+
 }

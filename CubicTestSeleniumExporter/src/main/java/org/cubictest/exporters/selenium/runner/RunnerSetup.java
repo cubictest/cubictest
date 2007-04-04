@@ -55,6 +55,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 			controller.setBrowser(Browser.OPERA);
 			controller.setOperation(Operation.START);
 			seleniumHolder = call(controller, 40, TimeUnit.SECONDS);
+			seleniumHolder.setMonitor(monitor);
 			while (!seleniumHolder.isSeleniumStarted()) {
 				//wait for selenium (server & test system) to start
 				Thread.sleep(100);
@@ -77,8 +78,10 @@ public class RunnerSetup implements IRunnableWithProgress {
 
 	public void stopSelenium() {
 		try {
-			controller.setOperation(Operation.STOP);
-			call(controller, 20, TimeUnit.SECONDS);
+			if (controller != null) {
+				controller.setOperation(Operation.STOP);
+				call(controller, 20, TimeUnit.SECONDS);
+			}
 		} catch (Exception e) {
 			ErrorHandler.rethrow(e);
 		}
