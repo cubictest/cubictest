@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.TextUtil;
 import org.eclipse.core.resources.IProject;
 import org.jaxen.jdom.JDOMXPath;
 import org.jdom.Attribute;
@@ -197,7 +198,13 @@ public class LegacyUpgrade {
 			value.setText(pageElement.getChildText("description"));
 		}
 		else {
-			value.setText(pageElement.getChildText("description"));
+			String text = pageElement.getChildText("text");
+			if (StringUtils.isNotBlank(text)) {
+				value.setText(text);
+			}
+			else {
+				value.setText(TextUtil.camel(pageElement.getChildText("description")));
+			}
 		}
 
 		identifier.addContent(type);
