@@ -191,14 +191,14 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		
 		ContextMenuProvider provider = new TestContextMenuProvider(viewer, getActionRegistry());
 		viewer.setContextMenu(provider);
-		getSite().registerContextMenu("cubicTestPlugin.editor.contextmenu", provider, viewer);
-		
-		
+				
 		viewer.addDropTargetListener(new DataEditDropTargetListner(((IFileEditorInput)getEditorInput()).getFile().getProject(), viewer));
 		viewer.addDropTargetListener(new FileTransferDropTargetListener(viewer));
 		viewer.setEditPartFactory(getEditPartFactory());
 		viewer.setContents(getContent());
-		
+
+		getSite().registerContextMenu("cubicTestPlugin.editor.contextmenu", provider, viewer);
+
 		return viewer;
 	}
 	
@@ -252,10 +252,6 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	}
 	
 	public Test getTest(){
-		if (graphicalViewer == null) {
-			//read test from file:
-			return getContent();
-		}
 		//get test from viewer:
 		EditPart part = graphicalViewer.getContents();
 		return (Test)part.getModel();
