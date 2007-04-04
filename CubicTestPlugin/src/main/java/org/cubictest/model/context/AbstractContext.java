@@ -16,6 +16,7 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
+import org.cubictest.model.TestPartStatus;
 
 /**
  * Base class for contexts that are "part of page"-contexts.
@@ -85,5 +86,13 @@ public abstract class AbstractContext extends PageElement implements IContext {
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(ID);
 		return list;
+	}
+	
+	@Override
+	public void resetStatus() {
+		setStatus(TestPartStatus.UNKNOWN);
+		for (PageElement pe : getElements()) {
+			pe.setStatus(TestPartStatus.UNKNOWN);
+		}
 	}
 }

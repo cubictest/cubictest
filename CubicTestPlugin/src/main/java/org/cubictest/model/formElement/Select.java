@@ -13,6 +13,7 @@ import org.cubictest.model.FormElement;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
+import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.context.IContext;
 
 //TODO: Temporarily extending text input, later add option elements
@@ -94,4 +95,11 @@ public class Select extends FormElement implements IContext {
 		return elements.indexOf(element);
 	}
 
+	@Override
+	public void resetStatus() {
+		setStatus(TestPartStatus.UNKNOWN);
+		for (PageElement pe : getElements()) {
+			pe.setStatus(TestPartStatus.UNKNOWN);
+		}
+	}
 }
