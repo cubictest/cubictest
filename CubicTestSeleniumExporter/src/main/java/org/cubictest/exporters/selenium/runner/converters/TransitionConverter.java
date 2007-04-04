@@ -4,7 +4,6 @@
 */
 package org.cubictest.exporters.selenium.runner.converters;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.apache.commons.lang.StringUtils;
@@ -31,7 +30,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 	
 	
 	/**
-	 * Converts a user interactions transition to a list of Watir doc.
+	 * Converts a user interactions transition to a list of Selenium commands.
 	 * 
 	 * @param transition The transition to convert.
 	 */
@@ -73,12 +72,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 	
 	
 	/**
-	 * Converts a single user interaction to a Selenium command (selenese row).
-	 * @throws NoSuchMethodException 
-	 * @throws SecurityException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws IllegalArgumentException 
+	 * Converts a single user interaction to a Selenium command.
 	 */
 	private void handleUserInteraction(SeleniumHolder seleniumHolder, UserInteraction userInteraction) throws Exception {
 
@@ -103,7 +97,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			inputValue = SeleniumUtils.getValue(userInteraction, seleniumHolder);
 		}
 		
-		//invoke user interaction by reflection:
+		//invoke user interaction by reflection using command name from SeleniumUtil:
 		if (StringUtils.isBlank(inputValue)) {
 			
 			//one parameter only
