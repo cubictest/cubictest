@@ -206,6 +206,7 @@ public class LegacyUpgrade {
 				value.setText(TextUtil.camel(pageElement.getChildText("description")));
 			}
 		}
+		pageElement.removeChild("description");
 
 		identifier.addContent(type);
 		identifier.addContent(value);
