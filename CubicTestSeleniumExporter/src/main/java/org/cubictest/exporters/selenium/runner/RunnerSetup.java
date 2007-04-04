@@ -53,9 +53,9 @@ public class RunnerSetup implements IRunnableWithProgress {
 			controller = new SeleniumController();
 			controller.setStartUrl(getStartUrl(test));
 			controller.setBrowser(Browser.OPERA);
-			controller.setOperation(Operation.START);
 			
 			//start Selenium (browser and server), guard by timeout:
+			controller.setOperation(Operation.START);
 			seleniumHolder = call(controller, 40, TimeUnit.SECONDS);
 			
 			//ser monitor used to detect user cancel request:
@@ -121,7 +121,9 @@ public class RunnerSetup implements IRunnableWithProgress {
 	}
 
 
-	
+	/**
+	 * Call a callable object, guarded by timeout.
+	 */
 	private static <T> T call(Callable<T> c, long timeout, TimeUnit timeUnit)
 	    throws InterruptedException, ExecutionException, TimeoutException
 	{
