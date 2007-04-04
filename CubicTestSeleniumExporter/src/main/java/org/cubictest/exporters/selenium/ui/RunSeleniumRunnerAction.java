@@ -45,26 +45,33 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 		test.resetStatus();
 		
 		IRunnableWithProgress testRunner = null;
+		Shell shell = null;
 		try {
 			testRunner = new RunnerSetup(test);
-			Shell shell = UIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
+			shell = UIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 			new ProgressMonitorDialog(shell).run(true, true, testRunner);
 			
 			((RunnerSetup) testRunner).showResults();
-			
-			shell.forceActive();
-			MessageDialog.openInformation(shell, "CubicTest Selenium Exporter", 
-					"Test run finished. Press OK to close browser.");
+
+			showCompletedMessage(shell);
 		}
 		catch (Exception e) {
 			if (testRunner != null) {
 				((RunnerSetup) testRunner).showResults();
 			}
 			ErrorHandler.logAndShowErrorDialog(e);
+			showCompletedMessage(shell);
 		}
 		finally {
 			((RunnerSetup) testRunner).stopSelenium();
 		}
+	}
+
+
+	private void showCompletedMessage(Shell shell) {
+		shell.forceActive();
+		MessageDialog.openInformation(shell, "CubicTest Selenium Exporter", 
+				"Test run finished. Press OK to close browser.");
 	}
 	
 
