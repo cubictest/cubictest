@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import org.cubictest.model.FormElement;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
@@ -14,6 +15,7 @@ import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
+import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Password;
 import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.Select;
@@ -76,35 +78,36 @@ public class JSONElementConverter {
 			}
 			
 			PageElement pe = null;
-
-			if(getString(properties, "tagName").equals("INPUT")) {
+			
+			//creating correct page element instance:
+			if(getString(properties, "tagName").equalsIgnoreCase("INPUT")) {
 				String type = properties.getString("type");
-				if(type.equals("text")) {
+				if(type.equalsIgnoreCase("text")) {
 					pe = new TextField();		
-				} else if(type.equals("password")) {
+				} else if(type.equalsIgnoreCase("password")) {
 					pe = new Password();
-				} else if(type.equals("submit")) {
+				} else if(type.equalsIgnoreCase("submit")) {
 					pe = new Button();
-				} else if(type.equals("button")) {
+				} else if(type.equalsIgnoreCase("button")) {
 					pe = new Button();
-				} else if(type.equals("radio")) {
+				} else if(type.equalsIgnoreCase("radio")) {
 					pe = new RadioButton();
-				} else if(type.equals("checkbox")) {
+				} else if(type.equalsIgnoreCase("checkbox")) {
 					pe = new Checkbox();
 				}
-			} else if(getString(properties, "tagName").equals("TEXTAREA")) {
+			} else if(getString(properties, "tagName").equalsIgnoreCase("TEXTAREA")) {
 				pe = new TextArea();
-			} else if(getString(properties, "tagName").equals("SELECT")) {
+			} else if(getString(properties, "tagName").equalsIgnoreCase("SELECT")) {
 				pe = new Select();
-			} else if(getString(properties, "tagName").equals("BUTTON")) {
+			} else if(getString(properties, "tagName").equalsIgnoreCase("BUTTON")) {
 				pe = new Button();
-			} else if(getString(properties, "tagName").equals("IMG")) {
+			} else if(getString(properties, "tagName").equalsIgnoreCase("IMG")) {
 				pe = new Image();
-			} else if(getString(properties, "tagName").equals("A")) {
+			} else if(getString(properties, "tagName").equalsIgnoreCase("A")) {
 				pe = new Link();
-			} else if(getString(properties, "tagName").equals("TITLE")) {
+			} else if(getString(properties, "tagName").equalsIgnoreCase("TITLE")) {
 				pe = new Title();
-			} else if(getString(properties, "tagName").equals("DIV") || getString(properties, "tagName").equals("TABLE")) {
+			} else if(getString(properties, "tagName").equalsIgnoreCase("DIV") || getString(properties, "tagName").equalsIgnoreCase("TABLE")) {
 				pe = new SimpleContext();
 			}
 			
@@ -112,11 +115,14 @@ public class JSONElementConverter {
 				return null;
 			}
 			
+			//looping over the created page element's ID types and setting all applicable values:
+			
 			for(IdentifierType type : pe.getIdentifierTypes()){
 				String key = null;
 				switch (type){
 					case CHECKED:
-						pe.getIdentifier(type).setValue("");
+						//TODO: Handle checked
+						key = null;
 						break;
 					case ID:
 						key = "id";
@@ -127,8 +133,11 @@ public class JSONElementConverter {
 					case LABEL:
 						if(pe instanceof Button)
 							key = "value";
-						else if (pe instanceof Link || pe instanceof Title)
+						else if (pe instanceof Link || pe instanceof Title || pe instanceof Option)
 							key = "innerHTML";
+						else
+							//TODO: Get html <label> tag 
+							key = null;
 						break;
 					case NAME:
 						key = "name";
@@ -149,13 +158,17 @@ public class JSONElementConverter {
 					case INDEX:
 						key = "index";
 						break;
-				}	
-				if (pe != null){
+
+				} //end switch	
+
+				if (key != null) {
 					Identifier identifier = pe.getIdentifier(type);
 					identifier.setValue(getString(properties, key));
 					identifier.setProbability(100);
 				}
-			}
+
+			} //end for
+			
 			pageElements.put(getString(properties, "cubicId"), pe);
 			
 			return pe;

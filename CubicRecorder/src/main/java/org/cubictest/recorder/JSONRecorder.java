@@ -71,13 +71,12 @@ public class JSONRecorder {
 			PageElement pe = converter.createElementFromJson(jsonElement);
 			if(pe != null) {
 				UserInteraction action = new UserInteraction(pe, ActionType.getActionType(actionType), value);
-//				recorder.addPageElement(pe);
 				recorder.addUserInput(action);
 			} else {
 				System.out.println("Action ignored");
 			}
-		} catch (ParseException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		} catch (Exception e) {
+			ErrorHandler.logAndRethrow(e);
 		}
 	}
 	
