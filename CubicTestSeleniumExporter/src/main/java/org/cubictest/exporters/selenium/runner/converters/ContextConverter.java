@@ -10,6 +10,7 @@ import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
+import org.cubictest.model.formElement.Select;
 
 /**
  * Converter for contexts.
@@ -23,7 +24,7 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 	 */
 	public PreContextHandle handlePreContext(SeleniumHolder seleniumHolder, IContext ctx) {
 		
-		if (ctx instanceof AbstractContext) {
+		if (ctx instanceof AbstractContext || ctx instanceof Select) {
 			seleniumHolder.pushContext(ctx);
 		}
 		return PreContextHandle.CONTINUE;
@@ -35,7 +36,7 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 	 */
 	public PostContextHandle handlePostContext(SeleniumHolder seleniumHolder, IContext ctx) {
 		
-		if (ctx instanceof AbstractContext) {
+		if (ctx instanceof AbstractContext || ctx instanceof Select) {
 			seleniumHolder.popContext();
 		}
 		return PostContextHandle.DONE;
