@@ -6,6 +6,7 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
@@ -13,6 +14,8 @@ import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.layout.AutoLayout;
+import org.cubictest.ui.utils.WizardUtils;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.CommandStack;
 
 public class CubicRecorder implements IRecorder {
@@ -102,6 +105,10 @@ public class CubicRecorder implements IRecorder {
 	 */
 	private AbstractPage addUserActions(TransitionNode from) {
 		Page page = new Page();
+		if (from instanceof UrlStartPoint) {
+			int num = from.getOutTransitions().size();
+			page.setPosition(new Point(WizardUtils.INITIAL_PAGE_POS_X + (290 * num), WizardUtils.INITIAL_PAGE_POS_Y));
+		}
 		page.setAutoPosition(true);
 				
 		UserInteractionsTransition ua = new UserInteractionsTransition(from, page);
