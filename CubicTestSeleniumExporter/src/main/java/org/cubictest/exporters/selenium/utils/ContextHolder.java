@@ -36,11 +36,13 @@ public class ContextHolder implements IResultHolder {
 	public void pushContext(IContext ctx) {
 		if (ctx instanceof Select) {
 			Select select = (Select) ctx;
-			context.push("select[@id=\"" + select.getIdentifier(IdentifierType.ID) + "\"]//");
+			String idType = SeleniumUtils.getIdType(select.getMainIdentifier());
+			context.push("select[@" + idType + "=\"" + select.getMainIdentifierValue() + "\"]//");
 		}
 		else if (ctx instanceof AbstractContext) {
 			AbstractContext abstractContext = (AbstractContext) ctx;
-			context.push("*[@id=\"" + abstractContext.getIdentifier(IdentifierType.ID) + "\"]//");
+			String idType = SeleniumUtils.getIdType(abstractContext.getMainIdentifier());
+			context.push("*[@" + idType + "=\"" + abstractContext.getMainIdentifierValue() + "\"]//");
 		}
 	}
 
