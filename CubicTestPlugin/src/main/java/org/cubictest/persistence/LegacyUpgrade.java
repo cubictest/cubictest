@@ -186,7 +186,12 @@ public class LegacyUpgrade {
 		Element identifierType = pageElement.getChild("identifierType");
 		String idType = "";
 		if (identifierType == null) {
-			idType = "LABEL";
+			if (pageElement.getName().equals("simpleContext")) {
+				idType = "ID";
+			}
+			else {
+				idType = "LABEL";
+			}
 		}
 		else {
 			idType = identifierType.getText();
