@@ -13,26 +13,22 @@ public interface IRecorder {
 	public abstract void setCursor(AbstractPage page);
 
 	/**
-	 * This method forces the element to be added to the current page, even
-	 * if a transition to a new node has been created
-	 * @param element
-	 */
-	public abstract void addPageElementToCurrentPage(PageElement element);
-
-	/**
-	 * Add a check for a page element. If a new UserInteractionsTransition transition has been
-	 * created, we move the cursor to the next Page before adding
+	 * Add element to the current page.
 	 * @param element
 	 */
 	public abstract void addPageElement(PageElement element);
 
 	/**
-	 * Add a UserInteraction from the current page. Consecutive calls to this 
-	 * function adds more PageElementActions to the same UserInteractionsTransition Transition 
+	 * Add a UserInteraction to the current page, creating a new transition if needed.
+	 * If action if of type CLICK, a the cursor is moved to the next page. 
 	 * @param action
 	 */
 	public abstract void addUserInput(UserInteraction action);
 
+	/**
+	 * Set title of the current page to the specified string.
+	 * @param title
+	 */
 	public abstract void setStateTitle(String title);
 
 }

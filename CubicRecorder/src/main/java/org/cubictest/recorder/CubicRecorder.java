@@ -2,8 +2,6 @@ package org.cubictest.recorder;
 
 import static org.cubictest.model.ActionType.CLICK;
 
-import java.util.Iterator;
-
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.Page;
@@ -18,11 +16,9 @@ import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
-import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.layout.AutoLayout;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CommandStack;
 
 public class CubicRecorder implements IRecorder {
@@ -67,27 +63,18 @@ public class CubicRecorder implements IRecorder {
 		autoLayout.setPageSelected(this.cursor);
 	}
 
-
-	
-	
-	/* (non-Javadoc)
-	 * @see org.cubictest.recorder.IRecorder#addPageElementToCurrentPage(org.cubictest.model.PageElement)
-	 */
-	public void addPageElementToCurrentPage(PageElement element) {
-		CreatePageElementCommand createElementCmd = new CreatePageElementCommand();
-		createElementCmd.setContext(this.cursor);
-		createElementCmd.setPageElement(element);
-		
-		this.commandStack.execute(createElementCmd);
-		this.autoLayout.layout(cursor);
-	}
 	
 	
 	/* (non-Javadoc)
 	 * @see org.cubictest.recorder.IRecorder#addPageElement(org.cubictest.model.PageElement)
 	 */
 	public void addPageElement(PageElement element) {
-		this.addPageElementToCurrentPage(element);
+		CreatePageElementCommand createElementCmd = new CreatePageElementCommand();
+		createElementCmd.setContext(this.cursor);
+		createElementCmd.setPageElement(element);
+		
+		this.commandStack.execute(createElementCmd);
+		this.autoLayout.layout(cursor);
 	}
 	
 	
@@ -107,7 +94,7 @@ public class CubicRecorder implements IRecorder {
 			}
 		}
 		if(!elementExists) {
-			this.addPageElementToCurrentPage((PageElement) action.getElement());
+			this.addPageElement((PageElement) action.getElement());
 		}
 
 		this.userInteractionsTransition.addUserInteraction(action);
