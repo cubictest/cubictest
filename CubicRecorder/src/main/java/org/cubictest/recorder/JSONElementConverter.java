@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
@@ -117,9 +118,10 @@ public class JSONElementConverter {
 			
 			//looping over the created page element's ID types and setting all applicable values:
 			
-			for(IdentifierType type : pe.getIdentifierTypes()){
+			for(IdentifierType idType : pe.getIdentifierTypes()){
 				String key = null;
-				switch (type){
+				
+				switch (idType){
 					case CHECKED:
 						//TODO: Handle checked
 						key = null;
@@ -159,17 +161,21 @@ public class JSONElementConverter {
 						key = "index";
 						break;
 
-				} //end switch	
+				} //end switch (idType)
 
 				if (key != null) {
-					Identifier identifier = pe.getIdentifier(type);
-					identifier.setValue(getString(properties, key));
-					identifier.setProbability(100);
+					String value = getString(properties, key);
+					if (StringUtils.isNotBlank(value)) {
+						Identifier identifier = pe.getIdentifier(idType);
+						identifier.setValue(value);
+						identifier.setProbability(100);
+					}
 				}
 
-			} //end for
+			} //end for (idTypes)
 			
 			pageElements.put(getString(properties, "cubicId"), pe);
+			pe.setDirectEditIdentifier(pe.getMainIdentifier());
 			
 			return pe;
 		} catch(NoSuchElementException e) {
