@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/org.mortbay.jetty.jar"/>
 	<classpathentry kind="lib" path="lib/jsonrpc-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
