@@ -1,13 +1,18 @@
 package org.cubictest.ui.gef.layout;
 
+import java.util.Iterator;
+
+import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
+import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
@@ -83,5 +88,30 @@ public class AutoLayout {
 			}
 		}
 		return null;
+	}
+	
+	
+	/**
+	 * Sets the specified page as "selected" in the GUI, deselected the rest.
+	 * @param page
+	 */
+	public void setPageSelected(AbstractPage page) {
+		Iterator iter = this.getTestEditPart().getChildren().iterator();
+		while (iter.hasNext()) {
+			EditPart part = (EditPart) iter.next();
+			if (part instanceof AbstractPageEditPart) {
+				AbstractPage p = (AbstractPage) part.getModel();
+				if (p.equals(page)) {
+					part.setSelected(EditPart.SELECTED_PRIMARY);
+				}
+				else {
+					part.setSelected(EditPart.SELECTED_NONE);
+				}
+			}
+		}
+	}
+
+	public TestEditPart getTestEditPart() {
+		return testEditPart;
 	}
 }
