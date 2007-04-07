@@ -28,10 +28,8 @@ import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
 
 /**
- * Action for exporting to HTML prototype.
+ * Action for starting / stopping the CubicRecorder.
  * 
- * @author Christian Schwarz
- *
  */
 public class RecordEditorAction implements IEditorActionDelegate {
 	IResource currentFile;
@@ -49,12 +47,13 @@ public class RecordEditorAction implements IEditorActionDelegate {
 	 * @see IActionDelegate#run(IAction)
 	 */
 	public void run(IAction action) {
+		
+		AutoLayout autoLayout = new AutoLayout((TestEditPart) testEditor.getGraphicalViewer().getContents());
+
 		if(!running) {
-//			GraphicalTestEditor testEditor = (GraphicalTestEditor)getEditorPart();
 			setRunning(true);
 
 			Test test = testEditor.getTest();
-			AutoLayout autoLayout = new AutoLayout((TestEditPart) testEditor.getGraphicalViewer().getContents());
 
 			if(test.getStartPoint() instanceof UrlStartPoint) {
 				IRecorder cubicRecorder = new CubicRecorder(test, testEditor.getCommandStack(), autoLayout);
@@ -79,7 +78,8 @@ public class RecordEditorAction implements IEditorActionDelegate {
 		} else {
 			try {
 				setRunning(false);
-				seleniumRecorder.stop();				
+				seleniumRecorder.stop();
+				autoLayout.setPageSelected(null);
 			} catch(Exception e) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}

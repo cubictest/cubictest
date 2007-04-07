@@ -1,6 +1,11 @@
 package org.cubictest.recorder;
 
+import static org.cubictest.model.ActionType.CLICK;
+
+import java.util.Iterator;
+
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.ActionType;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
@@ -13,9 +18,11 @@ import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
+import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.layout.AutoLayout;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CommandStack;
 
 public class CubicRecorder implements IRecorder {
@@ -29,30 +36,39 @@ public class CubicRecorder implements IRecorder {
 		this.test = test;
 		this.commandStack = comandStack;
 		this.autoLayout = autoLayout;
+		//reuse empty start page if present:
 		for(Transition t : test.getStartPoint().getOutTransitions()) {
 			if(t.getEnd() instanceof Page && ((Page)t.getEnd()).getElements().size() == 0) {
-				this.cursor = (Page) t.getEnd();
+				setCursor((Page) t.getEnd());
 			}
 		}
 		
+		//if no empty start page, create new
 		if(this.cursor == null) {
-			this.cursor = this.addUserActions(test.getStartPoint());
+			setCursor(this.createNewUserInteractionTransition(test.getStartPoint()));
 		}
+		//reset active transition to force creation of a new one for the user inputs
+		this.userInteractionsTransition = null;
 	}
 	
 	public CubicRecorder(Test test, Page cursor, CommandStack commandStack, AutoLayout autoLayout) {
 		this.test = test;
-		this.cursor = cursor;
+		setCursor(cursor);
 		this.commandStack = commandStack;
 		this.autoLayout = autoLayout;
 	}
+	
 	
 	/* (non-Javadoc)
 	 * @see org.cubictest.recorder.IRecorder#setCursor(org.cubictest.model.AbstractPage)
 	 */
 	public void setCursor(AbstractPage page) {
 		this.cursor = page;
+		autoLayout.setPageSelected(this.cursor);
 	}
+
+
+	
 	
 	/* (non-Javadoc)
 	 * @see org.cubictest.recorder.IRecorder#addPageElementToCurrentPage(org.cubictest.model.PageElement)
@@ -66,44 +82,60 @@ public class CubicRecorder implements IRecorder {
 		this.autoLayout.layout(cursor);
 	}
 	
+	
 	/* (non-Javadoc)
 	 * @see org.cubictest.recorder.IRecorder#addPageElement(org.cubictest.model.PageElement)
 	 */
 	public void addPageElement(PageElement element) {
-		if(this.userInteractionsTransition != null) {
-			// Advance the cursor
-			this.cursor = (AbstractPage) this.userInteractionsTransition.getEnd();
-			this.userInteractionsTransition = null;
-		}
 		this.addPageElementToCurrentPage(element);
 	}
+	
 	
 	/* (non-Javadoc)
 	 * @see org.cubictest.recorder.IRecorder#addUserInput(org.cubictest.model.UserInteraction)
 	 */
 	public void addUserInput(UserInteraction action) {
+		
+		if(this.userInteractionsTransition == null) {
+			createNewUserInteractionTransition(this.cursor);
+		}
+		
 		boolean elementExists = false;
 		for(PageElement element : cursor.getElements()) {
 			if(action.getElement() == element) {
 				elementExists = true;
 			}
 		}
-
 		if(!elementExists) {
-			this.addPageElement((PageElement) action.getElement());
+			this.addPageElementToCurrentPage((PageElement) action.getElement());
 		}
-		
-		if(this.userInteractionsTransition == null) {
-			addUserActions(this.cursor);
-		}
-		
+
 		this.userInteractionsTransition.addUserInteraction(action);
+
+		
+		ActionType lastActionType = action.getActionType();
+		if (lastActionType.equals(CLICK)) {
+			advanceCursor();
+		}
+		
+	}
+
+	/**
+	 * Advance the cursor, creating a new user interaction transition if needed.
+	 */
+	private void advanceCursor() {
+		if (this.userInteractionsTransition == null) {
+			createNewUserInteractionTransition(this.cursor);
+		}
+		//advance the cursor:
+		setCursor((AbstractPage) this.userInteractionsTransition.getEnd());
+		this.userInteractionsTransition = null;
 	}
 	
 	/**
 	 * Create a new Page and a UserInteractionsTransition transition to it
 	 */
-	private AbstractPage addUserActions(TransitionNode from) {
+	private AbstractPage createNewUserInteractionTransition(TransitionNode from) {
 		Page page = new Page();
 		if (from instanceof UrlStartPoint) {
 			int num = from.getOutTransitions().size();
@@ -123,11 +155,7 @@ public class CubicRecorder implements IRecorder {
 		ChangeAbstractPageNameCommand changePageNameCmd = new ChangeAbstractPageNameCommand();
 		changePageNameCmd.setAbstractPage(page);
 		changePageNameCmd.setOldName("");
-		if(cursor != null) {
-			changePageNameCmd.setName(cursor.getName());	
-		} else {
-			changePageNameCmd.setName("untitled");
-		}
+		changePageNameCmd.setName("next page");
 		commandStack.execute(changePageNameCmd);
 		
 		/* Add Transition */
