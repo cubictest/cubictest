@@ -13,6 +13,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorActionDelegate;
@@ -46,7 +47,7 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 		IRunnableWithProgress testRunner = null;
 		Shell shell = null;
 		try {
-			testRunner = new RunnerSetup(test);
+			testRunner = new RunnerSetup(test, Display.getCurrent());
 			shell = UIPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 			
 			//run the test:

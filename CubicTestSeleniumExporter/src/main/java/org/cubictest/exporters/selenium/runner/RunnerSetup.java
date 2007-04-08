@@ -29,6 +29,7 @@ import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * The runner that starts the Selenium servers and test system and starts traversal of the test model.
@@ -41,10 +42,12 @@ public class RunnerSetup implements IRunnableWithProgress {
 	SeleniumHolder seleniumHolder;
 	SeleniumController controller;
 	private static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
+	private Display display;
 
 	
-	public RunnerSetup(Test test) {
+	public RunnerSetup(Test test, Display display) {
 		this.test = test;
+		this.display = display;
 	}
 	
 	public void run(IProgressMonitor monitor) {
@@ -53,6 +56,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 			controller = new SeleniumController();
 			controller.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
 			controller.setBrowser(Browser.FIREFOX);
+			controller.setDisplay(display);
 			
 			//start Selenium (browser and server), guard by timeout:
 			controller.setOperation(Operation.START);

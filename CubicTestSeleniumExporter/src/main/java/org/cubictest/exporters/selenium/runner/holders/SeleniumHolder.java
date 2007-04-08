@@ -14,6 +14,7 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
@@ -33,8 +34,11 @@ public class SeleniumHolder extends ContextHolder {
 	private boolean seleniumStarted;
 	private IProgressMonitor monitor;
 	private UrlStartPoint initialUrlStartPoint;
+	private final Display display;
 	
-	public SeleniumHolder(int port, String browser, String initialUrl) {
+	
+	public SeleniumHolder(int port, String browser, String initialUrl, Display display) {
+		this.display = display;
 		if (port < 80) {
 			throw new ExporterException("Invalid port");
 		}
@@ -56,12 +60,21 @@ public class SeleniumHolder extends ContextHolder {
 			}
 		}
 		addResult(element, result);
+		
 	}
 	
-	public void addResult(PageElement element, TestPartStatus result) {
+	public void addResult(final PageElement element, TestPartStatus result) {
 		handleUserCancel();
 		elementsAsserted.add(element);
 		results.add(result);
+
+		//show result immediately in the GUI:
+		final TestPartStatus finalResult = result;
+		display.asyncExec(new Runnable() {
+			public void run() {
+				element.setStatus(finalResult);
+			}
+		});
 	}
 	
 	public String showResults() {

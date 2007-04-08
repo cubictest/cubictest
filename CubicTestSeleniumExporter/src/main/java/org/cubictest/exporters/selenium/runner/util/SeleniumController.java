@@ -13,6 +13,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.UrlStartPoint;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * Controller that starts/stops the Selenium Server and Selenium test system (SeleniumHolder).
@@ -30,6 +31,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 	private UrlStartPoint initialUrlStartPoint;
 	private Browser browser;
 	private boolean seleniumStarted;
+	private Display display;
 	
 	/**
 	 * Method to start/stop the Selenium proxy server and Selenium test system.
@@ -46,7 +48,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 			}
 
 			Logger.info("Opening test browser and connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + initialUrlStartPoint);
-			seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), initialUrlStartPoint.getBeginAt());
+			seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), initialUrlStartPoint.getBeginAt(), display);
 			seleniumHolder.getSelenium().start();
 			seleniumStarted = true;
 			
@@ -98,5 +100,9 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 
 	public void setBrowser(Browser browser) {
 		this.browser = browser;
+	}
+
+	public void setDisplay(Display display) {
+		this.display = display;
 	}
 }
