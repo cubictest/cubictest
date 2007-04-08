@@ -135,4 +135,8 @@ public class Identifier implements Cloneable, SationObserver{
 		this.paramKey = paramKey;
 		firePropertyChanged(PARAM_KEY, oldParamKey, paramKey);
 	}
+	
+	public String toString() {
+		return type.name() + " = \"" + value + "\" (probability = " + probability + ")";
+	}
 }

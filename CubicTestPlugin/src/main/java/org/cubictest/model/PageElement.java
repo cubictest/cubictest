@@ -31,7 +31,15 @@ public abstract class PageElement extends PropertyAwareObject
 	
 	@Override
 	public String toString() {
-		return getType() + ": " + getDescription() + " = " + getText();
+		StringBuffer buff = new StringBuffer();
+		buff.append(getType() + ": ");
+		for (Identifier id : getIdentifiers()) {
+			if (StringUtils.isNotBlank(id.getValue())) {
+				buff.append(id + ", ");
+			}
+		}
+		buff.append(" not = " + this.not + ", description = \"" + this.description + "\", DirectEdit: " + getDirectEditIdentifier());
+		return buff.toString();
 	}
 	
 	/**

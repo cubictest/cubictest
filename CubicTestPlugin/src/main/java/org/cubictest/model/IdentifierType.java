@@ -15,6 +15,8 @@ package org.cubictest.model;
  */
 public enum IdentifierType {
 
+	//params: displayValue, description
+	
 	/**
 	 * Returning the first hit when indentify in this order;
 	 * the text in a label element;
