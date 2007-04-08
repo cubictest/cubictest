@@ -7,6 +7,7 @@ package org.cubictest.ui.sections;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
@@ -340,37 +341,34 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private SelectionListener probabilityListener = new SelectionListener(){
 		public void widgetSelected(SelectionEvent e) {
 			int index = probability.getSelectionIndex();
+			String label = probability.getItem(index);
 			int prob;
 			value.setEnabled(true);
 			propLabel.setEnabled(true);
-			switch (index) {
-				case 0:
-					prob = 100;
-					break;
-				case 1: 
-					prob = 66;
-					break;
-				case 2:
-					prob = 33;
-					break;
-				case 3:
-					prob = 0;
-					value.setEnabled(false);
-					propLabel.setEnabled(false);
-					break;
-				case 4:
-					prob = -33;
-					break;
-				case 5:
-					prob = -66;
-					break;
-				case 6:
-					prob = -100;
-					break;	
-				default:
-					prob = 0;
-					break;
+			
+			if (label.equals(MUST))
+				prob = 100;
+			else if (label.equals(SHOULD))
+				prob = 66;
+			else if (label.equals(CAN))
+				prob = 33;
+			
+			else if (label.equals(INDIFFERENT)) {
+				prob = 0;
+				value.setEnabled(false);
+				propLabel.setEnabled(false);
 			}
+			else if (label.equals(CANNOT))
+				prob = -33;
+			else if (label.equals(SHOULD_NOT))
+				prob = -66;
+			else if (label.equals(MUST_NOT))
+				prob = -100;
+			else {
+				Logger.warn("Unknown probability");
+				prob = 0;
+			}
+			
 			ChangeIdentiferProbabilityCommand command = 
 				new ChangeIdentiferProbabilityCommand();
 			command.setIdentifier(identifier);
