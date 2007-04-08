@@ -273,7 +273,9 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			probability.select(probability.indexOf(CAN));
 		else if(newProbability == 0){
 			probability.select(probability.indexOf(INDIFFERENT));
-			value.setEnabled(false);
+			if (dirEdit.getSelection() == false) {
+				value.setEnabled(false);
+			}
 			propLabel.setEnabled(false);
 		}else if(newProbability > -34)
 			probability.select(probability.indexOf(CANNOT));
