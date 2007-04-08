@@ -4,6 +4,9 @@
  */
 package org.cubictest.ui.gef.controller;
 
+import java.beans.PropertyChangeEvent;
+
+import org.cubictest.model.Identifier;
 import org.cubictest.model.PageElement;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
 import org.cubictest.ui.gef.directEdit.CubicTestEditorLocator;
@@ -28,6 +31,16 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 	
 	protected CubicTestDirectEditManager manager;
 
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt){
+		super.propertyChange(evt);
+		if(PageElement.DIRECT_EDIT_IDENTIFIER.equals(evt.getPropertyName())){
+			((Identifier) evt.getOldValue()).removePropertyChangeListener(this);
+			((Identifier) evt.getNewValue()).addPropertyChangeListener(this);
+		}
+	}
+		
 	@Override
 	public void activate() {
 		super.activate();
