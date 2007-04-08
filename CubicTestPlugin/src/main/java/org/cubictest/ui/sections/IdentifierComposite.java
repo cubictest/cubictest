@@ -83,41 +83,32 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		this.setLayout(layout);
 		
 		
-		//First Row (ID type, probability, value), always visible:
-		
+		//First Row (Directt edit, ID type, probability, value), always visible:
 		firstRow = factory.createFlatFormComposite(this);
-
-		//Adding primary idendifier input
-		FormData data = new FormData();
-		data.left = new FormAttachment(0, 0);
+		FormData data = null;
 		
-		dirEdit = factory.createButton(firstRow, "" , SWT.RADIO);
-		dirEdit.setLayoutData(data);
-		dirEdit.addSelectionListener(dirEditListener);
-		dirEdit.setToolTipText("Select for direct edit in the graphical test editor");
+		//DirectEdit radiobutton must be last in row to get correct focus behaviour
 		
 		//Adding type
 		data = new FormData();
-		data.left = new FormAttachment(dirEdit);
+		data.left = new FormAttachment(0, 30);
 		data.width = lableWidth;
-		
 		type = factory.createLabel(firstRow, "",SWT.BOLD);
 		type.setLayoutData(data);
+		
 		//Adding probability
 		data = new FormData();
 		data.left = new FormAttachment(type);
-		
 		probability = factory.createCCombo(firstRow);
-		//probability.setItems(new String[]{MUST, SHOULD, CAN, INDIFFERENT, CANNOT, SHOULD_NOT, MUST_NOT});
 		probability.setItems(new String[]{MUST, INDIFFERENT, MUST_NOT});
 		probability.setSize(100, ITabbedPropertyConstants.VSPACE);
 		probability.addSelectionListener(probabilityListener);
 		probability.setBackground(ColorConstants.white);
 		probability.setLayoutData(data);
 		
-		//Adding propLable: "be"
+		//Adding label: "be"
 		data = new FormData();
-		data.left = new FormAttachment(probability);
+		data.left = new FormAttachment(probability, 7);
 		propLabel = factory.createLabel(firstRow, "be ");
 		propLabel.setLayoutData(data);
 
@@ -125,15 +116,21 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		data = new FormData();
 		data.left = new FormAttachment(propLabel,ITabbedPropertyConstants.HSPACE);
 		data.width = lableWidth * 3;
-		
 		value = factory.createText(firstRow, "");
 		value.setLayoutData(data);
 		value.addSelectionListener(valueListener);
 		value.addFocusListener(valueListener);
 		
+		//Adding DirectEdit idendifier input (must be last in row to get correct focus behaviour)
+		data = new FormData();
+		data.left = new FormAttachment(0, 0);
+		dirEdit = factory.createButton(firstRow, "" , SWT.RADIO);
+		dirEdit.setLayoutData(data);
+		dirEdit.addSelectionListener(dirEditListener);
+		dirEdit.setToolTipText("Select for direct edit in the graphical test editor");
+
 		
 		//Second Row (i18n and params):
-		
 		secondRow = factory.createFlatFormComposite(this);
 		
 		//Adding I18n
@@ -141,13 +138,11 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		data = new FormData();
 		data.left = new FormAttachment(10,ITabbedPropertyConstants.HSPACE);
 		i18nLabel.setLayoutData(data);
-		
 		i18n = factory.createButton(secondRow, "", SWT.CHECK);
 		i18n.addSelectionListener(i18nListener);
 		data = new FormData();
 		data.left = new FormAttachment(i18nLabel, ITabbedPropertyConstants.HSPACE);
 		i18n.setLayoutData(data);
-		
 		i18nCombo = factory.createCCombo(secondRow, SWT.NONE);
 		i18nCombo.addSelectionListener(i18nComboListener);
 		data = new FormData();
@@ -159,13 +154,11 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		data = new FormData();
 		data.left = new FormAttachment(i18nCombo,20);
 		paramLabel.setLayoutData(data);
-		
 		param = factory.createButton(secondRow, "", SWT.CHECK);
 		param.addSelectionListener(paramListener);
 		data = new FormData();
 		data.left = new FormAttachment(paramLabel);
 		param.setLayoutData(data);
-		
 		paramCombo = factory.createCCombo(secondRow, SWT.NONE);
 		paramCombo.addSelectionListener(paramComboListener);
 		data = new FormData();
@@ -343,11 +336,6 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		return point;
 	}
 	
-	@Override
-	public int getStyle() {
-		System.out.println("Calling getStyle");
-		return super.getStyle();
-	}
 	
 	private SelectionListener probabilityListener = new SelectionListener(){
 		public void widgetSelected(SelectionEvent e) {
