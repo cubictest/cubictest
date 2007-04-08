@@ -4,11 +4,14 @@
  */
 package org.cubictest.ui.sections;
 
+import static org.cubictest.model.IdentifierType.LABEL;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.Identifier;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.ChangeDirectEditIdentifierCommand;
@@ -273,10 +276,13 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			probability.select(probability.indexOf(CAN));
 		else if(newProbability == 0){
 			probability.select(probability.indexOf(INDIFFERENT));
-			if (dirEdit.getSelection() == false) {
-				value.setEnabled(false);
+			if (dirEdit.getSelection() && identifier.getType().equals(LABEL)) {
+				//the id is Direct Edit and of type Label. Should be editable.
 			}
-			propLabel.setEnabled(false);
+			else {
+				value.setEnabled(false);
+				propLabel.setEnabled(false);
+			}
 		}else if(newProbability > -34)
 			probability.select(probability.indexOf(CANNOT));
 		else if(newProbability > -67)
@@ -357,8 +363,16 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			
 			else if (label.equals(INDIFFERENT)) {
 				prob = 0;
-				value.setEnabled(false);
-				propLabel.setEnabled(false);
+				if (dirEdit.getSelection() && identifier.getType().equals(LABEL)) {
+					//the id is Direct Edit and of type Label. Should be editable.
+					value.setEnabled(false);
+					propLabel.setEnabled(false);
+				}
+				else {
+					value.setEnabled(false);
+					propLabel.setEnabled(false);
+					
+				}
 			}
 			else if (label.equals(CANNOT))
 				prob = -33;
