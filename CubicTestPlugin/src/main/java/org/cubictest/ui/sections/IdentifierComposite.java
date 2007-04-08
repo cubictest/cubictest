@@ -46,6 +46,13 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
  */
 public class IdentifierComposite extends Composite implements PropertyChangeListener {
 
+	private static final String MUST_NOT = "must not";
+	private static final String SHOULD_NOT = "should not";
+	private static final String CANNOT = "cannot";
+	private static final String INDIFFERENT = "indifferent";
+	private static final String CAN = "can";
+	private static final String SHOULD = "should";
+	private static final String MUST = "must";
 	private Text value;
 	private CCombo probability;
 	private Identifier identifier;
@@ -101,7 +108,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		data.left = new FormAttachment(type);
 		
 		probability = factory.createCCombo(firstRow);
-		probability.setItems(new String[]{"must","should","can","indifferent","cannot","should not","must not"});
+		probability.setItems(new String[]{MUST, SHOULD, CAN, INDIFFERENT, CANNOT, SHOULD_NOT, MUST_NOT});
 		probability.setSize(100, ITabbedPropertyConstants.VSPACE);
 		probability.addSelectionListener(probabilityListener);
 		probability.setBackground(ColorConstants.white);
@@ -263,21 +270,21 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		value.setEnabled(true);
 		propLabel.setEnabled(true);
 		if(newProbability > 66)
-			probability.select(0);
+			probability.select(probability.indexOf(MUST));
 		else if(newProbability > 33)
-			probability.select(1);
+			probability.select(probability.indexOf(SHOULD));
 		else if(newProbability > 0)
-			probability.select(2);
+			probability.select(probability.indexOf(CAN));
 		else if(newProbability == 0){
-			probability.select(3);
+			probability.select(probability.indexOf(INDIFFERENT));
 			value.setEnabled(false);
 			propLabel.setEnabled(false);
 		}else if(newProbability > -34)
-			probability.select(4);
+			probability.select(probability.indexOf(CANNOT));
 		else if(newProbability > -67)
-			probability.select(5);
+			probability.select(probability.indexOf(SHOULD_NOT));
 		else
-			probability.select(6);
+			probability.select(probability.indexOf(MUST_NOT));
 	}
 
 	/**
