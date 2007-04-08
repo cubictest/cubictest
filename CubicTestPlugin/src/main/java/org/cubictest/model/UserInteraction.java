@@ -140,7 +140,7 @@ public class UserInteraction extends PropertyAwareObject
 		if (element == null)
 			result += " @ " + "null element";			
 		else
-			result += " @ " + element.getDescription();
+			result += " @ " + element.toString();
 		return result;
 	}
 
