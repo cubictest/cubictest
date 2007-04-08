@@ -73,8 +73,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private int listeners = 0;
 	private Test test;
 
-	public IdentifierComposite(Composite parent, 
-			TabbedPropertySheetWidgetFactory factory, int lableWidth) {
+	public IdentifierComposite(Composite parent, TabbedPropertySheetWidgetFactory factory, int lableWidth) {
 		super(parent, SWT.NONE);
 		setBackground(ColorConstants.white);
 		
@@ -83,11 +82,12 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		layout.verticalSpacing = 2;
 		this.setLayout(layout);
 		
-		//First Row:
+		
+		//First Row (ID type, probability, value), always visible:
 		
 		firstRow = factory.createFlatFormComposite(this);
+
 		//Adding primary idendifier input
-		
 		FormData data = new FormData();
 		data.left = new FormAttachment(0, 0);
 		
@@ -108,7 +108,8 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		data.left = new FormAttachment(type);
 		
 		probability = factory.createCCombo(firstRow);
-		probability.setItems(new String[]{MUST, SHOULD, CAN, INDIFFERENT, CANNOT, SHOULD_NOT, MUST_NOT});
+		//probability.setItems(new String[]{MUST, SHOULD, CAN, INDIFFERENT, CANNOT, SHOULD_NOT, MUST_NOT});
+		probability.setItems(new String[]{MUST, INDIFFERENT, MUST_NOT});
 		probability.setSize(100, ITabbedPropertyConstants.VSPACE);
 		probability.addSelectionListener(probabilityListener);
 		probability.setBackground(ColorConstants.white);
@@ -130,7 +131,8 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		value.addSelectionListener(valueListener);
 		value.addFocusListener(valueListener);
 		
-		//Second Row:
+		
+		//Second Row (i18n and params):
 		
 		secondRow = factory.createFlatFormComposite(this);
 		
