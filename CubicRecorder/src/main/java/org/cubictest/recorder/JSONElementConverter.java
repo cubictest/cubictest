@@ -100,6 +100,8 @@ public class JSONElementConverter {
 				pe = new TextArea();
 			} else if(getString(properties, "tagName").equalsIgnoreCase("SELECT")) {
 				pe = new Select();
+			} else if(getString(properties, "tagName").equalsIgnoreCase("OPTION")) {
+				pe = new Option();
 			} else if(getString(properties, "tagName").equalsIgnoreCase("BUTTON")) {
 				pe = new Button();
 			} else if(getString(properties, "tagName").equalsIgnoreCase("IMG")) {
@@ -187,5 +189,9 @@ public class JSONElementConverter {
 		} catch(NoSuchElementException e) {
 			return null;
 		}
+	}
+
+	public PageElement getPageElement(String cubicId) {
+		return pageElements.get(cubicId);
 	}
 }

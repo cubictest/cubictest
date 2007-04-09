@@ -95,4 +95,14 @@ public abstract class AbstractContext extends PageElement implements IContext {
 			pe.setStatus(TestPartStatus.UNKNOWN);
 		}
 	}
+	
+	public boolean contains(PageElement pe) {
+		if(elements.contains(pe))
+			return true;
+		for(PageElement child : elements)
+			if(child instanceof IContext)
+				if(((IContext)child).contains(pe))
+					return true;
+		return false;
+	}
 }

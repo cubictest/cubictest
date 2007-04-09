@@ -25,6 +25,7 @@ public interface IContext extends IDescription {
 	public void removeElement(PageElement pe);
 	public void switchPageElement(PageElement child, int newIndex);
 	public int getElementIndex(PageElement element);
+	public boolean contains(PageElement pe);
 	
 	/**
 	 * Get all page elements in this context.

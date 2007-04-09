@@ -58,7 +58,7 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 */
 
 	var iframeName = 'myiframe';
-//	var myLogReader = new YAHOO.widget.LogReader(); 
+	var myLogReader = new YAHOO.widget.LogReader(); 
 	var jsonrpc = new JSONRpcClient("/selenium-server/cubic-recorder/JSON-RPC");
 	var yuiContextMenu;
 	var cubicContextMenu;
@@ -104,11 +104,70 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 		}
 		
 		cubicMenuItem.execute = function() {
-			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(this.target));
+			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(this.target),Cubic.recorder.getParentCubicId(this.target));
 		}
 
 		cubicContextMenu.addItem(cubicMenuItem);
 
+		/**
+		 * Assert Option Present
+		 */
+		
+		yuiMenuItem = yuiContextMenu.addItem("Assert Option Present");
+		cubicMenuItem = new Cubic.recorder.RPCContextMenuItem(yuiMenuItem, jsonrpc.recorder);
+	
+		cubicMenuItem.respondsTo = function(element) {
+			var tag = element.tagName;
+			return tag == "SELECT";
+		}
+		
+		cubicMenuItem.execute = function() {
+			YAHOO.log("execute  on assert Option Present");
+			var elmt = this.target;
+			var opt = elmt.options[elmt.selectedIndex];
+			var parentCubicId = elmt.cubicId;
+			if(typeof parentCubicId == 'undefined'){
+				jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(elmt),Cubic.recorder.getParentCubicId(elmt));
+				parentCubicId = elmt.cubicId;
+			}
+			if(opt != null && typeof opt != 'undefined'){
+				jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(opt),parentCubicId);
+			}
+		}
+
+		cubicContextMenu.addItem(cubicMenuItem);
+		
+		/**
+		 * Assert Options Present
+		 */
+		
+		yuiMenuItem = yuiContextMenu.addItem("Assert All Options Present");
+		cubicMenuItem = new Cubic.recorder.RPCContextMenuItem(yuiMenuItem, jsonrpc.recorder);
+	
+		cubicMenuItem.respondsTo = function(element) {
+			var tag = element.tagName;
+			return tag == "SELECT";
+		}
+		
+		cubicMenuItem.execute = function() {
+			YAHOO.log("execute  on assert All Options Present");
+			var elmt = this.target;
+			var parentCubicId = elmt.cubicId;
+			if(typeof parentCubicId == 'undefined'){
+				jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(elmt),Cubic.recorder.getParentCubicId(elmt));
+				parentCubicId = elmt.cubicId;
+			}
+			for(var i = 0; i < elmt.options.length; i++){
+				var opt = elmt.options[i];
+				if(opt != null && typeof opt != 'undefined'){
+					jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(opt),parentCubicId);
+				}
+			}
+			
+		}
+
+		cubicContextMenu.addItem(cubicMenuItem);
+		
 		/**
 		 * Assert Page Title Present
 		 */
@@ -120,7 +179,7 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 		}
 		
 		cubicMenuItem.execute = function() {
-			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(frameDoc.getElementsByTagName("TITLE")[0]));
+			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(frameDoc.getElementsByTagName("TITLE")[0]),null);
 		}
 		
 		cubicContextMenu.addItem(cubicMenuItem);

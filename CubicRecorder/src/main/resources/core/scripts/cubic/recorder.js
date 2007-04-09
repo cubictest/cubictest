@@ -253,3 +253,17 @@ Cubic.recorder.ActionRecorder.prototype = {
 		return (element.tagName == "INPUT" && (element.type == "text" || element.type == "password")) || element.tagName == "TEXTAREA";
 	}
 }
+/**
+ * 
+ * @param {Element} element
+ */
+Cubic.recorder.getParentCubicId = function (element){
+	if(typeof element.cubicId != "undefined"){
+		return element.cubicId + "";
+	}
+	if(element.parentElement != null || typeof element.parentElement != "undefined"){
+		return Cubic.recorder.getParentCubicId(element.parentElement);
+	}else{
+		return null;
+	}
+}

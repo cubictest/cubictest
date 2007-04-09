@@ -4,7 +4,7 @@ Cubic.dom.serializeDomNode = function(domNode) {
 	var data = {};
 	if(!domNode.cubicId) {
 		var date = new Date();
-		domNode.cubicId = date.valueOf();
+		domNode.cubicId = date.valueOf() + '';
 	}
 	data.properties = {};
 	for(var i=0; i < Cubic.dom.serializeDomNode.properties.length; i++) {
@@ -26,7 +26,6 @@ Cubic.dom.serializeDomNode = function(domNode) {
 			}
 		}
 	}
-	
 	
 	return toJSON(data);
 }

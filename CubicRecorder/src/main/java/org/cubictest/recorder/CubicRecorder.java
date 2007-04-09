@@ -12,6 +12,7 @@ import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
@@ -68,9 +69,14 @@ public class CubicRecorder implements IRecorder {
 	/* (non-Javadoc)
 	 * @see org.cubictest.recorder.IRecorder#addPageElement(org.cubictest.model.PageElement)
 	 */
-	public void addPageElement(PageElement element) {
+	public void addPageElement(PageElement element, PageElement parent) {
 		CreatePageElementCommand createElementCmd = new CreatePageElementCommand();
 		createElementCmd.setContext(this.cursor);
+		if(parent != null){
+			if(cursor.contains(parent) && parent instanceof IContext){
+				createElementCmd.setContext((IContext) parent);
+			}
+		}
 		createElementCmd.setPageElement(element);
 		
 		this.commandStack.execute(createElementCmd);
@@ -94,7 +100,7 @@ public class CubicRecorder implements IRecorder {
 			}
 		}
 		if(!elementExists) {
-			this.addPageElement((PageElement) action.getElement());
+			this.addPageElement((PageElement) action.getElement(),null);
 		}
 
 		this.userInteractionsTransition.addUserInteraction(action);

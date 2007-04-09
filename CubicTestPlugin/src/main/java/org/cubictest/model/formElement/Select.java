@@ -102,4 +102,8 @@ public class Select extends FormElement implements IContext {
 			pe.setStatus(TestPartStatus.UNKNOWN);
 		}
 	}
+
+	public boolean contains(PageElement pe) {
+		return elements.contains(pe);
+	}
 }

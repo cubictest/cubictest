@@ -24,10 +24,10 @@ public class GUIAwareRecorder implements IRecorder {
 		this.display = display;
 	}
 	
-	public void addPageElement(final PageElement element) {
+	public void addPageElement(final PageElement element, final PageElement parent) {
 		display.asyncExec(new Runnable() {
 			public void run() {
-				recorder.addPageElement(element);
+				recorder.addPageElement(element, parent);
 			}
 		});
 	}

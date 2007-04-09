@@ -27,11 +27,12 @@ public class JSONRecorder {
 		}
 	}
 	
-	public boolean assertPresent(String json) {
+	public boolean assertPresent(String json, String contextCubicId) {
 		try {
+			PageElement parent = converter.getPageElement(contextCubicId);
 			PageElement pe = converter.createElementFromJson(json);
 			if(pe != null) {
-				recorder.addPageElement(pe);
+				recorder.addPageElement(pe, parent);
 				return true;
 			} else {
 				return false;
@@ -43,11 +44,12 @@ public class JSONRecorder {
 		return false;
 	}
 	
-	public boolean assertNotPresent(String json) {
+	public boolean assertNotPresent(String json, String contextCubicId) {
 		try {
 			PageElement pe = converter.createElementFromJson(json);
+			PageElement parent = converter.getPageElement(contextCubicId);
 			pe.setNot(true);
-			recorder.addPageElement(pe);
+			recorder.addPageElement(pe, parent);
 			return true;
 		} catch (ParseException e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
@@ -55,10 +57,11 @@ public class JSONRecorder {
 		return false;
 	}
 	
-	public boolean assertTextPresent(String text) {
+	public boolean assertTextPresent(String text, String contextCubicId) {
 		PageElement pe = new Text();
 		pe.setText(text);
-		recorder.addPageElement(pe);
+		PageElement parent = converter.getPageElement(contextCubicId);
+		recorder.addPageElement(pe,parent);
 		return true;
 	}
 	
