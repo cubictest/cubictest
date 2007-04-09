@@ -61,6 +61,7 @@ public class CreateTransitionCommand extends Command {
 	/*
 	 * @see org.eclipse.gef.commands.Command#canExecute()
 	 */
+	@Override
 	public boolean canExecute() {
 		if (autoCreateTargetPage) {
 			return true;
@@ -72,6 +73,7 @@ public class CreateTransitionCommand extends Command {
 	/*
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
+	@Override
 	public void execute() {
 		super.execute();
 		if (executed) {
@@ -118,6 +120,7 @@ public class CreateTransitionCommand extends Command {
 				else if (exPoints.size() == 1) {
 					//auto select the single exPoint 
 					transition = new ExtensionTransition(sourceNode, targetNode, exPoints.get(0));
+					test.addTransition(transition);
 				}
 				else {
 					//open dialog to select which exPoint to extend from:
@@ -193,6 +196,7 @@ public class CreateTransitionCommand extends Command {
 	 * 
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
+	@Override
 	public void undo() {
 		super.undo();
 		test.removeTransition(transition);
