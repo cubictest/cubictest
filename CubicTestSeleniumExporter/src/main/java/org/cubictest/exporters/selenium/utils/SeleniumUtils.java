@@ -77,23 +77,27 @@ public class SeleniumUtils {
 		
 		if (hasLabel) {
 			String labelText = pe.getIdentifier(LABEL).getValue();
+			String comparisonOperator = "=";
+			if (pe.getIdentifier(LABEL).getProbability() < 0) {
+				comparisonOperator = "!=";
+			}
 
 			if (element instanceof Text) {
 				String axis = (fullContext.equals("//")) ? "" : "descendant-or-self::";
 				return "xpath=" + fullContext + axis + "*[contains(text(), \"" + labelText + "\")]";
 			}
 			else if (element instanceof Link) {
-				return "xpath=" + fullContext + getHtmlElementType(pe) + "[text()=\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
+				return "xpath=" + fullContext + getHtmlElementType(pe) + "[text()" + comparisonOperator + "\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
 			}
 			else if (element instanceof Option) {
 				return "label=" + labelText;
 			}
 			else if (element instanceof Button) {
-				return "xpath=" + fullContext + "input[(@type=\"button\" or @type=\"submit\") and @value=\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
+				return "xpath=" + fullContext + "input[(@type=\"button\" or @type=\"submit\") and @value" + comparisonOperator + "\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
-				return "xpath=" + fullContext + getHtmlElementType(pe) + "[@id=(//label[text()=\"" + labelText + "\"]/@for)" + getAttributeConstraints(pe, true) + "]";
+				return "xpath=" + fullContext + getHtmlElementType(pe) + "[@id" + comparisonOperator + "(//label[text()=\"" + labelText + "\"]/@for)" + getAttributeConstraints(pe, true) + "]";
 			}
 		}
 		else {
@@ -122,7 +126,11 @@ public class SeleniumUtils {
 			if (i > 0) {
 				result += " and ";
 			}
-			result += "@" + getIdType(id) + "=\"" + id.getValue() + "\"";
+			String comparisonOperator = "=";
+			if (id.getProbability() < 0) {
+				comparisonOperator = "!=";
+			}
+			result += "@" + getIdType(id) + comparisonOperator + "\"" + id.getValue() + "\"";
 			attributeFound = true;
 			i++;
 		}
