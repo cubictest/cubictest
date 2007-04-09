@@ -137,6 +137,21 @@ public abstract class PageElement extends PropertyAwareObject
 		return identifiers;
 	}
 	
+	
+	/**
+	 * Get the identifiers that have a value and do not have probability = indifferent.
+	 * @return
+	 */
+	public List<Identifier> getNonNullIdentifierts() {
+		List<Identifier> list = new ArrayList<Identifier>();
+		for (Identifier id : getIdentifiers()) {
+			if (StringUtils.isNotBlank(id.getValue()) && id.getProbability() != 0) {
+				list.add(id);
+			}
+		}
+		return list;
+	}
+	
 	/**
 	 * Set the identifier types that this page elements supports.
 	 */
