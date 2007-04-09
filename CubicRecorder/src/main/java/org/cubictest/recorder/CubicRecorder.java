@@ -142,7 +142,12 @@ public class CubicRecorder implements IRecorder {
 		ChangeAbstractPageNameCommand changePageNameCmd = new ChangeAbstractPageNameCommand();
 		changePageNameCmd.setAbstractPage(page);
 		changePageNameCmd.setOldName("");
-		changePageNameCmd.setName("next page");
+		if (from instanceof UrlStartPoint) {
+			changePageNameCmd.setName("First Page");
+		}
+		else {
+			changePageNameCmd.setName("next page");
+		}
 		commandStack.execute(changePageNameCmd);
 		
 		/* Add Transition */
