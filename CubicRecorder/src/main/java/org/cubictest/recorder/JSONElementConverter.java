@@ -164,7 +164,12 @@ public class JSONElementConverter {
 
 				} //end switch (idType)
 
-				if (key != null) {
+				if (key == null) {
+					Identifier identifier = pe.getIdentifier(idType);
+					identifier.setValue("");
+					identifier.setProbability(0);
+				}
+				else {
 					String value = getString(properties, key);
 					if (StringUtils.isNotBlank(value)) {
 						Identifier identifier = pe.getIdentifier(idType);
