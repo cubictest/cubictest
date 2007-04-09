@@ -11,100 +11,154 @@
           <commons/>
           <elements>
             <text>
+              <identifiers>
+                <identifier>
+                  <value>Enter a cubic item</value>
+                  <probability>100</probability>
+                  <type>LABEL</type>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <text></text>
-              <description>Enter a cubic item</description>
-              <sationType>NONE</sationType>
-              <key></key>
             </text>
             <select>
-              <multiselect>false</multiselect>
               <elements>
                 <option>
                   <parent reference="../../.."/>
                   <checked>false</checked>
+                  <identifiers>
+                    <identifier>
+                      <value>Cubics</value>
+                      <probability>100</probability>
+                      <type reference="../../../../../../text/identifiers/identifier/type"/>
+                      <paramKey></paramKey>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                    </identifier>
+                  </identifiers>
+                  <directEditIdentifier reference="../identifiers/identifier"/>
                   <not>false</not>
-                  <text></text>
-                  <identifierType>LABEL</identifierType>
-                  <description>Cubics</description>
-                  <sationType reference="../../../../text/sationType"/>
-                  <key></key>
                 </option>
                 <option>
                   <parent reference="../../.."/>
                   <checked>false</checked>
+                  <identifiers>
+                    <identifier>
+                      <value>Reviews</value>
+                      <probability>100</probability>
+                      <type reference="../../../../../../text/identifiers/identifier/type"/>
+                      <paramKey></paramKey>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                    </identifier>
+                  </identifiers>
+                  <directEditIdentifier reference="../identifiers/identifier"/>
                   <not>false</not>
-                  <text></text>
-                  <description>Reviews</description>
-                  <sationType reference="../../../../text/sationType"/>
-                  <key></key>
                 </option>
               </elements>
+              <identifiers>
+                <identifier>
+                  <value>Search</value>
+                  <probability>100</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <probability>0</probability>
+                  <type>MULTISELECT</type>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <text></text>
-              <identifierType reference="../elements/option/identifierType"/>
-              <description>Search</description>
-              <sationType reference="../../text/sationType"/>
-              <key></key>
             </select>
             <textField>
+              <identifiers>
+                <identifier>
+                  <value>query</value>
+                  <probability>100</probability>
+                  <type>ID</type>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <text></text>
-              <identifierType>ID</identifierType>
-              <description>Query</description>
-              <sationType reference="../../text/sationType"/>
-              <key></key>
             </textField>
             <button>
+              <identifiers>
+                <identifier>
+                  <value>Go</value>
+                  <probability>100</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <text></text>
-              <description>Go</description>
-              <sationType reference="../../text/sationType"/>
-              <key></key>
             </button>
           </elements>
           <name>First Page</name>
           <inTransition class="extensionTransition" reference="../.."/>
           <outTransitions>
-            <userActions>
-              <inputs>
-                <pageElementAction>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
                   <element class="option" reference="../../../../../elements/select/elements/option"/>
                   <input></input>
-                  <action>CHECK</action>
-                  <sationType reference="../../../../../elements/text/sationType"/>
-                  <key></key>
-                </pageElementAction>
-                <pageElementAction>
+                  <action>SELECT</action>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+                <userInteraction>
                   <element class="textField" reference="../../../../../elements/textField"/>
                   <input>Moving box</input>
                   <action>ENTER_TEXT</action>
-                  <sationType reference="../../../../../elements/text/sationType"/>
-                  <key></key>
-                </pageElementAction>
-                <pageElementAction>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+                <userInteraction>
                   <element class="button" reference="../../../../../elements/button"/>
                   <input></input>
                   <action>CLICK</action>
-                  <sationType reference="../../../../../elements/text/sationType"/>
-                  <key></key>
-                </pageElementAction>
-              </inputs>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
               <page class="page" reference="../../.."/>
               <start class="page" reference="../../.."/>
               <end class="page">
                 <commons/>
                 <elements>
                   <text>
+                    <identifiers>
+                      <identifier>
+                        <value>Moving box</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/text/identifiers/identifier/type"/>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text></text>
-                    <description>Moving box</description>
-                    <sationType reference="../../../../../../elements/text/sationType"/>
-                    <key></key>
                   </text>
                 </elements>
                 <name>Search results</name>
-                <inTransition class="userActions" reference="../.."/>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
                 <outTransitions/>
                 <id>page232692341162408385747</id>
                 <position>
@@ -116,8 +170,9 @@
                   <height>49</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
+                <autoPosition>false</autoPosition>
               </end>
-            </userActions>
+            </userInteractionsTransition>
           </outTransitions>
           <id>page329926901162408155135</id>
           <position>
@@ -129,6 +184,7 @@
             <height>160</height>
           </dimension>
           <name defined-in="transitionNode"></name>
+          <autoPosition>false</autoPosition>
         </end>
       </extensionTransition>
     </outTransitions>
@@ -138,20 +194,21 @@
       <y>0</y>
     </position>
     <name></name>
+    <autoPosition>false</autoPosition>
   </startPoint>
   <extensionPoints/>
   <pages>
     <page reference="../../startPoint/outTransitions/extensionTransition/end"/>
-    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions/end"/>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end"/>
   </pages>
   <subTests/>
   <transitions>
     <extensionTransition reference="../../startPoint/outTransitions/extensionTransition"/>
-    <userActions reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userActions"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition"/>
   </transitions>
   <customTestSteps/>
   <name>search</name>
   <description></description>
   <id>test1162408155135</id>
-  <modelVersion>3</modelVersion>
+  <modelVersion>5</modelVersion>
 </test>
