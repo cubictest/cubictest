@@ -19,11 +19,15 @@ import static org.cubictest.model.ActionType.MOUSE_OVER;
 import static org.cubictest.model.ActionType.REFRESH;
 import static org.cubictest.model.ActionType.SELECT;
 import static org.cubictest.model.ActionType.UNCHECK;
+import static org.cubictest.model.IdentifierType.HREF;
 import static org.cubictest.model.IdentifierType.ID;
 import static org.cubictest.model.IdentifierType.LABEL;
 import static org.cubictest.model.IdentifierType.NAME;
+import static org.cubictest.model.IdentifierType.SRC;
+import static org.cubictest.model.IdentifierType.TITLE;
 import static org.cubictest.model.IdentifierType.VALUE;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.FormElement;
@@ -62,41 +66,67 @@ public class SeleniumUtils {
 		}
 		PageElement pe = (PageElement) element;
 
-		IdentifierType idType = pe.getMainIdentifierType();
-		String idText = pe.getMainIdentifierValue();
-		String context = contextHolder.getFullContext();
+		String fullContext = contextHolder.getFullContext();
 		
-		if (idType.equals(ID)) {
-			return "xpath=" + context + getHtmlElementType(pe) + "[@id=\"" + idText + "\"]";
+		boolean hasLabel = false;
+		for (Identifier id : pe.getNonNullIdentifierts()) {
+			if (id.getType().equals(LABEL)) {
+				hasLabel = true;
+			}
 		}
-		if (idType.equals(NAME)) {
-			return "xpath=" + context + getHtmlElementType(pe) + "[@name=\"" + idText + "\"]";
-		}
-		if (idType.equals(VALUE)) {
-			return "xpath=" + context + getHtmlElementType(pe) + "[@value=\"" + idText + "\"]";
-		}
-		if (idType.equals(LABEL)) {
+		
+		if (hasLabel) {
+			String labelText = pe.getIdentifier(LABEL).getValue();
+
 			if (element instanceof Text) {
-				String axis = (context.equals("//")) ? "" : "descendant-or-self::";
-				return "xpath=" + context + axis + "*[contains(text(), \"" + idText + "\")]";
+				String axis = (fullContext.equals("//")) ? "" : "descendant-or-self::";
+				return "xpath=" + fullContext + axis + "*[contains(text(), \"" + labelText + "\")]";
 			}
 			else if (element instanceof Link) {
-				return "xpath=" + context + getHtmlElementType(pe) + "[text()=\"" + idText + "\"]";
+				return "xpath=" + fullContext + getHtmlElementType(pe) + "[text()=\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
 			}
 			else if (element instanceof Option) {
-				return "label=" + idText;
+				return "label=" + labelText;
 			}
 			else if (element instanceof Button) {
-				return "xpath=" + context + "input[(@type=\"button\" or @type=\"submit\") and @value=\"" + idText + "\"]";
+				return "xpath=" + fullContext + "input[(@type=\"button\" or @type=\"submit\") and @value=\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
-				return "xpath=" + context + getHtmlElementType(pe) + "[@id=(//label[text()=\"" + idText + "\"]/@for)]";
+				return "xpath=" + fullContext + getHtmlElementType(pe) + "[@id=(//label[text()=\"" + labelText + "\"]/@for)" + getAttributeConstraints(pe, true) + "]";
 			}
 		}
 		else {
-			throw new ExporterException("Identifier type not recognized.");
+			return "xpath=" + fullContext + getHtmlElementType(pe) + "[" + getAttributeConstraints(pe, false) + "]";
+
 		}
+	}
+
+
+	/**
+	 * Get string to assert for all the page elements Identifier/HTML attribute values.
+	 * E.g. [@id="someId"]
+	 */
+	private static String getAttributeConstraints(PageElement pe, boolean startWithAnd) {
+		String result = "";
+		if (startWithAnd) {
+			result += " and ";
+		}
+		int i = 0;
+		boolean attributeFound = false;
+		for (Identifier id : pe.getNonNullIdentifierts()) {
+			if (id.getType().equals(LABEL)) {
+				//label is not a HTML attribute, it is an element.
+				continue;
+			}
+			if (i > 0) {
+				result += " and ";
+			}
+			result += "@" + getIdType(id) + "=\"" + id.getValue() + "\"";
+			attributeFound = true;
+			i++;
+		}
+		return attributeFound ? result : "";
 	}
 	
 
@@ -265,6 +295,7 @@ public class SeleniumUtils {
 	
 	/**
 	 * Get the Selenium ID type based on the specified Identifier.
+	 * Also works for HTML ID's except for LABEL.
 	 * @param id
 	 * @return
 	 */
@@ -280,6 +311,15 @@ public class SeleniumUtils {
 		}
 		else if (id.getType().equals(VALUE)) {
 			return "value";
+		}
+		else if (id.getType().equals(HREF)) {
+			return "href";
+		}
+		else if (id.getType().equals(SRC)) {
+			return "src";
+		}
+		else if (id.getType().equals(TITLE)) {
+			return "title";
 		}
 		return null;
 	}
