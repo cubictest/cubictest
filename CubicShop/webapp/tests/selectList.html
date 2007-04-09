@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html>
+  <head>
+    <title>CubicTest exported test</title>
+    <style type="text/css">td {padding-right: 25px}
+.comment {color: #AAF; padding-top: 10px;}</style>
+  </head>
+  <body>
+    <table border="1" cellspacing="0">
+      <tr>
+        <td>setTimeout</td>
+        <td>10000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Opening URL: http://localhost:8080/cubicshop/search.jsp:</td>
+      </tr>
+      <tr>
+        <td>open</td>
+        <td>http://localhost:8080/cubicshop/search.jsp</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: Option:  = reviews:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//option[@value="reviews"]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: Option:  = cubics:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//option[@value="cubics"]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: TextField:  = query:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//input[@id="query"]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: Button:  = Go:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//input[(@type="button" or @type="submit") and @value="Go"]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Selecting Option:  = cubics:</td>
+      </tr>
+      <tr>
+        <td>select</td>
+        <td>xpath=//select[@id="search"]</td>
+        <td>value=cubics</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Typing text TextField:  = query:</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>xpath=//input[@id="query"]</td>
+        <td>Crates!</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking Button:  = Go:</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//input[(@type="button" or @type="submit") and @value="Go"]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: Text:  = Search result for cubics:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//*[contains(text(), "Search result for cubics")]</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+  </body>
+</html>
+
