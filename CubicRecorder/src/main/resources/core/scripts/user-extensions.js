@@ -58,7 +58,7 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 */
 
 	var iframeName = 'myiframe';
-	var myLogReader = new YAHOO.widget.LogReader(); 
+	//var myLogReader = new YAHOO.widget.LogReader(); 
 	var jsonrpc = new JSONRpcClient("/selenium-server/cubic-recorder/JSON-RPC");
 	var yuiContextMenu;
 	var cubicContextMenu;
