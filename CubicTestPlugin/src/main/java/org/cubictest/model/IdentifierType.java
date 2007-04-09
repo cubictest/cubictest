@@ -24,8 +24,8 @@ public enum IdentifierType {
 	 * and the text before or after the element.
 	 */
 	LABEL("Label", "Checks first for text in label element for most elements, \n" +
-			" then the text before or after the element \n. " +
-			" For buttons the value attribute is checked."),
+			"then the text before or after the element. \n" +
+			"For buttons the value attribute is checked."),
 
 	/** HTML ID attribute */
 	ID("Id", "Check the ID attribute."),
