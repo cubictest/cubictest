@@ -151,8 +151,9 @@ public class JSONElementConverter {
 						key = "title";
 						break;
 					case VALUE:
-						if(pe instanceof AbstractTextInput)
-							key = "value";
+						//TODO: Get value present when page loaded.
+//						if(pe instanceof AbstractTextInput)
+//							key = "value";
 						break;
 					case MULTISELECT:
 						key = "multiselect";
