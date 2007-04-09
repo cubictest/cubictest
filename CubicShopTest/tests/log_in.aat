@@ -10,18 +10,32 @@
               <start class="common">
                 <elements>
                   <link>
+                    <identifiers>
+                      <identifier>
+                        <value>Welcome</value>
+                        <probability>100</probability>
+                        <type>LABEL</type>
+                        <i18nKey>Welcome</i18nKey>
+                        <useI18n>true</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text>Welcome</text>
-                    <description>Welcome</description>
-                    <sationType>INTERNATIONALISATION</sationType>
-                    <key>Welcome</key>
                   </link>
                   <link>
+                    <identifiers>
+                      <identifier>
+                        <value>Search</value>
+                        <probability>100</probability>
+                        <type reference="../../../../link/identifiers/identifier/type"/>
+                        <i18nKey>Search</i18nKey>
+                        <useI18n>true</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text>Search</text>
-                    <description>Search</description>
-                    <sationType reference="../../link/sationType"/>
-                    <key>Search</key>
                     <status>UNKNOWN</status>
                   </link>
                 </elements>
@@ -36,62 +50,90 @@
                       </commons>
                       <elements>
                         <text>
+                          <identifiers>
+                            <identifier>
+                              <value>Welcome Christian</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier/type"/>
+                              <paramKey>WelcomeMessage</paramKey>
+                              <useI18n>true</useI18n>
+                              <useParam>true</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text>Welcome Christian</text>
-                          <description>Welcome Christian</description>
-                          <sationType>BOTH</sationType>
-                          <key>WelcomeMessage</key>
                         </text>
                       </elements>
                       <name>Logged in</name>
-                      <inTransition class="userActions">
-                        <inputs>
-                          <pageElementAction>
+                      <inTransition class="userInteractionsTransition">
+                        <userInteractions>
+                          <userInteraction>
                             <element class="textField">
+                              <identifiers>
+                                <identifier>
+                                  <value>username</value>
+                                  <probability>100</probability>
+                                  <type>NAME</type>
+                                  <paramKey></paramKey>
+                                  <useI18n>false</useI18n>
+                                  <useParam>false</useParam>
+                                </identifier>
+                              </identifiers>
+                              <directEditIdentifier reference="../identifiers/identifier"/>
                               <not>false</not>
-                              <text></text>
-                              <identifierType>NAME</identifierType>
-                              <description>Username</description>
-                              <sationType>NONE</sationType>
-                              <key></key>
                               <status reference="../../../../../../../../elements/link[2]/status"/>
                             </element>
                             <input>Christian</input>
                             <action>ENTER_PARAMETER_TEXT</action>
-                            <sationType>PARAMETERISATION</sationType>
-                            <key>Username</key>
-                          </pageElementAction>
-                          <pageElementAction>
+                            <paramKey>Username</paramKey>
+                            <useI18n>false</useI18n>
+                            <useParam>true</useParam>
+                          </userInteraction>
+                          <userInteraction>
                             <element class="password">
+                              <identifiers>
+                                <identifier>
+                                  <value>password</value>
+                                  <probability>100</probability>
+                                  <type reference="../../../../../userInteraction/element/identifiers/identifier/type"/>
+                                  <paramKey></paramKey>
+                                  <useI18n>false</useI18n>
+                                  <useParam>false</useParam>
+                                </identifier>
+                              </identifiers>
+                              <directEditIdentifier reference="../identifiers/identifier"/>
                               <not>false</not>
-                              <text></text>
-                              <identifierType reference="../../../pageElementAction/element/identifierType"/>
-                              <description>Password</description>
-                              <sationType reference="../../../pageElementAction/element/sationType"/>
-                              <key></key>
                               <status reference="../../../../../../../../elements/link[2]/status"/>
                             </element>
                             <input>pw1</input>
-                            <action reference="../../pageElementAction/action"/>
-                            <sationType reference="../../pageElementAction/sationType"/>
-                            <key>Passwords</key>
-                          </pageElementAction>
-                          <pageElementAction>
+                            <action reference="../../userInteraction/action"/>
+                            <paramKey>Passwords</paramKey>
+                            <useI18n>false</useI18n>
+                            <useParam>true</useParam>
+                          </userInteraction>
+                          <userInteraction>
                             <element class="button">
+                              <identifiers>
+                                <identifier>
+                                  <value>logIn</value>
+                                  <probability>100</probability>
+                                  <type reference="../../../../../userInteraction/element/identifiers/identifier/type"/>
+                                  <paramKey></paramKey>
+                                  <useI18n>false</useI18n>
+                                  <useParam>false</useParam>
+                                </identifier>
+                              </identifiers>
+                              <directEditIdentifier reference="../identifiers/identifier"/>
                               <not>false</not>
-                              <text></text>
-                              <identifierType reference="../../../pageElementAction/element/identifierType"/>
-                              <description>Log in</description>
-                              <sationType reference="../../../pageElementAction/element/sationType"/>
-                              <key></key>
                               <status reference="../../../../../../../../elements/link[2]/status"/>
                             </element>
                             <input></input>
                             <action>CLICK</action>
-                            <sationType reference="../../pageElementAction/element/sationType"/>
-                            <key></key>
-                          </pageElementAction>
-                        </inputs>
+                            <paramKey></paramKey>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                          </userInteraction>
+                        </userInteractions>
                         <page class="page" reference="../../../../../../../.."/>
                         <start class="page" reference="../../../../../../../.."/>
                         <end class="page" reference="../.."/>
@@ -108,18 +150,20 @@
                               <y>441</y>
                             </position>
                             <name>Logged in Extension Point</name>
+                            <autoPosition>false</autoPosition>
                           </end>
                         </simpleTransition>
                       </outTransitions>
                       <id>1157064802173</id>
                       <position>
-                        <x>216</x>
-                        <y>415</y>
+                        <x>87</x>
+                        <y>343</y>
                       </position>
                       <dimension>
                         <width>116</width>
                         <height>54</height>
                       </dimension>
+                      <autoPosition>false</autoPosition>
                     </end>
                   </commonTransition>
                 </outTransitions>
@@ -132,19 +176,20 @@
                   <width>91</width>
                   <height>75</height>
                 </dimension>
+                <autoPosition>false</autoPosition>
               </start>
               <end class="page" reference="../../.."/>
             </commonTransition>
           </commons>
           <elements>
-            <textField reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction/element"/>
-            <password reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction[2]/element"/>
-            <button reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction[3]/element"/>
+            <textField reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction/element"/>
+            <password reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction[2]/element"/>
+            <button reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction[3]/element"/>
           </elements>
           <name>Frontpage</name>
           <inTransition class="simpleTransition" reference="../.."/>
           <outTransitions>
-            <userActions reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
+            <userInteractionsTransition reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
           </outTransitions>
           <id>page223261531157064773171</id>
           <position>
@@ -155,6 +200,7 @@
             <width>99</width>
             <height>94</height>
           </dimension>
+          <autoPosition>false</autoPosition>
         </end>
       </simpleTransition>
     </outTransitions>
@@ -164,6 +210,7 @@
       <y>0</y>
     </position>
     <name>Frontpage</name>
+    <autoPosition>false</autoPosition>
   </startPoint>
   <extensionPoints>
     <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/simpleTransition/end"/>
@@ -177,7 +224,7 @@
   <transitions>
     <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition"/>
     <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]"/>
-    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/simpleTransition"/>
   </transitions>
@@ -199,11 +246,18 @@
     </languages>
     <observers>
       <link>
+        <identifiers>
+          <identifier>
+            <value>About us</value>
+            <probability>100</probability>
+            <type reference="../../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link/identifiers/identifier/type"/>
+            <i18nKey>AboutUs</i18nKey>
+            <useI18n>true</useI18n>
+            <useParam>false</useParam>
+          </identifier>
+        </identifiers>
+        <directEditIdentifier reference="../identifiers/identifier"/>
         <not>false</not>
-        <text>About us</text>
-        <description>About us</description>
-        <sationType reference="../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link/sationType"/>
-        <key>AboutUs</key>
         <status reference="../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link[2]/status"/>
       </link>
       <link reference="../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link[2]"/>
@@ -215,41 +269,33 @@
   <paramList>
     <parameters>
       <parameter>
-        <inputs>
-          <string>Christian</string>
-          <string>Stein Kåre</string>
-          <string>Erlend</string>
-        </inputs>
         <header>Username</header>
         <observers>
-          <pageElementAction reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction"/>
+          <userInteraction reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction"/>
           <text>
+            <identifiers>
+              <identifier>
+                <value>Christian</value>
+                <probability>100</probability>
+                <type reference="../../../../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link/identifiers/identifier/type"/>
+                <paramKey>WelcomeMessage</paramKey>
+                <useI18n>true</useI18n>
+                <useParam>true</useParam>
+              </identifier>
+            </identifiers>
+            <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <text>Christian</text>
-            <description>Christian</description>
-            <sationType reference="../../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/elements/text/sationType"/>
-            <key>WelcomeMessage</key>
             <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link[2]/status"/>
           </text>
         </observers>
       </parameter>
       <parameter>
-        <inputs>
-          <string>pw1</string>
-          <string>pw2</string>
-          <string>pw3</string>
-        </inputs>
         <header>Passwords</header>
         <observers>
-          <pageElementAction reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/inputs/pageElementAction[2]"/>
+          <userInteraction reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction[2]"/>
         </observers>
       </parameter>
       <parameter>
-        <inputs>
-          <string>WelcomeChristian</string>
-          <string>WelcomeSK</string>
-          <string>WelcomeErlend</string>
-        </inputs>
         <header>WelcomeMessage</header>
         <observers>
           <text reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/elements/text"/>
@@ -262,5 +308,5 @@
   <name>Log in</name>
   <description>Test log in</description>
   <id>/CubicShopTest/tests/logIn.aat</id>
-  <modelVersion>3</modelVersion>
+  <modelVersion>5</modelVersion>
 </test>

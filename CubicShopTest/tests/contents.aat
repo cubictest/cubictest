@@ -1,209 +1,371 @@
 <test>
-  <startPoint class="startPoint">
+  <startPoint class="urlStartPoint">
     <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
     <outTransitions>
       <simpleTransition>
-        <start class="startPoint" reference="../../.."/>
+        <start class="urlStartPoint" reference="../../.."/>
         <end class="page">
-          <aspects>
-            <aspectTransition>
-              <start class="aspect">
+          <commons>
+            <commonTransition>
+              <start class="common">
                 <elements>
                   <title>
+                    <identifiers>
+                      <identifier>
+                        <value>CubicShop</value>
+                        <probability>100</probability>
+                        <type>LABEL</type>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text></text>
-                    <description>CubicShop</description>
-                    <sationType>NONE</sationType>
-                    <key></key>
+                    <status>PASS</status>
                   </title>
                   <text>
+                    <identifiers>
+                      <identifier>
+                        <value>CubicShop</value>
+                        <probability>100</probability>
+                        <type reference="../../../../title/identifiers/identifier/type"/>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text></text>
-                    <description>CubicShop</description>
-                    <sationType reference="../../title/sationType"/>
-                    <key></key>
+                    <status reference="../../title/status"/>
                   </text>
                   <link>
+                    <identifiers>
+                      <identifier>
+                        <value>Welcome</value>
+                        <probability>100</probability>
+                        <type reference="../../../../title/identifiers/identifier/type"/>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text></text>
-                    <description>Welcome</description>
-                    <sationType reference="../../title/sationType"/>
-                    <key></key>
+                    <status reference="../../title/status"/>
                   </link>
                   <link>
+                    <identifiers>
+                      <identifier>
+                        <value>Webshop</value>
+                        <probability>100</probability>
+                        <type reference="../../../../title/identifiers/identifier/type"/>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text></text>
-                    <description>Webshop</description>
-                    <sationType reference="../../title/sationType"/>
-                    <key></key>
+                    <status reference="../../title/status"/>
                   </link>
                   <link>
+                    <identifiers>
+                      <identifier>
+                        <value>Your cart</value>
+                        <probability>100</probability>
+                        <type reference="../../../../title/identifiers/identifier/type"/>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text></text>
-                    <description>Your cart</description>
-                    <sationType reference="../../title/sationType"/>
-                    <key></key>
+                    <status reference="../../title/status"/>
                   </link>
                   <link>
+                    <identifiers>
+                      <identifier>
+                        <value>Search</value>
+                        <probability>100</probability>
+                        <type reference="../../../../title/identifiers/identifier/type"/>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text></text>
-                    <description>Search</description>
-                    <sationType reference="../../title/sationType"/>
-                    <key></key>
+                    <status reference="../../title/status"/>
                   </link>
                   <link>
+                    <identifiers>
+                      <identifier>
+                        <value>About us</value>
+                        <probability>100</probability>
+                        <type reference="../../../../title/identifiers/identifier/type"/>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text></text>
-                    <description>About us</description>
-                    <sationType reference="../../title/sationType"/>
-                    <key></key>
+                    <status reference="../../title/status"/>
                   </link>
                   <text>
+                    <identifiers>
+                      <identifier>
+                        <value>The CubicShop Inc</value>
+                        <probability>100</probability>
+                        <type reference="../../../../title/identifiers/identifier/type"/>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <text></text>
-                    <description>The CubicShop Inc</description>
-                    <sationType reference="../../title/sationType"/>
-                    <key></key>
+                    <status reference="../../title/status"/>
                   </text>
                 </elements>
                 <name>Common</name>
                 <outTransitions>
-                  <aspectTransition reference="../../.."/>
-                  <aspectTransition>
-                    <start class="aspect" reference="../../.."/>
+                  <commonTransition reference="../../.."/>
+                  <commonTransition>
+                    <start class="common" reference="../../.."/>
                     <end class="page">
-                      <aspects>
-                        <aspectTransition reference="../../.."/>
-                      </aspects>
+                      <commons>
+                        <commonTransition reference="../../.."/>
+                      </commons>
                       <elements>
                         <link>
+                          <identifiers>
+                            <identifier>
+                              <value>Shipping crate</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../elements/title/identifiers/identifier/type"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text></text>
-                          <description>Shipping crate</description>
-                          <sationType reference="../../../../../../elements/title/sationType"/>
-                          <key></key>
+                          <status reference="../../../../../../elements/title/status"/>
                         </link>
                         <button>
+                          <identifiers>
+                            <identifier>
+                              <value>buyShippingCrate</value>
+                              <probability>100</probability>
+                              <type>NAME</type>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text>buyShippingCrate</text>
-                          <identifierType>NAME</identifierType>
-                          <description>Buy</description>
-                          <sationType reference="../../../../../../elements/title/sationType"/>
-                          <key></key>
+                          <status reference="../../../../../../elements/title/status"/>
                         </button>
                         <link>
+                          <identifiers>
+                            <identifier>
+                              <value>Engine crate</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../elements/title/identifiers/identifier/type"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text></text>
-                          <description>Engine Crate</description>
-                          <sationType reference="../../../../../../elements/title/sationType"/>
-                          <key></key>
+                          <status reference="../../../../../../elements/title/status"/>
                         </link>
                         <button>
+                          <identifiers>
+                            <identifier>
+                              <value>Buy</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../elements/title/identifiers/identifier/type"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text></text>
-                          <description>Buy</description>
-                          <sationType reference="../../../../../../elements/title/sationType"/>
-                          <key></key>
+                          <status reference="../../../../../../elements/title/status"/>
                         </button>
                         <link>
+                          <identifiers>
+                            <identifier>
+                              <value>Loudspeaker box</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../elements/title/identifiers/identifier/type"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text></text>
-                          <description>Loudspeaker box</description>
-                          <sationType reference="../../../../../../elements/title/sationType"/>
-                          <key></key>
+                          <status reference="../../../../../../elements/title/status"/>
                         </link>
                         <button>
+                          <identifiers>
+                            <identifier>
+                              <value>Buy</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../elements/title/identifiers/identifier/type"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text></text>
-                          <description>Buy</description>
-                          <sationType reference="../../../../../../elements/title/sationType"/>
-                          <key></key>
+                          <status reference="../../../../../../elements/title/status"/>
                         </button>
                         <link>
+                          <identifiers>
+                            <identifier>
+                              <value>3D Shooter Box</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../elements/title/identifiers/identifier/type"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text></text>
-                          <description>3D Shooter Box</description>
-                          <sationType reference="../../../../../../elements/title/sationType"/>
-                          <key></key>
+                          <status reference="../../../../../../elements/title/status"/>
                         </link>
                         <button>
+                          <identifiers>
+                            <identifier>
+                              <value>Buy</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../elements/title/identifiers/identifier/type"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text></text>
-                          <description>Buy</description>
-                          <sationType reference="../../../../../../elements/title/sationType"/>
-                          <key></key>
+                          <status reference="../../../../../../elements/title/status"/>
                         </button>
                         <text>
+                          <identifiers>
+                            <identifier>
+                              <value>Webshop</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../elements/title/identifiers/identifier/type"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text></text>
-                          <description>Webshop</description>
-                          <sationType reference="../../../../../../elements/title/sationType"/>
-                          <key></key>
+                          <status reference="../../../../../../elements/title/status"/>
                         </text>
                       </elements>
                       <name>Webshop</name>
-                      <inTransition class="userActions">
-                        <inputs>
-                          <pageElementAction>
+                      <inTransition class="userInteractionsTransition">
+                        <userInteractions>
+                          <userInteraction>
                             <element class="link" reference="../../../../../../../elements/link[2]"/>
                             <input></input>
                             <action>CLICK</action>
-                            <sationType reference="../../../../../../../elements/title/sationType"/>
-                            <key></key>
-                          </pageElementAction>
-                        </inputs>
+                            <paramKey></paramKey>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                          </userInteraction>
+                        </userInteractions>
                         <page class="page">
-                          <aspects>
-                            <aspectTransition>
-                              <start class="aspect" reference="../../../../../../../.."/>
+                          <commons>
+                            <commonTransition>
+                              <start class="common" reference="../../../../../../../.."/>
                               <end class="page" reference="../../.."/>
-                            </aspectTransition>
-                          </aspects>
+                            </commonTransition>
+                          </commons>
                           <elements>
                             <text>
+                              <identifiers>
+                                <identifier>
+                                  <value>Welcome Stein Kåre</value>
+                                  <probability>100</probability>
+                                  <type reference="../../../../../../../../../../elements/title/identifiers/identifier/type"/>
+                                  <paramKey></paramKey>
+                                  <useI18n>false</useI18n>
+                                  <useParam>false</useParam>
+                                </identifier>
+                              </identifiers>
+                              <directEditIdentifier reference="../identifiers/identifier"/>
                               <not>false</not>
-                              <text></text>
-                              <description>Welcome Stein Kåre</description>
-                              <sationType reference="../../../../../../../../elements/title/sationType"/>
-                              <key></key>
+                              <status reference="../../../../../../../../elements/title/status"/>
                             </text>
                           </elements>
                           <name>Logged in</name>
-                          <inTransition class="userActions">
-                            <inputs>
-                              <pageElementAction>
+                          <inTransition class="userInteractionsTransition">
+                            <userInteractions>
+                              <userInteraction>
                                 <element class="textField">
+                                  <identifiers>
+                                    <identifier>
+                                      <value>Username</value>
+                                      <probability>100</probability>
+                                      <type reference="../../../../../../../../../../../../elements/title/identifiers/identifier/type"/>
+                                      <paramKey></paramKey>
+                                      <useI18n>false</useI18n>
+                                      <useParam>false</useParam>
+                                    </identifier>
+                                  </identifiers>
+                                  <directEditIdentifier reference="../identifiers/identifier"/>
                                   <not>false</not>
-                                  <text></text>
-                                  <description>Username</description>
-                                  <sationType reference="../../../../../../../../../../elements/title/sationType"/>
-                                  <key></key>
+                                  <status reference="../../../../../../../../../../elements/title/status"/>
                                 </element>
                                 <input>Stein Kåre</input>
                                 <action>ENTER_TEXT</action>
-                                <sationType reference="../../../../../../../../../elements/title/sationType"/>
-                                <key></key>
-                              </pageElementAction>
-                              <pageElementAction>
+                                <paramKey></paramKey>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                              </userInteraction>
+                              <userInteraction>
                                 <element class="button">
+                                  <identifiers>
+                                    <identifier>
+                                      <value>Log in</value>
+                                      <probability>100</probability>
+                                      <type reference="../../../../../../../../../../../../elements/title/identifiers/identifier/type"/>
+                                      <paramKey></paramKey>
+                                      <useI18n>false</useI18n>
+                                      <useParam>false</useParam>
+                                    </identifier>
+                                  </identifiers>
+                                  <directEditIdentifier reference="../identifiers/identifier"/>
                                   <not>false</not>
-                                  <text></text>
-                                  <description>Log in</description>
-                                  <sationType reference="../../../../../../../../../../elements/title/sationType"/>
-                                  <key></key>
+                                  <status reference="../../../../../../../../../../elements/title/status"/>
                                 </element>
                                 <input></input>
-                                <action reference="../../../../../inputs/pageElementAction/action"/>
-                                <sationType reference="../../../../../../../../../elements/title/sationType"/>
-                                <key></key>
-                              </pageElementAction>
-                            </inputs>
+                                <action reference="../../../../../userInteractions/userInteraction/action"/>
+                                <paramKey></paramKey>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                              </userInteraction>
+                            </userInteractions>
                             <page class="page" reference="../../../../../../../../../.."/>
                             <start class="page" reference="../../../../../../../../../.."/>
                             <end class="page" reference="../.."/>
                           </inTransition>
                           <outTransitions>
-                            <userActions reference="../../.."/>
+                            <userInteractionsTransition reference="../../.."/>
                           </outTransitions>
                           <id>1157551842439</id>
                           <position>
@@ -215,108 +377,182 @@
                             <height>70</height>
                           </dimension>
                           <name defined-in="transitionNode"></name>
+                          <autoPosition>false</autoPosition>
                         </page>
                         <start class="page" reference="../page"/>
                         <end class="page" reference="../.."/>
                       </inTransition>
                       <outTransitions>
-                        <userActions>
-                          <inputs>
-                            <pageElementAction>
+                        <userInteractionsTransition>
+                          <userInteractions>
+                            <userInteraction>
                               <element class="button" reference="../../../../../elements/button[4]"/>
                               <input></input>
-                              <action reference="../../../../../inTransition/inputs/pageElementAction/action"/>
-                              <sationType reference="../../../../../../../../elements/title/sationType"/>
-                              <key></key>
-                            </pageElementAction>
-                          </inputs>
+                              <action reference="../../../../../inTransition/userInteractions/userInteraction/action"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </userInteraction>
+                          </userInteractions>
                           <page class="page" reference="../../.."/>
                           <start class="page" reference="../../.."/>
                           <end class="page">
-                            <aspects>
-                              <aspectTransition>
-                                <start class="aspect" reference="../../../../../../../../.."/>
+                            <commons>
+                              <commonTransition>
+                                <start class="common" reference="../../../../../../../../.."/>
                                 <end class="page" reference="../../.."/>
-                              </aspectTransition>
-                            </aspects>
+                              </commonTransition>
+                            </commons>
                             <elements>
                               <text>
+                                <identifiers>
+                                  <identifier>
+                                    <value>Added to cart</value>
+                                    <probability>100</probability>
+                                    <type reference="../../../../../../../../../../../elements/title/identifiers/identifier/type"/>
+                                    <paramKey></paramKey>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                </identifiers>
+                                <directEditIdentifier reference="../identifiers/identifier"/>
                                 <not>false</not>
-                                <text></text>
-                                <description>Added to card</description>
-                                <sationType reference="../../../../../../../../../elements/title/sationType"/>
-                                <key></key>
+                                <status reference="../../../../../../../../../elements/title/status"/>
                               </text>
                               <text>
+                                <identifiers>
+                                  <identifier>
+                                    <value>Shipping crate</value>
+                                    <probability>100</probability>
+                                    <type reference="../../../../../../../../../../../elements/title/identifiers/identifier/type"/>
+                                    <paramKey></paramKey>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                </identifiers>
+                                <directEditIdentifier reference="../identifiers/identifier"/>
                                 <not>false</not>
-                                <text></text>
-                                <description>Shipping crate</description>
-                                <sationType reference="../../../../../../../../../elements/title/sationType"/>
-                                <key></key>
+                                <status reference="../../../../../../../../../elements/title/status"/>
                               </text>
                               <checkbox>
                                 <checked>false</checked>
+                                <description></description>
+                                <identifiers>
+                                  <identifier>
+                                    <value></value>
+                                    <probability>0</probability>
+                                    <type reference="../../../../../../../../../../../elements/title/identifiers/identifier/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                  <identifier>
+                                    <value>removeShippingCrate</value>
+                                    <probability>100</probability>
+                                    <type reference="../../../../../../../../elements/button/identifiers/identifier/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                  <identifier>
+                                    <value>removeShippingCreate</value>
+                                    <probability>0</probability>
+                                    <type>ID</type>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                  <identifier>
+                                    <value></value>
+                                    <probability>0</probability>
+                                    <type>TITLE</type>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                </identifiers>
+                                <directEditIdentifier reference="../identifiers/identifier[2]"/>
                                 <not>false</not>
-                                <text></text>
-                                <description>Remove</description>
-                                <sationType reference="../../../../../../../../../elements/title/sationType"/>
-                                <key></key>
+                                <status reference="../../../../../../../../../elements/title/status"/>
                               </checkbox>
                               <button>
+                                <identifiers>
+                                  <identifier>
+                                    <value>Remove selected</value>
+                                    <probability>100</probability>
+                                    <type reference="../../../../../../../../../../../elements/title/identifiers/identifier/type"/>
+                                    <paramKey></paramKey>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                </identifiers>
+                                <directEditIdentifier reference="../identifiers/identifier"/>
                                 <not>false</not>
-                                <text></text>
-                                <description>Remove selected</description>
-                                <sationType reference="../../../../../../../../../elements/title/sationType"/>
-                                <key></key>
+                                <status reference="../../../../../../../../../elements/title/status"/>
                               </button>
                             </elements>
                             <name>Bought Shipping crate</name>
-                            <inTransition class="userActions" reference="../.."/>
+                            <inTransition class="userInteractionsTransition" reference="../.."/>
                             <outTransitions>
-                              <userActions>
-                                <inputs>
-                                  <pageElementAction>
+                              <userInteractionsTransition>
+                                <userInteractions>
+                                  <userInteraction>
                                     <element class="checkbox" reference="../../../../../elements/checkbox"/>
                                     <input></input>
                                     <action>CHECK</action>
-                                    <sationType reference="../../../../../../../../../../../elements/title/sationType"/>
-                                    <key></key>
-                                  </pageElementAction>
-                                  <pageElementAction>
+                                    <i18nKey></i18nKey>
+                                    <paramKey></paramKey>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </userInteraction>
+                                  <userInteraction>
                                     <element class="button" reference="../../../../../elements/button"/>
                                     <input></input>
-                                    <action reference="../../../../../../../../inTransition/inputs/pageElementAction/action"/>
-                                    <sationType reference="../../../../../../../../../../../elements/title/sationType"/>
-                                    <key></key>
-                                  </pageElementAction>
-                                </inputs>
+                                    <action reference="../../../../../../../../inTransition/userInteractions/userInteraction/action"/>
+                                    <paramKey></paramKey>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </userInteraction>
+                                </userInteractions>
                                 <page class="page" reference="../../.."/>
                                 <start class="page" reference="../../.."/>
                                 <end class="page">
-                                  <aspects>
-                                    <aspectTransition>
-                                      <start class="aspect" reference="../../../../../../../../../../../.."/>
+                                  <commons>
+                                    <commonTransition>
+                                      <start class="common" reference="../../../../../../../../../../../.."/>
                                       <end class="page" reference="../../.."/>
-                                    </aspectTransition>
-                                  </aspects>
+                                    </commonTransition>
+                                  </commons>
                                   <elements>
                                     <text>
+                                      <identifiers>
+                                        <identifier>
+                                          <value>Cart contents</value>
+                                          <probability>100</probability>
+                                          <type reference="../../../../../../../../../../../../../../elements/title/identifiers/identifier/type"/>
+                                          <paramKey></paramKey>
+                                          <useI18n>false</useI18n>
+                                          <useParam>false</useParam>
+                                        </identifier>
+                                      </identifiers>
+                                      <directEditIdentifier reference="../identifiers/identifier"/>
                                       <not>false</not>
-                                      <text></text>
-                                      <description>Cart contents</description>
-                                      <sationType reference="../../../../../../../../../../../../elements/title/sationType"/>
-                                      <key></key>
+                                      <status reference="../../../../../../../../../../../../elements/title/status"/>
                                     </text>
                                     <text>
+                                      <identifiers>
+                                        <identifier>
+                                          <value>None</value>
+                                          <probability>100</probability>
+                                          <type reference="../../../../../../../../../../../../../../elements/title/identifiers/identifier/type"/>
+                                          <paramKey></paramKey>
+                                          <useI18n>false</useI18n>
+                                          <useParam>false</useParam>
+                                        </identifier>
+                                      </identifiers>
+                                      <directEditIdentifier reference="../identifiers/identifier"/>
                                       <not>false</not>
-                                      <text></text>
-                                      <description>None</description>
-                                      <sationType reference="../../../../../../../../../../../../elements/title/sationType"/>
-                                      <key></key>
+                                      <status reference="../../../../../../../../../../../../elements/title/status"/>
                                     </text>
                                   </elements>
                                   <name>Removed</name>
-                                  <inTransition class="userActions" reference="../.."/>
+                                  <inTransition class="userInteractionsTransition" reference="../.."/>
                                   <outTransitions/>
                                   <id>1157552123784</id>
                                   <position>
@@ -328,8 +564,9 @@
                                     <height>70</height>
                                   </dimension>
                                   <name defined-in="transitionNode"></name>
+                                  <autoPosition>false</autoPosition>
                                 </end>
-                              </userActions>
+                              </userInteractionsTransition>
                             </outTransitions>
                             <id>1157551962051</id>
                             <position>
@@ -337,12 +574,13 @@
                               <y>344</y>
                             </position>
                             <dimension>
-                              <width>93</width>
+                              <width>148</width>
                               <height>120</height>
                             </dimension>
                             <name defined-in="transitionNode"></name>
+                            <autoPosition>false</autoPosition>
                           </end>
-                        </userActions>
+                        </userInteractionsTransition>
                       </outTransitions>
                       <id>1157551053505</id>
                       <position>
@@ -354,11 +592,12 @@
                         <height>225</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
+                      <autoPosition>false</autoPosition>
                     </end>
-                  </aspectTransition>
-                  <aspectTransition reference="../aspectTransition[2]/end/inTransition/page/aspects/aspectTransition"/>
-                  <aspectTransition reference="../aspectTransition[2]/end/outTransitions/userActions/end/aspects/aspectTransition"/>
-                  <aspectTransition reference="../aspectTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/aspects/aspectTransition"/>
+                  </commonTransition>
+                  <commonTransition reference="../commonTransition[2]/end/inTransition/page/commons/commonTransition"/>
+                  <commonTransition reference="../commonTransition[2]/end/outTransitions/userInteractionsTransition/end/commons/commonTransition"/>
+                  <commonTransition reference="../commonTransition[2]/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/commons/commonTransition"/>
                 </outTransitions>
                 <id></id>
                 <position>
@@ -370,39 +609,64 @@
                   <height>198</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
+                <autoPosition>false</autoPosition>
               </start>
               <end class="page" reference="../../.."/>
-            </aspectTransition>
-          </aspects>
+            </commonTransition>
+          </commons>
           <elements>
             <text>
+              <identifiers>
+                <identifier>
+                  <value>Welcome to our webshop!</value>
+                  <probability>100</probability>
+                  <type reference="../../../../../commons/commonTransition/start/elements/title/identifiers/identifier/type"/>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <text></text>
-              <description>Welcome to our webshop!</description>
-              <sationType reference="../../../aspects/aspectTransition/start/elements/title/sationType"/>
-              <key></key>
+              <status reference="../../../commons/commonTransition/start/elements/title/status"/>
             </text>
-            <textField reference="../../aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/inTransition/page/inTransition/inputs/pageElementAction/element"/>
+            <textField reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/page/inTransition/userInteractions/userInteraction/element"/>
             <textField>
+              <identifiers>
+                <identifier>
+                  <value>Password</value>
+                  <probability>100</probability>
+                  <type reference="../../../../../commons/commonTransition/start/elements/title/identifiers/identifier/type"/>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <text></text>
-              <description>Password</description>
-              <sationType reference="../../../aspects/aspectTransition/start/elements/title/sationType"/>
-              <key></key>
+              <status reference="../../../commons/commonTransition/start/elements/title/status"/>
             </textField>
-            <button reference="../../aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/inTransition/page/inTransition/inputs/pageElementAction[2]/element"/>
+            <button reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/page/inTransition/userInteractions/userInteraction[2]/element"/>
             <button>
+              <identifiers>
+                <identifier>
+                  <value>Log out</value>
+                  <probability>100</probability>
+                  <type reference="../../../../../commons/commonTransition/start/elements/title/identifiers/identifier/type"/>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <text></text>
-              <description>Log out</description>
-              <sationType reference="../../../aspects/aspectTransition/start/elements/title/sationType"/>
-              <key></key>
+              <status reference="../../../commons/commonTransition/start/elements/title/status"/>
             </button>
           </elements>
           <name>Frontpage</name>
           <inTransition class="simpleTransition" reference="../.."/>
           <outTransitions>
-            <userActions reference="../../aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/inTransition/page/inTransition"/>
+            <userInteractionsTransition reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/page/inTransition"/>
           </outTransitions>
           <id>page82812221157548951212</id>
           <position>
@@ -414,6 +678,7 @@
             <height>133</height>
           </dimension>
           <name defined-in="transitionNode"></name>
+          <autoPosition>false</autoPosition>
         </end>
       </simpleTransition>
     </outTransitions>
@@ -423,32 +688,37 @@
       <y>0</y>
     </position>
     <name>Frontpage</name>
+    <autoPosition>false</autoPosition>
   </startPoint>
   <extensionPoints/>
   <pages>
     <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
-    <aspect reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start"/>
-    <page reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end"/>
-    <page reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/inTransition/page"/>
-    <page reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/outTransitions/userActions/end"/>
-    <page reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end"/>
+    <common reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/page"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userInteractionsTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
   </pages>
   <subTests/>
   <transitions>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
-    <aspectTransition reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition"/>
-    <aspectTransition reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]"/>
-    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/inTransition/page/inTransition"/>
-    <aspectTransition reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/inTransition/page/aspects/aspectTransition"/>
-    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/inTransition"/>
-    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/outTransitions/userActions"/>
-    <aspectTransition reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/outTransitions/userActions/end/aspects/aspectTransition"/>
-    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions"/>
-    <aspectTransition reference="../../startPoint/outTransitions/simpleTransition/end/aspects/aspectTransition/start/outTransitions/aspectTransition[2]/end/outTransitions/userActions/end/outTransitions/userActions/end/aspects/aspectTransition"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/page/inTransition"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/page/commons/commonTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userInteractionsTransition"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userInteractionsTransition/end/commons/commonTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
+    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/commons/commonTransition"/>
   </transitions>
   <customTestSteps/>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
   <name>Test contents</name>
   <description></description>
   <id>/CubicShopTest/tests/contents.aat</id>
-  <modelVersion>1.0</modelVersion>
+  <modelVersion>5</modelVersion>
 </test>
