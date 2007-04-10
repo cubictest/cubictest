@@ -36,8 +36,16 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 	public void propertyChange(PropertyChangeEvent evt){
 		super.propertyChange(evt);
 		if(PageElement.DIRECT_EDIT_IDENTIFIER.equals(evt.getPropertyName())){
-			((Identifier) evt.getOldValue()).removePropertyChangeListener(this);
-			((Identifier) evt.getNewValue()).addPropertyChangeListener(this);
+			Identifier oldId = (Identifier) evt.getOldValue();
+			Identifier newId = (Identifier) evt.getNewValue();
+
+			if (oldId != null) {
+				oldId.removePropertyChangeListener(this);
+			}
+			
+			if (newId != null) {
+				newId.addPropertyChangeListener(this);
+			}
 		}
 	}
 		

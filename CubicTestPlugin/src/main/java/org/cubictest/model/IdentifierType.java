@@ -15,7 +15,7 @@ package org.cubictest.model;
  */
 public enum IdentifierType {
 
-	//params: displayValue, description
+	//params: displayValue, description, isBoolean
 	
 	/**
 	 * Returning the first hit when indentify in this order;
@@ -25,46 +25,51 @@ public enum IdentifierType {
 	 */
 	LABEL("Label", "Checks first for text in label element for most elements, \n" +
 			"then the text before or after the element. \n" +
-			"For buttons the value attribute is checked."),
+			"For buttons the value attribute is checked.", false),
 
 	/** HTML ID attribute */
-	ID("Id", "Check the ID attribute."),
+	ID("Id", "Check the ID attribute.", false),
 
 	/** HTML name attribute */
-	NAME("Name", "Check the name attribute."),
+	NAME("Name", "Check the name attribute.", false),
 
 	/** HTML value attribute */
-	VALUE("Value", "Check the value attribute for input elements."),
+	VALUE("Value", "Check the value attribute for input elements.", false),
 
 	/** HTML href attribute */
-	HREF("Href", "Checking the href; meaning where the link points to."),
+	HREF("Href", "Checking the href; meaning where the link points to.", false),
 
 	/** HTML src attribute */
-	SRC("Src", "Checking if the source ends this attribute."),
+	SRC("Src", "Checking if the source ends this attribute.", false),
 	
 	/** HTML checked attribute */
-	CHECKED("Checked", "Check it the element is checked or not."),
-	
+	CHECKED("Checked", "Check it the element is checked or not.", true),
+
+	/** HTML selected attribute */
+	SELECTED("Selected", "Check it the element is selected or not.", true),
+
 	/** HTML is mulitselectEnabled */
-	MULTISELECT("Multiselect", "Check if it is possible to select several elements."),
+	MULTISELECT("Multiselect", "Check if it is possible to select several elements.", true),
 	
 	/** HTML title attribute */
-	TITLE("Title", "Check the title attribute; meaning the tooltip text."),
+	TITLE("Tooltip", "Check the tooltip text (HTML title attribute).", false),
 	
 	//Added by Genesis Campos
 	/** element index in page */
-	INDEX("Index", "Checking the elements index in the page"),
+	INDEX("Index", "Checking the elements index in the page", false),
 	//End;
 	
 	/** XPath to the element */
-	XPATH("XPath", "Checking the XPath to the element");
+	XPATH("XPath", "Checking the XPath to the element", false);
 
 	private String displayValue;
 	private String description;
+	private boolean isBoolean;
 
-	private IdentifierType(String displayValue, String description){
+	private IdentifierType(String displayValue, String description, boolean isBoolean){
 		this.displayValue = displayValue;
 		this.description = description;
+		this.isBoolean = isBoolean;
 	}
 
 
@@ -74,6 +79,10 @@ public enum IdentifierType {
 	
 	public String toString() {
 		return displayValue;
+	}
+	
+	public boolean isBoolean() {
+		return isBoolean;
 	}
 
 }

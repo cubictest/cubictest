@@ -142,10 +142,10 @@ public abstract class PageElement extends PropertyAwareObject
 	 * Get the identifiers that have a value and do not have probability = indifferent.
 	 * @return
 	 */
-	public List<Identifier> getNonNullIdentifierts() {
+	public List<Identifier> getNonIndifferentIdentifierts() {
 		List<Identifier> list = new ArrayList<Identifier>();
 		for (Identifier id : getIdentifiers()) {
-			if (StringUtils.isNotBlank(id.getValue()) && id.getProbability() != 0) {
+			if (id.getProbability() != 0) {
 				list.add(id);
 			}
 		}

@@ -5,7 +5,9 @@
 package org.cubictest.model.formElement;
 
 import static org.cubictest.model.ActionType.SELECT;
+import static org.cubictest.model.IdentifierType.INDEX;
 import static org.cubictest.model.IdentifierType.LABEL;
+import static org.cubictest.model.IdentifierType.SELECTED;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +28,9 @@ public class Option extends Checkable{
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(LABEL);
 		list.add(IdentifierType.VALUE);
-		list.add(IdentifierType.CHECKED);
-		//ID type is not supported in Watir, so not added here.
+		list.add(SELECTED);
+		list.add(INDEX);
+		list.add(IdentifierType.ID); //Watir may have problems with ID
 		return list;
 	}
 	

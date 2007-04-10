@@ -58,6 +58,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private static final String SHOULD = "should";
 	private static final String MUST = "must";
 	private Text value;
+	private Label booleanLabel;
 	private CCombo probability;
 	private Identifier identifier;
 	private Label propLabel;
@@ -79,6 +80,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 
 	public IdentifierComposite(Composite parent, TabbedPropertySheetWidgetFactory factory, int lableWidth) {
 		super(parent, SWT.NONE);
+		
 		setBackground(ColorConstants.white);
 		
 		GridLayout layout = new GridLayout();
@@ -116,7 +118,15 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		propLabel = factory.createLabel(firstRow, "be ");
 		propLabel.setLayoutData(data);
 
-		//Adding value
+		//Adding label for value ("true")
+		data = new FormData();
+		data.left = new FormAttachment(propLabel,ITabbedPropertyConstants.HSPACE);
+		data.width = lableWidth * 3;
+		booleanLabel = factory.createLabel(firstRow, "true");
+		booleanLabel.setLayoutData(data);
+		booleanLabel.setVisible(false);
+
+		//Id has value (is not boolean). Adding value input:
 		data = new FormData();
 		data.left = new FormAttachment(propLabel,ITabbedPropertyConstants.HSPACE);
 		data.width = lableWidth * 3;
@@ -202,6 +212,10 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		}
 		this.pageElement = pageElement;
 		this.identifier = identifier;
+		
+		booleanLabel.setVisible(identifier.getType().isBoolean());
+		value.setVisible(!identifier.getType().isBoolean());
+
 		addListeners();
 		refresh();
 	}
@@ -268,6 +282,8 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private void setProbability(int newProbability){
 		value.setEnabled(true);
 		propLabel.setEnabled(true);
+		booleanLabel.setEnabled(true);
+		
 		if(newProbability > 66)
 			probability.select(probability.indexOf(MUST));
 		else if(newProbability > 33)
@@ -282,6 +298,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			else {
 				value.setEnabled(false);
 				propLabel.setEnabled(false);
+				booleanLabel.setEnabled(false);
 			}
 		}else if(newProbability > -34)
 			probability.select(probability.indexOf(CANNOT));
@@ -353,6 +370,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			int prob;
 			value.setEnabled(true);
 			propLabel.setEnabled(true);
+			booleanLabel.setEnabled(true);
 			
 			if (label.equals(MUST))
 				prob = 100;
@@ -367,11 +385,12 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 					//the id is Direct Edit and of type Label. Should be editable.
 					value.setEnabled(false);
 					propLabel.setEnabled(false);
+					booleanLabel.setEnabled(false);
 				}
 				else {
 					value.setEnabled(false);
 					propLabel.setEnabled(false);
-					
+					booleanLabel.setEnabled(false);
 				}
 			}
 			else if (label.equals(CANNOT))
