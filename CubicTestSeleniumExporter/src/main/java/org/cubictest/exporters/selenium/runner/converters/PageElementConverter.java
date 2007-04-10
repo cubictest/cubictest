@@ -57,8 +57,8 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 				}
 			}
 			else if (pe instanceof FormElement && !(pe instanceof Option)){
-				//html input elements
-				String locator = SeleniumUtils.getLocator(pe, seleniumHolder);
+				//html input elements: get value
+				String locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(pe, seleniumHolder);
 				String value = seleniumHolder.getSelenium().getValue(locator);
 				if (value == null) {
 					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
@@ -67,19 +67,9 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
 				}
 			}
-			else if (pe instanceof Option && pe.getMainIdentifierType().equals(LABEL)) {
-				String locator = "xpath=" + seleniumHolder.getFullContext() + "option[text()=\"" + pe.getMainIdentifierValue() + "\"]";
-				String text = seleniumHolder.getSelenium().getText(locator);
-				if (text == null) {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
-				}
-				else {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
-				}
-			}
 			else {
-				//all other elements
-				String locator = SeleniumUtils.getLocator(pe, seleniumHolder);
+				//all other elements: get text
+				String locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(pe, seleniumHolder);
 				String text = seleniumHolder.getSelenium().getText(locator);
 				if (text == null) {
 					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());

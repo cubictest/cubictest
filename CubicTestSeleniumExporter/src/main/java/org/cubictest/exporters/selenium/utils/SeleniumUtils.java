@@ -19,10 +19,13 @@ import static org.cubictest.model.ActionType.MOUSE_OVER;
 import static org.cubictest.model.ActionType.REFRESH;
 import static org.cubictest.model.ActionType.SELECT;
 import static org.cubictest.model.ActionType.UNCHECK;
+import static org.cubictest.model.IdentifierType.CHECKED;
 import static org.cubictest.model.IdentifierType.HREF;
 import static org.cubictest.model.IdentifierType.ID;
+import static org.cubictest.model.IdentifierType.INDEX;
 import static org.cubictest.model.IdentifierType.LABEL;
 import static org.cubictest.model.IdentifierType.NAME;
+import static org.cubictest.model.IdentifierType.SELECTED;
 import static org.cubictest.model.IdentifierType.SRC;
 import static org.cubictest.model.IdentifierType.TITLE;
 import static org.cubictest.model.IdentifierType.VALUE;
@@ -60,21 +63,23 @@ public class SeleniumUtils {
 	 * @param element
 	 * @return
 	 */
-	public static String getLocator(IActionElement element, ContextHolder contextHolder) {
+	public static String getXPath(IActionElement element, ContextHolder contextHolder) {
 		if (element instanceof WebBrowser) {
 			return "";
 		}
 		PageElement pe = (PageElement) element;
 
-		String fullContext = contextHolder.getFullContext();
-		
 		boolean hasLabel = false;
-		for (Identifier id : pe.getNonNullIdentifierts()) {
+		for (Identifier id : pe.getNonIndifferentIdentifierts()) {
 			if (id.getType().equals(LABEL)) {
 				hasLabel = true;
 			}
 		}
 		
+		String index = "";
+		if (pe.getIdentifier(INDEX) != null && pe.getIdentifier(INDEX).getProbability() != 0) {
+			index = "[" + Integer.parseInt(pe.getIdentifier(INDEX).getValue()) + "]";
+		}
 		if (hasLabel) {
 			String labelText = pe.getIdentifier(LABEL).getValue();
 			String comparisonOperator = "=";
@@ -83,29 +88,26 @@ public class SeleniumUtils {
 			}
 
 			if (element instanceof Text) {
-				String axis = (fullContext.equals("//")) ? "" : "descendant-or-self::";
-				return "xpath=" + fullContext + axis + "*[contains(text(), \"" + labelText + "\")]";
+				String axis = (contextHolder.getFullContext().equals("//")) ? "" : "descendant-or-self::";
+				return axis + "*[contains(text(), \"" + labelText + "\")]";
 			}
-			else if (element instanceof Link) {
-				return "xpath=" + fullContext + getHtmlElementType(pe) + "[text()" + comparisonOperator + "\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
-			}
-			else if (element instanceof Option) {
-				return "label=" + labelText;
+			else if (element instanceof Link || element instanceof Option) {
+				return getHtmlElementType(pe) + index + "[text()" + comparisonOperator + "\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
 			}
 			else if (element instanceof Button) {
-				return "xpath=" + fullContext + "input[(@type=\"button\" or @type=\"submit\") and @value" + comparisonOperator + "\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
+				return getHtmlElementType(pe) + index + "[(@type=\"button\" or @type=\"submit\") and @value" + comparisonOperator + "\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
-				return "xpath=" + fullContext + getHtmlElementType(pe) + "[@id" + comparisonOperator + "(//label[text()=\"" + labelText + "\"]/@for)" + getAttributeConstraints(pe, true) + "]";
+				return getHtmlElementType(pe) + index + "[@id" + comparisonOperator + "(//label[text()=\"" + labelText + "\"]/@for)" + getAttributeConstraints(pe, true) + "]";
 			}
 		}
 		else {
-			return "xpath=" + fullContext + getHtmlElementType(pe) + "[" + getAttributeConstraints(pe, false) + "]";
+			return getHtmlElementType(pe) + index + "[" + getAttributeConstraints(pe, false) + "]";
 
 		}
 	}
-
+	
 
 	/**
 	 * Get string to assert for all the page elements Identifier/HTML attribute values.
@@ -118,9 +120,9 @@ public class SeleniumUtils {
 		}
 		int i = 0;
 		boolean attributeFound = false;
-		for (Identifier id : pe.getNonNullIdentifierts()) {
-			if (id.getType().equals(LABEL)) {
-				//label is not a HTML attribute, it is an element.
+		for (Identifier id : pe.getNonIndifferentIdentifierts()) {
+			if (id.getType().equals(LABEL) || id.getType().equals(INDEX)) {
+				//label and index are not HTML attributes
 				continue;
 			}
 			if (i > 0) {
@@ -130,7 +132,20 @@ public class SeleniumUtils {
 			if (id.getProbability() < 0) {
 				comparisonOperator = "!=";
 			}
-			result += "@" + getIdType(id) + comparisonOperator + "\"" + id.getValue() + "\"";
+			
+			if (id.getType().equals(CHECKED) || id.getType().equals(SELECTED)) {
+				//id type with no value
+				if (id.getProbability() > 0) {
+					result += "@" + getIdType(id)+ "=\"\"";
+				}
+				else {
+					result += "not(@" + getIdType(id) + ")";
+				}
+			}
+			else {
+				//normal ID type (name, value)
+				result += "@" + getIdType(id) + comparisonOperator + "\"" + id.getValue() + "\"";
+			}
 			attributeFound = true;
 			i++;
 		}
@@ -328,6 +343,15 @@ public class SeleniumUtils {
 		}
 		else if (id.getType().equals(TITLE)) {
 			return "title";
+		}
+		else if (id.getType().equals(CHECKED)) {
+			return "checked";
+		}
+		else if (id.getType().equals(SELECTED)) {
+			return "selected";
+		}
+		else if (id.getType().equals(INDEX)) {
+			return "index";
 		}
 		return null;
 	}

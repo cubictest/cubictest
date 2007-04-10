@@ -18,6 +18,7 @@ import org.cubictest.model.IdentifierType;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.formElement.Option;
+import org.cubictest.model.formElement.Select;
 
 /**
  * Class to convert transitions to selenium commands.
@@ -65,13 +66,14 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 		
 		if (element instanceof Option) {
 			Option option = (Option) element;
-			Identifier optionId = option.getMainIdentifier();
+			Identifier optionMainId = option.getMainIdentifier();
+			Select select = option.getParent();
 			//get locator of select-box:
-			locator = SeleniumUtils.getLocator(option.getParent(), doc);
-			inputValue = SeleniumUtils.getIdType(optionId) + "=" + optionId.getValue();
+			locator = "xpath=" + doc.getFullContext() + SeleniumUtils.getXPath(select, doc);
+			inputValue = SeleniumUtils.getIdType(optionMainId) + "=" + optionMainId.getValue();
 		}
 		else {
-			locator = SeleniumUtils.getLocator(element, doc);
+			locator = "xpath=" + doc.getFullContext() + SeleniumUtils.getXPath(element, doc);
 			inputValue = SeleniumUtils.getValue(userInteraction, doc);
 		}
 		
