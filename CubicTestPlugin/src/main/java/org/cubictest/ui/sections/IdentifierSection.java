@@ -40,7 +40,7 @@ public class IdentifierSection extends AbstractPropertySection {
 				identifierComposite = idComIterator.next();
 			else{
 				identifierComposite = new IdentifierComposite(
-					composite, getWidgetFactory(),	60);
+					composite, getWidgetFactory(),	75);
 				newIdComs.add(identifierComposite);
 			}
 			if(part instanceof GraphicalTestEditor){

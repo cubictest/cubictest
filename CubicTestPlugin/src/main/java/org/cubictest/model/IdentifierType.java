@@ -43,24 +43,27 @@ public enum IdentifierType {
 	SRC("Src", "Checking if the source ends this attribute.", false),
 	
 	/** HTML checked attribute */
-	CHECKED("Checked", "Check it the element is checked or not.", true),
+	CHECKED("Checked", "Check whether the element is checked or not.", true),
 
 	/** HTML selected attribute */
-	SELECTED("Selected", "Check it the element is selected or not.", true),
+	SELECTED("Selected", "Check whether the element is selected or not.", true),
 
 	/** HTML is mulitselectEnabled */
-	MULTISELECT("Multiselect", "Check if it is possible to select several elements.", true),
+	MULTISELECT("Multiselect", "Check whether it is possible to select several elements.", true),
 	
 	/** HTML title attribute */
 	TITLE("Tooltip", "Check the tooltip text (HTML title attribute).", false),
 	
 	//Added by Genesis Campos
 	/** element index in page */
-	INDEX("Index", "Checking the elements index in the page / context.", false),
+	INDEX("Index", "Check the elements index in the page / Context.", false),
 	//End;
 	
 	/** XPath to the element */
-	XPATH("XPath", "Checking the XPath to the element", false);
+	XPATH("XPath", "Check the XPath to the element", false),
+
+	/** XPath to the element */
+	ELEMENT_NAME("Element name", "Check the name of the HTML element. Default is \"DIV\"", false);
 
 	private String displayValue;
 	private String description;

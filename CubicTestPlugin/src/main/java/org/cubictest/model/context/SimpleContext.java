@@ -23,7 +23,6 @@ public class SimpleContext extends AbstractContext {
 	@Override
 	public List<IdentifierType> getIdentifierTypes() {
 		List<IdentifierType> list = super.getIdentifierTypes();
-		list.add(XPATH);
 		return list;
 	}
 }

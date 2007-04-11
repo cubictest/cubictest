@@ -7,7 +7,9 @@
  */
 package org.cubictest.model.context;
 
+import static org.cubictest.model.IdentifierType.ELEMENT_NAME;
 import static org.cubictest.model.IdentifierType.ID;
+import static org.cubictest.model.IdentifierType.INDEX;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +88,8 @@ public abstract class AbstractContext extends PageElement implements IContext {
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(IdentifierType.LABEL);
 		list.add(ID);
+		list.add(INDEX);
+		list.add(ELEMENT_NAME);
 		return list;
 	}
 	
