@@ -36,7 +36,7 @@
 				   session.setAttribute("loggedIn", request.getParameter("username"));
 				}
 %>
-				<table width="460" bgcolor="#EEEEEE" style="margin-top: 20px; margin-bottom: 40px;">
+				<table width="460" bgcolor="#EEEEEE" style="margin-top: 20px; margin-bottom: 40px;" id="headerLinks">
 					<tr>
 						<td>
 							<a href="/cubicshop/index.jsp">Welcome</a>

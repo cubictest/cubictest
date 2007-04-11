@@ -4,7 +4,7 @@
 <br>
 <form name="cartForm" action="cart.jsp">
 	<input type="hidden" name="cubicTitle" value="">
-	<table border="1" width="460">
+	<table border="1" width="460" id="webshopTable">
 		<tr>
 	   	<td>Name</td><td>Price</td><td>Action</td>
 		</tr>
