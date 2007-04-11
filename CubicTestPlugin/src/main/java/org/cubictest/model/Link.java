@@ -6,10 +6,7 @@
 */
 package org.cubictest.model;
 
-import static org.cubictest.model.IdentifierType.HREF;
-import static org.cubictest.model.IdentifierType.ID;
-import static org.cubictest.model.IdentifierType.LABEL;
-import static org.cubictest.model.IdentifierType.TITLE;
+import static org.cubictest.model.IdentifierType.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +31,7 @@ public class Link extends PageElement {
 		list.add(ID);
 		list.add(HREF);
 		list.add(TITLE);
+		list.add(INDEX);
 		return list;
 	}	
 }

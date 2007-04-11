@@ -56,7 +56,7 @@ public enum IdentifierType {
 	
 	//Added by Genesis Campos
 	/** element index in page */
-	INDEX("Index", "Checking the elements index in the page", false),
+	INDEX("Index", "Checking the elements index in the page / context.", false),
 	//End;
 	
 	/** XPath to the element */
