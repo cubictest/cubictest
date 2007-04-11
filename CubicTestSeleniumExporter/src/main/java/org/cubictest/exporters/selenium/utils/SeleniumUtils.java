@@ -208,7 +208,7 @@ public class SeleniumUtils {
 			}
 			int index = Integer.parseInt(value) - 1;
 			//compute the index:
-			result += "count(/*" + contextHolder.getFullContext() + getXPath(pe, contextHolder, false) + "/ancestor-or-self::*/preceding-sibling::*//" + getElementType(pe) + ")" + operator + index;
+			result += "count(/*" + contextHolder.getFullContext() + getXPath(pe, contextHolder, false) + "/ancestor-or-self::*/preceding-sibling::*/descendant-or-self::" + getElementType(pe) + ")" + operator + index;
 		}
 		
 		if (StringUtils.isNotBlank(result)) {
