@@ -99,11 +99,11 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			Identifier optionMainId = option.getMainIdentifier();
 			Select select = option.getParent();
 			//get locator of select-box:
-			locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(select, seleniumHolder);
+			locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(select, seleniumHolder, true);
 			inputValue = SeleniumUtils.getIdType(optionMainId) + "=" + optionMainId.getValue();
 		}
 		else {
-			locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(element, seleniumHolder);
+			locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(element, seleniumHolder, true);
 			inputValue = SeleniumUtils.getValue(userInteraction, seleniumHolder);
 		}
 		

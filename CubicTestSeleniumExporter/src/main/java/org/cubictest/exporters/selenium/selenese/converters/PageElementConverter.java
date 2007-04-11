@@ -36,7 +36,7 @@ public class PageElementConverter implements IPageElementConverter<SeleneseDocum
 		}
 		else {
 			//all other elements
-			String locator = "xpath=" + doc.getFullContext() + SeleniumUtils.getXPath(pe, doc);
+			String locator = "xpath=" + doc.getFullContext() + SeleniumUtils.getXPath(pe, doc, true);
 			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
 		}
 

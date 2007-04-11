@@ -48,6 +48,8 @@ import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Select;
 
+import sun.security.action.GetLongAction;
+
 
 /**
  * Util class for Selenium export.
@@ -63,66 +65,80 @@ public class SeleniumUtils {
 	 * @param element
 	 * @return
 	 */
-	public static String getXPath(IActionElement element, ContextHolder contextHolder) {
+	public static String getXPath(IActionElement element, ContextHolder contextHolder, boolean getIndex) {
 		if (element instanceof WebBrowser) {
 			return "";
 		}
 		PageElement pe = (PageElement) element;
+		Predicates predicates = new Predicates();
 
-		boolean hasLabel = false;
-		for (Identifier id : pe.getNonIndifferentIdentifierts()) {
-			if (id.getType().equals(LABEL)) {
-				hasLabel = true;
+		if (element instanceof Text) {
+			String axis = "";
+			if (contextHolder.getFullContext().equals("//")) {
+				axis = "descendant-or-self::";
 			}
+			return axis + "*[" + getLabelAssertion(pe, predicates) + "]";
 		}
+		else {
+			//all other elements
+			return getElementType(pe) + 
+					"[" + 
+					getIndexAssertion(contextHolder, pe, getIndex, predicates) + 
+					getLabelAssertion(pe, predicates) + 
+					getAttributeAssertions(pe, predicates) + 
+					"]";
+		}
+	}
+	
+	
+	private static String getLabelAssertion(PageElement pe, Predicates predicates) {
+		String result = predicates.getStartString();
 		
-		String index = "";
-		if (pe.getIdentifier(INDEX) != null && pe.getIdentifier(INDEX).getProbability() != 0) {
-			index = "[" + Integer.parseInt(pe.getIdentifier(INDEX).getValue()) + "]";
-		}
-		if (hasLabel) {
-			String labelText = pe.getIdentifier(LABEL).getValue();
+		Identifier id = pe.getIdentifier(LABEL);
+		if (id != null && id.isNotIndifferent()) {
+			String labelText = id.getValue();
+			
 			String comparisonOperator = "=";
 			if (pe.getIdentifier(LABEL).getProbability() < 0) {
 				comparisonOperator = "!=";
 			}
 
-			if (element instanceof Text) {
-				String axis = (contextHolder.getFullContext().equals("//")) ? "" : "descendant-or-self::";
-				return axis + "*[contains(text(), \"" + labelText + "\")]";
+			if (pe instanceof Text) {
+				result += "contains(text(), \"" + labelText + "\")";
 			}
-			else if (element instanceof Link || element instanceof Option) {
-				return getHtmlElementType(pe) + index + "[text()" + comparisonOperator + "\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
+			else if (pe instanceof Link || pe instanceof Option) {
+				result += "text()" + comparisonOperator + "\"" + labelText + "\"";
 			}
-			else if (element instanceof Button) {
-				return getHtmlElementType(pe) + index + "[(@type=\"button\" or @type=\"submit\") and @value" + comparisonOperator + "\"" + labelText + "\"" + getAttributeConstraints(pe, true) + "]";
+			else if (pe instanceof Button) {
+				result += "@value" + comparisonOperator + "\"" + labelText + "\"" ;
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
-				return getHtmlElementType(pe) + index + "[@id" + comparisonOperator + "(//label[text()=\"" + labelText + "\"]/@for)" + getAttributeConstraints(pe, true) + "]";
+				result += "@id" + comparisonOperator + "(//label[text()=\"" + labelText + "\"]/@for)";
 			}
 		}
-		else {
-			return getHtmlElementType(pe) + index + "[" + getAttributeConstraints(pe, false) + "]";
-
+		if (StringUtils.isNotBlank(result)) {
+			predicates.setNeedsSeparator(true);
 		}
+		if (result.equals(predicates.getStartString())) {
+			return "";
+		}
+		return result;
 	}
+	
 	
 
 	/**
 	 * Get string to assert for all the page elements Identifier/HTML attribute values.
 	 * E.g. [@id="someId"]
 	 */
-	private static String getAttributeConstraints(PageElement pe, boolean startWithAnd) {
-		String result = "";
-		if (startWithAnd) {
-			result += " and ";
-		}
+	private static String getAttributeAssertions(PageElement pe, Predicates predicates) {
+		String result = predicates.getStartString();
 		int i = 0;
-		boolean attributeFound = false;
+		
 		for (Identifier id : pe.getNonIndifferentIdentifierts()) {
 			if (id.getType().equals(LABEL) || id.getType().equals(INDEX)) {
-				//label and index are not HTML attributes
+				//label are not HTML attributes, index are handled elsewhere
 				continue;
 			}
 			if (i > 0) {
@@ -134,7 +150,7 @@ public class SeleniumUtils {
 			}
 			
 			if (id.getType().equals(CHECKED) || id.getType().equals(SELECTED)) {
-				//id type with no value
+				//idType with no value
 				if (id.getProbability() > 0) {
 					result += "@" + getIdType(id)+ "=\"\"";
 				}
@@ -146,12 +162,64 @@ public class SeleniumUtils {
 				//normal ID type (name, value)
 				result += "@" + getIdType(id) + comparisonOperator + "\"" + id.getValue() + "\"";
 			}
-			attributeFound = true;
 			i++;
 		}
-		return attributeFound ? result : "";
+		
+		if (pe instanceof Button) {
+			if (i > 0) {
+				result += " and ";
+			}
+			result += "(@type=\"button\" or @type=\"submit\")";
+		}
+		
+		
+		if (StringUtils.isNotBlank(result)) {
+			predicates.setNeedsSeparator(true);
+		}
+		if (result.equals(predicates.getStartString())) {
+			return "";
+		}
+		return result;
 	}
 	
+	
+	/**
+	 * Get string to assert the index of the element (if ID present).
+	 */
+	private static String getIndexAssertion(ContextHolder contextHolder, PageElement pe, boolean getIndex, Predicates predicates) {
+		if (!getIndex) {
+			return "";
+		}
+		
+		String result = predicates.getStartString();
+		
+		//Start with index attribute (if it exists) to make XPath correct:
+		Identifier id = pe.getIdentifier(INDEX);
+		if (id != null && id.isNotIndifferent()) {
+			String value = pe.getIdentifier(INDEX).getValue();
+			String operator = "=";
+			if (value.startsWith("<=") || value.startsWith(">=")) {
+				operator = value.substring(0, 2);
+				value = value.substring(2);
+			}
+			else if (value.startsWith("<") || value.startsWith(">")) {
+				operator = value.substring(0, 1);
+				value = value.substring(1);
+			}
+			int index = Integer.parseInt(value) - 1;
+			//compute the index:
+			result += "count(/*" + contextHolder.getFullContext() + getXPath(pe, contextHolder, false) + "/ancestor-or-self::*/preceding-sibling::*//" + getElementType(pe) + ")" + operator + index;
+		}
+		
+		if (StringUtils.isNotBlank(result)) {
+			predicates.setNeedsSeparator(true);
+		}
+		if (result.equals(predicates.getStartString())) {
+			return "";
+		}
+		return result;
+	}
+
 
 	
 	/**
@@ -159,7 +227,7 @@ public class SeleniumUtils {
 	 * @param pe
 	 * @return
 	 */
-	public static String getHtmlElementType(PageElement pe) {
+	public static String getElementType(PageElement pe) {
 		if (pe instanceof Select)
 			return "select";
 		if (pe instanceof Option)
@@ -355,5 +423,19 @@ public class SeleniumUtils {
 		}
 		return null;
 	}
+	
+	static class Predicates {
+		private boolean needsSeparator = false;
 
+		public void setNeedsSeparator(boolean needsSeparator) {
+			this.needsSeparator = needsSeparator;
+		}
+		
+		public String getStartString() {
+			if (needsSeparator) {
+				return " and ";
+			}
+			return "";
+		}
+	}
 }
