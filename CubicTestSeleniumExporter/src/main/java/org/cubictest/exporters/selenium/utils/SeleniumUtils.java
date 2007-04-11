@@ -163,15 +163,7 @@ public class SeleniumUtils {
 				result += "@" + getIdType(id) + comparisonOperator + "\"" + id.getValue() + "\"";
 			}
 			i++;
-		}
-		
-		if (pe instanceof Button) {
-			if (i > 0) {
-				result += " and ";
-			}
-			result += "(@type=\"button\" or @type=\"submit\")";
-		}
-		
+		}		
 		
 		if (StringUtils.isNotBlank(result)) {
 			predicates.setNeedsSeparator(true);
@@ -232,6 +224,8 @@ public class SeleniumUtils {
 			return "select";
 		if (pe instanceof Option)
 			return "option";
+		if (pe instanceof Button)
+			return "input [@type=\"button\" or @type=\"submit\"]";
 		if (pe instanceof FormElement)
 			return "input";
 		if (pe instanceof Link)
