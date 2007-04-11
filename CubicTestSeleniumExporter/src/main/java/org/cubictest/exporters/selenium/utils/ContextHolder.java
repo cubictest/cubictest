@@ -4,6 +4,7 @@
 */
 package org.cubictest.exporters.selenium.utils;
 
+import static org.cubictest.model.IdentifierType.INDEX;
 import static org.cubictest.model.IdentifierType.LABEL;
 
 import java.util.Stack;
@@ -41,15 +42,16 @@ public class ContextHolder implements IResultHolder {
 			if (select.getMainIdentifierType().equals(LABEL)) {
 				context.push("select[@id=(//label[text()=\"" + select.getMainIdentifierValue() + "\"]/@for)]//");
 			}
+			else if (select.getMainIdentifierType().equals(INDEX)) {
+				context.push("select[@id=(//label[text()=\"" + select.getMainIdentifierValue() + "\"]/@for)]//");
+			}
 			else {
 				String idType = SeleniumUtils.getIdType(select.getMainIdentifier());
 				context.push("select[@" + idType + "=\"" + select.getMainIdentifierValue() + "\"]//");
 			}
 		}
 		else if (ctx instanceof AbstractContext) {
-			AbstractContext abstractContext = (AbstractContext) ctx;
-			String idType = SeleniumUtils.getIdType(abstractContext.getMainIdentifier());
-			context.push("*[@" + idType + "=\"" + abstractContext.getMainIdentifierValue() + "\"]//");
+			context.push(SeleniumUtils.getXPath((AbstractContext) ctx, this, true) + "//");
 		}
 	}
 

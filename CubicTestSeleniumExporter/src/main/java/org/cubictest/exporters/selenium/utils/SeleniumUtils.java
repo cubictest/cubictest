@@ -20,6 +20,7 @@ import static org.cubictest.model.ActionType.REFRESH;
 import static org.cubictest.model.ActionType.SELECT;
 import static org.cubictest.model.ActionType.UNCHECK;
 import static org.cubictest.model.IdentifierType.CHECKED;
+import static org.cubictest.model.IdentifierType.ELEMENT_NAME;
 import static org.cubictest.model.IdentifierType.HREF;
 import static org.cubictest.model.IdentifierType.ID;
 import static org.cubictest.model.IdentifierType.INDEX;
@@ -36,7 +37,6 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
-import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
@@ -47,8 +47,6 @@ import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Select;
-
-import sun.security.action.GetLongAction;
 
 
 /**
@@ -73,20 +71,24 @@ public class SeleniumUtils {
 		Predicates predicates = new Predicates();
 
 		if (element instanceof Text) {
-			String axis = "";
-			if (contextHolder.getFullContext().equals("//")) {
-				axis = "descendant-or-self::";
+			String context = contextHolder.getFullContext();
+			if (context.equals("//")) {
+				context = "/descendant-or-self::";
 			}
-			return axis + "*[" + getLabelAssertion(pe, predicates) + "]";
+			return context + "*[" + getLabelAssertion(pe, predicates) + "]";
 		}
 		else {
 			//all other elements
-			return getElementType(pe) + 
-					"[" + 
+			
+			String pred = 
 					getIndexAssertion(contextHolder, pe, getIndex, predicates) + 
 					getLabelAssertion(pe, predicates) + 
-					getAttributeAssertions(pe, predicates) + 
-					"]";
+					getAttributeAssertions(pe, predicates); 
+
+			if (StringUtils.isBlank(pred)) {
+				return getElementType(pe);
+			}
+			return getElementType(pe) + "[" + pred + "]";
 		}
 	}
 	
@@ -137,8 +139,8 @@ public class SeleniumUtils {
 		int i = 0;
 		
 		for (Identifier id : pe.getNonIndifferentIdentifierts()) {
-			if (id.getType().equals(LABEL) || id.getType().equals(INDEX)) {
-				//label are not HTML attributes, index are handled elsewhere
+			if (id.getType().equals(LABEL) || id.getType().equals(INDEX) || id.getType().equals(ELEMENT_NAME)) {
+				//label are not HTML attributes, index and element name are handled elsewhere
 				continue;
 			}
 			if (i > 0) {
@@ -198,10 +200,29 @@ public class SeleniumUtils {
 				operator = value.substring(0, 1);
 				value = value.substring(1);
 			}
-			int index = Integer.parseInt(value) - 1;
+			int index = Integer.parseInt(value);
 			//compute the index:
-			result += "count(/*" + contextHolder.getFullContext() + getXPath(pe, contextHolder, false) + "/ancestor-or-self::*/preceding-sibling::*/descendant-or-self::" + getElementType(pe) + ")" + operator + index;
+			String context = contextHolder.getFullContext();
+			if (context.equals("//")) {
+				context = "/descendant-or-self::";
+			}
+			
+			if (pe instanceof AbstractContext) {
+				result += "position()=" + index;
+			}
+			else {
+				String ancestorContext = contextHolder.getFullContext().substring(1);
+				if (ancestorContext.endsWith("//")) {
+					ancestorContext = ancestorContext.substring(0, ancestorContext.length() - 2);
+				}
+				if (ancestorContext.equals("/")) {
+					ancestorContext = "";
+				}
+				index--; //assert the preceding rows
+				result += "count(/*" + contextHolder.getFullContext() + getXPath(pe, contextHolder, false) + "/ancestor-or-self::*/preceding-sibling::*[ancestor::*" + ancestorContext + "]/descendant-or-self::" + getElementType(pe) + ")" + operator + index;
+			}
 		}
+		
 		
 		if (StringUtils.isNotBlank(result)) {
 			predicates.setNeedsSeparator(true);
@@ -231,12 +252,20 @@ public class SeleniumUtils {
 		if (pe instanceof Link)
 			return "a";
 		if (pe instanceof Image)
-			return "img";
-		if (pe instanceof AbstractContext)
-			return "div";
+			return "img";			
 		if (pe instanceof Text)
 			throw new ExporterException("Text is not a supported element type for identification.");
-		
+		if (pe instanceof AbstractContext) {
+			Identifier elementName = pe.getIdentifier(ELEMENT_NAME);
+			if (elementName != null) {
+				return elementName.getValue();
+			}
+			else {
+				//div is default, informed in tooltip text
+				return "div";
+			}
+		}
+
 		throw new ExporterException("Unknown element type: " + pe);
 	}
 
