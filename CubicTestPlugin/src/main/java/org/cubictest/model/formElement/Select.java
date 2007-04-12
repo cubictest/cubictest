@@ -99,7 +99,7 @@ public class Select extends FormElement implements IContext {
 	public void resetStatus() {
 		setStatus(TestPartStatus.UNKNOWN);
 		for (PageElement pe : getElements()) {
-			pe.setStatus(TestPartStatus.UNKNOWN);
+			pe.resetStatus();
 		}
 	}
 

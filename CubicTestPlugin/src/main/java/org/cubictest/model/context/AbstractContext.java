@@ -97,7 +97,7 @@ public abstract class AbstractContext extends PageElement implements IContext {
 	public void resetStatus() {
 		setStatus(TestPartStatus.UNKNOWN);
 		for (PageElement pe : getElements()) {
-			pe.setStatus(TestPartStatus.UNKNOWN);
+			pe.resetStatus();
 		}
 	}
 	
