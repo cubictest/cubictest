@@ -261,8 +261,7 @@ public class SeleniumUtils {
 				return elementName.getValue();
 			}
 			else {
-				//div is default, informed in tooltip text
-				return "div";
+				return "*";
 			}
 		}
 
