@@ -7,10 +7,14 @@ package org.cubictest.exporters.selenium.utils;
 import static org.cubictest.model.IdentifierType.INDEX;
 import static org.cubictest.model.IdentifierType.LABEL;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.IResultHolder;
 import org.cubictest.model.IdentifierType;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
@@ -24,7 +28,7 @@ public class ContextHolder implements IResultHolder {
 
 	/** The XPath starting point (path) for lookup of elements. */
 	private Stack<String> context = new Stack<String>(); 
-
+	private Map<PageElement, String> contextMap = new HashMap<PageElement, String>();
 	
 	public ContextHolder() {
 		//Setting default context to be anywhere in the document ("//" in XPath)
@@ -52,6 +56,11 @@ public class ContextHolder implements IResultHolder {
 		}
 		else if (ctx instanceof AbstractContext) {
 			context.push(SeleniumUtils.getXPath((AbstractContext) ctx, this, true) + "//");
+		}
+		
+		//saving the context of each page element for use in user interactions:
+		for (PageElement pe : ctx.getElements()) {
+			contextMap.put(pe, getFullContext());
 		}
 	}
 
@@ -85,6 +94,23 @@ public class ContextHolder implements IResultHolder {
 
 	public String toResultString() {
 		return "";
+	}
+	
+	/**
+	 * Get the context of a previously asserted page element.
+	 * @param pe
+	 * @return
+	 */
+	public String getFullContext(PageElement pe) {
+		String ctx = contextMap.get(pe);
+		if(StringUtils.isNotBlank(ctx)) {
+			return ctx;
+		}
+		else {
+			//did not find element in map. Default to the current context.
+			return getFullContext();
+		}
+		
 	}
 	
 }

@@ -15,6 +15,7 @@ import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
@@ -103,7 +104,13 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			inputValue = SeleniumUtils.getIdType(optionMainId) + "=" + optionMainId.getValue();
 		}
 		else {
-			locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(element, seleniumHolder, true);
+			//all other elements
+			String context = seleniumHolder.getFullContext();
+			if (element instanceof PageElement) {
+				//get context of page element
+				context = seleniumHolder.getFullContext((PageElement) element);
+			}
+			locator = "xpath=" + context + SeleniumUtils.getXPath(element, seleniumHolder, true);
 			inputValue = SeleniumUtils.getValue(userInteraction, seleniumHolder);
 		}
 		
