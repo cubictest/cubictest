@@ -63,7 +63,7 @@ public enum IdentifierType {
 	XPATH("XPath", "Check the XPath to the element", false),
 
 	/** XPath to the element */
-	ELEMENT_NAME("Element name", "Check the name of the HTML element. Default is \"DIV\"", false);
+	ELEMENT_NAME("Element name", "Check the name of the HTML element (e.g. \"table\")", false);
 
 	private String displayValue;
 	private String description;
