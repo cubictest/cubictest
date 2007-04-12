@@ -37,10 +37,10 @@ public enum IdentifierType {
 	VALUE("Value", "Check the value attribute for input elements.", false),
 
 	/** HTML href attribute */
-	HREF("Href", "Checking the href; meaning where the link points to.", false),
+	HREF("Href", "Check the href; meaning where the link points to.", false),
 
 	/** HTML src attribute */
-	SRC("Src", "Checking if the source ends this attribute.", false),
+	SRC("Src", "Check the source attribute.", false),
 	
 	/** HTML checked attribute */
 	CHECKED("Checked", "Check whether the element is checked or not.", true),
@@ -56,7 +56,7 @@ public enum IdentifierType {
 	
 	//Added by Genesis Campos
 	/** element index in page */
-	INDEX("Index", "Check the elements index in the page / Context.", false),
+	INDEX("Index", "Check the element's index in the page / Context.", false),
 	//End;
 	
 	/** XPath to the element */
