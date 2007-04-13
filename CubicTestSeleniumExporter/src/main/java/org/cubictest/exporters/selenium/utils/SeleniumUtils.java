@@ -201,28 +201,8 @@ public class SeleniumUtils {
 				value = value.substring(1);
 			}
 			int index = Integer.parseInt(value);
-			//compute the index:
-			String context = contextHolder.getFullContext();
-			if (context.equals("//")) {
-				context = "/descendant-or-self::";
-			}
-			
-			if (pe instanceof AbstractContext) {
-				result += "position()=" + index;
-			}
-			else {
-				String ancestorContext = contextHolder.getFullContext().substring(1);
-				if (ancestorContext.endsWith("//")) {
-					ancestorContext = ancestorContext.substring(0, ancestorContext.length() - 2);
-				}
-				if (ancestorContext.equals("/")) {
-					ancestorContext = "";
-				}
-				index--; //assert the preceding rows
-				result += "count(/*" + contextHolder.getFullContext() + getXPath(pe, contextHolder, false) + "/ancestor-or-self::*/preceding-sibling::*[ancestor::*" + ancestorContext + "]/descendant-or-self::" + getElementType(pe) + ")" + operator + index;
-			}
+			result += "position()" + operator + index;
 		}
-		
 		
 		if (StringUtils.isNotBlank(result)) {
 			predicates.setNeedsSeparator(true);
@@ -257,7 +237,7 @@ public class SeleniumUtils {
 			throw new ExporterException("Text is not a supported element type for identification.");
 		if (pe instanceof AbstractContext) {
 			Identifier elementName = pe.getIdentifier(ELEMENT_NAME);
-			if (elementName != null) {
+			if (elementName != null && StringUtils.isNotBlank(elementName.getValue())) {
 				return elementName.getValue();
 			}
 			else {
