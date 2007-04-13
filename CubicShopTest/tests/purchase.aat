@@ -218,8 +218,8 @@
                             <useParam>false</useParam>
                           </identifier>
                           <identifier>
-                            <value></value>
-                            <probability>0</probability>
+                            <value>tr</value>
+                            <probability>100</probability>
                             <type reference="../../../../../../../../../../elements/simpleContext/identifiers/identifier[4]/type"/>
                             <useI18n>false</useI18n>
                             <useParam>false</useParam>
@@ -314,7 +314,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status>FAIL</status>
+                          <status reference="../../../../../../../../../elements/text/status"/>
                         </text>
                       </elements>
                       <name>Buy clicked</name>
@@ -394,7 +394,6 @@
   </pages>
   <subTests/>
   <transitions>
-    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition"/>
     <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
     <userInteractionsTransition>
@@ -502,6 +501,7 @@
       <end class="page" reference="../../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
     </userInteractionsTransition>
     <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
   </transitions>
   <customTestSteps/>
   <allLanguages>
