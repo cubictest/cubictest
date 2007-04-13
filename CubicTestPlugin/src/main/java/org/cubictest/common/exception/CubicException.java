@@ -16,6 +16,7 @@ public class CubicException extends RuntimeException {
 	private Throwable cause;
 	
 	private CubicException() {
+		super();
 	}
 
 	public CubicException(Throwable cause) {
@@ -37,5 +38,10 @@ public class CubicException extends RuntimeException {
 			return this.getMessage();
 		}
 		return this.getMessage() + " (cause: " + cause.toString() + ")";
+	}
+	
+	@Override
+	public StackTraceElement[] getStackTrace() {
+		return cause.getStackTrace();
 	}
 }

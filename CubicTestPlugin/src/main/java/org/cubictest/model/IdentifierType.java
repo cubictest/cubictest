@@ -54,10 +54,9 @@ public enum IdentifierType {
 	/** HTML title attribute */
 	TITLE("Tooltip", "Check the tooltip text (HTML title attribute).", false),
 	
-	//Added by Genesis Campos
-	/** element index in page */
-	INDEX("Index", "Check the element's index in the page / Context.", false),
-	//End;
+	/** Element index in page */
+	INDEX("Index", "Check the element's index in the page / Context. " +
+			"Default operator is \"=\" (equality), but \">\", \">=\", \"<\" and \"<=\" is also supported", false),
 	
 	/** XPath to the element */
 	XPATH("XPath", "Check the XPath to the element", false),

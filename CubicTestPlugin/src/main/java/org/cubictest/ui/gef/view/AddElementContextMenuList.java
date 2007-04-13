@@ -35,19 +35,13 @@ public class AddElementContextMenuList {
 	private static List<Class<? extends PageElement>> list = new ArrayList<Class<? extends PageElement>>();
 	
 	static {
-		list.add(Title.class);
 		list.add(Text.class);
 		list.add(Link.class);
-		list.add(Image.class);
+		list.add(Button.class);
 		list.add(SimpleContext.class);
-		list.add(Row.class);
 		list.add(TextField.class);
 		list.add(Checkbox.class);
 		list.add(RadioButton.class);
-		list.add(Button.class);
-		list.add(Select.class);
-		list.add(TextArea.class);
-		list.add(Password.class);
 	}
 
 	public static List<Class<? extends PageElement>> getList() {

@@ -9,7 +9,6 @@ package org.cubictest.model;
 import static org.cubictest.model.ActionType.BLUR;
 import static org.cubictest.model.ActionType.FOCUS;
 import static org.cubictest.model.IdentifierType.ID;
-import static org.cubictest.model.IdentifierType.INDEX;
 import static org.cubictest.model.IdentifierType.LABEL;
 import static org.cubictest.model.IdentifierType.TITLE;
 
@@ -47,7 +46,6 @@ public abstract class FormElement extends PageElement{
 		list.add(IdentifierType.NAME);
 		list.add(ID);
 		list.add(TITLE);
-		list.add(INDEX);
 		return list;
 	}
 }

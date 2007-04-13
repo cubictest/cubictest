@@ -134,6 +134,30 @@ public abstract class PageElement extends PropertyAwareObject
 			if(identifiers.size() > 0)
 				identifiers.get(0).setProbability(Identifier.MAX_PROBABILITY);
 		}
+		
+		//washing list (possibly ADD new from type list)
+		for (IdentifierType type : getIdentifierTypes()) {
+			boolean found = false;
+			for (Identifier id : identifiers) {
+				if (id.getType().equals(type)) {
+					found = true;
+				}
+			}
+			if (!found) {
+				Identifier newId = new Identifier();
+				newId.setType(type);
+				identifiers.add(newId);
+			}
+		}
+
+		//washing list (removing old ID types that are no longer in type list)
+		List<Identifier> toRemove = new ArrayList<Identifier>();
+		for (Identifier id : identifiers) {
+			if (!getIdentifierTypes().contains(id.getType())) {
+				toRemove.add(id);
+			}
+		}
+		identifiers.removeAll(toRemove);
 		return identifiers;
 	}
 	

@@ -31,7 +31,6 @@ public class Link extends PageElement {
 		list.add(ID);
 		list.add(HREF);
 		list.add(TITLE);
-		list.add(INDEX);
 		return list;
 	}	
 }
