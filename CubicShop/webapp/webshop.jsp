@@ -62,7 +62,7 @@
 				<input type="submit" 
 					name="buyLoudspeakerBox"
 					value="Buy"
-					onClick="document.cartForm.cubicTitle.value='Loudspeaker box2';">
+					onClick="document.cartForm.cubicTitle.value='Loudspeaker box';">
 			</td>
 		</tr>
 		<tr>
@@ -76,7 +76,7 @@
 				<input type="submit" 
 					name="buy3dShooterBox"
 					value="Buy"
-					onClick="document.cartForm.cubicTitle.value='3D Shooter Box2';">
+					onClick="document.cartForm.cubicTitle.value='3D Shooter Box';">
 			</td>
 		</tr>
 
