@@ -4,6 +4,8 @@
 <br>
 <form name="cartForm" action="cart.jsp">
 	<input type="hidden" name="cubicTitle" value="">
+	
+	<h4>Large boxes</h4>
 	<table border="1" width="460" id="webshopTable">
 		<tr>
 	   	<td>Name</td><td>Price</td><td>Action</td>
@@ -25,6 +27,32 @@
 		</tr>
 		<tr>
 			<td>
+				<a href="products/enginecrate.jsp">Engine crate</a>
+			</td>
+			<td>
+				$25
+			</td>
+			<td>
+				<input type="submit" 
+					name="buyEngineCrate"
+					value="Buy"
+					onClick="document.cartForm.cubicTitle.value='Engine crate';">
+			</td>
+		</tr>
+
+	</table>
+	
+	
+	<br/>
+	<h4>Small boxes</h4>
+	
+	<table border="1" width="460" id="webshopTable">
+		<tr>
+	   	<td>Name</td><td>Price</td><td>Action</td>
+		</tr>
+
+		<tr>
+			<td>
 				<a href="products/loudspeakerbox.jsp">Loudspeaker box</a>
 			</td>
 			<td>
@@ -34,7 +62,7 @@
 				<input type="submit" 
 					name="buyLoudspeakerBox"
 					value="Buy"
-					onClick="document.cartForm.cubicTitle.value='Loudspeaker box';">
+					onClick="document.cartForm.cubicTitle.value='Loudspeaker box2';">
 			</td>
 		</tr>
 		<tr>
@@ -48,21 +76,7 @@
 				<input type="submit" 
 					name="buy3dShooterBox"
 					value="Buy"
-					onClick="document.cartForm.cubicTitle.value='3D Shooter Box';">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<a href="products/enginecrate.jsp">Engine crate</a>
-			</td>
-			<td>
-				$25
-			</td>
-			<td>
-				<input type="submit" 
-					name="buyEngineCrate"
-					value="Buy"
-					onClick="document.cartForm.cubicTitle.value='Engine crate';">
+					onClick="document.cartForm.cubicTitle.value='3D Shooter Box2';">
 			</td>
 		</tr>
 
