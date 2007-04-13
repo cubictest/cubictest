@@ -155,7 +155,7 @@
                             </identifiers>
                             <directEditIdentifier reference="../identifiers/identifier"/>
                             <not>false</not>
-                            <status>FAIL</status>
+                            <status reference="../../../../../../../../../../elements/text/status"/>
                           </button>
                           <link>
                             <description></description>
@@ -191,7 +191,7 @@
                             </identifiers>
                             <directEditIdentifier reference="../identifiers/identifier"/>
                             <not>false</not>
-                            <status reference="../../button/status"/>
+                            <status reference="../../../../../../../../../../elements/text/status"/>
                           </link>
                         </elements>
                         <description></description>
@@ -299,13 +299,13 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../../elements/simpleContext/status"/>
+                          <status reference="../../../../../../../../../elements/text/status"/>
                         </text>
                         <text>
                           <description></description>
                           <identifiers>
                             <identifier>
-                              <value>3D Shooter Box2</value>
+                              <value>3D Shooter Box</value>
                               <probability>100</probability>
                               <type reference="../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
                               <useI18n>false</useI18n>
@@ -314,7 +314,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../../elements/simpleContext/status"/>
+                          <status>FAIL</status>
                         </text>
                       </elements>
                       <name>Buy clicked</name>
@@ -341,8 +341,8 @@
                         <y>508</y>
                       </position>
                       <dimension>
-                        <width>93</width>
-                        <height>70</height>
+                        <width>131</width>
+                        <height>81</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
                       <autoPosition>false</autoPosition>
