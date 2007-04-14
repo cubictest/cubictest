@@ -72,7 +72,8 @@ public class SeleniumHolder extends ContextHolder {
 		final TestPartStatus finalResult = result;
 		display.asyncExec(new Runnable() {
 			public void run() {
-				element.setStatus(finalResult);
+				if(element != null)
+					element.setStatus(finalResult);
 			}
 		});
 	}
