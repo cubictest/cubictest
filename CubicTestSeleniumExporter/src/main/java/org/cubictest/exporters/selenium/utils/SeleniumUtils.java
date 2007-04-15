@@ -71,11 +71,7 @@ public class SeleniumUtils {
 		Predicates predicates = new Predicates();
 
 		if (element instanceof Text) {
-			String context = contextHolder.getFullContext();
-			if (context.equals("//")) {
-				context = "/descendant-or-self::";
-			}
-			return context + "*[" + getLabelAssertion(pe, predicates) + "]";
+			return "*[" + getLabelAssertion(pe, predicates) + "]";
 		}
 		else {
 			//all other elements
@@ -106,7 +102,7 @@ public class SeleniumUtils {
 			}
 
 			if (pe instanceof Text) {
-				result += "contains(text(), \"" + labelText + "\")";
+				result += "contains(., \"" + labelText + "\")";
 			}
 			else if (pe instanceof Link || pe instanceof Option) {
 				result += "text()" + comparisonOperator + "\"" + labelText + "\"";
@@ -232,7 +228,7 @@ public class SeleniumUtils {
 		if (pe instanceof Link)
 			return "a";
 		if (pe instanceof Image)
-			return "img";			
+			return "img";
 		if (pe instanceof Text)
 			throw new ExporterException("Text is not a supported element type for identification.");
 		if (pe instanceof AbstractContext) {
