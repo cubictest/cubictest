@@ -121,8 +121,13 @@
          <propertyTab
                afterTab="org.cubictest.tab.test"
                category="CubicTest"
-               id="org.cubictest.tab.sation"
-               label="I18n and Parameterisation"/>
+               id="org.cubictest.tab.i18n"
+               label="Internationalisation"/>
+         <propertyTab
+               afterTab="org.cubictest.tab.test"
+               category="CubicTest"
+               id="org.cubictest.tab.param"
+               label="Parameterisation"/>
          <propertyTab
                category="CubicTest"
                id="org.cubictest.tab.customTestStepInput"
@@ -163,14 +168,14 @@
          <propertySection
                class="org.cubictest.ui.sections.ParameterisationSection"
                id="org.cubictest.test.param"
-               tab="org.cubictest.tab.sation">
+               tab="org.cubictest.tab.param">
             <input type="org.cubictest.model.Test"/>
          </propertySection>
          <propertySection
                afterSection="org.cubictest.test.param"
                class="org.cubictest.ui.sections.I18nSection"
                id="org.cubictest.test.i18n"
-               tab="org.cubictest.tab.sation">
+               tab="org.cubictest.tab.i18n">
             <input type="org.cubictest.model.Test"/>
          </propertySection>
          <propertySection
@@ -186,12 +191,14 @@
                tab="org.cubictest.tab.customTestStepInput">
             <input type="org.cubictest.model.CustomTestStep"/>
          </propertySection>
+         <!--
          <propertySection
                class="org.cubictest.ui.sections.SetUpAndTearDown"
                id="org.cubictest.test.setUpAndTearDown"
                tab="org.cubictest.tab.setUpAndTearDown">
             <input type="org.cubictest.model.Test"/>
          </propertySection>
+         -->
          <propertySection
                afterSection="org.cubitest.element.not"
                class="org.cubictest.ui.sections.IdentifierSection"
@@ -208,7 +215,7 @@
          <propertySection
                afterSection="org.cubictest.element.description"
                class="org.cubictest.ui.sections.NotSection"
-               id="org.cubitest.element.not"
+               id="org.cubictest.element.not"
                tab="org.cubictest.tab.properties">
             <input type="org.cubictest.model.PageElement"/>
          </propertySection>
@@ -224,6 +231,7 @@
             modes="CubicTestPlugin.launchConfigurationType1"
             name="CubicTestPlugin.launchConfigurationType1"/>
    </extension>
+   <!--
    <extension
          id="org.cubictest.help"
          name="CubicTestHelp"
@@ -232,6 +240,7 @@
             file="src/main/resources/org/cubictest/help/toc.xml"
             primary="true"/>
    </extension>
+   -->
    <extension
          id="org.cubictest.startup"
          name="CubicTestStartup"
