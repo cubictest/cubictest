@@ -373,36 +373,36 @@ Public License instead of this License.
 
    <plugin
          id="org.cubictest"
-         download-size="1876"
-         install-size="1876"
+         download-size="0"
+         install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.cubictest.recorder.cubicrecorder"
-         download-size="5682"
-         install-size="5682"
+         download-size="0"
+         install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.cubictest.exporters.htmlprototype"
-         download-size="397"
-         install-size="397"
+         download-size="0"
+         install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.cubictest.exporters.selenium"
-         download-size="2838"
-         install-size="2838"
+         download-size="0"
+         install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.cubictest.exporters.watir"
-         download-size="175"
-         install-size="175"
+         download-size="0"
+         install-size="0"
          version="0.0.0"
          unpack="false"/>
 

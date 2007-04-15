@@ -11,12 +11,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.gef,
  org.eclipse.ui.editors
-Bundle-ClassPath: lib/jsonrpc-1.0.jar,
+Bundle-ClassPath: .,
+ lib/jsonrpc-1.0.jar,
  lib/org.mortbay.jetty.jar,
  lib/selenium-java-client-driver.jar,
  lib/selenium-server.jar,
  lib/commons-io-1.0.jar,
- lib/commons-lang-2.0.jar,
- .
+ lib/commons-lang-2.0.jar
 Eclipse-LazyStart: true
 Bundle-Vendor: cubictest.org

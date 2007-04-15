@@ -16,6 +16,5 @@ Bundle-ClassPath: .,
  lib/jdom.jar,
  lib/selenium-java-client-driver.jar,
  lib/selenium-server.jar,
- lib/commons-io-1.0.jar,
- src/main/resources/customProfileDirCUSTFF/
+ lib/commons-io-1.0.jar
 Bundle-Vendor: cubictest.org
