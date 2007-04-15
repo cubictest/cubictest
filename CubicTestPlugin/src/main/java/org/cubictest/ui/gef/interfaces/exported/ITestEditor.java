@@ -8,6 +8,7 @@
 package org.cubictest.ui.gef.interfaces.exported;
 
 import org.cubictest.model.Test;
+import org.eclipse.gef.commands.CommandStack;
 
 /**
  * Interface for test editors.
@@ -16,5 +17,13 @@ import org.cubictest.model.Test;
  */
 public interface ITestEditor {
 
+	public static final int INITIAL_PAGE_POS_Y = 100;
+	public static final int INITIAL_PAGE_POS_X = 100;
+
 	public Test getTest();
+	
+	public void addDisposeListener(IDisposeListener listener);
+	
+	public CommandStack getCommandStack();
+	
 }

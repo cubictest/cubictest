@@ -43,5 +43,7 @@ Export-Package: org.cubictest.common.resources,
  org.cubictest.model.context,
  org.cubictest.model.formElement,
  org.cubictest.persistence,
- org.cubictest.ui.gef.interfaces.exported
+ org.cubictest.ui.gef.command,
+ org.cubictest.ui.gef.interfaces.exported,
+ org.cubictest.ui.gef.layout
 Bundle-Vendor: cubictest.org

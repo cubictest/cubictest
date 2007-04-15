@@ -4,6 +4,8 @@
  */
 package org.cubictest.ui.gef.interfaces;
 
+import org.cubictest.ui.gef.interfaces.exported.IDisposeListener;
+
 public interface IDisposeSubject {
 	public void addDisposeListener(IDisposeListener listener);
 	

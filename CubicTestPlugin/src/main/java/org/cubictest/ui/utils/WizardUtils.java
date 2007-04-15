@@ -19,6 +19,7 @@ import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
+import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.geometry.Point;
 
@@ -30,9 +31,6 @@ import org.eclipse.draw2d.geometry.Point;
  */
 public class WizardUtils {
 	
-	
-	public static final int INITIAL_PAGE_POS_Y = 100;
-	public static final int INITIAL_PAGE_POS_X = 100;
 
 	/**
 	 * Creates an empty test with a ExtensionStartPoint.
@@ -83,7 +81,7 @@ public class WizardUtils {
 		test.setDescription(description);
 		
 		Page page = new Page();
-		page.setPosition(new Point(INITIAL_PAGE_POS_X, INITIAL_PAGE_POS_Y));
+		page.setPosition(new Point(ITestEditor.INITIAL_PAGE_POS_X, ITestEditor.INITIAL_PAGE_POS_Y));
 		page.setDimension(TransitionNode.getDefaultDimension());
 		page.setName("First Page");
 		
