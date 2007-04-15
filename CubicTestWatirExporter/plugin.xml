@@ -4,7 +4,7 @@
 
 
    <extension
-         point="org.cubictest.org.cubictest.exporters"
+         point="org.cubictest.exporters"
          name="CubicTestWatirExporter">
    </extension>
    
