@@ -12,6 +12,7 @@
                label="Record"
                menubarPath="additions"
                state="false"
+               icon="icons/record.gif"
                style="toggle"
                tooltip="Record test in web browser"/>
       </viewerContribution>
