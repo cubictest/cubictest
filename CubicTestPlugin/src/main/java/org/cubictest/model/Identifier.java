@@ -137,7 +137,7 @@ public class Identifier implements Cloneable, SationObserver{
 	}
 	
 	public String toString() {
-		return type.name() + " = \"" + value + "\" (probability = " + probability + ")";
+		return type + "=\"" + value + "\" (probability = " + probability + ")";
 	}
 	
 	public boolean isNotIndifferent() {

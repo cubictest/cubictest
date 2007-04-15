@@ -218,11 +218,11 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				null);
 		pageElements.add(tool);
 		
-//		tool = new CombinedTemplateCreationEntry("Image",
-//				"Check for an image on the page", Image.class, new DataCreationFactory(
-//						Image.class), CubicTestImageRegistry.getDescriptor(IMAGE_IMAGE),
-//				null);
-//		pageElements.add(tool);
+		tool = new CombinedTemplateCreationEntry("Image",
+				"Check for an image on the page", Image.class, new DataCreationFactory(
+						Image.class), CubicTestImageRegistry.getDescriptor(IMAGE_IMAGE),
+				null);
+		pageElements.add(tool);
 		
 		
 		// -- Creating Form Elements --

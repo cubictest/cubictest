@@ -42,6 +42,11 @@ public class AddElementContextMenuList {
 		list.add(TextField.class);
 		list.add(Checkbox.class);
 		list.add(RadioButton.class);
+		list.add(Select.class);
+		list.add(TextArea.class);
+		list.add(Password.class);
+		list.add(Image.class);
+		list.add(Title.class);
 	}
 
 	public static List<Class<? extends PageElement>> getList() {

@@ -8,6 +8,7 @@
 package org.cubictest.model;
 
 import static org.cubictest.model.IdentifierType.ID;
+import static org.cubictest.model.IdentifierType.LABEL;
 import static org.cubictest.model.IdentifierType.SRC;
 import static org.cubictest.model.IdentifierType.TITLE;
 
@@ -25,6 +26,7 @@ public class Image extends PageElement {
 	@Override
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
+		list.add(LABEL);
 		list.add(ID);
 		list.add(SRC);
 		list.add(TITLE);

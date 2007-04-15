@@ -43,7 +43,7 @@ public class CubicTestExport {
 			new ProgressMonitorDialog(new Shell()).run(false, false, dirWalker);
 		}
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialog(e, "Error occured when exporting file(s)");
+			ErrorHandler.logAndRethrow(e, "Error occured when exporting file(s)");
 		}
 	}
 	

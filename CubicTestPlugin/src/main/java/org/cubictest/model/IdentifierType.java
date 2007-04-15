@@ -79,6 +79,7 @@ public enum IdentifierType {
 		return description;
 	}
 	
+	@Override
 	public String toString() {
 		return displayValue;
 	}

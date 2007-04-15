@@ -33,13 +33,23 @@ public abstract class PageElement extends PropertyAwareObject
 	@Override
 	public String toString() {
 		StringBuffer buff = new StringBuffer();
-		buff.append(getType() + ": ");
-		for (Identifier id : getIdentifiers()) {
+		buff.append("[" + getType() + "] ");
+		int i = 0;
+		for (Identifier id : getNonIndifferentIdentifierts()) {
 			if (StringUtils.isNotBlank(id.getValue())) {
-				buff.append(id + ", ");
+				if (i > 0) {
+					buff.append(", ");
+				}
+				buff.append(id);
 			}
+			i++;
 		}
-		buff.append(" not = " + this.not + ", description = \"" + this.description + "\", DirectEdit: " + getDirectEditIdentifier());
+		if (not) {
+			buff.append(", not = " + this.not);
+		}
+		if (StringUtils.isNotBlank(description)) {
+			buff.append(", description = \"" + this.description + "\"");
+		}
 		return buff.toString();
 	}
 	
