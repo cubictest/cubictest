@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.cubictest"
-      label="CubicTest Feature"
-      version="1.0.0.M2"
+      label="CubicTest"
+      version="1.0.0.M3"
       provider-name="cubictest.org"
       plugin="org.cubictest">
 
@@ -363,13 +363,47 @@ Public License instead of this License.
       <import plugin="org.eclipse.ui.workbench.texteditor"/>
       <import plugin="org.eclipse.debug.core"/>
       <import plugin="org.junit4"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.help"/>
+      <import plugin="org.eclipse.ui.console"/>
+      <import plugin="org.eclipse.ui.intro"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.jface.text"/>
    </requires>
 
    <plugin
          id="org.cubictest"
-         download-size="0"
-         install-size="0"
-         unpack="false"
-         version="0.0.0"/>
+         download-size="1876"
+         install-size="1876"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cubictest.recorder.cubicrecorder"
+         download-size="5682"
+         install-size="5682"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cubictest.exporters.htmlprototype"
+         download-size="397"
+         install-size="397"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cubictest.exporters.selenium"
+         download-size="2838"
+         install-size="2838"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.cubictest.exporters.watir"
+         download-size="175"
+         install-size="175"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
