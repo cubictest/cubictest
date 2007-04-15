@@ -49,7 +49,7 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input type="submit" name="logIn" value="Log in">
+					<input type="submit" name="logIn" id="logIn" value="Log in">
 					<input type="button" name="logOut" onClick="window.location='index.jsp?logout=true';" value="Log out">
 				</td>
 			</tr>
