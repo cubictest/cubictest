@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-
-
    <extension
-         point="org.cubictest.org.cubictest.exporters"
-         name="CubicTestSeleniumExporter">
+         name="CubicTestSeleniumExporter"
+         point="org.cubictest.exporters">
    </extension>
-   
-   
+  
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
