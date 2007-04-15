@@ -87,7 +87,7 @@ Contexts:
 Done   What is Page Section? (No association to DIV, but tooltip was clearifying)  => Change name
 Done   Wants to identify a single element, not an entire section.
 Done   Problem with properties view of context with page element in it
-M4?   Provide coulumn headers (context type)
+Done   Provide coulumn headers (context type) ==> Adding the possibility to add elementnames
 M4?   Wants anonymous elements (amount, date etc, only that they are present).
 M4?   Have "List" as own context, not just table => Rename to Table/List??
    (Watir and Selenium does not support contexts)
@@ -115,7 +115,7 @@ Done   Drag and drop: Too many clicks
 Done   "Add text" was confusing. ==> better "Add/check text"
 Done   Better structure (indenting?) of palette (e.g. Button was often not found)
 Done   Icons for all elements in palette
-	(Palette is too big for 1024 x 768)
+Done   (Palette is too big for 1024 x 768) ==> Drawer.
     (Be possible to turn off text in palette, only see icons + tooltip?)
    
    
