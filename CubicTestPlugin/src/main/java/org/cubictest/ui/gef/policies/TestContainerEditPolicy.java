@@ -30,11 +30,7 @@ import org.eclipse.gef.requests.GroupRequest;
  */
 public class TestContainerEditPolicy extends ContainerEditPolicy {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.editpolicies.ContainerEditPolicy#getCreateCommand(org.eclipse.gef.requests.CreateRequest)
-	 */
+	@Override
 	protected Command getCreateCommand(CreateRequest request) {
 		Object newObject = request.getNewObject();
 		Point location = request.getLocation();
@@ -67,20 +63,12 @@ public class TestContainerEditPolicy extends ContainerEditPolicy {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.editpolicies.ContainerEditPolicy#getOrphanChildrenCommand(org.eclipse.gef.requests.GroupRequest)
-	 */
+	@Override
 	protected Command getOrphanChildrenCommand(GroupRequest request) {
 		return super.getOrphanChildrenCommand(request);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.gef.editpolicies.AbstractEditPolicy#getTargetEditPart(org.eclipse.gef.Request)
-	 */
+	@Override
 	public EditPart getTargetEditPart(Request request) {
 		if (REQ_CREATE.equals(request.getType()))
 			return getHost();
