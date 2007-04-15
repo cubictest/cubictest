@@ -58,7 +58,7 @@ public class PasteAction extends SelectionAction {
 		}
 		
 		StructuredSelection selection = (StructuredSelection) selectionObj;
-		if (selection.size() > 1 || !(selection.getFirstElement() instanceof EditPart)) {
+		if (!(selection.getFirstElement() instanceof EditPart)) {
 			return false;
 		}
 

@@ -28,6 +28,7 @@ public abstract class PageElement extends PropertyAwareObject
 	private List<Identifier> identifiers;
 	private Identifier directEditIdentifier;
 	private boolean not;
+	private transient boolean idListWashed;
 	
 	@Override
 	public String toString() {
@@ -135,7 +136,16 @@ public abstract class PageElement extends PropertyAwareObject
 				identifiers.get(0).setProbability(Identifier.MAX_PROBABILITY);
 		}
 		
-		//washing list (possibly ADD new from type list)
+		//washing list (possibly add / remove IDs according to type list)
+		washIdList();
+		return identifiers;
+	}
+
+	private void washIdList() {
+		if (idListWashed) {
+			return;
+		}
+		//washing list (possibly adding new ids from type list)
 		for (IdentifierType type : getIdentifierTypes()) {
 			boolean found = false;
 			for (Identifier id : identifiers) {
@@ -150,7 +160,7 @@ public abstract class PageElement extends PropertyAwareObject
 			}
 		}
 
-		//washing list (removing old ID types that are no longer in type list)
+		//washing list (possibly removing old id types that are no longer in type list)
 		List<Identifier> toRemove = new ArrayList<Identifier>();
 		for (Identifier id : identifiers) {
 			if (!getIdentifierTypes().contains(id.getType())) {
@@ -158,7 +168,7 @@ public abstract class PageElement extends PropertyAwareObject
 			}
 		}
 		identifiers.removeAll(toRemove);
-		return identifiers;
+		idListWashed = true;
 	}
 	
 	
