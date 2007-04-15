@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: CubicTestHtmlPrototypeExporter Plug-in
-Bundle-SymbolicName: org.cubictest.exporters.CubicTestHtmlPrototypeExporter;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Name: CubicTestHtmlPrototypeExporter
+Bundle-SymbolicName: org.cubictest.exporters.htmlprototype;singleton:=true
+Bundle-Version: 1.0.0.M3
 Bundle-Activator: org.cubictest.exporters.htmlPrototype.ui.Activator
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -15,3 +15,4 @@ Bundle-ClassPath: lib/jdom.jar,
  .,
  lib/commons-lang-2.0.jar,
  lib/commons-io-1.0.jar
+Bundle-Vendor: cubictest.org
