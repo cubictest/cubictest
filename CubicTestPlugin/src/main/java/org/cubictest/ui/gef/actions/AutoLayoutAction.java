@@ -8,7 +8,6 @@ package org.cubictest.ui.gef.actions;
 
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
-import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
 import org.eclipse.gef.ui.actions.EditorPartAction;
@@ -39,7 +38,7 @@ public class AutoLayoutAction extends EditorPartAction {
 	@Override
 	public void run() {
 		GraphicalTestEditor testEditor = (GraphicalTestEditor)getEditorPart();
-		AutoLayout manager = new AutoLayout((TestEditPart) testEditor.getGraphicalViewer().getContents());
+		AutoLayout manager = new AutoLayout(testEditor);
 		for(Transition t : ((Test)testEditor.getGraphicalViewer().getContents().getModel()).getStartPoint().getOutTransitions()) {
 			manager.layout(t.getEnd());
 		}

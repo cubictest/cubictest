@@ -10,6 +10,7 @@ import org.cubictest.model.UrlStartPoint;
 import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
@@ -19,8 +20,8 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 public class AutoLayout {
 	private final TestEditPart testEditPart;
 
-	public AutoLayout(TestEditPart testEditPart) {
-		this.testEditPart = testEditPart;
+	public AutoLayout(GraphicalTestEditor testEditor) {
+		this.testEditPart = (TestEditPart) testEditor.getGraphicalViewer().getContents();
 	}
 
 	public void layout(TransitionNode node) {
