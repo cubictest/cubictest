@@ -40,6 +40,9 @@ public class DataEditDropTargetListner extends TemplateTransferDropTargetListene
 //			return new CustomPageElementCreationFactory(project, ((
 //				CustomPageElement)template).getName());
 //		} else {
+			if (template instanceof DataCreationFactory) {
+				return (DataCreationFactory) template;
+			}
 			return new DataCreationFactory(template);
 //		}
 	}
