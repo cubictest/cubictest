@@ -89,14 +89,6 @@ public class TestEditPart extends PropertyChangePart{
 		installEditPolicy(EditPolicy.CONTAINER_ROLE, new TestContainerEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new TestXYLayoutEditPolicy());
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.EditPart#getCommand(org.eclipse.gef.Request)
-	 */
-	
-	public Command getCommand(Request request) {
-		return super.getCommand(request);
-	}
 
 	protected List getModelChildren(){
 		List<Object> children = new ArrayList<Object>();
