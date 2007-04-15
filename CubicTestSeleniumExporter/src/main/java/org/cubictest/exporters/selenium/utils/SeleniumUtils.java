@@ -19,17 +19,7 @@ import static org.cubictest.model.ActionType.MOUSE_OVER;
 import static org.cubictest.model.ActionType.REFRESH;
 import static org.cubictest.model.ActionType.SELECT;
 import static org.cubictest.model.ActionType.UNCHECK;
-import static org.cubictest.model.IdentifierType.CHECKED;
-import static org.cubictest.model.IdentifierType.ELEMENT_NAME;
-import static org.cubictest.model.IdentifierType.HREF;
-import static org.cubictest.model.IdentifierType.ID;
-import static org.cubictest.model.IdentifierType.INDEX;
-import static org.cubictest.model.IdentifierType.LABEL;
-import static org.cubictest.model.IdentifierType.NAME;
-import static org.cubictest.model.IdentifierType.SELECTED;
-import static org.cubictest.model.IdentifierType.SRC;
-import static org.cubictest.model.IdentifierType.TITLE;
-import static org.cubictest.model.IdentifierType.VALUE;
+import static org.cubictest.model.IdentifierType.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.exceptions.ExporterException;
@@ -147,7 +137,7 @@ public class SeleniumUtils {
 				comparisonOperator = "!=";
 			}
 			
-			if (id.getType().equals(CHECKED) || id.getType().equals(SELECTED)) {
+			if (id.getType().equals(CHECKED) || id.getType().equals(SELECTED) || id.getType().equals(MULTISELECT)) {
 				//idType with no value
 				if (id.getProbability() > 0) {
 					result += "@" + getIdType(id)+ "=\"\"";
@@ -415,6 +405,9 @@ public class SeleniumUtils {
 		}
 		else if (id.getType().equals(SELECTED)) {
 			return "selected";
+		}
+		else if (id.getType().equals(MULTISELECT)) {
+			return "multiple";
 		}
 		else if (id.getType().equals(INDEX)) {
 			return "index";
