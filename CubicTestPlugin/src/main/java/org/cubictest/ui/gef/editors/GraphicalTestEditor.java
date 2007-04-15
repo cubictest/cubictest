@@ -8,10 +8,13 @@
 package org.cubictest.ui.gef.editors;
 
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
 
+import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
@@ -54,9 +57,13 @@ import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
+import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
+import org.eclipse.gef.internal.InternalGEFPlugin;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.requests.CreationFactory;
+import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.DeleteAction;
 import org.eclipse.gef.ui.actions.DirectEditAction;
@@ -70,14 +77,20 @@ import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.gef.ui.actions.StackAction;
 import org.eclipse.gef.ui.actions.UndoAction;
 import org.eclipse.gef.ui.actions.UpdateAction;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite;
 import org.eclipse.gef.ui.palette.PaletteViewer;
+import org.eclipse.gef.ui.palette.PaletteViewerProvider;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
+import org.eclipse.gef.ui.views.palette.PalettePage;
+import org.eclipse.gef.ui.views.palette.PaletteViewerPage;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
@@ -102,6 +115,8 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 public class GraphicalTestEditor extends EditorPart implements IAdaptable, 
 		ITabbedPropertySheetPageContributor, IDisposeSubject, ITestEditor {
 
+	private static final int PALETTE_SIZE = 150;
+	
 	private GraphicalViewer graphicalViewer;
 	
 	private EditDomain editDomain;
@@ -122,7 +137,6 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 			updateActions(editPartActionIDs);
 		}
 	};
-	private PaletteViewer paletteViewer;
 	
 	private PaletteRoot paletteRoot;
 	
@@ -139,6 +153,12 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	private IResourceMonitor resourceMonitor;
 	
 	private CustomElementLoader customTestStepLoader;
+
+	private FlyoutPaletteComposite splitter;
+
+	private PaletteViewerProvider provider;
+
+	private CustomPalettePage page;
 	
 	/**
 	 * Constructor.
@@ -166,19 +186,80 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.IWorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createPartControl(Composite parent){
-		
-		SashForm sashForm = new SashForm(parent, SWT.HORIZONTAL);
-
-		paletteViewer = createPaletteViewer(sashForm);
-		graphicalViewer = createGraphicalViewer(sashForm);
+		splitter = new FlyoutPaletteComposite(parent, SWT.NONE, getSite().getPage(),
+				getPaletteViewerProvider(), getPalettePreferences());
+		createGraphicalViewer(splitter);
+		splitter.setGraphicalControl(getGraphicalControl());
+		if (page != null) {
+			splitter.setExternalViewer(page.getPaletteViewer());
+			page = null;
+		}
 		registerContextMenus();
-		sashForm.setWeights(new int[]{10,90});
+	}
+	
+	/**
+	 * @return	the graphical viewer's control
+	 */
+	protected Control getGraphicalControl() {
+		return getGraphicalViewer().getControl();
+	}
+	
+	/**
+	 * @return a newly-created {@link CustomPalettePage}
+	 */
+	protected CustomPalettePage createPalettePage() {
+		return new CustomPalettePage(getPaletteViewerProvider());
+	}
+	
+	
+	/**
+	 * Returns the palette viewer provider that is used to create palettes for the view and
+	 * the flyout.  Creates one if it doesn't already exist.
+	 * 
+	 * @return	the PaletteViewerProvider that can be used to create PaletteViewers for
+	 * 			this editor
+	 * @see	#createPaletteViewerProvider()
+	 */
+	protected final PaletteViewerProvider getPaletteViewerProvider() {
+		if (provider == null)
+			provider = createPaletteViewerProvider();
+		return provider;
+	}
+	
+	/**
+	 * By default, this method returns a FlyoutPreferences object that stores the flyout
+	 * settings in the GEF plugin.  Sub-classes may override.
+	 * @return	the FlyoutPreferences object used to save the flyout palette's preferences 
+	 */
+	protected FlyoutPreferences getPalettePreferences() {
+		return FlyoutPaletteComposite
+				.createFlyoutPreferences(CubicTestPlugin.getDefault().getPluginPreferences());
+	}
+	
+	/**
+	 * Creates a PaletteViewerProvider that will be used to create palettes for the view
+	 * and the flyout.
+	 * 
+	 * @return	the palette provider
+	 */
+	protected PaletteViewerProvider createPaletteViewerProvider() {
+		return new PaletteViewerProvider(getEditDomain()){
+			@Override
+			protected void configurePaletteViewer(PaletteViewer viewer) {
+				super.configurePaletteViewer(viewer);
+				viewer.addDragSourceListener(new TemplateTransferDragSourceListener(viewer));
+			}
+		};
 	}
 	
 	protected GraphicalViewer createGraphicalViewer(Composite parent){
+		
 		GraphicalViewer viewer = new ScrollingGraphicalViewer();
 		viewer.createControl(parent);
+		graphicalViewer = viewer;
+		
 		viewer.getControl().setBackground(parent.getBackground());
 		viewer.setRootEditPart(new ScalableFreeformRootEditPart());
 		
@@ -190,7 +271,6 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		
 		getSite().setSelectionProvider(viewer);
 		
-				
 		viewer.addDropTargetListener(new DataEditDropTargetListner(((IFileEditorInput)getEditorInput()).getFile().getProject(), viewer));
 		viewer.addDropTargetListener(new FileTransferDropTargetListener(viewer));
 		viewer.setEditPartFactory(getEditPartFactory());
@@ -234,6 +314,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	 * <code>IWorkbenchPart</code> method disposes all nested editors.
 	 * Subclasses may extend.
 	 */
+	@Override
 	public void dispose() {
 		for(IDisposeListener listener : disposeListeners) {
 			listener.disposed();
@@ -346,6 +427,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	public EditDomain getEditDomain(){
 		if (editDomain == null){
 			editDomain = new DefaultEditDomain(this);
+			editDomain.setPaletteRoot(getPaletteRoot());
 		}
 		return editDomain;
 	}
@@ -379,6 +461,13 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	public Object getAdapter(Class adapter){
 		if (adapter == GraphicalViewer.class || adapter == EditPartViewer.class)
 			return getGraphicalViewer();
+		if (adapter == PalettePage.class) {
+			if (splitter == null) {
+				page = createPalettePage();
+				return page;
+			}
+			return createPalettePage();
+		}
 		if (adapter == CommandStack.class)
 			return getCommandStack();
 		if (adapter == EditDomain.class) 
@@ -395,20 +484,19 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		return super.getAdapter(adapter);
 	}
 	
-	private PaletteViewer createPaletteViewer(Composite parent) {
-		
-		PaletteViewer viewer = new PaletteViewer();
-		viewer.createControl(parent);
-		
-		getEditDomain().setPaletteViewer(viewer);
-		
-		getEditDomain().setPaletteRoot(getPaletteRoot());
-		
-		viewer.addDragSourceListener(new TemplateTransferDragSourceListener(viewer));
-		
-		return viewer;
-	}
-	
+//	private PaletteViewer createPaletteViewer(Composite parent) {
+//		
+//		PaletteViewer viewer = new PaletteViewer();
+//		viewer.createControl(parent);
+//		
+//		getEditDomain().setPaletteViewer(viewer);
+//		getEditDomain().setPaletteRoot(getPaletteRoot());
+//		
+//		viewer.addDragSourceListener(new TemplateTransferDragSourceListener(viewer));
+//		
+//		return viewer;
+//	}
+
 	protected PaletteRoot getPaletteRoot() {
 		if (paletteRoot == null){
 			paletteRoot = new PaletteRootCreator(((IFileEditorInput)getEditorInput()).getFile().getProject(), getCustomTestStepLoader());
@@ -421,12 +509,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 			customTestStepLoader = new CustomElementLoader(((IFileEditorInput)getEditorInput()).getFile().getProject(), getResourceMonitor());
 		}
 		return customTestStepLoader;
-	}
-	
-	protected PaletteViewer getPaletteViewer(){
-		return paletteViewer;
-	}
-	
+	}	
 	
 	/**
 	 * Adds a <code>SelectionAction</code>.
@@ -477,6 +560,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.part.WorkbenchPart#firePropertyChange(int)
 	 */
+	@Override
 	protected void firePropertyChange(int propertyId){
 		super.firePropertyChange(propertyId);
 		updateActions(editorActionIDs);
@@ -528,4 +612,46 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	public void removeDisposeListener(IDisposeListener listener) {
 		disposeListeners.remove(listener);
 	}
+	
+	/**
+	 * A custom PalettePage that helps GraphicalEditorWithFlyoutPalette keep the two
+	 * PaletteViewers (one displayed in the editor and the other displayed in the PaletteView)
+	 * in sync when switching from one to the other (i.e., it helps maintain state across the
+	 * two viewers).
+	 * 
+	 * @author Pratik Shah
+	 * @since 3.0
+	 */
+	protected class CustomPalettePage extends PaletteViewerPage {
+		/**
+		 * Constructor
+		 * @param provider	the provider used to create a PaletteViewer
+		 */
+		public CustomPalettePage(PaletteViewerProvider provider) {
+			super(provider);
+		}
+		/**
+		 * @see org.eclipse.ui.part.IPage#createControl(org.eclipse.swt.widgets.Composite)
+		 */
+		public void createControl(Composite parent) {
+			super.createControl(parent);
+			if (splitter != null)
+				splitter.setExternalViewer(viewer);
+		}
+		/**
+		 * @see org.eclipse.ui.part.IPage#dispose()
+		 */
+		public void dispose() {
+			if (splitter != null)
+				splitter.setExternalViewer(null);
+			super.dispose();
+		}
+		/**
+		 * @return	the PaletteViewer created and displayed by this page
+		 */
+		public PaletteViewer getPaletteViewer() {
+			return viewer;
+		}
+	}
+
 }
