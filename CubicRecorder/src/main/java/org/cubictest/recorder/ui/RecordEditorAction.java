@@ -13,7 +13,6 @@ import org.cubictest.recorder.CubicRecorder;
 import org.cubictest.recorder.GUIAwareRecorder;
 import org.cubictest.recorder.IRecorder;
 import org.cubictest.recorder.selenium.SeleniumRecorder;
-import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.interfaces.IDisposeListener;
 import org.cubictest.ui.gef.layout.AutoLayout;
@@ -48,7 +47,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 	 */
 	public void run(IAction action) {
 		
-		AutoLayout autoLayout = new AutoLayout((TestEditPart) testEditor.getGraphicalViewer().getContents());
+		AutoLayout autoLayout = new AutoLayout(testEditor);
 
 		if(!running) {
 			setRunning(true);

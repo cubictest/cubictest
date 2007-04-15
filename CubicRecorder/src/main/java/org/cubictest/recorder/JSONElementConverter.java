@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.lang.StringUtils;
-import org.cubictest.model.FormElement;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
@@ -13,7 +12,6 @@ import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Title;
 import org.cubictest.model.context.SimpleContext;
-import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Option;
