@@ -285,38 +285,7 @@
                     <start class="page" reference="../../.."/>
                     <end class="page">
                       <commons/>
-                      <elements>
-                        <text>
-                          <description></description>
-                          <identifiers>
-                            <identifier>
-                              <value>Cart contents</value>
-                              <probability>100</probability>
-                              <type reference="../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
-                              <useI18n>false</useI18n>
-                              <useParam>false</useParam>
-                            </identifier>
-                          </identifiers>
-                          <directEditIdentifier reference="../identifiers/identifier"/>
-                          <not>false</not>
-                          <status reference="../../../../../../../../../elements/text/status"/>
-                        </text>
-                        <text>
-                          <description></description>
-                          <identifiers>
-                            <identifier>
-                              <value>3D Shooter Box</value>
-                              <probability>100</probability>
-                              <type reference="../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
-                              <useI18n>false</useI18n>
-                              <useParam>false</useParam>
-                            </identifier>
-                          </identifiers>
-                          <directEditIdentifier reference="../identifiers/identifier"/>
-                          <not>false</not>
-                          <status reference="../../../../../../../../../elements/text/status"/>
-                        </text>
-                      </elements>
+                      <elements/>
                       <name>Buy clicked</name>
                       <inTransition class="userInteractionsTransition" reference="../.."/>
                       <outTransitions>
@@ -327,9 +296,13 @@
                             <outTransitions/>
                             <id></id>
                             <position>
-                              <x>400</x>
-                              <y>621</y>
+                              <x>108</x>
+                              <y>567</y>
                             </position>
+                            <dimension>
+                              <width>93</width>
+                              <height>70</height>
+                            </dimension>
                             <name>Buy clicked Extension Point</name>
                             <autoPosition>false</autoPosition>
                           </end>
@@ -337,12 +310,12 @@
                       </outTransitions>
                       <id>1157464849674</id>
                       <position>
-                        <x>398</x>
-                        <y>508</y>
+                        <x>123</x>
+                        <y>478</y>
                       </position>
                       <dimension>
-                        <width>131</width>
-                        <height>81</height>
+                        <width>100</width>
+                        <height>25</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
                       <autoPosition>false</autoPosition>
@@ -351,12 +324,12 @@
                 </outTransitions>
                 <id>1157465103719</id>
                 <position>
-                  <x>159</x>
-                  <y>342</y>
+                  <x>108</x>
+                  <y>286</y>
                 </position>
                 <dimension>
-                  <width>129</width>
-                  <height>147</height>
+                  <width>131</width>
+                  <height>117</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
                 <autoPosition>false</autoPosition>
@@ -365,12 +338,12 @@
           </outTransitions>
           <id>page279867781157299895549</id>
           <position>
-            <x>91</x>
+            <x>101</x>
             <y>119</y>
           </position>
           <dimension>
-            <width>164</width>
-            <height>113</height>
+            <width>144</width>
+            <height>92</height>
           </dimension>
           <autoPosition>false</autoPosition>
         </end>
