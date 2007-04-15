@@ -19,10 +19,7 @@ import static org.cubictest.model.ActionType.MOUSE_OUT;
 import static org.cubictest.model.ActionType.MOUSE_OVER;
 import static org.cubictest.model.ActionType.NO_ACTION;
 import static org.cubictest.model.ActionType.UNCHECK;
-import static org.cubictest.model.IdentifierType.ID;
-import static org.cubictest.model.IdentifierType.LABEL;
-import static org.cubictest.model.IdentifierType.NAME;
-import static org.cubictest.model.IdentifierType.VALUE;
+import static org.cubictest.model.IdentifierType.*;
 
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.RubyBuffer;
@@ -60,6 +57,14 @@ public class WatirUtils {
 			return ":name";
 		if (idType.equals(VALUE))
 			return ":value";
+		if (idType.equals(INDEX))
+			return ":index";
+		if (idType.equals(SRC))
+			return ":src";
+		if (idType.equals(HREF))
+			return ":url";
+		if (idType.equals(TITLE))
+			return ":title";
 		if (idType.equals(LABEL)) {
 			if (pe instanceof Link) {
 				return ":text";
@@ -102,10 +107,8 @@ public class WatirUtils {
 			return "option";
 		if (pe instanceof Link)
 			return "link";
-		//Added by Genesis Campos
 		if (pe instanceof Frame)
 			return "frame";
-		//End;
 		if (pe instanceof AbstractContext)
 			return "div";
 		if (pe instanceof Image)
