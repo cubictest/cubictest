@@ -114,7 +114,12 @@ public class ErrorHandler {
 	}
 
 	public static void showErrorDialog(Throwable e, String userMessage) {
-		showErrorDialog(e, userMessage, new Shell());
+		try {
+			showErrorDialog(e, userMessage, new Shell());
+		}
+		catch (Throwable t) {
+			System.out.println("Could not show error dialog: " + e + ", message: " + userMessage);
+		}
 	}
 	
 	public static void showErrorDialog(Throwable e, String userMessage, Shell shell) {
@@ -133,7 +138,7 @@ public class ErrorHandler {
 			ErrorDialog.openError(shell, UiText.APP_TITLE, msg, status);
 		}
 		catch (Throwable t) {
-			System.out.println("Could not show message dialog: " + msg);
+			System.out.println("Could not show error dialog: " + e + ", message: " + msg);
 		}
 	}
 
