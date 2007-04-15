@@ -13,8 +13,8 @@ import org.cubictest.recorder.CubicRecorder;
 import org.cubictest.recorder.GUIAwareRecorder;
 import org.cubictest.recorder.IRecorder;
 import org.cubictest.recorder.selenium.SeleniumRecorder;
-import org.cubictest.ui.gef.editors.GraphicalTestEditor;
-import org.cubictest.ui.gef.interfaces.IDisposeListener;
+import org.cubictest.ui.gef.interfaces.exported.IDisposeListener;
+import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.action.IAction;
@@ -34,7 +34,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 	IResource currentFile;
 	private boolean running;
 	private SeleniumRecorder seleniumRecorder;
-	private GraphicalTestEditor testEditor;
+	private ITestEditor testEditor;
 
 	public RecordEditorAction() {
 		super();
@@ -99,15 +99,10 @@ public class RecordEditorAction implements IEditorActionDelegate {
 	public void selectionChanged(IAction action, ISelection selection) {}
 
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
-		this.testEditor = (GraphicalTestEditor) targetEditor;		
+		this.testEditor = (ITestEditor) targetEditor;		
 	}
 	
 	private void setRunning(boolean run) {
 		running = run;
-//		if(!running) {
-//			setText("Start Recording");
-//		} else {
-//			setText("Stop Recording");
-//		}
 	}
 }

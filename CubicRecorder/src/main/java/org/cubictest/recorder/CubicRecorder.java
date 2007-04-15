@@ -17,10 +17,10 @@ import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
+import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
-import org.cubictest.ui.utils.WizardUtils;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.draw2d.geometry.Point;
 
 public class CubicRecorder implements IRecorder {
 	private Test test;
@@ -132,7 +132,7 @@ public class CubicRecorder implements IRecorder {
 		Page page = new Page();
 		if (from instanceof UrlStartPoint) {
 			int num = from.getOutTransitions().size();
-			page.setPosition(new Point(WizardUtils.INITIAL_PAGE_POS_X + (290 * num), WizardUtils.INITIAL_PAGE_POS_Y));
+			page.setPosition(new Point(ITestEditor.INITIAL_PAGE_POS_X + (290 * num), ITestEditor.INITIAL_PAGE_POS_Y));
 		}
 		page.setAutoPosition(true);
 				

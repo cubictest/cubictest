@@ -1,10 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: CubicRecorder Fragment
+Bundle-Name: CubicRecorder Plug-in
 Bundle-SymbolicName: CubicRecorder;singleton:=true
 Bundle-Version: 1.0.0
-Fragment-Host: org.cubictest;bundle-version="1.0.0"
 Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.cubictest,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ org.eclipse.gef,
+ org.eclipse.ui.editors
 Bundle-ClassPath: lib/jsonrpc-1.0.jar,
  lib/org.mortbay.jetty.jar,
  lib/selenium-java-client-driver.jar,
@@ -12,3 +18,4 @@ Bundle-ClassPath: lib/jsonrpc-1.0.jar,
  lib/commons-io-1.0.jar,
  lib/commons-lang-2.0.jar,
  .
+Eclipse-LazyStart: true
