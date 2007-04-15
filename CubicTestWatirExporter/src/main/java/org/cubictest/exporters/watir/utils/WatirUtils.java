@@ -60,13 +60,17 @@ public class WatirUtils {
 			return ":name";
 		if (idType.equals(VALUE))
 			return ":value";
-		if (idType.equals(LABEL))
-			if (pe instanceof Link)
+		if (idType.equals(LABEL)) {
+			if (pe instanceof Link) {
 				return ":text";
-			else
+			}
+			else {
 				return ":value";
-		else
-			throw new ExporterException("Identifier type not recognized.");
+			}
+		}
+		else {
+			throw new ExporterException("Identifier type \"" + idType + "\" not recognized. Page element: " + pe);
+		}
 	}
 	
 	/**
