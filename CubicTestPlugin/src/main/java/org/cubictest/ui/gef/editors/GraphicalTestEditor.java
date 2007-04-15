@@ -44,6 +44,7 @@ import org.cubictest.ui.gef.view.AddElementContextMenuList;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditDomain;
@@ -234,8 +235,13 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	 * @return	the FlyoutPreferences object used to save the flyout palette's preferences 
 	 */
 	protected FlyoutPreferences getPalettePreferences() {
-		return FlyoutPaletteComposite
+		FlyoutPreferences prefs = FlyoutPaletteComposite
 				.createFlyoutPreferences(CubicTestPlugin.getDefault().getPluginPreferences());
+		if(prefs.getDockLocation() != PositionConstants.EAST)
+			prefs.setDockLocation(PositionConstants.WEST);
+		if(prefs.getPaletteState() != FlyoutPaletteComposite.STATE_COLLAPSED)
+			prefs.setPaletteState(FlyoutPaletteComposite.STATE_PINNED_OPEN);
+		return prefs;
 	}
 	
 	/**
