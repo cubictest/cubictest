@@ -124,7 +124,7 @@ public class JSONElementConverter {
 				switch (idType){
 					case CHECKED:
 						//TODO: Handle checked
-						key = null;
+//						key = "checked";
 						break;
 					case ID:
 						key = "id";
@@ -157,7 +157,8 @@ public class JSONElementConverter {
 //							key = "value";
 						break;
 					case MULTISELECT:
-						key = "multiselect";
+						//TODO: Handle Multiselect
+//						key = "multiple";
 						break;
 					case INDEX:
 						key = "index";
