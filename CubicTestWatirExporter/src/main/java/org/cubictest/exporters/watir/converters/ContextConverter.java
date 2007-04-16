@@ -46,89 +46,109 @@ public class ContextConverter implements IContextConverter<StepList> {
 		stepList.addSeparator();
 
 		if (ctx instanceof Select) {
-			//assert present, set prefix and if label, save selectListID in script to be able to select options
-			
-			Select select = (Select) ctx;
-			stepList.add("# asserting Select box present with " + select.getMainIdentifierType() + 
-					" = " + WatirUtils.getIdText(select), 2);
-			
-			String idText = "\"" + WatirUtils.getIdText(select) + "\"";
-			String idType = WatirUtils.getIdType(select);
-
-			if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
-				//declare ID to save to be able to select options:
-				stepList.add("selectListId = nil", 2);
-			}
-			stepList.add("begin", 2);
-			if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
-				stepList.add(WatirUtils.getLabelTargetId(select));
-				idText = "selectListId";
-				idType = ":id";
-				stepList.add("selectListId = labelTargetId", 3);
-			}
-			else if (select.getMainIdentifierType().equals(IdentifierType.NAME)) {
-				idType = ":name";
-			}
-			else if (select.getMainIdentifierType().equals(IdentifierType.ID)) {
-				idType = ":id";
-			}
-			//set prefix (context):
-			stepList.setPrefix("ie.select_list(" + idType + ", " + idText + ")");
-			
-			//assert select box present:
-			stepList.add("if (" + stepList.getPrefix() + " == nil)", 3);
-			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
-			stepList.add("end", 3);
+			handleSelect(stepList, ctx);
 		}
 		else if (ctx instanceof Frame){
-			Frame frame = (Frame) ctx;
-			
-			stepList.add("# asserting " + frame.getType() + "present with " + frame.getMainIdentifierType() + " = " + WatirUtils.getIdText(frame), 2);
-			
-			stepList.add("begin", 2);
-	
-			String idText = "\"" + StringUtils.replace(WatirUtils.getIdText(frame),"\"", "\\\"") + "\"";
-			String idType = WatirUtils.getIdType(frame);
-	
-			stepList.setPrefix("(ie.frame(" + idType + "," + idText + "))");
-			stepList.add("if (ie.frame(" + idType + "," + idText + ") == nil)", 3);
-			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
-			stepList.add("end", 3);
+			handleFrame(stepList, ctx);
 			
 		}
 		else if (ctx instanceof AbstractContext) {
-			//assert present and set steplist prefix:
-			
-			AbstractContext context = (AbstractContext) ctx;
-			if (!(context.getMainIdentifierType().equals(ID)))
-				throw new ExporterException("Contexts must have identifier type = ID for Watir export. Context in error: " + ctx);
-
-			stepList.add("# asserting " + context.getType() + "present with " + context.getMainIdentifierType() + " = " + WatirUtils.getIdText(context), 2);
-			
-			stepList.add("begin", 2);
-	
-			String idText = "\"" + StringUtils.replace(WatirUtils.getIdText(context),"\"", "\\\"") + "\"";
-			String idType = WatirUtils.getIdType(context);
-	
-			stepList.setPrefix("(ie.div(" + idType + "," + idText + "))");
-			stepList.add("if (ie.div(" + idType + "," + idText + ") == nil)", 3);
-			stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
-			stepList.add("end", 3);
+			handleAbstractContext(stepList, ctx);
 		}
 
 		PageElement element = (PageElement) ctx;
-
 		stepList.add("passedSteps += 1 ", 3);
 		stepList.add("rescue " + StepList.TEST_STEP_FAILED, 2);
 		stepList.add("failedSteps += 1 ", 3);
 
-		stepList.add("puts \"Step failed: Check " + element.getType() + " present with " + element.getMainIdentifierType() +
-				" = '" + WatirUtils.getIdText(element) + "'\"", 3);
+		String id = StringUtils.replace(element.getMainIdentifier().toString(),"\"", "\\\"");
+		stepList.add("puts \"Step failed: Check " + element.getType() + " present with ID = " + id + "\"", 3);
 		stepList.add("end", 2);
-
 		
 		return PreContextHandle.CONTINUE;
 		
+	}
+
+	/**
+	 * Assert Context present and set steplist prefix.
+	 */
+	private void handleAbstractContext(StepList stepList, IContext ctx) {
+		
+		AbstractContext context = (AbstractContext) ctx;
+		if (!(context.getMainIdentifierType().equals(ID)))
+			throw new ExporterException("Contexts must have identifier type = ID for Watir export. Context in error: " + ctx);
+
+		stepList.add("# asserting " + context.getType() + "present with " + context.getMainIdentifierType() + " = " + WatirUtils.getIdText(context), 2);
+		
+		stepList.add("begin", 2);
+
+		String idText = "\"" + StringUtils.replace(WatirUtils.getIdText(context),"\"", "\\\"") + "\"";
+		String idType = WatirUtils.getIdType(context);
+
+		//set prefix:
+		stepList.setPrefix("(ie.div(" + idType + "," + idText + "))");
+		
+		//assert present:
+		stepList.add("if (ie.div(" + idType + "," + idText + ") == nil)", 3);
+		stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
+		stepList.add("end", 3);
+	}
+
+
+	private void handleFrame(StepList stepList, IContext ctx) {
+		Frame frame = (Frame) ctx;
+		
+		stepList.add("# asserting " + frame.getType() + "present with " + frame.getMainIdentifierType() + " = " + WatirUtils.getIdText(frame), 2);
+		
+		stepList.add("begin", 2);
+
+		String idText = "\"" + StringUtils.replace(WatirUtils.getIdText(frame),"\"", "\\\"") + "\"";
+		String idType = WatirUtils.getIdType(frame);
+
+		stepList.setPrefix("(ie.frame(" + idType + "," + idText + "))");
+		stepList.add("if (ie.frame(" + idType + "," + idText + ") == nil)", 3);
+		stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
+		stepList.add("end", 3);
+	}
+
+
+	
+	/**
+	 * Assert Select present, set prefix and if label, save selectListID in script to be able to select options
+	 */
+	private void handleSelect(StepList stepList, IContext ctx) {
+		
+		Select select = (Select) ctx;
+		stepList.add("# asserting Select box present with " + select.getMainIdentifierType() + 
+				" = " + WatirUtils.getIdText(select), 2);
+		
+		String idText = "\"" + WatirUtils.getIdText(select) + "\"";
+		String idType = WatirUtils.getIdType(select);
+
+		if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
+			//declare ID to save to be able to select options:
+			stepList.add("selectListId = nil", 2);
+		}
+		stepList.add("begin", 2);
+		if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
+			stepList.add(WatirUtils.getLabelTargetId(select));
+			idText = "selectListId";
+			idType = ":id";
+			stepList.add("selectListId = labelTargetId", 3);
+		}
+		else if (select.getMainIdentifierType().equals(IdentifierType.NAME)) {
+			idType = ":name";
+		}
+		else if (select.getMainIdentifierType().equals(IdentifierType.ID)) {
+			idType = ":id";
+		}
+		//set prefix (context):
+		stepList.setPrefix("ie.select_list(" + idType + ", " + idText + ")");
+		
+		//assert select box present:
+		stepList.add("if (" + stepList.getPrefix() + " == nil)", 3);
+		stepList.add("raise " + StepList.TEST_STEP_FAILED, 4);
+		stepList.add("end", 3);
 	}
 
 }

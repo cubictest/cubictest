@@ -141,9 +141,9 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 			contextInfo = " (context: '" + prefix + "')";
 		}
 		
-		String not = pe.isNot() ? " not" : ""; 
-		stepList.add("puts \"Step failed: Check " + pe.getType() + not + " present with " + pe.getMainIdentifierType() +
-				" = '" + WatirUtils.getIdText(pe) + "'" + contextInfo + "\"", 3);
+		String not = pe.isNot() ? " not" : "";
+		String id = StringUtils.replace(pe.getMainIdentifier().toString(),"\"", "\\\"");
+		stepList.add("puts \"Step failed: Check " + pe.getType() + not + " present with ID = " + id + " " + contextInfo + "\"", 3);
 		stepList.add("end", 2);
 	}
 
