@@ -195,7 +195,7 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 		}
 		
 		cubicMenuItem.execute = function() {
-			jsonrpc.recorder.assertTextPresent(this._selectedText);
+			jsonrpc.recorder.assertTextPresent(this._selectedText, null);
 		}
 		
 		cubicMenuItem.setTarget = function(element) {
