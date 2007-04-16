@@ -145,7 +145,8 @@ public class JSONElementConverter {
 						key = "name";
 						break;
 					case HREF:
-						key = "href";
+						//TODO: Handle relative/absolute URLs. Selenium always gets absolute, even if page uses relative URL.
+//						key = "href";
 						break;
 					case TITLE:
 						key = "title";
