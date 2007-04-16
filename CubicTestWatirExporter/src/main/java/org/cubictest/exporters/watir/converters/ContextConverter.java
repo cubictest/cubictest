@@ -101,7 +101,7 @@ public class ContextConverter implements IContextConverter<StepList> {
 			
 			AbstractContext context = (AbstractContext) ctx;
 			if (!(context.getMainIdentifierType().equals(ID)))
-				throw new ExporterException("Contexts must have identifier type = ID for Watir export");
+				throw new ExporterException("Contexts must have identifier type = ID for Watir export. Context in error: " + ctx);
 
 			stepList.add("# asserting " + context.getType() + "present with " + context.getMainIdentifierType() + " = " + WatirUtils.getIdText(context), 2);
 			
