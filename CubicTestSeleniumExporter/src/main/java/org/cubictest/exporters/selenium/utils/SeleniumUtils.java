@@ -58,29 +58,29 @@ public class SeleniumUtils {
 			return "";
 		}
 		PageElement pe = (PageElement) element;
-		Predicates predicates = new Predicates();
+		PredicateSeperator predicateSeperator = new PredicateSeperator();
 
 		if (element instanceof Text) {
-			return "*[" + getLabelAssertion(pe, predicates) + "]";
+			return "*[" + getLabelAssertion(pe, predicateSeperator) + "]";
 		}
 		else {
 			//all other elements
 			
-			String pred = 
-					getIndexAssertion(contextHolder, pe, getIndex, predicates) + 
-					getLabelAssertion(pe, predicates) + 
-					getAttributeAssertions(pe, predicates); 
+			String predicates = 
+					getIndexAssertion(contextHolder, pe, getIndex, predicateSeperator) + 
+					getLabelAssertion(pe, predicateSeperator) + 
+					getAttributeAssertions(pe, predicateSeperator); 
 
-			if (StringUtils.isBlank(pred)) {
+			if (StringUtils.isBlank(predicates)) {
 				return getElementType(pe);
 			}
-			return getElementType(pe) + "[" + pred + "]";
+			return getElementType(pe) + "[" + predicates + "]";
 		}
 	}
 	
 	
-	private static String getLabelAssertion(PageElement pe, Predicates predicates) {
-		String result = predicates.getStartString();
+	private static String getLabelAssertion(PageElement pe, PredicateSeperator predicateSeperator) {
+		String result = predicateSeperator.getStartString();
 		
 		Identifier id = pe.getIdentifier(LABEL);
 		if (id != null && id.isNotIndifferent()) {
@@ -105,13 +105,14 @@ public class SeleniumUtils {
 				result += "@id" + comparisonOperator + "(//label[text()=\"" + labelText + "\"]/@for)";
 			}
 		}
-		if (StringUtils.isNotBlank(result)) {
-			predicates.setNeedsSeparator(true);
-		}
-		if (result.equals(predicates.getStartString())) {
+
+		if (result.equals(predicateSeperator.getStartString())) {
 			return "";
 		}
-		return result;
+		else {
+			predicateSeperator.setNeedsSeparator(true);
+			return result;
+		}
 	}
 	
 	
@@ -120,8 +121,8 @@ public class SeleniumUtils {
 	 * Get string to assert for all the page elements Identifier/HTML attribute values.
 	 * E.g. [@id="someId"]
 	 */
-	private static String getAttributeAssertions(PageElement pe, Predicates predicates) {
-		String result = predicates.getStartString();
+	private static String getAttributeAssertions(PageElement pe, PredicateSeperator predicateSeperator) {
+		String result = predicateSeperator.getStartString();
 		int i = 0;
 		
 		for (Identifier id : pe.getNonIndifferentIdentifierts()) {
@@ -153,25 +154,25 @@ public class SeleniumUtils {
 			i++;
 		}		
 		
-		if (StringUtils.isNotBlank(result)) {
-			predicates.setNeedsSeparator(true);
-		}
-		if (result.equals(predicates.getStartString())) {
+		if (result.equals(predicateSeperator.getStartString())) {
 			return "";
 		}
-		return result;
+		else {
+			predicateSeperator.setNeedsSeparator(true);
+			return result;
+		}
 	}
 	
 	
 	/**
 	 * Get string to assert the index of the element (if ID present).
 	 */
-	private static String getIndexAssertion(ContextHolder contextHolder, PageElement pe, boolean getIndex, Predicates predicates) {
+	private static String getIndexAssertion(ContextHolder contextHolder, PageElement pe, boolean getIndex, PredicateSeperator predicateSeperator) {
 		if (!getIndex) {
 			return "";
 		}
 		
-		String result = predicates.getStartString();
+		String result = predicateSeperator.getStartString();
 		
 		//Start with index attribute (if it exists) to make XPath correct:
 		Identifier id = pe.getIdentifier(INDEX);
@@ -190,13 +191,13 @@ public class SeleniumUtils {
 			result += "position()" + operator + index;
 		}
 		
-		if (StringUtils.isNotBlank(result)) {
-			predicates.setNeedsSeparator(true);
-		}
-		if (result.equals(predicates.getStartString())) {
+		if (result.equals(predicateSeperator.getStartString())) {
 			return "";
 		}
-		return result;
+		else {
+			predicateSeperator.setNeedsSeparator(true);
+			return result;
+		}
 	}
 
 
@@ -415,7 +416,7 @@ public class SeleniumUtils {
 		return null;
 	}
 	
-	static class Predicates {
+	static class PredicateSeperator {
 		private boolean needsSeparator = false;
 
 		public void setNeedsSeparator(boolean needsSeparator) {
