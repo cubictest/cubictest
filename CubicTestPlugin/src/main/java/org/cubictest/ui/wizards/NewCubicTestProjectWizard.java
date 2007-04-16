@@ -118,16 +118,16 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 //			} catch (IOException e) {
 //				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 //			}
-//			
-//			javaProject.setOutputLocation(binFolder.getFullPath(), monitor);
-//			IClasspathEntry[] classpath;
-//			classpath = new IClasspathEntry[] {
-//				JavaCore.newSourceEntry(srcFolder.getFullPath()),
-//				JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER")),
+			
+			javaProject.setOutputLocation(binFolder.getFullPath(), monitor);
+			IClasspathEntry[] classpath;
+			classpath = new IClasspathEntry[] {
+				JavaCore.newSourceEntry(srcFolder.getFullPath()),
+				JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER")),
 //				JavaCore.newLibraryEntry(libFolder.getFile("CubicTestElementAPI.jar").getFullPath(), null, null),
 //				JavaCore.newLibraryEntry(libFolder.getFile("CubicUnit.jar").getFullPath(), null, null)
-//			};
-//			javaProject.setRawClasspath(classpath, binFolder.getFullPath(), monitor);
+			};
+			javaProject.setRawClasspath(classpath, binFolder.getFullPath(), monitor);
 			
 			ResourceNavigator navigator = null;
 			IViewPart viewPart = workbench.getActiveWorkbenchWindow().getActivePage().getViewReferences()[0].getView(false);
