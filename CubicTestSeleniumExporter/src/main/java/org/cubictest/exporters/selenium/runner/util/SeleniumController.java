@@ -59,7 +59,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 			seleniumHolder.setSeleniumStarted(true);
 			
 			Logger.info("Connected to Selenium Proxy.");
-			seleniumHolder.setInitialUrlStartPoint(initialUrlStartPoint);
+			seleniumHolder.setHandledUrlStartPoint(initialUrlStartPoint);
 			return seleniumHolder;
 		}
 		

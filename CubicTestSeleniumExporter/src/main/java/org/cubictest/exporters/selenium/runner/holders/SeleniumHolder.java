@@ -33,7 +33,7 @@ public class SeleniumHolder extends ContextHolder {
 	private List<TestPartStatus> results = new ArrayList<TestPartStatus>();
 	private boolean seleniumStarted;
 	private IProgressMonitor monitor;
-	private UrlStartPoint initialUrlStartPoint;
+	private UrlStartPoint handledUrlStartPoint;
 	private final Display display;
 	
 	
@@ -116,12 +116,12 @@ public class SeleniumHolder extends ContextHolder {
 		}
 	}
 
-	public void setInitialUrlStartPoint(UrlStartPoint initialUrlStartPoint) {
-		this.initialUrlStartPoint = initialUrlStartPoint;
+	public void setHandledUrlStartPoint(UrlStartPoint initialUrlStartPoint) {
+		this.handledUrlStartPoint = initialUrlStartPoint;
 	}
 
-	public UrlStartPoint getInitialUrlStartPoint() {
-		return initialUrlStartPoint;
+	public UrlStartPoint getHandledUrlStartPoint() {
+		return handledUrlStartPoint;
 	}
 	
 
