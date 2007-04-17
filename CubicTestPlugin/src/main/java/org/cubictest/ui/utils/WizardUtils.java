@@ -64,7 +64,7 @@ public class WizardUtils {
 		UrlStartPoint startpoint = new UrlStartPoint();
 		startpoint.setId(id);
 		startpoint.setBeginAt(url);
-		startpoint.setName("URL ");
+		startpoint.setName("URL");
 		startpoint.setPosition(new Point(4, 4));
 		test.setStartPoint(startpoint);
 		

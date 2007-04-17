@@ -342,6 +342,34 @@ public class TreeTestWalkerTest {
 	
 	
 	/**
+	 * Test that tree is traversed only to extension point after extension start point.
+	 * Tree test with two levels and an extension point.
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	@org.junit.Test
+	public void testTraversesUrlInEachPathFromUrlStartPoint() throws InstantiationException, IllegalAccessException {
+		String fileName = "src/test/resources/org/cubictest/common/converters/TreeFromUrlStartPoint.aat";
+		Test test = TestPersistance.loadFromFile(fileName);
+		testWalker.convertTest(test, assertionList);
+		
+		assertionList.assertContainsInOrder("www.test.org");
+		assertionList.assertContainsInOrder("FirstLink");
+		assertionList.assertContainsInOrder("First Page --> Second Page");
+		assertionList.assertContainsInOrder("SecondText");
+		//new path, should invoke URL:
+		assertionList.assertContainsInOrder("www.test.org");
+		assertionList.assertContainsInOrder("ThirdLink");
+		assertionList.assertContainsInOrder("Third Page --> Fourth Page");
+		assertionList.assertContainsInOrder("FourthText");
+
+		assertionList.verifySize();
+	}
+
+	
+	
+	
+	/**
 	 * Util method that sets up transition from a page with the specified ID to a target extension point.
 	 * @param pageId
 	 * @return a target extension point hooked to a page with this ID.
