@@ -20,8 +20,9 @@ public class UrlStartPointConverter implements IUrlStartPointConverter<SeleniumH
 	
 	
 	public void handleUrlStartPoint(SeleniumHolder seleniumHolder, UrlStartPoint sp) {
-		if (seleniumHolder.getInitialUrlStartPoint().equals(sp)) {
-			//initial start point is opened by the SeleniumController
+		if (sp.equals(seleniumHolder.getInitialUrlStartPoint())) {
+			//initial start point is opened by the SeleniumController. Reset it to make other paths in test open it again.
+			seleniumHolder.setInitialUrlStartPoint(null);
 			return;
 		}
 		
