@@ -1,0 +1,254 @@
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>www.test.org</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>FirstLink</value>
+                  <probability>100</probability>
+                  <type>LABEL</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>HREF</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>TITLE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status>PASS</status>
+            </link>
+          </elements>
+          <name>First Page</name>
+          <description></description>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>SecondText</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                  </text>
+                </elements>
+                <name>Second Page</name>
+                <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions/>
+                <id>page73761631176791732272</id>
+                <position>
+                  <x>77</x>
+                  <y>321</y>
+                </position>
+                <dimension>
+                  <width>100</width>
+                  <height>46</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+                <autoPosition>false</autoPosition>
+              </end>
+            </userInteractionsTransition>
+          </outTransitions>
+          <id>page88807741176758095961</id>
+          <position>
+            <x>74</x>
+            <y>176</y>
+          </position>
+          <dimension>
+            <width>100</width>
+            <height>46</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+          <autoPosition>true</autoPosition>
+        </end>
+      </simpleTransition>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>ThirdLink</value>
+                  <probability>100</probability>
+                  <type reference="../../../../../../../simpleTransition/end/elements/link/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../../../simpleTransition/end/elements/link/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../../../simpleTransition/end/elements/link/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../../../simpleTransition/end/elements/link/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+            </link>
+          </elements>
+          <name>Third Page</name>
+          <description></description>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action reference="../../../../../../../simpleTransition/end/outTransitions/userInteractionsTransition/userInteractions/userInteraction/action"/>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>FourthText</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../../../simpleTransition/end/elements/link/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                  </text>
+                </elements>
+                <name>Fourth Page</name>
+                <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions/>
+                <id>page193750331176791771168</id>
+                <position>
+                  <x>264</x>
+                  <y>272</y>
+                </position>
+                <dimension>
+                  <width>100</width>
+                  <height>46</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+                <autoPosition>false</autoPosition>
+              </end>
+            </userInteractionsTransition>
+          </outTransitions>
+          <id>page205705241176791509802</id>
+          <position>
+            <x>251</x>
+            <y>116</y>
+          </position>
+          <dimension>
+            <width>100</width>
+            <height>46</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+          <autoPosition>false</autoPosition>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>test1176757401632</id>
+    <position>
+      <x>4</x>
+      <y>4</y>
+    </position>
+    <name>URL</name>
+    <autoPosition>false</autoPosition>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition[2]/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition[2]/end/outTransitions/userInteractionsTransition/end"/>
+  </pages>
+  <subTests/>
+  <transitions>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition[2]/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition[2]"/>
+  </transitions>
+  <customTestSteps/>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
+  <name>CubicShop</name>
+  <description></description>
+  <id>test1176757401632</id>
+  <modelVersion>5</modelVersion>
+</test>
