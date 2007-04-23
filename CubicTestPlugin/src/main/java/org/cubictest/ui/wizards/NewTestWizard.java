@@ -228,7 +228,8 @@ public class NewTestWizard extends Wizard implements INewWizard {
 
 		try {
 			if (project == null) {
-				throw new CubicException("Could create new test (could not get project). Please try again.");
+				throw new CubicException("Could create new test (could not get project). Please try again.\n" +
+						"Hint: New CubicTest tests must be created within a CubicTest project.");
 			}
 			IResourceMonitor monitor = new ResourceMonitor(project);
 			CustomElementLoader loader = new CustomElementLoader(project, monitor);

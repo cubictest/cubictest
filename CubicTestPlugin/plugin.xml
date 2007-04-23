@@ -288,4 +288,34 @@
             introId="org.cubictest.intro.config"
             productId="org.cubictest"/>
    </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.ui.ide.workbench"
+            name="CubicTest">
+         <property
+               name="appName"
+               value="CubicTest">
+         </property>
+         <property
+               name="aboutImage"
+               value="icons/eclipse_lg.gif"/>
+         <property
+               name="startupMessageRect"
+               value="7,220,441,20"/>
+         <property
+               name="aboutText"
+               value="%productBlurb"/>
+         <property
+               name="startupProgressRect"
+               value="0,280,455,15"/>
+         <property
+               name="startupForegroundColor"
+               value="C8D5EA"/>
+         <property
+               name="windowImages"
+               value="icons/icon.gif,icons/eclipse32.gif,icons/eclipse48.gif"/>
+      </product>
+   </extension>
 </plugin>

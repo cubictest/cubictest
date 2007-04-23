@@ -56,6 +56,8 @@ General:
 --------
 Done	The open file should be highlighted
 Done	Invoke "IDE.saveAllEditors" before create new test from extension point
+M4	 Performance issues for large tests.
+M4	 Refactor - rename file did not fix ExtensionStartPoints and SubTests
 M4   Button for "Add test"
 M4   How to specify popup and alerts
 M4?   Should be able to test PDF (at least existance)
@@ -67,6 +69,15 @@ M4?   Should be able to test PDF (at least existance)
    (Test that print dialog box shows)
    (Have a "shared repository" of page elements. => Use statistics)
       
+Recorder:
+---------
+M4    Inform user that record from ExtensionStartPoint is not possible (when user invokes it).
+M4	  Trim the recorded IDs
+M4	  Unescape the recorded IDs (e.g. <>& )
+M4    Fix SRC attribute for image
+M4    Fix HREF attribute for links
+M4 	  Save Option text did not work
+M5	  Play forward record from ExtensionStartPoint
 
 Files and persistance:
 ----------------------
@@ -138,6 +149,13 @@ Done   Limit context menu of elements
 Done   Problem with URL startpoint -> Sub Test (no page in between)
 Done   ID on page elements was deleted when description was set (empty desc first?) (bug)
 Done   Create connection / user interaction from context menu
+M4   Mark newly created page elements to highlight that its properties are being displayed.
+M4   Copy paste of nestet context -> problem with clone
+M4?  D'n'D subtest to a long, scrolled test did not work as expected.
+M4	 Bug with Select Identifier: Multiselect. See Christian's saved files.
+M4   User interaction figures did not have correct listener on page element changes.
+M4   Reorder Palette according to add-PageElement-context menu
+M4	 Use icons as "large icons" also.
 M4   Bug in changing extension start point's extension point.
 M4   Add a "no action" start point
 M4   Right-click on ExStartPoint -> "Open test" (none double clicked)
@@ -151,6 +169,7 @@ M4?   Bigger canvas, should be easier to extend (place elements at edge) (bug in
    
 Export:
 M4	  Make it possible to store output directory in a cubics-project.properties file
+M4 	  Problem with subtest at end. Logout.aat ran too much. See Christian's saved .aat files.
 2.0?  HTML export: Have a ID on page, such that HTML exporter can merge different tests to better site?
 
 
