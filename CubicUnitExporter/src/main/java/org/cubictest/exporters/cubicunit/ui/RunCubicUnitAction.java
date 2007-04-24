@@ -8,7 +8,6 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.exporters.cubicunit.runner.CubicUnitRunner;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
-import org.cubicunit.internal.selenium.CubicSeleniumServer;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
