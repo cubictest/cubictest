@@ -4,9 +4,6 @@
  */
 package org.cubictest.exporters.selenium.runner.util;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.openqa.selenium.server.SeleniumServer;

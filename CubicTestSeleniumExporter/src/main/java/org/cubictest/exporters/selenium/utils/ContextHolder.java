@@ -13,7 +13,6 @@ import java.util.Stack;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.IResultHolder;
-import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
