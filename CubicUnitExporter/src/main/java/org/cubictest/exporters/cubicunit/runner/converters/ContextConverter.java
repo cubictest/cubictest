@@ -38,7 +38,7 @@ public class ContextConverter implements IContextConverter<Holder> {
 						case ID:
 							type = type.id(id.getProbability(), id.getValue());
 							break;
-						case PATH:
+						case XPATH:
 							type = type.path(id.getProbability(), id.getValue());
 							break;
 						case VALUE:
