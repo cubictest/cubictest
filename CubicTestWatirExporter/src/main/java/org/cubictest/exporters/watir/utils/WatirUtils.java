@@ -19,7 +19,14 @@ import static org.cubictest.model.ActionType.MOUSE_OUT;
 import static org.cubictest.model.ActionType.MOUSE_OVER;
 import static org.cubictest.model.ActionType.NO_ACTION;
 import static org.cubictest.model.ActionType.UNCHECK;
-import static org.cubictest.model.IdentifierType.*;
+import static org.cubictest.model.IdentifierType.HREF;
+import static org.cubictest.model.IdentifierType.ID;
+import static org.cubictest.model.IdentifierType.INDEX;
+import static org.cubictest.model.IdentifierType.LABEL;
+import static org.cubictest.model.IdentifierType.NAME;
+import static org.cubictest.model.IdentifierType.SRC;
+import static org.cubictest.model.IdentifierType.TITLE;
+import static org.cubictest.model.IdentifierType.VALUE;
 
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.RubyBuffer;

@@ -5,6 +5,7 @@
 */
 package org.cubictest.exporters.watir.converters;
 
+import static org.cubictest.model.ActionType.CLOSE;
 import static org.cubictest.model.ActionType.GO_BACK;
 import static org.cubictest.model.ActionType.GO_FORWARD;
 import static org.cubictest.model.ActionType.NEXT_WINDOW;
@@ -13,7 +14,6 @@ import static org.cubictest.model.ActionType.REFRESH;
 import static org.cubictest.model.ActionType.SELECT;
 import static org.cubictest.model.ActionType.SWITCH_BY_TITLE;
 import static org.cubictest.model.ActionType.SWITCH_BY_URL;
-import static org.cubictest.model.ActionType.CLOSE;
 import static org.cubictest.model.IdentifierType.LABEL;
 
 import java.util.Iterator;
