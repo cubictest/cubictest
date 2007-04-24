@@ -39,7 +39,8 @@ public class ContextConverter implements IContextConverter<Holder> {
 							type = type.id(id.getProbability(), id.getValue());
 							break;
 						case XPATH:
-							type = type.path(id.getProbability(), id.getValue());
+							//TODO: Fixme
+							//type = type.xpath(id.getProbability(), id.getValue());
 							break;
 						case VALUE:
 							type.text(id.getProbability(), id.getValue());

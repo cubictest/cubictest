@@ -120,8 +120,9 @@ public class ElementConverter implements IPageElementConverter<Holder> {
 							elementType = ((InputType)elementType).
 								name(id.getProbability(), id.getValue());
 							break;
-						case PATH:
-							elementType = elementType.path(id.getProbability(), id.getValue());
+						case XPATH:
+							//TODO: Fixme
+							//elementType = elementType.xpath(id.getProbability(), id.getValue());
 							break;
 						case SRC:
 							elementType = ((ImageType)elementType).src(id.getProbability(), id.getValue());
