@@ -19,8 +19,8 @@ import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.commands.CommandStack;
 
 public class CubicRecorder implements IRecorder {
 	private Test test;
