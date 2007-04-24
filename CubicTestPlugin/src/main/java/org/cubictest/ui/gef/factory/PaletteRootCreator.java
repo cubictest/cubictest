@@ -7,23 +7,18 @@
  */
 package org.cubictest.ui.gef.factory;
 
-import static org.cubictest.ui.gef.view.CubicTestImageRegistry.ALERT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.BUTTON_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.COMMON_IMAGE;
-import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONFIRM_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONNECTION_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONTEXT_IMAGE;
-import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CUSTOM_STEP_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.EXTENSION_POINT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.IMAGE_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.LINK_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.OPTION_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.PAGE_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.PASSWORD_IMAGE;
-import static org.cubictest.ui.gef.view.CubicTestImageRegistry.PROMPT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.RADIO_BUTTON_CHECKED_IMAGE;
-import static org.cubictest.ui.gef.view.CubicTestImageRegistry.ROW_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.SELECT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TEXT_AREA_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.TEXT_FIELD_IMAGE;
@@ -34,9 +29,7 @@ import static org.cubictest.ui.gef.view.CubicTestImageRegistry.USER_INTERACTION_
 import java.util.ArrayList;
 
 import org.cubictest.model.Common;
-import org.cubictest.model.CustomTestStep;
 import org.cubictest.model.ExtensionPoint;
-import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ICustomTestStep;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
@@ -44,10 +37,7 @@ import org.cubictest.model.Page;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.Transition;
-import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.model.context.Frame;
-import org.cubictest.model.context.Row;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
@@ -57,9 +47,6 @@ import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.Select;
 import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
-import org.cubictest.model.popup.Alert;
-import org.cubictest.model.popup.Confirm;
-import org.cubictest.model.popup.Prompt;
 import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.pluginsupport.interfaces.IClassChangeListener;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;

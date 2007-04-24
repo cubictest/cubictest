@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.ErrorHandler;

@@ -6,7 +6,10 @@
 */
 package org.cubictest.model;
 
-import static org.cubictest.model.IdentifierType.*;
+import static org.cubictest.model.IdentifierType.HREF;
+import static org.cubictest.model.IdentifierType.ID;
+import static org.cubictest.model.IdentifierType.LABEL;
+import static org.cubictest.model.IdentifierType.TITLE;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -11,7 +11,6 @@ import java.beans.PropertyChangeListener;
 
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.Identifier;
-import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.ChangeDirectEditIdentifierCommand;

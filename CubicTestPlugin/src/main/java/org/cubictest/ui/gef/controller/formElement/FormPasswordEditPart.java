@@ -9,8 +9,6 @@ package org.cubictest.ui.gef.controller.formElement;
 
 import org.cubictest.model.formElement.Password;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.gef.view.TestStepLabel;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.swt.graphics.Image;
 
 

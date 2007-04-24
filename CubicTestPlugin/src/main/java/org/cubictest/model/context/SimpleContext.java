@@ -10,7 +10,6 @@ package org.cubictest.model.context;
 import java.util.List;
 
 import org.cubictest.model.IdentifierType;
-import static org.cubictest.model.IdentifierType.XPATH;
 
 
 public class SimpleContext extends AbstractContext {

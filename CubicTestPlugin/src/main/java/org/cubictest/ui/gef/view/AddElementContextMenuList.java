@@ -13,7 +13,6 @@ import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
-import org.cubictest.model.context.Row;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;

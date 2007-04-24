@@ -23,7 +23,6 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
 import org.eclipse.gef.tools.MarqueeDragTracker;
 import org.eclipse.swt.graphics.Font;

@@ -4,11 +4,8 @@
  */
 package org.cubictest.ui.wizards;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.commons.io.FileUtils;
-import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFolder;
@@ -18,7 +15,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;

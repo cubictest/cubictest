@@ -12,7 +12,6 @@ import java.util.List;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
-import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
