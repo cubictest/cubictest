@@ -300,13 +300,13 @@
          </property>
          <property
                name="aboutImage"
-               value="icons/eclipse_lg.gif"/>
+               value="icons/logo128x128.gif"/>
          <property
                name="startupMessageRect"
                value="7,220,441,20"/>
          <property
                name="aboutText"
-               value="%productBlurb"/>
+               value="Thank you for using CubicTest!&#x0A;&#x0A;See www.cubictest.org for more information and support.&#x0A;&#x0A;CubicTest is created by:&#x0A;Stein Kåre Skytteren&#x0A;Christian Schwarz&#x0A;Erlend Halvorsen"/>
          <property
                name="startupProgressRect"
                value="0,280,455,15"/>
@@ -315,7 +315,7 @@
                value="C8D5EA"/>
          <property
                name="windowImages"
-               value="icons/icon.gif,icons/eclipse32.gif,icons/eclipse48.gif"/>
+               value="icons/logo16x16.gif,icons/logo32x32.gif,icons/logo48x48.gif,icons/logo64x64.gif,icons/logo128x128.gif"/>
       </product>
    </extension>
 </plugin>

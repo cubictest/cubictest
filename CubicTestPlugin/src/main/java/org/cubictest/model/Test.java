@@ -17,8 +17,10 @@ import org.eclipse.core.resources.IFile;
 
 
 /**
- * @author skyttere
+ * A test of a web application. Can start from an extension point in another test
+ * and include other subtests.
  * 
+ * @author SK Skytteren
  */
 public class Test extends PropertyAwareObject {
 	

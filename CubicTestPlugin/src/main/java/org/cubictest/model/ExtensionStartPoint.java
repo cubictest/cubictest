@@ -6,7 +6,12 @@ package org.cubictest.model;
 
 import org.cubictest.common.exception.CubicException;
 
-
+/**
+ * Start point in test that includes another test before the current test.
+ * Current test must continue from an extension point is the preceding test.
+ * 
+ * @author Christian Schwarz
+ */
 public class ExtensionStartPoint extends SubTest{
 
 	private String sourceExtensionPointPageId;
