@@ -4,9 +4,16 @@
 <product name="CubicTest" id="org.cubictest.product" application="org.eclipse.ui.ide.workbench" useFeatures="false">
 
    <aboutInfo>
-      <image path="/CubicTestPlugin/icons/eclipse_lg.gif"/>
+      <image path="/CubicTestPlugin/icons/logo128x128.gif"/>
       <text>
-         %productBlurb
+         Thank you for using CubicTest!
+
+See www.cubictest.org for more information and support.
+
+CubicTest is created by:
+Stein Kåre Skytteren
+Christian Schwarz
+Erlend Halvorsen
       </text>
    </aboutInfo>
 
