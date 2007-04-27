@@ -15,7 +15,7 @@
    <launcherArgs>
    </launcherArgs>
 
-   <windowImages i16="/CubicTestPlugin/icons/icon.gif" i32="/CubicTestPlugin/icons/eclipse32.gif" i48="/CubicTestPlugin/icons/eclipse48.gif"/>
+   <windowImages i16="/CubicTestPlugin/icons/logo16x16.gif" i32="/CubicTestPlugin/icons/logo32x32.gif" i48="/CubicTestPlugin/icons/logo48x48.gif" i64="/CubicTestPlugin/icons/logo64x64.gif" i128="/CubicTestPlugin/icons/logo128x128.gif"/>
 
    <splash
       location="org.cubictest"
