@@ -150,10 +150,10 @@ Done   Problem with URL startpoint -> Sub Test (no page in between)
 Done   ID on page elements was deleted when description was set (empty desc first?) (bug)
 Done   Create connection / user interaction from context menu
 Done   Reorder Palette according to add-PageElement-context menu
+Done   Copy paste of nestet context -> problem with clone
 M3?   Mark newly created page elements to highlight that its properties are being displayed.
 M3?	 Bug with Select Identifier: Multiselect. See Christian's saved files.
 M3?   User interaction figures did not have correct listener on page element changes.
-M4   Copy paste of nestet context -> problem with clone
 M4	 Use icons as "large icons" also.
 M4   Bug in changing extension start point's extension point.
 M4   Right-click on ExStartPoint -> "Open test" (none double clicked)
