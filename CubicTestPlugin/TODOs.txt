@@ -151,14 +151,13 @@ Done   ID on page elements was deleted when description was set (empty desc firs
 Done   Create connection / user interaction from context menu
 Done   Reorder Palette according to add-PageElement-context menu
 Done   Copy paste of nestet context -> problem with clone
-M3?   Mark newly created page elements to highlight that its properties are being displayed.
+Done   User interaction figures did not have correct listener on page element changes.
 M3?	 Bug with Select Identifier: Multiselect. See Christian's saved files.
-M3?   User interaction figures did not have correct listener on page element changes.
 M4	 Use icons as "large icons" also.
 M4   Bug in changing extension start point's extension point.
 M4   Right-click on ExStartPoint -> "Open test" (none double clicked)
 	(When holding ctrl key --> Move should become "Copy-paste" (attempted fixed, bug in GEF?))
-M4  D'n'D subtest to a long, scrolled test did not work as expected.
+M4  D'n'D subtest to a long scrolled test did not work as expected.
 M4?   Add a "no action" start point
 M4?   Bigger canvas, should be easier to extend (place elements at edge) (bug in GEF?)
    (Draw line from link --> Auto UserAction on link)
