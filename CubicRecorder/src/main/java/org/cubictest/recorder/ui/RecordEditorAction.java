@@ -7,6 +7,7 @@ package org.cubictest.recorder.ui;
 import java.lang.reflect.InvocationTargetException;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.recorder.CubicRecorder;
@@ -73,23 +74,23 @@ public class RecordEditorAction implements IEditorActionDelegate {
 					}
 				});
 			}
+			else if (test.getStartPoint() instanceof ExtensionStartPoint) {
+ 				ErrorHandler.showErrorDialog("The recorder only works for tests that start with a URL start point.");
+			}
+
 
 		} else {
 			try {
 				setRunning(false);
-				seleniumRecorder.stop();
+				if (seleniumRecorder != null) {
+					seleniumRecorder.stop();
+				}
 				autoLayout.setPageSelected(null);
 			} catch(Exception e) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}
 		}
 				
-		try {
-		} 
-		catch (Exception e) {
-			MessageDialog.openError(new Shell(), "CubicTest HTML prototype exporter", "An error has occurred!" + "\n" + e.toString());
-			e.printStackTrace();
-		}
 		
 	}
 
