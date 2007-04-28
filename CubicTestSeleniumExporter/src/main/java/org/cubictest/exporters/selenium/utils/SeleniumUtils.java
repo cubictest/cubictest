@@ -106,7 +106,7 @@ public class SeleniumUtils {
 				result += "contains(., \"" + labelText + "\")";
 			}
 			else if (pe instanceof Link || pe instanceof Option) {
-				result += "text()" + comparisonOperator + "\"" + labelText + "\"";
+				result += "normalize-space(text())" + comparisonOperator + "\"" + labelText + "\"";
 			}
 			else if (pe instanceof Button) {
 				result += "@value" + comparisonOperator + "\"" + labelText + "\"" ;
