@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
@@ -180,7 +181,9 @@ public class JSONElementConverter {
 					String value = getString(properties, key);
 					if (StringUtils.isNotBlank(value)) {
 						Identifier identifier = pe.getIdentifier(idType);
-						identifier.setValue(value.trim());
+						value = value.trim();
+						value = StringEscapeUtils.unescapeHtml(value);
+						identifier.setValue(value);
 						identifier.setProbability(100);
 					}
 				}
