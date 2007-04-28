@@ -179,7 +179,7 @@ public class JSONElementConverter {
 					String value = getString(properties, key);
 					if (StringUtils.isNotBlank(value)) {
 						Identifier identifier = pe.getIdentifier(idType);
-						identifier.setValue(value);
+						identifier.setValue(value.trim());
 						identifier.setProbability(100);
 					}
 				}
