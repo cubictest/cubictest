@@ -141,7 +141,7 @@ public class PasteAction extends SelectionAction {
 					MovePageCommand moveCmd = new MovePageCommand();
 					moveCmd.setPage(pageClone);
 					moveCmd.setOldPosition(page.getPosition());
-					moveCmd.setNewPosition(new Point(page.getPosition().x + 180, page.getPosition().y));
+					moveCmd.setNewPosition(new Point(page.getPosition().x + 200, page.getPosition().y));
 					compoundCmd.add(moveCmd);
 					clonedClipboardPages.put(page, pageClone);
 							
