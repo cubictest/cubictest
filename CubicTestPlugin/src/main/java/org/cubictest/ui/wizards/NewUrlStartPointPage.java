@@ -53,6 +53,7 @@ public class NewUrlStartPointPage extends WizardPage implements ModifyListener, 
 		urlText.addModifyListener(this);
 		urlText.addKeyListener(this);
 		urlText.addMouseListener(this);
+		urlText.setSelection(urlText.getText().length());
 		
 		urlExampleLabel = new Label(container, SWT.NONE);
 		urlExampleLabel.setText("E.g. http://www.cubictest.org");
