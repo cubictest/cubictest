@@ -9,7 +9,9 @@
 
 	<label for="search">Search</label>
 	<select name="search" id="search">
-		<option value="reviews" selected>Reviews</option>
+		<option value="reviews" selected>
+			Reviews
+		</option>
 		<option value="cubics">Cubics</option>
 	</select>
 	for
