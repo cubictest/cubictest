@@ -120,10 +120,10 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 		super.setSelected(value);
 		if (getFigure() instanceof CubicTestLabel){
 			CubicTestLabel figure = (CubicTestLabel) getFigure();
-			if (value != EditPart.SELECTED_NONE)
-				figure.setSelected(true);
-			else
+			if (value == EditPart.SELECTED_NONE)
 				figure.setSelected(false);
+			else
+				figure.setSelected(true);
 			figure.repaint();
 		}
 		
