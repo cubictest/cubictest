@@ -44,12 +44,6 @@ public class Page extends AbstractPage {
 		firePropertyChange(PropertyAwareObject.INPUT,transition,null);
 	}
 	
-	@Override
-	public Page clone() throws CloneNotSupportedException {
-		Page clone = (Page)super.clone();
-		clone.setCommonTransitions(new ArrayList<CommonTransition>());
-		return clone;
-	}
 
 	@Override
 	public ArrayList<Link> getLinkElements() {

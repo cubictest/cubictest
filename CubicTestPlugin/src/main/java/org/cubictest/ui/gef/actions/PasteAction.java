@@ -119,7 +119,7 @@ public class PasteAction extends SelectionAction {
 					try {
 						CreatePageElementCommand createElementCmd = new CreatePageElementCommand();
 						createElementCmd.setContext((IContext)targetPart.getModel());
-						createElementCmd.setPageElement(clipboardElement.clone());
+						createElementCmd.setPageElement((PageElement) clipboardElement.clone());
 						createElementCmd.setIndex(targetPart.getChildren().size());
 						compoundCmd.add(ViewUtil.getCompoundCommandWithResize(createElementCmd, ViewUtil.ADD, targetPart));
 					} catch (CloneNotSupportedException e) {
@@ -137,7 +137,7 @@ public class PasteAction extends SelectionAction {
 					targetPart = targetPart.getParent();
 				if (targetPart.getModel() instanceof Test){
 					try {
-						AbstractPage clone = page.clone();
+						AbstractPage clone = (AbstractPage) page.clone();
 						AddAbstractPageCommand pageAddCommand = new AddAbstractPageCommand();
 						pageAddCommand.setTest((Test) targetPart.getModel());
 						pageAddCommand.setPage(clone);

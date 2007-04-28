@@ -70,22 +70,6 @@ public abstract class PageElement extends PropertyAwareObject
 		setStatus(TestPartStatus.UNKNOWN);		
 	}
 	
-	@Override
-	public PageElement clone() throws CloneNotSupportedException {
-		PageElement clone = (PageElement) super.clone();
-		clone.setDescription(description);
-		clone.setDirectEditIdentifier(null);
-		List<Identifier> clonedIdentifiers = new ArrayList<Identifier>();
-		for(Identifier id : identifiers){
-			Identifier idClone = id.clone();
-			clonedIdentifiers.add(idClone);
-			if (idClone.equals(directEditIdentifier)) {
-				clone.setDirectEditIdentifier(idClone);
-			}
-		}
-		clone.setIdentifiers(clonedIdentifiers);
-		return clone;
-	}
 	
 	/**
 	 * Get the text that is shown in the CubicTest GUI for the page element.

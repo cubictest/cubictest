@@ -9,7 +9,7 @@ package org.cubictest.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.utils.CubicCloner;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
@@ -119,6 +119,15 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		outTransitions.remove(transition);
 		firePropertyChange(PropertyAwareObject.OUTPUT,transition,null);
 	}
+	
+	public void removeOutTransitions() {
+		List<Transition> transList = new ArrayList<Transition>();
+		transList.addAll(outTransitions);
+		for (Transition transition : transList) {
+			removeOutTransition(transition);
+		}
+	}
+	
 	/**
 	 * @param linkTransition
 	 */
@@ -127,21 +136,6 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		inTransition = null;
 		firePropertyChange(PropertyAwareObject.INPUT,oldTrans,null);
 		
-	}
-	
-	@Override
-	protected TransitionNode clone() throws CloneNotSupportedException {
-		TransitionNode clone = null;
-		try {
-			clone = this.getClass().newInstance();
-			clone.setDimension(this.getDimension());
-			clone.setName(this.getName());
-			clone.setId(getNewGeneratedId());
-			clone.setOutTransitions(new ArrayList<Transition>());
-		} catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
-		}
-		return clone;
 	}
 	
 	public Dimension getDimension() {
@@ -176,4 +170,11 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		return getInTransition() != null;
 	}
 
+	@Override
+	public AbstractPage clone() throws CloneNotSupportedException {
+		AbstractPage page = (AbstractPage) CubicCloner.deepCopy(this);
+		page.removeInTransition();
+		page.removeOutTransitions();
+		return page;
+	}
 }

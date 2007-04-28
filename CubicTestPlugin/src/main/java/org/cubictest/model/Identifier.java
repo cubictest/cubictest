@@ -1,9 +1,23 @@
+/*
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ */
 package org.cubictest.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import org.cubictest.utils.CubicCloner;
 
+
+/**
+ * Identifier (e.g. label, ID, tooltip) that identifies a page element on a web page.
+ * The identifier does not have to be unique on the page, as several identifiers is usually combined
+ * to identify a page element on a page.
+ * 
+ * @author SK Skytteren
+ * @author Christian Schwarz
+ */
 public class Identifier implements Cloneable, SationObserver{
 
 	public final static int MAX_PROBABILITY = 100;
@@ -75,11 +89,8 @@ public class Identifier implements Cloneable, SationObserver{
 	
 	@Override
 	public Identifier clone() throws CloneNotSupportedException {
-		Identifier clone = new Identifier();
-		clone.probability = probability;
-		clone.type = type;
-		clone.value = value;
-		return clone;
+		return (Identifier) CubicCloner.deepCopy(this);
+
 	}
 
 	public String getI18nKey() {

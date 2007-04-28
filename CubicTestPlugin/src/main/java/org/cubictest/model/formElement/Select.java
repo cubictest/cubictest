@@ -107,16 +107,4 @@ public class Select extends FormElement implements IContext {
 		return elements.contains(pe);
 	}
 	
-	
-	@Override
-	public FormElement clone() throws CloneNotSupportedException {
-		Select clone = (Select) super.clone();
-		List<PageElement> newElements = new ArrayList<PageElement>();
-		for (PageElement pe : getElements()) {
-			newElements.add(pe.clone());
-		}
-		clone.setElements(newElements);
-		return clone;
-
-	}
 }

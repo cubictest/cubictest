@@ -33,8 +33,10 @@ public class NameSection extends AbstractPropertySection {
 	
 	private PropertyChangeListener abstractPageListener = new PropertyChangeListener(){
 		public void propertyChange(PropertyChangeEvent evt) {
-			refresh();
-		}			
+			if(!composite.isDisposed()){
+				refresh();
+			}
+		}
 	};
 
 	private FocusListener focusListener = new FocusListener(){

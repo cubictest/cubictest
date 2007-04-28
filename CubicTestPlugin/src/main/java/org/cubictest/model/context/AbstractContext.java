@@ -115,15 +115,5 @@ public abstract class AbstractContext extends PageElement implements IContext {
 		return false;
 	}
 	
-	
-	@Override
-	public PageElement clone() throws CloneNotSupportedException {
-		AbstractContext clone = (AbstractContext) super.clone();
-		List<PageElement> newElements = new ArrayList<PageElement>();
-		for (PageElement pe : getElements()) {
-			newElements.add(pe.clone());
-		}
-		clone.setElements(newElements);
-		return clone;
-	}
+
 }

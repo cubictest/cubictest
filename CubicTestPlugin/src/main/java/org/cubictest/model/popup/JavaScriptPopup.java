@@ -1,3 +1,7 @@
+/*
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+*/
 package org.cubictest.model.popup;
 
 import java.util.ArrayList;
@@ -34,17 +38,6 @@ public abstract class JavaScriptPopup extends AbstractPage {
 	public void resetStatus() {
 		for (PageElement e: getElements())
 			e.resetStatus();	
-	}
-	
-	@Override
-	public AbstractPage clone() throws CloneNotSupportedException {
-		AbstractPage clone = (AbstractPage) super.clone();
-		List<PageElement> clonedElements = new ArrayList<PageElement>(); 
-		for(PageElement element : getElements()){
-			clonedElements.add(element.clone());
-		}
-		clone.setElements(clonedElements);
-		return clone;
 	}
 	
 	@Override

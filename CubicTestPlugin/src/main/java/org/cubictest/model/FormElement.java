@@ -24,11 +24,6 @@ import java.util.List;
  */
 public abstract class FormElement extends PageElement{
 
-
-	@Override
-	public FormElement clone() throws CloneNotSupportedException {
-		return (FormElement)super.clone();
-	}
 	
 	@Override
 	public List<ActionType> getActionTypes() {

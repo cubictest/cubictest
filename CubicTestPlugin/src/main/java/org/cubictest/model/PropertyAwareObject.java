@@ -8,12 +8,16 @@ package org.cubictest.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
+
+import org.cubictest.utils.CubicCloner;
 
 /**
- * @author Stein Kåre Skytteren
- *
+ * Base class for all model objects. Contains publish subscribe logic.
+ * 
+ * @author SK Skytteren
  */
-public abstract class PropertyAwareObject{
+public abstract class PropertyAwareObject implements Serializable, Cloneable {
 	public static final String CHILD = "CHILD";
 	public static final String REORDER = "REORDER";
 	public static final String BOUNDS = "BOUNDS";
@@ -66,5 +70,10 @@ public abstract class PropertyAwareObject{
 		if (listeners == null)
 			listeners = new PropertyChangeSupport(this);
 		return listeners;
+	}
+	
+	@Override
+	public PropertyAwareObject clone() throws CloneNotSupportedException {
+		return (PropertyAwareObject) CubicCloner.deepCopy(this);
 	}
 }

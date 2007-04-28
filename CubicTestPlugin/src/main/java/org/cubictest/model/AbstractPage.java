@@ -99,17 +99,6 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 			e.resetStatus();	
 	}
 	
-	@Override
-	public AbstractPage clone() throws CloneNotSupportedException {
-		AbstractPage clone = (AbstractPage) super.clone();
-		List<PageElement> clonedElements = new ArrayList<PageElement>(); 
-		for(PageElement element : this.elements){
-			clonedElements.add(element.clone());
-		}
-		clone.setElements(clonedElements);
-		return clone;
-	}
-	
 	public ArrayList<Link> getLinkElements(){
 		ArrayList<Link> linkElements = new ArrayList<Link>();
 		for (PageElement element : getElements()){
