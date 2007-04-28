@@ -47,7 +47,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	static int MAX_LABEL_LENGTH = 40;
 	
 	private Figure figure;
-	private boolean listenersAdded = false;
+	private boolean listenersAdded;
 	
 	
 	@Override
@@ -64,6 +64,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	 */	
 	public UserInteractionsTransitionEditPart(UserInteractionsTransition userInteractionsTransition){
 		super(userInteractionsTransition);
+		listenersAdded = false;
 	}
 	
 	@Override

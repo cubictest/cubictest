@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.StandardToStringStyle;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * Base class for elements on a page.
@@ -291,5 +294,11 @@ public abstract class PageElement extends PropertyAwareObject
 			}
 		}
 		return null;
+	}
+	
+	public boolean isEqualTo(Object pe) {
+		StandardToStringStyle toStringStyle = new StandardToStringStyle();
+		toStringStyle.setUseIdentityHashCode(false);
+		return ToStringBuilder.reflectionToString(pe, toStringStyle).equals(ToStringBuilder.reflectionToString(this, toStringStyle));
 	}
 }

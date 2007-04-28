@@ -14,10 +14,13 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.IActionElement;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.UrlStartPoint;
+import org.cubictest.model.UserInteraction;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
@@ -25,6 +28,7 @@ import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.command.MovePageCommand;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
+import org.cubictest.ui.utils.UserInteractionDialogUtil;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
@@ -150,8 +154,32 @@ public class PasteAction extends SelectionAction {
 				if (sourceFromInTransitionIsOnClipboard(clipboardPages, page)) {
 					
 					Transition transClone = (Transition) page.getInTransition().clone();
-					transClone.setStart(clonedClipboardPages.get(page.getInTransition().getStart()));
+					AbstractPage sourceClone = clonedClipboardPages.get(page.getInTransition().getStart());
+					transClone.setStart(sourceClone);
 					transClone.setEnd(clonedClipboardPages.get(page));
+					
+					if (transClone instanceof UserInteractionsTransition) {
+						
+						//we need to connect the action elements back to the clone's elements
+						for (UserInteraction action : ((UserInteractionsTransition) transClone).getUserInteractions()) {
+							IActionElement actionElement = action.getElement();
+							if (actionElement instanceof PageElement) {
+								boolean elementFound = false;
+								for (PageElement pe : UserInteractionDialogUtil.getFlattenedPageElements(sourceClone.getElements())) {
+									if (pe.isEqualTo(actionElement)) {
+										action.setElement(pe);
+										elementFound = true;
+									}
+								}
+								if (!elementFound) {
+									ErrorHandler.showErrorDialog("Unable to copy User Interactions from page \"" + sourceClone.getName() +
+											"\". Check that it does not have user interaction elements from a Common.\n\n" +
+											"Paste operation cancelled.");
+									return;
+								}
+							}
+						}
+					}
 					
 					CreateTransitionCommand transCmd = new CreateTransitionCommand();
 					transCmd.setAutoCreateTargetPage(false);
