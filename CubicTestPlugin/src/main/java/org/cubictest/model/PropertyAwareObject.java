@@ -37,12 +37,12 @@ public abstract class PropertyAwareObject implements Serializable, Cloneable {
 	protected PropertyAwareObject(){
 	}
 
-	public void addPropertyChangeListener(PropertyChangeListener l){
-		getListeners().addPropertyChangeListener(l);
+	public void addPropertyChangeListener(PropertyChangeListener pcl){
+		getListeners().addPropertyChangeListener(pcl);
 	}
 
-	public void removePropertyChangeListener(PropertyChangeListener l){
-		getListeners().removePropertyChangeListener(l);
+	public void removePropertyChangeListener(PropertyChangeListener pcl){
+		getListeners().removePropertyChangeListener(pcl);
 	}
 	
 	protected void firePropertyChange(String prop, Object old, Object newValue){

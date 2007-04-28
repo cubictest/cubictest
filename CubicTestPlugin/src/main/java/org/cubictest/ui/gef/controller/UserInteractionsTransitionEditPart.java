@@ -29,6 +29,7 @@ import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionEndpointLocator;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
@@ -46,7 +47,17 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	static int MAX_LABEL_LENGTH = 40;
 	
 	private Figure figure;
+	private boolean listenersAdded = false;
 	
+	
+	@Override
+	public IFigure getFigure() {
+		if (!listenersAdded) {
+			addPageElementListeners();
+			listenersAdded = true;
+		}
+		return super.getFigure();
+	}
 	/**
 	 * Constructionr for the <code>UserInteractionsTransitionEditPart</code>.
 	 * @param transition
@@ -58,16 +69,6 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	@Override
 	public void activate() {
 		super.activate();
-		
-		//listen to all action elements property changes
-		List<UserInteraction> actions = ((UserInteractionsTransition) getModel()).getUserInteractions();
-		for (UserInteraction action : actions) {
-			PropertyAwareObject element = (PropertyAwareObject) action.getElement();
-			if (element != null) {
-				element.addPropertyChangeListener(this);
-			}
-		}
-		
 	}
 
 	/* (non-Javadoc)
@@ -83,7 +84,8 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	@Override
 	protected void refreshVisuals() {
 		super.refreshVisuals();
-		UserInteractionsTransition model = (UserInteractionsTransition) getModel();
+
+		UserInteractionsTransition transition = (UserInteractionsTransition) getModel();
 		PolylineConnection conn = (PolylineConnection) getFigure();
 		List<Figure> delete = new ArrayList<Figure>();
 		for(Object o : conn.getChildren()){
@@ -96,7 +98,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 		for(Figure f : delete)
 			conn.remove(f);
 		
-		if (model.hasUserInteractions()){
+		if (transition.hasUserInteractions()){
 			figure = new Figure();
 			ToolbarLayout layout = new ToolbarLayout();
 			layout.setVertical(true);
@@ -107,11 +109,11 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			figure.setToolTip(new Label("User interaction on the page/state"));
 			conn.setToolTip(new Label("User interaction on the page/state"));
 			
-			List<UserInteraction> inputs = model.getUserInteractions();
+			List<UserInteraction> actions = transition.getUserInteractions();
 			Label inputLabel;
 			
-			for(UserInteraction input : inputs){
-				IActionElement element = input.getElement();
+			for(UserInteraction action : actions){
+				IActionElement element = action.getElement();
 				String text = "";
 				if(element != null) {
 					text = getText(element);
@@ -120,17 +122,17 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 					}
 					text += ": ";
 				}
-				String inputLabelText = text + input.getActionType().getText();
+				String inputLabelText = text + action.getActionType().getText();
 				
-				if (ActionType.ENTER_TEXT.equals(input.getActionType()) 
+				if (ActionType.ENTER_TEXT.equals(action.getActionType()) 
 						&& element instanceof AbstractTextInput) {
 					inputLabelText =  inputLabelText + ": "
-						+ input.getTextualInput();
+						+ action.getTextualInput();
 				}
-				if (ActionType.ENTER_PARAMETER_TEXT.equals(input.getActionType())
+				if (ActionType.ENTER_PARAMETER_TEXT.equals(action.getActionType())
 						&& element instanceof AbstractTextInput) {
 					inputLabelText =  inputLabelText + ": "
-						+ input.getTextualInput();
+						+ action.getTextualInput();
 				}
 				inputLabel = new Label(inputLabelText);
 				if (element instanceof Link){
@@ -146,7 +148,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.BUTTON_IMAGE));
 				}
 				else if (element instanceof Checkbox){
-					if (input.getActionType().equals(ActionType.UNCHECK)) {
+					if (action.getActionType().equals(ActionType.UNCHECK)) {
 						inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.CHECKBOX_UNCHECKED_IMAGE));
 					}
 					else {
@@ -154,7 +156,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 					}
 				}
 				else if (element instanceof RadioButton){
-					if (input.getActionType().equals(ActionType.UNCHECK)) {
+					if (action.getActionType().equals(ActionType.UNCHECK)) {
 						inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.RADIO_BUTTON_UNCHECKED_IMAGE));
 					}
 					else {
@@ -205,4 +207,16 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			return element.getDescription();						
 		}
 	}
+	
+	private void addPageElementListeners() {
+		List<UserInteraction> actions = ((UserInteractionsTransition) getModel()).getUserInteractions();
+		for (UserInteraction action : actions) {
+			PropertyAwareObject element = (PropertyAwareObject) action.getElement();
+			if (element != null && element instanceof PageElement) {
+				PageElement pe = (PageElement) element;
+				pe.getDirectEditIdentifier().addPropertyChangeListener(this);
+			}
+		}
+	}
+
 }
