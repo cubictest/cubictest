@@ -186,13 +186,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 		
 		
 		// -- Basic Page Elements --
-		
-		tool = new CombinedTemplateCreationEntry("Title",
-				"Check page title", Title.class,
-				new DataCreationFactory(Title.class), CubicTestImageRegistry
-						.getDescriptor(TITLE_IMAGE), null);
-		pageElements.add(tool);
-		
+				
 		tool = new CombinedTemplateCreationEntry("Text",
 				"Check for a text on the page", Text.class, new DataCreationFactory(
 						Text.class), CubicTestImageRegistry.getDescriptor(TEXT_IMAGE),
@@ -204,14 +198,13 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 						Link.class), CubicTestImageRegistry.getDescriptor(LINK_IMAGE),
 				null);
 		pageElements.add(tool);
-		
-		tool = new CombinedTemplateCreationEntry("Image",
-				"Check for an image on the page", Image.class, new DataCreationFactory(
-						Image.class), CubicTestImageRegistry.getDescriptor(IMAGE_IMAGE),
-				null);
+
+		tool = new CombinedTemplateCreationEntry("Button",
+				"Check for a button on the page.",
+				Button.class, new DataCreationFactory(Button.class),
+				CubicTestImageRegistry.getDescriptor(BUTTON_IMAGE), null);
 		pageElements.add(tool);
-		
-		
+
 		// -- Creating Form Elements --
 		tool = new CombinedTemplateCreationEntry("TextField",
 				"Check for a text field on the page", TextField.class,
@@ -219,11 +212,6 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 						.getDescriptor(TEXT_FIELD_IMAGE), null);
 		pageElements.add(tool);
 
-		tool = new CombinedTemplateCreationEntry("Button",
-				"Check for a button on the page.",
-				Button.class, new DataCreationFactory(Button.class),
-				CubicTestImageRegistry.getDescriptor(BUTTON_IMAGE), null);
-		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("CheckBox",
 				"Check for a check box on the page", Checkbox.class,
@@ -237,6 +225,7 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				CubicTestImageRegistry.getDescriptor(RADIO_BUTTON_CHECKED_IMAGE), null);
 		pageElements.add(tool);
 
+		
 		tool = new CombinedTemplateCreationEntry("SelectList",
 				"Check for a select list on the page", Select.class,
 				new DataCreationFactory(Select.class), CubicTestImageRegistry
@@ -259,7 +248,19 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				new DataCreationFactory(Password.class), CubicTestImageRegistry
 						.getDescriptor(PASSWORD_IMAGE), null);
 		pageElements.add(tool);
-		
+
+		tool = new CombinedTemplateCreationEntry("Image",
+				"Check for an image on the page", Image.class, new DataCreationFactory(
+						Image.class), CubicTestImageRegistry.getDescriptor(IMAGE_IMAGE),
+				null);
+		pageElements.add(tool);		
+
+		tool = new CombinedTemplateCreationEntry("Title",
+				"Check page title", Title.class,
+				new DataCreationFactory(Title.class), CubicTestImageRegistry
+						.getDescriptor(TITLE_IMAGE), null);
+		pageElements.add(tool);
+
 
 //		rebuildCustomTestStepsCategory();
 		categories.add(basics);

@@ -52,12 +52,12 @@ public class StartPointTypeSelectionPage extends WizardPage implements Selection
 		extentionStartPointRadio = new Button(container, SWT.RADIO);
 		extentionStartPointRadio.addSelectionListener(this);
 		extentionStartPointLabel = new Label(container, SWT.LEFT);
-		extentionStartPointLabel.setText("ExtendedStartPoint - start from an extetion point in another test");
+		extentionStartPointLabel.setText("Extension start point - Start from an extension point in another test");
 		extentionStartPointLabel.addMouseListener(this);
 		urlStartPointRadio = new Button(container, SWT.RADIO);
 		urlStartPointRadio.addSelectionListener(this);
 		urlStartPointLabel = new Label(container, SWT.LEFT);
-		urlStartPointLabel.setText("StartPoint - start from an URL");
+		urlStartPointLabel.setText("URL start point - Start from a specific URL");
 		urlStartPointLabel.addMouseListener(this);
 		setSelected();
 		container.setLayout(gridLayout);
