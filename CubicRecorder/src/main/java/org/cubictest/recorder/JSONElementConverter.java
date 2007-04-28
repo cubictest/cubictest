@@ -134,7 +134,8 @@ public class JSONElementConverter {
 						key = "id";
 						break;
 					case SRC:
-						key = "src";
+						//TODO: Handle relative/absolute URLs. Selenium always gets absolute, even if page uses relative URL.
+//						key = "src";
 						break;
 					case LABEL:
 						if(pe instanceof Button)
