@@ -152,7 +152,7 @@ Done   Create connection / user interaction from context menu
 Done   Reorder Palette according to add-PageElement-context menu
 Done   Copy paste of nestet context -> problem with clone
 Done   User interaction figures did not have correct listener on page element changes.
-M3?	 Bug with Select Identifier: Multiselect. See Christian's saved files.
+Done   Bug with Select Identifier: Multiselect. See Christian's saved files.
 M4	 Use icons as "large icons" also.
 M4   Bug in changing extension start point's extension point.
 M4   Right-click on ExStartPoint -> "Open test" (none double clicked)
@@ -168,7 +168,6 @@ M4?   Bigger canvas, should be easier to extend (place elements at edge) (bug in
    
 Export:
 M4	  Make it possible to store output directory in a cubics-project.properties file
-M3?   Problem with subtest at end. Logout.aat ran too much. See Christian's saved .aat files.
 2.0?  HTML export: Have a ID on page, such that HTML exporter can merge different tests to better site?
 
 
