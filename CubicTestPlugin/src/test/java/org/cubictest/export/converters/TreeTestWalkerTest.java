@@ -74,8 +74,6 @@ public class TreeTestWalkerTest {
 	
 	/**
 	 * Test that only path to given extension point is converted.
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
 	 */
 	@org.junit.Test
 	public void testTraversesSimpleTreeOnlyToExtensionPoint() throws InstantiationException, IllegalAccessException {
@@ -172,8 +170,6 @@ public class TreeTestWalkerTest {
 	/**
 	 * Test that only path to given extension point is converted.
 	 * Form elements, user actions and three-level tree.
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
 	 */
 	@org.junit.Test
 	public void testTraversesMediumTreeOnlyToExtensionPoint() throws InstantiationException, IllegalAccessException {
@@ -303,8 +299,6 @@ public class TreeTestWalkerTest {
 	/**
 	 * Test that tree is traversed only to extension point after extension start point.
 	 * Tree test with two levels and an extension point.
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
 	 */
 	@org.junit.Test
 	public void testTraversesTreeWithExtensionPointAfterExtensionStartPoint() throws InstantiationException, IllegalAccessException {
@@ -344,8 +338,6 @@ public class TreeTestWalkerTest {
 	/**
 	 * Test that tree is traversed only to extension point after extension start point.
 	 * Tree test with two levels and an extension point.
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
 	 */
 	@org.junit.Test
 	public void testTraversesUrlInEachPathFromUrlStartPoint() throws InstantiationException, IllegalAccessException {
@@ -366,7 +358,40 @@ public class TreeTestWalkerTest {
 		assertionList.verifySize();
 	}
 
-	
+
+	/**
+	 * Test that subtest after ExtensionStartPoint works as expected.
+	 */
+	@org.junit.Test
+	public void testTraversesSubTestAfterExtensionStartPoint() throws InstantiationException, IllegalAccessException {
+		String fileName = "src/test/resources/org/cubictest/common/converters/ExtensionStartPointWithSubTest.aat";
+		Test test = TestPersistance.loadFromFile(fileName);
+		testWalker.convertTest(test, assertionList);
+		
+		//pre-test
+		assertionList.assertContainsInOrder("www.test.org");
+		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
+		assertionList.assertContainsInOrder("First Page --> Third Page");
+		assertionList.assertContainsInOrder("Third");
+
+		//subtest
+		assertionList.assertContainsInOrder("www.test.org");
+		assertionList.assertContainsInOrder("First");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("LinkToThird");
+		assertionList.assertContainsInOrder("First Page --> Third Page");
+		assertionList.assertContainsInOrder("Third");
+
+		//the main test:
+		assertionList.assertContainsInOrder("Fourth");
+		assertionList.assertContainsInOrder("LinkToFifth");
+		assertionList.assertContainsInOrder("Fourth Page --> Fifth Page");
+		assertionList.assertContainsInOrder("Fifth");
+
+		assertionList.verifySize();
+	}
 	
 	
 	/**

@@ -1,0 +1,177 @@
+<test>
+  <startPoint class="extensionStartPoint">
+    <sourceExtensionPointPageId>page297923971162115959945_2</sourceExtensionPointPageId>
+    <sourceExtensionPointName>Third Page Extension Point</sourceExtensionPointName>
+    <filePath>src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat</filePath>
+    <outTransitions>
+      <extensionTransition>
+        <id>page297923971162115959945_2</id>
+        <start class="extensionStartPoint" reference="../../.."/>
+        <end class="subTest">
+          <filePath>src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat</filePath>
+          <inTransition class="extensionTransition" reference="../.."/>
+          <outTransitions>
+            <extensionTransition>
+              <id>page297923971162115959945_2</id>
+              <start class="subTest" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <identifiers>
+                      <identifier>
+                        <value>Fourth</value>
+                        <probability>100</probability>
+                        <type>LABEL</type>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                  </text>
+                  <link>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>LinkToFifth</value>
+                        <probability>100</probability>
+                        <type reference="../../../../text/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type>ID</type>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type>HREF</type>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type>TITLE</type>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                  </link>
+                </elements>
+                <name>Fourth Page</name>
+                <inTransition class="extensionTransition" reference="../.."/>
+                <outTransitions>
+                  <userInteractionsTransition>
+                    <userInteractions>
+                      <userInteraction>
+                        <element class="link" reference="../../../../../elements/link"/>
+                        <input></input>
+                        <action>CLICK</action>
+                        <i18nKey></i18nKey>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </userInteraction>
+                    </userInteractions>
+                    <page class="page" reference="../../.."/>
+                    <start class="page" reference="../../.."/>
+                    <end class="page">
+                      <commons/>
+                      <elements>
+                        <text>
+                          <description></description>
+                          <identifiers>
+                            <identifier>
+                              <value>Fifth</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../elements/text/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
+                          <not>false</not>
+                        </text>
+                      </elements>
+                      <name>Fifth Page</name>
+                      <description></description>
+                      <inTransition class="userInteractionsTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>page311091771177880345260</id>
+                      <position>
+                        <x>204</x>
+                        <y>361</y>
+                      </position>
+                      <dimension>
+                        <width>93</width>
+                        <height>70</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                      <autoPosition>false</autoPosition>
+                    </end>
+                  </userInteractionsTransition>
+                </outTransitions>
+                <id>page284997311162125576874</id>
+                <position>
+                  <x>204</x>
+                  <y>203</y>
+                </position>
+                <dimension>
+                  <width>93</width>
+                  <height>70</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+                <autoPosition>false</autoPosition>
+              </end>
+            </extensionTransition>
+          </outTransitions>
+          <id>1177879752818</id>
+          <position>
+            <x>103</x>
+            <y>96</y>
+          </position>
+          <name></name>
+          <autoPosition>false</autoPosition>
+        </end>
+      </extensionTransition>
+    </outTransitions>
+    <id>1162125576874</id>
+    <position>
+      <x>0</x>
+      <y>0</y>
+    </position>
+    <name></name>
+    <autoPosition>false</autoPosition>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end"/>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end"/>
+  </pages>
+  <subTests>
+    <subTest reference="../../startPoint/outTransitions/extensionTransition/end"/>
+  </subTests>
+  <transitions>
+    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
+  <name>SimpleUsingExtensionStartPoint</name>
+  <description></description>
+  <id>test1162125576874</id>
+  <modelVersion>5</modelVersion>
+</test>
