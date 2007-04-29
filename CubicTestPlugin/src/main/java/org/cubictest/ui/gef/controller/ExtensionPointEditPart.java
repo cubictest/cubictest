@@ -11,6 +11,7 @@ import java.beans.PropertyChangeEvent;
 
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.Page;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
@@ -45,8 +46,17 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 	}
 	
 	public void propertyChange(PropertyChangeEvent evt){
-		refresh();
-		refreshVisuals();
+		String property = evt.getPropertyName();
+		if (evt.getSource() instanceof Page) {
+			if (PropertyAwareObject.NAME.equals(property)) {
+				//refresh name of this extension point
+				refresh();
+			}
+		}
+		else {
+			//source is self, refresh on all changes
+			refresh();
+		}
 	}
 
 	
