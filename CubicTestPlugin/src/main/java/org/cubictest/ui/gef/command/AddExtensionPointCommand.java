@@ -7,8 +7,6 @@ package org.cubictest.ui.gef.command;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.Test;
-import org.cubictest.model.Transition;
-import org.cubictest.ui.gef.controller.PageEditPart;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
@@ -21,26 +19,20 @@ public class AddExtensionPointCommand extends Command {
 
 	private Test test;
 	private ExtensionPoint extensionPoint;
-	private PageEditPart pageEditPart;
+	private Page page;
 
 	@Override
 	public void execute() {
 		super.execute();
-		Page page = (Page) pageEditPart.getModel();
 		
-		for (Transition transition : page.getOutTransitions()) {
-			if(transition.getEnd() instanceof ExtensionPoint) {
-				return;
-			}
+		Point position = new Point(0, 0);
+		if (page != null) {
+			position = page.getPosition().getCopy();
+			position.x = position.x + this.page.getDimension().width + 50;
+			position.y = position.y + this.page.getDimension().height / 2;
+			extensionPoint.setName(page.getName() + " Extension Point");
 		}
-		
-
-		Point position = page.getPosition().getCopy();
-		position.x = position.x + this.pageEditPart.getContentPane().getClientArea().width + 30;
-		position.y = position.y + this.pageEditPart.getContentPane().getClientArea().height / 2;
-		
 		extensionPoint.setPosition(position);
-		extensionPoint.setName(page.getName() + " Extension Point");
 		test.addExtensionPoint(extensionPoint);
 	}
 
@@ -62,8 +54,8 @@ public class AddExtensionPointCommand extends Command {
 		this.test = test;
 	}
 
-	public void setPageEditPart(PageEditPart pageEditPart) {
-		this.pageEditPart = pageEditPart;
+	public void setPage(Page page) {
+		this.page = page;
 	}
 
 	

@@ -21,19 +21,45 @@ import org.eclipse.gef.EditPolicy;
 
 
 /**
- * @author SK Skytteren
  * Contoller for the <code>ExtensionPoint</code> model.
- *
+ * 
+ * @author SK Skytteren
+ * @author Christian Schwarz
  */
 public class ExtensionPointEditPart extends AbstractNodeEditPart {
+
+	private boolean listenerAdded;
+	private ExtensionPoint point;
 
 	/**
 	 * Constructor for <code>ExtensionPointEditPart</code>.
 	 * @param point the model
 	 */
-	public ExtensionPointEditPart(ExtensionPoint point) {
+	public ExtensionPointEditPart(ExtensionPoint p) {
+		this.point = p;
 		setModel(point);
+		
 	}
+	
+	
+	@Override
+	public void activate() {
+		super.activate();
+		if (!listenerAdded) {
+			addPageListener();
+		}
+	}
+
+	
+	@Override
+	public void deactivate() {
+		super.deactivate();
+		if (listenerAdded) {
+			removePageListener();
+		}
+	}
+	
+	
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
@@ -76,10 +102,19 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 		refresh();
 		refreshVisuals();
 	}
-	
-	@Override
-	public boolean canBeTargetForPaste() {
-		return false;
-	}
 
+	
+	private void addPageListener() {
+		if (point.getPage() != null) {
+			point.getPage().addPropertyChangeListener(this);
+			listenerAdded = true;
+		}
+	}
+	
+	private void removePageListener() {
+		if (point.getPage() != null) {
+			point.getPage().removePropertyChangeListener(this);
+			listenerAdded = false;
+		}
+	}
 }

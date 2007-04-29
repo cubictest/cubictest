@@ -171,10 +171,10 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	}
 
 	@Override
-	public AbstractPage clone() throws CloneNotSupportedException {
-		AbstractPage page = (AbstractPage) CubicCloner.deepCopy(this);
-		page.removeInTransition();
-		page.removeOutTransitions();
-		return page;
+	public TransitionNode clone() throws CloneNotSupportedException {
+		TransitionNode node = (TransitionNode) CubicCloner.deepCopy(this);
+		node.removeInTransition();
+		node.removeOutTransitions();
+		return node;
 	}
 }

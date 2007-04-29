@@ -94,8 +94,4 @@ public class UrlStartPointEditPart extends AbstractNodeEditPart {
 		return false;
 	}
 	
-	@Override
-	public boolean canBeTargetForPaste() {
-		return false;
-	}
 }

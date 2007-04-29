@@ -14,14 +14,18 @@ import org.cubictest.persistence.CubicTestXStream;
  */
 public class CubicCloner {
 
+	public static CubicTestXStream xStream;
 	
 	/**
 	 * Returns a deep copy of an object using XStream.
 	 */
 	public static Object deepCopy(Object oldObj) {
 
-		String xml = new CubicTestXStream().toXML(oldObj);
-		Object newObj = new CubicTestXStream().fromXML(xml);
+		if (xStream == null) {
+			xStream = new CubicTestXStream();
+		}
+		String xml = xStream.toXML(oldObj);
+		Object newObj = xStream.fromXML(xml);
 
 		return newObj;
 	}

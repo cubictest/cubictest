@@ -62,19 +62,20 @@ public class AddExtensionPointAction extends SelectionAction {
 			Object element = iter.next();
 			if(element instanceof PageEditPart) {
 				PageEditPart pageEditPart = (PageEditPart) element;
+				Page page = (Page) pageEditPart.getModel();
 				Test test = (Test) pageEditPart.getParent().getModel();
 				ExtensionPoint exPoint = new ExtensionPoint();
 
 				CompoundCommand compoundCmd = new CompoundCommand();
 
 				AddExtensionPointCommand cmd = new AddExtensionPointCommand();
-				cmd.setPageEditPart(pageEditPart);
+				cmd.setPage(page);
 				cmd.setExtensionPoint(exPoint);
 				cmd.setTest(test);
 				compoundCmd.add(cmd);
 				
 				CreateTransitionCommand transitionCreateCommand = new CreateTransitionCommand();
-				transitionCreateCommand.setSource((Page) pageEditPart.getModel());
+				transitionCreateCommand.setSource(page);
 				transitionCreateCommand.setTarget(exPoint);
 				transitionCreateCommand.setTest(test);
 				transitionCreateCommand.setPageEditPart(pageEditPart);

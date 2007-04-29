@@ -50,14 +50,6 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	private boolean listenersAdded;
 	
 	
-	@Override
-	public IFigure getFigure() {
-		if (!listenersAdded) {
-			addPageElementListeners();
-			listenersAdded = true;
-		}
-		return super.getFigure();
-	}
 	/**
 	 * Constructionr for the <code>UserInteractionsTransitionEditPart</code>.
 	 * @param transition
@@ -70,8 +62,23 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	@Override
 	public void activate() {
 		super.activate();
+		if (!listenersAdded) {
+			addPageElementListeners();
+			listenersAdded = true;
+		}
 	}
 
+	
+	@Override
+	public void deactivate() {
+		super.deactivate();
+		if (listenersAdded) {
+			removePageElementListeners();
+			listenersAdded = false;
+		}
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
 	 */
@@ -219,5 +226,16 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			}
 		}
 	}
-
+	
+	private void removePageElementListeners() {
+		List<UserInteraction> actions = ((UserInteractionsTransition) getModel()).getUserInteractions();
+		for (UserInteraction action : actions) {
+			PropertyAwareObject element = (PropertyAwareObject) action.getElement();
+			if (element != null && element instanceof PageElement) {
+				PageElement pe = (PageElement) element;
+				pe.getDirectEditIdentifier().removePropertyChangeListener(this);
+			}
+		}
+	}
+	
 }

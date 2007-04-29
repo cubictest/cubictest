@@ -74,16 +74,17 @@ public class ContextContainerEditPolicy extends ContainerEditPolicy {
 			ExtensionPoint exPoint = new ExtensionPoint();
 			Test test = (Test) abstractPageEditPart.getParent().getModel();
 			PageEditPart pagePart = (PageEditPart) abstractPageEditPart;
+			Page page = (Page) pagePart.getModel();
 			
 			CompoundCommand compoundCmd = new CompoundCommand();
 			AddExtensionPointCommand addExPointCmd = new AddExtensionPointCommand();
 			addExPointCmd.setExtensionPoint(exPoint);
-			addExPointCmd.setPageEditPart(pagePart);
+			addExPointCmd.setPage(page);
 			addExPointCmd.setTest(test);
 			compoundCmd.add(addExPointCmd);
 			
 			CreateTransitionCommand transitionCreateCommand = new CreateTransitionCommand();
-			transitionCreateCommand.setSource((Page) pagePart.getModel());
+			transitionCreateCommand.setSource(page);
 			transitionCreateCommand.setTarget(exPoint);
 			transitionCreateCommand.setTest(test);
 			compoundCmd.add(transitionCreateCommand);

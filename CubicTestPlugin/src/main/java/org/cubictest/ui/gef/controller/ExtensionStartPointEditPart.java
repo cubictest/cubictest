@@ -46,9 +46,4 @@ public class ExtensionStartPointEditPart extends SubTestEditPart {
 		return false;
 	}
 	
-	@Override
-	public boolean canBeTargetForPaste() {
-		return false;
-	}
-
 }

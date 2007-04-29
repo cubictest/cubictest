@@ -13,27 +13,31 @@ import java.util.Map;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.IActionElement;
+import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
+import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
+import org.cubictest.ui.gef.command.AddExtensionPointCommand;
+import org.cubictest.ui.gef.command.AddSubTestCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.command.MovePageCommand;
-import org.cubictest.ui.gef.controller.PropertyChangePart;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.ui.actions.Clipboard;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -73,9 +77,7 @@ public class PasteAction extends SelectionAction {
 
 		EditPart selectedPart = (EditPart) selection.getFirstElement();
 
-		if(selectedPart instanceof AbstractConnectionEditPart ||
-				selectedPart instanceof PropertyChangePart && !((PropertyChangePart) selectedPart).canBeTargetForPaste() ||
-				!(selectedPart.getModel() instanceof IContext) && ViewUtil.containsAPageElement(getClipboardContents())) {
+		if(!(selectedPart.getModel() instanceof IContext) && ViewUtil.containsAPageElement(getClipboardContents())) {
 			return false;
 		}
 		
@@ -99,17 +101,19 @@ public class PasteAction extends SelectionAction {
 		
 		EditPart targetPart = getTargetPart();
 		CompoundCommand compoundCmd = new CompoundCommand();
-		List<AbstractPage> clipboardPages = getPagesOnClipboard();
-		Map<AbstractPage, AbstractPage> clonedClipboardPages = new HashMap<AbstractPage, AbstractPage>();
+		List<TransitionNode> clipboardNodes = getNodesOnClipboard();
+		Map<TransitionNode, TransitionNode> clonedClipboardNodes = new HashMap<TransitionNode, TransitionNode>();
 		
 		Test test = ViewUtil.getSurroundingTest(targetPart);
 
 		try {
 			for (EditPart clipboardPart : getClipboardParts()) {
-				if (clipboardPart.getModel() instanceof ExtensionStartPoint || clipboardPart.getModel() instanceof UrlStartPoint) {
+				if (clipboardPart.getModel() instanceof UrlStartPoint || clipboardPart.getModel() instanceof ExtensionStartPoint) {
+					//Start points should not be pasted
 					continue;
 				}
 				else if (clipboardPart.getModel() instanceof PageElement && !ViewUtil.parentPageIsOnClipboard(clipboardPart, getClipboardParts())) {
+					//Page elements
 					PageElement clipboardElement = (PageElement) clipboardPart.getModel();
 					if (targetPart.getModel() instanceof PageElement && !(targetPart.getModel() instanceof AbstractContext))
 						targetPart = targetPart.getParent();
@@ -130,6 +134,7 @@ public class PasteAction extends SelectionAction {
 					
 				}
 				else if (clipboardPart.getModel() instanceof AbstractPage){
+					//Pages and commons
 					AbstractPage page = (AbstractPage) clipboardPart.getModel();
 	
 					AbstractPage pageClone = (AbstractPage) page.clone();
@@ -138,25 +143,47 @@ public class PasteAction extends SelectionAction {
 					pageAddCommand.setPage(pageClone);
 					compoundCmd.add(pageAddCommand);
 					
-					MovePageCommand moveCmd = new MovePageCommand();
-					moveCmd.setPage(pageClone);
-					moveCmd.setOldPosition(page.getPosition());
-					moveCmd.setNewPosition(new Point(page.getPosition().x + 200, page.getPosition().y));
-					compoundCmd.add(moveCmd);
-					clonedClipboardPages.put(page, pageClone);
+					addMoveNodeCommand(compoundCmd, page, pageClone);
+					clonedClipboardNodes.put(page, pageClone);
 							
+				}
+				else if (clipboardPart.getModel() instanceof ExtensionPoint){
+					//ExtensionPoint
+					ExtensionPoint exPoint = (ExtensionPoint) clipboardPart.getModel();
+	
+					ExtensionPoint exPointClone = (ExtensionPoint) exPoint.clone();
+					AddExtensionPointCommand addExCommand = new AddExtensionPointCommand();
+					addExCommand.setTest(test);
+					addExCommand.setExtensionPoint(exPointClone);
+					compoundCmd.add(addExCommand);
+					clonedClipboardNodes.put(exPoint, exPointClone);
+					
+					addMoveNodeCommand(compoundCmd, exPoint, exPointClone);
+				}
+				else if (clipboardPart.getModel() instanceof SubTest){
+					//SubTest
+					SubTest subtest = (SubTest) clipboardPart.getModel();
+	
+					SubTest subtestClone = (SubTest) subtest.clone();
+					AddSubTestCommand addSubTestCmd = new AddSubTestCommand();
+					addSubTestCmd.setTest(test);
+					addSubTestCmd.setSubTest(subtestClone);
+					compoundCmd.add(addSubTestCmd);
+					clonedClipboardNodes.put(subtest, subtestClone);
+					
+					addMoveNodeCommand(compoundCmd, subtest, subtestClone);
 				}
 			} //end foreach
 		
 		
 			//cloning transitions if needed
-			for (AbstractPage page : clipboardPages) {
-				if (sourceFromInTransitionIsOnClipboard(clipboardPages, page)) {
+			for (TransitionNode node : clipboardNodes) {
+				if (sourceFromInTransitionIsOnClipboard(clipboardNodes, node)) {
 					
-					Transition transClone = (Transition) page.getInTransition().clone();
-					AbstractPage sourceClone = clonedClipboardPages.get(page.getInTransition().getStart());
+					Transition transClone = (Transition) node.getInTransition().clone();
+					TransitionNode sourceClone = clonedClipboardNodes.get(node.getInTransition().getStart());
 					transClone.setStart(sourceClone);
-					transClone.setEnd(clonedClipboardPages.get(page));
+					transClone.setEnd(clonedClipboardNodes.get(node));
 					
 					if (transClone instanceof UserInteractionsTransition) {
 						
@@ -165,7 +192,7 @@ public class PasteAction extends SelectionAction {
 							IActionElement actionElement = action.getElement();
 							if (actionElement instanceof PageElement) {
 								boolean elementFound = false;
-								for (PageElement pe : UserInteractionDialogUtil.getFlattenedPageElements(sourceClone.getElements())) {
+								for (PageElement pe : UserInteractionDialogUtil.getFlattenedPageElements(((AbstractPage) sourceClone).getElements())) {
 									if (pe.isEqualTo(actionElement)) {
 										action.setElement(pe);
 										elementFound = true;
@@ -183,8 +210,8 @@ public class PasteAction extends SelectionAction {
 					
 					CreateTransitionCommand transCmd = new CreateTransitionCommand();
 					transCmd.setAutoCreateTargetPage(false);
-					transCmd.setSource(clonedClipboardPages.get(page.getInTransition().getStart()));
-					transCmd.setTarget(clonedClipboardPages.get(page));
+					transCmd.setSource(clonedClipboardNodes.get(node.getInTransition().getStart()));
+					transCmd.setTarget(clonedClipboardNodes.get(node));
 					transCmd.setTest(test);
 					transCmd.setTransition(transClone);
 					compoundCmd.add(transCmd);
@@ -198,7 +225,16 @@ public class PasteAction extends SelectionAction {
 		getCommandStack().execute(compoundCmd);
 	}
 
-	private boolean sourceFromInTransitionIsOnClipboard(List<AbstractPage> clipboardPages, AbstractPage page) {
+	private MovePageCommand addMoveNodeCommand(CompoundCommand compoundCmd, TransitionNode node, TransitionNode nodeClone) {
+		MovePageCommand moveCmd = new MovePageCommand();
+		moveCmd.setPage(nodeClone);
+		moveCmd.setOldPosition(node.getPosition());
+		moveCmd.setNewPosition(new Point(node.getPosition().x + 200, node.getPosition().y));
+		compoundCmd.add(moveCmd);
+		return moveCmd;
+	}
+
+	private boolean sourceFromInTransitionIsOnClipboard(List<TransitionNode> clipboardPages, TransitionNode page) {
 		if (page.getInTransition() != null) {
 			return clipboardPages.contains(page.getInTransition().getStart());
 		}
@@ -206,12 +242,12 @@ public class PasteAction extends SelectionAction {
 	}
 
 	
-	private List<AbstractPage> getPagesOnClipboard() {
-		List<AbstractPage> result = new ArrayList<AbstractPage>();
+	private List<TransitionNode> getNodesOnClipboard() {
+		List<TransitionNode> result = new ArrayList<TransitionNode>();
 
 		for (EditPart part : getClipboardParts()) {
-			if (part.getModel() instanceof AbstractPage) {
-				result.add((AbstractPage) part.getModel());
+			if (part.getModel() instanceof TransitionNode) {
+				result.add((TransitionNode) part.getModel());
 			}
 		}
 		

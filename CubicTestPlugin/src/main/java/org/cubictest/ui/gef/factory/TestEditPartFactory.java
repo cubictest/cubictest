@@ -64,9 +64,9 @@ import org.eclipse.gef.EditPartFactory;
 
 
 /**
- * @author SK Skytteren
- *	
  * Used to create the EditParts from the model
+ *
+ * @author SK Skytteren
  */
 public class TestEditPartFactory implements EditPartFactory {
 
@@ -121,10 +121,8 @@ public class TestEditPartFactory implements EditPartFactory {
 			return new FormOptionEditPart((Option)model);
 		if (model instanceof Row)
 			return new TableRowEditPart((AbstractContext) model);
-		//Added by Genesis Campos
 		if (model instanceof Frame)
 			return new ContextEditPart((AbstractContext) model);
-		//End;
 		if (model instanceof AbstractContext)
 			return new ContextEditPart((AbstractContext) model);
 		if (model instanceof CustomTestStep)

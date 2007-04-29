@@ -295,10 +295,4 @@ public abstract class PageElement extends PropertyAwareObject
 		}
 		return null;
 	}
-	
-	public boolean isEqualTo(Object pe) {
-		StandardToStringStyle toStringStyle = new StandardToStringStyle();
-		toStringStyle.setUseIdentityHashCode(false);
-		return ToStringBuilder.reflectionToString(pe, toStringStyle).equals(ToStringBuilder.reflectionToString(this, toStringStyle));
-	}
 }

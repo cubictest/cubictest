@@ -10,6 +10,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 
+import org.apache.commons.lang.builder.StandardToStringStyle;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.cubictest.utils.CubicCloner;
 
 /**
@@ -17,7 +19,7 @@ import org.cubictest.utils.CubicCloner;
  * 
  * @author SK Skytteren
  */
-public abstract class PropertyAwareObject implements Serializable, Cloneable {
+public abstract class PropertyAwareObject implements Cloneable {
 	public static final String CHILD = "CHILD";
 	public static final String REORDER = "REORDER";
 	public static final String BOUNDS = "BOUNDS";
@@ -31,6 +33,7 @@ public abstract class PropertyAwareObject implements Serializable, Cloneable {
 	public static final String NOT = "NOT";
 	
 	protected TestPartStatus status;
+	protected transient StandardToStringStyle toStringStyle;
 	
 	private transient PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -76,4 +79,13 @@ public abstract class PropertyAwareObject implements Serializable, Cloneable {
 	public PropertyAwareObject clone() throws CloneNotSupportedException {
 		return (PropertyAwareObject) CubicCloner.deepCopy(this);
 	}
+	
+	public boolean isEqualTo(Object pe) {
+		if (toStringStyle == null) {
+			toStringStyle = new StandardToStringStyle();
+		}
+		toStringStyle.setUseIdentityHashCode(false);
+		return ToStringBuilder.reflectionToString(pe, toStringStyle).equals(ToStringBuilder.reflectionToString(this, toStringStyle));
+	}
+
 }
