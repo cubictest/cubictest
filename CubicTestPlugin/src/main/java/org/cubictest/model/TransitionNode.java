@@ -7,7 +7,9 @@
 package org.cubictest.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.cubictest.common.utils.Logger;
 import org.cubictest.utils.CubicCloner;
@@ -86,14 +88,13 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	 * @return Returns the outTransitions.
 	 */
 	public List<Transition> getOutTransitions() {
-		List<Transition> toRemove = new ArrayList<Transition>();
-		for (Transition trans : outTransitions) {
-			if (outTransitions.lastIndexOf(trans) != outTransitions.indexOf(trans)) {
-				Logger.error("Duplicate transition detected! Removing it.");
-				toRemove.add(trans);
-			}
+		Set<Transition> set = new HashSet<Transition>();
+		set.addAll(outTransitions);
+		if (set.size() != outTransitions.size()) {
+			Logger.error("Duplicate transitions detected from " + this.toString() + "! Removing them.");
+			outTransitions = new ArrayList<Transition>();
+			outTransitions.addAll(set);
 		}
-		outTransitions.removeAll(toRemove);
 		return outTransitions;
 	}
 	/**
