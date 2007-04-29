@@ -214,7 +214,9 @@ public class PasteAction extends SelectionAction {
 					transCmd.setTarget(clonedClipboardNodes.get(node));
 					transCmd.setTest(test);
 					transCmd.setTransition(transClone);
-					compoundCmd.add(transCmd);
+					if (transCmd.canExecute()) {
+						compoundCmd.add(transCmd);
+					}
 				}
 			}
 		}		
@@ -229,7 +231,7 @@ public class PasteAction extends SelectionAction {
 		MovePageCommand moveCmd = new MovePageCommand();
 		moveCmd.setPage(nodeClone);
 		moveCmd.setOldPosition(node.getPosition());
-		moveCmd.setNewPosition(new Point(node.getPosition().x + 200, node.getPosition().y));
+		moveCmd.setNewPosition(new Point(node.getPosition().x + 250, node.getPosition().y));
 		compoundCmd.add(moveCmd);
 		return moveCmd;
 	}
