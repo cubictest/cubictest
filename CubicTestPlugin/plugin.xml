@@ -40,7 +40,7 @@
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/fileicon.gif"
             id="org.cubictest.ui.wizards.NewTestWizard"
-            name="New CubicTest-test"
+            name="New CubicTest Test"
             preferredPerspectives="org.cubictest.CubicTestPerspective">
       </wizard>
       <wizard
