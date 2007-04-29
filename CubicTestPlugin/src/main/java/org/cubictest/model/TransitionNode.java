@@ -9,6 +9,7 @@ package org.cubictest.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.utils.Logger;
 import org.cubictest.utils.CubicCloner;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -85,6 +86,14 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	 * @return Returns the outTransitions.
 	 */
 	public List<Transition> getOutTransitions() {
+		List<Transition> toRemove = new ArrayList<Transition>();
+		for (Transition trans : outTransitions) {
+			if (outTransitions.lastIndexOf(trans) != outTransitions.indexOf(trans)) {
+				Logger.error("Duplicate transition detected! Removing it.");
+				toRemove.add(trans);
+			}
+		}
+		outTransitions.removeAll(toRemove);
 		return outTransitions;
 	}
 	/**

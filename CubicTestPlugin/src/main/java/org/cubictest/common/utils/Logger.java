@@ -16,6 +16,10 @@ import org.eclipse.core.runtime.Status;
  */
 public class Logger {
 
+	public static void error(String message) {
+		log(IStatus.ERROR, null, message);
+	}
+	
 	public static void error(Throwable e) {
 		log(IStatus.ERROR, e, e.toString());
 	}

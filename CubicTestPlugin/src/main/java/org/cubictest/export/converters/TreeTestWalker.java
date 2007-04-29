@@ -172,7 +172,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 						// convert end node recursively: 
 						nodeFinished = convertTransitionNode(resultHolder, endNode, targetExtensionPoint);
 
-						if (pathNum < node.getOutTransitions().size()) {
+						if (pathNum < node.getOutTransitions().size() && targetExtensionPoint == null) {
 							//end node converted, skip to root of tree to start traversal of the other paths from there.
 							nodeFinished = false;
 							break;
