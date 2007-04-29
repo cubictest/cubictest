@@ -75,8 +75,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 				});
 			}
 			else if (test.getStartPoint() instanceof ExtensionStartPoint) {
- 				ErrorHandler.showErrorDialog("The recorder only works for tests that start with a URL start point.\n\n" +
- 						"Tip: Create a test with an URL start point, record from there and paste into this test.");
+ 				ErrorHandler.showErrorDialog("The recorder only works for tests that start with a URL start point.");
 			}
 
 
