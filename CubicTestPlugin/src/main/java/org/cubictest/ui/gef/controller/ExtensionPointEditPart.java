@@ -7,8 +7,11 @@
  */
 package org.cubictest.ui.gef.controller;
 
+import java.beans.PropertyChangeEvent;
+
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
@@ -41,6 +44,11 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 		
 	}
 	
+	public void propertyChange(PropertyChangeEvent evt){
+		refresh();
+		refreshVisuals();
+	}
+
 	
 	@Override
 	public void activate() {
