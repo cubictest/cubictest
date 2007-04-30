@@ -91,7 +91,7 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		Set<Transition> set = new HashSet<Transition>();
 		set.addAll(outTransitions);
 		if (set.size() != outTransitions.size()) {
-			Logger.error("Duplicate transitions detected from " + this.toString() + "! Removing them.");
+			Logger.error("Duplicate out-transitions detected from " + this.toString() + "! Removing them.");
 			outTransitions = new ArrayList<Transition>();
 			outTransitions.addAll(set);
 		}
@@ -107,7 +107,12 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	 * @param transition
 	 */
 	public void addOutTransition(Transition transition){
-		outTransitions.add(transition);
+		if (outTransitions.contains(transition)) {
+			Logger.error("Attempted to add duplicate out-transition from " + this.toString() + "! Ignoring it.");
+		}
+		else {
+			outTransitions.add(transition);
+		}
 		firePropertyChange(PropertyAwareObject.OUTPUT,null,transition);
 	}
 	/**
