@@ -103,6 +103,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 			catch (Exception e) {
 				ErrorHandler.logAndShowErrorDialog(e);
 				stopSelenium(autoLayout);
+				return;
 			}
 			
 
