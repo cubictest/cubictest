@@ -114,10 +114,52 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 
 		cubicContextMenu.addItem(cubicMenuItem);
 
+
+		/**
+		 * Assert Text %s Present
+		 */
+		yuiMenuItem = yuiContextMenu.addItem("Assert Text '%s' Present");
+		cubicMenuItem = new Cubic.recorder.RPCContextMenuItem(yuiMenuItem, jsonrpc.recorder);
+		
+		cubicMenuItem.respondsTo = function(element) {
+			return this.selectedText;
+		}
+		
+		cubicMenuItem.execute = function() {
+			jsonrpc.recorder.assertTextPresent(this._selectedText, null);
+		}
+		
+		cubicMenuItem.setTarget = function(element) {
+			this._selectedText = this.selectedText;
+			this.setTextFor(element);
+		}
+		
+		cubicMenuItem.generateLabelFor = function(element) {
+			var s = this._selectedText;
+			if(!s) {
+				return "";
+			}
+			if(s.length > 10) {
+				s = s.substring(0, 7) + "...";
+			}
+			return s;
+		}
+		
+		// Temporary hack until we figure out why the selection disappears when the contextmenu is displayed
+		var temp = function(item) {
+			YAHOO.log("observing..")
+			Event.observe(frameDoc.body, 'mouseup', function(e) {
+				item.selectedText = Cubic.dom.getSelectedText($(iframeName).contentWindow).toString();
+			}, false);
+		}
+		temp(cubicMenuItem);
+		
+		cubicContextMenu.addItem(cubicMenuItem);
+		
+
 		/**
 		 * Assert Option Present
 		 */
-		
 		yuiMenuItem = yuiContextMenu.addItem("Assert Option Present");
 		cubicMenuItem = new Cubic.recorder.RPCContextMenuItem(yuiMenuItem, jsonrpc.recorder);
 	
@@ -145,7 +187,6 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 		/**
 		 * Assert Options Present
 		 */
-		
 		yuiMenuItem = yuiContextMenu.addItem("Assert All Options Present");
 		cubicMenuItem = new Cubic.recorder.RPCContextMenuItem(yuiMenuItem, jsonrpc.recorder);
 	
@@ -186,47 +227,6 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 		cubicMenuItem.execute = function() {
 			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(frameDoc.getElementsByTagName("TITLE")[0]),null);
 		}
-		
-		cubicContextMenu.addItem(cubicMenuItem);
-	
-		/**
-		 * Assert Text %s Present
-		 */
-		yuiMenuItem = yuiContextMenu.addItem("Assert Text '%s' Present");
-		cubicMenuItem = new Cubic.recorder.RPCContextMenuItem(yuiMenuItem, jsonrpc.recorder);
-		
-		cubicMenuItem.respondsTo = function(element) {
-			return this.selectedText;
-		}
-		
-		cubicMenuItem.execute = function() {
-			jsonrpc.recorder.assertTextPresent(this._selectedText, null);
-		}
-		
-		cubicMenuItem.setTarget = function(element) {
-			this._selectedText = this.selectedText;
-			this.setTextFor(element);
-		}
-		
-		cubicMenuItem.generateLabelFor = function(element) {
-			var s = this._selectedText;
-			if(!s) {
-				return "";
-			}
-			if(s.length > 10) {
-				s = s.substring(0, 7) + "...";
-			}
-			return s;
-		}
-		
-		// Temporary hack until we figure out why the selection disappears when the contextmenu is displayed
-		var temp = function(item) {
-			YAHOO.log("observing..")
-			Event.observe(frameDoc.body, 'mouseup', function(e) {
-				item.selectedText = Cubic.dom.getSelectedText($(iframeName).contentWindow).toString();
-			}, false);
-		}
-		temp(cubicMenuItem);
 		
 		cubicContextMenu.addItem(cubicMenuItem);
 	
