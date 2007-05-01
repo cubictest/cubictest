@@ -35,4 +35,8 @@ public class ExtensionPoint extends ConnectionPoint {
 	public void addOutTransition(Transition transition) {
 		transition.disconnect();
 	}
+	
+	public String toString() {
+		return getClass().getSimpleName() + ": Name = " + getName();
+	}
 }

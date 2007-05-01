@@ -97,4 +97,8 @@ public class SubTest extends ConnectionPoint {
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
+	
+	public String toString() {
+		return getClass().getSimpleName() + ": Name = " + getName() + ", FilePath = " + getFilePath();
+	}
 }

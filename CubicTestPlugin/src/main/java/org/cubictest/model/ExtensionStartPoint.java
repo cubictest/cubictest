@@ -41,4 +41,9 @@ public class ExtensionStartPoint extends SubTest{
 	public void setSourceExtensionPointPageId(String sourceExtensionPointPageId) {
 		this.sourceExtensionPointPageId = sourceExtensionPointPageId;
 	}
+	
+	public String toString() {
+		return getClass().getSimpleName() + ": SourceExtensionPointPageId = " + sourceExtensionPointPageId +
+			", sourceExtensionPointName = " + sourceExtensionPointName + ", SubTest = " + super.toString();
+	}
 }

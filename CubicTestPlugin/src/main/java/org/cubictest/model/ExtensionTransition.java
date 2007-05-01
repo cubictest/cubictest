@@ -9,7 +9,8 @@ package org.cubictest.model;
 
 public class ExtensionTransition extends Transition {
 
-	private String id;
+	private String id; //the source page ID
+	
 	private transient ExtensionPoint extensionPoint;
 
 	public ExtensionTransition() {}
@@ -32,5 +33,9 @@ public class ExtensionTransition extends Transition {
 			}
 		}
 		return extensionPoint;
+	}
+	
+	public String toString() {
+		return getClass().getSimpleName() + ": ExtensionPoint (start) = " + getExtensionPoint() + ", end = " + getEnd();
 	}
 }

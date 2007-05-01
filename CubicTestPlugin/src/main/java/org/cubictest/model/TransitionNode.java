@@ -108,11 +108,10 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	 */
 	public void addOutTransition(Transition transition){
 		if (outTransitions.contains(transition)) {
-			Logger.error("Attempted to add duplicate out-transition from " + this.toString() + "! Ignoring it.");
+			outTransitions.remove(transition);
+			Logger.warn("Removing duplicate out-transition from " + this.toString() + ".");
 		}
-		else {
-			outTransitions.add(transition);
-		}
+		outTransitions.add(transition);
 		firePropertyChange(PropertyAwareObject.OUTPUT,null,transition);
 	}
 	/**
