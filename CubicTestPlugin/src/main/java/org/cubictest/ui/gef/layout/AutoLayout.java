@@ -3,6 +3,7 @@ package org.cubictest.ui.gef.layout;
 import java.util.Iterator;
 
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
@@ -32,15 +33,21 @@ public class AutoLayout {
 
 	public void layout(TransitionNode node) {
 		Point position = node.getPosition().getCopy();
+
+		int num = node.getInTransition().getStart().getOutTransitions().size() - 1;
+		if (num < 0) num = 0;
+		
 		try {
-			if(!(node.getInTransition().getStart() instanceof UrlStartPoint)) {
+
+			if((node.getInTransition().getStart() instanceof UrlStartPoint) || (node.getInTransition().getStart() instanceof ExtensionStartPoint)) {
+				position.x = ITestEditor.INITIAL_PAGE_POS_X + (290 * num);
+			} else {				
 				position.x = node.getInTransition().getStart().getPosition().x + node.getInTransition().getStart().getDimension().width / 2;
 				position.y = node.getInTransition().getStart().getPosition().y + node.getInTransition().getStart().getDimension().height + 100;							
-			} else {				
-				position.x += node.getDimension().width / 2;
 			}
-		} catch(NullPointerException e) {
-			position.x += node.getDimension().width / 2;
+		}
+		catch(NullPointerException e) {
+			position.x = ITestEditor.INITIAL_PAGE_POS_X + (290 * num);
 		}
 
 		layout(node, position);

@@ -40,7 +40,6 @@ public class ReconnectTransitionSourceCommand extends Command {
 		super.execute();
 		transition.disconnect();
 		oldSource.removeOutTransition(transition);
-		newSource.addOutTransition(transition);
 		transition.setStart(newSource);
 		transition.connect();
 	}
@@ -52,7 +51,6 @@ public class ReconnectTransitionSourceCommand extends Command {
 		super.undo();
 		transition.disconnect();
 		newSource.removeOutTransition(transition);
-		oldSource.addOutTransition(transition);
 		transition.setStart(oldSource);
 		transition.connect();
 	}

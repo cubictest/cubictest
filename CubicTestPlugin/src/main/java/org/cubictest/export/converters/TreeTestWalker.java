@@ -89,7 +89,31 @@ public class TreeTestWalker<T extends IResultHolder> {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
-	
+
+	/**
+	 * Convert a test to test steps and populate steps into e.g. a step list.
+	 * Converts only path in test that leads to the targetExtensionPoint
+	 * 
+	 * @param test
+	 * @param resultHolder
+	 * @param targetExtensionPoint Convert only path in test that leads to this targetExtensionPoint
+	 */
+	public void convertTest(Test test, ConnectionPoint targetExtensionPoint, T resultHolder) {
+		if (targetExtensionPoint == null) {
+			convertTest(test, resultHolder);
+			return;
+		}
+		
+		try {
+			convertTransitionNode(resultHolder, test.getStartPoint(), targetExtensionPoint);
+		} 
+		catch (IllegalAccessException e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		}
+		catch (InstantiationException e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		}
+	}
 	
 	
 	/**
