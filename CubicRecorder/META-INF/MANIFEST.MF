@@ -10,13 +10,15 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.ui.ide,
  org.eclipse.gef,
- org.eclipse.ui.editors
+ org.eclipse.ui.editors,
+ org.cubictest.exporters.selenium
 Bundle-ClassPath: .,
  lib/jsonrpc-1.0.jar,
  lib/org.mortbay.jetty.jar,
- lib/selenium-java-client-driver.jar,
- lib/selenium-server.jar,
  lib/commons-io-1.0.jar,
- lib/commons-lang-2.0.jar
+ lib/commons-lang-2.0.jar,
+ lib/selenium-java-client-driver.jar,
+ lib/selenium-server.jar
 Eclipse-LazyStart: true
 Bundle-Vendor: cubictest.org
+Export-Package: com.thoughtworks.selenium

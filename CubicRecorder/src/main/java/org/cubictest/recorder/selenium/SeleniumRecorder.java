@@ -19,10 +19,12 @@ import org.openqa.selenium.server.SeleniumServer;
 
 import com.metaparadigm.jsonrpc.JSONRPCServlet;
 import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.SeleniumException;
 
 public class SeleniumRecorder implements IRunnableWithProgress {
-	private DefaultSelenium selenium;
+	private boolean seleniumStarted;
+	private Selenium selenium;
 	private SeleniumServer seleniumProxy;
 	private int port = 4444;
 	private final String url;
@@ -61,6 +63,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		serverThread = new Thread() {
+
 			@Override
 			public void run() {
 		        try {
@@ -73,6 +76,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 					} catch (InterruptedException e) {
 						ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 					}
+					seleniumStarted = true;
 		        } catch (Exception e) {
 					ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 				}
@@ -91,4 +95,13 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 		s.close();
 		return port;
 	}
+
+	public Selenium getSelenium() {
+		return selenium;
+	}
+
+	public boolean isSeleniumStarted() {
+		return seleniumStarted;
+	}
+
 }

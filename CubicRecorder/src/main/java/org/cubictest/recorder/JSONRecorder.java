@@ -32,6 +32,8 @@ public class JSONRecorder {
 	}
 	
 	public boolean assertPresent(String json, String contextCubicId) {
+		if (!recorder.isEnabled()) return false;
+
 		try {
 			PageElement parent = converter.getPageElement(contextCubicId);
 			PageElement pe = converter.createElementFromJson(json);
@@ -49,6 +51,8 @@ public class JSONRecorder {
 	}
 	
 	public boolean assertNotPresent(String json, String contextCubicId) {
+		if (!recorder.isEnabled()) return false;
+
 		try {
 			PageElement pe = converter.createElementFromJson(json);
 			PageElement parent = converter.getPageElement(contextCubicId);
@@ -62,6 +66,8 @@ public class JSONRecorder {
 	}
 	
 	public boolean assertTextPresent(String text, String contextCubicId) {
+		if (!recorder.isEnabled()) return false;
+
 		PageElement pe = new Text();
 		pe.setText(text);
 		PageElement parent = converter.getPageElement(contextCubicId);
@@ -70,10 +76,14 @@ public class JSONRecorder {
 	}
 	
 	public void addAction(String actionType, String jsonElement) {
+		if (!recorder.isEnabled()) return;
+
 		this.addAction(actionType, jsonElement, "");
 	}
 
 	public void addAction(String actionType, String jsonElement, String value) {
+		if (!recorder.isEnabled()) return;
+
 		try {
 			PageElement pe = converter.createElementFromJson(jsonElement);
 			if(pe != null) {

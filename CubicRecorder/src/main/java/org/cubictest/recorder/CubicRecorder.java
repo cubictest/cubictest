@@ -8,6 +8,7 @@ import static org.cubictest.model.ActionType.CLICK;
 
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
@@ -32,6 +33,7 @@ public class CubicRecorder implements IRecorder {
 	private UserInteractionsTransition userInteractionsTransition;
 	private final CommandStack commandStack;
 	private final AutoLayout autoLayout;
+	private boolean enabled;
 	
 	public CubicRecorder(Test test, CommandStack comandStack, AutoLayout autoLayout) {
 		this.test = test;
@@ -74,6 +76,8 @@ public class CubicRecorder implements IRecorder {
 	 * @see org.cubictest.recorder.IRecorder#addPageElement(org.cubictest.model.PageElement)
 	 */
 	public void addPageElement(PageElement element, PageElement parent) {
+		if (!enabled) return;
+		
 		CreatePageElementCommand createElementCmd = new CreatePageElementCommand();
 		createElementCmd.setContext(this.cursor);
 		if(parent != null){
@@ -92,6 +96,7 @@ public class CubicRecorder implements IRecorder {
 	 * @see org.cubictest.recorder.IRecorder#addUserInput(org.cubictest.model.UserInteraction)
 	 */
 	public void addUserInput(UserInteraction action) {
+		if (!enabled) return;
 		
 		if(this.userInteractionsTransition == null) {
 			createNewUserInteractionTransition(this.cursor);
@@ -134,7 +139,7 @@ public class CubicRecorder implements IRecorder {
 	 */
 	private AbstractPage createNewUserInteractionTransition(TransitionNode from) {
 		Page page = new Page();
-		if (from instanceof UrlStartPoint) {
+		if (from instanceof UrlStartPoint || from instanceof ExtensionStartPoint) {
 			int num = from.getOutTransitions().size();
 			page.setPosition(new Point(ITestEditor.INITIAL_PAGE_POS_X + (290 * num), ITestEditor.INITIAL_PAGE_POS_Y));
 		}
@@ -162,13 +167,15 @@ public class CubicRecorder implements IRecorder {
 		
 		/* Add Transition */
 		CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
-		createTransitionCmd.setTransition(ua);
+		if (!(from instanceof ExtensionStartPoint)) {
+			createTransitionCmd.setTransition(ua);
+		}
 		createTransitionCmd.setTest(test);
 		createTransitionCmd.setSource(from);
 		createTransitionCmd.setTarget(page);
 		commandStack.execute(createTransitionCmd);
 
-		autoLayout.layout(page);
+		//autoLayout.layout(page);
 		
 		userInteractionsTransition = ua;
 		return page;
@@ -185,5 +192,13 @@ public class CubicRecorder implements IRecorder {
 		}
 		changePageNameCmd.setName(title);	
 		this.commandStack.execute(changePageNameCmd);
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }

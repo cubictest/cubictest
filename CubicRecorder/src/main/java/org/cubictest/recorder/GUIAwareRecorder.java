@@ -13,6 +13,7 @@ public class GUIAwareRecorder implements IRecorder {
 
 	private final IRecorder recorder;
 	private final Display display;
+	private boolean enabled;
 	
 	/**
 	 * Uses the current thread's Display
@@ -59,5 +60,13 @@ public class GUIAwareRecorder implements IRecorder {
 			}
 		});
 
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
 	}
 }

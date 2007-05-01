@@ -36,4 +36,8 @@ public interface IRecorder {
 	 */
 	public void setStateTitle(String title);
 
+	
+	public void setEnabled(boolean enabled);
+	
+	public boolean isEnabled();
 }
