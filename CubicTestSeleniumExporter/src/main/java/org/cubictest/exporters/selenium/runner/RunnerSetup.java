@@ -24,12 +24,15 @@ import org.cubictest.exporters.selenium.runner.util.Browser;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController;
 import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation;
+import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
+
+import com.thoughtworks.selenium.Selenium;
 
 /**
  * The runner that starts the Selenium servers and test system and starts traversal of the test model.
@@ -43,11 +46,19 @@ public class RunnerSetup implements IRunnableWithProgress {
 	SeleniumController controller;
 	private static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
 	private Display display;
+	private Selenium selenium;
+	private ExtensionPoint targetExPoint;
 
 	
-	public RunnerSetup(Test test, Display display) {
+	public RunnerSetup(Test test, ExtensionPoint targetExPoint, Display display) {
 		this.test = test;
+		this.targetExPoint = targetExPoint;
 		this.display = display;
+	}
+
+	public RunnerSetup(Test test, Selenium selenium) {
+		this.test = test;
+		this.selenium = selenium;
 	}
 	
 	public void run(IProgressMonitor monitor) {
@@ -57,6 +68,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 			controller.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
 			controller.setBrowser(Browser.FIREFOX);
 			controller.setDisplay(display);
+			controller.setSelenium(selenium);
 			
 			//start Selenium (browser and server), guard by timeout:
 			controller.setOperation(Operation.START);
@@ -76,7 +88,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 			
 			monitor.beginTask("Traversing the test model...", IProgressMonitor.UNKNOWN);
 			
-			testWalker.convertTest(test, seleniumHolder);
+			testWalker.convertTest(test, targetExPoint, seleniumHolder);
 
 			monitor.done();
 
@@ -137,6 +149,10 @@ public class RunnerSetup implements IRunnableWithProgress {
 	    FutureTask<T> t = new FutureTask<T>(c);
 	    THREADPOOL.execute(t);
 	    return t.get(timeout, timeUnit);
+	}
+
+	public void setSelenium(Selenium selenium) {
+		this.selenium = selenium;
 	}
 
 

@@ -15,6 +15,8 @@ import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.swt.widgets.Display;
 
+import com.thoughtworks.selenium.Selenium;
+
 /**
  * Controller that starts/stops the Selenium Server and Selenium test system (SeleniumHolder).
  * Implements callable, and hence supports timeout of start/stop of Selenium.
@@ -32,6 +34,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 	private Browser browser;
 	private boolean seleniumStarted;
 	private Display display;
+	private Selenium selenium;
 	
 	/**
 	 * Method to start/stop the Selenium proxy server and Selenium test system.
@@ -40,20 +43,31 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 	 */
 	public SeleniumHolder call() throws InterruptedException {
 		if (START.equals(operation)) {
-			server = new CubicSeleniumServer();
-			server.start();
-			while (!server.isStarted()) {
-				//wait for server thread to start
-				Thread.sleep(100);
+			if (selenium == null) {
+				server = new CubicSeleniumServer();
+				server.start();
+				while (!server.isStarted()) {
+					//wait for server thread to start
+					Thread.sleep(100);
+				}
+			}
+			else {
+				//We got a Selenium from Client process. It should already have a proxy server configured and started
 			}
 
-			Logger.info("Opening test browser and connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + initialUrlStartPoint);
-			seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), initialUrlStartPoint.getBeginAt(), display);
-			seleniumHolder.getSelenium().start();
+			if (selenium == null) {
+				Logger.info("Opening test browser and connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + initialUrlStartPoint);
+				seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), initialUrlStartPoint.getBeginAt(), display);
+				seleniumHolder.getSelenium().start();
+				//open start URL and check connection (that browser profiles has been set correctly):
+				seleniumHolder.getSelenium().open(initialUrlStartPoint.getBeginAt());
+			}
+			else {
+				//use custom Selenium, e.g. from the CubicRecorder.
+				Logger.info("Using Selenium from another plugin.");
+				seleniumHolder = new SeleniumHolder(selenium, display);
+			}
 			seleniumStarted = true;
-			
-			//open start URL and check connection (that browser profiles has been set correctly):
-			seleniumHolder.getSelenium().open(initialUrlStartPoint.getBeginAt());
 			
 			//using two started variables, as one of them has sanity check of invoking start URL built into it.
 			seleniumHolder.setSeleniumStarted(true);
@@ -104,5 +118,9 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 
 	public void setDisplay(Display display) {
 		this.display = display;
+	}
+
+	public void setSelenium(Selenium selenium) {
+		this.selenium = selenium;
 	}
 }

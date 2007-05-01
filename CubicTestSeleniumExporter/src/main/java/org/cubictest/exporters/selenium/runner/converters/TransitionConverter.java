@@ -64,7 +64,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			}
 		}
 		if (waitForPageToLoad) {
-			waitForPageToLoad(seleniumHolder, 15);
+			waitForPageToLoad(seleniumHolder, 30);
 		}
 	}
 

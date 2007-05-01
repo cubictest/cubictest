@@ -36,6 +36,11 @@ public class SeleniumHolder extends ContextHolder {
 	private UrlStartPoint handledUrlStartPoint;
 	private final Display display;
 	
+	public SeleniumHolder(Selenium selenium, Display display) {
+		//use Selenium from client e.g. the CubicRecorder
+		this.selenium = selenium;
+		this.display = display;
+	}
 	
 	public SeleniumHolder(int port, String browser, String initialUrl, Display display) {
 		this.display = display;
@@ -123,6 +128,5 @@ public class SeleniumHolder extends ContextHolder {
 	public UrlStartPoint getHandledUrlStartPoint() {
 		return handledUrlStartPoint;
 	}
-	
 
 }

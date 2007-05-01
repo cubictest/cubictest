@@ -18,3 +18,5 @@ Bundle-ClassPath: .,
  lib/selenium-server.jar,
  lib/commons-io-1.0.jar
 Bundle-Vendor: cubictest.org
+Export-Package: com.thoughtworks.selenium,
+ org.cubictest.exporters.selenium.ui
