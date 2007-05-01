@@ -101,7 +101,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 				}
 			}
 			catch (Exception e) {
-				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+				ErrorHandler.logAndShowErrorDialog(e);
 				stopSelenium(autoLayout);
 			}
 			
@@ -121,8 +121,9 @@ public class RecordEditorAction implements IEditorActionDelegate {
 			if (autoLayout != null) {
 				autoLayout.setPageSelected(null);
 			}
-		} catch(Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		}
+		catch(Exception e) {
+			ErrorHandler.logAndRethrow(e);
 		}
 	}
 
