@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.recorder.IRecorder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -55,9 +56,8 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 		try {
 			selenium.stop();
 			seleniumProxy.stop();
-//			serverThread.stop();		
 		} catch(SeleniumException e) {
-			ErrorHandler.logAndShowErrorDialog(e);
+			Logger.error(e, e.toString());
 		}
 	}
 
