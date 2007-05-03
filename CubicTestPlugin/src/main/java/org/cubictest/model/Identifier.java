@@ -7,6 +7,7 @@ package org.cubictest.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.utils.CubicCloner;
 
 
@@ -153,5 +154,9 @@ public class Identifier implements Cloneable, SationObserver{
 	
 	public boolean isNotIndifferent() {
 		return probability != 0;
+	}
+	
+	public boolean isNotBlank() {
+		return StringUtils.isNotBlank(getValue());
 	}
 }
