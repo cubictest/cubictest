@@ -218,7 +218,11 @@ public class HtmlPageCreator {
 							attributeValue = attributeValue.replaceAll("return false;", "");
 						}
 						
-						attributeValue += "UserInteractions.test('" + uaId + "', " + i + ", this); return false;";
+						attributeValue += "UserInteractions.test('" + uaId + "', " + i + ", this);";
+						if (element.getName().equalsIgnoreCase("a")) {
+							//intercept links
+							attributeValue += " return false;";
+						}
 						element.setAttribute(actionAttribute, attributeValue);
 						if(element.getAttribute("class") == null || element.getAttribute("class").toString().indexOf("actionable") == -1) {
 							String classes = element.getAttributeValue("class");
