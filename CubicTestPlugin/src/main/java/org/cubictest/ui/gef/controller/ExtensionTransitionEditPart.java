@@ -89,8 +89,8 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 				//SubTest
 				SubTest start = (SubTest) getModel().getStart();
 				ErrorHandler.showWarnDialog("The extension point that was used in subtest \"" + start.getName() +  
-						"\" was not found in that subtest. " +
-						"Press OK to reselect an extension point.");
+						"\" was not found in that subtest.\n" +
+						"Press OK to select a new extension point to continue from.");
 				
 				//open dialog to select which exPoint to extend from:
 				TestEditPart testPart = null;
