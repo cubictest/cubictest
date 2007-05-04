@@ -14,6 +14,7 @@ import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 
 
 /**
@@ -225,6 +226,14 @@ public class Test extends PropertyAwareObject {
 	
 	public String getFilePath() {
 		return filePath.getLocation().toOSString();
+	}
+	
+	public IFile getFile() {
+		return filePath;
+	}
+	
+	public IProject getProject() {
+		return filePath.getProject();
 	}
 	
 	public List<SubTest> getSubTests() {

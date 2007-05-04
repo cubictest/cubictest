@@ -7,11 +7,14 @@
 package org.cubictest.persistence;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.cubictest.common.exception.CubicException;
+import org.cubictest.common.exception.TestNotFoundException;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.Test;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -67,6 +70,9 @@ public class TestPersistance {
 		try {
 			xml = FileUtils.readFileToString(file, "ISO-8859-1");
 			xml = LegacyUpgrade.upgradeIfNecessary(xml, project);
+		} catch (FileNotFoundException e) {
+			Logger.error(e, "Error loading test.");
+			throw new TestNotFoundException(e.getMessage());
 		} catch (IOException e) {
 			ErrorHandler.logAndRethrow(e);
 		}

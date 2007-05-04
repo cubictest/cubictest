@@ -7,6 +7,7 @@ package org.cubictest.ui.wizards;
 import java.util.Map;
 
 import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.Test;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -27,6 +28,7 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 	
 	private Map<ExtensionPoint, IFile> extensionPoints;
 	private boolean pageShown;
+	private Test test;
 	
 	List list;
 	private ExtensionPoint extensionPoint = null;
@@ -64,7 +66,7 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 		extentionPointNames = new String[extensionPoints.size()];
 		int i = 0;
 		for(ExtensionPoint ep : extensionPoints.keySet()) {
-			extentionPointNames[i++] = ep.getName() + " - " + extensionPoints.get(ep).getFullPath().toString();
+			extentionPointNames[i++] = getRowLabel(ep);
 		}
 		list.setItems(extentionPointNames);
 		list.addListener(SWT.Selection, this);
@@ -76,7 +78,22 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 			setSelectedStartpoint(defaultStartpoint);
 		}
 		
+		if (test != null) {
+			GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+			Label nameLabel = new Label(container, SWT.FILL);
+			nameLabel.setText("Test: " + test.getName() + " (" + test.getFile().getName() + ")");
+			gridData.horizontalSpan = 2;
+			nameLabel.setLayoutData(gridData);			
+		}
 		setControl(container);
+	}
+	
+	private String getRowLabel(ExtensionPoint ep) {
+		String result = ep.getName();
+		if (test == null) {
+			result += " - " + extensionPoints.get(ep).getFullPath().toString();
+		}
+		return result;
 	}
 	
 	public void handleEvent(Event event) {
@@ -91,7 +108,7 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 	private void setSelectedStartpoint(int index) {
 		String point = extentionPointNames[index];
 		for(ExtensionPoint ep : extensionPoints.keySet()) {
-			if(point.equals(ep.getName() + " - " + extensionPoints.get(ep).getFullPath().toString())){
+			if(point.equals(getRowLabel(ep))){
 				extensionPoint = ep;
 				file = extensionPoints.get(ep);
 				break;
@@ -117,4 +134,8 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 	public void setPageShown(boolean pageShown) {
 		this.pageShown = pageShown;
 	}
+	public void setTest(Test test) {
+		this.test = test;
+	}
+	
 }

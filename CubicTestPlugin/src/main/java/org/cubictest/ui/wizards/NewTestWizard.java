@@ -60,13 +60,13 @@ import org.eclipse.ui.ide.IDE;
  */
 
 public class NewTestWizard extends Wizard implements INewWizard {
-	private TestDetailsPage page;
-	private StartPointTypeSelectionPage startPointTypeSelectionPage;
-	private ExtentionStartPointSelectorPage extentionStartPointSelectorPage;
-	private ISelection selection;
-	private NewUrlStartPointPage newUrlStartPointPage;
-	private Map<ExtensionPoint, IFile> extensionPointMap;
-	private IProject project;
+	TestDetailsPage testDetailsPage;
+	StartPointTypeSelectionPage startPointTypeSelectionPage;
+	ExtentionStartPointSelectorPage extentionStartPointSelectorPage;
+	ISelection selection;
+	NewUrlStartPointPage newUrlStartPointPage;
+	Map<ExtensionPoint, IFile> extensionPointMap;
+	IProject project;
 
 	/**
 	 * Constructor for NewTestWizard.
@@ -82,8 +82,8 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public void addPages() {
-		page = new TestDetailsPage(selection, !extensionPointMap.isEmpty());
-		addPage(page);
+		testDetailsPage = new TestDetailsPage(selection, !extensionPointMap.isEmpty());
+		addPage(testDetailsPage);
 		startPointTypeSelectionPage = new StartPointTypeSelectionPage();
 		addPage(startPointTypeSelectionPage);
 		newUrlStartPointPage = new NewUrlStartPointPage(startPointTypeSelectionPage);
@@ -98,19 +98,19 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		final String containerName = page.getContainerName();
-		final String fileName = page.getFileName();
-		final String name = page.getName();
-		final String description = page.getDescription();
+		final String containerName = testDetailsPage.getContainerName();
+		final String fileName = testDetailsPage.getFileName();
+		final String name = testDetailsPage.getName();
+		final String description = testDetailsPage.getDescription();
 		final String url = newUrlStartPointPage.getUrl();
-		final ExtensionPoint ep = extentionStartPointSelectorPage.getExtensionPoint();
+		final ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
 		final IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
-		final boolean hasUrl = startPointTypeSelectionPage.getNextPage().equals(newUrlStartPointPage);
+		final boolean useUrlStartPoint = startPointTypeSelectionPage.getNextPage().equals(newUrlStartPointPage);
 		
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
-					doFinish(containerName, fileName, name, description, url, ep, file, hasUrl, monitor);
+					doFinish(containerName, fileName, name, description, url, extensionPoint, file, useUrlStartPoint, monitor);
 				} catch (CoreException e) {
 					throw new InvocationTargetException(e);
 				} finally {
@@ -141,9 +141,9 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		String name,
 		String description,
 		String url,
-		ExtensionPoint ep,
+		ExtensionPoint extensionPoint,
 		IFile startTestFile,
-		boolean hasUrl,
+		boolean useUrlStartPoint,
 		IProgressMonitor monitor)
 		throws CoreException {
 		
@@ -159,12 +159,12 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		
 		try {
 			Test emptyTest = null;
-			if (hasUrl)
+			if (useUrlStartPoint)
 				emptyTest = WizardUtils.createEmptyTest("test" + System.currentTimeMillis(), 
 						name, description, url);
 			else{
 				emptyTest = WizardUtils.createEmptyTest("test" + System.currentTimeMillis(), 
-						name, description, startTestFile, ep);
+						name, description, startTestFile, extensionPoint);
 			}
 			String xml = new CubicTestXStream().toXML(emptyTest);
 			FileUtils.writeStringToFile(file.getLocation().toFile(), xml, "ISO-8859-1");
@@ -232,7 +232,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 			}
 			IResourceMonitor monitor = new ResourceMonitor(project);
 			CustomElementLoader loader = new CustomElementLoader(project, monitor);
-			traverseFolder(project, extensionPointMap, monitor, loader);
+			populateExtensionPointMap(project, extensionPointMap, monitor, loader);
 		} catch (RuntimeException e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}		
@@ -253,7 +253,12 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		return false;
 	}
 	
-	private void traverseFolder(IContainer resource, Map<ExtensionPoint,IFile> map, 
+	public void populateExtensionPointMap(IContainer resource, Map<ExtensionPoint,IFile> map, 
+			IResourceMonitor monitor, CustomElementLoader loader) throws CoreException {
+		traverseFolder(project, extensionPointMap, monitor, loader);
+	}
+	
+	protected void traverseFolder(IContainer resource, Map<ExtensionPoint,IFile> map, 
 			IResourceMonitor monitor, CustomElementLoader loader) throws CoreException{
 		for (IResource entry : resource.members()) {
 			if (entry.getType() == IResource.FOLDER) {

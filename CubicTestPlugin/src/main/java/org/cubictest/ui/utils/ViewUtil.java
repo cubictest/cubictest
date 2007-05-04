@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.cubictest.common.exception.CubicException;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
@@ -209,17 +210,20 @@ public class ViewUtil {
 	 * @param editPart
 	 * @return
 	 */
-	public static TestEditPart getSurroundingTestPart(PropertyChangePart editPart) {
+	public static TestEditPart getSurroundingTestPart(EditPart editPart) {
+		if (editPart == null) {
+			Logger.warn("Could not get test part. Supplied EditPart was null");
+			return null;
+		}
 		if (editPart instanceof TestEditPart) {
 			return (TestEditPart) editPart;
 		}
 		
-		editPart = (PropertyChangePart) editPart.getParent();
+		editPart = (EditPart) editPart.getParent();
 		
 		while (editPart != null && !(editPart instanceof TestEditPart)) {
-			editPart = (PropertyChangePart) editPart.getParent();
+			editPart = (EditPart) editPart.getParent();
 		}
-		
 		
 		if (!(editPart instanceof TestEditPart)) {
 			throw new CubicException("Did not find surronding TestEditPart for edit part: " + editPart);

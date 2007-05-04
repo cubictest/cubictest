@@ -4,8 +4,16 @@
  */
 package org.cubictest.common.exception;
 
-public class ResourceNotCubicTestFileException extends RuntimeException {
+public class ResourceNotCubicTestFileException extends CubicException {
 	private static final long serialVersionUID = 1L;
+	
+	public ResourceNotCubicTestFileException() {
+		super("");
+	}
+	
+	public ResourceNotCubicTestFileException(String message) {
+		super(message);
+	}
 	
 	@Override
 	public String toString() {

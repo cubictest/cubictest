@@ -40,11 +40,7 @@ public class WizardUtils {
 
 		Test test = createTest(id,name,description);
 
-		ExtensionStartPoint esp = new ExtensionStartPoint(file.getFullPath().toPortableString());
-		esp.setProject(file.getProject());
-		esp.setSourceExtensionPointName(point.getName());
-		esp.setSourceExtensionPointPageId(point.getPageId());
-		esp.setPosition(new Point(4, 4));
+		ExtensionStartPoint esp = createExtensionStartPoint(file, point, test);
 		test.setStartPoint(esp);
 		
 		ExtensionTransition startTransition = 
@@ -52,6 +48,15 @@ public class WizardUtils {
 		test.addTransition(startTransition);
 		
 		return test;
+	}
+
+	public static ExtensionStartPoint createExtensionStartPoint(IFile file, ExtensionPoint point, Test test) {
+		ExtensionStartPoint esp = new ExtensionStartPoint(file.getFullPath().toPortableString());
+		esp.setProject(file.getProject());
+		esp.setSourceExtensionPointName(point.getName());
+		esp.setSourceExtensionPointPageId(point.getPageId());
+		esp.setPosition(new Point(4, 4));
+		return esp;
 	}
 	
 	/**
@@ -61,17 +66,21 @@ public class WizardUtils {
 			String description, String url) {
 		Test test = createTest(id,name,description);
 		
-		UrlStartPoint startpoint = new UrlStartPoint();
-		startpoint.setId(id);
-		startpoint.setBeginAt(url);
-		startpoint.setName("URL");
-		startpoint.setPosition(new Point(4, 4));
+		UrlStartPoint startpoint = createUrlStartPoint(url, test);
 		test.setStartPoint(startpoint);
 		
 		SimpleTransition startTransition = new SimpleTransition(startpoint, test.getPages().get(0));	
 		test.addTransition(startTransition);
 		
 		return test;
+	}
+
+	public static UrlStartPoint createUrlStartPoint(String url, Test test) {
+		UrlStartPoint startpoint = new UrlStartPoint();
+		startpoint.setBeginAt(url);
+		startpoint.setName("URL");
+		startpoint.setPosition(new Point(4, 4));
+		return startpoint;
 	}
 	
 	private static Test createTest(String id, String name, String description){
