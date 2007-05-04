@@ -4,16 +4,16 @@
  */
 package org.cubictest.recorder.ui;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
+import org.cubictest.model.Page;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
+import org.cubictest.model.Transition;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.recorder.CubicRecorder;
 import org.cubictest.recorder.GUIAwareRecorder;
@@ -52,11 +52,17 @@ public class RecordEditorAction implements IEditorActionDelegate {
 	public void run(IAction action) {
 		
 		AutoLayout autoLayout = new AutoLayout(testEditor);
+		Test test = testEditor.getTest();
 
 		if(!running) {
 			setRunning(true);
 
-			Test test = testEditor.getTest();
+			if (test.getStartPoint() instanceof ExtensionStartPoint && test.getStartPoint().getOutTransitions().size() >= 1 && !firstPageIsEmpty(test)) {
+				ErrorHandler.showWarnDialog("Could not record from extension start point, as test is not empty.\n\n" +
+						"Tip: Create a new test and record from there.");
+				return; //ModelUtil should show error message.
+			}
+
 
 			IRecorder cubicRecorder = new CubicRecorder(test, testEditor.getCommandStack(), autoLayout);
 			IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder);
@@ -73,7 +79,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 
 				if (test.getStartPoint() instanceof ExtensionStartPoint) {
 					ErrorHandler.showInfoDialog("Test browser will be forwarded to start point for test." + "\n" + 
-							"This may take a while.");
+							"Press OK to continue.");
 					//play forward to extension start point
 					long now = System.currentTimeMillis();
 					while (!seleniumRecorder.isSeleniumStarted()) {
@@ -155,4 +161,12 @@ public class RecordEditorAction implements IEditorActionDelegate {
 		}
 	}
 
+	public boolean firstPageIsEmpty(Test test) {
+		for(Transition t : test.getStartPoint().getOutTransitions()) {
+			if(t.getEnd() instanceof Page && ((Page)t.getEnd()).getElements().size() == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
