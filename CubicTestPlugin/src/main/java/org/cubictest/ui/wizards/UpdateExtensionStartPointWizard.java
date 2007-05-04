@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
@@ -56,17 +57,13 @@ public class UpdateExtensionStartPointWizard extends UpdateStartPointWizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		final ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
-		final IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
-
 		Transition inTrans = firstPage.getInTransition();
 		if (inTrans != null) {
 			firstPage.removeInTransition();
 			test.removeTransition(inTrans);
 		}
 
-		ConnectionPoint startPoint = WizardUtils.createExtensionStartPoint(file, extensionPoint, test);
-		test.setStartPoint(startPoint);
+		ConnectionPoint startPoint = test.getStartPoint();
 		exTrans = new ExtensionTransition(startPoint, firstPage, extentionStartPointSelectorPage.getExtensionPoint());
 		test.addTransition(exTrans);
 		return true;

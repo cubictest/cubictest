@@ -47,6 +47,11 @@ public class ModelUtil {
 		if (sourceNode instanceof Common && !(targetNode instanceof Page))
 			return TRANSITION_EDIT_NOT_VALID;
 
+		if (sourceNode instanceof ExtensionStartPoint && sourceNode.getOutTransitions().size() >= 1) {
+			ErrorHandler.showInfoDialog("Only one out-transition is allowed from Extension start points.\n" +
+			"Hint: Create a tree after the first page/state, or create a new test.");
+			return TRANSITION_EDIT_NOT_VALID;
+		}
 		
 		if (isReconnectingSourceNode) {
 			if (sourceNode.hasInTransition() && sourceNode.getInTransition().getStart().equals(targetNode)) {

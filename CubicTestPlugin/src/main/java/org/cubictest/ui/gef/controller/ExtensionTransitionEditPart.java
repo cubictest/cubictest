@@ -71,6 +71,8 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 		}
 		
 		if (getModel().getExtensionPoint() == null) {
+			//ExtensionStartPoint
+			
 			if (getModel().getStart() instanceof ExtensionStartPoint) {
 				ExtensionStartPoint start = (ExtensionStartPoint) getModel().getStart();
 				ErrorHandler.showWarnDialog("The extension point \"" + start.getSourceExtensionPointName() + "\" used as start point " +
