@@ -73,17 +73,19 @@ import org.eclipse.swt.widgets.Display;
  * 
  * Creates the Palette in the grapical test editor.
  */
-public class PaletteRootCreator extends PaletteRoot implements IClassChangeListener {
+public class PaletteRootCreator extends PaletteRoot implements
+		IClassChangeListener {
 
 	private PaletteDrawer customTestSteps;
-	private CustomElementLoader customTestStepLoader;
 
+	private CustomElementLoader customTestStepLoader;
 
 	/**
 	 * @param project
 	 * 
 	 */
-	public PaletteRootCreator(IProject project, CustomElementLoader customTestStepLoader) {
+	public PaletteRootCreator(IProject project,
+			CustomElementLoader customTestStepLoader) {
 		super();
 		this.customTestStepLoader = customTestStepLoader;
 		customTestStepLoader.addClassChangeListener(this);
@@ -100,173 +102,201 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 
 		setDefaultEntry(tool);
 
-		PaletteSeparator separator = new PaletteSeparator("palette.seperator"); 
-		separator.setUserModificationPermission(PaletteEntry.PERMISSION_NO_MODIFICATION);
-		controls.add(separator);		
+		PaletteSeparator separator = new PaletteSeparator("palette.seperator");
+		separator
+				.setUserModificationPermission(PaletteEntry.PERMISSION_NO_MODIFICATION);
+		controls.add(separator);
 
-		
 		// -- Creates the Controls --
 		tool = new CombinedTemplateCreationEntry(
 				"Page/State",
-				"Create a new page/state, representing a stable state of the application between user interations", Page.class,
-				new DataCreationFactory(Page.class), CubicTestImageRegistry
-						.getDescriptor(PAGE_IMAGE), null);
+				"Create a new page/state, representing a stable state of the application between user interations",
+				Page.class, new DataCreationFactory(Page.class),
+				CubicTestImageRegistry.getDescriptor(PAGE_IMAGE),
+				CubicTestImageRegistry.getDescriptor(PAGE_IMAGE));
 		controls.add(tool);
-		tool = new CombinedTemplateCreationEntry("Common",
-				"Create a new Common used for holding elements common to several pages/states", Common.class, new DataCreationFactory(
-						Common.class), CubicTestImageRegistry
-						.getDescriptor(COMMON_IMAGE), null);
-		controls.add(tool);
-		
-//		tool = new CombinedTemplateCreationEntry("JavaScript Alert",
-//				"Create a new JavaScript Alert", Image.class, new DataCreationFactory(
-//						Alert.class), CubicTestImageRegistry.getDescriptor(ALERT_IMAGE),
-//				null);
-//		controls.add(tool);
-//		
-//		tool = new CombinedTemplateCreationEntry("JavaScript Confirm",
-//				"Create a new JavaScript Confirm", Image.class, new DataCreationFactory(
-//						Confirm.class), CubicTestImageRegistry.getDescriptor(CONFIRM_IMAGE),
-//				null);
-//		controls.add(tool);
-//		
-//		tool = new CombinedTemplateCreationEntry("JavaScript Prompt",
-//				"Create a new JavaScript Prompt", Image.class, new DataCreationFactory(
-//						Prompt.class), CubicTestImageRegistry.getDescriptor(PROMPT_IMAGE),
-//				null);
-//		controls.add(tool);
-
-		tool = new CombinedTemplateCreationEntry("Extension Point",
-				"Add an extension point that other tests can start from or include", ExtensionPoint.class,
-				new DataCreationFactory(ExtensionPoint.class), CubicTestImageRegistry
-						.getDescriptor(EXTENSION_POINT_IMAGE), null);
+		tool = new CombinedTemplateCreationEntry(
+				"Common",
+				"Create a new Common used for holding elements common to several pages/states",
+				Common.class, new DataCreationFactory(Common.class),
+				CubicTestImageRegistry.getDescriptor(COMMON_IMAGE),
+				CubicTestImageRegistry.getDescriptor(COMMON_IMAGE));
 		controls.add(tool);
 
-//		tool = new CombinedTemplateCreationEntry("Custom Step",
-//				"Create a new Custom Step that lets you write code to do operations not available in the graphical test editor",
-//				CustomTestStep.class, new CustomTestStepCreationFactory(customTestStepLoader), 
-//				CubicTestImageRegistry.getDescriptor(CUSTOM_STEP_IMAGE), null);
-//		controls.add(tool);
-			
+		// tool = new CombinedTemplateCreationEntry("JavaScript Alert",
+		// "Create a new JavaScript Alert", Image.class, new
+		// DataCreationFactory(
+		// Alert.class), CubicTestImageRegistry.getDescriptor(ALERT_IMAGE),
+		// CubicTestImageRegistry.getDescriptor(ALERT_IMAGE));
+		// controls.add(tool);
+		//		
+		// tool = new CombinedTemplateCreationEntry("JavaScript Confirm",
+		// "Create a new JavaScript Confirm", Image.class, new
+		// DataCreationFactory(
+		// Confirm.class), CubicTestImageRegistry.getDescriptor(CONFIRM_IMAGE),
+		// CubicTestImageRegistry.getDescriptor(CONFIRM_IMAGE));
+		// controls.add(tool);
+		//		
+		// tool = new CombinedTemplateCreationEntry("JavaScript Prompt",
+		// "Create a new JavaScript Prompt", Image.class, new
+		// DataCreationFactory(
+		// Prompt.class), CubicTestImageRegistry.getDescriptor(PROMPT_IMAGE),
+		// CubicTestImageRegistry.getDescriptor(PROMPT_IMAGE));
+		// controls.add(tool);
+
+		tool = new CombinedTemplateCreationEntry(
+				"Extension Point",
+				"Add an extension point that other tests can start from or include",
+				ExtensionPoint.class, new DataCreationFactory(
+						ExtensionPoint.class), CubicTestImageRegistry
+						.getDescriptor(EXTENSION_POINT_IMAGE),
+				CubicTestImageRegistry.getDescriptor(EXTENSION_POINT_IMAGE));
+		controls.add(tool);
+
+		// tool = new CombinedTemplateCreationEntry("Custom Step",
+		// "Create a new Custom Step that lets you write code to do operations
+		// not available in the graphical test editor",
+		// CustomTestStep.class, new
+		// CustomTestStepCreationFactory(customTestStepLoader),
+		// CubicTestImageRegistry.getDescriptor(CUSTOM_STEP_IMAGE), null);
+		// controls.add(tool);
+
 		// -- Creating User interactions --
 		tool = new CombinedTemplateCreationEntry(
 				"User Interaction",
 				"Add a new User Interaction to a page (for changing the state of the page, e.g. filling out a form)",
-				new DataCreationFactory(UserInteractionsTransition.class), CubicTestImageRegistry.getDescriptor(USER_INTERACTION_IMAGE), null);
+				new DataCreationFactory(UserInteractionsTransition.class),
+				CubicTestImageRegistry.getDescriptor(USER_INTERACTION_IMAGE),
+				CubicTestImageRegistry.getDescriptor(USER_INTERACTION_IMAGE));
 		controls.add(tool);
 
 		// -- Creating Connections --
-		tool = new ConnectionCreationToolEntry("Connection",
-				"Create a new Connection or User Interaction. Use \"drag and drop\" from source page to target page", 
-				new DataCreationFactory(Transition.class), CubicTestImageRegistry.getDescriptor(CONNECTION_IMAGE), null);
+		tool = new ConnectionCreationToolEntry(
+				"Connection",
+				"Create a new Connection or User Interaction. Use \"drag and drop\" from source page to target page",
+				new DataCreationFactory(Transition.class),
+				CubicTestImageRegistry.getDescriptor(CONNECTION_IMAGE),
+				CubicTestImageRegistry.getDescriptor(CONNECTION_IMAGE));
 		tool.setToolClass(ConnectionDragCreationTool.class);
-		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED, Boolean.TRUE);
+		tool.setToolProperty(AbstractTool.PROPERTY_UNLOAD_WHEN_FINISHED,
+				Boolean.TRUE);
 		controls.add(tool);
 
-
 		// -- Creating Contexts --
-		tool = new CombinedTemplateCreationEntry("Context",
+		tool = new CombinedTemplateCreationEntry(
+				"Context",
 				"Create a new Context used for identyfying a part of the page. Other page elements can be put into the context",
 				SimpleContext.class, new DataCreationFactory(
-						SimpleContext.class), CubicTestImageRegistry.getDescriptor(CONTEXT_IMAGE), null);
+						SimpleContext.class), CubicTestImageRegistry
+						.getDescriptor(CONTEXT_IMAGE), CubicTestImageRegistry
+						.getDescriptor(CONTEXT_IMAGE));
 		pageElements.add(tool);
-		
-//		tool = new CombinedTemplateCreationEntry("Row",
-//				"Creates a new table Row",
-//				Row.class, new DataCreationFactory(
-//						Row.class), CubicTestImageRegistry.getDescriptor(ROW_IMAGE), null);
-//		pageElements.add(tool);
 
-//		tool = new CombinedTemplateCreationEntry("Frame",
-//				"Creates a new Frame",
-//				Frame.class, new DataCreationFactory(
-//						Frame.class), null, null);
-//		pageElements.add(tool);
+		// tool = new CombinedTemplateCreationEntry("Row",
+		// "Creates a new table Row",
+		// Row.class, new DataCreationFactory(
+		// Row.class), CubicTestImageRegistry.getDescriptor(ROW_IMAGE),
+		// CubicTestImageRegistry.getDescriptor(ROW_IMAGE));
+		// pageElements.add(tool);
 
-		
-		
+		// tool = new CombinedTemplateCreationEntry("Frame",
+		// "Creates a new Frame",
+		// Frame.class, new DataCreationFactory(
+		// Frame.class), null, null);
+		// pageElements.add(tool);
+
 		// -- Basic Page Elements --
-				
+
 		tool = new CombinedTemplateCreationEntry("Text",
-				"Check for a text on the page", Text.class, new DataCreationFactory(
-						Text.class), CubicTestImageRegistry.getDescriptor(TEXT_IMAGE),
-				null);
+				"Check for a text on the page", Text.class,
+				new DataCreationFactory(Text.class), CubicTestImageRegistry
+						.getDescriptor(TEXT_IMAGE), CubicTestImageRegistry
+						.getDescriptor(TEXT_IMAGE));
 		pageElements.add(tool);
-		
+
 		tool = new CombinedTemplateCreationEntry("Link",
-				"Check for a link on the page", Link.class, new DataCreationFactory(
-						Link.class), CubicTestImageRegistry.getDescriptor(LINK_IMAGE),
-				null);
+				"Check for a link on the page", Link.class,
+				new DataCreationFactory(Link.class), CubicTestImageRegistry
+						.getDescriptor(LINK_IMAGE), CubicTestImageRegistry
+						.getDescriptor(LINK_IMAGE));
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Button",
-				"Check for a button on the page.",
-				Button.class, new DataCreationFactory(Button.class),
-				CubicTestImageRegistry.getDescriptor(BUTTON_IMAGE), null);
+				"Check for a button on the page.", Button.class,
+				new DataCreationFactory(Button.class), CubicTestImageRegistry
+						.getDescriptor(BUTTON_IMAGE), CubicTestImageRegistry
+						.getDescriptor(BUTTON_IMAGE));
 		pageElements.add(tool);
 
 		// -- Creating Form Elements --
 		tool = new CombinedTemplateCreationEntry("TextField",
 				"Check for a text field on the page", TextField.class,
-				new DataCreationFactory(TextField.class), CubicTestImageRegistry
-						.getDescriptor(TEXT_FIELD_IMAGE), null);
+				new DataCreationFactory(TextField.class),
+				CubicTestImageRegistry.getDescriptor(TEXT_FIELD_IMAGE),
+				CubicTestImageRegistry.getDescriptor(TEXT_FIELD_IMAGE));
 		pageElements.add(tool);
-
 
 		tool = new CombinedTemplateCreationEntry("CheckBox",
 				"Check for a check box on the page", Checkbox.class,
 				new DataCreationFactory(Checkbox.class), CubicTestImageRegistry
-						.getDescriptor(CHECKBOX_UNCHECKED_IMAGE), null);
+						.getDescriptor(CHECKBOX_UNCHECKED_IMAGE),
+				CubicTestImageRegistry.getDescriptor(CHECKBOX_UNCHECKED_IMAGE));
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("RadioButton",
-				"Check for a radio button on the page",
-				RadioButton.class, new DataCreationFactory(RadioButton.class),
-				CubicTestImageRegistry.getDescriptor(RADIO_BUTTON_CHECKED_IMAGE), null);
+				"Check for a radio button on the page", RadioButton.class,
+				new DataCreationFactory(RadioButton.class),
+				CubicTestImageRegistry
+						.getDescriptor(RADIO_BUTTON_CHECKED_IMAGE),
+				CubicTestImageRegistry
+						.getDescriptor(RADIO_BUTTON_CHECKED_IMAGE));
 		pageElements.add(tool);
 
-		
 		tool = new CombinedTemplateCreationEntry("SelectList",
 				"Check for a select list on the page", Select.class,
 				new DataCreationFactory(Select.class), CubicTestImageRegistry
-						.getDescriptor(SELECT_IMAGE), null);
+						.getDescriptor(SELECT_IMAGE), CubicTestImageRegistry
+						.getDescriptor(SELECT_IMAGE));
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Option",
 				"Check for a option for the select list", Option.class,
 				new DataCreationFactory(Option.class), CubicTestImageRegistry
-						.getDescriptor(OPTION_IMAGE), null);
+						.getDescriptor(OPTION_IMAGE), CubicTestImageRegistry
+						.getDescriptor(OPTION_IMAGE));
 		pageElements.add(tool);
-		
+
 		tool = new CombinedTemplateCreationEntry("TextArea",
 				"Check for a text area on the page", TextArea.class,
 				new DataCreationFactory(TextArea.class), CubicTestImageRegistry
-						.getDescriptor(TEXT_AREA_IMAGE), null);
+						.getDescriptor(TEXT_AREA_IMAGE), CubicTestImageRegistry
+						.getDescriptor(TEXT_AREA_IMAGE));
 		pageElements.add(tool);
 		tool = new CombinedTemplateCreationEntry("PasswordField",
 				"Check for a password field on the page", Password.class,
 				new DataCreationFactory(Password.class), CubicTestImageRegistry
-						.getDescriptor(PASSWORD_IMAGE), null);
+						.getDescriptor(PASSWORD_IMAGE), CubicTestImageRegistry
+						.getDescriptor(PASSWORD_IMAGE));
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Image",
-				"Check for an image on the page", Image.class, new DataCreationFactory(
-						Image.class), CubicTestImageRegistry.getDescriptor(IMAGE_IMAGE),
-				null);
-		pageElements.add(tool);		
-
-		tool = new CombinedTemplateCreationEntry("Title",
-				"Check page title", Title.class,
-				new DataCreationFactory(Title.class), CubicTestImageRegistry
-						.getDescriptor(TITLE_IMAGE), null);
+				"Check for an image on the page", Image.class,
+				new DataCreationFactory(Image.class), CubicTestImageRegistry
+						.getDescriptor(IMAGE_IMAGE), CubicTestImageRegistry
+						.getDescriptor(IMAGE_IMAGE));
 		pageElements.add(tool);
 
+		tool = new CombinedTemplateCreationEntry("Title", "Check page title",
+				Title.class, new DataCreationFactory(Title.class),
+				CubicTestImageRegistry.getDescriptor(TITLE_IMAGE),
+				CubicTestImageRegistry.getDescriptor(TITLE_IMAGE));
+		pageElements.add(tool);
 
-//		rebuildCustomTestStepsCategory();
+		// rebuildCustomTestStepsCategory();
 		categories.add(basics);
 		categories.add(controls);
 		categories.add(pageElements);
-//		categories.add(customTestSteps);
+		// categories.add(customTestSteps);
 		addAll(categories);
 	}
 
@@ -277,19 +307,16 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 			ICustomTestStep instance;
 			try {
 				instance = customTestStepLoader.newInstance(customClass);
-				ToolEntry tool = new CombinedTemplateCreationEntry(
-					instance.getName(),
-					instance.getDescription(),
-					instance.getClass(),
-					new CustomTestStepCreationFactory(customTestStepLoader, customClass),
-					null,
-					null
-				);
+				ToolEntry tool = new CombinedTemplateCreationEntry(instance
+						.getName(), instance.getDescription(), instance
+						.getClass(), new CustomTestStepCreationFactory(
+						customTestStepLoader, customClass), null, null);
 				customTestSteps.add(tool);
-			} catch (ClassNotFoundException e) {}
+			} catch (ClassNotFoundException e) {
+			}
 		}
 	}
-	
+
 	public void classChanged() {
 		System.out.println("Rebuilding custom Test Steps");
 		Display.getDefault().syncExec(new Runnable() {
@@ -297,6 +324,6 @@ public class PaletteRootCreator extends PaletteRoot implements IClassChangeListe
 				rebuildCustomTestStepsCategory();
 			}
 		});
-		
+
 	}
 }
