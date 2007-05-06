@@ -326,5 +326,9 @@ public class LegacyUpgrade {
 			return version;
 		}
 		
+		public String toString() {
+			return "Version: " + version;
+		}
+		
 	}
 }
