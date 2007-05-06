@@ -2,7 +2,7 @@
   <startPoint class="extensionStartPoint">
     <sourceExtensionPointPageId>page215362701162367169184</sourceExtensionPointPageId>
     <sourceExtensionPointName>Search Extension Point</sourceExtensionPointName>
-    <filePath>/CubicShopTest/tests/frontpage.aat</filePath>
+    <filePath>/tests/frontpage.aat</filePath>
     <outTransitions>
       <extensionTransition>
         <id>page215362701162367169184</id>
@@ -209,8 +209,8 @@
                 <outTransitions/>
                 <id>page232692341162408385747</id>
                 <position>
-                  <x>214</x>
-                  <y>309</y>
+                  <x>226</x>
+                  <y>316</y>
                 </position>
                 <dimension>
                   <width>93</width>
@@ -261,5 +261,5 @@
   <name>search</name>
   <description></description>
   <id>test1162408155135</id>
-  <modelVersion>5</modelVersion>
+  <modelVersion>6</modelVersion>
 </test>
