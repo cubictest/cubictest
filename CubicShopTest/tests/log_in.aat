@@ -5,308 +5,270 @@
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
         <end class="page">
-          <commons>
-            <commonTransition>
-              <start class="common">
-                <elements>
-                  <link>
-                    <identifiers>
-                      <identifier>
-                        <value>Welcome</value>
-                        <probability>100</probability>
-                        <type>LABEL</type>
-                        <i18nKey>Welcome</i18nKey>
-                        <useI18n>true</useI18n>
-                        <useParam>false</useParam>
-                      </identifier>
-                    </identifiers>
-                    <directEditIdentifier reference="../identifiers/identifier"/>
-                    <not>false</not>
-                  </link>
-                  <link>
-                    <identifiers>
-                      <identifier>
-                        <value>Search</value>
-                        <probability>100</probability>
-                        <type reference="../../../../link/identifiers/identifier/type"/>
-                        <i18nKey>Search</i18nKey>
-                        <useI18n>true</useI18n>
-                        <useParam>false</useParam>
-                      </identifier>
-                    </identifiers>
-                    <directEditIdentifier reference="../identifiers/identifier"/>
-                    <not>false</not>
-                    <status>UNKNOWN</status>
-                  </link>
-                </elements>
-                <name>Common</name>
-                <outTransitions>
-                  <commonTransition reference="../../.."/>
-                  <commonTransition>
-                    <start class="common" reference="../../.."/>
-                    <end class="page">
-                      <commons>
-                        <commonTransition reference="../../.."/>
-                      </commons>
-                      <elements>
-                        <text>
-                          <identifiers>
-                            <identifier>
-                              <value>Welcome Christian</value>
-                              <probability>100</probability>
-                              <type reference="../../../../../../../../elements/link/identifiers/identifier/type"/>
-                              <paramKey>WelcomeMessage</paramKey>
-                              <useI18n>true</useI18n>
-                              <useParam>true</useParam>
-                            </identifier>
-                          </identifiers>
-                          <directEditIdentifier reference="../identifiers/identifier"/>
-                          <not>false</not>
-                        </text>
-                      </elements>
-                      <name>Logged in</name>
-                      <inTransition class="userInteractionsTransition">
-                        <userInteractions>
-                          <userInteraction>
-                            <element class="textField">
-                              <identifiers>
-                                <identifier>
-                                  <value>username</value>
-                                  <probability>100</probability>
-                                  <type>NAME</type>
-                                  <paramKey></paramKey>
-                                  <useI18n>false</useI18n>
-                                  <useParam>false</useParam>
-                                </identifier>
-                              </identifiers>
-                              <directEditIdentifier reference="../identifiers/identifier"/>
-                              <not>false</not>
-                              <status reference="../../../../../../../../elements/link[2]/status"/>
-                            </element>
-                            <input>Christian</input>
-                            <action>ENTER_PARAMETER_TEXT</action>
-                            <paramKey>Username</paramKey>
-                            <useI18n>false</useI18n>
-                            <useParam>true</useParam>
-                          </userInteraction>
-                          <userInteraction>
-                            <element class="password">
-                              <identifiers>
-                                <identifier>
-                                  <value>password</value>
-                                  <probability>100</probability>
-                                  <type reference="../../../../../userInteraction/element/identifiers/identifier/type"/>
-                                  <paramKey></paramKey>
-                                  <useI18n>false</useI18n>
-                                  <useParam>false</useParam>
-                                </identifier>
-                              </identifiers>
-                              <directEditIdentifier reference="../identifiers/identifier"/>
-                              <not>false</not>
-                              <status reference="../../../../../../../../elements/link[2]/status"/>
-                            </element>
-                            <input>pw1</input>
-                            <action reference="../../userInteraction/action"/>
-                            <paramKey>Passwords</paramKey>
-                            <useI18n>false</useI18n>
-                            <useParam>true</useParam>
-                          </userInteraction>
-                          <userInteraction>
-                            <element class="button">
-                              <identifiers>
-                                <identifier>
-                                  <value>logIn</value>
-                                  <probability>100</probability>
-                                  <type reference="../../../../../userInteraction/element/identifiers/identifier/type"/>
-                                  <paramKey></paramKey>
-                                  <useI18n>false</useI18n>
-                                  <useParam>false</useParam>
-                                </identifier>
-                              </identifiers>
-                              <directEditIdentifier reference="../identifiers/identifier"/>
-                              <not>false</not>
-                              <status reference="../../../../../../../../elements/link[2]/status"/>
-                            </element>
-                            <input></input>
-                            <action>CLICK</action>
-                            <paramKey></paramKey>
-                            <useI18n>false</useI18n>
-                            <useParam>false</useParam>
-                          </userInteraction>
-                        </userInteractions>
-                        <page class="page" reference="../../../../../../../.."/>
-                        <start class="page" reference="../../../../../../../.."/>
-                        <end class="page" reference="../.."/>
-                      </inTransition>
-                      <outTransitions>
-                        <simpleTransition>
-                          <start class="page" reference="../../.."/>
-                          <end class="extensionPoint">
-                            <inTransition class="simpleTransition" reference="../.."/>
-                            <outTransitions/>
-                            <id></id>
-                            <position>
-                              <x>360</x>
-                              <y>441</y>
-                            </position>
-                            <name>Logged in Extension Point</name>
-                            <autoPosition>false</autoPosition>
-                          </end>
-                        </simpleTransition>
-                      </outTransitions>
-                      <id>1157064802173</id>
-                      <position>
-                        <x>87</x>
-                        <y>343</y>
-                      </position>
-                      <dimension>
-                        <width>116</width>
-                        <height>54</height>
-                      </dimension>
-                      <autoPosition>false</autoPosition>
-                    </end>
-                  </commonTransition>
-                </outTransitions>
-                <id></id>
-                <position>
-                  <x>289</x>
-                  <y>162</y>
-                </position>
-                <dimension>
-                  <width>91</width>
-                  <height>75</height>
-                </dimension>
-                <autoPosition>false</autoPosition>
-              </start>
-              <end class="page" reference="../../.."/>
-            </commonTransition>
-          </commons>
+          <commons/>
           <elements>
-            <textField reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction/element"/>
-            <password reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction[2]/element"/>
-            <button reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction[3]/element"/>
+            <text>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Welcome to our webshop!</value>
+                  <probability>100</probability>
+                  <type>LABEL</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+            </text>
+            <password>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value>password</value>
+                  <probability>100</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value>password</value>
+                  <probability>100</probability>
+                  <type>NAME</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>VALUE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>TITLE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier[2]"/>
+              <not>false</not>
+            </password>
+            <textField>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value>username</value>
+                  <probability>100</probability>
+                  <type reference="../../../../password/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value>username</value>
+                  <probability>100</probability>
+                  <type reference="../../../../password/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../password/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../password/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier[2]"/>
+              <not>false</not>
+            </textField>
+            <button>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Log in</value>
+                  <probability>100</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value>logIn</value>
+                  <probability>100</probability>
+                  <type reference="../../../../password/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value>logIn</value>
+                  <probability>100</probability>
+                  <type reference="../../../../password/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../password/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+            </button>
           </elements>
-          <name>Frontpage</name>
+          <name>CubicShop</name>
+          <description></description>
           <inTransition class="simpleTransition" reference="../.."/>
           <outTransitions>
-            <userInteractionsTransition reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="textField" reference="../../../../../elements/textField"/>
+                  <input>Test</input>
+                  <action>ENTER_TEXT</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+                <userInteraction>
+                  <element class="password" reference="../../../../../elements/password"/>
+                  <input>t</input>
+                  <action reference="../../userInteraction/action"/>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+                <userInteraction>
+                  <element class="button" reference="../../../../../elements/button"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Welcome Test! You are now logged in.</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/text/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                  </text>
+                </elements>
+                <name>Logged in</name>
+                <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="page" reference="../../.."/>
+                    <end class="extensionPoint">
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>extensionpoint124387321177885643238</id>
+                      <position>
+                        <x>330</x>
+                        <y>341</y>
+                      </position>
+                      <name>CubicShop Extension Point</name>
+                      <autoPosition>false</autoPosition>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>page124927371177885602720</id>
+                <position>
+                  <x>52</x>
+                  <y>309</y>
+                </position>
+                <dimension>
+                  <width>188</width>
+                  <height>46</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+                <autoPosition>true</autoPosition>
+              </end>
+            </userInteractionsTransition>
           </outTransitions>
-          <id>page223261531157064773171</id>
+          <id>page17536991177885511999</id>
           <position>
             <x>74</x>
-            <y>111</y>
+            <y>100</y>
           </position>
           <dimension>
-            <width>99</width>
-            <height>94</height>
+            <width>144</width>
+            <height>109</height>
           </dimension>
+          <name defined-in="transitionNode"></name>
           <autoPosition>false</autoPosition>
         </end>
       </simpleTransition>
     </outTransitions>
-    <id>/CubicShopTest/tests/logIn.aat</id>
+    <id>test1177885511999</id>
     <position>
-      <x>0</x>
-      <y>0</y>
+      <x>4</x>
+      <y>4</y>
     </position>
-    <name>Frontpage</name>
+    <name>URL</name>
     <autoPosition>false</autoPosition>
   </startPoint>
   <extensionPoints>
-    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/simpleTransition/end"/>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end"/>
   </extensionPoints>
   <pages>
     <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
-    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end"/>
-    <common reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
   </pages>
   <subTests/>
   <transitions>
-    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition"/>
-    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]"/>
-    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
-    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/simpleTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition"/>
   </transitions>
   <customTestSteps/>
   <allLanguages>
-    <languages>
-      <language>
-        <name>Deutsch</name>
-        <fileName>\CubicShopTest\params\frontpage_de.properties</fileName>
-      </language>
-      <language>
-        <name>Norsk</name>
-        <fileName>\CubicShopTest\params\frontpage_no.properties</fileName>
-      </language>
-      <language>
-        <name>English</name>
-        <fileName>\CubicShopTest\params\frontpage_en.properties</fileName>
-      </language>
-    </languages>
-    <observers>
-      <link>
-        <identifiers>
-          <identifier>
-            <value>About us</value>
-            <probability>100</probability>
-            <type reference="../../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link/identifiers/identifier/type"/>
-            <i18nKey>AboutUs</i18nKey>
-            <useI18n>true</useI18n>
-            <useParam>false</useParam>
-          </identifier>
-        </identifiers>
-        <directEditIdentifier reference="../identifiers/identifier"/>
-        <not>false</not>
-        <status reference="../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link[2]/status"/>
-      </link>
-      <link reference="../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link[2]"/>
-      <text reference="../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/elements/text"/>
-      <link reference="../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link"/>
-    </observers>
-    <currentLanguage reference="../languages/language[3]"/>
+    <languages/>
+    <observers/>
   </allLanguages>
-  <paramList>
-    <parameters>
-      <parameter>
-        <header>Username</header>
-        <observers>
-          <userInteraction reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction"/>
-          <text>
-            <identifiers>
-              <identifier>
-                <value>Christian</value>
-                <probability>100</probability>
-                <type reference="../../../../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link/identifiers/identifier/type"/>
-                <paramKey>WelcomeMessage</paramKey>
-                <useI18n>true</useI18n>
-                <useParam>true</useParam>
-              </identifier>
-            </identifiers>
-            <directEditIdentifier reference="../identifiers/identifier"/>
-            <not>false</not>
-            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/elements/link[2]/status"/>
-          </text>
-        </observers>
-      </parameter>
-      <parameter>
-        <header>Passwords</header>
-        <observers>
-          <userInteraction reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction[2]"/>
-        </observers>
-      </parameter>
-      <parameter>
-        <header>WelcomeMessage</header>
-        <observers>
-          <text reference="../../../../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/elements/text"/>
-        </observers>
-      </parameter>
-    </parameters>
-    <parameterIndex>0</parameterIndex>
-    <fileName>/CubicShopTest/params/users.params</fileName>
-  </paramList>
-  <name>Log in</name>
-  <description>Test log in</description>
-  <id>/CubicShopTest/tests/logIn.aat</id>
-  <modelVersion>5</modelVersion>
+  <name>log_in</name>
+  <description></description>
+  <id>test1177885511999</id>
+  <modelVersion>6</modelVersion>
 </test>

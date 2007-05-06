@@ -39,7 +39,7 @@
               <page class="page" reference="../../.."/>
               <start class="page" reference="../../.."/>
               <end class="subTest">
-                <filePath>/CubicShopTest/tests/purchase_after_login.aat</filePath>
+                <filePath>/tests/purchase_after_login.aat</filePath>
                 <inTransition class="userInteractionsTransition" reference="../.."/>
                 <outTransitions>
                   <extensionTransition>
@@ -195,12 +195,12 @@
                             <outTransitions/>
                             <id>1157481707477</id>
                             <position>
-                              <x>441</x>
-                              <y>274</y>
+                              <x>113</x>
+                              <y>445</y>
                             </position>
                             <dimension>
-                              <width>101</width>
-                              <height>102</height>
+                              <width>100</width>
+                              <height>88</height>
                             </dimension>
                             <name defined-in="transitionNode"></name>
                             <autoPosition>false</autoPosition>
@@ -209,12 +209,12 @@
                       </outTransitions>
                       <id>1157479939345</id>
                       <position>
-                        <x>109</x>
-                        <y>228</y>
+                        <x>102</x>
+                        <y>240</y>
                       </position>
                       <dimension>
-                        <width>126</width>
-                        <height>134</height>
+                        <width>123</width>
+                        <height>130</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
                       <autoPosition>false</autoPosition>
@@ -223,9 +223,13 @@
                 </outTransitions>
                 <id>1157479926096</id>
                 <position>
-                  <x>48</x>
-                  <y>177</y>
+                  <x>80</x>
+                  <y>159</y>
                 </position>
+                <dimension>
+                  <width>93</width>
+                  <height>70</height>
+                </dimension>
                 <name></name>
                 <autoPosition>false</autoPosition>
               </end>
@@ -233,12 +237,12 @@
           </outTransitions>
           <id>page168021581157479022156</id>
           <position>
-            <x>22</x>
+            <x>84</x>
             <y>55</y>
           </position>
           <dimension>
-            <width>128</width>
-            <height>52</height>
+            <width>144</width>
+            <height>46</height>
           </dimension>
           <name defined-in="transitionNode"></name>
           <autoPosition>false</autoPosition>
@@ -272,5 +276,5 @@
   <name>Delete after purchase</name>
   <description></description>
   <id>/CubicShopTest/tests/new_test.aat</id>
-  <modelVersion>5</modelVersion>
+  <modelVersion>6</modelVersion>
 </test>

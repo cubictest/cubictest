@@ -209,12 +209,12 @@
                 <outTransitions/>
                 <id>page232692341162408385747</id>
                 <position>
-                  <x>226</x>
-                  <y>316</y>
+                  <x>65</x>
+                  <y>288</y>
                 </position>
                 <dimension>
-                  <width>93</width>
-                  <height>49</height>
+                  <width>131</width>
+                  <height>46</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
                 <autoPosition>false</autoPosition>
@@ -223,12 +223,12 @@
           </outTransitions>
           <id>page329926901162408155135</id>
           <position>
-            <x>100</x>
+            <x>80</x>
             <y>100</y>
           </position>
           <dimension>
-            <width>130</width>
-            <height>133</height>
+            <width>100</width>
+            <height>113</height>
           </dimension>
           <name defined-in="transitionNode"></name>
           <autoPosition>false</autoPosition>

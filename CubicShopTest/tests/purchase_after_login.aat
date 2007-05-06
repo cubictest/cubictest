@@ -8,31 +8,39 @@
           <commons/>
           <elements>
             <text>
+              <identifiers>
+                <identifier>
+                  <value>Welcome to our webshop!</value>
+                  <probability>100</probability>
+                  <type>LABEL</type>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <text></text>
-              <description>Welcome to our webshop!</description>
-              <sationType>NONE</sationType>
-              <key></key>
               <status>PASS</status>
             </text>
           </elements>
           <name>Frontpage</name>
           <inTransition class="simpleTransition" reference="../.."/>
           <outTransitions>
-            <userActions>
-              <inputs>
-                <pageElementAction>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
                   <input></input>
                   <action>NO_ACTION</action>
-                  <sationType reference="../../../../../elements/text/sationType"/>
-                  <key></key>
-                </pageElementAction>
-              </inputs>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
               <page class="page" reference="../../.."/>
               <start class="page" reference="../../.."/>
               <end class="subTest">
-                <filePath>/CubicShopTest/tests/purchase.aat</filePath>
-                <inTransition class="userActions" reference="../.."/>
+                <filePath>/tests/purchase.aat</filePath>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
                 <outTransitions>
                   <extensionTransition>
                     <id>1157464849674</id>
@@ -41,36 +49,44 @@
                       <commons/>
                       <elements>
                         <text>
+                          <identifiers>
+                            <identifier>
+                              <value>You must log in before you can purchase.</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <text></text>
-                          <description>You must log in before you can purchase.</description>
-                          <sationType reference="../../../../../../../../../elements/text/sationType"/>
-                          <key></key>
                         </text>
                       </elements>
                       <name>Login error</name>
                       <inTransition class="extensionTransition" reference="../.."/>
                       <outTransitions>
-                        <userActions>
-                          <inputs>
-                            <pageElementAction>
+                        <userInteractionsTransition>
+                          <userInteractions>
+                            <userInteraction>
                               <input></input>
-                              <action reference="../../../../../../../../../inputs/pageElementAction/action"/>
-                              <sationType reference="../../../../../../../../../../../elements/text/sationType"/>
-                              <key></key>
-                            </pageElementAction>
-                          </inputs>
+                              <action reference="../../../../../../../../../userInteractions/userInteraction/action"/>
+                              <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </userInteraction>
+                          </userInteractions>
                           <page class="page" reference="../../.."/>
                           <start class="page" reference="../../.."/>
                           <end class="subTest">
-                            <filePath>/CubicShopTest/tests/log_in.aat</filePath>
-                            <inTransition class="userActions" reference="../.."/>
+                            <filePath>/tests/log_in.aat</filePath>
+                            <inTransition class="userInteractionsTransition" reference="../.."/>
                             <outTransitions>
                               <extensionTransition>
-                                <id>1157064802173</id>
+                                <id>page124927371177885602720</id>
                                 <start class="subTest" reference="../../.."/>
                                 <end class="subTest">
-                                  <filePath>/CubicShopTest/tests/purchase.aat</filePath>
+                                  <filePath>/tests/purchase.aat</filePath>
                                   <inTransition class="extensionTransition" reference="../.."/>
                                   <outTransitions>
                                     <extensionTransition>
@@ -80,11 +96,18 @@
                                         <commons/>
                                         <elements>
                                           <text>
+                                            <identifiers>
+                                              <identifier>
+                                                <value>Added to cart</value>
+                                                <probability>100</probability>
+                                                <type reference="../../../../../../../../../../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
+                                                <paramKey></paramKey>
+                                                <useI18n>false</useI18n>
+                                                <useParam>false</useParam>
+                                              </identifier>
+                                            </identifiers>
+                                            <directEditIdentifier reference="../identifiers/identifier"/>
                                             <not>false</not>
-                                            <text></text>
-                                            <description>Added to cart</description>
-                                            <sationType reference="../../../../../../../../../../../../../../../../../../elements/text/sationType"/>
-                                            <key></key>
                                           </text>
                                         </elements>
                                         <name>Bought box</name>
@@ -101,6 +124,7 @@
                                                 <y>489</y>
                                               </position>
                                               <name>Bought box Extension Point</name>
+                                              <autoPosition>false</autoPosition>
                                             </end>
                                           </simpleTransition>
                                         </outTransitions>
@@ -114,6 +138,7 @@
                                           <height>70</height>
                                         </dimension>
                                         <name defined-in="transitionNode"></name>
+                                        <autoPosition>false</autoPosition>
                                       </end>
                                     </extensionTransition>
                                   </outTransitions>
@@ -123,6 +148,7 @@
                                     <y>443</y>
                                   </position>
                                   <name></name>
+                                  <autoPosition>false</autoPosition>
                                 </end>
                               </extensionTransition>
                             </outTransitions>
@@ -132,8 +158,9 @@
                               <y>371</y>
                             </position>
                             <name></name>
+                            <autoPosition>false</autoPosition>
                           </end>
-                        </userActions>
+                        </userInteractionsTransition>
                       </outTransitions>
                       <id>1157465552374</id>
                       <position>
@@ -145,6 +172,7 @@
                         <height>58</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
+                      <autoPosition>false</autoPosition>
                     </end>
                   </extensionTransition>
                 </outTransitions>
@@ -154,8 +182,9 @@
                   <y>169</y>
                 </position>
                 <name></name>
+                <autoPosition>false</autoPosition>
               </end>
-            </userActions>
+            </userInteractionsTransition>
           </outTransitions>
           <id>page80283801157465511866</id>
           <position>
@@ -167,6 +196,7 @@
             <height>49</height>
           </dimension>
           <name defined-in="transitionNode"></name>
+          <autoPosition>false</autoPosition>
         </end>
       </simpleTransition>
     </outTransitions>
@@ -176,32 +206,33 @@
       <y>0</y>
     </position>
     <name>Frontpage</name>
+    <autoPosition>false</autoPosition>
   </startPoint>
   <extensionPoints>
-    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/simpleTransition/end"/>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/simpleTransition/end"/>
   </extensionPoints>
   <pages>
     <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
-    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end"/>
-    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end"/>
   </pages>
   <subTests>
-    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end"/>
-    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end"/>
-    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end"/>
   </subTests>
   <transitions>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
-    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions"/>
-    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition"/>
-    <userActions reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions"/>
-    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition"/>
-    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/simpleTransition"/>
-    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition/end/outTransitions/userActions/end/outTransitions/extensionTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/simpleTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition"/>
   </transitions>
   <customTestSteps/>
   <name>Purchase after login</name>
   <description></description>
   <id>/CubicShopTest/tests/check_login_required.aat</id>
-  <modelVersion>3</modelVersion>
+  <modelVersion>6</modelVersion>
 </test>
