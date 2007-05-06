@@ -32,9 +32,10 @@ public class LegacyUpgrade {
 	public static String upgradeIfNecessary(String xml, IProject project) {
 		ModelVersion version = getModelVersion(xml);
 		xml = upgradeModel1to2(xml, version);
-		xml = upgradeModel2to3(xml, project, version);
+		xml = upgradeModel2to3(xml, version, project);
 		xml = upgradeModel3to4(xml, version);
 		xml = upgradeModel4to5(xml, version);
+		xml = upgradeModel5to6(xml, version, project);
 		return xml;
 	}
 
@@ -58,7 +59,7 @@ public class LegacyUpgrade {
 	}
 
 	
-	private static String upgradeModel2to3(String xml, IProject project, ModelVersion version) {
+	private static String upgradeModel2to3(String xml, ModelVersion version, IProject project) {
 		if (version.getVersion() != 2) {
 			return xml;
 		}
@@ -265,6 +266,39 @@ public class LegacyUpgrade {
 		element.removeContent(key);
 	}
 
+	private static String upgradeModel5to6(String xml, ModelVersion version, IProject project) {
+		if (version.getVersion() != 5) {
+			return xml;
+		}
+		
+		try {
+			Document document = new SAXBuilder().build(new StringReader(xml));
+			Element rootElement = document.getRootElement();
+			String filePath = "";
+			
+			JDOMXPath xpath = new JDOMXPath("//filePath");
+			for(Object pathNode : xpath.selectNodes(rootElement)){
+				if(pathNode instanceof Element){
+					Element path = (Element) pathNode;
+					filePath = path.getText();
+					if (filePath.startsWith(project.getName())) {
+						filePath = filePath.substring(project.getName().length());
+					}
+					else if (filePath.startsWith("/" + project.getName())) {
+						filePath = filePath.substring(project.getName().length() + 1);
+					}
+					path.setText(filePath);
+				}
+			}
+			xml = new XMLOutputter().outputString(document);
+		}
+		catch (Exception e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Could not convert old file format to new format.");
+		}
+
+		version.increment();
+		return xml;
+	}
 	
 	private static ModelVersion getModelVersion(String xml) {
 		String start = "<modelVersion>";

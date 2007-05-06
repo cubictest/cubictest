@@ -34,12 +34,6 @@ public class SubTest extends ConnectionPoint {
 	 */
 	public Test getTest() {
 		if (test == null) {
-			if (filePath.startsWith(project.getName())) {
-				filePath = filePath.substring(project.getName().length());
-			}
-			else if (filePath.startsWith("/" + project.getName())) {
-				filePath = filePath.substring(project.getName().length() + 1);
-			}
 			test = TestPersistance.loadFromFile(project, getFilePath());
 			test.setResourceMonitor(resourceMonitor);
 			test.setCustomTestStepLoader(customTestStepLoader);
