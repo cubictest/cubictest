@@ -23,9 +23,9 @@ import org.cubictest.ui.gef.wizards.ExposeExtensionPointWizard;
 import org.cubictest.ui.utils.ViewUtil;
 import org.cubictest.ui.wizards.UpdateExtensionStartPointWizard;
 import org.cubictest.ui.wizards.UpdateStartPointWizard;
+import org.eclipse.draw2d.ConnectionEndpointLocator;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.MidpointLocator;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -122,7 +122,7 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 		label = new CubicTestLabel(getModel().getExtensionPoint().getName());
 		label.setTooltipText(tooltip.getText());
 		
-		MidpointLocator locator = new MidpointLocator(conn, 0);
+		ConnectionEndpointLocator locator = new ConnectionEndpointLocator(conn, true);
 		conn.add(label, locator);
 		
 		return conn;
