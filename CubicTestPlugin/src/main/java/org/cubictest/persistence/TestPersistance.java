@@ -87,16 +87,16 @@ public class TestPersistance {
 	/**
 	 * Reads a test from IFile.
 	 * 
-	 * @param iFile The file containing the test.
+	 * @param file The file containing the test.
 	 * @return The test.
 	 */	
-	public static Test loadFromFile(IFile iFile) {
-		IPath path = iFile.getLocation();
+	public static Test loadFromFile(IFile file) {
+		IPath path = file.getLocation();
 		if (path == null) {
-			throw new CubicException("Could not get absolute path from IFile " + iFile);
+			throw new CubicException("Could not get absolute path from IFile " + file);
 		}
-		Test test = loadFromFile(path.toFile(), iFile.getProject());
-		test.setFile(iFile);
+		Test test = loadFromFile(path.toFile(), file.getProject());
+		test.setFile(file);
 		return test;
 	}
 	
@@ -106,9 +106,13 @@ public class TestPersistance {
 	 * @param fileName
 	 * @return
 	 */
-	public static Test loadFromFile(String fileName) {
+	public static Test loadFromFile(IProject project, String fileName) {
+		if (project == null) {
+			//try to get file without project
+			return loadFromFile(new File(fileName), null);
+		}
 		try {
-			IFile testFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(fileName));
+			IFile testFile = project.getFile(new Path(fileName));
 			return loadFromFile(testFile);
 		}
 		catch (IllegalStateException e) {

@@ -5,6 +5,7 @@
 package org.cubictest.model;
 
 import org.cubictest.common.exception.CubicException;
+import org.eclipse.core.resources.IProject;
 
 /**
  * Start point in test that includes another test before the current test.
@@ -17,8 +18,8 @@ public class ExtensionStartPoint extends SubTest{
 	private String sourceExtensionPointPageId;
 	private String sourceExtensionPointName;
 	
-	public ExtensionStartPoint(String filePath) {
-		super(filePath);
+	public ExtensionStartPoint(String filePath, IProject project) {
+		super(filePath, project);
 	}
 	
 	@Override

@@ -51,7 +51,7 @@ public class WizardUtils {
 	}
 
 	public static ExtensionStartPoint createExtensionStartPoint(IFile file, ExtensionPoint point, Test test) {
-		ExtensionStartPoint esp = new ExtensionStartPoint(file.getFullPath().toPortableString());
+		ExtensionStartPoint esp = new ExtensionStartPoint(file.getProjectRelativePath().toPortableString(), file.getProject());
 		esp.setProject(file.getProject());
 		esp.setSourceExtensionPointName(point.getName());
 		esp.setSourceExtensionPointPageId(point.getPageId());

@@ -50,7 +50,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testTraversesSimpleTree() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTree.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		testWalker.convertTest(test, assertionList);
 		
 		//first path:
@@ -78,7 +78,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testTraversesSimpleTreeOnlyToExtensionPoint() throws InstantiationException, IllegalAccessException {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		
 		//only convert path to extension point:
 		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page297923971162115959945_2"));
@@ -103,7 +103,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testThrowsExceptionWhenInvalidExtensionPoint() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		
 		try {
 			System.out.println("\n== Testing traversal to unknown extension point. Error(s) about unknown extension point should follow ==");
@@ -126,7 +126,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testTraversesMediumTree() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeExtensionPoint.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		
 		testWalker.convertTest(test, assertionList);
 		
@@ -174,7 +174,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testTraversesMediumTreeOnlyToExtensionPoint() throws InstantiationException, IllegalAccessException {
 		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeExtensionPoint.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		
 		//only convert path to extension point:
 		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page299655571162117362723"));
@@ -206,7 +206,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testTraversesSubTestToExtensionPoint() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleUsingSubTest.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		testWalker.convertTest(test, assertionList);
 		
 		assertionList.assertContainsInOrder("www.test.org");
@@ -234,7 +234,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testTraversesPreTestToExtensionPoint() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleUsingExtensionStartPoint.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		testWalker.convertTest(test, assertionList);
 		
 		assertionList.assertContainsInOrder("www.test.org");
@@ -259,7 +259,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testTraversesTreeAfterExtensionStartPoint() {
 		String fileName = "src/test/resources/org/cubictest/common/converters/TreeUsingExtensionStartPoint.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		testWalker.convertTest(test, assertionList);
 		
 		//first path:
@@ -303,7 +303,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testTraversesTreeWithExtensionPointAfterExtensionStartPoint() throws InstantiationException, IllegalAccessException {
 		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeWithExtensionPointUsingExtensionStartPoint.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page8469831163802373773"));
 		
 		assertionList.assertContainsInOrder("www.test.org");
@@ -342,7 +342,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testTraversesUrlInEachPathFromUrlStartPoint() throws InstantiationException, IllegalAccessException {
 		String fileName = "src/test/resources/org/cubictest/common/converters/TreeFromUrlStartPoint.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		testWalker.convertTest(test, assertionList);
 		
 		assertionList.assertContainsInOrder("www.test.org");
@@ -365,7 +365,7 @@ public class TreeTestWalkerTest {
 	@org.junit.Test
 	public void testTraversesSubTestAfterExtensionStartPoint() throws InstantiationException, IllegalAccessException {
 		String fileName = "src/test/resources/org/cubictest/common/converters/ExtensionStartPointWithSubTest.aat";
-		Test test = TestPersistance.loadFromFile(fileName);
+		Test test = TestPersistance.loadFromFile(null, fileName);
 		testWalker.convertTest(test, assertionList);
 		
 		//pre-test

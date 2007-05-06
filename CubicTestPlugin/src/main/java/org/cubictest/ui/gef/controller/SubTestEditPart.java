@@ -19,6 +19,7 @@ import org.cubictest.ui.gef.policies.PageNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.ColorConstants;
@@ -59,7 +60,8 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 		
 		if(request.getType() == RequestConstants.REQ_OPEN) {
 			String testPath = ((SubTest)getModel()).getFilePath();
-			final IFile testFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(testPath));
+			IProject project = ((SubTest)getModel()).getProject();
+			final IFile testFile = project.getFile(new Path(testPath));
 			
 			if (!testFile.exists() || !(testFile instanceof IFile)) {
 				MessageDialog.openError(new Shell(), UiText.APP_TITLE, 

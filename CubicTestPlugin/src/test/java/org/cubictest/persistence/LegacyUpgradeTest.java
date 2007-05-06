@@ -15,13 +15,13 @@ public class LegacyUpgradeTest {
 	public void testUpgradeTo5(){
 		String fileName = "src/test/resources/org/cubictest/persistence/NotConvertedInto5.aat";
 		System.out.println("Testing: NotConvertedInto5.aat");
-		TestPersistance.loadFromFile(fileName);
+		TestPersistance.loadFromFile(null, fileName);
 		String dirName = "src/test/resources/org/cubictest/common/converters/";
 		File dir = new File(dirName);
 		for(File file : dir.listFiles()){
 			if(file.getAbsolutePath().endsWith("aat")){
 				System.out.println("Testing: " + file.getName());
-				TestPersistance.loadFromFile(dirName + file.getName());
+				TestPersistance.loadFromFile(null, dirName + file.getName());
 			}
 		}
 	}

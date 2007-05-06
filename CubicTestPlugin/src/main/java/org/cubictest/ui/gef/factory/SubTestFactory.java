@@ -16,7 +16,7 @@ public class SubTestFactory implements CreationFactory {
 	public SubTestFactory() {}
 	
 	public Object getNewObject() {
-		SubTest subTest = new SubTest(file.getFullPath().toPortableString());
+		SubTest subTest = new SubTest(file.getProjectRelativePath().toPortableString(), file.getProject());
 		return subTest;
 	}
 
