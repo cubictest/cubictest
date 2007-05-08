@@ -92,6 +92,7 @@ Erlend Halvorsen
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.osgi.util"/>
+      <plugin id="org.eclipse.pde.runtime"/>
       <plugin id="org.eclipse.platform"/>
       <plugin id="org.eclipse.sdk"/>
       <plugin id="org.eclipse.search"/>
