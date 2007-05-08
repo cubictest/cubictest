@@ -47,15 +47,6 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 			}
-			else if (pe instanceof Text) {
-				boolean present = seleniumHolder.getSelenium().isTextPresent(pe.getText());
-				if (present) {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
-				}
-				else {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
-				}
-			}
 			else if (pe instanceof FormElement && !(pe instanceof Option)){
 				//html input elements: get value
 				String locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(pe, seleniumHolder, true);

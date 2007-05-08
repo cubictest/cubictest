@@ -54,7 +54,7 @@ public class ContextHolder implements IResultHolder {
 			}
 		}
 		else if (ctx instanceof AbstractContext) {
-			context.push(SeleniumUtils.getXPath((AbstractContext) ctx, this, true) + "//");
+			context.push(SeleniumUtils.getXPath((AbstractContext) ctx, this, true) + "/descendant-or-self::");
 		}
 		
 		//saving the context of each page element for use in user interactions:

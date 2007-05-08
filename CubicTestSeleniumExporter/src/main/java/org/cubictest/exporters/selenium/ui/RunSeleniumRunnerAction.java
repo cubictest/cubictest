@@ -31,7 +31,7 @@ import com.thoughtworks.selenium.Selenium;
 public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 
 	Test test;
-	boolean stopSeleniumWhenFinished;
+	boolean stopSeleniumWhenFinished = true;
 	Selenium selenium;
 	private ExtensionPoint targetExPoint;
 	private String customCompletedMessage;

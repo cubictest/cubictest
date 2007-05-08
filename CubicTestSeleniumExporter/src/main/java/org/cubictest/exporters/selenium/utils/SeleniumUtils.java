@@ -71,21 +71,51 @@ public class SeleniumUtils {
 		PageElement pe = (PageElement) element;
 		PredicateSeperator predicateSeperator = new PredicateSeperator();
 
-		if (element instanceof Text) {
-			return "*[" + getLabelAssertion(pe, predicateSeperator) + "]";
+		String predicates = 
+				getIndexAssertion(contextHolder, pe, getIndex, predicateSeperator) + 
+				getLabelAssertion(pe, predicateSeperator) + 
+				getAttributeAssertions(pe, predicateSeperator); 
+
+		if (StringUtils.isBlank(predicates)) {
+			return getElementType(pe);
+		}
+		return getElementType(pe) + "[" + predicates + "]";
+	}
+	
+	
+	/**
+	 * Get string to assert the index of the element (if ID present).
+	 */
+	private static String getIndexAssertion(ContextHolder contextHolder, PageElement pe, boolean getIndex, PredicateSeperator predicateSeperator) {
+		if (!getIndex) {
+			return "";
+		}
+		
+		String result = predicateSeperator.getStartString();
+		
+		//Start with index attribute (if it exists) to make XPath correct:
+		Identifier id = pe.getIdentifier(INDEX);
+		if (id != null && id.isNotIndifferent()) {
+			String value = pe.getIdentifier(INDEX).getValue();
+			String operator = "=";
+			if (value.startsWith("<=") || value.startsWith(">=")) {
+				operator = value.substring(0, 2);
+				value = value.substring(2);
+			}
+			else if (value.startsWith("<") || value.startsWith(">")) {
+				operator = value.substring(0, 1);
+				value = value.substring(1);
+			}
+			int index = Integer.parseInt(value);
+			result += "position()" + operator + index;
+		}
+		
+		if (result.equals(predicateSeperator.getStartString())) {
+			return "";
 		}
 		else {
-			//all other elements
-			
-			String predicates = 
-					getIndexAssertion(contextHolder, pe, getIndex, predicateSeperator) + 
-					getLabelAssertion(pe, predicateSeperator) + 
-					getAttributeAssertions(pe, predicateSeperator); 
-
-			if (StringUtils.isBlank(predicates)) {
-				return getElementType(pe);
-			}
-			return getElementType(pe) + "[" + predicates + "]";
+			predicateSeperator.setNeedsSeparator(true);
+			return result;
 		}
 	}
 	
@@ -103,7 +133,7 @@ public class SeleniumUtils {
 			}
 
 			if (pe instanceof Text) {
-				result += "contains(., \"" + labelText + "\")";
+				result += "contains(text(), \"" + labelText + "\")";
 			}
 			else if (pe instanceof Link || pe instanceof Option) {
 				result += "normalize-space(text())" + comparisonOperator + "\"" + labelText + "\"";
@@ -174,45 +204,7 @@ public class SeleniumUtils {
 		}
 	}
 	
-	
-	/**
-	 * Get string to assert the index of the element (if ID present).
-	 */
-	private static String getIndexAssertion(ContextHolder contextHolder, PageElement pe, boolean getIndex, PredicateSeperator predicateSeperator) {
-		if (!getIndex) {
-			return "";
-		}
 		
-		String result = predicateSeperator.getStartString();
-		
-		//Start with index attribute (if it exists) to make XPath correct:
-		Identifier id = pe.getIdentifier(INDEX);
-		if (id != null && id.isNotIndifferent()) {
-			String value = pe.getIdentifier(INDEX).getValue();
-			String operator = "=";
-			if (value.startsWith("<=") || value.startsWith(">=")) {
-				operator = value.substring(0, 2);
-				value = value.substring(2);
-			}
-			else if (value.startsWith("<") || value.startsWith(">")) {
-				operator = value.substring(0, 1);
-				value = value.substring(1);
-			}
-			int index = Integer.parseInt(value);
-			result += "position()" + operator + index;
-		}
-		
-		if (result.equals(predicateSeperator.getStartString())) {
-			return "";
-		}
-		else {
-			predicateSeperator.setNeedsSeparator(true);
-			return result;
-		}
-	}
-
-
-	
 	/**
 	 * Get the HTML element type for the page element.
 	 * @param pe
@@ -232,7 +224,7 @@ public class SeleniumUtils {
 		if (pe instanceof Image)
 			return "img";
 		if (pe instanceof Text)
-			throw new ExporterException("Text is not a supported element type for identification.");
+			return "*";
 		if (pe instanceof AbstractContext) {
 			Identifier elementName = pe.getIdentifier(ELEMENT_NAME);
 			if (elementName != null && StringUtils.isNotBlank(elementName.getValue())) {
