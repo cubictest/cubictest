@@ -33,11 +33,9 @@ public class SubTest extends ConnectionPoint {
 	 * @return Test	the sub test that this object represents
 	 */
 	public Test getTest() {
-		if (test == null) {
-			test = TestPersistance.loadFromFile(project, getFilePath());
-			test.setResourceMonitor(resourceMonitor);
-			test.setCustomTestStepLoader(customTestStepLoader);
-		}
+		test = TestPersistance.loadFromFile(project, getFilePath());
+		test.setResourceMonitor(resourceMonitor);
+		test.setCustomTestStepLoader(customTestStepLoader);
 		return test;
 	}
 	
