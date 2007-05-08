@@ -66,7 +66,7 @@ public class CreateTransitionCommand extends Command {
 		if (autoCreateTargetPage) {
 			return true;
 		}
-		return (ModelUtil.isLegalTransition(sourceNode, targetNode, false) == ModelUtil.TRANSITION_EDIT_VALID);
+		return (ModelUtil.isLegalTransition(sourceNode, targetNode, false, false) == ModelUtil.TRANSITION_EDIT_VALID);
 	}
 
 

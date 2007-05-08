@@ -62,6 +62,6 @@ public class ReconnectTransitionSourceCommand extends Command {
 		if (transition instanceof ExtensionTransition) {
 			return false;
 		}
-		return (ModelUtil.isLegalTransition(newSource, transition.getEnd(), true) == ModelUtil.TRANSITION_EDIT_VALID);
+		return (ModelUtil.isLegalTransition(newSource, transition.getEnd(), true, false) == ModelUtil.TRANSITION_EDIT_VALID);
 	}
 }

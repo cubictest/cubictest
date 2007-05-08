@@ -25,7 +25,11 @@ public class ModelUtil {
 	public static int TRANSITION_EDIT_NOT_VALID = 4;
 
 	
-	public static int isLegalTransition(TransitionNode sourceNode, TransitionNode targetNode, boolean isReconnectingSourceNode) {
+	public static int isLegalTransition(TransitionNode sourceNode, TransitionNode targetNode, 
+			boolean isReconnectingSourceNode, boolean isReconnectingTargetNode) {
+		
+		boolean isNewTransition = !isReconnectingSourceNode && !isReconnectingTargetNode;
+		
 		if (sourceNode == null)
 			return TRANSITION_EDIT_NOT_VALID;
 		
@@ -47,10 +51,12 @@ public class ModelUtil {
 		if (sourceNode instanceof Common && !(targetNode instanceof Page))
 			return TRANSITION_EDIT_NOT_VALID;
 
-		if (sourceNode instanceof ExtensionStartPoint && sourceNode.getOutTransitions().size() >= 1) {
-			ErrorHandler.showInfoDialog("Only one out-transition is allowed from Extension start points.\n" +
-			"Hint: Create a tree after the first page/state, or create a new test.");
-			return TRANSITION_EDIT_NOT_VALID;
+		if (sourceNode instanceof ExtensionStartPoint && (isReconnectingSourceNode || isNewTransition)) {
+			if (sourceNode.getOutTransitions().size() >= 1) { 
+				ErrorHandler.showInfoDialog("Only one out-transition is allowed from Extension startpoints.\n" +
+				"Hint: Create a tree after the first page/state, or create a new test.");
+				return TRANSITION_EDIT_NOT_VALID;
+			}
 		}
 		
 		if (isReconnectingSourceNode) {
