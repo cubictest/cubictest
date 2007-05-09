@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CubicTestHtmlPrototypeExporter
 Bundle-SymbolicName: org.cubictest.exporters.htmlprototype;singleton:=true
-Bundle-Version: 1.0.0.M3
+Bundle-Version: 1.0.0.M4
 Bundle-Activator: org.cubictest.exporters.htmlPrototype.ui.Activator
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -13,6 +13,6 @@ Require-Bundle: org.eclipse.ui,
 Eclipse-LazyStart: true
 Bundle-ClassPath: lib/jdom.jar,
  .,
- lib/commons-lang-2.0.jar,
- lib/commons-io-1.0.jar
+ lib/commons-io-1.0.jar,
+ lib/commons-lang-2.3.jar
 Bundle-Vendor: cubictest.org
