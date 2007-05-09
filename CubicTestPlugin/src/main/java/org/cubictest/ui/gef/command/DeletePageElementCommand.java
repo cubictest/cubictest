@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.model.Page;
@@ -144,8 +144,9 @@ public class DeletePageElementCommand extends Command {
 
 				if (!infoDialogShowed && informAboutDeletion) {
 					//inform user if user interactions was updated
-					ErrorHandler.showWarnDialog("Element to delete participates in user interaction(s).\n" +
-							"User interaction(s) will be updated and element will be removed. Undo to revert.");
+					String msg = "Deleted element that participated in user interaction(s). " +
+					"The user interaction(s) were updated and the element was removed. Undo to revert.";
+					UserInfo.setStatusLine(msg);
 					infoDialogShowed = true;
 				}
 
@@ -156,6 +157,8 @@ public class DeletePageElementCommand extends Command {
 			}
 		}
 	}
+
+
 	
 	
 	/* (non-Javadoc)

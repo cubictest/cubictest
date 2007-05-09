@@ -108,7 +108,23 @@ public class ViewUtil {
 		
 		int elementsHeight = (getElementHeight((IContext) page) + LABEL_HEIGHT);
 		
-		int heightToAdd = LABEL_HEIGHT;
+		int num = 1;
+		boolean isContext = false;
+		if (originatingCommand instanceof CreatePageElementCommand) {
+			PageElement pe  = ((CreatePageElementCommand) originatingCommand).getPageElement();
+			if (pe instanceof IContext) {
+				num = ((IContext) pe).getElements().size() + 1;
+				isContext = true;
+			}
+		}
+		
+		int heightToAdd;
+		if (isContext) {
+			heightToAdd = (LABEL_HEIGHT + 2) * num;
+		}
+		else {
+			heightToAdd = LABEL_HEIGHT * num;
+		}
 
 		if(height > (elementsHeight + LABEL_HEIGHT)) {
 			//there are leftover height

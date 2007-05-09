@@ -43,22 +43,28 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 	 */
 	public void buildContextMenu(IMenuManager menu){
 		GEFActionConstants.addStandardActionGroups(menu);
-
+		
 		IAction action;
+
+		MenuManager submenu = new MenuManager("Add page element ", "cubicTestPlugin.action.addPageElement");
+		for (Class<? extends PageElement> elementClass : AddElementContextMenuList.getList()) {
+			action = actionRegistry.getAction(AddPageElementAction.getActionId(elementClass));
+			if(action.isEnabled()) {
+				submenu.add(action);
+			}
+		}
+		if (!submenu.isEmpty()) {
+			menu.insertBefore(GEFActionConstants.GROUP_UNDO, submenu);
+		}
+
+		action = actionRegistry.getAction(AddUserInteractionTransitionAction.ACTION_ID);
+		if (action.isEnabled())
+			menu.insertBefore(GEFActionConstants.GROUP_UNDO,action); 
 		
 		action = actionRegistry.getAction(PresentAction.ACTION_ID);
 		if (action.isEnabled())
 			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-		
-		action = actionRegistry.getAction(ActionFactory.UNDO.getId());
-		menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
-
-		action = actionRegistry.getAction(ActionFactory.REDO.getId());
-		menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
-
-		action = actionRegistry.getAction(ActionFactory.DELETE.getId());
-		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
-		
+				
 		action = actionRegistry.getAction(ActionFactory.CUT.getId());
 		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
 
@@ -67,19 +73,7 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		
 		action = actionRegistry.getAction(ActionFactory.PASTE.getId());
 		menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
-		
-		action = actionRegistry.getAction(GEFActionConstants.DIRECT_EDIT);
-		if (action.isEnabled())
-			menu.appendToGroup(GEFActionConstants.GROUP_COPY, action);
-
-		action = actionRegistry.getAction(AddUserInteractionTransitionAction.ACTION_ID);
-		if (action.isEnabled())
-			menu.appendToGroup(GEFActionConstants.GROUP_EDIT,action); 
-
-		action = actionRegistry.getAction(AddExtensionPointAction.ACTION_ID);
-		if (action.isEnabled())
-			menu.appendToGroup(GEFActionConstants.GROUP_EDIT,action); 
-		
+				
 		action = actionRegistry.getAction(PopulateCommonAction.ID);
 		if (action.isEnabled())
 			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
@@ -90,16 +84,6 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		action = actionRegistry.getAction(AutoLayoutAction.ACTION_ID);
 		menu.appendToGroup(GEFActionConstants.GROUP_REST,action);
 
-		MenuManager submenu = new MenuManager("Add page element ", "cubicTestPlugin.action.addPageElement");
-		for (Class<? extends PageElement> elementClass : AddElementContextMenuList.getList()) {
-			action = actionRegistry.getAction(AddPageElementAction.getActionId(elementClass));
-			if(action.isEnabled()) {
-				submenu.add(action);
-			}
-		}
-		if (!submenu.isEmpty()) {
-			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, submenu);
-		}
 
 	}
 }

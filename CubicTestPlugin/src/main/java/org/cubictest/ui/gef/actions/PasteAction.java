@@ -76,10 +76,6 @@ public class PasteAction extends SelectionAction {
 		}
 
 		EditPart selectedPart = (EditPart) selection.getFirstElement();
-
-		if(!(selectedPart.getModel() instanceof IContext) && ViewUtil.containsAPageElement(getClipboardContents())) {
-			return false;
-		}
 		
 		return true;
 	}

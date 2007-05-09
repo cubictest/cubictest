@@ -49,7 +49,7 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	}
 
 	public static Dimension getDefaultDimension() {
-		return new Dimension(93, 70);
+		return new Dimension(150, 90);
 	}
 	
 	/**

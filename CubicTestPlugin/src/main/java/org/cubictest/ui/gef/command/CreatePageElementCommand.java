@@ -22,6 +22,7 @@ public class CreatePageElementCommand extends Command {
 	private IContext context;
 	private PageElement pageElement;
 	private int index;
+	private boolean indexSet = false;
 	
 	/**
 	 * @param context
@@ -42,6 +43,9 @@ public class CreatePageElementCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute(){
+		if (!indexSet) {
+			index = context.getElements().size();
+		}
 		context.addElement(pageElement, index);
 	}
 	
@@ -59,6 +63,7 @@ public class CreatePageElementCommand extends Command {
 
 	public void setIndex(int index) {
 		this.index = index;
+		indexSet = true;
 	}
 
 }

@@ -218,7 +218,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		if (iss.getFirstElement() instanceof IResource) {
 			IResource res = (IResource) iss.getFirstElement();
 			project = res.getProject();
-			IDE.saveAllEditors(new IResource[] {res}, true);
+			IDE.saveAllEditors(new IResource[] {project}, true);
 		}
 		else {
 			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();

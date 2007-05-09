@@ -52,7 +52,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private static final String MUST_NOT = "must not";
 	private static final String SHOULD_NOT = "should not";
 	private static final String CANNOT = "cannot";
-	private static final String INDIFFERENT = "indifferent";
+	private static final String INDIFFERENT = "doesn't matter";
 	private static final String CAN = "can";
 	private static final String SHOULD = "should";
 	private static final String MUST = "must";
@@ -96,14 +96,14 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		
 		//Adding type
 		data = new FormData();
-		data.left = new FormAttachment(0, 30);
+		data.left = new FormAttachment(0, 0);
 		data.width = lableWidth;
 		type = factory.createLabel(firstRow, "",SWT.BOLD);
 		type.setLayoutData(data);
 		
 		//Adding probability
 		data = new FormData();
-		data.left = new FormAttachment(type);
+		data.left = new FormAttachment(type, 0);
 		probability = factory.createCCombo(firstRow);
 		probability.setItems(new String[]{MUST, INDIFFERENT, MUST_NOT});
 		probability.setSize(100, ITabbedPropertyConstants.VSPACE);
@@ -136,8 +136,8 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		
 		//Adding DirectEdit idendifier input (must be last in row to get correct focus behaviour)
 		data = new FormData();
-		data.left = new FormAttachment(0, 0);
-		dirEdit = factory.createButton(firstRow, "" , SWT.RADIO);
+		data.left = new FormAttachment(value, ITabbedPropertyConstants.HSPACE);
+		dirEdit = factory.createButton(firstRow, "Show in editor" , SWT.RADIO);
 		dirEdit.setLayoutData(data);
 		dirEdit.addSelectionListener(dirEditListener);
 		dirEdit.setToolTipText("Select for direct edit in the graphical test editor");

@@ -9,6 +9,7 @@ package org.cubictest.ui.gef.controller;
 
 import java.util.List;
 
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.IContext;
@@ -113,10 +114,13 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	@Override
 	public void setSelected(int value) {
 		super.setSelected(value);
-		if (value != EditPart.SELECTED_NONE)
+		if (value != EditPart.SELECTED_NONE) {
+			UserInfo.clearStatusLine();
 			((CubicTestGroupFigure)getFigure()).setSelected(true);
-		else
+		}
+		else {
 			((CubicTestGroupFigure)getFigure()).setSelected(false);
+		}
 		getFigure().repaint();
 		
 		//If this is the last element created, start direct edit:

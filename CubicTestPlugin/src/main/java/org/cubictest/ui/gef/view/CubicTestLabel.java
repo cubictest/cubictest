@@ -21,7 +21,7 @@ import org.eclipse.draw2d.Label;
  */
 public class CubicTestLabel extends Label {
 	
-	private int length = 100;
+	private int length = 50;
 	private String fullText;
 	private String tooltipText;
 

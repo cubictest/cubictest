@@ -37,8 +37,8 @@ public class AddElementContextMenuList {
 		list.add(Text.class);
 		list.add(Link.class);
 		list.add(Button.class);
-		list.add(SimpleContext.class);
 		list.add(TextField.class);
+		list.add(SimpleContext.class);
 		list.add(Checkbox.class);
 		list.add(RadioButton.class);
 		list.add(Select.class);
