@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CubicTestSeleniumExporter
 Bundle-SymbolicName: org.cubictest.exporters.selenium;singleton:=true
-Bundle-Version: 1.0.0.M3
+Bundle-Version: 1.0.0.M4
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -12,11 +12,11 @@ Require-Bundle: org.eclipse.ui,
  org.junit4
 Eclipse-LazyStart: true
 Bundle-ClassPath: .,
- lib/commons-lang-2.0.jar,
  lib/jdom.jar,
  lib/selenium-java-client-driver.jar,
  lib/selenium-server.jar,
- lib/commons-io-1.0.jar
+ lib/commons-io-1.0.jar,
+ lib/commons-lang-2.3.jar
 Bundle-Vendor: cubictest.org
 Export-Package: com.thoughtworks.selenium,
  org.cubictest.exporters.selenium.ui
