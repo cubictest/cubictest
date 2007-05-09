@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CubicRecorder
 Bundle-SymbolicName: org.cubictest.recorder.cubicrecorder;singleton:=true
-Bundle-Version: 1.0.0.M3
+Bundle-Version: 1.0.0.M4
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -11,14 +11,15 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.gef,
  org.eclipse.ui.editors,
- org.cubictest.exporters.selenium
+ org.cubictest.exporters.selenium,
+ org.junit4
 Bundle-ClassPath: .,
  lib/jsonrpc-1.0.jar,
  lib/org.mortbay.jetty.jar,
  lib/commons-io-1.0.jar,
- lib/commons-lang-2.0.jar,
  lib/selenium-java-client-driver.jar,
- lib/selenium-server.jar
+ lib/selenium-server.jar,
+ lib/commons-lang-2.3.jar
 Eclipse-LazyStart: true
 Bundle-Vendor: cubictest.org
 Export-Package: com.thoughtworks.selenium

@@ -83,7 +83,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 					//play forward to extension start point
 					long now = System.currentTimeMillis();
 					while (!seleniumRecorder.isSeleniumStarted()) {
-						if (System.currentTimeMillis() > now + (25 * 1000)) {
+						if (System.currentTimeMillis() > now + (30 * 1000)) {
 							throw new ExporterException("Timeout waiting for Selenium to start");
 						}
 						//wait for selenium (server & test system) to start

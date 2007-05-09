@@ -25,6 +25,7 @@ import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.Select;
 import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
+import org.cubictest.recorder.utils.TextUtil;
 import org.json.JSONObject;
 
 public class JSONElementConverter {
@@ -181,7 +182,7 @@ public class JSONElementConverter {
 					String value = getString(properties, key);
 					if (StringUtils.isNotBlank(value)) {
 						Identifier identifier = pe.getIdentifier(idType);
-						value = value.trim();
+						value = TextUtil.normalize(value);
 						value = StringEscapeUtils.unescapeHtml(value);
 						identifier.setValue(value);
 						identifier.setProbability(100);

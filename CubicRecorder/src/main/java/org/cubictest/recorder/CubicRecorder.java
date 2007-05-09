@@ -9,6 +9,9 @@ import static org.cubictest.model.ActionType.CLICK;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.IActionElement;
+import org.cubictest.model.Image;
+import org.cubictest.model.Link;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
@@ -18,6 +21,7 @@ import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.IContext;
+import org.cubictest.model.formElement.Button;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
@@ -80,6 +84,7 @@ public class CubicRecorder implements IRecorder {
 		
 		CreatePageElementCommand createElementCmd = new CreatePageElementCommand();
 		createElementCmd.setContext(this.cursor);
+		createElementCmd.setIndex(this.cursor.getElements().size());
 		if(parent != null){
 			if(cursor.contains(parent) && parent instanceof IContext){
 				createElementCmd.setContext((IContext) parent);
@@ -117,9 +122,11 @@ public class CubicRecorder implements IRecorder {
 		
 		ActionType lastActionType = action.getActionType();
 		if (lastActionType.equals(CLICK)) {
-			advanceCursor();
+			IActionElement pe = action.getElement();
+			if (pe instanceof Link || pe instanceof Button || pe instanceof Image) {
+				advanceCursor();
+			}
 		}
-		
 	}
 
 	/**
