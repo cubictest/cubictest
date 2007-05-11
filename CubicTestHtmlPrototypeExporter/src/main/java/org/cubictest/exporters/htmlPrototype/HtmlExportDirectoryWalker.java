@@ -6,9 +6,13 @@
 package org.cubictest.exporters.htmlPrototype;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.DirectoryWalker;
 import org.cubictest.export.IResultHolder;
@@ -57,26 +61,25 @@ public class HtmlExportDirectoryWalker<T extends IResultHolder> extends Director
 		testConverter.convert(test, destinationFolder.getRawLocation().toFile(), null);
 		
 		try {
-			//copy stylesheet:
-			IFile destFile = destinationFolder.getFile("default.css");
-			if (!destFile.exists()){
-				URL cssUrl = this.getClass().getResource("default.css");
-				File cssFile = FileUtils.toFile(FileLocator.toFileURL(cssUrl));
-				File destination = destFile.getRawLocation().toFile();
-				FileUtils.copyFile(cssFile, destination);
-			}
-
-			destFile = destinationFolder.getFile("cubic.js");
-			if (!destFile.exists()){
-				URL jsUrl = this.getClass().getResource("cubic.js");
-				File jsFile = FileUtils.toFile(FileLocator.toFileURL(jsUrl));
-				File destination = destFile.getRawLocation().toFile();
-				FileUtils.copyFile(jsFile, destination);
-			}
+			//copy stylesheet and javascript:
+			copy(destinationFolder, "default.css");
+			copy(destinationFolder, "cubic.js");
 		}
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error copying stylesheet or javascript file! The prototype will have limited functionality.");
 		}
 			
+	}
+
+
+	private void copy(IFolder destinationFolder, String fileName) throws IOException {
+		IFile destFile = destinationFolder.getFile(fileName);
+		if (!destFile.exists()){
+			File destination = destFile.getRawLocation().toFile();
+			InputStream in = this.getClass().getResourceAsStream(fileName);
+			OutputStream out = FileUtils.openOutputStream(destination);
+			IOUtils.copy(in, out);
+			IOUtils.closeQuietly(out);
+		}
 	}
 }
