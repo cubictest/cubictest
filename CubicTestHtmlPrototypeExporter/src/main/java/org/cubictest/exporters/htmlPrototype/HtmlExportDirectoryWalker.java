@@ -9,6 +9,7 @@ import java.io.File;
 import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.DirectoryWalker;
 import org.cubictest.export.IResultHolder;
 import org.cubictest.exporters.htmlPrototype.delegates.TestConverter;
@@ -74,7 +75,7 @@ public class HtmlExportDirectoryWalker<T extends IResultHolder> extends Director
 			}
 		}
 		catch (Exception e) {
-			System.out.println("Error copying stylesheet! Check that resources dir is in source path.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error copying stylesheet or javascript file! The prototype will have limited functionality.");
 		}
 			
 	}
