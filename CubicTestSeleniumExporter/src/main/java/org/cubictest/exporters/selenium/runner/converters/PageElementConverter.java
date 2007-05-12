@@ -16,7 +16,6 @@ import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
-import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.formElement.Option;
 
