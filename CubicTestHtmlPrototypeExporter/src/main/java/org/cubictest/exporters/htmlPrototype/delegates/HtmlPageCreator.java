@@ -123,6 +123,10 @@ public class HtmlPageCreator {
 				transitions.addContent(entry);				
 			}
 		}
+		transitions.addContent(new Element("span").addContent(new Element("small").setText("Open page in standalone browser to activate javascript")));
+		transitions.addContent(new Element("br"));
+		transitions.addContent(new Element("span").addContent(new Element("small").setText(" (enables clickable page elements).")));
+		
 		try {
 			FileWriter fw = new FileWriter(file);
 			XmlUtils.getNewXmlOutputter().output(document, fw);
