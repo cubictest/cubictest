@@ -11,11 +11,16 @@ import java.util.Map;
 
 import org.cubictest.custom.IElementContext;
 import org.cubictest.export.IResultHolder;
+import org.cubictest.exporters.cubicunit.ui.BrowserType;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.TestPartStatus;
 import org.cubicunit.Browser;
 import org.cubicunit.Container;
 import org.cubicunit.Document;
 import org.cubicunit.Element;
+import org.cubicunit.internal.selenium.SeleniumBrowserType;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.swt.widgets.Display;
 
 public class Holder implements IResultHolder {
 
@@ -24,7 +29,19 @@ public class Holder implements IResultHolder {
 	private Map<PageElement, Element> elementMap = new HashMap<PageElement, Element>();
 	private List<Browser> browsers = new ArrayList<Browser>();
 	private int browserIndex;
-	private IElementContext context; 
+	private IElementContext context;
+
+	private IProgressMonitor monitor;
+
+	private Display display;
+
+	private int port;
+
+	private SeleniumBrowserType browserType = SeleniumBrowserType.FIREFOX;; 
+	
+	public Holder(Display display){
+		this.display = display;
+	}
 	
 	public Container getContainer() {
 		return container;
@@ -48,6 +65,8 @@ public class Holder implements IResultHolder {
 	}
 
 	public Browser getBrowser() {
+		if(browsers.size() == 0)
+			throw new RuntimeException("No browser opened");
 		return browsers.get(browserIndex);
 	}
 	public Browser getNextBrowser(){
@@ -81,4 +100,59 @@ public class Holder implements IResultHolder {
 	public String toResultString() {
 		return "runner";
 	}
+
+	public void addResult(final PageElement element, TestPartStatus result) {
+		handleUserCancel();
+		//show result immediately in the GUI:
+		final TestPartStatus finalResult = result;
+		display.asyncExec(new Runnable() {
+			public void run() {
+				if(element != null)
+					element.setStatus(finalResult);
+			}
+		});
+	}
+	
+	private void handleUserCancel() {
+		if (monitor != null && monitor.isCanceled()) {
+			getBrowser().close();
+			throw new RuntimeException("Operation cancelled");
+		}
+	}
+	
+	public void setMonitor(IProgressMonitor monitor) {
+		this.monitor = monitor;
+	}
+
+	public void setPort(int portNumber) {
+		this.port = portNumber;
+	}
+	
+	public int getPort() {
+		return port;
+	}
+
+	public void setBrowserType(BrowserType browserType) {
+		switch (browserType) {
+		case FIREFOX:
+			this.browserType = SeleniumBrowserType.FIREFOX;
+			break;
+		case INTERNET_EXPLORER:
+			this.browserType = SeleniumBrowserType.I_EXPLORER;
+			break;
+		case SAFARI:
+			this.browserType = SeleniumBrowserType.SAFARI;
+			break;
+		case OPERA:
+			this.browserType = SeleniumBrowserType.OPERA;
+		default:
+			this.browserType = SeleniumBrowserType.FIREFOX;
+			break;
+		}
+	}
+
+	public SeleniumBrowserType getBrowserType() {
+		return browserType;
+	}
+	
 }

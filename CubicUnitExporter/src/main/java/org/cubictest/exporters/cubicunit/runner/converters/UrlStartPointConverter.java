@@ -19,13 +19,15 @@ public class UrlStartPointConverter implements IUrlStartPointConverter<Holder> {
 
 	public void handleUrlStartPoint(Holder holder, UrlStartPoint urlStartPoint) {	
 		String url = urlStartPoint.getBeginAt();
+		int port = holder.getPort();
+		SeleniumBrowserType browserType = holder.getBrowserType();
 		
-		Browser browser = WebTester.selenium(SeleniumBrowserType.FIREFOX);
+		Browser browser = WebTester.selenium(browserType,port);
 		browser.setVisible(true);
 		holder.addBrowser(browser);
 		
 		Document document = browser.goTo(url);
 		holder.setContainer(document);
-	
+		
 	}
 }

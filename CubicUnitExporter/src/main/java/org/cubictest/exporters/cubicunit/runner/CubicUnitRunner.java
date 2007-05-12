@@ -15,6 +15,7 @@ import org.cubictest.exporters.cubicunit.runner.converters.ElementConverter;
 import org.cubictest.exporters.cubicunit.runner.converters.TransitionConverter;
 import org.cubictest.exporters.cubicunit.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.cubicunit.runner.holders.Holder;
+import org.cubictest.exporters.cubicunit.ui.BrowserType;
 import org.cubictest.model.Test;
 import org.cubicunit.internal.selenium.CubicSeleniumServer;
 import org.eclipse.core.runtime.CoreException;
@@ -23,20 +24,30 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.swt.widgets.Display;
 
 public class CubicUnitRunner implements IRunnableWithProgress, ILaunchConfigurationDelegate{
 
 	private Test test;
+	private Display display;
+	private final int portNumber;
+	private BrowserType browserType;
 	
-	public CubicUnitRunner(Test test) {
+	public CubicUnitRunner(Test test, Display display, int portNumber, BrowserType browserType) {
 		this.test = test;
+		this.display = display;
+		this.portNumber = portNumber;
+		this.browserType = browserType;
 	}
 	
 	public void run(IProgressMonitor monitor) {
 		//	Set up dependency hierarchy:
-		Holder holder = new Holder();
+		Holder holder = new Holder(display);
+		holder.setMonitor(monitor);
+		holder.setPort(portNumber);
+		holder.setBrowserType(browserType);
 		
-		CubicSeleniumServer server = new CubicSeleniumServer(4444);
+		CubicSeleniumServer server = new CubicSeleniumServer(portNumber);
 		
 		TreeTestWalker<Holder> testWalker = new TreeTestWalker<Holder>(UrlStartPointConverter.class, 
 				ElementConverter.class, ContextConverter.class, 
@@ -46,6 +57,7 @@ public class CubicUnitRunner implements IRunnableWithProgress, ILaunchConfigurat
 		
 		testWalker.convertTest(test, holder);
 		
+		holder.getBrowser().close();
 		try {
 			server.stop();
 		} catch (InterruptedException e) {

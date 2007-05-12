@@ -17,7 +17,7 @@ import org.cubicunit.Container;
 import org.cubicunit.Document;
 import org.cubicunit.Element;
 import org.cubicunit.ElementTypes;
-import org.cubicunit.types.DivType;
+import org.cubicunit.types.ElementContainerType;
 
 public class ContextConverter implements IContextConverter<Holder> {
 
@@ -32,7 +32,7 @@ public class ContextConverter implements IContextConverter<Holder> {
 			SimpleContext sc = (SimpleContext) context;
 			try{
 				container = holder.getContainer();
-				DivType type = ElementTypes.DIV;
+				ElementContainerType type = ElementTypes.CUSTOM_ELEMENT;
 				for(Identifier id : sc.getIdentifiers()){
 					switch(id.getType()){
 						case ID:
@@ -43,26 +43,40 @@ public class ContextConverter implements IContextConverter<Holder> {
 							//type = type.xpath(id.getProbability(), id.getValue());
 							break;
 						case VALUE:
-							type.text(id.getProbability(), id.getValue());
+							type = type.text(id.getProbability(), id.getValue());
+							break;
+						case ELEMENT_NAME:
+							type = type.tagName(id.getProbability(), id.getValue());
+							break;
+						case INDEX:
+							try{
+								type = type.index(id.getProbability(), 
+									Integer.parseInt(id.getValue()));
+							}catch (NumberFormatException e) {
+							}
 							break;
 						default:
-							;	
+							break;	
 					}
 				}
 				Container subContainer = container.get(type);
 				if(sc.isNot()){
 					if(subContainer != null)
-						sc.setStatus(TestPartStatus.FAIL);
+						holder.addResult(sc, TestPartStatus.FAIL);
 					else
-						sc.setStatus(TestPartStatus.PASS);
+						holder.addResult(sc, TestPartStatus.PASS);
 				}else{
-					holder.setContainer(subContainer);
-					holder.put(sc, (Element)subContainer);
-					sc.setStatus(TestPartStatus.PASS);
+					if(subContainer == null)
+						holder.addResult(sc, TestPartStatus.FAIL);
+					else{
+						holder.addResult(sc, TestPartStatus.PASS);
+						holder.setContainer(subContainer);
+						holder.put(sc, (Element)subContainer);
+					}
 				}
 				
 			}catch (RuntimeException e){
-				sc.setStatus(TestPartStatus.EXCEPTION);
+				holder.addResult(sc, TestPartStatus.EXCEPTION);
 				throw e;
 			}
 		}

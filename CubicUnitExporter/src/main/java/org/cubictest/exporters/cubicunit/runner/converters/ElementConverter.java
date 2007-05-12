@@ -7,6 +7,8 @@
  */
 package org.cubictest.exporters.cubicunit.runner.converters;
 
+import java.util.Map;
+
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.cubicunit.runner.holders.Holder;
@@ -31,7 +33,7 @@ import org.cubicunit.Container;
 import org.cubicunit.Document;
 import org.cubicunit.Element;
 import org.cubicunit.ElementTypes;
-import org.cubicunit.internal.types.ButtonTypeImpl;
+import org.cubicunit.internal.selenium.SeleniumAbstractElement;
 import org.cubicunit.types.ElementType;
 import org.cubicunit.types.ImageType;
 import org.cubicunit.types.InputType;
@@ -46,21 +48,26 @@ public class ElementConverter implements IPageElementConverter<Holder> {
 	public void handlePageElement(Holder holder,PageElement pe) {
 		Container container = holder.getContainer();
 		boolean not = pe.isNot();
+		
+		TestPartStatus status = TestPartStatus.FAIL;
+		
 		try{
-			
 			if (pe instanceof Text) {
 				String text = pe.getIdentifier(IdentifierType.LABEL).getValue();
 				if (not != container.containsText(text))
-					pe.setStatus(TestPartStatus.PASS);
-				else 
-					pe.setStatus(TestPartStatus.FAIL);
+					status = TestPartStatus.PASS;
+				else
+					status = TestPartStatus.FAIL;
 			}else if (pe instanceof Title){
 				String text = pe.getIdentifier(IdentifierType.LABEL).getValue();
 				Document doc = holder.getDocument();
-				if (not != doc.getTitle().equals(text))
-					pe.setStatus(TestPartStatus.PASS);
-				else 
-					pe.setStatus(TestPartStatus.FAIL);
+				String title = doc.getTitle();
+				if (not != title.equals(text))
+					status = (TestPartStatus.PASS);
+				else{ 
+					status = (TestPartStatus.FAIL);
+					//identifier.setActual(title);
+				}
 			}else{
 				ElementType<?> elementType = null;
 				if (pe instanceof Link) {
@@ -95,7 +102,7 @@ public class ElementConverter implements IPageElementConverter<Holder> {
 				for(Identifier id : pe.getIdentifiers()){
 					switch (id.getType()) {
 						case CHECKED:
-							elementType = ((SelectType)elementType).
+							elementType = ((SelectType<?>)elementType).
 								checked(id.getProbability(), Boolean.getBoolean(id.getValue()));
 							break;
 						case HREF:
@@ -109,20 +116,20 @@ public class ElementConverter implements IPageElementConverter<Holder> {
 							// TODO
 							break;
 						case LABEL:
-							elementType = ((ButtonTypeImpl)elementType).
-								label(id.getProbability(), id.getValue());
+							if(elementType instanceof LinkType)
+								elementType = ((LinkType)elementType).
+									text(id.getProbability(), id.getValue());
+							else if (elementType instanceof InputType<?>)
+								elementType = ((InputType<?>)elementType).
+									label(id.getProbability(), id.getValue());
 							break;
 						case MULTISELECT:
 							elementType = ((SelectMenuType)elementType).
 								multiSelect(id.getProbability(), Boolean.getBoolean(id.getValue()));
 							break;
 						case NAME:
-							elementType = ((InputType)elementType).
+							elementType = ((InputType<?>)elementType).
 								name(id.getProbability(), id.getValue());
-							break;
-						case XPATH:
-							//TODO: Fixme
-							//elementType = elementType.xpath(id.getProbability(), id.getValue());
 							break;
 						case SRC:
 							elementType = ((ImageType)elementType).src(id.getProbability(), id.getValue());
@@ -131,25 +138,52 @@ public class ElementConverter implements IPageElementConverter<Holder> {
 							elementType = elementType.title(id.getProbability(), id.getValue());
 							break;
 						case VALUE:
-							elementType = ((TextInputType)elementType).value
+							elementType = ((TextInputType<?>)elementType).value
 								(id.getProbability(), id.getValue());
+							break;
+						case XPATH:
+							//TODO
+							break;
+						case SELECTED:
+							elementType = ((SelectType<?>)elementType).
+								checked(id.getProbability(), Boolean.getBoolean(id.getValue()));
+							break;
+						case ELEMENT_NAME:
 							break;
 					}
 				}
 				Element element = container.get(elementType);
 				if(not)
 					if(element == null)
-						pe.setStatus(TestPartStatus.PASS);
+						status = TestPartStatus.PASS;
 					else
-						pe.setStatus(TestPartStatus.FAIL);
+						status = TestPartStatus.FAIL;
 				else{
-					holder.put(pe,element);
-					pe.setStatus(TestPartStatus.PASS);
+					if(element == null)
+						status = TestPartStatus.FAIL;
+					else{
+						holder.put(pe,element);
+						status = TestPartStatus.PASS;
+						
+						Map<String, Object> props = 
+							((SeleniumAbstractElement)element).getProperties();
+						if(props != null){
+							for(String key: props.keySet()){
+								String actualValue = (String) props.get(key);
+								if("id".equals(key)){
+									//pe.getIdentifier(IdentifierType.ID).setActual(actualValue);
+								}
+							}
+						}
+					}	
 				}
 			}
 		}catch(RuntimeException e){
-			pe.setStatus(TestPartStatus.EXCEPTION);
+			status = TestPartStatus.EXCEPTION;
 			throw e;
 		}
+		
+		holder.addResult(pe, status);
 	}
+	
 }

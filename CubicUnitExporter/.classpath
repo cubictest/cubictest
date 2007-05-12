@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry exported="true" kind="lib" path="lib/saxpath.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jaxen-core.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jacob.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jiffie.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jacob.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaxen-core.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/saxpath.jar"/>
+	<classpathentry kind="lib" path="lib/CubicTestElementAPI.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/CubicUnit"/>
-	<classpathentry kind="lib" path="lib/CubicTestElementAPI.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
