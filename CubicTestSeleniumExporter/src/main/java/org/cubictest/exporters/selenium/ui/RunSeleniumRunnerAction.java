@@ -20,7 +20,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.internal.UIPlugin;
 
 import com.thoughtworks.selenium.Selenium;
 
@@ -73,11 +72,12 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 			if (testRunner != null) {
 				((RunnerSetup) testRunner).showResults();
 			}
-			shell.forceActive();
+			if(shell != null)
+				shell.forceActive();
 			ErrorHandler.logAndShowErrorDialog(e, "Error when running test", shell);
 		}
 		finally {
-			if (stopSeleniumWhenFinished) {
+			if (stopSeleniumWhenFinished && testRunner != null) {
 				((RunnerSetup) testRunner).stopSelenium();
 			}
 		}
