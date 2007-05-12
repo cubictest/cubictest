@@ -43,7 +43,11 @@ public abstract class PageElement extends PropertyAwareObject
 				if (i > 0) {
 					buff.append(", ");
 				}
-				buff.append(id);
+				String op = "=";
+				if (id.getProbability() < 0) {
+					op = "!=";
+				}
+				buff.append(id.getType() + op + "\"" + id.getValue() + "\"");
 			}
 			i++;
 		}
