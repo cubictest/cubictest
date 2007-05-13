@@ -8,6 +8,9 @@ import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
+import org.cubictest.ui.gef.command.MovePageCommand;
+import org.cubictest.ui.gef.command.NoOperationCommand;
+import org.cubictest.ui.gef.command.PageResizeCommand;
 import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
@@ -21,6 +24,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 public class AutoLayout {
 	private final TestEditPart testEditPart;
+	private ITestEditor testEditor;
 
 	/**
 	 * Public constructor.
@@ -29,6 +33,7 @@ public class AutoLayout {
 	public AutoLayout(ITestEditor testEditor) {
 		GraphicalTestEditor editor = (GraphicalTestEditor) testEditor;
 		this.testEditPart = (TestEditPart) editor.getGraphicalViewer().getContents();
+		this.testEditor = testEditor;
 	}
 
 	public void layout(TransitionNode node) {
@@ -80,11 +85,22 @@ public class AutoLayout {
 				height += 5 + editPart.getFigure().getBounds().height;
 				width = Math.max(width, editPart.getFigure().getBounds().width);
 			}
-			page.setDimension(new Dimension(width, height));
+			PageResizeCommand resizeCmd = new PageResizeCommand();
+			resizeCmd.setPage(page);
+			resizeCmd.setOldDimension(page.getDimension());
+			resizeCmd.setNewDimension(new Dimension(width + 20, height));
+			testEditor.getCommandStack().execute(resizeCmd);
+
+			MovePageCommand moveCmd = new MovePageCommand();
+			moveCmd.setPage(page);
+			moveCmd.setOldPosition(page.getPosition());
+			
 			Point position = page.getPosition().getCopy();
 			position.y = topCenter.y;
 			position.x = topCenter.x - width / 2;
-			page.setPosition(position);
+			moveCmd.setNewPosition(position);
+			
+			testEditor.getCommandStack().execute(moveCmd);
 		}
 		
 		int bottom = node.getPosition().y + node.getDimension().height;
