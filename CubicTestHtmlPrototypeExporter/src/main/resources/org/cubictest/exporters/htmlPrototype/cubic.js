@@ -24,3 +24,7 @@ UserInteractions = {
 		window.location.href = escape(uaId);
 	}
 };
+
+function hideScriptInfo() {
+	document.getElementById("scriptInfo").innerHTML = "";	
+}

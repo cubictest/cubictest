@@ -123,9 +123,8 @@ public class HtmlPageCreator {
 				transitions.addContent(entry);				
 			}
 		}
-		transitions.addContent(new Element("span").addContent(new Element("small").setText("Open page in standalone browser to activate javascript")));
-		transitions.addContent(new Element("br"));
-		transitions.addContent(new Element("span").addContent(new Element("small").setText(" (enables clickable page elements).")));
+		Element span = new Element("span").setAttribute("id", "scriptInfo");;
+		transitions.addContent(span.addContent(new Element("small").setText("Activate JavaScript to enable clickable page elements")));
 		
 		try {
 			FileWriter fw = new FileWriter(file);
@@ -236,7 +235,7 @@ public class HtmlPageCreator {
 							element.setAttribute("class", "actionable " + classes);
 						}
 					}
-					actionJs += "['" + attribute + "'," + value + ", false],";
+					actionJs += "['" + attribute + "'," + value + ", false]";
 					i++;					
 				}
 			}
@@ -257,7 +256,7 @@ public class HtmlPageCreator {
 		breadcrumbs = new Element("div");
 		breadcrumbs.setAttribute("id", "breadcrumbs");
 		
-		Element body = new Element("body");
+		Element body = new Element("body").setAttribute("onLoad", "hideScriptInfo();");
 		title = new Element("title");
 
 		body.addContent(breadcrumbs);
@@ -278,12 +277,6 @@ public class HtmlPageCreator {
 		contents = new Element("div");
 		contents.setAttribute("id", "contents");
 		body.addContent(contents);
-
-		Element jsPrototype = new Element("script");
-		jsPrototype.setAttribute("type", "text/javascript");
-		jsPrototype.setAttribute("src", "prototype.js");
-		jsPrototype.setText(";");
-		head.addContent(jsPrototype);
 		
 		Element jsCubic = new Element("script");
 		jsCubic.setAttribute("type", "text/javascript");
