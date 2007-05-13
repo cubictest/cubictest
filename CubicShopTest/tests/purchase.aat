@@ -191,7 +191,7 @@
                             </identifiers>
                             <directEditIdentifier reference="../identifiers/identifier"/>
                             <not>false</not>
-                            <status>FAIL</status>
+                            <status reference="../../../../../../../../../../elements/text/status"/>
                           </button>
                           <link>
                             <description></description>
@@ -227,7 +227,7 @@
                             </identifiers>
                             <directEditIdentifier reference="../identifiers/identifier"/>
                             <not>false</not>
-                            <status reference="../../button/status"/>
+                            <status reference="../../../../../../../../../../elements/text/status"/>
                           </link>
                         </elements>
                         <description></description>
@@ -247,7 +247,7 @@
                             <useParam>false</useParam>
                           </identifier>
                           <identifier>
-                            <value>3</value>
+                            <value>2</value>
                             <probability>100</probability>
                             <type reference="../../../../../../../../../../elements/simpleContext/identifiers/identifier[3]/type"/>
                             <useI18n>false</useI18n>
@@ -263,7 +263,7 @@
                         </identifiers>
                         <directEditIdentifier reference="../identifiers/identifier"/>
                         <not>false</not>
-                        <status reference="../elements/button/status"/>
+                        <status>FAIL</status>
                       </simpleContext>
                     </elements>
                     <description></description>
@@ -283,7 +283,7 @@
                         <useParam>false</useParam>
                       </identifier>
                       <identifier>
-                        <value>3</value>
+                        <value>4</value>
                         <probability>100</probability>
                         <type reference="../../../../../../../../elements/simpleContext/identifiers/identifier[3]/type"/>
                         <useI18n>false</useI18n>
