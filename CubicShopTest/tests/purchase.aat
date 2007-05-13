@@ -94,7 +94,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>UNKNOWN</status>
+              <status reference="../../text/status"/>
             </simpleContext>
           </elements>
           <name>Frontpage</name>
@@ -117,6 +117,42 @@
               <end class="page">
                 <commons/>
                 <elements>
+                  <link>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>3D Shooter Box</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/text/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier[4]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status reference="../../../../../../elements/text/status"/>
+                  </link>
                   <simpleContext>
                     <elements>
                       <simpleContext>
@@ -155,7 +191,7 @@
                             </identifiers>
                             <directEditIdentifier reference="../identifiers/identifier"/>
                             <not>false</not>
-                            <status reference="../../../../../../../../../../elements/text/status"/>
+                            <status>FAIL</status>
                           </button>
                           <link>
                             <description></description>
@@ -191,7 +227,7 @@
                             </identifiers>
                             <directEditIdentifier reference="../identifiers/identifier"/>
                             <not>false</not>
-                            <status reference="../../../../../../../../../../elements/text/status"/>
+                            <status reference="../../button/status"/>
                           </link>
                         </elements>
                         <description></description>
@@ -227,7 +263,7 @@
                         </identifiers>
                         <directEditIdentifier reference="../identifiers/identifier"/>
                         <not>false</not>
-                        <status reference="../../../../../../../../elements/simpleContext/status"/>
+                        <status reference="../elements/button/status"/>
                       </simpleContext>
                     </elements>
                     <description></description>
@@ -247,7 +283,7 @@
                         <useParam>false</useParam>
                       </identifier>
                       <identifier>
-                        <value>2</value>
+                        <value>3</value>
                         <probability>100</probability>
                         <type reference="../../../../../../../../elements/simpleContext/identifiers/identifier[3]/type"/>
                         <useI18n>false</useI18n>
@@ -263,7 +299,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/simpleContext/status"/>
+                    <status reference="../../../../../../elements/text/status"/>
                   </simpleContext>
                 </elements>
                 <name>3D Shooter Box</name>
@@ -329,7 +365,7 @@
                 </position>
                 <dimension>
                   <width>131</width>
-                  <height>117</height>
+                  <height>138</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
                 <autoPosition>false</autoPosition>
@@ -410,7 +446,7 @@
             </identifiers>
             <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/simpleContext/status"/>
+            <status>UNKNOWN</status>
           </text>
           <button>
             <description></description>
@@ -453,7 +489,7 @@
             </identifiers>
             <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/simpleContext/status"/>
+            <status reference="../../text/status"/>
           </button>
         </elements>
         <name>Show tooltip</name>

@@ -61,7 +61,43 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
+                          <status reference="../../../../../../../../../elements/text/status"/>
                         </text>
+                        <link>
+                          <description></description>
+                          <identifiers>
+                            <identifier>
+                              <value>Welcome</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type>ID</type>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type>HREF</type>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type>TITLE</type>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
+                          <not>false</not>
+                        </link>
                       </elements>
                       <name>Login error</name>
                       <inTransition class="extensionTransition" reference="../.."/>
@@ -69,8 +105,9 @@
                         <userInteractionsTransition>
                           <userInteractions>
                             <userInteraction>
+                              <element class="link" reference="../../../../../elements/link"/>
                               <input></input>
-                              <action reference="../../../../../../../../../userInteractions/userInteraction/action"/>
+                              <action>CLICK</action>
                               <paramKey></paramKey>
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
@@ -108,6 +145,7 @@
                                             </identifiers>
                                             <directEditIdentifier reference="../identifiers/identifier"/>
                                             <not>false</not>
+                                            <status>UNKNOWN</status>
                                           </text>
                                         </elements>
                                         <name>Bought box</name>
@@ -169,7 +207,7 @@
                       </position>
                       <dimension>
                         <width>128</width>
-                        <height>58</height>
+                        <height>79</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
                       <autoPosition>false</autoPosition>
@@ -231,6 +269,10 @@
     <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition"/>
   </transitions>
   <customTestSteps/>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
   <name>Purchase after login</name>
   <description></description>
   <id>/CubicShopTest/tests/check_login_required.aat</id>
