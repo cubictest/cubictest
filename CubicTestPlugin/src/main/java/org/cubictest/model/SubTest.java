@@ -24,9 +24,9 @@ public class SubTest extends ConnectionPoint {
 	private transient CustomElementLoader customTestStepLoader;
 
 	public SubTest(String filePath, IProject project) {
+		super();
 		this.filePath = filePath;
 		this.project = project;
-		this.setId(System.currentTimeMillis() + "");
 	}
 
 	/**

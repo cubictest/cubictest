@@ -166,9 +166,7 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	}
 
 	private String getNewGeneratedId() {
-		String name = getClass().getName();
-		name = name.substring(name.lastIndexOf(".") + 1);
-		name = name.toLowerCase();
+		String name = getClass().getSimpleName().toLowerCase();
 		return name + this.hashCode() + System.currentTimeMillis();
 	}
 
@@ -189,6 +187,7 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		TransitionNode node = (TransitionNode) CubicCloner.deepCopy(this);
 		node.removeInTransition();
 		node.removeOutTransitions();
+		node.setId(getNewGeneratedId());
 		return node;
 	}
 }
