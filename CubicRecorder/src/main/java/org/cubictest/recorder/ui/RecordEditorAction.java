@@ -95,7 +95,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 	 						"Press OK to start recording (test browser is open).");
 	 				runner.setStopSeleniumWhenFinished(false);
 	 				runner.setSelenium(seleniumRecorder.getSelenium());
-	 				runner.setTest(((SubTest) test.getStartPoint()).getTest());
+	 				runner.setTest(((SubTest) test.getStartPoint()).getTest(true));
 	 				if (test.getStartPoint().getOutTransitions().size() == 0) {
 	 					ErrorHandler.logAndShowErrorDialogAndThrow("To start recording, the test must have at least one page connected to the start point.");
 	 				}
@@ -157,7 +157,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 		}
 		else {
 			//ExtensionStartPoint, get url start point recursively:
-			return getInitialUrlStartPoint(((ExtensionStartPoint) test.getStartPoint()).getTest());
+			return getInitialUrlStartPoint(((ExtensionStartPoint) test.getStartPoint()).getTest(true));
 		}
 	}
 
