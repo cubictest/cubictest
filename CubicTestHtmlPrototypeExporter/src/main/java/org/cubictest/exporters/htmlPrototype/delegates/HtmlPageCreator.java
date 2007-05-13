@@ -235,6 +235,9 @@ public class HtmlPageCreator {
 							element.setAttribute("class", "actionable " + classes);
 						}
 					}
+					if(!actionJs.equals("")) {
+						actionJs += ",";
+					}
 					actionJs += "['" + attribute + "'," + value + ", false]";
 					i++;					
 				}
