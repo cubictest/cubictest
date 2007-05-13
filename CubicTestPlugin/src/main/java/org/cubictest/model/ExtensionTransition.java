@@ -22,7 +22,7 @@ public class ExtensionTransition extends Transition {
 	
 	public ExtensionPoint getExtensionPoint() {
 		if(extensionPoint == null) {
-			for(AbstractPage page : ((SubTest)getStart()).getTest().getPages()) {
+			for(AbstractPage page : ((SubTest)getStart()).getTest(true).getPages()) {
 				if(page.getId() == id) {
 					for(Transition t : page.getOutTransitions()) {
 						if(t.getEnd() instanceof ExtensionPoint) {

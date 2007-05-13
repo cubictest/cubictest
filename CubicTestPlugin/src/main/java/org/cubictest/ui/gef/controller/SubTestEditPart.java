@@ -120,7 +120,7 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 						IEditorPart part = IDE.openEditor(page, testFile, true);
 						if(part instanceof GraphicalTestEditor){
 							((GraphicalTestEditor)part).getGraphicalViewer().
-								setContents(getModel().getTest());
+								setContents(getModel().getTest(false));
 						}
 					} catch (PartInitException e) {
 					}

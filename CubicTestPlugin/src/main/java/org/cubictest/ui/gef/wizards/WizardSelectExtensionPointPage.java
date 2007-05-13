@@ -32,7 +32,7 @@ public class WizardSelectExtensionPointPage extends WizardPage {
 	}
 	
 	public List<ExtensionPoint> getExtensionPoints() {
-		return subTest.getTest().getAllExtensionPoints();
+		return subTest.getTest(true).getAllExtensionPoints();
 	}
 	
 	public void createControl(Composite parent) {

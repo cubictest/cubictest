@@ -111,7 +111,7 @@ public class CreateTransitionCommand extends Command {
 			if (sourceNode instanceof SubTest && (targetNode instanceof Page || targetNode instanceof SubTest)) {
 				//ExtensionTransition from SubTest
 				SubTest subTest = (SubTest) sourceNode;
-				List<ExtensionPoint> exPoints = subTest.getTest().getAllExtensionPoints();
+				List<ExtensionPoint> exPoints = subTest.getTest(true).getAllExtensionPoints();
 				if (exPoints == null || exPoints.size() == 0) {
 					ErrorHandler.showErrorDialog("The \"" + subTest.getFileName() + "\" subtest does not contain any extension points.\n" +
 							"To continue, first add an extension point to the subtest and then retry this operation.");

@@ -32,8 +32,8 @@ public class SubTest extends ConnectionPoint {
 	/**
 	 * @return Test	the sub test that this object represents
 	 */
-	public Test getTest() {
-		if(test == null){
+	public Test getTest(boolean forceRefreshFile) {
+		if(test == null || forceRefreshFile) {
 			test = TestPersistance.loadFromFile(project, getFilePath());
 			test.setResourceMonitor(resourceMonitor);
 			test.setCustomTestStepLoader(customTestStepLoader);
@@ -43,7 +43,7 @@ public class SubTest extends ConnectionPoint {
 	
 	@Override
 	public String getName() {
-		return getTest().getName() + " (" + getFileName() + ")";
+		return getTest(false).getName() + " (" + getFileName() + ")";
 	}
 	
 	public String getFileName() {
@@ -61,7 +61,7 @@ public class SubTest extends ConnectionPoint {
 			return true;
 		}
 		
-		for(SubTest subTest : getTest().getSubTests()) {
+		for(SubTest subTest : getTest(false).getSubTests()) {
 			if(subTest.getFilePath() == test.getFilePath() || subTest.containsTest(test)) {
 				return true;
 			}

@@ -78,7 +78,7 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 				ErrorHandler.showWarnDialog("The extension point \"" + start.getSourceExtensionPointName() + "\" used as start point " +
 						"was not found in file \"" + start.getFileName() + "\"\n\n" +
 						"Press OK to select a new extension point to use as start point in the test.");
-				UpdateStartPointWizard wiz = launchNewTestWizard(start.getTest());
+				UpdateStartPointWizard wiz = launchNewTestWizard(start.getTest(true));
 				if (wiz.getExTrans() == null) {
 					ErrorHandler.logAndShowErrorDialogAndThrow("No extension point selected. Unable to continue.");
 				}
