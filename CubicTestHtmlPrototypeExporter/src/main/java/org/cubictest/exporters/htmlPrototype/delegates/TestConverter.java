@@ -134,7 +134,7 @@ public class TestConverter implements ITestConverter {
 			tc.setBreadcrumbs(breadcrumbs);
 
 			HtmlPageCreator parentPage = rootPage;
-			HashMap<Transition, HtmlPageCreator> subTestTransitions = tc.convert(((SubTest) node).getTest(), outFolder, PageConverter.isNewPageTransition(node.getInTransition()) ? null : rootPage);
+			HashMap<Transition, HtmlPageCreator> subTestTransitions = tc.convert(((SubTest) node).getTest(true), outFolder, PageConverter.isNewPageTransition(node.getInTransition()) ? null : rootPage);
 			transitions = new HashMap<Transition, HtmlPageCreator>();
 			
 			rootPage = (HtmlPageCreator) subTestTransitions.values().toArray()[0];
