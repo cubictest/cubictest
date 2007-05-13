@@ -292,6 +292,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		Test test = TestPersistance.loadFromFile(((IFileEditorInput)getEditorInput()).getFile());
 		test.setResourceMonitor(resourceMonitor);
 		test.setCustomTestStepLoader(customTestStepLoader);
+		test.resetStatus();
 		return test;
 	}
 	

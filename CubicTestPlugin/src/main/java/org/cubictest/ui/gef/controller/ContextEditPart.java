@@ -72,7 +72,7 @@ public class ContextEditPart extends PageElementEditPart {
 				+ "\nContexts are used for identyfying a part of the page or a single page element.");
 		return figure;
 	}
-	
+	@Override
 	protected void startDirectEdit(){
 		if (manager == null)
 			manager = new CubicTestDirectEditManager(this,
@@ -87,6 +87,7 @@ public class ContextEditPart extends PageElementEditPart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.EditPart#setSelected(int)
 	 */
+	@Override
 	public void setSelected(int value) {
 		super.setSelected(value);
 		CubicTestGroupFigure figure = (CubicTestGroupFigure) getFigure();

@@ -144,11 +144,13 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 			if(newImage != null)
 				figure.setIcon(newImage);
 			figure.setText(element.getText());
+			figure.setStatus(element.getStatus());
 		}else{
 			CubicTestGroupFigure figure = (CubicTestGroupFigure)getFigure();
 			figure.setText(element.getText());
 			if(newImage != null)
 				figure.getHeader().setIcon(newImage);
+			figure.setStatus(element.getStatus());
 		}
 		
 		if (manager != null)

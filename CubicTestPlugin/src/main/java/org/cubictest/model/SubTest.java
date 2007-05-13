@@ -33,9 +33,11 @@ public class SubTest extends ConnectionPoint {
 	 * @return Test	the sub test that this object represents
 	 */
 	public Test getTest() {
-		test = TestPersistance.loadFromFile(project, getFilePath());
-		test.setResourceMonitor(resourceMonitor);
-		test.setCustomTestStepLoader(customTestStepLoader);
+		if(test == null){
+			test = TestPersistance.loadFromFile(project, getFilePath());
+			test.setResourceMonitor(resourceMonitor);
+			test.setCustomTestStepLoader(customTestStepLoader);
+		}
 		return test;
 	}
 	
@@ -82,7 +84,7 @@ public class SubTest extends ConnectionPoint {
 
 	@Override
 	public void resetStatus() {
-		
+		test = null;
 	}
 
 	public void setResourceMonitor(IResourceMonitor resourceMonitor) {
@@ -97,6 +99,7 @@ public class SubTest extends ConnectionPoint {
 		this.filePath = filePath;
 	}
 	
+	@Override
 	public String toString() {
 		return getClass().getSimpleName() + ": Name = " + getName() + ", FilePath = " + getFilePath();
 	}

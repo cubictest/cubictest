@@ -16,6 +16,9 @@ public enum TestPartStatus {
 	
 	/** Test part passed test */
 	PASS,
+	
+	/** Test part passed with some warning */
+	WARN,
 
 	/** Test part failed test */
 	FAIL,

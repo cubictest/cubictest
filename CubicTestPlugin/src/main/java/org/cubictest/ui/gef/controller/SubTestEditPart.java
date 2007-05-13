@@ -15,6 +15,7 @@ import org.cubictest.model.SubTest;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
+import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.PageNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
@@ -31,6 +32,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -56,6 +58,7 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.EditPart#performRequest(org.eclipse.gef.Request)
 	 */
+	@Override
 	public void performRequest(Request request) {
 		
 		if(request.getType() == RequestConstants.REQ_OPEN) {
@@ -74,7 +77,11 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 					IWorkbenchPage page =
 						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 					try {
-						IDE.openEditor(page, testFile, true);
+						IEditorPart part = IDE.openEditor(page, testFile, true);
+						if(part instanceof GraphicalTestEditor){
+							((GraphicalTestEditor)part).getGraphicalViewer().
+								setContents(getModel().getTest());
+						}
 					} catch (PartInitException e) {
 					}
 				}
@@ -86,12 +93,13 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
+	@Override
 	protected IFigure createFigure() {
 		AbstractTransitionNodeFigure figure = new AbstractTransitionNodeFigure();
 		figure.setBackgroundColor(ColorConstants.darkBlue);
 		figure.setForegroundColor(ColorConstants.white);
 		figure.setLocation(((TransitionNode)getModel()).getPosition());
-		String name = ((SubTest)getModel()).getName();
+		String name = getModel().getName();
 		figure.setText(name);
 		figure.setToolTipText("Sub test: $labelText\nDouble click to open file");
 		return figure;
@@ -100,6 +108,7 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#createEditPolicies()
 	 */
+	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new PageNodeEditPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new TestComponentEditPolicy());
@@ -109,10 +118,11 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 	 *  (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
 	 */
+	@Override
 	protected void refreshVisuals(){
-		SubTest page = (SubTest)getModel();
+		SubTest page = getModel();
 		AbstractTransitionNodeFigure figure = (AbstractTransitionNodeFigure) getFigure();
-		String title = ((SubTest)getModel()).getName();
+		String title = getModel().getName();
 		figure.setText(title);
 		Point position = page.getPosition();
 		Rectangle r = new Rectangle(position.x,position.y,-1,-1);
@@ -120,13 +130,18 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 		if (manager !=null)
 			manager.setText(title);
 	}
-	
+	@Override
 	protected List getModelTargetConnections() {
-		Transition trans = ((TransitionNode)getModel()).getInTransition();
+		Transition trans = getModel().getInTransition();
 		List<Transition> list = new ArrayList<Transition>();
 		if (trans != null)
-			list.add(((TransitionNode)getModel()).getInTransition());
+			list.add(getModel().getInTransition());
 		return list;
 	}
 	
+	
+	@Override
+	public SubTest getModel() {
+		return (SubTest) super.getModel();
+	}
 }

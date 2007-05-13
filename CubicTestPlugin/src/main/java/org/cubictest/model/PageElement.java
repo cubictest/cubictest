@@ -77,7 +77,6 @@ public abstract class PageElement extends PropertyAwareObject
 		setStatus(TestPartStatus.UNKNOWN);		
 	}
 	
-	
 	/**
 	 * Get the text that is shown in the CubicTest GUI for the page element.
 	 * @return the text that is shown in the CubicTest GUI for the page element.
@@ -299,4 +298,6 @@ public abstract class PageElement extends PropertyAwareObject
 		}
 		return null;
 	}
+
+	
 }
