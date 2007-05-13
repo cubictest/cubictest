@@ -83,6 +83,8 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 					ErrorHandler.logAndShowErrorDialogAndThrow("No extension point selected. Unable to continue.");
 				}
 				setModel(wiz.getExTrans());
+				//set the new model on the exStartPoint edit part:
+				getSource().setModel(getModel().getStart());
 				getViewer().getEditDomain().getCommandStack().execute(new NoOperationCommand());
 			}
 			else {

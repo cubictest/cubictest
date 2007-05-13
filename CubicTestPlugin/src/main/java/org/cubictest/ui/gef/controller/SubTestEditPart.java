@@ -7,11 +7,16 @@
  */
 package org.cubictest.ui.gef.controller;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.common.resources.UiText;
+import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.Page;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
+import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
@@ -19,6 +24,7 @@ import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.PageNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
+import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -46,6 +52,7 @@ import org.eclipse.ui.ide.IDE;
 public class SubTestEditPart extends AbstractNodeEditPart{
 
 	private CubicTestDirectEditManager manager;
+	private boolean initRefreshed = false;
 
 	/**
 	 * Constructor for the <code>PageEditPart</code> controller.
@@ -55,6 +62,39 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 		setModel(page);
 	}
 
+	
+	@Override
+	public void activate() {
+		if (!initRefreshed) {
+			//must have an additional refresh as start point could change as page opened (UpdateExtensionStartPointWizard).
+			refresh();
+			initRefreshed = true;
+		}
+		super.activate();
+		ViewUtil.getSurroundingTest(this).addPropertyChangeListener(this);
+	}
+	
+	@Override
+	public void deactivate() {
+		super.deactivate();
+		ViewUtil.getSurroundingTest(this).removePropertyChangeListener(this);
+	}
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt){
+		String property = evt.getPropertyName();
+		if (evt.getSource() instanceof Test) {
+			if (PropertyAwareObject.CHILD.equals(property) && evt.getNewValue() instanceof ExtensionStartPoint) {
+				//refresh name of this extension start point
+				refresh();
+			}
+		}
+		else {
+			//source is self, refresh on all changes
+			refresh();
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.EditPart#performRequest(org.eclipse.gef.Request)
 	 */

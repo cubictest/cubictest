@@ -40,7 +40,6 @@ public class UpdateExtensionStartPointWizard extends UpdateStartPointWizard {
 	@Override
 	public void addPages() {
 		extentionStartPointSelectorPage = new ExtentionStartPointSelectorPage(extensionPointMap, project);
-		extentionStartPointSelectorPage.setTest(startSubTest);
 		addPage(extentionStartPointSelectorPage);
 	}
 	
@@ -62,18 +61,15 @@ public class UpdateExtensionStartPointWizard extends UpdateStartPointWizard {
 			firstPage.removeInTransition();
 			test.removeTransition(inTrans);
 		}
-
-		ConnectionPoint startPoint = test.getStartPoint();
-		exTrans = new ExtensionTransition(startPoint, firstPage, extentionStartPointSelectorPage.getExtensionPoint());
+		
+		ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
+		IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
+		ConnectionPoint startPoint = WizardUtils.createExtensionStartPoint(file, extensionPoint, test);
+		test.setStartPoint(startPoint);
+		exTrans = new ExtensionTransition(startPoint, firstPage, extensionPoint);
 		test.addTransition(exTrans);
-		return true;
-	}
 
-	@Override
-	public void populateExtensionPointMap(IContainer resource, Map<ExtensionPoint, IFile> map, IResourceMonitor monitor, CustomElementLoader loader) throws CoreException {
-		for(ExtensionPoint ep : startSubTest.getAllExtensionPoints()){
-			map.put(ep, startSubTest.getFile());
-		}
+		return true;
 	}
 
 	public void setStartSubTest(Test subTest) {
