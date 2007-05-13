@@ -13,26 +13,5 @@ public class TestStepLabel extends CubicTestLabel{
 	
 	public TestStepLabel(String title){
 		super(title);
-		setStatus(TestPartStatus.UNKNOWN);
-	}
-	
-	public void setStatus(TestPartStatus status){
-		setOpaque(true);
-		switch (status){
-			case UNKNOWN:
-				setOpaque(false);
-			break;		
-			case PASS:
-				setBackgroundColor(ColorConstants.green);
-				break;
-			case FAIL:
-				setBackgroundColor(ColorConstants.red);
-				break;
-			case EXCEPTION:
-				setBackgroundColor(ColorConstants.orange);;
-				break;
-			default:
-				setOpaque(false);
-		}
 	}
 }

@@ -8,6 +8,7 @@
 package org.cubictest.ui.gef.view;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.model.TestPartStatus;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
@@ -64,6 +65,7 @@ public class CubicTestGroupFigure extends Figure {
 	/* (non-Javadoc)
 	 * @see org.eclipse.draw2d.Figure#add(org.eclipse.draw2d.IFigure, java.lang.Object, int)
 	 */
+	@Override
 	public void add(IFigure figure, Object constraint, int index) {
 		IFigure parent = getParent();
 		while (parent != null && !(parent instanceof CubicTestFreeformLayer)) {
@@ -99,5 +101,9 @@ public class CubicTestGroupFigure extends Figure {
 	@Override
 	public IFigure getToolTip() {
 		return new Label(StringUtils.replace(tooltipText, "$labelText", header.getFullText()));
+	}
+
+	public void setStatus(TestPartStatus status) {
+		getHeader().setStatus(status);
 	}
 }

@@ -8,6 +8,7 @@
 package org.cubictest.ui.gef.view;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.model.TestPartStatus;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -63,6 +64,26 @@ public class CubicTestLabel extends Label {
 	
 	public void setTooltipText(String s) {
 		this.tooltipText = s;
+	}
+	
+	public void setStatus(TestPartStatus status){
+		setOpaque(true);
+		switch (status){
+			case UNKNOWN:
+				setOpaque(false);
+			break;		
+			case PASS:
+				setBackgroundColor(ColorConstants.green);
+				break;
+			case FAIL:
+				setBackgroundColor(ColorConstants.red);
+				break;
+			case EXCEPTION:
+				setBackgroundColor(ColorConstants.orange);;
+				break;
+			default:
+				setOpaque(false);
+		}
 	}
 	
 }
