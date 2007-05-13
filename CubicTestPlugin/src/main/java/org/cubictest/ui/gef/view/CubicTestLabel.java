@@ -68,6 +68,10 @@ public class CubicTestLabel extends Label {
 	
 	public void setStatus(TestPartStatus status){
 		setOpaque(true);
+		if(status == null){
+			setOpaque(false);
+			return;
+		}
 		switch (status){
 			case UNKNOWN:
 				setOpaque(false);

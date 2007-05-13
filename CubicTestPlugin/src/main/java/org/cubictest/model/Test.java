@@ -191,6 +191,8 @@ public class Test extends PropertyAwareObject {
 			t.resetStatus();
 		for (AbstractPage p : pages)
 			p.resetStatus();
+		for (SubTest st : subTests)
+			st.resetStatus();
 	}
 	
 	public AllLanguages getAllLanguages() {

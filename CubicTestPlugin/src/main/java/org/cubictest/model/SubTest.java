@@ -37,6 +37,7 @@ public class SubTest extends ConnectionPoint {
 			test = TestPersistance.loadFromFile(project, getFilePath());
 			test.setResourceMonitor(resourceMonitor);
 			test.setCustomTestStepLoader(customTestStepLoader);
+			test.resetStatus();
 		}
 		return test;
 	}
