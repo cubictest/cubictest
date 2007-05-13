@@ -6,7 +6,7 @@ import org.cubictest.model.Text;
 public class Alert extends JavaScriptPopup{
 
 	public Alert() {
-		elements.add(new Text());
+		elements.add(new PopUpText());
 		elements.add(new OKButton());
 	}
 

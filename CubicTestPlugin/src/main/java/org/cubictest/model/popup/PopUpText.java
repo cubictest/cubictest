@@ -4,24 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.model.IdentifierType;
+import org.cubictest.model.Text;
 
-
-public class OKButton extends JavaScriptButton {
-
-	@Override
-	public String getType() {
-		return "OK button";
-	}
-	
-	@Override
-	public String getText() {
-		return "OK";
-	}
+public class PopUpText extends Text implements IPopUpElement{
 	
 	@Override
 	public List<IdentifierType> getIdentifierTypes() {
 		ArrayList<IdentifierType> result = new ArrayList<IdentifierType>();
+		result.add(IdentifierType.LABEL);
 		return result;
 	}
-	
 }
