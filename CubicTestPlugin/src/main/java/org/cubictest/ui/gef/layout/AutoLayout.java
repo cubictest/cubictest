@@ -85,10 +85,12 @@ public class AutoLayout {
 				height += 5 + editPart.getFigure().getBounds().height;
 				width = Math.max(width, editPart.getFigure().getBounds().width);
 			}
+			width = width + 20;
+			
 			PageResizeCommand resizeCmd = new PageResizeCommand();
 			resizeCmd.setPage(page);
 			resizeCmd.setOldDimension(page.getDimension());
-			resizeCmd.setNewDimension(new Dimension(width + 20, height));
+			resizeCmd.setNewDimension(new Dimension(width, height));
 			testEditor.getCommandStack().execute(resizeCmd);
 
 			MovePageCommand moveCmd = new MovePageCommand();
