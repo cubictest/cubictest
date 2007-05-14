@@ -182,7 +182,7 @@ public class CubicRecorder implements IRecorder {
 		createTransitionCmd.setTarget(page);
 		commandStack.execute(createTransitionCmd);
 
-		//autoLayout.layout(page);
+		autoLayout.layout(page);
 		
 		userInteractionsTransition = ua;
 		return page;
