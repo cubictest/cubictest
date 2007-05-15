@@ -15,6 +15,7 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.ChangeDirectEditIdentifierCommand;
 import org.cubictest.ui.gef.command.ChangeIdentiferProbabilityCommand;
+import org.cubictest.ui.gef.command.ChangeIdentiferValueToActualCommand;
 import org.cubictest.ui.gef.command.ChangeIdentifierI18nKeyCommand;
 import org.cubictest.ui.gef.command.ChangeIdentifierParamKeyCommand;
 import org.cubictest.ui.gef.command.ChangeIdentifierValueCommand;
@@ -76,6 +77,9 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private ValueListener valueListener = new ValueListener();
 	private int listeners = 0;
 	private Test test;
+	private Label actualLabel;
+	private Text actualValue;
+	private Button updateButton;
 
 	public IdentifierComposite(Composite parent, TabbedPropertySheetWidgetFactory factory, int lableWidth) {
 		super(parent, SWT.NONE);
@@ -141,7 +145,28 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		dirEdit.setLayoutData(data);
 		dirEdit.addSelectionListener(dirEditListener);
 		dirEdit.setToolTipText("Select for direct edit in the graphical test editor");
+		
+		//Actual
+		data = new FormData();
+		data.left = new FormAttachment(dirEdit,ITabbedPropertyConstants.HSPACE);
+		data.width = lableWidth * 2;
+		actualLabel = factory.createLabel(firstRow, "actual ");
+		actualLabel.setLayoutData(data);
+		actualLabel.setVisible(false);
 
+		data = new FormData();
+		data.left = new FormAttachment(actualLabel,ITabbedPropertyConstants.HSPACE);
+		data.width = lableWidth * 2;
+		actualValue = factory.createText(firstRow, "actual ", SWT.READ_ONLY);
+		actualValue.setLayoutData(data);
+		actualValue.setVisible(false);
+		
+		data = new FormData();
+		data.left = new FormAttachment(actualValue,ITabbedPropertyConstants.HSPACE);
+		updateButton = factory.createButton(firstRow, "Update", SWT.PUSH);
+		updateButton.setLayoutData(data);
+		updateButton.setVisible(false);
+		updateButton.addSelectionListener(updateButtonListener);
 		
 		//Second Row (i18n and params):
 		secondRow = factory.createFlatFormComposite(this);
@@ -231,6 +256,19 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		dirEdit.removeSelectionListener(dirEditListener);
 		dirEdit.setSelection(pageElement.getDirectEditIdentifier().equals(identifier));
 		dirEdit.addSelectionListener(dirEditListener);
+		
+		if(identifier.getActual() != null){
+			actualLabel.setVisible(true);
+			actualValue.setVisible(true);
+			updateButton.setVisible(true);
+			
+			actualValue.setText(identifier.getActual());
+		}else{
+			actualLabel.setVisible(false);
+			actualValue.setVisible(false);
+			actualValue.setVisible(false);
+		}
+		
 		
 		Test test = editor.getTest();
 		if(test.getAllLanguages() == null || test.getAllLanguages().getLanguages().size() == 0){
@@ -424,6 +462,18 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 				cmd.setNewIdentifier(identifier);
 				editor.getCommandStack().execute(cmd);
 			}
+		}
+	};
+	
+	private SelectionListener updateButtonListener = new SelectionListener(){
+		public void widgetDefaultSelected(SelectionEvent e) {}
+
+		public void widgetSelected(SelectionEvent e) {
+			ChangeIdentiferValueToActualCommand cmd = new ChangeIdentiferValueToActualCommand();
+			cmd.setValue(identifier.getValue());
+			cmd.setActual(identifier.getActual());
+			cmd.setIdentifier(identifier);
+			editor.getCommandStack().execute(cmd);
 		}
 	};
 	

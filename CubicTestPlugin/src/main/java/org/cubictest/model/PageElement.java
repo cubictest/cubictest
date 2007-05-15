@@ -74,7 +74,10 @@ public abstract class PageElement extends PropertyAwareObject
 	
 	@Override
 	public void resetStatus() {
-		setStatus(TestPartStatus.UNKNOWN);		
+		setStatus(TestPartStatus.UNKNOWN);
+		for(Identifier identifier : identifiers){
+			identifier.setActual(null);
+		}
 	}
 	
 	/**

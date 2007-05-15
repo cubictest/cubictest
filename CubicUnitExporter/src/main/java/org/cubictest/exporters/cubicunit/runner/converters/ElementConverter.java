@@ -170,9 +170,31 @@ public class ElementConverter implements IPageElementConverter<Holder> {
 						if(props != null){
 							for(String key: props.keySet()){
 								String actualValue = (String) props.get(key);
-								if("id".equals(key)){
-									//pe.getIdentifier(IdentifierType.ID).setActual(actualValue);
-								}
+								IdentifierType id = null;
+								if("diffid".equals(key)){
+									id = IdentifierType.ID;
+								}else if("diffname".equals(key)){
+									id = IdentifierType.NAME;
+								}else if("diffhref".equals(key)){
+									id = IdentifierType.HREF;
+								}else if("diffsrc".equals(key)){
+									id = IdentifierType.SRC;
+								}else if("diffindex".equals(key)){
+									id = IdentifierType.INDEX;
+								}else if("diffvalue".equals(key)){
+									id = IdentifierType.VALUE;
+								}else if("diffchecked".equals(key)){
+									id = IdentifierType.CHECKED;
+								}else if("difflabel".equals(key)){
+									id = IdentifierType.LABEL;
+								}else if("diffmultiselect".equals(key)){
+									id = IdentifierType.MULTISELECT;
+								}else if("diffselected".equals(key)){
+									id = IdentifierType.SELECTED;
+								}else
+									continue;
+								if(pe.getIdentifier(id) != null)
+									pe.getIdentifier(id).setActual(actualValue);
 							}
 						}
 					}	
