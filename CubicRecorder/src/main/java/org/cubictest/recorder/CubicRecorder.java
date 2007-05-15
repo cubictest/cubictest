@@ -118,6 +118,7 @@ public class CubicRecorder implements IRecorder {
 		}
 
 		this.userInteractionsTransition.addUserInteraction(action);
+		this.autoLayout.layout(cursor);
 
 		
 		ActionType lastActionType = action.getActionType();
@@ -150,7 +151,6 @@ public class CubicRecorder implements IRecorder {
 			int num = from.getOutTransitions().size();
 			page.setPosition(new Point(ITestEditor.INITIAL_PAGE_POS_X + (290 * num), ITestEditor.INITIAL_PAGE_POS_Y));
 		}
-		page.setAutoPosition(true);
 				
 		UserInteractionsTransition ua = new UserInteractionsTransition(from, page);
 		
@@ -180,10 +180,9 @@ public class CubicRecorder implements IRecorder {
 		createTransitionCmd.setTest(test);
 		createTransitionCmd.setSource(from);
 		createTransitionCmd.setTarget(page);
+		createTransitionCmd.setAutoCreateTargetPage(false);
 		commandStack.execute(createTransitionCmd);
 
-		autoLayout.layout(page);
-		
 		userInteractionsTransition = ua;
 		return page;
 	}
