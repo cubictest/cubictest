@@ -1,15 +1,20 @@
+/*
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ */
 package org.cubictest.ui.gef.layout;
 
 import java.util.Iterator;
 
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.command.MovePageCommand;
-import org.cubictest.ui.gef.command.NoOperationCommand;
 import org.cubictest.ui.gef.command.PageResizeCommand;
 import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.PageEditPart;
@@ -23,6 +28,8 @@ import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 public class AutoLayout {
+	private static final int TRANSITION_SPACE = 35;
+	private static final int USER_INPUT_HEIGHT = 18;
 	private final TestEditPart testEditPart;
 	private ITestEditor testEditor;
 
@@ -38,7 +45,7 @@ public class AutoLayout {
 
 	public void layout(TransitionNode node) {
 		Point position = node.getPosition().getCopy();
-
+		
 		int num = node.getInTransition().getStart().getOutTransitions().size() - 1;
 		if (num < 0) num = 0;
 		
@@ -48,13 +55,19 @@ public class AutoLayout {
 				position.x = ITestEditor.INITIAL_PAGE_POS_X + (290 * num);
 			} else {				
 				position.x = node.getInTransition().getStart().getPosition().x + node.getInTransition().getStart().getDimension().width / 2;
-				position.y = node.getInTransition().getStart().getPosition().y + node.getInTransition().getStart().getDimension().height + 100;							
+				int numOfActions = 0;
+				if (node.getInTransition() instanceof UserInteractionsTransition) {
+					numOfActions = ((UserInteractionsTransition) node.getInTransition()).getUserInteractions().size();
+				}
+				int inputSpace = TRANSITION_SPACE + (numOfActions * USER_INPUT_HEIGHT);
+				position.y = node.getInTransition().getStart().getPosition().y + node.getInTransition().getStart().getDimension().height;
+				position.y = position.y + inputSpace;
 			}
 		}
 		catch(NullPointerException e) {
+			Logger.warn("NullPointerException. Using default pos.");
 			position.x = ITestEditor.INITIAL_PAGE_POS_X + (290 * num);
 		}
-
 		layout(node, position);
 	}
 	
@@ -85,8 +98,8 @@ public class AutoLayout {
 				height += 5 + editPart.getFigure().getBounds().height;
 				width = Math.max(width, editPart.getFigure().getBounds().width);
 			}
-			width = width + 20;
-			
+			width = width + 15; //some extra space
+	
 			PageResizeCommand resizeCmd = new PageResizeCommand();
 			resizeCmd.setPage(page);
 			resizeCmd.setOldDimension(page.getDimension());
@@ -108,7 +121,11 @@ public class AutoLayout {
 		int bottom = node.getPosition().y + node.getDimension().height;
 
 		for(Transition t : node.getOutTransitions()) {
-			layout(t.getEnd(), new Point(topCenter.x, bottom+75));
+			int numOfActions = 0;
+			if (t instanceof UserInteractionsTransition) {
+				numOfActions = ((UserInteractionsTransition) t).getUserInteractions().size();
+			}
+			layout(t.getEnd(), new Point(topCenter.x, bottom + TRANSITION_SPACE + (numOfActions * USER_INPUT_HEIGHT)));
 		}
 		
 	}

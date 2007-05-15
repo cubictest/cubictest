@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.cubictest.common.utils.Logger;
+import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.utils.CubicCloner;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -28,7 +29,6 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	private Point position;
 	private Dimension dimension;
 	private String name = "";
-	private boolean autoPosition = false;
 	
 	public TransitionNode() {
 		this.setId(getNewGeneratedId());
@@ -49,7 +49,7 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	}
 
 	public static Dimension getDefaultDimension() {
-		return new Dimension(150, 90);
+		return new Dimension(ITestEditor.INITIAL_PAGE_WIDTH, ITestEditor.INITIAL_PAGE_HEIGHT);
 	}
 	
 	/**
@@ -168,14 +168,6 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	private String getNewGeneratedId() {
 		String name = getClass().getSimpleName().toLowerCase();
 		return name + this.hashCode() + System.currentTimeMillis();
-	}
-
-	public void setAutoPosition(boolean autoPosition) {
-		this.autoPosition = autoPosition;
-	}
-
-	public boolean getAutoPosition() {
-		return autoPosition;
 	}
 	
 	public boolean hasInTransition() {
