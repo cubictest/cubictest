@@ -133,7 +133,7 @@ public class SeleniumUtils {
 			}
 
 			if (pe instanceof Text) {
-				result += "contains(text(), \"" + labelText + "\")";
+				result += "contains(normalize-space(.), \"" + labelText + "\")";
 			}
 			else if (pe instanceof Link || pe instanceof Option) {
 				result += "normalize-space(text())" + comparisonOperator + "\"" + labelText + "\"";
