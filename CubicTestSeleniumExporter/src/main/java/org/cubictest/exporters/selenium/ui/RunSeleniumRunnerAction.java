@@ -6,6 +6,7 @@ package org.cubictest.exporters.selenium.ui;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.RunnerSetup;
 import org.cubictest.model.ExtensionPoint;
@@ -66,7 +67,7 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 			
 			//show result:
 			String result = ((RunnerSetup) testRunner).showResults();
-			showCompletedMessage(shell, result);
+			showCompletedMessage(result);
 		}
 		catch (Exception e) {
 			if (testRunner != null) {
@@ -84,13 +85,12 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	}
 
 
-	private void showCompletedMessage(Shell shell, String result) {
-		shell.forceActive();
-		String msg = "Test run finished. " + result + "\n" + "Press OK to close test browser.";
+	private void showCompletedMessage(String result) {
+		String msg = "Test run finished. " + result + ". Press OK to close test browser.";
 		if (StringUtils.isNotBlank(customCompletedMessage)) {
 			msg = StringUtils.replace(customCompletedMessage, "$result", result); 
 		}
-		MessageDialog.openInformation(shell, "CubicTest Selenium Exporter", msg);
+		UserInfo.setStatusLine(msg);
 	}
 	
 
