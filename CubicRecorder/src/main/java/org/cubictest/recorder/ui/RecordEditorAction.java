@@ -5,6 +5,7 @@
 package org.cubictest.recorder.ui;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.model.ExtensionPoint;
@@ -91,8 +92,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 						Thread.sleep(100);
 					}
 	 				RunSeleniumRunnerAction runner = new RunSeleniumRunnerAction();
-	 				runner.setCustomDoneMessage("Test browser forwarded. (Result: $result)\n\n" +
-	 						"Press OK to start recording (test browser is open).");
+	 				runner.setCustomDoneMessage("Test browser forwarded. Result: $result. Recording can begin (test browser is open).");
 	 				runner.setStopSeleniumWhenFinished(false);
 	 				runner.setSelenium(seleniumRecorder.getSelenium());
 	 				runner.setTest(((SubTest) test.getStartPoint()).getTest(true));
@@ -109,11 +109,13 @@ public class RecordEditorAction implements IEditorActionDelegate {
 			catch (Exception e) {
 				ErrorHandler.logAndShowErrorDialog(e);
 				stopSelenium(autoLayout);
+				UserInfo.setStatusLine(null);
 				return;
 			}
 			
 
 		} else {
+			UserInfo.setStatusLine(null);
 			stopSelenium(autoLayout);
 		}
 	}
