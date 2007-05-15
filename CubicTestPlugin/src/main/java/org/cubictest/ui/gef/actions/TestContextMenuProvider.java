@@ -61,6 +61,11 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		if (action.isEnabled())
 			menu.insertBefore(GEFActionConstants.GROUP_UNDO,action); 
 		
+		action = actionRegistry.getAction(AddExtensionPointAction.ACTION_ID);
+		if (action.isEnabled())
+			menu.insertBefore(GEFActionConstants.GROUP_UNDO,action); 
+
+		
 		action = actionRegistry.getAction(PresentAction.ACTION_ID);
 		if (action.isEnabled())
 			menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);

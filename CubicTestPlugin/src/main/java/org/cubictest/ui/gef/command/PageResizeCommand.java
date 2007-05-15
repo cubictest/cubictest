@@ -19,6 +19,10 @@ public class PageResizeCommand extends Command {
 
 	private Dimension newDimension;
 	private Dimension oldDimension;
+	
+	private int heightToAdd;
+	private boolean addHeightMode;
+	
 	private TransitionNode node;
 
 	/**
@@ -46,6 +50,10 @@ public class PageResizeCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
+		if (addHeightMode) {
+			newDimension = node.getDimension().getCopy();
+			newDimension.height = newDimension.height + heightToAdd;
+		}
 		node.setDimension(newDimension);
 	}
 	
@@ -54,5 +62,13 @@ public class PageResizeCommand extends Command {
 	 */
 	public void undo() {
 		node.setDimension(oldDimension);
+	}
+
+	public void setHeightToAdd(int heightToAdd) {
+		this.heightToAdd = heightToAdd;
+	}
+
+	public void addHeightMode(boolean addHeightMode) {
+		this.addHeightMode = addHeightMode;
 	}
 }

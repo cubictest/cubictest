@@ -18,7 +18,7 @@ import org.eclipse.gef.commands.CommandStack;
 public interface ITestEditor {
 
 	public static final int INITIAL_PAGE_POS_Y = 100;
-	public static final int INITIAL_PAGE_POS_X = 160;
+	public static final int INITIAL_PAGE_POS_X = 200;
 	public static final int INITIAL_PAGE_WIDTH = 150;
 	public static final int INITIAL_PAGE_HEIGHT = 95;
 

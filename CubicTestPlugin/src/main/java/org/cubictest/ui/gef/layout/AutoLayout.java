@@ -28,7 +28,7 @@ import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 public class AutoLayout {
-	private static final int TRANSITION_SPACE = 35;
+	private static final int TRANSITION_SPACE = 45;
 	private static final int USER_INPUT_HEIGHT = 18;
 	private final TestEditPart testEditPart;
 	private ITestEditor testEditor;

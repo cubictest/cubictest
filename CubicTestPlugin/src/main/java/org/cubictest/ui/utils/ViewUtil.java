@@ -137,11 +137,13 @@ public class ViewUtil {
 		PageResizeCommand resizeCmd = new PageResizeCommand();
 		resizeCmd.setPage(page);
 		resizeCmd.setOldDimension(new Dimension(width, height));
+		resizeCmd.addHeightMode(true);
+		resizeCmd.setPage(page);
 
 		if (mode.equals(ADD))
-			resizeCmd.setNewDimension(new Dimension(width, height + heightToAdd));
+			resizeCmd.setHeightToAdd(heightToAdd);
 		else
-			resizeCmd.setNewDimension(new Dimension(width, height - LABEL_HEIGHT));
+			resizeCmd.setHeightToAdd(-LABEL_HEIGHT);
 			
 		CompoundCommand compoundCmd = new CompoundCommand();
 		compoundCmd.add(originatingCommand);
