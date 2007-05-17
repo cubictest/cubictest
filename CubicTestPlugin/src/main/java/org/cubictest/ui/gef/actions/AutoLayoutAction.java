@@ -10,7 +10,9 @@ import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
+import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.eclipse.gef.ui.actions.EditorPartAction;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorPart;
 
 
@@ -42,5 +44,10 @@ public class AutoLayoutAction extends EditorPartAction {
 		for(Transition t : ((Test)testEditor.getGraphicalViewer().getContents().getModel()).getStartPoint().getOutTransitions()) {
 			manager.layout(t.getEnd());
 		}
+	}
+	
+	@Override
+	public ImageDescriptor getImageDescriptor() {
+		return CubicTestImageRegistry.getDescriptor(CubicTestImageRegistry.AUTO_LAYOUT_IMAGE);
 	}
 }
