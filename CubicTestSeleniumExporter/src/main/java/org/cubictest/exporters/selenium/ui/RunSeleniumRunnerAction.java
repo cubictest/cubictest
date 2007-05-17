@@ -36,6 +36,7 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	Selenium selenium;
 	private ExtensionPoint targetExPoint;
 	private String customCompletedMessage;
+	private boolean showCompletedMessageInStatusLine;
 
 	public RunSeleniumRunnerAction() {
 		super();	
@@ -67,7 +68,7 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 			
 			//show result:
 			String result = ((RunnerSetup) testRunner).showResults();
-			showCompletedMessage(result);
+			showCompletedMessage(shell, result);
 		}
 		catch (Exception e) {
 			if (testRunner != null) {
@@ -85,12 +86,20 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	}
 
 
-	private void showCompletedMessage(String result) {
+	private void showCompletedMessage(Shell shell, String result) {
 		String msg = "Test run finished. " + result + ". Press OK to close test browser.";
 		if (StringUtils.isNotBlank(customCompletedMessage)) {
+			//use custom message instead
 			msg = StringUtils.replace(customCompletedMessage, "$result", result); 
 		}
-		UserInfo.setStatusLine(msg);
+
+		if (showCompletedMessageInStatusLine) {
+			UserInfo.setStatusLine(msg);
+		}
+		else {
+			shell.forceActive();
+			MessageDialog.openInformation(shell, "CubicTest Selenium Exporter", msg);
+		}
 	}
 	
 
@@ -128,7 +137,12 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	}
 
 
-	public void setCustomDoneMessage(String customDoneMessage) {
-		this.customCompletedMessage = customDoneMessage;
+	public void setCustomCompletedMessage(String customCompletedMessage) {
+		this.customCompletedMessage = customCompletedMessage;
+	}
+
+
+	public void setShowCompletedMessageInStatusLine(boolean b) {
+		this.showCompletedMessageInStatusLine = b;
 	}
 }
