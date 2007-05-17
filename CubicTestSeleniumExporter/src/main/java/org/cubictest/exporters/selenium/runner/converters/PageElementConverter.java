@@ -16,6 +16,7 @@ import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
+import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.formElement.Option;
 
@@ -55,6 +56,16 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 				}
 				else {
 					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
+				}
+			}
+			else if (seleniumHolder.isInRootContext() && pe instanceof Text) {
+				//texts in root context have bug in firefox xpath, use selenium's own function:
+				boolean present = seleniumHolder.getSelenium().isTextPresent(pe.getText());
+				if (present) {
+					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
+				}
+				else {
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 			}
 			else {

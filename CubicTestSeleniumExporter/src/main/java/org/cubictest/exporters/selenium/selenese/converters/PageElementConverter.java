@@ -13,6 +13,7 @@ import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 
 /**
@@ -32,6 +33,10 @@ public class PageElementConverter implements IPageElementConverter<SeleneseDocum
 
 		if (pe instanceof Title) {
 			doc.addCommand("verifyTitle", pe.getIdentifier(LABEL).getValue()).setDescription("Check present = " + pe);
+		}
+		else if (doc.isInRootContext() && pe instanceof Text) {
+			//texts in root context have bug in firefox xpath, use selenium's own function:
+			doc.addCommand("waitForText", pe.getText()).setDescription("Check present: " + pe);
 		}
 		else {
 			//all other elements

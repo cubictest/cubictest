@@ -25,13 +25,14 @@ import org.cubictest.model.formElement.Select;
  */
 public class ContextHolder implements IResultHolder {
 
+	private static final String ROOT_CONTEXT = "//";
 	/** The XPath starting point (path) for lookup of elements. */
 	private Stack<String> context = new Stack<String>(); 
 	private Map<PageElement, String> contextMap = new HashMap<PageElement, String>();
 	
 	public ContextHolder() {
 		//Setting default context to be anywhere in the document ("//" in XPath)
-		context.push("//");		
+		context.push(ROOT_CONTEXT);		
 	}
 	
 	
@@ -112,4 +113,7 @@ public class ContextHolder implements IResultHolder {
 		
 	}
 	
+	public boolean isInRootContext() {
+		return getFullContext().equals(ROOT_CONTEXT);
+	}
 }
