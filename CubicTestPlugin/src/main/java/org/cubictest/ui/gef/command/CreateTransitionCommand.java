@@ -24,6 +24,7 @@ import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.controller.PageEditPart;
+import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.wizards.ExposeExtensionPointWizard;
 import org.cubictest.ui.gef.wizards.NewUserInteractionsWizard;
 import org.cubictest.ui.utils.ModelUtil;
@@ -95,7 +96,7 @@ public class CreateTransitionCommand extends Command {
 						outTransitions++;
 					}
 				}				
-				position.x = position.x + (outTransitions * 160);
+				position.x = position.x + (outTransitions * ITestEditor.NEW_PATH_OFFSET);
 			}
 			targetNode.setPosition(position);
 			test.addPage((Page) targetNode);

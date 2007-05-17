@@ -28,7 +28,7 @@ public class PageResizeCommand extends Command {
 	/**
 	 * @param page
 	 */
-	public void setPage(TransitionNode node) {
+	public void setNode(TransitionNode node) {
 		this.node = node;
 	}
 

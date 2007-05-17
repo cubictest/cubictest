@@ -13,11 +13,11 @@ import org.eclipse.gef.commands.Command;
 
 
 /**
- * @author Stein Kare Skytteren
- *
- * A command that moves a <code>Page</code> to a new location.
+ * A command that moves a <code>Node</code> to a new location.
+ * 
+ * @author SK Skytteren
  */
-public class MovePageCommand extends Command {
+public class MoveNodeCommand extends Command {
 
 	private Point newPosition;
 	private Point oldPosition;
@@ -26,7 +26,7 @@ public class MovePageCommand extends Command {
 	/**
 	 * @param page
 	 */
-	public void setPage(TransitionNode node) {
+	public void setNode(TransitionNode node) {
 		this.node = node;
 	}
 

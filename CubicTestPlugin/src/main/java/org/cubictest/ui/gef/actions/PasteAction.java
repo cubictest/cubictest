@@ -32,7 +32,7 @@ import org.cubictest.ui.gef.command.AddExtensionPointCommand;
 import org.cubictest.ui.gef.command.AddSubTestCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
-import org.cubictest.ui.gef.command.MovePageCommand;
+import org.cubictest.ui.gef.command.MoveNodeCommand;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.geometry.Point;
@@ -223,9 +223,9 @@ public class PasteAction extends SelectionAction {
 		getCommandStack().execute(compoundCmd);
 	}
 
-	private MovePageCommand addMoveNodeCommand(CompoundCommand compoundCmd, TransitionNode node, TransitionNode nodeClone) {
-		MovePageCommand moveCmd = new MovePageCommand();
-		moveCmd.setPage(nodeClone);
+	private MoveNodeCommand addMoveNodeCommand(CompoundCommand compoundCmd, TransitionNode node, TransitionNode nodeClone) {
+		MoveNodeCommand moveCmd = new MoveNodeCommand();
+		moveCmd.setNode(nodeClone);
 		moveCmd.setOldPosition(node.getPosition());
 		moveCmd.setNewPosition(new Point(node.getPosition().x + 250, node.getPosition().y));
 		compoundCmd.add(moveCmd);

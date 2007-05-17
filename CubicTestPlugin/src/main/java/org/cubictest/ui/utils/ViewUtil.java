@@ -135,7 +135,7 @@ public class ViewUtil {
 		}
 		
 		PageResizeCommand resizeCmd = new PageResizeCommand();
-		resizeCmd.setPage(page);
+		resizeCmd.setNode(page);
 		resizeCmd.setOldDimension(new Dimension(width, height));
 
 		if (mode.equals(ADD))

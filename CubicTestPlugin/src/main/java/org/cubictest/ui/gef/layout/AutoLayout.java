@@ -8,16 +8,16 @@ import java.util.Iterator;
 
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
-import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.ui.gef.command.MovePageCommand;
+import org.cubictest.ui.gef.command.MoveNodeCommand;
 import org.cubictest.ui.gef.command.PageResizeCommand;
+import org.cubictest.ui.gef.controller.AbstractNodeEditPart;
 import org.cubictest.ui.gef.controller.AbstractPageEditPart;
-import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
@@ -72,24 +72,20 @@ public class AutoLayout {
 	}
 	
 	public void layout(TransitionNode node, Point topCenter) {
-		if(node instanceof Page) {
-			Page page = (Page) node;
-			PageEditPart pageEditPart = (PageEditPart) this.findTransitionNodeEditPart(page);
+		if(node instanceof TransitionNode) {
+			AbstractNodeEditPart nodeEditPart = (AbstractNodeEditPart) this.findTransitionNodeEditPart(node);
 
-			if(pageEditPart == null) {
+			if(nodeEditPart == null) {
 				return;
 			}
 			
 			/**
 			 * Calculate dimensions
 			 */
-			int width = pageEditPart.getFigure().getMinimumSize().width;
-			if(width < 100) {
-				width = 100;
-			}
+			int width = nodeEditPart.getFigure().getMinimumSize().width;
 			int height = 25;
 			
-			for(Object child : pageEditPart.getChildren()) {
+			for(Object child : nodeEditPart.getChildren()) {
 				if(!(child instanceof AbstractGraphicalEditPart)) {
 					continue;
 				}
@@ -98,19 +94,24 @@ public class AutoLayout {
 				height += 5 + editPart.getFigure().getBounds().height;
 				width = Math.max(width, editPart.getFigure().getBounds().width);
 			}
-			width = width + 15; //some extra space
 	
-			PageResizeCommand resizeCmd = new PageResizeCommand();
-			resizeCmd.setPage(page);
-			resizeCmd.setOldDimension(page.getDimension());
-			resizeCmd.setNewDimension(new Dimension(width, height));
-			testEditor.getCommandStack().execute(resizeCmd);
+			if (node instanceof AbstractPage) {
+				if(width < 100) {
+					width = 100;
+				}
+				width = width + 15; //some extra space
+				PageResizeCommand resizeCmd = new PageResizeCommand();
+				resizeCmd.setNode(node);
+				resizeCmd.setOldDimension(node.getDimension());
+				resizeCmd.setNewDimension(new Dimension(width, height));
+				testEditor.getCommandStack().execute(resizeCmd);
+			}
 
-			MovePageCommand moveCmd = new MovePageCommand();
-			moveCmd.setPage(page);
-			moveCmd.setOldPosition(page.getPosition());
+			MoveNodeCommand moveCmd = new MoveNodeCommand();
+			moveCmd.setNode(node);
+			moveCmd.setOldPosition(node.getPosition());
 			
-			Point position = page.getPosition().getCopy();
+			Point position = node.getPosition().getCopy();
 			position.y = topCenter.y;
 			position.x = topCenter.x - width / 2;
 			moveCmd.setNewPosition(position);
@@ -120,12 +121,21 @@ public class AutoLayout {
 		
 		int bottom = node.getPosition().y + node.getDimension().height;
 
+		int numOfTrans = 0;
 		for(Transition t : node.getOutTransitions()) {
 			int numOfActions = 0;
 			if (t instanceof UserInteractionsTransition) {
+				numOfTrans++;
 				numOfActions = ((UserInteractionsTransition) t).getUserInteractions().size();
 			}
-			layout(t.getEnd(), new Point(topCenter.x, bottom + TRANSITION_SPACE + (numOfActions * USER_INPUT_HEIGHT)));
+			numOfTrans = numOfTrans < 1 ? 1 : numOfTrans;
+			int newX = topCenter.x + (numOfTrans - 1) * ITestEditor.NEW_PATH_OFFSET;
+			int newY = bottom + TRANSITION_SPACE + (numOfActions * USER_INPUT_HEIGHT);
+			if (t.getEnd() instanceof ExtensionPoint) {
+				newY = node.getPosition().y + 20;
+				newX = node.getPosition().x + node.getDimension().width + 120;
+			}
+			layout(t.getEnd(), new Point(newX, newY));
 		}
 		
 	}

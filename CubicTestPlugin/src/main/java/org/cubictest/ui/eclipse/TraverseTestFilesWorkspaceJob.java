@@ -42,6 +42,7 @@ public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 	public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 		traverseContainer(sourceResource.getProject());
 		this.monitor = monitor;
+		sourceResource.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 		return Status.OK_STATUS;
 	}
 	

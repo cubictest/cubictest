@@ -8,7 +8,7 @@
 package org.cubictest.ui.gef.policies;
 
 import org.cubictest.model.TransitionNode;
-import org.cubictest.ui.gef.command.MovePageCommand;
+import org.cubictest.ui.gef.command.MoveNodeCommand;
 import org.cubictest.ui.gef.command.PageResizeCommand;
 import org.cubictest.ui.gef.controller.AbstractNodeEditPart;
 import org.cubictest.ui.gef.controller.ExtensionStartPointEditPart;
@@ -62,15 +62,15 @@ public class TestXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		if ((newBounds.width != -1 && newBounds.height != -1) && 
 				((oldBounds.width != newBounds.width) || (oldBounds.height != newBounds.height))) {
 			PageResizeCommand command = new PageResizeCommand();
-			command.setPage(transitionNode);
+			command.setNode(transitionNode);
 			command.setOldDimension(new Dimension(oldBounds.width, oldBounds.height));
 			command.setNewDimension(new Dimension(newBounds.width, newBounds.height));
 			return command;
 		}
 		else
 		{
-			MovePageCommand command = new MovePageCommand();
-			command.setPage(transitionNode);
+			MoveNodeCommand command = new MoveNodeCommand();
+			command.setNode(transitionNode);
 			command.setOldPosition(new Point(oldBounds.x,oldBounds.y));
 			command.setNewPosition(new Point(newBounds.x,newBounds.y));
 			return command;
