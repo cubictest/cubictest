@@ -14,6 +14,7 @@ import org.cubictest.export.IResultHolder;
 import org.cubictest.exporters.cubicunit.ui.BrowserType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
+import org.cubictest.model.UrlStartPoint;
 import org.cubicunit.Browser;
 import org.cubicunit.Container;
 import org.cubicunit.Document;
@@ -37,7 +38,9 @@ public class Holder implements IResultHolder {
 
 	private int port;
 
-	private SeleniumBrowserType browserType = SeleniumBrowserType.FIREFOX;; 
+	private SeleniumBrowserType browserType = SeleniumBrowserType.FIREFOX;
+
+	private UrlStartPoint urlStartPoint;; 
 	
 	public Holder(Display display){
 		this.display = display;
@@ -155,5 +158,14 @@ public class Holder implements IResultHolder {
 	public SeleniumBrowserType getBrowserType() {
 		return browserType;
 	}
+
+	public void setHandledUrlStartPoint(UrlStartPoint urlStartPoint) {
+		this.urlStartPoint = urlStartPoint;
+	}
+
+	public UrlStartPoint getHandledUrlStartPoint() {
+		return urlStartPoint;
+	}
+	
 	
 }

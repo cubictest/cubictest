@@ -17,7 +17,10 @@ import org.cubicunit.internal.selenium.SeleniumBrowserType;
 
 public class UrlStartPointConverter implements IUrlStartPointConverter<Holder> {
 
-	public void handleUrlStartPoint(Holder holder, UrlStartPoint urlStartPoint) {	
+	public void handleUrlStartPoint(Holder holder, UrlStartPoint urlStartPoint, boolean firstUrl) {
+		if (!firstUrl)
+			return;
+		holder.setHandledUrlStartPoint(urlStartPoint);
 		String url = urlStartPoint.getBeginAt();
 		int port = holder.getPort();
 		SeleniumBrowserType browserType = holder.getBrowserType();

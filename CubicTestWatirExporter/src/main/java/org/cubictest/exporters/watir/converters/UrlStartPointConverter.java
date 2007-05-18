@@ -19,7 +19,7 @@ import org.cubictest.model.UrlStartPoint;
 public class UrlStartPointConverter implements IUrlStartPointConverter<StepList> {
 	
 	
-	public void handleUrlStartPoint(StepList stepList, UrlStartPoint sp) {
+	public void handleUrlStartPoint(StepList stepList, UrlStartPoint sp, boolean firstUrl) {
 		if (!stepList.isBrowserStarted()) {
 			stepList.add("ie = Watir::IE.new");
 			stepList.setBrowserStarted(true);

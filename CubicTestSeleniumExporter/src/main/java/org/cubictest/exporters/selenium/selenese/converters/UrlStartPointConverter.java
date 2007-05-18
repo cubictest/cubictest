@@ -19,7 +19,7 @@ import org.cubictest.model.UrlStartPoint;
 public class UrlStartPointConverter implements IUrlStartPointConverter<SeleneseDocument> {
 	
 	
-	public void handleUrlStartPoint(SeleneseDocument doc, UrlStartPoint sp) {
+	public void handleUrlStartPoint(SeleneseDocument doc, UrlStartPoint sp, boolean firstUrl) {
 		doc.addCommand("open", sp.getBeginAt()).setDescription("Opening " + sp);
 	}
 }

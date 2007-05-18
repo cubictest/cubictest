@@ -18,9 +18,11 @@ public interface IUrlStartPointConverter<T extends IResultHolder> {
 	
 	/**
 	 * Convert a StartPoint to a test step (e.g. invoke a specific URL).
+	 * @param resultHolder the holder sent to each converter
 	 * @param urlStartPoint the UrlStartPoint to convert.
+	 * @param firstUrl is true for the initial UrlStartPoint, false for others
 	 * @return a test step representing the start point.
 	 */
-	public void handleUrlStartPoint(T resultHolder, UrlStartPoint urlStartPoint);
+	public void handleUrlStartPoint(T resultHolder, UrlStartPoint urlStartPoint, boolean firstUrl);
 
 }
