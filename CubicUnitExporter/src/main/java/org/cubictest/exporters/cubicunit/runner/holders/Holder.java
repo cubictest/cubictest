@@ -145,6 +145,7 @@ public class Holder implements IResultHolder {
 			break;
 		case OPERA:
 			this.browserType = SeleniumBrowserType.OPERA;
+			break;
 		default:
 			this.browserType = SeleniumBrowserType.FIREFOX;
 			break;
