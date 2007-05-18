@@ -81,7 +81,7 @@ public class ContextConverter implements IContextConverter<Holder> {
 							for(String key: props.keySet()){
 								String actualValue = (String) props.get(key);
 								IdentifierType id = null;
-								if("diffid".equals(key)){
+								if("diffId".equals(key)){
 									id = IdentifierType.ID;
 								}else if("diffName".equals(key)){
 									id = IdentifierType.NAME;
