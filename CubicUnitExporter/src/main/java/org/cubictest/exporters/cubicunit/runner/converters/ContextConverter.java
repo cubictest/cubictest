@@ -4,12 +4,15 @@
  */
 package org.cubictest.exporters.cubicunit.runner.converters;
 
+import java.util.Map;
+
 import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.exporters.cubicunit.runner.holders.Holder;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Identifier;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.context.SimpleContext;
@@ -17,6 +20,8 @@ import org.cubicunit.Container;
 import org.cubicunit.Document;
 import org.cubicunit.Element;
 import org.cubicunit.ElementTypes;
+import org.cubicunit.internal.selenium.SeleniumAbstractElement;
+import org.cubicunit.internal.selenium.SeleniumContainer;
 import org.cubicunit.types.ElementContainerType;
 
 public class ContextConverter implements IContextConverter<Holder> {
@@ -69,7 +74,42 @@ public class ContextConverter implements IContextConverter<Holder> {
 					if(subContainer == null)
 						holder.addResult(sc, TestPartStatus.FAIL);
 					else{
-						holder.addResult(sc, TestPartStatus.PASS);
+						TestPartStatus status = TestPartStatus.PASS;
+						Map<String, Object> props = 
+							((SeleniumContainer)subContainer).getProperties();
+						if(props != null){
+							for(String key: props.keySet()){
+								String actualValue = (String) props.get(key);
+								IdentifierType id = null;
+								if("diffid".equals(key)){
+									id = IdentifierType.ID;
+								}else if("diffName".equals(key)){
+									id = IdentifierType.NAME;
+								}else if("diffHref".equals(key)){
+									id = IdentifierType.HREF;
+								}else if("diffSrc".equals(key)){
+									id = IdentifierType.SRC;
+								}else if("diffIndex".equals(key)){
+									id = IdentifierType.INDEX;
+								}else if("diffValue".equals(key)){
+									id = IdentifierType.VALUE;
+								}else if("diffChecked".equals(key)){
+									id = IdentifierType.CHECKED;
+								}else if("diffLabel".equals(key)){
+									id = IdentifierType.LABEL;
+								}else if("diffMultiselect".equals(key)){
+									id = IdentifierType.MULTISELECT;
+								}else if("diffSelected".equals(key)){
+									id = IdentifierType.SELECTED;
+								}else 
+									continue;
+								if(sc.getIdentifier(id) != null){
+									sc.getIdentifier(id).setActual(actualValue);
+									status = TestPartStatus.WARN;
+								}
+							}
+						}
+						holder.addResult(sc, status);
 						holder.setContainer(subContainer);
 						holder.put(sc, (Element)subContainer);
 					}

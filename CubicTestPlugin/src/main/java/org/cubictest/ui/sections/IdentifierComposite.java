@@ -35,6 +35,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -69,7 +70,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private CCombo i18nCombo;
 	private Button param;
 	private CCombo paramCombo;
-	private Composite secondRow;
+	private Composite thirdRow;
 	private Label i18nLabel;
 	private PageElement pageElement;
 	private GraphicalTestEditor editor;
@@ -80,6 +81,8 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private Label actualLabel;
 	private Text actualValue;
 	private Button updateButton;
+	private Composite secondRow;
+	private Composite line;
 
 	public IdentifierComposite(Composite parent, TabbedPropertySheetWidgetFactory factory, int lableWidth) {
 		super(parent, SWT.NONE);
@@ -91,11 +94,16 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		layout.verticalSpacing = 2;
 		this.setLayout(layout);
 		
-		
 		//First Row (Directt edit, ID type, probability, value), always visible:
-		firstRow = factory.createFlatFormComposite(this);
+		firstRow = new Composite(this,SWT.NONE);
 		FormData data = null;
 		
+		FormLayout formLayout = new FormLayout();
+		formLayout.marginWidth = ITabbedPropertyConstants.HSPACE + 2;
+		formLayout.marginHeight = 0;
+        formLayout.spacing = 0;
+        firstRow.setLayout(formLayout);
+        firstRow.setBackground(ColorConstants.white);
 		//DirectEdit radiobutton must be last in row to get correct focus behaviour
 		
 		//Adding type
@@ -108,8 +116,8 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		//Adding probability
 		data = new FormData();
 		data.left = new FormAttachment(type, 0);
-		probability = factory.createCCombo(firstRow);
-		probability.setItems(new String[]{MUST, INDIFFERENT, MUST_NOT});
+		probability = factory.createCCombo(firstRow, SWT.BORDER);
+		probability.setItems(new String[]{MUST, SHOULD, CAN, INDIFFERENT, CANNOT, SHOULD_NOT, MUST_NOT});
 		probability.setSize(100, ITabbedPropertyConstants.VSPACE);
 		probability.addSelectionListener(probabilityListener);
 		probability.setBackground(ColorConstants.white);
@@ -147,82 +155,103 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		dirEdit.setToolTipText("Select for direct edit in the graphical test editor");
 		
 		//Actual
+		secondRow = new Composite(this,SWT.NONE){
+			@Override
+			public Point computeSize(int wHint, int hHint, boolean b) {
+				Point point = super.computeSize(wHint, hHint, b);
+				if(!secondRow.isVisible()){
+					point.y = 0;
+				}
+				return point;
+			}
+		};
+		secondRow.setBackground(ColorConstants.white);
+        secondRow.setLayout(formLayout);
+		
 		data = new FormData();
-		data.left = new FormAttachment(dirEdit,ITabbedPropertyConstants.HSPACE);
-		data.width = lableWidth * 2;
-		actualLabel = factory.createLabel(firstRow, "actual ");
+		data.left = new FormAttachment(9,0);
+		//data.top = new FormAttachment(value);
+		actualLabel = factory.createLabel(secondRow, "actually found a different value ");
 		actualLabel.setLayoutData(data);
 		actualLabel.setVisible(false);
-
 		data = new FormData();
 		data.left = new FormAttachment(actualLabel,ITabbedPropertyConstants.HSPACE);
-		data.width = lableWidth * 2;
-		actualValue = factory.createText(firstRow, "actual ", SWT.READ_ONLY);
+		data.width = lableWidth * 3;
+		actualValue = factory.createText(secondRow, "", SWT.READ_ONLY);
 		actualValue.setLayoutData(data);
 		actualValue.setVisible(false);
 		
 		data = new FormData();
 		data.left = new FormAttachment(actualValue,ITabbedPropertyConstants.HSPACE);
-		updateButton = factory.createButton(firstRow, "Update", SWT.PUSH);
+		updateButton = factory.createButton(secondRow, "Update", SWT.PUSH);
 		updateButton.setLayoutData(data);
 		updateButton.setVisible(false);
 		updateButton.addSelectionListener(updateButtonListener);
 		
-		//Second Row (i18n and params):
-		secondRow = factory.createFlatFormComposite(this);
+		//Third Row (i18n and params):
+		thirdRow = new Composite(this,SWT.NONE){
+			@Override
+			public Point computeSize(int wHint, int hHint, boolean b) {
+				Point point = super.computeSize(wHint, hHint, b);
+				if(!thirdRow.isVisible()){
+					point.y = 0;
+				}
+				return point;
+			}
+		};
+		
+		thirdRow.setLayout(formLayout);
+		thirdRow.setBackground(ColorConstants.white);
 		
 		//Adding I18n
-		i18nLabel = factory.createLabel(secondRow,"Internationalization:");
+		i18nLabel = factory.createLabel(thirdRow,"Internationalization:");
 		data = new FormData();
 		data.left = new FormAttachment(10,ITabbedPropertyConstants.HSPACE);
 		i18nLabel.setLayoutData(data);
-		i18n = factory.createButton(secondRow, "", SWT.CHECK);
+		i18n = factory.createButton(thirdRow, "", SWT.CHECK);
 		i18n.addSelectionListener(i18nListener);
 		data = new FormData();
 		data.left = new FormAttachment(i18nLabel, ITabbedPropertyConstants.HSPACE);
 		i18n.setLayoutData(data);
-		i18nCombo = factory.createCCombo(secondRow, SWT.NONE);
+		i18nCombo = factory.createCCombo(thirdRow, SWT.BORDER);
 		i18nCombo.addSelectionListener(i18nComboListener);
 		data = new FormData();
 		data.left = new FormAttachment(i18n, ITabbedPropertyConstants.HSPACE);
 		i18nCombo.setLayoutData(data);
 		
 		//Adding parameterisation
-		paramLabel = factory.createLabel(secondRow, "Paramterization:");
+		paramLabel = factory.createLabel(thirdRow, "Paramterization:");
 		data = new FormData();
-		data.left = new FormAttachment(i18nCombo,20);
+		data.left = new FormAttachment(i18nCombo,ITabbedPropertyConstants.HSPACE + 20);
 		paramLabel.setLayoutData(data);
-		param = factory.createButton(secondRow, "", SWT.CHECK);
+		param = factory.createButton(thirdRow, "", SWT.CHECK);
 		param.addSelectionListener(paramListener);
 		data = new FormData();
-		data.left = new FormAttachment(paramLabel);
+		data.left = new FormAttachment(paramLabel, ITabbedPropertyConstants.HSPACE);
 		param.setLayoutData(data);
-		paramCombo = factory.createCCombo(secondRow, SWT.NONE);
+		paramCombo = factory.createCCombo(thirdRow, SWT.BORDER);
 		paramCombo.addSelectionListener(paramComboListener);
 		data = new FormData();
-		data.left = new FormAttachment(param);
+		data.left = new FormAttachment(param, ITabbedPropertyConstants.HSPACE);
 		paramCombo.setLayoutData(data);
 		
-		Composite margin = new Composite(this,SWT.NONE){
-			@Override
-			public Point computeSize(int wHint, int hHint, boolean b) {
-				return new Point(10,4);
-			}
-		};
-		margin.setBackground(ColorConstants.white);
-		
-		Composite line = new Composite(this,SWT.BORDER){
+		line = new Composite(this,SWT.BORDER){
 			@Override
 			public Point computeSize(int wHint, int hHint, boolean changed) {
+				if(!thirdRow.isVisible() && !secondRow.isVisible()){
+					return new Point(getParent().getSize().x,0);
+				}
 				return new Point(getParent().getSize().x,1);
 			}
-			
 			@Override
 			public int getBorderWidth() {
 				return 1;
 			}
 		};
+		line.setLayout(formLayout);
 		line.setBackground(ColorConstants.lightGray);
+		
+		
 	}
 		
 	public void setIdentifier(PageElement pageElement, Identifier identifier) {
@@ -261,14 +290,15 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			actualLabel.setVisible(true);
 			actualValue.setVisible(true);
 			updateButton.setVisible(true);
+			secondRow.setVisible(true);
 			
 			actualValue.setText(identifier.getActual());
 		}else{
 			actualLabel.setVisible(false);
 			actualValue.setVisible(false);
 			actualValue.setVisible(false);
+			secondRow.setVisible(false);
 		}
-		
 		
 		Test test = editor.getTest();
 		if(test.getAllLanguages() == null || test.getAllLanguages().getLanguages().size() == 0){
@@ -313,7 +343,11 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 				paramCombo.select(paramCombo.indexOf(identifier.getParamKey()));
 			paramCombo.addSelectionListener(paramComboListener);
 		}
-		secondRow.setVisible(paramLabel.getVisible() || i18nLabel.getVisible());
+		thirdRow.setVisible(paramLabel.getVisible() || i18nLabel.getVisible());
+		getParent().pack();
+		getParent().update();
+		getParent().redraw();
+		
 	}
 	
 	private void setProbability(int newProbability){
@@ -389,16 +423,6 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	public void setPart(GraphicalTestEditor editor) {
 		this.editor = editor;
 	}
-	
-	@Override
-	public Point computeSize(int wHint, int hHint, boolean b) {
-		Point point = super.computeSize(wHint, hHint, b);
-		if(!secondRow.isVisible()){
-			point.y = point.y / 2;	
-		}
-		return point;
-	}
-	
 	
 	private SelectionListener probabilityListener = new SelectionListener(){
 		public void widgetSelected(SelectionEvent e) {

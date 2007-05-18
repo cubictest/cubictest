@@ -171,30 +171,33 @@ public class ElementConverter implements IPageElementConverter<Holder> {
 							for(String key: props.keySet()){
 								String actualValue = (String) props.get(key);
 								IdentifierType id = null;
+									
 								if("diffid".equals(key)){
 									id = IdentifierType.ID;
-								}else if("diffname".equals(key)){
+								}else if("diffName".equals(key)){
 									id = IdentifierType.NAME;
-								}else if("diffhref".equals(key)){
+								}else if("diffHref".equals(key)){
 									id = IdentifierType.HREF;
-								}else if("diffsrc".equals(key)){
+								}else if("diffSrc".equals(key)){
 									id = IdentifierType.SRC;
-								}else if("diffindex".equals(key)){
+								}else if("diffIndex".equals(key)){
 									id = IdentifierType.INDEX;
-								}else if("diffvalue".equals(key)){
+								}else if("diffValue".equals(key)){
 									id = IdentifierType.VALUE;
-								}else if("diffchecked".equals(key)){
+								}else if("diffChecked".equals(key)){
 									id = IdentifierType.CHECKED;
-								}else if("difflabel".equals(key)){
+								}else if("diffLabel".equals(key)){
 									id = IdentifierType.LABEL;
-								}else if("diffmultiselect".equals(key)){
+								}else if("diffMultiselect".equals(key)){
 									id = IdentifierType.MULTISELECT;
-								}else if("diffselected".equals(key)){
+								}else if("diffSelected".equals(key)){
 									id = IdentifierType.SELECTED;
-								}else
+								}else 
 									continue;
-								if(pe.getIdentifier(id) != null)
+								if(pe.getIdentifier(id) != null){
 									pe.getIdentifier(id).setActual(actualValue);
+									status = TestPartStatus.WARN;
+								}
 							}
 						}
 					}	

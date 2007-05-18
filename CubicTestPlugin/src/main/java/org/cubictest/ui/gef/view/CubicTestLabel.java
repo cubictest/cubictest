@@ -79,6 +79,9 @@ public class CubicTestLabel extends Label {
 			case PASS:
 				setBackgroundColor(ColorConstants.green);
 				break;
+			case WARN:
+				setBackgroundColor(ColorConstants.yellow);
+				break;
 			case FAIL:
 				setBackgroundColor(ColorConstants.red);
 				break;

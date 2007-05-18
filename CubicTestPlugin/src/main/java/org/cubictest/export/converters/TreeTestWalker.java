@@ -145,7 +145,8 @@ public class TreeTestWalker<T extends IResultHolder> {
 		if (targetExtensionPoint == null || TestWalkerUtils.isOnExtensionPointPath(node, targetExtensionPoint)) {
 
 			if (node instanceof UrlStartPoint) {
-				urlStartPointConverter.newInstance().handleUrlStartPoint(resultHolder, (UrlStartPoint) node);
+				urlStartPointConverter.newInstance().handleUrlStartPoint(resultHolder, (UrlStartPoint) node, 
+						targetExtensionPoint == null);
 			} 
 			else if (node instanceof ExtensionStartPoint) {
 				convertTransitionNode(resultHolder, (((SubTest) node).getTest(true)).getStartPoint(), (ExtensionStartPoint) node);

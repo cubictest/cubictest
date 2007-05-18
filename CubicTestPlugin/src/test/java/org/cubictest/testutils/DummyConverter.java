@@ -52,7 +52,7 @@ public class DummyConverter implements
 		
 	}
 
-	public void handleUrlStartPoint(AssertionList<String> AssertionList, UrlStartPoint urlStartPoint) {
+	public void handleUrlStartPoint(AssertionList<String> AssertionList, UrlStartPoint urlStartPoint, boolean firstUrl) {
 		AssertionList.add(urlStartPoint.getBeginAt());		
 	}
 
