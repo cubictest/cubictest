@@ -172,7 +172,7 @@ public class ElementConverter implements IPageElementConverter<Holder> {
 								String actualValue = (String) props.get(key);
 								IdentifierType id = null;
 									
-								if("diffid".equals(key)){
+								if("diffId".equals(key)){
 									id = IdentifierType.ID;
 								}else if("diffName".equals(key)){
 									id = IdentifierType.NAME;
