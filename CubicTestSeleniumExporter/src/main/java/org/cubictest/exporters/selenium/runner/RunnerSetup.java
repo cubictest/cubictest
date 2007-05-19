@@ -133,10 +133,11 @@ public class RunnerSetup implements IRunnableWithProgress {
 		if (test.getStartPoint() instanceof UrlStartPoint) {
 			return (UrlStartPoint) test.getStartPoint();
 		}
-		else {
+		else if (test.getStartPoint() instanceof ExtensionStartPoint) {
 			//ExtensionStartPoint, get url start point recursively:
 			return getInitialUrlStartPoint(((ExtensionStartPoint) test.getStartPoint()).getTest(true));
 		}
+		return null;
 	}
 
 

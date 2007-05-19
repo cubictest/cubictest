@@ -4,9 +4,12 @@
  */
 package org.cubictest.exporters.selenium.ui;
 
+import javax.swing.plaf.ViewportUI;
+
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.RunnerSetup;
 import org.cubictest.model.ExtensionPoint;
@@ -49,6 +52,10 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	public void run(IAction action) {
 		if( test == null ) {
 			ErrorHandler.showErrorDialog("Could not get test. Close editor and retry");
+			return;
+		}
+		if (!ExportUtils.testIsOkForExport(test)) {
+			ExportUtils.showTestNotOkForExportMsg(test);
 			return;
 		}
 		test.resetStatus();
