@@ -46,8 +46,8 @@ public class AbstractPageDirectEditPolicy extends DirectEditPolicy {
 				Command previousCmd = (Command) commandStack.getUndoCommand();
 				
 				Test test = ViewUtil.getSurroundingTest(getHost());
-				if (test.getPages().size() == 1 && page instanceof Page){
-					//handle undo of "auto setup" page (first page in test)
+				if (test.getPages().size() == 1 && page instanceof Page && test.getSubTests().size() == 0){
+					//"auto setup" page (first page in test)
 					CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
 					createTransitionCmd.setSource(test.getStartPoint());
 					createTransitionCmd.setTarget(((AddAbstractPageCommand) previousCmd).getPage());
