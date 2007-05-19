@@ -16,6 +16,7 @@ import org.apache.commons.io.IOUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.DirectoryWalker;
 import org.cubictest.export.IResultHolder;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.htmlPrototype.delegates.TestConverter;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
@@ -46,8 +47,20 @@ public class HtmlExportDirectoryWalker<T extends IResultHolder> extends Director
 
 	
 	@Override
-	protected void convertCubicTestFile(IFile file, IFolder outFolder, IProgressMonitor monitor) throws Exception{
+	protected void convertCubicTestFile(IFile file, IFolder outFolder, IProgressMonitor monitor, boolean isSelected) throws Exception{
 		Test test = TestPersistance.loadFromFile(file);
+		
+		if (!ExportUtils.testIsOkForExport(test)) {
+			if (isSelected) {
+				ExportUtils.throwTestNotOkForExport(test);
+				return;
+			}
+			else {
+				//just skip file
+				return;
+			}
+		}
+
 		IFolder destinationFolder = outFolder;
 		if(outFolder.getName().indexOf(".aat") == -1) {
 			destinationFolder = outFolder.getFolder(file.getName());
