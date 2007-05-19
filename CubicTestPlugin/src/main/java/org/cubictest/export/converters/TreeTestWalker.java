@@ -169,12 +169,6 @@ public class TreeTestWalker<T extends IResultHolder> {
 				customTestStepConverter.newInstance().handleCustomStep(resultHolder,
 						(CustomTestStep) node);
 			}
-			else if (node instanceof ExtensionPoint) {
-				//do nothing
-			} 
-			else {
-				ErrorHandler.logAndShowErrorDialogAndThrow("Encountered unknown node type during export: " + node);
-			}
 
 			int pathNum = 0;
 			for (Transition outTransition : node.getOutTransitions()) {

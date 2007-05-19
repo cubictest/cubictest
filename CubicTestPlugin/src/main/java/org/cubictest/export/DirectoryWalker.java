@@ -11,6 +11,7 @@ import org.cubictest.common.exception.ResourceNotCubicTestFileException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.utils.FileExportUtils;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.eclipse.core.resources.IFile;
@@ -60,7 +61,7 @@ public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithPr
 			
 			if(resource.getRawLocation().toFile().isFile()) {
 				if (resource.getName().endsWith(("aat"))) {
-					convertCubicTestFile((IFile)resource, destFolder, monitor);
+					convertCubicTestFile((IFile)resource, destFolder, monitor, true);
 				}
 				else {
 					throw new ResourceNotCubicTestFileException();
@@ -106,7 +107,7 @@ public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithPr
 				String fileName = entry.getName();
 
 				if (fileName.endsWith(".aat")) {
-					convertCubicTestFile((IFile)entry, destFolder, monitor);
+					convertCubicTestFile((IFile)entry, destFolder, monitor, false);
 				}
 				if (monitor != null) {
 					monitor.worked(1);
@@ -120,9 +121,21 @@ public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithPr
 	/**
 	 * Exports an .aat (CubicTest) file.
 	 */
-	protected void convertCubicTestFile(IFile aatFile, IFolder outFolder, IProgressMonitor monitor) throws Exception {
+	protected void convertCubicTestFile(IFile aatFile, IFolder outFolder, IProgressMonitor monitor, boolean isSelected) throws Exception {
 		//load Test and start the conversion:
 		Test test = TestPersistance.loadFromFile(aatFile);
+		
+		if (!ExportUtils.testIsOkForExport(test)) {
+			if (isSelected) {
+				ExportUtils.throwTestNotOkForExport(test);
+				return;
+			}
+			else {
+				//just skip file
+				return;
+			}
+		}
+	
 		T resultHolder = resultHolderClass.newInstance();
 		testWalker.convertTest(test, resultHolder);
 

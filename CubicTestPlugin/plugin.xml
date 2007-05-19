@@ -45,6 +45,15 @@
       </wizard>
       <wizard
             category="cubictest"
+            class="org.cubictest.ui.wizards.NewSubTestWizard"
+            finalPerspective="org.cubictest.CubicTestPerspective"
+            icon="icons/fileicon.gif"
+            id="org.cubictest.ui.wizards.NewSubTestWizard"
+            name="New CubicTest SubTest"
+            preferredPerspectives="org.cubictest.CubicTestPerspective">
+      </wizard>
+      <wizard
+            category="cubictest"
             class="org.cubictest.ui.wizards.NewCubicTestProjectWizard"
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/fileicon.gif"

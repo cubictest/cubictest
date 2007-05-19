@@ -20,6 +20,7 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 	 */
 	public void createInitialLayout(IPageLayout layout) {
 		layout.addNewWizardShortcut("org.cubictest.ui.wizards.NewTestWizard");
+		layout.addNewWizardShortcut("org.cubictest.ui.wizards.NewSubTestWizard");
 		layout.addNewWizardShortcut("org.cubictest.ui.wizards.NewCubicTestProjectWizard");
 		layout.addNewWizardShortcut("org.cubictest.ui.wizards.NewParamWizard");
 		layout.addNewWizardShortcut("org.cubictest.ui.wizards.NewPropertiesWizard");

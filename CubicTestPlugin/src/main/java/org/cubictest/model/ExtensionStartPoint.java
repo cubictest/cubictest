@@ -13,7 +13,7 @@ import org.eclipse.core.resources.IProject;
  * 
  * @author Christian Schwarz
  */
-public class ExtensionStartPoint extends SubTest{
+public class ExtensionStartPoint extends SubTest implements IStartPoint {
 
 	private String sourceExtensionPointPageId;
 	private String sourceExtensionPointName;

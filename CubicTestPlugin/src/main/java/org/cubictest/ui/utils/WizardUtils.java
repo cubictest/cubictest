@@ -16,6 +16,7 @@ import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
+import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
@@ -75,10 +76,32 @@ public class WizardUtils {
 		return test;
 	}
 
+	/**
+	 * Creates an empty test with a SubTest start point.
+	 */
+	public static Test createEmptyTestWithSubTestStartPoint(String id, String name, String description) {
+		Test test = createTest(id,name,description);
+		
+		SubTestStartPoint startpoint = createSubTestStartPoint(test);
+		test.setStartPoint(startpoint);
+		
+		SimpleTransition startTransition = new SimpleTransition(startpoint, test.getPages().get(0));	
+		test.addTransition(startTransition);
+		
+		return test;
+	}
+	
 	public static UrlStartPoint createUrlStartPoint(String url, Test test) {
 		UrlStartPoint startpoint = new UrlStartPoint();
 		startpoint.setBeginAt(url);
 		startpoint.setName("URL");
+		startpoint.setPosition(new Point(4, 4));
+		return startpoint;
+	}
+	
+	public static SubTestStartPoint createSubTestStartPoint(Test test) {
+		SubTestStartPoint startpoint = new SubTestStartPoint();
+		startpoint.setName("SubTest start point");
 		startpoint.setPosition(new Point(4, 4));
 		return startpoint;
 	}

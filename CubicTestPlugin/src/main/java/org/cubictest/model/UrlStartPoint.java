@@ -10,7 +10,7 @@ package org.cubictest.model;
  * @author skyttere
  *
  */
-public class UrlStartPoint extends ConnectionPoint {
+public class UrlStartPoint extends ConnectionPoint implements IStartPoint {
 	private String beginAt = "";
 	
 	/**
@@ -19,6 +19,7 @@ public class UrlStartPoint extends ConnectionPoint {
 	public String getBeginAt() {
 		return beginAt;
 	}
+	
 	/**
 	 * @param beginAt The beginAt to set.
 	 */

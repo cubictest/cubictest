@@ -24,6 +24,7 @@ import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SationObserver;
 import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.SubTest;
+import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.Text;
@@ -90,6 +91,7 @@ public class CubicTestXStream extends XStream {
 		this.alias("sationObserver", SationObserver.class);
 		this.alias("simpleTransition", SimpleTransition.class);
 		this.alias("urlStartPoint", UrlStartPoint.class);
+		this.alias("subTestStartPoint", SubTestStartPoint.class);
 		this.alias("subTest", SubTest.class);
 		this.alias("test", Test.class);
 		this.alias("testPartStatus", TestPartStatus.class);

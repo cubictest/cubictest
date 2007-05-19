@@ -174,8 +174,12 @@ public class NewTestWizard extends Wizard implements INewWizard {
 			ErrorHandler.logAndRethrow(e);
 		}
 		monitor.worked(1);
-		
-		
+				
+		openFileForEditing(monitor, file);
+	}
+
+	
+	protected void openFileForEditing(IProgressMonitor monitor, final IFile file) {
 		monitor.setTaskName("Opening file for editing...");
 		getShell().getDisplay().asyncExec(new Runnable() {
 			public void run() {
@@ -190,7 +194,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		monitor.worked(1);
 	}
 
-	private void throwCoreException(String message) throws CoreException {
+	protected void throwCoreException(String message) throws CoreException {
 		IStatus status = new Status(IStatus.ERROR, "cubicTestPlugin", IStatus.OK, message, null);
 		throw new CoreException(status);
 	}

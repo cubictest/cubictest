@@ -134,8 +134,14 @@ public class ErrorHandler {
 				msg = userMessage + ": " + ((e == null) ? "" : "\n" + e.toString());
 			}
 			CubicTestPlugin plugin = CubicTestPlugin.getDefault();
-			IStatus status = new Status(IStatus.ERROR, plugin.getId(), IStatus.OK, userMessage, e);
-			ErrorDialog.openError(shell, UiText.APP_TITLE, msg, status);
+
+			if (e == null) {
+				MessageDialog.openError(shell, UiText.APP_TITLE, msg);
+			}
+			else {
+				IStatus status = new Status(IStatus.ERROR, plugin.getId(), IStatus.OK, userMessage, e);
+				ErrorDialog.openError(shell, UiText.APP_TITLE, msg, status);
+			}
 		}
 		catch (Throwable t) {
 			System.out.println("Could not show error dialog: " + e + ", message: " + msg);

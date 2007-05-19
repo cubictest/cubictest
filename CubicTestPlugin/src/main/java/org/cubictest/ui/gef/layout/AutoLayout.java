@@ -9,10 +9,9 @@ import java.util.Iterator;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ExtensionPoint;
-import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
-import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.command.MoveNodeCommand;
 import org.cubictest.ui.gef.command.PageResizeCommand;
@@ -51,7 +50,7 @@ public class AutoLayout {
 		
 		try {
 
-			if((node.getInTransition().getStart() instanceof UrlStartPoint) || (node.getInTransition().getStart() instanceof ExtensionStartPoint)) {
+			if((node.getInTransition().getStart() instanceof IStartPoint)) {
 				position.x = ITestEditor.INITIAL_PAGE_POS_X + (290 * num);
 			} else {				
 				position.x = node.getInTransition().getStart().getPosition().x + node.getInTransition().getStart().getDimension().width / 2;
