@@ -7,6 +7,7 @@ package org.cubictest.recorder.ui;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -54,6 +55,11 @@ public class RecordEditorAction implements IEditorActionDelegate {
 		
 		AutoLayout autoLayout = new AutoLayout(testEditor);
 		Test test = testEditor.getTest();
+		if (!ExportUtils.testIsOkForExport(test)) {
+			ExportUtils.showTestNotOkForExportMsg(test);
+			return;
+		}
+		test.resetStatus();
 
 		if(!running) {
 			setRunning(true);
