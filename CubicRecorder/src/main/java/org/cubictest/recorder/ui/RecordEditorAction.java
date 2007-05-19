@@ -14,6 +14,7 @@ import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Page;
 import org.cubictest.model.SubTest;
+import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.UrlStartPoint;
@@ -55,8 +56,8 @@ public class RecordEditorAction implements IEditorActionDelegate {
 		
 		AutoLayout autoLayout = new AutoLayout(testEditor);
 		Test test = testEditor.getTest();
-		if (!ExportUtils.testIsOkForExport(test)) {
-			ExportUtils.showTestNotOkForExportMsg(test);
+		if (test.getStartPoint() instanceof SubTestStartPoint) {
+			ErrorHandler.logAndShowErrorDialog("It is not possible to record from tests that start with a SubTest start point. ");
 			return;
 		}
 		test.resetStatus();
