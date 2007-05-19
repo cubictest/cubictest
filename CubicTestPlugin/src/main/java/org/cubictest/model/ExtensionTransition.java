@@ -34,7 +34,7 @@ public class ExtensionTransition extends Transition {
 		}
 		return extensionPoint;
 	}
-	
+	@Override
 	public String toString() {
 		return getClass().getSimpleName() + ": ExtensionPoint (start) = " + getExtensionPoint() + ", end = " + getEnd();
 	}
