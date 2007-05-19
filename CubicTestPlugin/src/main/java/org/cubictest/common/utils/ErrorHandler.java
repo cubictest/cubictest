@@ -124,27 +124,21 @@ public class ErrorHandler {
 	
 	public static void showErrorDialog(Throwable e, String userMessage, Shell shell) {
 		e = getCause(e);
-		String msg = null;
 		
 		try {
-			if(e instanceof InterruptedException) {
-				msg = UiText.INTERRUPTED_MESSAGE;
-			}
-			else {
-				msg = userMessage + ": " + ((e == null) ? "" : "\n" + e.toString());
-			}
 			CubicTestPlugin plugin = CubicTestPlugin.getDefault();
 
 			if (e == null) {
-				MessageDialog.openError(shell, UiText.APP_TITLE, msg);
+				MessageDialog.openError(shell, UiText.APP_TITLE, userMessage);
 			}
 			else {
+				String extendedMsg = userMessage + ((e == null) ? "" : ": \n" + e.toString());
 				IStatus status = new Status(IStatus.ERROR, plugin.getId(), IStatus.OK, userMessage, e);
-				ErrorDialog.openError(shell, UiText.APP_TITLE, msg, status);
+				ErrorDialog.openError(shell, UiText.APP_TITLE, extendedMsg, status);
 			}
 		}
 		catch (Throwable t) {
-			System.out.println("Could not show error dialog: " + e + ", message: " + msg);
+			System.out.println("Could not show error dialog: " + e + ", message: " + userMessage);
 		}
 	}
 
