@@ -1,0 +1,160 @@
+<test>
+  <startPoint class="subTestStartPoint">
+    <outTransitions>
+      <simpleTransition>
+        <start class="subTestStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Webshop</value>
+                  <probability>100</probability>
+                  <type>LABEL</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>HREF</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>TITLE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status>UNKNOWN</status>
+            </link>
+          </elements>
+          <name>Forside</name>
+          <description></description>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Webshop</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status reference="../../../../../../elements/link/status"/>
+                  </text>
+                </elements>
+                <name>Webshop</name>
+                <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="page" reference="../../.."/>
+                    <end class="extensionPoint">
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>extensionpoint145522581179671882818</id>
+                      <position>
+                        <x>286</x>
+                        <y>212</y>
+                      </position>
+                      <dimension>
+                        <width>150</width>
+                        <height>95</height>
+                      </dimension>
+                      <name>Added to cart Extension Point</name>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>page193026321179672064199</id>
+                <position>
+                  <x>113</x>
+                  <y>192</y>
+                </position>
+                <dimension>
+                  <width>115</width>
+                  <height>46</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userInteractionsTransition>
+          </outTransitions>
+          <id>page195747791179663542585</id>
+          <position>
+            <x>113</x>
+            <y>83</y>
+          </position>
+          <dimension>
+            <width>115</width>
+            <height>46</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>subteststartpoint289953681179495991016</id>
+    <position>
+      <x>4</x>
+      <y>4</y>
+    </position>
+    <name>SubTest start point</name>
+  </startPoint>
+  <extensionPoints>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end"/>
+  </extensionPoints>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
+  </pages>
+  <subTests/>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
+  <name>Open Webshop</name>
+  <description></description>
+  <id>test1179495991006</id>
+  <modelVersion>7</modelVersion>
+</test>

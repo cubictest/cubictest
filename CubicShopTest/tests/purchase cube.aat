@@ -1,368 +1,110 @@
 <test>
-  <startPoint class="extensionStartPoint">
-    <sourceExtensionPointPageId>page313031181162367078413</sourceExtensionPointPageId>
-    <sourceExtensionPointName>Webshop Extension Point</sourceExtensionPointName>
-    <filePath>/tests/frontpage.aat</filePath>
+  <startPoint class="urlStartPoint">
+    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
     <outTransitions>
-      <extensionTransition>
-        <id>page129011931162367112723</id>
-        <start class="extensionStartPoint" reference="../../.."/>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
         <end class="subTest">
           <filePath>/tests/log_in.aat</filePath>
-          <inTransition class="extensionTransition" reference="../.."/>
+          <inTransition class="simpleTransition" reference="../.."/>
           <outTransitions>
             <extensionTransition>
               <id>page124927371177885602720</id>
               <start class="subTest" reference="../../.."/>
-              <end class="page">
-                <commons/>
-                <elements>
-                  <link>
-                    <description></description>
-                    <identifiers>
-                      <identifier>
-                        <value>Webshop</value>
-                        <probability>100</probability>
-                        <type>LABEL</type>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                      </identifier>
-                      <identifier>
-                        <value></value>
-                        <probability>0</probability>
-                        <type>ID</type>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                      </identifier>
-                      <identifier>
-                        <value></value>
-                        <probability>0</probability>
-                        <type>HREF</type>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                      </identifier>
-                      <identifier>
-                        <value></value>
-                        <probability>0</probability>
-                        <type>TITLE</type>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                      </identifier>
-                    </identifiers>
-                    <directEditIdentifier reference="../identifiers/identifier"/>
-                    <not>false</not>
-                    <status>PASS</status>
-                  </link>
-                </elements>
-                <name>CubicShop</name>
-                <description></description>
+              <end class="subTest">
+                <filePath>tests/subtests/Open webshop.aat</filePath>
                 <inTransition class="extensionTransition" reference="../.."/>
                 <outTransitions>
-                  <userInteractionsTransition>
-                    <userInteractions>
-                      <userInteraction>
-                        <element class="link" reference="../../../../../elements/link"/>
-                        <input></input>
-                        <action>CLICK</action>
-                        <i18nKey></i18nKey>
-                        <paramKey></paramKey>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                      </userInteraction>
-                    </userInteractions>
-                    <page class="page" reference="../../.."/>
-                    <start class="page" reference="../../.."/>
-                    <end class="page">
-                      <commons/>
-                      <elements>
-                        <link>
-                          <identifiers>
-                            <identifier>
-                              <value>Shipping crate</value>
-                              <probability>100</probability>
-                              <type reference="../../../../../../../../elements/link/identifiers/identifier/type"/>
-                              <paramKey></paramKey>
-                              <useI18n>false</useI18n>
-                              <useParam>false</useParam>
-                            </identifier>
-                          </identifiers>
-                          <directEditIdentifier reference="../identifiers/identifier"/>
-                          <not>false</not>
-                          <status reference="../../../../../../elements/link/status"/>
-                        </link>
-                      </elements>
-                      <name>Webshop</name>
-                      <inTransition class="userInteractionsTransition" reference="../.."/>
+                  <extensionTransition>
+                    <id>page193026321179672064199</id>
+                    <start class="subTest" reference="../../.."/>
+                    <end class="subTest">
+                      <filePath>tests/subtests/Buy box.aat</filePath>
+                      <inTransition class="extensionTransition" reference="../.."/>
                       <outTransitions>
-                        <userInteractionsTransition>
-                          <userInteractions>
-                            <userInteraction>
-                              <element class="link" reference="../../../../../elements/link"/>
-                              <input></input>
-                              <action reference="../../../../../../userInteractions/userInteraction/action"/>
-                              <paramKey></paramKey>
-                              <useI18n>false</useI18n>
-                              <useParam>false</useParam>
-                            </userInteraction>
-                          </userInteractions>
-                          <page class="page" reference="../../.."/>
-                          <start class="page" reference="../../.."/>
-                          <end class="page">
-                            <commons/>
-                            <elements>
-                              <button>
-                                <identifiers>
-                                  <identifier>
-                                    <value>Buy</value>
-                                    <probability>100</probability>
-                                    <type reference="../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
-                                    <paramKey></paramKey>
-                                    <useI18n>false</useI18n>
-                                    <useParam>false</useParam>
-                                  </identifier>
-                                </identifiers>
-                                <directEditIdentifier reference="../identifiers/identifier"/>
-                                <not>false</not>
-                                <status reference="../../../../../../../../../elements/link/status"/>
-                              </button>
-                              <text>
-                                <identifiers>
-                                  <identifier>
-                                    <value>Buy this item</value>
-                                    <probability>100</probability>
-                                    <type reference="../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
-                                    <paramKey></paramKey>
-                                    <useI18n>false</useI18n>
-                                    <useParam>false</useParam>
-                                  </identifier>
-                                </identifiers>
-                                <directEditIdentifier reference="../identifiers/identifier"/>
-                                <not>true</not>
-                                <status reference="../../../../../../../../../elements/link/status"/>
-                              </text>
-                            </elements>
-                            <name>3D Shooter Box</name>
-                            <inTransition class="userInteractionsTransition" reference="../.."/>
-                            <outTransitions>
-                              <userInteractionsTransition>
-                                <userInteractions>
-                                  <userInteraction>
-                                    <element class="button" reference="../../../../../elements/button"/>
-                                    <input></input>
-                                    <action>MOUSE_OVER</action>
-                                    <paramKey></paramKey>
-                                    <useI18n>false</useI18n>
-                                    <useParam>false</useParam>
-                                  </userInteraction>
-                                </userInteractions>
-                                <page class="page">
-                                  <commons/>
-                                  <elements/>
-                                  <name>stop</name>
-                                  <description></description>
-                                  <outTransitions/>
-                                  <id>page110354271176116990546</id>
-                                  <position>
-                                    <x>377</x>
-                                    <y>123</y>
-                                  </position>
-                                  <dimension>
-                                    <width>93</width>
-                                    <height>70</height>
-                                  </dimension>
-                                  <name defined-in="transitionNode"></name>
-                                  <autoPosition>false</autoPosition>
-                                </page>
-                                <start class="page" reference="../../.."/>
-                                <end class="page">
-                                  <commons/>
-                                  <elements>
-                                    <text>
-                                      <identifiers>
-                                        <identifier>
-                                          <value>Buy this item</value>
-                                          <probability>100</probability>
-                                          <type reference="../../../../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
-                                          <paramKey></paramKey>
-                                          <useI18n>false</useI18n>
-                                          <useParam>false</useParam>
-                                        </identifier>
-                                      </identifiers>
-                                      <directEditIdentifier reference="../identifiers/identifier"/>
-                                      <not>false</not>
-                                      <status reference="../../../../../../../../../../../../elements/link/status"/>
-                                    </text>
-                                    <button>
-                                      <identifiers>
-                                        <identifier>
-                                          <value>Buy</value>
-                                          <probability>100</probability>
-                                          <type reference="../../../../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
-                                          <paramKey></paramKey>
-                                          <useI18n>false</useI18n>
-                                          <useParam>false</useParam>
-                                        </identifier>
-                                      </identifiers>
-                                      <directEditIdentifier reference="../identifiers/identifier"/>
-                                      <not>false</not>
-                                      <status reference="../../../../../../../../../../../../elements/link/status"/>
-                                    </button>
-                                  </elements>
-                                  <name>Show tooltip</name>
-                                  <inTransition class="userInteractionsTransition" reference="../.."/>
-                                  <outTransitions>
-                                    <userInteractionsTransition>
-                                      <userInteractions>
-                                        <userInteraction>
-                                          <element class="button" reference="../../../../../elements/button"/>
-                                          <input></input>
-                                          <action reference="../../../../../../../../../../../../userInteractions/userInteraction/action"/>
-                                          <paramKey></paramKey>
-                                          <useI18n>false</useI18n>
-                                          <useParam>false</useParam>
-                                        </userInteraction>
-                                      </userInteractions>
-                                      <page class="page" reference="../../.."/>
-                                      <start class="page" reference="../../.."/>
-                                      <end class="page">
-                                        <commons/>
-                                        <elements>
-                                          <text>
-                                            <identifiers>
-                                              <identifier>
-                                                <value>Added to cart</value>
-                                                <probability>100</probability>
-                                                <type reference="../../../../../../../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
-                                                <paramKey></paramKey>
-                                                <useI18n>false</useI18n>
-                                                <useParam>false</useParam>
-                                              </identifier>
-                                            </identifiers>
-                                            <directEditIdentifier reference="../identifiers/identifier"/>
-                                            <not>false</not>
-                                            <status reference="../../../../../../../../../../../../../../../elements/link/status"/>
-                                          </text>
-                                        </elements>
-                                        <name>Buy clicked</name>
-                                        <inTransition class="userInteractionsTransition" reference="../.."/>
-                                        <outTransitions/>
-                                        <id>page178522161162367708569</id>
-                                        <position>
-                                          <x>62</x>
-                                          <y>640</y>
-                                        </position>
-                                        <dimension>
-                                          <width>100</width>
-                                          <height>46</height>
-                                        </dimension>
-                                        <name defined-in="transitionNode"></name>
-                                        <autoPosition>false</autoPosition>
-                                      </end>
-                                    </userInteractionsTransition>
-                                  </outTransitions>
-                                  <id>page79834131162367708569</id>
-                                  <position>
-                                    <x>62</x>
-                                    <y>516</y>
-                                  </position>
-                                  <dimension>
-                                    <width>100</width>
-                                    <height>67</height>
-                                  </dimension>
-                                  <name defined-in="transitionNode"></name>
-                                  <autoPosition>false</autoPosition>
-                                </end>
-                              </userInteractionsTransition>
-                            </outTransitions>
-                            <id>page18041191162367708569</id>
+                        <extensionTransition>
+                          <id>page317192391179663615450</id>
+                          <start class="subTest" reference="../../.."/>
+                          <end class="subTest">
+                            <filePath>tests/subtests/Log out.aat</filePath>
+                            <inTransition class="extensionTransition" reference="../.."/>
+                            <outTransitions/>
+                            <id>subtest325597791179682688932</id>
                             <position>
-                              <x>61</x>
-                              <y>378</y>
+                              <x>112</x>
+                              <y>474</y>
                             </position>
                             <dimension>
-                              <width>100</width>
-                              <height>67</height>
+                              <width>150</width>
+                              <height>95</height>
                             </dimension>
-                            <name defined-in="transitionNode"></name>
-                            <autoPosition>false</autoPosition>
+                            <name></name>
                           </end>
-                        </userInteractionsTransition>
+                        </extensionTransition>
                       </outTransitions>
-                      <id>page219799911162367708569</id>
+                      <id>subtest300441321179682538346</id>
                       <position>
-                        <x>61</x>
-                        <y>257</y>
+                        <x>109</x>
+                        <y>334</y>
                       </position>
                       <dimension>
-                        <width>100</width>
-                        <height>46</height>
+                        <width>150</width>
+                        <height>95</height>
                       </dimension>
-                      <autoPosition>false</autoPosition>
+                      <name></name>
                     </end>
-                  </userInteractionsTransition>
+                  </extensionTransition>
                 </outTransitions>
-                <id>page314123731176116800828</id>
+                <id>subtest116573881179682538306</id>
                 <position>
-                  <x>61</x>
-                  <y>136</y>
+                  <x>75</x>
+                  <y>194</y>
                 </position>
                 <dimension>
-                  <width>100</width>
-                  <height>46</height>
+                  <width>150</width>
+                  <height>95</height>
                 </dimension>
-                <name defined-in="transitionNode"></name>
-                <autoPosition>false</autoPosition>
+                <name></name>
               </end>
             </extensionTransition>
           </outTransitions>
-          <id>1176113385078</id>
+          <id>subtest60393221179682538386</id>
           <position>
-            <x>57</x>
-            <y>69</y>
+            <x>120</x>
+            <y>79</y>
           </position>
           <dimension>
             <width>93</width>
             <height>70</height>
           </dimension>
           <name></name>
-          <autoPosition>false</autoPosition>
         </end>
-      </extensionTransition>
+      </simpleTransition>
     </outTransitions>
-    <id>1162367679277</id>
+    <id>urlstartpoint227428311179672651293</id>
     <position>
-      <x>0</x>
-      <y>0</y>
+      <x>4</x>
+      <y>4</y>
     </position>
-    <name></name>
-    <autoPosition>false</autoPosition>
+    <name>URL</name>
   </startPoint>
   <extensionPoints/>
-  <pages>
-    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
-    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end"/>
-    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
-    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
-    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end"/>
-  </pages>
+  <pages/>
   <subTests>
-    <subTest reference="../../startPoint/outTransitions/extensionTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/extensionTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end"/>
   </subTests>
   <transitions>
-    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
-    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
-    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
-    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition"/>
-    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition"/>
-    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/extensionTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/extensionTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition"/>
   </transitions>
   <customTestSteps/>
-  <allLanguages>
-    <languages/>
-    <observers/>
-  </allLanguages>
   <name>purchase cube</name>
   <description></description>
-  <id>test1162367679267</id>
-  <modelVersion>6</modelVersion>
+  <id>test1179672651273</id>
+  <modelVersion>7</modelVersion>
 </test>
