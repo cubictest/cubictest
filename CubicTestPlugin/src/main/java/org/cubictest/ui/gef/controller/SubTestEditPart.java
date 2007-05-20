@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.cubictest.common.resources.UiText;
 import org.cubictest.model.ExtensionStartPoint;
-import org.cubictest.model.Page;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
@@ -23,14 +22,11 @@ import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.PageNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
-import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
 import org.cubictest.ui.gef.view.SubTestFigure;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -74,12 +70,14 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 		}
 		super.activate();
 		ViewUtil.getSurroundingTest(this).addPropertyChangeListener(this);
+		getModel().addPropertyChangeListener(this);
 	}
 	
 	@Override
 	public void deactivate() {
 		super.deactivate();
 		ViewUtil.getSurroundingTest(this).removePropertyChangeListener(this);
+		getModel().removePropertyChangeListener(this);
 	}
 	
 	@Override
