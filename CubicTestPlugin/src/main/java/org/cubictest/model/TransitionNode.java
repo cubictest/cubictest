@@ -41,11 +41,10 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		return name;
 	}
 	
-	/**
-	 * @param name The name to set.
-	 */
 	public void setName(String name) {
+		String oldName = this.name;
 		this.name = name;
+		firePropertyChange(NAME, oldName, name);
 	}
 
 	public static Dimension getDefaultDimension() {

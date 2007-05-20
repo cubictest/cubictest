@@ -7,15 +7,20 @@
  */
 package org.cubictest.ui.sections;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import org.cubictest.model.Test;
+import org.cubictest.ui.gef.command.ChangeTestNameCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
@@ -26,23 +31,27 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 
-public class TestNameSection extends AbstractPropertySection {
+public class TestNameSection extends AbstractPropertySection implements PropertyChangeListener {
 
 	private Text labelText;
-
-	private ModifyListener listener = new ModifyListener() {
-		public void modifyText(ModifyEvent event) {
-			test.setName(labelText.getText());
-		}
-	};
 	private Test test;
 
+	private FocusListener listener = new FocusListener(){
+		public void focusLost(FocusEvent e) {
+			ChangeTestNameCommand cmd = new ChangeTestNameCommand();
+			cmd.setTest(test);
+			cmd.setOldName(test.getName());
+			cmd.setNewName(labelText.getText());
+			ITestEditor editor = (ITestEditor) getPart();
+			editor.getCommandStack().execute(cmd);
+		}
+		public void focusGained(FocusEvent e) {}
+	};
+		
 	@Override
-	public void createControls(Composite parent,
-			TabbedPropertySheetPage aTabbedPropertySheetPage) {
+	public void createControls(Composite parent, TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
-		Composite composite = getWidgetFactory()
-				.createFlatFormComposite(parent);
+		Composite composite = getWidgetFactory().createFlatFormComposite(parent);
 		FormData data;
 
 		labelText = getWidgetFactory().createText(composite, ""); 
@@ -51,17 +60,16 @@ public class TestNameSection extends AbstractPropertySection {
 		data.right = new FormAttachment(100, 0);
 		data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		labelText.setLayoutData(data);
-		labelText.addModifyListener(listener);
+		labelText.addFocusListener(listener);
 
-		CLabel labelLabel = getWidgetFactory()
-				.createCLabel(composite, "Name:");
+		CLabel labelLabel = getWidgetFactory().createCLabel(composite, "Name:");
 		data = new FormData();
 		data.left = new FormAttachment(0, 0);
-		data.right = new FormAttachment(labelText,
-				-ITabbedPropertyConstants.HSPACE);
+		data.right = new FormAttachment(labelText, -ITabbedPropertyConstants.HSPACE);
 		data.top = new FormAttachment(labelText, 0, SWT.CENTER);
 		labelLabel.setLayoutData(data);
 	}
+	
 	@Override
 	public void setInput(IWorkbenchPart part, ISelection selection) {
 		super.setInput(part, selection);
@@ -70,11 +78,27 @@ public class TestNameSection extends AbstractPropertySection {
 		Assert.isTrue(input instanceof TestEditPart);
 		this.test = (Test) ((TestEditPart) input).getModel();
 	}
+	
+	@Override
+	public void aboutToBeShown() {
+		test.addPropertyChangeListener(this);
+	}
+	
+	@Override
+	public void aboutToBeHidden() {
+		test.removePropertyChangeListener(this);
+	}
+	
 	@Override
 	public void refresh() {
-		labelText.removeModifyListener(listener);
+		super.refresh();
+		labelText.removeFocusListener(listener);
 		labelText.setText(test.getName());
-		labelText.addModifyListener(listener);
+		labelText.addFocusListener(listener);
+	}
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		refresh();
 	}
 
 }

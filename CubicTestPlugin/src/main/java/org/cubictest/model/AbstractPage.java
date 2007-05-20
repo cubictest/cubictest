@@ -85,13 +85,6 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 		}
 		return name;
 	}
-
-	@Override
-	public void setName(String name) {
-		String oldName = this.name;
-		this.name = name;
-		firePropertyChange(PropertyAwareObject.NAME, oldName, name);
-	}
 	
 	@Override
 	public void resetStatus() {

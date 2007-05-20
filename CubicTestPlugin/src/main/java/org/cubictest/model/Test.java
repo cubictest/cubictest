@@ -183,8 +183,11 @@ public class Test extends PropertyAwareObject {
 	}
 
 	public void setName(String name) {
+		String oldName = this.name;
 		this.name = name;
+		firePropertyChange(NAME, oldName, name);
 	}
+	
 	@Override
 	public void resetStatus() {
 		for (Transition t: transitions)

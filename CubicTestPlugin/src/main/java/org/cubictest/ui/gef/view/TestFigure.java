@@ -9,6 +9,7 @@ package org.cubictest.ui.gef.view;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FreeformLayout;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.ScalableFreeformLayeredPane;
 
 /**
@@ -17,10 +18,21 @@ import org.eclipse.draw2d.ScalableFreeformLayeredPane;
  */
 public class TestFigure extends ScalableFreeformLayeredPane {
 
+	Label nameLabel;
+	
 	public TestFigure() {
 		setOpaque(true);
 		setBackgroundColor(ColorConstants.white);
 		FreeformLayout layout = new FreeformLayout();
 		setLayoutManager(layout);
+	}
+	
+	public void addNameLabel(Label label) {
+		this.nameLabel = label;
+		add(label);
+	}
+
+	public Label getNameLabel() {
+		return nameLabel;
 	}
 }

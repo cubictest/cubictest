@@ -7,18 +7,24 @@
  */
 package org.cubictest.ui.gef.controller;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ConnectionPoint;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.policies.TestContainerEditPolicy;
 import org.cubictest.ui.gef.policies.TestXYLayoutEditPolicy;
+import org.cubictest.ui.gef.view.CubicTestGroupFigure;
 import org.cubictest.ui.gef.view.TestFigure;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
@@ -49,27 +55,40 @@ public class TestEditPart extends PropertyChangePart{
 	protected IFigure createFigure() {
 		
 		TestFigure fig = new TestFigure();
-		String descriptionValue = ((Test)getModel()).getName();
+		String name = ((Test)getModel()).getName();
 		if(((Test)getModel()).getDescription() != "") {
-			descriptionValue += ": \n    " + ((Test)getModel()).getDescription();
+			name += ": \n    " + ((Test)getModel()).getDescription();
 		}
-		Label description = new Label(descriptionValue);
-		description.setLocation(new Point(200,0));
-		description.setTextAlignment(Label.TOP);
-		description.setLabelAlignment(Label.LEFT);
-		description.setSize(300, 50);
-		description.setFont(new Font(null,"tahoma", 15, 1));
-		description.setForegroundColor(ColorConstants.lightGray);
-		fig.add(description);
+		Label nameLabel = new Label(name);
+		nameLabel.setLocation(new Point(250,15));
+		nameLabel.setTextAlignment(Label.TOP);
+		nameLabel.setLabelAlignment(Label.LEFT);
+		nameLabel.setSize(300, 50);
+		nameLabel.setFont(new Font(null,"tahoma", 15, 1));
+		nameLabel.setForegroundColor(ColorConstants.lightGray);
+		fig.addNameLabel(nameLabel);
 		return fig;
 	}
 	
-	/* (non-Javadoc)
+	
+	public void propertyChange(PropertyChangeEvent evt){
+		String property = evt.getPropertyName();
+		if (PropertyAwareObject.NAME.equals(property)) {
+			refresh();
+		}
+	}
+	
+	/*
+	 *  (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
 	 */
-	protected void refreshVisuals() {
+	@Override
+	protected void refreshVisuals(){
 		super.refreshVisuals();
-		
+		Test test = (Test) getModel();
+		TestFigure figure = (TestFigure) getFigure();
+		Label desc = figure.getNameLabel();
+		desc.setText(test.getName());
 	}
 	
 	/* (non-Javadoc)
