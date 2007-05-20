@@ -110,7 +110,8 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 			
 			if (!testFile.exists() || !(testFile instanceof IFile)) {
 				MessageDialog.openError(new Shell(), UiText.APP_TITLE, 
-						"Test \"" + ((SubTest)getModel()).getFilePath() + "\" does not exist.");
+						"Error opening subtest: \"" + ((SubTest)getModel()).getFilePath() + "\" not found.\n" +
+								"To fix, edit this file in text mode and set correct path to subtest.");
 				return;
 			}
 
