@@ -40,7 +40,7 @@ public class SubTestFigure extends AbstractTransitionNodeFigure {
 	public Dimension getMinimumSize(int wHint, int hHint) {
 		Dimension d = super.getMinimumSize(wHint, hHint).getCopy();
 		d.height = 18;
-		d.width = d.width + 10; 
+		d.width = d.width + 12; 
 		return d;
 	}
 	
