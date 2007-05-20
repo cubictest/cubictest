@@ -142,21 +142,22 @@ public class CreateTransitionCommand extends Command {
 				//User Interactions transition:
 				transition = new UserInteractionsTransition(sourceNode, targetNode);
 				test.addTransition(transition);
-				NewUserInteractionsWizard userActionWizard = new NewUserInteractionsWizard(
-						(UserInteractionsTransition) transition, test);
-				WizardDialog dlg = new WizardDialog(new Shell(), userActionWizard);
-
-				if (dlg.open() == WizardDialog.CANCEL) {
-					DeleteTransitionCommand cmd = new DeleteTransitionCommand(
-							transition, test);
-					cmd.execute();
-					transition.resetStatus();
-					if (autoCreateTargetPage) {
-						test.removePage((Page) targetNode);
+				if (sourceNode instanceof Page && ((Page) sourceNode).getElements().size() > 0) {
+					NewUserInteractionsWizard userActionWizard = new NewUserInteractionsWizard(
+							(UserInteractionsTransition) transition, test);
+					WizardDialog dlg = new WizardDialog(new Shell(), userActionWizard);
+	
+					if (dlg.open() == WizardDialog.CANCEL) {
+						DeleteTransitionCommand cmd = new DeleteTransitionCommand(
+								transition, test);
+						cmd.execute();
+						transition.resetStatus();
+						if (autoCreateTargetPage) {
+							test.removePage((Page) targetNode);
+						}
+						return;
 					}
-					return;
 				}
-
 				if (autoCreateTargetPage) {
 					//start direct edit:
 					for(Object obj : pageEditPart.getParent().getChildren()){
