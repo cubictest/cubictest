@@ -7,6 +7,8 @@ package org.cubictest.ui.gef.actions;
 import java.util.Iterator;
 import java.util.List;
 
+import org.cubictest.common.utils.UserInfo;
+import org.cubictest.model.Page;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
@@ -67,6 +69,11 @@ public class AddUserInteractionTransitionAction extends SelectionAction {
 				pageEditPart = (PageEditPart) element;
 			}
 			
+			Page page = (Page) pageEditPart.getModel();
+			if (page.getElements().size() == 0) {
+				UserInfo.showWarnDialog("Cannot create user interaction. Page must have at least one page element.");
+				return;
+			}
 			CreateTransitionCommand cmd = new CreateTransitionCommand();
 			cmd.setTest((Test) pageEditPart.getParent().getModel());
 			cmd.setSource((TransitionNode) pageEditPart.getModel());

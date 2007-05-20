@@ -5,6 +5,9 @@
 package org.cubictest.common.utils;
 
 import org.cubictest.CubicTestPlugin;
+import org.cubictest.common.resources.UiText;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.internal.WorkbenchWindow;
 
@@ -25,5 +28,24 @@ public class UserInfo {
 		IWorkbenchWindow window = CubicTestPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow();
 		((WorkbenchWindow) window).getStatusLineManager().setMessage("");
 		((WorkbenchWindow) window).getStatusLineManager().setErrorMessage("");
+	}
+	
+	public static void showInfoDialog(String message) {
+		try {
+			MessageDialog.openInformation(new Shell(), UiText.APP_TITLE, message);
+		}
+		catch (Throwable t) {
+			System.out.println("Could not show info dialog: " + message);
+		}
+	}
+	
+	
+	public static void showWarnDialog(String message) {
+		try {
+			MessageDialog.openWarning(new Shell(), UiText.APP_TITLE, message);
+		}
+		catch (Throwable t) {
+			System.out.println("Could not show warn dialog: " + message);
+		}
 	}
 }
