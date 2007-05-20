@@ -72,6 +72,7 @@ public class TestEditPart extends PropertyChangePart{
 	
 	
 	public void propertyChange(PropertyChangeEvent evt){
+		super.propertyChange(evt);
 		String property = evt.getPropertyName();
 		if (PropertyAwareObject.NAME.equals(property)) {
 			refresh();
