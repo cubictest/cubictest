@@ -21,7 +21,7 @@ import org.eclipse.draw2d.LineBorder;
  */
 public class AbstractTransitionNodeFigure extends Figure {
 	
-	private CubicTestLabel label;
+	protected CubicTestLabel label;
 	private String tooltipText;
 
 	public AbstractTransitionNodeFigure(){

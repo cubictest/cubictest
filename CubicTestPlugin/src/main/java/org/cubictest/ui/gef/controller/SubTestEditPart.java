@@ -24,6 +24,7 @@ import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.PageNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
+import org.cubictest.ui.gef.view.SubTestFigure;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -31,6 +32,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
@@ -135,12 +137,9 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 	 */
 	@Override
 	protected IFigure createFigure() {
-		AbstractTransitionNodeFigure figure = new AbstractTransitionNodeFigure();
-		figure.setBackgroundColor(ColorConstants.darkBlue);
-		figure.setForegroundColor(ColorConstants.white);
-		figure.setLocation(((TransitionNode)getModel()).getPosition());
 		String name = getModel().getName();
-		figure.setText(name);
+		SubTestFigure figure = new SubTestFigure(name);
+		figure.setLocation(((TransitionNode)getModel()).getPosition());
 		figure.setToolTipText("Sub test: $labelText\nDouble click to open file");
 		return figure;
 	}
@@ -160,13 +159,14 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 	 */
 	@Override
 	protected void refreshVisuals(){
-		SubTest page = getModel();
-		AbstractTransitionNodeFigure figure = (AbstractTransitionNodeFigure) getFigure();
+		SubTest subtest = getModel();
+		SubTestFigure figure = (SubTestFigure) getFigure();
 		String title = getModel().getName();
 		figure.setText(title);
-		Point position = page.getPosition();
-		Rectangle r = new Rectangle(position.x,position.y,-1,-1);
-		((TestEditPart)getParent()).setLayoutConstraint(this,figure,r);
+		Point position = subtest.getPosition();
+		Dimension dim = figure.getMinimumSize();
+		Rectangle r = new Rectangle(position.x, position.y, dim.width, dim.height);
+		((TestEditPart)getParent()).setLayoutConstraint(this, figure, r);
 		if (manager !=null)
 			manager.setText(title);
 	}

@@ -8,6 +8,7 @@
 package org.cubictest.ui.gef.view;
 
 import org.cubictest.common.exception.CubicException;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.geometry.Dimension;
 
 /**
@@ -18,14 +19,14 @@ import org.eclipse.draw2d.geometry.Dimension;
  */
 public class CubicTestHeaderLabel extends CubicTestLabel {
 	
-	private CubicTestGroupFigure parent;
-	private boolean fullWidth;
+	private Figure parent;
+	private boolean useParentWidth;
 
-	public CubicTestHeaderLabel(String text, CubicTestGroupFigure parentAbstractPage, boolean fullWidth){
+	public CubicTestHeaderLabel(String text, Figure parentFigure, boolean fullWidth){
 		super(text);
-		this.parent = parentAbstractPage;
-		this.fullWidth = fullWidth;
-		if (parentAbstractPage == null) {
+		this.parent = parentFigure;
+		this.useParentWidth = fullWidth;
+		if (parentFigure == null) {
 			throw new CubicException("Null parent not allowed.");
 		}
 	}
@@ -38,7 +39,7 @@ public class CubicTestHeaderLabel extends CubicTestLabel {
 	@Override
 	public Dimension getPreferredSize(int wHint, int hHint) {
 		Dimension orig = super.getPreferredSize(wHint, hHint);
-		if (fullWidth) {
+		if (useParentWidth) {
 			int parentWidth = parent.getSize().width;
 			return new Dimension(parentWidth, orig.height);
 		}
