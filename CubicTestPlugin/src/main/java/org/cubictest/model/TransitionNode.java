@@ -44,7 +44,7 @@ public abstract class TransitionNode extends PropertyAwareObject{
 	public void setName(String name) {
 		String oldName = this.name;
 		this.name = name;
-		firePropertyChange(NAME, oldName, name);
+		firePropertyChange(PropertyAwareObject.NAME, oldName, name);
 	}
 
 	public static Dimension getDefaultDimension() {
