@@ -225,4 +225,8 @@ public class CustomElementLoader implements IResourceListener {
 		recreateClassLoader();
 		notifyClassChangeListeners();
 	}
+
+	public IProject getProject() {
+		return project;
+	}
 }

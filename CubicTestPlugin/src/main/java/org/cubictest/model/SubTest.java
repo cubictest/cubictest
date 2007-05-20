@@ -34,6 +34,10 @@ public class SubTest extends ConnectionPoint {
 	 */
 	public Test getTest(boolean forceRefreshFile) {
 		if(test == null || forceRefreshFile) {
+			if (project == null) {
+				//try to get it from the customElementLoader 
+				project = customTestStepLoader.getProject();
+			}
 			test = TestPersistance.loadFromFile(project, getFilePath());
 			test.setResourceMonitor(resourceMonitor);
 			test.setCustomTestStepLoader(customTestStepLoader);
