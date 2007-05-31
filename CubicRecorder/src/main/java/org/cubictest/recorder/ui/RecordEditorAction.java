@@ -110,9 +110,9 @@ public class RecordEditorAction implements IEditorActionDelegate {
 					ExtensionPoint targetExPoint = ((ExtensionTransition) test.getStartPoint().getOutTransitions().get(0)).getExtensionPoint();
 	 				runner.setTargetExtensionPoint(targetExPoint);
 	 				runner.run(action);
-	 				cubicRecorder.setEnabled(true);
-	 				guiAwareRecorder.setEnabled(true);
 				}
+ 				cubicRecorder.setEnabled(true);
+ 				guiAwareRecorder.setEnabled(true);
 			}
 			catch (Exception e) {
 				ErrorHandler.logAndShowErrorDialog(e);
