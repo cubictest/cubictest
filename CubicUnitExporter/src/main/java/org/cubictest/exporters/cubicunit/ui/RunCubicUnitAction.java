@@ -27,7 +27,7 @@ import org.eclipse.ui.IEditorPart;
  */
 public class RunCubicUnitAction implements IEditorActionDelegate {
 
-	Test test;
+	ITestEditor testEditor;
 
 	public RunCubicUnitAction() {
 		super();
@@ -45,6 +45,7 @@ public class RunCubicUnitAction implements IEditorActionDelegate {
 		
 		if(dlg.open() != WizardDialog.CANCEL){	
 			try {
+				Test test = testEditor.getTest();
 				if( test != null ){
 					
 					test.resetStatus();
@@ -70,7 +71,7 @@ public class RunCubicUnitAction implements IEditorActionDelegate {
 	 */
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		if (targetEditor instanceof ITestEditor) {
-			test = ((ITestEditor) targetEditor).getTest();
+			testEditor = (ITestEditor) targetEditor;
 		}
 	}
 
