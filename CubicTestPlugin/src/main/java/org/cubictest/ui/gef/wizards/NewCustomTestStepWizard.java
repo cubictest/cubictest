@@ -26,27 +26,20 @@ public class NewCustomTestStepWizard extends Wizard {
 		setNeedsProgressMonitor(true);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.wizard.IWizard#addPages()
-	 */
+	@Override
 	public void addPages() {
 		newCustomTestStepCreationPage = new WizardNewCustomTestStepCreationPage();
 		addPage(newCustomTestStepCreationPage);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.wizard.IWizard#performFinish()
-	 */
+	@Override
 	public boolean performFinish() {
-		customTestStep.setCustomTestClass(newCustomTestStepCreationPage.getText());
+		customTestStep.setFile(newCustomTestStepCreationPage.getText());
 		
 		return true;
 	}
 
+	@Override
 	public boolean canFinish() {
 		if (!newCustomTestStepCreationPage.getText().equals("")) {
 			return true;

@@ -13,7 +13,6 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.CubicTestXStream;
-import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.IContainer;
@@ -137,9 +136,9 @@ public class NewSubTestWizard extends NewTestWizard implements INewWizard {
 		}
 		return true;
 	}
-	
+	@Override
 	public void populateExtensionPointMap(IContainer resource, Map<ExtensionPoint,IFile> map, 
-			IResourceMonitor monitor, CustomElementLoader loader) throws CoreException {
+			IResourceMonitor monitor) throws CoreException {
 		//not needed here
 		return;
 	}

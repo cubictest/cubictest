@@ -4,20 +4,13 @@
  */
 package org.cubictest.ui.wizards;
 
-import java.util.Map;
-
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.ExtensionPoint;
-import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
-import org.cubictest.pluginsupport.CustomElementLoader;
-import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.cubictest.ui.utils.WizardUtils;
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
 
 
 /**

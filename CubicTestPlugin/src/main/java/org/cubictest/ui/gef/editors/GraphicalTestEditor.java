@@ -17,7 +17,6 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
-import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.resources.ResourceMonitor;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.cubictest.ui.gef.actions.AddExtensionPointAction;
@@ -145,8 +144,6 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	private IPropertySheetPage undoablePropertySheetPage;
 
 	private IResourceMonitor resourceMonitor;
-	
-	private CustomElementLoader customTestStepLoader;
 
 	private FlyoutPaletteComposite splitter;
 
@@ -291,7 +288,6 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	private Test getContent() {
 		Test test = TestPersistance.loadFromFile(((IFileEditorInput)getEditorInput()).getFile());
 		test.setResourceMonitor(resourceMonitor);
-		test.setCustomTestStepLoader(customTestStepLoader);
 		test.resetStatus();
 		return test;
 	}
@@ -414,7 +410,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 
 		addAction(new PrintAction(this));
 		addAction(new SelectAllAction(this));
-}
+	}
 	
 	/*
 	 *  (non-Javadoc)
@@ -499,17 +495,10 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 
 	protected PaletteRoot getPaletteRoot() {
 		if (paletteRoot == null){
-			paletteRoot = new PaletteRootCreator(((IFileEditorInput)getEditorInput()).getFile().getProject(), getCustomTestStepLoader());
+			paletteRoot = new PaletteRootCreator(((IFileEditorInput)getEditorInput()).getFile().getProject());
 		}
 		return paletteRoot;
 	}
-	
-	public CustomElementLoader getCustomTestStepLoader() {
-		if(customTestStepLoader == null) {
-			customTestStepLoader = new CustomElementLoader(((IFileEditorInput)getEditorInput()).getFile().getProject(), getResourceMonitor());
-		}
-		return customTestStepLoader;
-	}	
 	
 	/**
 	 * Adds a <code>SelectionAction</code>.

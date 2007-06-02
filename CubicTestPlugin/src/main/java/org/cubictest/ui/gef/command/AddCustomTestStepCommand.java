@@ -23,7 +23,7 @@ public class AddCustomTestStepCommand extends Command {
 	
 	@Override
 	public void execute() {
-		if(customTestStep.getCustomTestClass() == null) {
+		if(customTestStep.getFile() == null) {
 			NewCustomTestStepWizard wizard = new NewCustomTestStepWizard(customTestStep);
 			WizardDialog dlg = new WizardDialog(new Shell(),
 					wizard);

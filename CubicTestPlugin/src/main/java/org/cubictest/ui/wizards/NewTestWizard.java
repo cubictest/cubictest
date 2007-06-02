@@ -17,7 +17,6 @@ import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.CubicTestXStream;
 import org.cubictest.persistence.TestPersistance;
-import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.resources.ResourceMonitor;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.cubictest.ui.utils.ResourceNavigatorGetter;
@@ -235,8 +234,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 						"Hint: New CubicTest tests must be created within a CubicTest project.");
 			}
 			IResourceMonitor monitor = new ResourceMonitor(project);
-			CustomElementLoader loader = new CustomElementLoader(project, monitor);
-			populateExtensionPointMap(project, extensionPointMap, monitor, loader);
+			populateExtensionPointMap(project, extensionPointMap, monitor);
 		} catch (RuntimeException e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}		
@@ -258,15 +256,15 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	}
 	
 	public void populateExtensionPointMap(IContainer resource, Map<ExtensionPoint,IFile> map, 
-			IResourceMonitor monitor, CustomElementLoader loader) throws CoreException {
-		traverseFolder(project, extensionPointMap, monitor, loader);
+			IResourceMonitor monitor) throws CoreException {
+		traverseFolder(project, extensionPointMap, monitor);
 	}
 	
 	protected void traverseFolder(IContainer resource, Map<ExtensionPoint,IFile> map, 
-			IResourceMonitor monitor, CustomElementLoader loader) throws CoreException{
+			IResourceMonitor monitor) throws CoreException{
 		for (IResource entry : resource.members()) {
 			if (entry.getType() == IResource.FOLDER) {
-				traverseFolder((IFolder) entry, map, monitor, loader);
+				traverseFolder((IFolder) entry, map, monitor);
 			} else {
 				// convert file if it is a .aat test
 				String fileName = entry.getName();
@@ -274,7 +272,6 @@ public class NewTestWizard extends Wizard implements INewWizard {
 				if (fileName.endsWith(".aat")) {
 					try {
 						Test test = TestPersistance.loadFromFile((IFile)entry);
-						test.setCustomTestStepLoader(loader);
 						for(ExtensionPoint ep : test.getAllExtensionPoints()){
 							map.put(ep, (IFile)entry);
 						}

@@ -8,77 +8,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.cubictest.pluginsupport.CustomElementLoader;
-import org.cubictest.pluginsupport.interfaces.IClassChangeListener;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.swt.widgets.Display;
 
-public class CustomTestStep extends ConnectionPoint implements IClassChangeListener {
+public class CustomTestStep extends ConnectionPoint {
 
 	private transient ICustomTestStep customTestStep;
-	private transient CustomElementLoader customTestStepLoader;
 	private HashMap<String, String> config = new HashMap<String, String>();
+	private String file;
 	
-	private String customTestClass;
-	
-	public CustomTestStep(String clazz) {
+	public CustomTestStep(String file) {
 		super();
 		config.put("test", "bleh");
 		config.put("asdf", "qwer");
-		this.customTestClass = clazz;
-	}
-	
-	public String getCustomTestClass() {
-		return customTestClass;
-	}
-	
-	public IFile getClassSrcPath() {
-		return customTestStepLoader.getClassSrcPath(customTestClass);
-	}
-	
-	public void setCustomTestClass(String className) {
-		this.customTestClass = customTestStepLoader.cleanClassName(className);
+		this.file = file;
 	}
 	
 	public String getDisplayText() {
-		try {
-			return getCustomTestStep().getDisplayText();
-		} catch (ClassNotFoundException e) {
-			return "Class not found";
-		}
+		return getCustomTestStep().getDisplayText();
 	}
 	
-//	public void execute(IElementContext context, Document document) {
-//		try {
-//			getCustomTestStep().execute(config, context, document);
-//		} catch (ClassNotFoundException e) {
-//			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error excecuting custom test step");
-//		}
-//	}
-
-	private ICustomTestStep getCustomTestStep() throws ClassNotFoundException {
-		if(customTestStep == null) {
-			try {
-				customTestStep = customTestStepLoader.newInstance(customTestClass);
-			} catch (ClassNotFoundException e) {
-				customTestStepLoader.createClass(customTestClass, "ICustomTestStep");
-				customTestStep = customTestStepLoader.newInstance(customTestClass);
-			}
-		}
-		return customTestStep;
-	}
-
-	public void classChanged() {
-		Display.getDefault().syncExec(new Runnable() {
-			public void run() {
-				firePropertyChange(NAME,null,null);
-			}
-		});
-	}
-
-	public void setCustomTestStepLoader(CustomElementLoader customTestStepLoader) {
-		this.customTestStepLoader = customTestStepLoader;
-		customTestStepLoader.addClassChangeListener(this);
+	private CustomTestStep getCustomTestStep() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public HashMap<String,String> getConfig() {
@@ -90,5 +41,14 @@ public class CustomTestStep extends ConnectionPoint implements IClassChangeListe
 			return customTestStep.getArgumentNames();
 		}
 		return new ArrayList<String>();
+	}
+
+	public IFile getFile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
 	}
 }

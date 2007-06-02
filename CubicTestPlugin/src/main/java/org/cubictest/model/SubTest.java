@@ -4,8 +4,8 @@
  */
 package org.cubictest.model;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.persistence.TestPersistance;
-import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.eclipse.core.resources.IProject;
 
@@ -21,7 +21,6 @@ public class SubTest extends ConnectionPoint {
 	private transient Test test;
 	private transient IProject project;
 	private transient IResourceMonitor resourceMonitor;
-	private transient CustomElementLoader customTestStepLoader;
 
 	public SubTest(String filePath, IProject project) {
 		super();
@@ -36,11 +35,11 @@ public class SubTest extends ConnectionPoint {
 		if(test == null || forceRefreshFile) {
 			if (project == null) {
 				//try to get it from the customElementLoader 
-				project = customTestStepLoader.getProject();
+				//project = customTestStepLoader.getProject();
+				ErrorHandler.logAndShowErrorDialog("Error loading subtest");
 			}
 			test = TestPersistance.loadFromFile(project, getFilePath());
 			test.setResourceMonitor(resourceMonitor);
-			test.setCustomTestStepLoader(customTestStepLoader);
 			test.resetStatus();
 		}
 		return test;
@@ -95,10 +94,6 @@ public class SubTest extends ConnectionPoint {
 	public void setResourceMonitor(IResourceMonitor resourceMonitor) {
 		this.resourceMonitor = resourceMonitor;
 	}
-
-	public void setCustomTestStepLoader(CustomElementLoader customTestStepLoader) {
-		this.customTestStepLoader = customTestStepLoader;	
-	} 
 
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;

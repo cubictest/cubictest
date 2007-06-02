@@ -27,6 +27,13 @@
             icon="$nl$/icons/fileicon_l18n.gif"
             id="org.cubictest.ui.i18n.PropertiesEditor"
             name="I18n Editor"/>
+      <editor
+            class="org.cubictest.ui.customstep.CustomStepEditor"
+            default="true"
+            extensions="custom"
+            icon="$nl$/icons/customStep.gif"
+            id="org.cubictest.ui.customstep.CustomStepEditor"
+            name="Custom Step Editor"/>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">

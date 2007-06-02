@@ -102,7 +102,7 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements IPro
 	public void performRequest(Request request) {
 		
 		if(request.getType() == RequestConstants.REQ_OPEN){
-			final IFile file = ((CustomTestStep)getModel()).getClassSrcPath();
+			final IFile file = ((CustomTestStep)getModel()).getFile();
 			if (!file.exists() || !(file instanceof IFile)) {
 				MessageDialog.openError(new Shell(), UiText.APP_TITLE, 
 						"Container \"" + ((SubTest)getModel()).getFilePath() + "\" does not exist.");

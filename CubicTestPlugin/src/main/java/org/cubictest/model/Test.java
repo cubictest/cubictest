@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.cubictest.model.i18n.AllLanguages;
 import org.cubictest.model.parameterization.ParameterList;
-import org.cubictest.pluginsupport.CustomElementLoader;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -36,11 +35,10 @@ public class Test extends PropertyAwareObject {
 	private String name;
 	private String description;
 	private String id;
-	private String modelVersion = ModelInfo.getCurrentModelVersion();
+	protected String modelVersion = ModelInfo.getCurrentModelVersion();
 	
 	private transient IFile filePath;
 	private transient IResourceMonitor resourceMonitor;
-	private transient CustomElementLoader customTestStepLoader;
 	private String setUpAndTearDownClassName;
 
 	
@@ -187,7 +185,6 @@ public class Test extends PropertyAwareObject {
 		this.name = name;
 		firePropertyChange(NAME, oldName, name);
 	}
-	
 	@Override
 	public void resetStatus() {
 		for (Transition t: transitions)
@@ -252,7 +249,6 @@ public class Test extends PropertyAwareObject {
 	}
 	
 	public void addSubTest(SubTest test) {
-		test.setCustomTestStepLoader(customTestStepLoader);
 		test.setResourceMonitor(resourceMonitor);
 		subTests.add(test);
 		firePropertyChange(CHILD, null, test);
@@ -266,9 +262,7 @@ public class Test extends PropertyAwareObject {
 		customTestSteps.remove(customTestStep);
 		firePropertyChange(CHILD,customTestStep,null);
 	}
-	
 	public void addCustomTestStep(CustomTestStep customTestStep) {
-		customTestStep.setCustomTestStepLoader(customTestStepLoader);
 		customTestSteps.add(customTestStep);
 		firePropertyChange(CHILD, null, customTestStep);
 	}
@@ -284,15 +278,6 @@ public class Test extends PropertyAwareObject {
 		this.resourceMonitor = resourceMonitor;
 		for(SubTest subTest : subTests) {
 			subTest.setResourceMonitor(resourceMonitor);
-		}
-	}
-	public void setCustomTestStepLoader(CustomElementLoader customTestStepLoader) {
-		this.customTestStepLoader = customTestStepLoader;
-		for(SubTest subTest : subTests) {
-			subTest.setCustomTestStepLoader(customTestStepLoader);
-		}		
-		for(CustomTestStep customTestStep : customTestSteps) {
-			customTestStep.setCustomTestStepLoader(customTestStepLoader);
 		}
 	}
 	public String getSetUpAndTearDownClassName() {
