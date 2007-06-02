@@ -92,6 +92,7 @@ public class TestNameSection extends AbstractPropertySection implements Property
 	@Override
 	public void refresh() {
 		super.refresh();
+		labelText.setText(test.getName());
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
