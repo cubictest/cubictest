@@ -7,8 +7,11 @@
 package org.cubictest.model;
 
 
+
 /**
- * @author skyttere
+ * Base class for test control points.
+ *  
+ * @author SK Skytteren
  *
  */
 public abstract class ConnectionPoint extends TransitionNode {
@@ -16,4 +19,5 @@ public abstract class ConnectionPoint extends TransitionNode {
 	@Override
 	public void resetStatus() {
 	}
+
 }

@@ -114,7 +114,7 @@ public class WizardUtils {
 		
 		Page page = new Page();
 		page.setPosition(new Point(ITestEditor.INITIAL_PAGE_POS_X, ITestEditor.INITIAL_PAGE_POS_Y));
-		page.setDimension(TransitionNode.getDefaultDimension());
+		page.setDimension(page.getDefaultDimension());
 		page.setName("First Page");
 		
 		List<AbstractPage> pages = new ArrayList<AbstractPage>();

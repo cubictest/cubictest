@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Transition;
@@ -52,6 +53,7 @@ public class AutoLayout {
 
 			if((node.getInTransition().getStart() instanceof IStartPoint)) {
 				position.x = ITestEditor.INITIAL_PAGE_POS_X + (290 * num);
+				position.y = ITestEditor.INITIAL_PAGE_POS_Y;
 			} else {				
 				position.x = node.getInTransition().getStart().getPosition().x + node.getInTransition().getStart().getDimension().width / 2;
 				int numOfActions = 0;
@@ -118,13 +120,17 @@ public class AutoLayout {
 			testEditor.getCommandStack().execute(moveCmd);
 		}
 		
-		int bottom = node.getPosition().y + node.getDimension().height;
+		int height = node.getDimension().height;
+		if (node instanceof ConnectionPoint) {
+			height = 30;
+		}
+		int bottom = node.getPosition().y + height;
 
 		int numOfTrans = 0;
 		for(Transition t : node.getOutTransitions()) {
 			int numOfActions = 0;
+			numOfTrans++;
 			if (t instanceof UserInteractionsTransition) {
-				numOfTrans++;
 				numOfActions = ((UserInteractionsTransition) t).getUserInteractions().size();
 			}
 			numOfTrans = numOfTrans < 1 ? 1 : numOfTrans;

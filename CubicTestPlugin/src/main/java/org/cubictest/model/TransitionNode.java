@@ -47,7 +47,7 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		firePropertyChange(PropertyAwareObject.NAME, oldName, name);
 	}
 
-	public static Dimension getDefaultDimension() {
+	public Dimension getDefaultDimension() {
 		return new Dimension(ITestEditor.INITIAL_PAGE_WIDTH, ITestEditor.INITIAL_PAGE_HEIGHT);
 	}
 	
