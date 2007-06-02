@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.StandardToStringStyle;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * Base class for elements on a page.
@@ -32,6 +29,11 @@ public abstract class PageElement extends PropertyAwareObject
 	private Identifier directEditIdentifier;
 	private boolean not;
 	private transient boolean idListWashed;
+	
+	public PageElement() {
+		super();
+		identifiers = new ArrayList<Identifier>();
+	}
 	
 	@Override
 	public String toString() {
@@ -128,7 +130,7 @@ public abstract class PageElement extends PropertyAwareObject
 	}
 	
 	public List<Identifier> getIdentifiers() {
-		if(identifiers == null){
+		if(identifiers == null || identifiers.isEmpty()){
 			identifiers = new ArrayList<Identifier>();
 			for(IdentifierType type : getIdentifierTypes()){
 				Identifier identifier = new Identifier();
@@ -136,7 +138,7 @@ public abstract class PageElement extends PropertyAwareObject
 				identifiers.add(identifier);
 			}
 			if(identifiers.size() > 0)
-				identifiers.get(0).setProbability(Identifier.MAX_PROBABILITY);
+				identifiers.get(0).setProbability(66); //default is should
 		}
 		
 		//washing list (possibly add / remove IDs according to type list)

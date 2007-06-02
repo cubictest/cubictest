@@ -29,6 +29,7 @@ public class CubicTestGroupFigure extends Figure {
 	public static Color pageColor = new Color(null, 255, 255, 255);
 	protected CubicTestHeaderLabel header;
 	private String tooltipText;
+	private boolean fullHeaderWidth;
 
 	public CubicTestGroupFigure(String title, boolean fullHeaderWidth){
 		header = new CubicTestHeaderLabel(title, this, fullHeaderWidth);
@@ -38,6 +39,7 @@ public class CubicTestGroupFigure extends Figure {
 		} else {
 			header.setTextPlacement(PositionConstants.EAST);
 		}
+		this.fullHeaderWidth = fullHeaderWidth;
 		
 		setLayoutManager(ViewUtil.getFlowLayout());
 		setBorder(new LineBorder(ColorConstants.black));
@@ -105,5 +107,14 @@ public class CubicTestGroupFigure extends Figure {
 
 	public void setStatus(TestPartStatus status) {
 		getHeader().setStatus(status);
+	}
+	
+	@Override
+	public Dimension getPreferredSize(int wHint, int hHint) {
+		Dimension dim = super.getPreferredSize(wHint, hHint).getCopy();
+		if (!fullHeaderWidth) {
+			dim.width = dim.width + 3;
+		}
+		return dim;
 	}
 }
