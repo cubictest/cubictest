@@ -30,7 +30,6 @@ import java.util.ArrayList;
 
 import org.cubictest.model.Common;
 import org.cubictest.model.ExtensionPoint;
-import org.cubictest.model.ICustomTestStep;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.Page;
@@ -47,8 +46,6 @@ import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.Select;
 import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
-import org.cubictest.pluginsupport.CustomElementLoader;
-import org.cubictest.pluginsupport.interfaces.IClassChangeListener;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
@@ -63,7 +60,6 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.gef.tools.ConnectionDragCreationTool;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * Class to create the palette (toolbox) left in the test editor.
@@ -73,29 +69,20 @@ import org.eclipse.swt.widgets.Display;
  * 
  * Creates the Palette in the grapical test editor.
  */
-public class PaletteRootCreator extends PaletteRoot implements
-		IClassChangeListener {
-
-	private PaletteDrawer customTestSteps;
-
-	private CustomElementLoader customTestStepLoader;
+public class PaletteRootCreator extends PaletteRoot {
 
 	/**
 	 * @param project
 	 * 
 	 */
-	public PaletteRootCreator(IProject project,
-			CustomElementLoader customTestStepLoader) {
+	public PaletteRootCreator(IProject project) {
 		super();
-		this.customTestStepLoader = customTestStepLoader;
-		customTestStepLoader.addClassChangeListener(this);
 
 		ArrayList<PaletteContainer> categories = new ArrayList<PaletteContainer>();
 
 		PaletteGroup basics = new PaletteGroup("Basic controls");
 		PaletteDrawer controls = new PaletteDrawer("Controls");
 		PaletteDrawer pageElements = new PaletteDrawer("Page Elements", null);
-		customTestSteps = new PaletteDrawer("Custom Test Steps", null);
 
 		ToolEntry tool = new SelectionToolEntry();
 		basics.add(tool);
@@ -298,32 +285,5 @@ public class PaletteRootCreator extends PaletteRoot implements
 		categories.add(pageElements);
 		// categories.add(customTestSteps);
 		addAll(categories);
-	}
-
-	private void rebuildCustomTestStepsCategory() {
-		customTestSteps.setChildren(new ArrayList());
-
-		for (String customClass : customTestStepLoader.getClasses()) {
-			ICustomTestStep instance;
-			try {
-				instance = customTestStepLoader.newInstance(customClass);
-				ToolEntry tool = new CombinedTemplateCreationEntry(instance
-						.getName(), instance.getDescription(), instance
-						.getClass(), new CustomTestStepCreationFactory(
-						customTestStepLoader, customClass), null, null);
-				customTestSteps.add(tool);
-			} catch (ClassNotFoundException e) {
-			}
-		}
-	}
-
-	public void classChanged() {
-		System.out.println("Rebuilding custom Test Steps");
-		Display.getDefault().syncExec(new Runnable() {
-			public void run() {
-				rebuildCustomTestStepsCategory();
-			}
-		});
-
 	}
 }
