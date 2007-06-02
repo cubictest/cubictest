@@ -6,6 +6,7 @@
    <extension
          point="org.cubictest.exporters"
          name="CubicUnitExporter">
+      <CustomStepExtension class="org.cubictest.exporters.cubicunit.ui.CustomStepExtension"/>
    </extension>
    
    
