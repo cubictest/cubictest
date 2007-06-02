@@ -4,8 +4,6 @@
  */
 package org.cubictest.exporters.selenium.ui;
 
-import javax.swing.plaf.ViewportUI;
-
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.UserInfo;
@@ -34,12 +32,13 @@ import com.thoughtworks.selenium.Selenium;
  */
 public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 
-	Test test;
+	ITestEditor testEditor;
 	boolean stopSeleniumWhenFinished = true;
 	Selenium selenium;
 	private ExtensionPoint targetExPoint;
 	private String customCompletedMessage;
 	private boolean showCompletedMessageInStatusLine;
+	private Test preSelectedTest;
 
 	public RunSeleniumRunnerAction() {
 		super();	
@@ -50,6 +49,14 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	 * @see IActionDelegate#run(IAction)
 	 */
 	public void run(IAction action) {
+		Test test = null;
+		if (preSelectedTest != null) {
+			test = preSelectedTest;
+		}
+		else {
+			test = testEditor.getTest();
+		}
+		
 		if( test == null ) {
 			ErrorHandler.showErrorDialog("Could not get test. Close editor and retry");
 			return;
@@ -115,7 +122,7 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	 */
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		if (targetEditor != null && targetEditor instanceof ITestEditor) {
-			test = ((ITestEditor) targetEditor).getTest();
+			testEditor = ((ITestEditor) targetEditor);
 		}
 	}
 
@@ -134,8 +141,8 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	}
 
 
-	public void setTest(Test test) {
-		this.test = test;
+	public void setPreSelectedTest(Test test) {
+		this.preSelectedTest = test;
 	}
 
 

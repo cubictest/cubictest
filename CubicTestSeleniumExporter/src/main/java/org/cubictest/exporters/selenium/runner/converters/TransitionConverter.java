@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
+import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
@@ -100,17 +101,18 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			Identifier optionMainId = option.getMainIdentifier();
 			Select select = option.getParent();
 			//get locator of select-box:
-			locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(select, seleniumHolder, true);
+			locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(select);
 			inputValue = SeleniumUtils.getIdType(optionMainId) + "=" + optionMainId.getValue();
 		}
 		else {
 			//all other elements
-			String context = seleniumHolder.getFullContext();
 			if (element instanceof PageElement) {
-				//get context of page element
-				context = seleniumHolder.getFullContext((PageElement) element);
+				locator = "xpath=" + seleniumHolder.getFullContextWithAllElements((PageElement) element);
 			}
-			locator = "xpath=" + context + SeleniumUtils.getXPath(element, seleniumHolder, true);
+			else {
+				throw new ExporterException("Unsupported action element type");
+
+			}
 			inputValue = SeleniumUtils.getValue(userInteraction, seleniumHolder);
 		}
 		

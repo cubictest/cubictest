@@ -49,7 +49,7 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 			}
 			else if (pe instanceof FormElement && !(pe instanceof Option)){
 				//html input elements: get value
-				String locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(pe, seleniumHolder, true);
+				String locator = "xpath=" + seleniumHolder.getXPathWithFullContextAndPreviousElements(pe);
 				String value = seleniumHolder.getSelenium().getValue(locator);
 				if (value == null) {
 					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
@@ -70,7 +70,7 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 			}
 			else {
 				//all other elements: get text
-				String locator = "xpath=" + seleniumHolder.getFullContext() + SeleniumUtils.getXPath(pe, seleniumHolder, true);
+				String locator = "xpath=" + seleniumHolder.getXPathWithFullContextAndPreviousElements(pe);
 				String text = seleniumHolder.getSelenium().getText(locator);
 				if (text == null) {
 					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());

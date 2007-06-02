@@ -20,7 +20,7 @@ import org.cubictest.model.Title;
  * This class is responsible for converting PageElements to Selenese rows 
  * asserting that elements are present. 
  * 
- * @author chr_schwarz
+ * @author Christian Schwarz
  */
 public class PageElementConverter implements IPageElementConverter<SeleneseDocument> {	
 
@@ -40,10 +40,8 @@ public class PageElementConverter implements IPageElementConverter<SeleneseDocum
 		}
 		else {
 			//all other elements
-			String locator = "xpath=" + doc.getFullContext() + SeleniumUtils.getXPath(pe, doc, true);
+			String locator = "xpath=" + doc.getXPathWithFullContextAndPreviousElements(pe);
 			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
 		}
-
-		
 	}
 }

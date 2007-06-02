@@ -7,7 +7,9 @@ package org.cubictest.exporters.selenium.utils;
 import static org.cubictest.model.IdentifierType.INDEX;
 import static org.cubictest.model.IdentifierType.LABEL;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -29,10 +31,11 @@ public class ContextHolder implements IResultHolder {
 	/** The XPath starting point (path) for lookup of elements. */
 	private Stack<String> context = new Stack<String>(); 
 	private Map<PageElement, String> contextMap = new HashMap<PageElement, String>();
+	private Map<PageElement, AbstractContext> elementParentMap = new HashMap<PageElement, AbstractContext>();
 	
 	public ContextHolder() {
 		//Setting default context to be anywhere in the document ("//" in XPath)
-		context.push(ROOT_CONTEXT);		
+		context.push(ROOT_CONTEXT);
 	}
 	
 	
@@ -55,12 +58,17 @@ public class ContextHolder implements IResultHolder {
 			}
 		}
 		else if (ctx instanceof AbstractContext) {
-			context.push(SeleniumUtils.getXPath((AbstractContext) ctx, this, true) + "/descendant-or-self::");
+			context.push(SeleniumUtils.getXPath((AbstractContext) ctx) + "/descendant-or-self::");
 		}
 		
-		//saving the context of each page element for use in user interactions:
 		for (PageElement pe : ctx.getElements()) {
+			//saving the context of each page element for use in user interactions:
 			contextMap.put(pe, getFullContext());
+			
+			//setting current context as parent of each page element within context
+			if(ctx instanceof AbstractContext) {
+				elementParentMap.put(pe, (AbstractContext) ctx);
+			}
 		}
 	}
 
@@ -115,5 +123,56 @@ public class ContextHolder implements IResultHolder {
 	
 	public boolean isInRootContext() {
 		return getFullContext().equals(ROOT_CONTEXT);
+	}
+	
+	
+	
+	public String getXPathWithFullContextAndPreviousElements(PageElement pageElement) {
+		return getFullContextWithOtherElements(pageElement, true, pageElement);
+	}
+
+	public String getFullContextWithAllElements(PageElement pageElement) {
+		return getFullContextWithOtherElements(pageElement, false, pageElement);
+	}
+	
+	
+	private String getFullContextWithOtherElements(PageElement pageElement, boolean assertOnlyPrevElements, PageElement orgElement) {
+		String res = "";
+		if (pageElement == null) {
+			return "";
+		}
+		
+		String axis = "/descendant-or-self::";
+		if (isInRootContext()) {
+			axis = "//";
+		}
+		res += axis + SeleniumUtils.getXPath(pageElement);
+		
+		if (pageElement instanceof AbstractContext && ((AbstractContext) pageElement).getElements().size() > 1) {
+			String assertion = getContextElementsAssertion((AbstractContext) pageElement, assertOnlyPrevElements, orgElement);
+			if (StringUtils.isNotBlank(assertion)) {
+				res += "[" + assertion + "]";
+			}
+		}
+		
+		AbstractContext parent = elementParentMap.get(pageElement);
+		return getFullContextWithOtherElements(parent, assertOnlyPrevElements, orgElement) + res;
+	}
+
+
+	private String getContextElementsAssertion(AbstractContext context, boolean assertOnlyPrevElements, PageElement orgElement) {
+		String res = "";
+		int i = 0;
+		for (PageElement pe : context.getElements()) {
+			if (pe.equals(orgElement) && assertOnlyPrevElements) {
+				break;
+			}
+			if (i > 0) {
+				res += " and ";
+			}
+			res += ".//" + SeleniumUtils.getXPath(pe);
+			i++;
+		}
+		return res;
 	}
 }

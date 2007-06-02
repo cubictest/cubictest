@@ -46,8 +46,13 @@ import org.cubictest.model.UserInteraction;
 import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.formElement.Button;
+import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Option;
+import org.cubictest.model.formElement.Password;
+import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.Select;
+import org.cubictest.model.formElement.TextArea;
+import org.cubictest.model.formElement.TextField;
 
 
 /**
@@ -64,7 +69,7 @@ public class SeleniumUtils {
 	 * @param element
 	 * @return
 	 */
-	public static String getXPath(IActionElement element, ContextHolder contextHolder, boolean getIndex) {
+	public static String getXPath(IActionElement element) {
 		if (element instanceof WebBrowser) {
 			return "";
 		}
@@ -72,7 +77,7 @@ public class SeleniumUtils {
 		PredicateSeperator predicateSeperator = new PredicateSeperator();
 
 		String predicates = 
-				getIndexAssertion(contextHolder, pe, getIndex, predicateSeperator) + 
+				getIndexAssertion(pe, predicateSeperator) + 
 				getLabelAssertion(pe, predicateSeperator) + 
 				getAttributeAssertions(pe, predicateSeperator); 
 
@@ -86,11 +91,7 @@ public class SeleniumUtils {
 	/**
 	 * Get string to assert the index of the element (if ID present).
 	 */
-	private static String getIndexAssertion(ContextHolder contextHolder, PageElement pe, boolean getIndex, PredicateSeperator predicateSeperator) {
-		if (!getIndex) {
-			return "";
-		}
-		
+	private static String getIndexAssertion(PageElement pe, PredicateSeperator predicateSeperator) {
 		String result = predicateSeperator.getStartString();
 		
 		//Start with index attribute (if it exists) to make XPath correct:
@@ -216,15 +217,23 @@ public class SeleniumUtils {
 		if (pe instanceof Option)
 			return "option";
 		if (pe instanceof Button)
-			return "input [@type=\"button\" or @type=\"submit\"]";
-		if (pe instanceof FormElement)
-			return "input";
+			return "input[@type=\"button\" or @type=\"submit\"]";
+		if (pe instanceof TextField)
+			return "input[@type=\"text\"]";
+		if (pe instanceof Password)
+			return "input[@type=\"password\"]";
+		if (pe instanceof Checkbox)
+			return "input[@type=\"checkbox\"]";
+		if (pe instanceof RadioButton)
+			return "input[@type=\"radio\"]";
 		if (pe instanceof Link)
 			return "a";
 		if (pe instanceof Image)
 			return "img";
 		if (pe instanceof Text)
 			return "*";
+		if (pe instanceof TextArea)
+			return "textarea";
 		if (pe instanceof AbstractContext) {
 			Identifier elementName = pe.getIdentifier(ELEMENT_NAME);
 			if (elementName != null && StringUtils.isNotBlank(elementName.getValue())) {
