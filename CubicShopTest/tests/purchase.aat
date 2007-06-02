@@ -94,7 +94,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status reference="../../text/status"/>
+              <status>UNKNOWN</status>
             </simpleContext>
           </elements>
           <name>Frontpage</name>
@@ -227,7 +227,7 @@
                             </identifiers>
                             <directEditIdentifier reference="../identifiers/identifier"/>
                             <not>false</not>
-                            <status reference="../../../../../../../../../../elements/text/status"/>
+                            <status>FAIL</status>
                           </link>
                         </elements>
                         <description></description>
@@ -248,7 +248,7 @@
                           </identifier>
                           <identifier>
                             <value>2</value>
-                            <probability>100</probability>
+                            <probability>0</probability>
                             <type reference="../../../../../../../../../../elements/simpleContext/identifiers/identifier[3]/type"/>
                             <useI18n>false</useI18n>
                             <useParam>false</useParam>
@@ -263,7 +263,7 @@
                         </identifiers>
                         <directEditIdentifier reference="../identifiers/identifier"/>
                         <not>false</not>
-                        <status>FAIL</status>
+                        <status reference="../../../../../../../../elements/simpleContext/status"/>
                       </simpleContext>
                     </elements>
                     <description></description>
@@ -284,7 +284,7 @@
                       </identifier>
                       <identifier>
                         <value>4</value>
-                        <probability>100</probability>
+                        <probability>0</probability>
                         <type reference="../../../../../../../../elements/simpleContext/identifiers/identifier[3]/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
@@ -299,7 +299,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/text/status"/>
+                    <status reference="../../../../../../elements/simpleContext/status"/>
                   </simpleContext>
                 </elements>
                 <name>3D Shooter Box</name>
@@ -340,7 +340,6 @@
                               <height>70</height>
                             </dimension>
                             <name>Buy clicked Extension Point</name>
-                            <autoPosition>false</autoPosition>
                           </end>
                         </simpleTransition>
                       </outTransitions>
@@ -354,7 +353,6 @@
                         <height>25</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
-                      <autoPosition>false</autoPosition>
                     </end>
                   </userInteractionsTransition>
                 </outTransitions>
@@ -368,7 +366,6 @@
                   <height>138</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
-                <autoPosition>false</autoPosition>
               </end>
             </userInteractionsTransition>
           </outTransitions>
@@ -381,7 +378,6 @@
             <width>144</width>
             <height>92</height>
           </dimension>
-          <autoPosition>false</autoPosition>
         </end>
       </simpleTransition>
     </outTransitions>
@@ -391,7 +387,6 @@
       <y>0</y>
     </position>
     <name>Frontpage</name>
-    <autoPosition>false</autoPosition>
   </startPoint>
   <extensionPoints>
     <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end"/>
@@ -446,7 +441,7 @@
             </identifiers>
             <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <status>UNKNOWN</status>
+            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/simpleContext/status"/>
           </text>
           <button>
             <description></description>
@@ -489,7 +484,7 @@
             </identifiers>
             <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <status reference="../../text/status"/>
+            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/simpleContext/status"/>
           </button>
         </elements>
         <name>Show tooltip</name>
@@ -504,7 +499,6 @@
           <height>70</height>
         </dimension>
         <name defined-in="transitionNode"></name>
-        <autoPosition>false</autoPosition>
       </page>
       <start class="page" reference="../page"/>
       <end class="page" reference="../../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
@@ -520,5 +514,5 @@
   <name>Purchase</name>
   <description></description>
   <id>/CubicShopTest/tests/purchase.aat</id>
-  <modelVersion>6</modelVersion>
+  <modelVersion>7</modelVersion>
 </test>
