@@ -60,7 +60,7 @@ public class Identifier implements Cloneable, SationObserver{
 	}
 	
 	public String getValue(){
-		return value;
+		return value == null ? "" : value.trim();
 	}
 
 	public void setProbability(int probability){
