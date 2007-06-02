@@ -103,7 +103,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 	 				runner.setShowCompletedMessageInStatusLine(true);
 	 				runner.setStopSeleniumWhenFinished(false);
 	 				runner.setSelenium(seleniumRecorder.getSelenium());
-	 				runner.setTest(((SubTest) test.getStartPoint()).getTest(true));
+	 				runner.setPreSelectedTest(((SubTest) test.getStartPoint()).getTest(true));
 	 				if (test.getStartPoint().getOutTransitions().size() == 0) {
 	 					ErrorHandler.logAndShowErrorDialogAndThrow("To start recording, the test must have at least one page connected to the start point.");
 	 				}
