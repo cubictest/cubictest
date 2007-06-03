@@ -86,8 +86,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 				new ProgressMonitorDialog(new Shell()).run(false, false, seleniumRecorder);
 
 				if (test.getStartPoint() instanceof ExtensionStartPoint) {
-					ErrorHandler.showInfoDialog("Test browser will be forwarded to start point for test." + "\n" + 
-							"Press OK to continue.");
+					UserInfo.setStatusLine("Test browser will be forwarded to start point for test.");
 					//play forward to extension start point
 					long now = System.currentTimeMillis();
 					while (!seleniumRecorder.isSeleniumStarted()) {
