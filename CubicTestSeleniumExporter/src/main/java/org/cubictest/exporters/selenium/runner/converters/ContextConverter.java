@@ -8,9 +8,13 @@ import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
+import org.cubictest.model.PageElement;
+import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
+
+import com.thoughtworks.selenium.SeleniumException;
 
 /**
  * Converter for contexts.
@@ -25,6 +29,26 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 	public PreContextHandle handlePreContext(SeleniumHolder seleniumHolder, IContext ctx) {
 		
 		if (ctx instanceof AbstractContext || ctx instanceof Select) {
+
+			//assert context present:
+			PageElement pe = (PageElement) ctx;
+			String locator = "xpath=" + seleniumHolder.getXPathWithFullContextAndPreviousElements(pe);
+			
+			String text = null;
+			try {
+				text = seleniumHolder.getSelenium().getText(locator);
+			}
+			catch (SeleniumException e) {
+			}
+			
+			if (text == null) {
+				seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+			}
+			else {
+				seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
+			}
+
+			//save the context:
 			seleniumHolder.pushContext(ctx);
 		}
 		return PreContextHandle.CONTINUE;

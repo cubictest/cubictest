@@ -70,7 +70,7 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 			Identifier optionMainId = option.getMainIdentifier();
 			Select select = option.getParent();
 			//get locator of select-box:
-			locator = "xpath=" + doc.getFullContext() + SeleniumUtils.getXPath(select);
+			locator = "xpath=" + doc.getFullContextWithAllElements(select);
 			inputValue = SeleniumUtils.getIdType(optionMainId) + "=" + optionMainId.getValue();
 		}
 		else {
