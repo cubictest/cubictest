@@ -61,7 +61,6 @@ public class TestEditPart extends PropertyChangePart{
 			IFile file = ((Test) getModel()).getFile();
 			PackageExplorerPart.getFromActivePerspective().tryToReveal(file);	
 		} catch(Exception ignore) {
-			Logger.warn("Unable to reveal file");
 		}
 
 	}
