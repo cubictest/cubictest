@@ -5,6 +5,11 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.views.navigator.ResourceNavigator;
 
+/**
+ * Gets a reference to the resource navigator.
+ * 
+ * @author Christian Schwarz
+ */
 public class ResourceNavigatorGetter {
 
 	/**

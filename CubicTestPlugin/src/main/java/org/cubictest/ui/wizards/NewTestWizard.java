@@ -126,6 +126,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 			MessageDialog.openError(getShell(), "Error", realException.getMessage());
 			return false;
 		}
+		setPackageExplorerLinkingEnabled(false);
 		return true;
 	}
 	
@@ -207,15 +208,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		this.selection = selection;
 		setWindowTitle("New CubicTest test");
 
-		// Set "Link with editor" preference to see the test to be created
-		// If the desired part isn't available, getFromActivePerspective() returns null
-		try {
-			PackageExplorerPart.getFromActivePerspective().setLinkingEnabled(true);	
-		} catch(NullPointerException e) {
-			try {
-				ResourceNavigatorGetter.getFromActivePerspective().setLinkingEnabled(true);			
-			} catch(NullPointerException e1) {} 
-		}
+		setPackageExplorerLinkingEnabled(true);
 		
 		IStructuredSelection iss = (IStructuredSelection) selection;
 		if (iss.getFirstElement() instanceof IResource) {
@@ -240,6 +233,18 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		}		
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		}
+	}
+
+	private void setPackageExplorerLinkingEnabled(boolean enabled) {
+		// Set "Link with editor" preference to see the test to be created
+		// If the desired part isn't available, getFromActivePerspective() returns null
+		try {
+			PackageExplorerPart.getFromActivePerspective().setLinkingEnabled(enabled);	
+		} catch(NullPointerException e) {
+			try {
+				ResourceNavigatorGetter.getFromActivePerspective().setLinkingEnabled(enabled);			
+			} catch(NullPointerException e1) {} 
 		}
 	}
 	
