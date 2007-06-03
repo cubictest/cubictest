@@ -80,17 +80,24 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.gef.ui.views.palette.PalettePage;
 import org.eclipse.gef.ui.views.palette.PaletteViewerPage;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
@@ -107,9 +114,11 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  */
 public class GraphicalTestEditor extends EditorPart implements IAdaptable, 
 		ITabbedPropertySheetPageContributor, IDisposeSubject, ITestEditor {
-
-	private static final int PALETTE_SIZE = 150;
 	
+	private static final String PERSPECTIVE_ALLWAYS_NO = "org.cubictest.perspective.allwaysNo";
+
+	private static final String PERSPECTIVE_ALLWAYS_YES = "org.cubictest.perspective.allwaysYes";
+
 	private GraphicalViewer graphicalViewer;
 	
 	private EditDomain editDomain;
@@ -271,7 +280,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		viewer.addDropTargetListener(new FileTransferDropTargetListener(viewer));
 		viewer.setEditPartFactory(getEditPartFactory());
 		viewer.setContents(getContent());
-
+		
 		return viewer;
 	}
 
@@ -340,6 +349,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	/**
 	 * Saves the multi-page editor's document.
 	 */
+	@Override
 	public void doSave(IProgressMonitor monitor) {
 		TestPersistance.saveToFile((Test)graphicalViewer.getContents().getModel(),((IFileEditorInput)getEditorInput()).getFile());
 		getCommandStack().markSaveLocation();
@@ -354,6 +364,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	/**
 	 * Unsupported and throws an <code>UnsupportedOperationException</code>
 	 */
+	@Override
 	public void doSaveAs() {
 		//getCommandStack().markSaveLocation();
 		throw new UnsupportedOperationException();
@@ -363,6 +374,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.IEditorPart#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
 	 */
+	@Override
 	public void init(IEditorSite site, IEditorInput editorInput) throws PartInitException {
 		if(!(editorInput instanceof IFileEditorInput)) {
 			throw new PartInitException("Input must be a valid file.");
@@ -384,6 +396,8 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 				getSelectionListener());
 		
 		createActions();
+		
+		checkPerspective();
 	}
 	
 	private void createActions() {
@@ -416,6 +430,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.ISaveablePart#isSaveAsAllowed()
 	 */
+	@Override
 	public boolean isSaveAsAllowed() {
 		return false;
 	}
@@ -432,6 +447,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.ISaveablePart#isDirty()
 	 */
+	@Override
 	public boolean isDirty() {
 		return isDirty;
 	}
@@ -447,13 +463,52 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
 	 */
+	@Override
 	public void setFocus() {
-		
+	}
+	
+	private void checkPerspective(){
+		IWorkbench workbench = CubicTestPlugin.getDefault().getWorkbench();
+		if(workbench != null){
+			IWorkbenchPage activePage = workbench.getActiveWorkbenchWindow().getActivePage();
+			if(activePage == null)
+				return;
+			IPerspectiveDescriptor currentPerspective = activePage.getPerspective();
+			IDialogSettings dialogSettings = CubicTestPlugin.getDefault().getDialogSettings();
+			String ctPerspectiveId = "org.cubictest.CubicTestPerspective";
+			try {
+				if(dialogSettings.getBoolean(PERSPECTIVE_ALLWAYS_YES)){
+					workbench.showPerspective(ctPerspectiveId, workbench.getActiveWorkbenchWindow());
+				}else if(dialogSettings.getBoolean(PERSPECTIVE_ALLWAYS_NO)){
+					return;
+				}
+				else if(!ctPerspectiveId.equals(currentPerspective.getId())){
+					MessageDialog dialog = new MessageDialog(new Shell(), "Change Perspective", 
+							null, "Change Perspective to CubicTest(Recomended)?", 0, 
+								new String[]{"Yes", "Allways Yes", "No", "Allways No"}, 0);
+					int dialogResult = dialog.open();
+					switch (dialogResult) {
+					case 1:
+						dialogSettings.put(PERSPECTIVE_ALLWAYS_YES, true);
+					case 0:
+						workbench.showPerspective(ctPerspectiveId, workbench.getActiveWorkbenchWindow());
+						break;
+					case 3:
+						dialogSettings.put(PERSPECTIVE_ALLWAYS_NO, true);
+					default:
+						break;
+					}
+				}
+			} catch (WorkbenchException e) {
+				ErrorHandler.logAndShowErrorDialog(e);
+			}
+		}
 	}
 	/*
 	 *  (non-Javadoc)
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
+	@Override
 	public Object getAdapter(Class adapter){
 		if (adapter == GraphicalViewer.class || adapter == EditPartViewer.class)
 			return getGraphicalViewer();
@@ -480,19 +535,6 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		return super.getAdapter(adapter);
 	}
 	
-//	private PaletteViewer createPaletteViewer(Composite parent) {
-//		
-//		PaletteViewer viewer = new PaletteViewer();
-//		viewer.createControl(parent);
-//		
-//		getEditDomain().setPaletteViewer(viewer);
-//		getEditDomain().setPaletteRoot(getPaletteRoot());
-//		
-//		viewer.addDragSourceListener(new TemplateTransferDragSourceListener(viewer));
-//		
-//		return viewer;
-//	}
-
 	protected PaletteRoot getPaletteRoot() {
 		if (paletteRoot == null){
 			paletteRoot = new PaletteRootCreator(((IFileEditorInput)getEditorInput()).getFile().getProject());
@@ -622,6 +664,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		/**
 		 * @see org.eclipse.ui.part.IPage#createControl(org.eclipse.swt.widgets.Composite)
 		 */
+		@Override
 		public void createControl(Composite parent) {
 			super.createControl(parent);
 			if (splitter != null)
@@ -630,6 +673,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		/**
 		 * @see org.eclipse.ui.part.IPage#dispose()
 		 */
+		@Override
 		public void dispose() {
 			if (splitter != null)
 				splitter.setExternalViewer(null);

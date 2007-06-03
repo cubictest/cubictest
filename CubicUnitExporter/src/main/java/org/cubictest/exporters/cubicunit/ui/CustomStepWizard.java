@@ -46,4 +46,8 @@ public class CustomStepWizard extends Wizard {
 		return packageText + (packageText.length() > 0 ? "." : "") + typeTypeName;
 	}
 
+	public String getPath() {
+		return classWizard.getModifiedResource().getProjectRelativePath().toPortableString();
+	}
+
 }

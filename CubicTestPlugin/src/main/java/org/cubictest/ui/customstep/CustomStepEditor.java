@@ -13,6 +13,8 @@ import org.cubictest.model.customstep.ICustomStepListener;
 import org.cubictest.persistence.CustomStepPersistance;
 import org.cubictest.ui.customstep.command.ChangeCustomStepDescriptionCommand;
 import org.cubictest.ui.customstep.section.CustomStepSection;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -21,6 +23,9 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CommandStackListener;
 import org.eclipse.gef.ui.actions.ActionRegistry;
@@ -63,12 +68,15 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		public void commandStackChanged(EventObject event) {
 			updateActions(stackActionIDs);
 			isDirty = commandStack.isDirty();
+			firePropertyChange(IEditorPart.PROP_DIRTY);
 		}
 	};
 
 	private ActionRegistry actionRegistry;
 
 	private Text descText;
+
+	private EditDomain editDomain;
 
 	public CustomStepEditor() {
 		super();
@@ -97,10 +105,15 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		if (!(editorInput instanceof IFileEditorInput)) {
 			throw new PartInitException("Input must be a valid file.");
 		}
+		
+		createActions();
+		
 		commandStack.addCommandStackListener(commandStackListener);
 		commandStack.setUndoLimit(20);
 		for(String key : sections.keySet())
 			sections.get(key).setCommandStack(commandStack);
+		
+		getEditDomain().setCommandStack(commandStack);
 		
 		IFileEditorInput input = (IFileEditorInput) editorInput;
 
@@ -112,7 +125,6 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 
 		setPartName(editorInput.getName());
 		
-		createActions();
 		
 		for(String key : sections.keySet()){
 			sections.get(key).setData(customStep.getData(key));
@@ -154,9 +166,9 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 
 	@Override
 	public boolean isSaveAsAllowed() {
-		return true;
+		return false;
 	}
-
+	
 	@Override
 	public void createPartControl(Composite parent) {
 		
@@ -225,6 +237,21 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		}
 		return actionRegistry;
 	}
+	@Override
+	public Object getAdapter(Class adapter) {	
+		if (adapter == CommandStack.class)
+			return commandStack;
+		if (adapter == ActionRegistry.class)
+			return getActionRegistry();
+		return super.getAdapter(adapter);
+	}
+	
+	public EditDomain getEditDomain(){
+		if (editDomain == null){
+			editDomain = new DefaultEditDomain(this);
+		}
+		return editDomain;
+	}
 	
 	private void createActions() {
 		addStackAction(new UndoAction(this));
@@ -240,6 +267,9 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 	}
 
 	public void handleEvent(CustomTestStepEvent event) {
-		this.descText.setText(customStep.getDescription());
+		String desc = customStep.getDescription();
+		if(desc == null)
+			desc = "";
+		this.descText.setText(desc);
 	}
 }

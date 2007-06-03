@@ -29,6 +29,7 @@
             name="I18n Editor"/>
       <editor
             class="org.cubictest.ui.customstep.CustomStepEditor"
+            contributorClass="org.cubictest.ui.customstep.CustomStepEditorActionBarContributor"
             default="true"
             extensions="custom"
             icon="$nl$/icons/customStep.gif"
