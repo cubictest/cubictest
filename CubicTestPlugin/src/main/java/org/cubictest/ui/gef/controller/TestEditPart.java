@@ -11,6 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.PropertyAwareObject;
@@ -19,6 +20,7 @@ import org.cubictest.ui.gef.policies.TestContainerEditPolicy;
 import org.cubictest.ui.gef.policies.TestXYLayoutEditPolicy;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
 import org.cubictest.ui.gef.view.TestFigure;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -31,7 +33,9 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editpolicies.RootComponentEditPolicy;
 import org.eclipse.gef.tools.MarqueeDragTracker;
+import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.ui.IFileEditorInput;
 
 
 /**
@@ -47,6 +51,19 @@ public class TestEditPart extends PropertyChangePart{
 	 */
 	public TestEditPart(Test test) {
 		setModel(test);
+	}
+	
+	@Override
+	public void activate() {
+		super.activate();
+		try {
+			//reveal file in package explorer:
+			IFile file = ((Test) getModel()).getFile();
+			PackageExplorerPart.getFromActivePerspective().tryToReveal(file);	
+		} catch(Exception ignore) {
+			Logger.warn("Unable to reveal file");
+		}
+
 	}
 
 	/* (non-Javadoc)
@@ -147,4 +164,6 @@ public class TestEditPart extends PropertyChangePart{
 	public boolean isCuttable() {
 		return false;
 	}
+	
+		
 }
