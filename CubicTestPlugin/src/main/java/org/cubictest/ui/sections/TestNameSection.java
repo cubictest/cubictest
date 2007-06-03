@@ -90,9 +90,17 @@ public class TestNameSection extends AbstractPropertySection implements Property
 	}
 	
 	@Override
+	public void dispose() {
+		super.dispose();
+		test.removePropertyChangeListener(this);
+	}
+	
+	@Override
 	public void refresh() {
 		super.refresh();
+		labelText.removeFocusListener(listener);
 		labelText.setText(test.getName());
+		labelText.addFocusListener(listener);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
