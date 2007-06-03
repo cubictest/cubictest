@@ -111,7 +111,6 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 			UserInfo.setStatusLine(msg);
 		}
 		else {
-			shell.forceActive();
 			MessageDialog.openInformation(shell, "CubicTest Selenium Exporter", msg);
 		}
 	}
