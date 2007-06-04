@@ -7,6 +7,7 @@
 package org.cubictest.model.formElement;
 
 import org.cubictest.model.FormElement;
+import org.cubictest.model.Identifier;
 
 
 
@@ -17,4 +18,8 @@ public class Button extends FormElement {
 		return "Button";
 	}
 
+	@Override
+	protected void setDefaultIdentifierValues() {
+		getIdentifiers().get(0).setProbability(Identifier.MAX_PROBABILITY);
+	}
 }

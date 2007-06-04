@@ -115,5 +115,8 @@ public abstract class AbstractContext extends PageElement implements IContext {
 		return false;
 	}
 	
-
+	@Override
+	protected void setDefaultIdentifierValues() {
+		//leave the ID's as the constructor made them
+	}
 }

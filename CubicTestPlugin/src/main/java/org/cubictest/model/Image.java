@@ -32,4 +32,9 @@ public class Image extends PageElement {
 		list.add(TITLE);
 		return list;
 	}
+	
+	@Override
+	protected void setDefaultIdentifierValues() {
+		//leave the ID's as the constructor made them
+	}
 }

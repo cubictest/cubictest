@@ -137,13 +137,18 @@ public abstract class PageElement extends PropertyAwareObject
 				identifier.setType(type);
 				identifiers.add(identifier);
 			}
-			if(identifiers.size() > 0)
-				identifiers.get(0).setProbability(Identifier.MAX_PROBABILITY);
+			setDefaultIdentifierValues();
 		}
 		
 		//washing list (possibly add / remove IDs according to type list)
 		washIdList();
 		return identifiers;
+	}
+
+	protected void setDefaultIdentifierValues() {
+		//default is to set first ID to max prob.
+		if(identifiers.size() > 0)
+			identifiers.get(0).setProbability(Identifier.MAX_PROBABILITY);
 	}
 
 	private void washIdList() {

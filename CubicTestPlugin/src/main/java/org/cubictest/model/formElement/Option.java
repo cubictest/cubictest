@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.model.ActionType;
+import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 
 public class Option extends Checkable{
@@ -49,4 +50,10 @@ public class Option extends Checkable{
 	public void setParent(Select parent) {
 		this.parent = parent;
 	}
+	
+	@Override
+	protected void setDefaultIdentifierValues() {
+		getIdentifiers().get(0).setProbability(Identifier.MAX_PROBABILITY);
+	}
+
 }
