@@ -335,7 +335,7 @@
                             <useParam>false</useParam>
                           </identifier>
                           <identifier>
-                            <value>2</value>
+                            <value></value>
                             <probability>0</probability>
                             <type reference="../../../../../../../../../../elements/simpleContext/identifiers/identifier[3]/type"/>
                             <useI18n>false</useI18n>
@@ -390,7 +390,7 @@
                     <status reference="../../../../../../elements/text/status"/>
                   </simpleContext>
                 </elements>
-                <name>3D Shooter Box</name>
+                <name>Webshop</name>
                 <inTransition class="userInteractionsTransition" reference="../.."/>
                 <outTransitions>
                   <userInteractionsTransition>
@@ -754,7 +754,7 @@
                           <identifiers>
                             <identifier>
                               <value>Added to cart: Loudspeaker box</value>
-                              <probability>66</probability>
+                              <probability>100</probability>
                               <type reference="../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
@@ -855,7 +855,7 @@
                             <identifiers>
                               <identifier>
                                 <value>$2500</value>
-                                <probability>66</probability>
+                                <probability>100</probability>
                                 <type reference="../../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
                                 <useI18n>false</useI18n>
                                 <useParam>false</useParam>
@@ -883,7 +883,7 @@
                             <useParam>false</useParam>
                           </identifier>
                           <identifier>
-                            <value>2</value>
+                            <value></value>
                             <probability>0</probability>
                             <type reference="../../../../../../../../../../elements/simpleContext/identifiers/identifier[3]/type"/>
                             <useI18n>false</useI18n>
@@ -938,7 +938,7 @@
                     <status reference="../../../../../../elements/text/status"/>
                   </simpleContext>
                 </elements>
-                <name>3D Shooter Box</name>
+                <name>Webshop</name>
                 <inTransition class="userInteractionsTransition" reference="../.."/>
                 <outTransitions>
                   <userInteractionsTransition>
@@ -1302,7 +1302,7 @@
                           <identifiers>
                             <identifier>
                               <value>Added to cart: Shipping crate</value>
-                              <probability>66</probability>
+                              <probability>100</probability>
                               <type reference="../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
