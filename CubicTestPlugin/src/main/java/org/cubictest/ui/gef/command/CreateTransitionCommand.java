@@ -169,10 +169,10 @@ public class CreateTransitionCommand extends Command {
 				if (autoCreateTargetPage) {
 					//if link click: set target page name to name of link 
 					List<UserInteraction> actions = ((UserInteractionsTransition) transition).getUserInteractions();
-					int pos = actions.size() - 1;
-					if (pos < 0) pos = 0;
-					IActionElement element = actions.get(pos).getElement();
-					if (element instanceof Link && actions.get(pos).getActionType().equals(CLICK)) {
+					int last = actions.size() - 1;
+					if (last < 0) last = 0;
+					IActionElement element = actions.get(last).getElement();
+					if (element instanceof Link && actions.get(last).getActionType().equals(CLICK)) {
 						targetNode.setName(((Link) element).getIdentifier(LABEL).getValue());
 					}
 					
