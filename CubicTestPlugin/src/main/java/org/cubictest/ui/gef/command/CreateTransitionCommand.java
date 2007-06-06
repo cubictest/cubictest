@@ -10,18 +10,24 @@ package org.cubictest.ui.gef.command;
 import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStep;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionTransition;
+import org.cubictest.model.IActionElement;
+import org.cubictest.model.IdentifierType;
+import org.cubictest.model.Link;
 import org.cubictest.model.Page;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
@@ -34,6 +40,8 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
+import static org.cubictest.model.ActionType.CLICK;
+import static org.cubictest.model.IdentifierType.LABEL;
 
 /**
  * A command that creates a <code>Transition</code>.
@@ -159,6 +167,15 @@ public class CreateTransitionCommand extends Command {
 					}
 				}
 				if (autoCreateTargetPage) {
+					//if link click: set target page name to name of link 
+					List<UserInteraction> actions = ((UserInteractionsTransition) transition).getUserInteractions();
+					int pos = actions.size() - 1;
+					if (pos < 0) pos = 0;
+					IActionElement element = actions.get(pos).getElement();
+					if (element instanceof Link && actions.get(pos).getActionType().equals(CLICK)) {
+						targetNode.setName(((Link) element).getIdentifier(LABEL).getValue());
+					}
+					
 					//start direct edit:
 					for(Object obj : pageEditPart.getParent().getChildren()){
 						if (obj instanceof EditPart) {
