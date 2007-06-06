@@ -11,6 +11,7 @@ import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.controller.AbstractNodeEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.cubictest.ui.wizards.UpdateStartPointWizard;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -68,7 +69,7 @@ public class UpdateTestStartPointAction extends BaseEditorAction  {
 	
 	@Override
 	public ImageDescriptor getImageDescriptor() {
-		return null;
+		return CubicTestImageRegistry.getDescriptor(CubicTestImageRegistry.CONNECTION_IMAGE);
 	}
 	
 	
