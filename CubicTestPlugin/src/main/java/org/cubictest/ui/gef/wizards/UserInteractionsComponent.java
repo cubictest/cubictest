@@ -22,6 +22,7 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.model.context.IContext;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.ui.gef.command.AddUserInteractionCommand;
 import org.cubictest.ui.gef.command.DeleteUserInteractionCommand;
@@ -30,6 +31,7 @@ import org.cubictest.ui.gef.command.MoveUserInteractionCommand;
 import org.cubictest.ui.gef.command.MoveUserInteractionCommand.Direction;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
+import org.eclipse.jdt.internal.core.NameLookup.Answer;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
@@ -167,7 +169,13 @@ public class UserInteractionsComponent {
 		//populate viewer with initial user interactions:
 		List<UserInteraction> initialUserInteractions = transition.getUserInteractions();
 		if (initialUserInteractions == null || initialUserInteractions.size() == 0) {
-			initialUserInteractions.add(new UserInteraction());
+			UserInteraction first = new UserInteraction();
+			List<PageElement> elements = ((AbstractPage) transition.getStart()).getElements();
+			if (elements.size() == 1 && !(elements.get(0) instanceof IContext)) {
+				//sinle element on page. Can preselct it:
+				first.setElement(elements.get(0));
+			}
+			initialUserInteractions.add(first);
 		}
 		
 		tableViewer.setInput(initialUserInteractions);
