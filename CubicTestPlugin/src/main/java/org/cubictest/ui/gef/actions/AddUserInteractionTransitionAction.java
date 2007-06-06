@@ -29,10 +29,10 @@ import org.eclipse.ui.IWorkbenchPart;
  * @author Christian Schwarz
  *
  */
-public class AddUserInteractionTransitionAction extends SelectionAction {
+public class AddUserInteractionTransitionAction extends BaseEditorAction {
 
 	public static final String ACTION_ID = "CubicTestPlugin.action.addUserInteractionTransition";
-	private List model;
+
 	
 	public AddUserInteractionTransitionAction(IWorkbenchPart part) {
 		super(part);
@@ -40,8 +40,8 @@ public class AddUserInteractionTransitionAction extends SelectionAction {
 
 	@Override
 	protected boolean calculateEnabled() {
-		if(model != null) {
-			for(Object element : model) {
+		if(parts != null) {
+			for(Object element : parts) {
 				if(element instanceof PageEditPart || element instanceof PageElementEditPart) {
 					return true;
 				}
@@ -59,7 +59,7 @@ public class AddUserInteractionTransitionAction extends SelectionAction {
 	
 	@Override
 	public void run() {
-		for (Iterator iter = this.model.iterator(); iter.hasNext();) {
+		for (Iterator iter = this.parts.iterator(); iter.hasNext();) {
 			Object element = iter.next();
 			PageEditPart pageEditPart = null;
 			if (element instanceof PageElementEditPart) {
@@ -84,17 +84,6 @@ public class AddUserInteractionTransitionAction extends SelectionAction {
 		}
 	}
 	
-	protected void handleSelectionChanged() {
-		ISelection s = getSelection();
-		if (!(s instanceof IStructuredSelection))
-			return;
-		IStructuredSelection selection = (IStructuredSelection)s;
-		model = null;
-		if (selection != null && selection.size() > 0) {
-			model = selection.toList();
-		}
-		refresh();
-	}
 	
 	@Override
 	public ImageDescriptor getImageDescriptor() {

@@ -43,9 +43,7 @@ import org.eclipse.ui.actions.ActionFactory;
  * 
  * @author chr_schwarz
  */
-public class CutAction extends SelectionAction{
-	
-	private List model = null;
+public class CutAction extends BaseEditorAction {
 	
 	public CutAction(IWorkbenchPart part) {
 		super(part);
@@ -66,14 +64,14 @@ public class CutAction extends SelectionAction{
 	
 	@Override
 	protected boolean calculateEnabled() {
-		if (model == null) {
+		if (parts == null) {
 			return false;
 		}
-		else if(model.size() == 1 && model.get(0) instanceof AbstractConnectionEditPart) {
+		else if(parts.size() == 1 && parts.get(0) instanceof AbstractConnectionEditPart) {
 			return false;
 		}
-		else if (model.size() == 1 && model.get(0) instanceof PropertyChangePart) {
-			return ((PropertyChangePart) model.get(0)).isCuttable();
+		else if (parts.size() == 1 && parts.get(0) instanceof PropertyChangePart) {
+			return ((PropertyChangePart) parts.get(0)).isCuttable();
 		}
 		else {
 			return true;
@@ -82,7 +80,7 @@ public class CutAction extends SelectionAction{
 	
 	@Override
 	public void run() {
-		List<EditPart> newClips = ViewUtil.getPartsForClipboard(model);
+		List<EditPart> newClips = ViewUtil.getPartsForClipboard(parts);
 		Clipboard.getDefault().setContents(newClips);
 		
 		Iterator iter = newClips.iterator();
@@ -130,16 +128,4 @@ public class CutAction extends SelectionAction{
 		getCommandStack().execute(compoundCmd);
 	}
 	
-	@Override
-	protected void handleSelectionChanged() {
-		ISelection s = getSelection();
-		if (!(s instanceof IStructuredSelection))
-			return;
-		IStructuredSelection selection = (IStructuredSelection)s;
-		model = null;
-		if (selection != null && selection.size() > 0) {
-			model = selection.toList();
-		}
-		refresh();
-	}
 }

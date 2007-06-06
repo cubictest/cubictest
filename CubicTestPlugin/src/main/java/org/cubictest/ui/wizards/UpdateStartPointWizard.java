@@ -11,8 +11,10 @@ import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.ui.gef.command.NoOperationCommand;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.gef.commands.CommandStack;
 
 
 /**
@@ -26,6 +28,7 @@ public class UpdateStartPointWizard extends NewTestWizard {
 	Test test;
 	TransitionNode firstPage;
 	ExtensionTransition exTrans;
+	private CommandStack commandStack;
 	
 	public UpdateStartPointWizard() {
 		super();
@@ -49,29 +52,35 @@ public class UpdateStartPointWizard extends NewTestWizard {
 	 */
 	@Override
 	public boolean performFinish() {
-		final String url = newUrlStartPointPage.getUrl();
-		final ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
-		final IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
-		final boolean useUrlStartPoint = startPointTypeSelectionPage.getNextPage().equals(newUrlStartPointPage);
-
 		Transition inTrans = firstPage.getInTransition();
 		if (inTrans != null) {
 			firstPage.removeInTransition();
 			test.removeTransition(inTrans);
 		}
 
+		String url = newUrlStartPointPage.getUrl();
+		ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
+		IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
+		boolean useUrlStartPoint = startPointTypeSelectionPage.getNextPage().equals(newUrlStartPointPage);
+
 		ConnectionPoint startPoint = null;
 		if (useUrlStartPoint) {
 			startPoint = WizardUtils.createUrlStartPoint(url, test);
+			test.setStartPoint(null);
 			test.setStartPoint(startPoint);
 			SimpleTransition startTransition = new SimpleTransition(startPoint, firstPage);	
 			test.addTransition(startTransition);
 		}
 		else {
 			startPoint = WizardUtils.createExtensionStartPoint(file, extensionPoint, test);
+			test.setStartPoint(null); //mandatory for listeners
 			test.setStartPoint(startPoint);
-			exTrans = new ExtensionTransition(startPoint, firstPage, extentionStartPointSelectorPage.getExtensionPoint());
+			exTrans = new ExtensionTransition(startPoint, firstPage, extensionPoint);
 			test.addTransition(exTrans);
+		}
+		if (commandStack != null) {
+			NoOperationCommand noOp = new NoOperationCommand();
+			commandStack.execute(noOp); //flag as dirty.
 		}
 		return true;
 	}
@@ -87,5 +96,9 @@ public class UpdateStartPointWizard extends NewTestWizard {
 
 	public ExtensionTransition getExTrans() {
 		return exTrans;
+	}
+
+	public void setCommandStack(CommandStack commandStack) {
+		this.commandStack = commandStack;
 	}
 }

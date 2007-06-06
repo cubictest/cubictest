@@ -57,7 +57,9 @@ public class UpdateExtensionStartPointWizard extends UpdateStartPointWizard {
 		
 		ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
 		IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
+		
 		ConnectionPoint startPoint = WizardUtils.createExtensionStartPoint(file, extensionPoint, test);
+		test.setStartPoint(null); //mandatory for listeners
 		test.setStartPoint(startPoint);
 		exTrans = new ExtensionTransition(startPoint, firstPage, extensionPoint);
 		test.addTransition(exTrans);

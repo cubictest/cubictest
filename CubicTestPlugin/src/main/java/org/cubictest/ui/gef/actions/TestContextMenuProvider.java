@@ -65,6 +65,9 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		if (action.isEnabled())
 			menu.insertBefore(GEFActionConstants.GROUP_UNDO,action); 
 
+		action = actionRegistry.getAction(UpdateTestStartPointAction.ACTION_ID);
+		if (action.isEnabled())
+			menu.insertBefore(GEFActionConstants.GROUP_UNDO,action); 
 		
 		action = actionRegistry.getAction(PresentAction.ACTION_ID);
 		if (action.isEnabled())

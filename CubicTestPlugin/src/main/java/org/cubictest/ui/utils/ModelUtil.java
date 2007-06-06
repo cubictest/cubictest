@@ -7,6 +7,7 @@ package org.cubictest.ui.utils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Common;
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
@@ -51,10 +52,10 @@ public class ModelUtil {
 		if (sourceNode instanceof Common && !(targetNode instanceof Page))
 			return TRANSITION_EDIT_NOT_VALID;
 
-		if (sourceNode instanceof ExtensionStartPoint && (isReconnectingSourceNode || isNewTransition)) {
+		if (sourceNode instanceof IStartPoint && (isReconnectingSourceNode || isNewTransition)) {
 			if (sourceNode.getOutTransitions().size() >= 1) { 
-				ErrorHandler.showInfoDialog("Only one out-transition is allowed from Extension startpoints.\n" +
-				"Hint: Create a tree after the first page/state, or create a new test.");
+				ErrorHandler.showInfoDialog("Only one out-transition is allowed from startpoints.\n" +
+				"Hint: Create a new test or a tree after the first page/state.");
 				return TRANSITION_EDIT_NOT_VALID;
 			}
 		}

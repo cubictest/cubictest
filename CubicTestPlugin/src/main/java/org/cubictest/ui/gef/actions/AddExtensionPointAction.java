@@ -16,10 +16,7 @@ import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
@@ -28,10 +25,9 @@ import org.eclipse.ui.IWorkbenchPart;
  * @author Christian Schwarz
  *
  */
-public class AddExtensionPointAction extends SelectionAction {
+public class AddExtensionPointAction extends BaseEditorAction {
 
 	public static final String ACTION_ID = "CubicTestPlugin.action.addExtensionPoint";
-	private List model;
 	
 	public AddExtensionPointAction(IWorkbenchPart part) {
 		super(part);
@@ -39,8 +35,8 @@ public class AddExtensionPointAction extends SelectionAction {
 
 	@Override
 	protected boolean calculateEnabled() {
-		if(model != null) {
-			for(Object element : model) {
+		if(parts != null) {
+			for(Object element : parts) {
 				if(element instanceof PageEditPart || element instanceof PageElementEditPart) {
 					return true;
 				}
@@ -58,7 +54,7 @@ public class AddExtensionPointAction extends SelectionAction {
 	
 	@Override
 	public void run() {
-		for (Iterator iter = this.model.iterator(); iter.hasNext();) {
+		for (Iterator iter = this.parts.iterator(); iter.hasNext();) {
 			Object element = iter.next();
 			if(element instanceof PageEditPart) {
 				PageEditPart pageEditPart = (PageEditPart) element;
@@ -86,17 +82,6 @@ public class AddExtensionPointAction extends SelectionAction {
 		}
 	}
 	
-	protected void handleSelectionChanged() {
-		ISelection s = getSelection();
-		if (!(s instanceof IStructuredSelection))
-			return;
-		IStructuredSelection selection = (IStructuredSelection)s;
-		model = null;
-		if (selection != null && selection.size() > 0) {
-			model = selection.toList();
-		}
-		refresh();
-	}
 	
 	@Override
 	public ImageDescriptor getImageDescriptor() {

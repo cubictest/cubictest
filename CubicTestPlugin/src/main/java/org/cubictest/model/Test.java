@@ -287,4 +287,13 @@ public class Test extends PropertyAwareObject {
 		this.setUpAndTearDownClassName = setUpAndTearDownClassName;
 		
 	}
+	
+	public TransitionNode getFirstNodeAfterStartPoint() {
+		List<Transition> trans = getStartPoint().getOutTransitions();
+		if (trans.size() > 0) {
+			return (TransitionNode) trans.get(0).getEnd();
+		}
+		return null;
+		
+	}
 }

@@ -71,16 +71,5 @@ public class CopyAction extends SelectionAction{
 
 	
 	
-	@Override
-	protected void handleSelectionChanged() {
-		ISelection s = getSelection();
-		if (!(s instanceof IStructuredSelection))
-			return;
-		IStructuredSelection selection = (IStructuredSelection)s;
-		parts = null;
-		if (selection != null && selection.size() > 0) {
-			parts = selection.toList();
-		}
-		refresh();
-	}
+
 }
