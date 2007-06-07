@@ -6,6 +6,7 @@
 */
 package org.cubictest.model;
 
+import static org.cubictest.model.IdentifierType.CLASS;
 import static org.cubictest.model.IdentifierType.HREF;
 import static org.cubictest.model.IdentifierType.ID;
 import static org.cubictest.model.IdentifierType.LABEL;
@@ -34,6 +35,7 @@ public class Link extends PageElement {
 		list.add(ID);
 		list.add(HREF);
 		list.add(TITLE);
+		list.add(CLASS);
 		return list;
 	}	
 }

@@ -7,6 +7,7 @@
  */
 package org.cubictest.model.context;
 
+import static org.cubictest.model.IdentifierType.CLASS;
 import static org.cubictest.model.IdentifierType.ELEMENT_NAME;
 import static org.cubictest.model.IdentifierType.ID;
 import static org.cubictest.model.IdentifierType.INDEX;
@@ -94,6 +95,7 @@ public abstract class AbstractContext extends PageElement implements IContext {
 		list.add(ID);
 		list.add(INDEX);
 		list.add(ELEMENT_NAME);
+		list.add(CLASS);
 		return list;
 	}
 	

@@ -7,6 +7,7 @@
  */
 package org.cubictest.model;
 
+import static org.cubictest.model.IdentifierType.CLASS;
 import static org.cubictest.model.IdentifierType.ID;
 import static org.cubictest.model.IdentifierType.LABEL;
 import static org.cubictest.model.IdentifierType.SRC;
@@ -30,6 +31,7 @@ public class Image extends PageElement {
 		list.add(ID);
 		list.add(SRC);
 		list.add(TITLE);
+		list.add(CLASS);
 		return list;
 	}
 	

@@ -23,24 +23,22 @@ public enum IdentifierType {
 	 * the value attribute for different buttons;
 	 * and the text before or after the element.
 	 */
-	LABEL("Label", "Checks first for text in label element for most elements, \n" +
-			"then the text before or after the element. \n" +
-			"For buttons the value attribute is checked.", false),
+	LABEL("Label", "Checks the visible text of the element (or associated label)", false),
 
 	/** HTML ID attribute */
-	ID("Id", "Check the ID attribute.", false),
+	ID("Id", "Check the id attribute.", false),
 
 	/** HTML name attribute */
 	NAME("Name", "Check the name attribute.", false),
 
 	/** HTML value attribute */
-	VALUE("Value", "Check the value attribute for input elements.", false),
+	VALUE("Value", "Check the value for input elements.", false),
 
 	/** HTML href attribute */
-	HREF("Href", "Check the href; meaning where the link points to.", false),
+	HREF("Href", "Check the URL that is pointed to.", false),
 
 	/** HTML src attribute */
-	SRC("Src", "Check the source attribute.", false),
+	SRC("Src", "Check the source URL.", false),
 	
 	/** HTML checked attribute */
 	CHECKED("Checked", "Check whether the element is checked or not.", true),
@@ -52,17 +50,20 @@ public enum IdentifierType {
 	MULTISELECT("Multiselect", "Check whether it is possible to select several elements.", true),
 	
 	/** HTML title attribute */
-	TITLE("Tooltip", "Check the tooltip text (HTML title attribute).", false),
+	TITLE("Tooltip", "Check the tooltip text.", false),
 	
 	/** Element index in page */
 	INDEX("Index", "Check the element's index in the page / Context. " +
 			"Default operator is \"=\" (equality), but \">\", \">=\", \"<\" and \"<=\" is also supported", false),
 	
-	/** XPath to the element */
-	XPATH("XPath", "Check the XPath to the element", false),
+	/** Path to the element */
+	PATH("Path", "Check the Path to the element (XPath without attributes)", false),
 
-	/** XPath to the element */
-	ELEMENT_NAME("Element name", "Check the name of the HTML element (e.g. \"table\")", false);
+	/** HTML name of the element */
+	ELEMENT_NAME("Element name", "Check the HTML element name (e.g. \"table\")", false),
+
+	/** CSS class of the element */
+	CLASS("Class", "Check the CSS class of the element", false);
 
 	private String displayValue;
 	private String description;
