@@ -25,7 +25,7 @@ public class ResetTestAction extends EditorPartAction {
 	@Override
 	protected void init() {
 		super.init();
-		setText("Reset Test");
+		setText("Reset Test-Run");
 		setId(ACTION_ID);
 	}
 	
