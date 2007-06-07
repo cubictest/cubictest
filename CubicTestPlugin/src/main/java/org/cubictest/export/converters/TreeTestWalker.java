@@ -26,6 +26,7 @@ import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.ui.utils.ModelUtil;
 
 /**
  * Converts a Test into test steps placed in the specified resultholder. 
@@ -152,7 +153,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 				convertTransitionNode(resultHolder, (((SubTest) node).getTest(true)).getStartPoint(), (ExtensionStartPoint) node);
 			} 
 			else if (node instanceof SubTest) {
-				Test test = ((SubTest) node).getTest(true);
+				Test subTestTest = ((SubTest) node).getTest(true);
 				List<Transition> outTransitions = node.getOutTransitions();
 				ExtensionPoint targetExPoint = null;
 				if (outTransitions != null && outTransitions.size() > 0) {
@@ -161,9 +162,17 @@ public class TreeTestWalker<T extends IResultHolder> {
 						// only convert path in subtest leading to the extension point that is extended from
 						targetExPoint = ((ExtensionTransition) transition).getExtensionPoint();
 					}
+					else {
+						//Other transition from SubTest
+						if(!ModelUtil.assertHasOnlyOnePathFrom(subTestTest.getStartPoint())) {
+							ErrorHandler.logAndShowErrorDialogAndThrow("Error traversing test: The \"" + ((SubTest) node).getFileName() + "\" subtest " +
+									"has more than one path and the transition from it is not from an extensoin point.");							
+						}
+						
+					}
 				}
 				//convert subtest:
-				convertTransitionNode(resultHolder, test.getStartPoint(), targetExPoint);
+				convertTransitionNode(resultHolder, subTestTest.getStartPoint(), targetExPoint);
 			} 
 			else if (node instanceof Page) {
 				pageWalker.handlePage(resultHolder, (Page) node);
