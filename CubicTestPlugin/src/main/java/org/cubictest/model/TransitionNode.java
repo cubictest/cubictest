@@ -58,6 +58,12 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		if(position == null) {
 			position = new Point(0,0);
 		}
+		if (position.x < 0) {
+			position.x = 0;
+		}
+		if (position.y < 0) {
+			position.y = 0;
+		}
 		return position;
 	}
 	/**
