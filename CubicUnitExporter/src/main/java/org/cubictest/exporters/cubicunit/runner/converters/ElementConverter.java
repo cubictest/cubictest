@@ -141,7 +141,7 @@ public class ElementConverter implements IPageElementConverter<Holder> {
 							elementType = ((TextInputType<?>)elementType).value
 								(id.getProbability(), id.getValue());
 							break;
-						case XPATH:
+						case PATH:
 							//TODO
 							break;
 						case SELECTED:
