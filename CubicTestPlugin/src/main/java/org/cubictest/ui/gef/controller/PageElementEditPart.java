@@ -101,7 +101,7 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 		super.performRequest(request);
 	}
 	
-	protected void startDirectEdit(){
+	public void startDirectEdit(){
 		if (manager == null)
 			manager = new CubicTestDirectEditManager(this,
 					TextCellEditor.class,

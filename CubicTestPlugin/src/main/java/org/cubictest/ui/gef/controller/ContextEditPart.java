@@ -73,7 +73,7 @@ public class ContextEditPart extends PageElementEditPart {
 		return figure;
 	}
 	@Override
-	protected void startDirectEdit(){
+	public void startDirectEdit(){
 		if (manager == null)
 			manager = new CubicTestDirectEditManager(this,
 					TextCellEditor.class,

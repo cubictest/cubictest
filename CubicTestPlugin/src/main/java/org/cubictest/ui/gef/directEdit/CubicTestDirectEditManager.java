@@ -185,6 +185,5 @@ public class CubicTestDirectEditManager extends DirectEditManager {
 	@Override
 	protected void commit() {
 		super.commit();
-		getEditPart().setSelected(EditPart.SELECTED_NONE);
 	}
 }

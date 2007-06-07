@@ -9,6 +9,7 @@ import org.cubictest.common.utils.Logger;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
+import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.view.AddElementContextMenuList;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.cubictest.ui.utils.ViewUtil;
@@ -109,7 +110,9 @@ public class AddPageElementAction extends SelectionAction {
 					EditPart ep = (EditPart) obj;
 					if(ep.getModel().equals(pe)){
 						//The pageElement needs to be selected to start direct edit: 
-						ep.setSelected(EditPart.SELECTED);
+						if (ep instanceof PageElementEditPart) {
+							((PageElementEditPart) ep).startDirectEdit();
+						}
 						break;
 					}
 				}

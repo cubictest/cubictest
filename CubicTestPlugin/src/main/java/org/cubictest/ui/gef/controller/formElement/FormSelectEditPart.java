@@ -64,7 +64,7 @@ public class FormSelectEditPart extends FormElementEditPart {
 		return figure;
 	}
 	
-	protected void startDirectEdit(){
+	public void startDirectEdit(){
 		if (manager == null)
 			manager = new CubicTestDirectEditManager(this,
 					TextCellEditor.class,
