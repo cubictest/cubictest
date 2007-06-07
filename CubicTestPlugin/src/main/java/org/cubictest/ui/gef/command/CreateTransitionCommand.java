@@ -122,9 +122,15 @@ public class CreateTransitionCommand extends Command {
 				SubTest subTest = (SubTest) sourceNode;
 				List<ExtensionPoint> exPoints = subTest.getTest(true).getAllExtensionPoints();
 				if (exPoints == null || exPoints.size() == 0) {
-					ErrorHandler.showErrorDialog("The \"" + subTest.getFileName() + "\" subtest does not contain any extension points.\n" +
-							"To continue, first add an extension point to the subtest and then retry this operation.");
-					return;
+					if(!ModelUtil.assertHasOnlyOnePathFrom(test.getStartPoint())) {
+						ErrorHandler.showErrorDialog("The \"" + subTest.getFileName() + "\" subtest has more than one path and " +
+								"does not contain any extension points.\n" +
+						"To continue, add an extension point to the subtest or remove the excessive paths and then retry this operation.");
+						return;
+						
+					}
+					transition = new SimpleTransition(sourceNode, targetNode);
+					test.addTransition(transition);
 				}
 				else if (exPoints.size() == 1) {
 					//auto select the single exPoint 

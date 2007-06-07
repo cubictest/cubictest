@@ -9,6 +9,7 @@ import org.cubictest.model.Common;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Page;
+import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
@@ -101,5 +102,19 @@ public class ModelUtil {
 		}
 		
 		return TRANSITION_EDIT_VALID;
+	}
+
+
+	public static boolean assertHasOnlyOnePathFrom(TransitionNode node) {
+		if (node == null) {
+			return true;
+		}
+		if (node.getOutTransitions().size() == 0) {
+			return true;
+		}
+		if (node.getOutTransitions().size() > 1) {
+			return false;
+		}
+		return assertHasOnlyOnePathFrom(node.getOutTransitions().get(0).getEnd());
 	}
 }
