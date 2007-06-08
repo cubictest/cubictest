@@ -11,7 +11,7 @@ public class CustomStep {
 
 	private Map<String, CustomTestStepData> customSteps = new HashMap<String, CustomTestStepData>();
 	private String description;
-	private List<ICustomStepListener> listeners = new ArrayList<ICustomStepListener>();
+	private transient List<ICustomStepListener> listeners = new ArrayList<ICustomStepListener>();
 	private static final String DESCRIPTION_CHANGED = "DescriptionChanged";
 	
 	public CustomTestStepData getData(String key) {
@@ -32,11 +32,15 @@ public class CustomStep {
 	}
 
 	public void addCustomStepListener(ICustomStepListener listener) {
+		if(listeners == null)
+			listeners = new ArrayList<ICustomStepListener>();
 		listeners.add(listener);
 	}
 	
 	private void firePropertyChange(String key, Object oldValue, Object newValue) {
 		CustomTestStepEvent event = new CustomTestStepEvent(key,oldValue,newValue);
+		if(listeners == null)
+			listeners = new ArrayList<ICustomStepListener>();
 		for(ICustomStepListener listener : listeners)
 			listener.handleEvent(event);
 	}

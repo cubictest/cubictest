@@ -8,7 +8,6 @@
 package org.cubictest.ui.gef.dnd;
 
 import org.cubictest.ui.gef.factory.DataCreationFactory;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.requests.CreationFactory;
@@ -25,16 +24,16 @@ public class DataEditDropTargetListner extends TemplateTransferDropTargetListene
 	/**
 	 * The constructor for the <code>DataEditDropTargetListner</code>.
 	 * Uses only the <code>TemplateTransferDropTargetListener</code>'s constructor.
-	 * @param project 
 	 * @param viewer
 	 */
-	public DataEditDropTargetListner(IProject project, EditPartViewer viewer) {
+	public DataEditDropTargetListner(EditPartViewer viewer) {
 		super(viewer);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.dnd.TemplateTransferDropTargetListener#getFactory(java.lang.Object)
 	 */
+	@Override
 	protected CreationFactory getFactory(Object template) {
 //		if(template instanceof CustomPageElement) {
 //			return new CustomPageElementCreationFactory(project, ((

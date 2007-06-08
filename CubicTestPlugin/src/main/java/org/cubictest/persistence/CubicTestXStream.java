@@ -142,6 +142,7 @@ public class CubicTestXStream extends XStream {
 		//misc:
 		this.alias("userInteractions", List.class);
 		
+		//customstep
 	}
 	
 }

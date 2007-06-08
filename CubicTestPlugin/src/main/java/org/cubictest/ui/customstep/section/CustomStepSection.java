@@ -21,4 +21,6 @@ public abstract class CustomStepSection {
 	
 	public abstract void setData(CustomTestStepData data);
 	
+	public abstract String getDataKey();
+	
 }

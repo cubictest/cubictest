@@ -30,9 +30,10 @@ import org.cubictest.ui.gef.actions.PopulateCommonAction;
 import org.cubictest.ui.gef.actions.PresentAction;
 import org.cubictest.ui.gef.actions.ResetTestAction;
 import org.cubictest.ui.gef.actions.TestContextMenuProvider;
+import org.cubictest.ui.gef.dnd.CustomStepFileTransferDropTargetListener;
 import org.cubictest.ui.gef.actions.UpdateTestStartPointAction;
 import org.cubictest.ui.gef.dnd.DataEditDropTargetListner;
-import org.cubictest.ui.gef.dnd.FileTransferDropTargetListener;
+import org.cubictest.ui.gef.dnd.SubTestFileTransferDropTargetListener;
 import org.cubictest.ui.gef.factory.PaletteRootCreator;
 import org.cubictest.ui.gef.factory.TestEditPartFactory;
 import org.cubictest.ui.gef.interfaces.IDisposeSubject;
@@ -277,8 +278,9 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		
 		getSite().setSelectionProvider(viewer);
 		
-		viewer.addDropTargetListener(new DataEditDropTargetListner(((IFileEditorInput)getEditorInput()).getFile().getProject(), viewer));
-		viewer.addDropTargetListener(new FileTransferDropTargetListener(viewer));
+		viewer.addDropTargetListener(new DataEditDropTargetListner(viewer));
+		viewer.addDropTargetListener(new SubTestFileTransferDropTargetListener(viewer));
+		viewer.addDropTargetListener(new CustomStepFileTransferDropTargetListener(viewer));
 		viewer.setEditPartFactory(getEditPartFactory());
 		viewer.setContents(getContent());
 		

@@ -8,9 +8,9 @@ import org.cubictest.model.customstep.data.CustomTestStepDataEvent;
 import org.cubictest.model.customstep.data.ICustomTestStepDataListener;
 import org.cubictest.ui.customstep.section.CustomStepSection;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.debug.core.model.IDebugElement;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
@@ -30,11 +30,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.eclipse.ui.ide.IDE;
-import org.eclipse.ui.part.WorkbenchPart;
 
 public class CustomStepExtension extends CustomStepSection implements ICustomTestStepDataListener{
 
@@ -60,22 +59,30 @@ public class CustomStepExtension extends CustomStepSection implements ICustomTes
 				if(data.getPath() != null && data.getPath().length() > 0){
 					
 					IPath path = Path.fromPortableString(data.getPath());
-					IFile file;
-					//CubicUnitRunnerPlugin.getDefault().getWorkbench().
-					//IDE.openEditor(page, , true);
-				}else{
-					CustomStepWizard customStepWizard = new CustomStepWizard();
-					WizardDialog dialog = new WizardDialog(new Shell(),customStepWizard);
-					if(dialog.open() == WizardDialog.OK){
-						String className = customStepWizard.getClassName();
-						ChangeCubicUnitCustomStepCommand command = 
-			        		new ChangeCubicUnitCustomStepCommand();
-			        	command.setCustomTestStepData(data);
-			        	command.setPath(customStepWizard.getPath());
-			        	command.setDisplayText(className);
-			        	getCommandStack().execute(command);
+					IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+					if(file.exists()){
+						IWorkbenchPage page = CubicUnitRunnerPlugin.getDefault().getWorkbench().
+							getActiveWorkbenchWindow().getActivePage();
+						try {
+							IDE.openEditor(page, file, true);
+							return;
+						} catch (PartInitException ex) {
+							ErrorHandler.logAndRethrow(ex);
+						}
 					}
 				}
+				CustomStepWizard customStepWizard = new CustomStepWizard();
+				WizardDialog dialog = new WizardDialog(new Shell(),customStepWizard);
+				if(dialog.open() == WizardDialog.OK){
+					String className = customStepWizard.getClassName();
+					ChangeCubicUnitCustomStepCommand command = 
+		        		new ChangeCubicUnitCustomStepCommand();
+		        	command.setCustomTestStepData(data);
+		        	command.setPath(customStepWizard.getPath());
+		        	command.setDisplayText(className);
+		        	getCommandStack().execute(command);
+				}
+				
 			}
 		});
 		
@@ -135,6 +142,11 @@ public class CustomStepExtension extends CustomStepSection implements ICustomTes
 
 	public void handleEvent(CustomTestStepDataEvent event) {
 		classText.setText(data.getDisplayText());
+	}
+	
+	@Override
+	public String getDataKey(){
+		return "org.cubictest.cubicunitexporter";
 	}
 
 }

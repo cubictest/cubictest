@@ -59,7 +59,8 @@ public class TestEditPart extends PropertyChangePart{
 		try {
 			//reveal file in package explorer:
 			IFile file = ((Test) getModel()).getFile();
-			PackageExplorerPart.getFromActivePerspective().tryToReveal(file);	
+			if(PackageExplorerPart.getFromActivePerspective() != null)
+				PackageExplorerPart.getFromActivePerspective().tryToReveal(file);	
 		} catch(Exception ignore) {
 		}
 
