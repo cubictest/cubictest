@@ -57,7 +57,16 @@
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/fileicon.gif"
             id="org.cubictest.ui.wizards.NewSubTestWizard"
-            name="New CubicTest SubTest"
+            name="New CubicTest Sub Test"
+            preferredPerspectives="org.cubictest.CubicTestPerspective">
+      </wizard>
+      <wizard
+            category="cubictest"
+            class="org.cubictest.ui.wizards.NewTestWizard"
+            finalPerspective="org.cubictest.CubicTestPerspective"
+            icon="icons/fileicon.gif"
+            id="org.cubictest.ui.wizards.NewTestSuiteWizard"
+            name="New CubicTest Test Suite"
             preferredPerspectives="org.cubictest.CubicTestPerspective">
       </wizard>
       <wizard
