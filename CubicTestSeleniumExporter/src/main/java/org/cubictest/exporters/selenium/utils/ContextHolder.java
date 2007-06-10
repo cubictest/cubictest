@@ -109,8 +109,13 @@ public class ContextHolder implements IResultHolder {
 		String res = "";
 		int i = 0;
 		for (PageElement pe : context.getElements()) {
-			if (pe.equals(orgElement) && assertOnlyPrevElements) {
-				break;
+			if (pe.equals(orgElement)) {
+				if (assertOnlyPrevElements) {
+					break; //done
+				}
+				else {
+					continue; //skip current element
+				}
 			}
 			if (i > 0) {
 				res += " and ";
