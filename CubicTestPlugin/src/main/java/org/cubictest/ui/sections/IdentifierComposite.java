@@ -362,8 +362,10 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			probability.select(probability.indexOf(SHOULD));
 		else if(newProbability > 0)
 			probability.select(probability.indexOf(CAN));
-		else if(newProbability == 0)
+		else if(newProbability == 0) {
 			probability.select(probability.indexOf(INDIFFERENT));
+			propLabel.setEnabled(false);
+		}
 		else if(newProbability > -34)
 			probability.select(probability.indexOf(CANNOT));
 		else if(newProbability > -67)
