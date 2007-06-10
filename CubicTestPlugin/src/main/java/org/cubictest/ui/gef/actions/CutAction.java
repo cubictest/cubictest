@@ -64,14 +64,14 @@ public class CutAction extends BaseEditorAction {
 	
 	@Override
 	protected boolean calculateEnabled() {
-		if (parts == null) {
+		if (getParts() == null) {
 			return false;
 		}
-		else if(parts.size() == 1 && parts.get(0) instanceof AbstractConnectionEditPart) {
+		else if(getParts().size() == 1 && getParts().get(0) instanceof AbstractConnectionEditPart) {
 			return false;
 		}
-		else if (parts.size() == 1 && parts.get(0) instanceof PropertyChangePart) {
-			return ((PropertyChangePart) parts.get(0)).isCuttable();
+		else if (getParts().size() == 1 && getParts().get(0) instanceof PropertyChangePart) {
+			return ((PropertyChangePart) getParts().get(0)).isCuttable();
 		}
 		else {
 			return true;
@@ -80,7 +80,7 @@ public class CutAction extends BaseEditorAction {
 	
 	@Override
 	public void run() {
-		List<EditPart> newClips = ViewUtil.getPartsForClipboard(parts);
+		List<EditPart> newClips = ViewUtil.getPartsForClipboard(getParts());
 		Clipboard.getDefault().setContents(newClips);
 		
 		Iterator iter = newClips.iterator();

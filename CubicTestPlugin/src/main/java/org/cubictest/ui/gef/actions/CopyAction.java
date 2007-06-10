@@ -12,9 +12,6 @@ import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.ui.actions.Clipboard;
-import org.eclipse.gef.ui.actions.SelectionAction;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
@@ -23,12 +20,10 @@ import org.eclipse.ui.actions.ActionFactory;
 /**
  * Action for copying selected test elements to the clipboard. 
  * 
- * @author chr_schwarz
+ * @author Christian Schwarz
  */
-public class CopyAction extends SelectionAction{
-	
-	private List parts = null;
-	
+public class CopyAction extends BaseEditorAction {
+		
 	public CopyAction(IWorkbenchPart part) {
 		super(part);
 	}
@@ -48,14 +43,14 @@ public class CopyAction extends SelectionAction{
 	
 	@Override
 	protected boolean calculateEnabled() {
-		if (parts == null) {
+		if (getParts() == null) {
 			return false;
 		}
-		else if(parts.size() == 1 && parts.get(0) instanceof AbstractConnectionEditPart) {
+		else if(getParts().size() == 1 && getParts().get(0) instanceof AbstractConnectionEditPart) {
 			return false;
 		}
-		else if (parts.size() == 1 && parts.get(0) instanceof PropertyChangePart) {
-			return ((PropertyChangePart) parts.get(0)).isCopyable();
+		else if (getParts().size() == 1 && getParts().get(0) instanceof PropertyChangePart) {
+			return ((PropertyChangePart) getParts().get(0)).isCopyable();
 		}
 		else {
 			return true;
@@ -64,7 +59,7 @@ public class CopyAction extends SelectionAction{
 	
 	@Override
 	public void run() {
-		List<EditPart> newClips = ViewUtil.getPartsForClipboard(parts);
+		List<EditPart> newClips = ViewUtil.getPartsForClipboard(getParts());
 		Clipboard.getDefault().setContents(newClips);
 	}
 

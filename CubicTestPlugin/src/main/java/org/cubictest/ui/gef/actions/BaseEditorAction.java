@@ -19,7 +19,7 @@ import org.eclipse.ui.IWorkbenchPart;
 public abstract class BaseEditorAction extends SelectionAction {
 
 	/** The editparts that are selected in the editor */
-	protected List parts;
+	private List parts;
 
 	public BaseEditorAction(IWorkbenchPart part) {
 		super(part);
@@ -32,10 +32,20 @@ public abstract class BaseEditorAction extends SelectionAction {
 		if (!(s instanceof IStructuredSelection))
 			return;
 		IStructuredSelection selection = (IStructuredSelection)s;
-		parts = null;
+		setParts(null);
 		if (selection != null && selection.size() > 0) {
-			parts = selection.toList();
+			setParts(selection.toList());
 		}
 		refresh();
+	}
+
+
+	public void setParts(List parts) {
+		this.parts = parts;
+	}
+
+
+	public List getParts() {
+		return parts;
 	}
 }

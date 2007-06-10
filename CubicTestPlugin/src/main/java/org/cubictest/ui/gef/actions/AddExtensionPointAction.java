@@ -35,8 +35,8 @@ public class AddExtensionPointAction extends BaseEditorAction {
 
 	@Override
 	protected boolean calculateEnabled() {
-		if(parts != null) {
-			for(Object element : parts) {
+		if(getParts() != null) {
+			for(Object element : getParts()) {
 				if(element instanceof PageEditPart || element instanceof PageElementEditPart) {
 					return true;
 				}
@@ -54,7 +54,7 @@ public class AddExtensionPointAction extends BaseEditorAction {
 	
 	@Override
 	public void run() {
-		for (Iterator iter = this.parts.iterator(); iter.hasNext();) {
+		for (Iterator iter = this.getParts().iterator(); iter.hasNext();) {
 			Object element = iter.next();
 			if(element instanceof PageEditPart) {
 				PageEditPart pageEditPart = (PageEditPart) element;
