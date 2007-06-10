@@ -362,17 +362,9 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			probability.select(probability.indexOf(SHOULD));
 		else if(newProbability > 0)
 			probability.select(probability.indexOf(CAN));
-		else if(newProbability == 0){
+		else if(newProbability == 0)
 			probability.select(probability.indexOf(INDIFFERENT));
-			if (dirEdit.getSelection() && identifier.getType().equals(LABEL)) {
-				//the id is Direct Edit and of type Label. Should be editable.
-			}
-			else {
-				value.setEnabled(false);
-				propLabel.setEnabled(false);
-				booleanLabel.setEnabled(false);
-			}
-		}else if(newProbability > -34)
+		else if(newProbability > -34)
 			probability.select(probability.indexOf(CANNOT));
 		else if(newProbability > -67)
 			probability.select(probability.indexOf(SHOULD_NOT));

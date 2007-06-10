@@ -244,27 +244,31 @@ public abstract class PageElement extends PropertyAwareObject
 	 */
 	public Identifier getMainIdentifier() {
 		int highestProbability = 0;
-		Identifier result = null;
+		Identifier resId = null;
 		
 		for (Identifier identifier : getIdentifiers()) {
 			if (identifier.getProbability() >  highestProbability) {
-				result = identifier;
+				resId = identifier;
 				highestProbability = identifier.getProbability();
 			}
 			else if (identifier.getProbability() ==  highestProbability) {
-				//direct edit has precedence:
 				if (getDirectEditIdentifier().equals(identifier)) {
-					result = identifier;
+					//Equal. Direct edit has precedence:
+					resId = identifier;
 					highestProbability = identifier.getProbability();
 				}
-				else if (StringUtils.isNotBlank(identifier.getValue()) && (result == null || StringUtils.isBlank(result.getValue()))) {
-					//the ID with a non-null value has precedence:
-					result = identifier;
+				else if (StringUtils.isNotBlank(identifier.getValue()) && (resId == null || StringUtils.isBlank(resId.getValue()))) {
+					//Equal. The ID with a non-null value has precedence:
+					resId = identifier;
 					highestProbability = identifier.getProbability();
 				}
 			}
 		}
-		return result;
+		
+		if (resId.getProbability() == 0) {
+			return null;
+		}
+		return resId;
 	}
 	
 	/**
