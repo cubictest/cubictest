@@ -65,7 +65,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			}
 		}
 		if (waitForPageToLoad) {
-			waitForPageToLoad(seleniumHolder, 30);
+			waitForPageToLoad(seleniumHolder, 40);
 		}
 	}
 
@@ -97,12 +97,9 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 		String inputValue = null;
 		
 		if (element instanceof Option) {
-			Option option = (Option) element;
-			Identifier optionMainId = option.getMainIdentifier();
-			Select select = option.getParent();
-			//get locator of select-box:
+			Select select = ((Option) element).getParent();
 			locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(select);
-			inputValue = SeleniumUtils.getIdType(optionMainId) + "=" + optionMainId.getValue();
+			inputValue = SeleniumUtils.getOptionLocator((Option) element);
 		}
 		else {
 			//all other elements

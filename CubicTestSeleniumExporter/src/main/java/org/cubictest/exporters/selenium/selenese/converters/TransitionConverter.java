@@ -14,7 +14,6 @@ import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
-import org.cubictest.model.Identifier;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
@@ -66,12 +65,9 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 		String inputValue = "";
 		
 		if (element instanceof Option) {
-			Option option = (Option) element;
-			Identifier optionMainId = option.getMainIdentifier();
-			Select select = option.getParent();
-			//get locator of select-box:
+			Select select = ((Option) element).getParent();
 			locator = "xpath=" + doc.getFullContextWithAllElements(select);
-			inputValue = SeleniumUtils.getIdType(optionMainId) + "=" + optionMainId.getValue();
+			inputValue = SeleniumUtils.getOptionLocator((Option) element);
 		}
 		else {
 			//all other elements

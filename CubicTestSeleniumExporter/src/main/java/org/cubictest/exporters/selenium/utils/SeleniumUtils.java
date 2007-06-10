@@ -89,6 +89,24 @@ public class SeleniumUtils {
 	
 	
 	/**
+	 * Get the string that represents the Selenium locator-string for the element.
+	 * @param element
+	 * @return
+	 */
+	public static String getOptionLocator(Option option) {
+		Identifier optionMainId = option.getMainIdentifier();
+		String locator = "";
+		if (optionMainId == null) {
+			locator = "index=0";
+		}
+		else {
+			locator = SeleniumUtils.getIdType(optionMainId) + "=" + optionMainId.getValue();
+		}
+		return locator;
+	}
+	
+	
+	/**
 	 * Get string to assert the index of the element (if ID present).
 	 */
 	private static String getIndexAssertion(PageElement pe, PredicateSeperator predicateSeperator) {
