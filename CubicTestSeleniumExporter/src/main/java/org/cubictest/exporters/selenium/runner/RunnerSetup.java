@@ -26,7 +26,9 @@ import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
+import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -134,8 +136,16 @@ public class RunnerSetup implements IRunnableWithProgress {
 			return (UrlStartPoint) test.getStartPoint();
 		}
 		else if (test.getStartPoint() instanceof ExtensionStartPoint) {
-			//ExtensionStartPoint, get url start point recursively:
+			//Get url start point recursively:
 			return getInitialUrlStartPoint(((ExtensionStartPoint) test.getStartPoint()).getTest(true));
+		}
+		else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
+			//Get url start point of first sub-test:
+			if (!(test.getFirstNodeAfterStartPoint() instanceof SubTest)) {
+				ErrorHandler.logAndShowErrorDialogAndThrow("Test suites must contain at least one sub test after the test suite start point.\n\n" + 
+						"To add a subtest, drag test from package explorer into the test suite editor.");
+			}
+			return getInitialUrlStartPoint(((SubTest) test.getFirstNodeAfterStartPoint()).getTest(true));
 		}
 		return null;
 	}
