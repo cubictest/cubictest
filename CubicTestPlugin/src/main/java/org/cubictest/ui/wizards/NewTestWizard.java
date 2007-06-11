@@ -81,7 +81,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public void addPages() {
-		testDetailsPage = new TestDetailsPage(selection, !extensionPointMap.isEmpty());
+		testDetailsPage = new TestDetailsPage(selection, !extensionPointMap.isEmpty(), "test");
 		addPage(testDetailsPage);
 		startPointTypeSelectionPage = new StartPointTypeSelectionPage();
 		addPage(startPointTypeSelectionPage);
@@ -122,8 +122,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {
-			Throwable realException = e.getTargetException();
-			MessageDialog.openError(getShell(), "Error", realException.getMessage());
+			ErrorHandler.logAndShowErrorDialog(e, "Error creating test");
 			return false;
 		}
 		setPackageExplorerLinkingEnabled(false);
@@ -206,7 +205,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.selection = selection;
-		setWindowTitle("New CubicTest test");
+		getWizardTitle();
 
 		setPackageExplorerLinkingEnabled(true);
 		
@@ -234,6 +233,10 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
+	}
+
+	protected void getWizardTitle() {
+		setWindowTitle("New CubicTest test");
 	}
 
 	private void setPackageExplorerLinkingEnabled(boolean enabled) {

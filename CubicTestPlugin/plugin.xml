@@ -62,7 +62,7 @@
       </wizard>
       <wizard
             category="cubictest"
-            class="org.cubictest.ui.wizards.NewTestWizard"
+            class="org.cubictest.ui.wizards.NewTestSuiteWizard"
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/fileicon.gif"
             id="org.cubictest.ui.wizards.NewTestSuiteWizard"

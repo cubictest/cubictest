@@ -49,6 +49,7 @@ public class TestDetailsPage extends WizardPage {
 	private static final int STATUS_INFO = 1;
 	private static final int STATUS_ERROR = 2;
 	private final boolean extentionPoint;
+	private String newItemType;
 	
 
 	public IWizardPage getNextPage() {
@@ -62,11 +63,12 @@ public class TestDetailsPage extends WizardPage {
 	 * @param extensionPointMap 
 	 * @param pageName
 	 */
-	public TestDetailsPage(ISelection selection, boolean extentionPoint) {
+	public TestDetailsPage(ISelection selection, boolean extentionPoint, String newItemType) {
 		super("wizardPage");
+		this.newItemType = newItemType;
 		this.extentionPoint = extentionPoint;
-		setTitle("Create a new test");
-		setDescription("Select location to create test, and give the test a filename.");
+		setTitle("Create a new " + newItemType);
+		setDescription("Select location to create " + getNewItemTypeNoCapitalized() + ", and give it a filename.");
 		this.selection = selection;
 
 		IStructuredSelection iss = (IStructuredSelection) selection;
@@ -114,7 +116,7 @@ public class TestDetailsPage extends WizardPage {
 			}
 		});
 		label = new Label(container, SWT.NULL);
-		label.setText("Test name:");
+		label.setText(getNewItemTypeCapitalized() + " name:");
 		testNameText = new Text(container, SWT.BORDER | SWT.SINGLE);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		testNameText.setLayoutData(gd);
@@ -224,7 +226,7 @@ public class TestDetailsPage extends WizardPage {
 				getShell(),
 				ResourcesPlugin.getWorkspace().getRoot(),
 				false,
-				"Select test location");
+				"Select " + getNewItemTypeNoCapitalized() + " location");
 		if (dialog.open() == ContainerSelectionDialog.OK) {
 			Object[] result = dialog.getResult();
 			if (result.length == 1) {
@@ -243,7 +245,7 @@ public class TestDetailsPage extends WizardPage {
 		String testName = getName();
 		
 		if (container.length() == 0) {
-			updateStatus("Test location must be specified", STATUS_ERROR);
+			updateStatus(getNewItemTypeCapitalized() + " location must be specified", STATUS_ERROR);
 			return;
 		}
 		
@@ -310,4 +312,12 @@ public class TestDetailsPage extends WizardPage {
 		return descriptionText.getText();
 	}
 	
+	private String getNewItemTypeCapitalized() {
+		return newItemType.substring(0, 1).toUpperCase() + newItemType.substring(1);
+	}
+	
+	private String getNewItemTypeNoCapitalized() {
+		return newItemType.substring(0, 1).toLowerCase() + newItemType.substring(1);
+	}
+
 }

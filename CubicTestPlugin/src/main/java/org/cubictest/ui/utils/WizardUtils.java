@@ -18,6 +18,7 @@ import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
+import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
@@ -40,6 +41,7 @@ public class WizardUtils {
 			String description, IFile file, ExtensionPoint point) {
 
 		Test test = createTest(id,name,description);
+		addEmptyPage(test);
 
 		ExtensionStartPoint esp = createExtensionStartPoint(file, point, test);
 		test.setStartPoint(esp);
@@ -66,6 +68,7 @@ public class WizardUtils {
 	public static Test createEmptyTest(String id, String name, 
 			String description, String url) {
 		Test test = createTest(id,name,description);
+		addEmptyPage(test);
 		
 		UrlStartPoint startpoint = createUrlStartPoint(url, test);
 		test.setStartPoint(startpoint);
@@ -81,6 +84,7 @@ public class WizardUtils {
 	 */
 	public static Test createEmptyTestWithSubTestStartPoint(String id, String name, String description) {
 		Test test = createTest(id,name,description);
+		addEmptyPage(test);
 		
 		SubTestStartPoint startpoint = createSubTestStartPoint(test);
 		test.setStartPoint(startpoint);
@@ -88,6 +92,18 @@ public class WizardUtils {
 		SimpleTransition startTransition = new SimpleTransition(startpoint, test.getPages().get(0));	
 		test.addTransition(startTransition);
 		
+		return test;
+	}
+	
+	/**
+	 * Creates an empty test with a TestSuite start point.
+	 */
+	public static Test createEmptyTestWithTestSuiteStartPoint(String id, String name, String description) {
+		Test test = createTest(id,name,description);
+		
+		TestSuiteStartPoint startpoint = createTestSuiteStartPoint(test);
+		test.setStartPoint(startpoint);
+				
 		return test;
 	}
 	
@@ -106,12 +122,23 @@ public class WizardUtils {
 		return startpoint;
 	}
 	
+	public static TestSuiteStartPoint createTestSuiteStartPoint(Test test) {
+		TestSuiteStartPoint startpoint = new TestSuiteStartPoint();
+		startpoint.setName("Test Suite start point");
+		startpoint.setPosition(new Point(4, 4));
+		return startpoint;
+	}
+	
 	private static Test createTest(String id, String name, String description){
 		Test test = new Test();
 		test.setId(id);
 		test.setName(name);
 		test.setDescription(description);
-		
+				
+		return test;
+	}
+
+	private static void addEmptyPage(Test test) {
 		Page page = new Page();
 		page.setPosition(new Point(ITestEditor.INITIAL_PAGE_POS_X, ITestEditor.INITIAL_PAGE_POS_Y));
 		page.setDimension(page.getDefaultDimension());
@@ -120,7 +147,5 @@ public class WizardUtils {
 		List<AbstractPage> pages = new ArrayList<AbstractPage>();
 		pages.add(page);
 		test.setPages(pages);
-		
-		return test;
 	}
 }

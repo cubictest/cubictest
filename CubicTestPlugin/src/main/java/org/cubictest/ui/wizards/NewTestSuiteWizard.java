@@ -10,32 +10,30 @@ import org.eclipse.ui.INewWizard;
 
 
 /**
- * Wizard for creating new sub tests.  The wizard creates one file with the extension "aat".
- * If the container resource (a folder or a project) is selected in the workspace 
- * when the wizard is opened, it will accept it as the target container.
+ * Wizard for creating new test suites.
  * 
  * @author Christian Schwarz 
  */
 
-public class NewSubTestWizard extends AbstractNewSimpleStartPointTestWizard implements INewWizard {
-	
+public class NewTestSuiteWizard extends AbstractNewSimpleStartPointTestWizard implements INewWizard {
+
 	
 	/**
 	 * Adding the pages to the wizard.
 	 */
 	@Override
 	public void addPages() {
-		testDetailsPage = new TestDetailsPage(selection, !extensionPointMap.isEmpty(), "sub test");
+		testDetailsPage = new TestDetailsPage(selection, !extensionPointMap.isEmpty(), "test suite");
 		addPage(testDetailsPage);
 	}
 	
 	public Test createEmptyTest(String name, String description) {
-		Test emptyTest = WizardUtils.createEmptyTestWithSubTestStartPoint("test" + System.currentTimeMillis(), name, description);
+		Test emptyTest = WizardUtils.createEmptyTestWithTestSuiteStartPoint("test" + System.currentTimeMillis(), name, description);
 		return emptyTest;
 	}
 
 	protected void getWizardTitle() {
-		setWindowTitle("New CubicTest sub test");
+		setWindowTitle("New CubicTest test suite");
 	}
 
 }

@@ -27,6 +27,7 @@ import org.cubictest.model.SubTest;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestPartStatus;
+import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.Transition;
@@ -92,6 +93,7 @@ public class CubicTestXStream extends XStream {
 		this.alias("simpleTransition", SimpleTransition.class);
 		this.alias("urlStartPoint", UrlStartPoint.class);
 		this.alias("subTestStartPoint", SubTestStartPoint.class);
+		this.alias("testSuiteStartPoint", TestSuiteStartPoint.class);
 		this.alias("subTest", SubTest.class);
 		this.alias("test", Test.class);
 		this.alias("testPartStatus", TestPartStatus.class);

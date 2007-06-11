@@ -10,28 +10,27 @@ package org.cubictest.ui.gef.controller;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
-import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.EditPolicy;
 
 
 /**
+ * Contoller for the <code>UrlStartPoint</code> model.
+ * 
  * @author SK Skytteren
- * Contoller for the <code>ConnectionPoint</code> model.
  *
  */
-public class UrlStartPointEditPart extends AbstractNodeEditPart {
+public class UrlStartPointEditPart extends AbstractStartPointEditPart {
 
+	
 	/**
-	 * Constructor for <code>StartPointEditPart</code>.
+	 * Constructor for <code>UrlStartPointEditPart</code>.
 	 * @param point the model
 	 */
 	public UrlStartPointEditPart(ConnectionPoint point) {
-		setModel(point);
+		super(point);
 	}
 
 	/* (non-Javadoc)
@@ -50,7 +49,8 @@ public class UrlStartPointEditPart extends AbstractNodeEditPart {
 		return startPointFigure;
 	}
 
-	private String getName(){
+	@Override
+	protected String getName(){
 		String name = ((ConnectionPoint)getModel()).getName();
 		if (getModel() instanceof UrlStartPoint){
 			name = name + ": " + ((UrlStartPoint)getModel()).getBeginAt();
@@ -58,40 +58,5 @@ public class UrlStartPointEditPart extends AbstractNodeEditPart {
 		return name;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#createEditPolicies()
-	 */
-	@Override
-	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new StartPointNodeEditPolicy());
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gef.editparts.AbstractEditPart#refreshVisuals()
-	 */
-	@Override
-	protected void refreshVisuals() {
-		ConnectionPoint connectionPoint = (ConnectionPoint)getModel();
-		AbstractTransitionNodeFigure figure = (AbstractTransitionNodeFigure) getFigure();
-		figure.setText(getName());
-		Point position = connectionPoint.getPosition();
-		Rectangle r = new Rectangle(position.x,position.y,-1,-1);
-		((TestEditPart)getParent()).setLayoutConstraint(this,figure,r);
-	}
-
-	public void updateParams() {
-		refresh();
-		refreshVisuals();
-	}
-	
-	@Override
-	public boolean isCopyable() {
-		return false;
-	}
-	
-	@Override
-	public boolean isCuttable() {
-		return false;
-	}
 	
 }

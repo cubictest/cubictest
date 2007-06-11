@@ -17,6 +17,7 @@ import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
+import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.UrlStartPoint;
@@ -51,6 +52,7 @@ import org.cubictest.ui.gef.controller.SubTestEditPart;
 import org.cubictest.ui.gef.controller.SubTestStartPointEditPart;
 import org.cubictest.ui.gef.controller.TableRowEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.gef.controller.TestSuiteStartPointEditPart;
 import org.cubictest.ui.gef.controller.UrlStartPointEditPart;
 import org.cubictest.ui.gef.controller.UserInteractionsTransitionEditPart;
 import org.cubictest.ui.gef.controller.formElement.FormButtonEditPart;
@@ -133,6 +135,8 @@ public class TestEditPartFactory implements EditPartFactory {
 			return new UrlStartPointEditPart((UrlStartPoint)model);
 		if (model instanceof SubTestStartPoint)
 			return new SubTestStartPointEditPart((SubTestStartPoint)model);
+		if (model instanceof TestSuiteStartPoint)
+			return new TestSuiteStartPointEditPart((TestSuiteStartPoint)model);
 		if (model instanceof JavaScriptPopup) 
 			return new JavaScriptPopupEditPart((JavaScriptPopup)model);
 		return null;
