@@ -62,7 +62,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 		}
 		else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
 			ErrorHandler.logAndShowErrorDialog("It is not possible to record in a test suite.\n\n" + 
-					"To add tests to the suite, drag and drop test files from the package explorer into the test suite editor.");
+					"To add tests to the suite, drag and drop test-files from the package explorer into the test suite editor.");
 			return;
 		}
 		
