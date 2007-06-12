@@ -127,6 +127,9 @@ Erlend Halvorsen
       <plugin id="org.eclipse.update.ui"/>
       <plugin id="org.junit"/>
       <plugin id="org.junit4"/>
+      <plugin id="org.tigris.subversion.javahl.win32" fragment="true"/>
+      <plugin id="org.tigris.subversion.subclipse.core"/>
+      <plugin id="org.tigris.subversion.subclipse.ui"/>
    </plugins>
 
 </product>
