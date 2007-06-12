@@ -7,7 +7,6 @@ package org.cubictest.recorder.ui;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -57,10 +56,17 @@ public class RecordEditorAction implements IEditorActionDelegate {
 		
 		AutoLayout autoLayout = new AutoLayout(testEditor);
 		Test test = testEditor.getTest();
-		if (test.getStartPoint() instanceof SubTestStartPoint || test.getStartPoint() instanceof TestSuiteStartPoint) {
-			ErrorHandler.logAndShowErrorDialog("It is not possible to record from tests that start with a " + test.getStartPoint().getClass().getSimpleName() + ".");
+		if (test.getStartPoint() instanceof SubTestStartPoint) {
+			ErrorHandler.logAndShowErrorDialog("It is not possible to record from tests that start with a sub test start point.");
 			return;
 		}
+		else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
+			ErrorHandler.logAndShowErrorDialog("It is not possible to record in a test suite.\n\n" + 
+					"To add tests to the suite, drag and drop test files from the package explorer into the test suite editor.");
+			return;
+		}
+		
+		
 		test.resetStatus();
 
 		if(!running) {
