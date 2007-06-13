@@ -20,10 +20,8 @@ public class CubicTestStartup implements IStartup {
 	}
 
 	public void earlyStartup() {
-		System.out.println("EarlyStartup by CubicTest");
 		Preferences prefs = CubicTestPlugin.getDefault().getPluginPreferences();
 		if(!prefs.getBoolean(SKIP_INTRO)){
-			//IWorkbenchPreferenceConstants.
 			prefs.setValue(SKIP_INTRO, true);
 		}
 		CubicTestPlugin.getDefault().savePluginPreferences();
