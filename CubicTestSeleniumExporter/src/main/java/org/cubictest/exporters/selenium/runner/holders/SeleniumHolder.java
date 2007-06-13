@@ -11,6 +11,7 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.utils.ContextHolder;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -79,6 +80,18 @@ public class SeleniumHolder extends ContextHolder {
 			public void run() {
 				if(element != null)
 					element.setStatus(finalResult);
+			}
+		});
+	}
+	
+	@Override
+	public void updateStatus(SubTest theSubTest, boolean hadException) {
+		final boolean hadEx = hadException;
+		final SubTest subTest = theSubTest;
+		display.asyncExec(new Runnable() {
+			public void run() {
+				if(subTest != null)
+					subTest.updateStatus(hadEx);
 			}
 		});
 	}

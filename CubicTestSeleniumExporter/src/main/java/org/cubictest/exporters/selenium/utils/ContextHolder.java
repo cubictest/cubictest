@@ -11,6 +11,7 @@ import java.util.Stack;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.IResultHolder;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.SubTest;
 import org.cubictest.model.context.IContext;
 
 /**
@@ -124,5 +125,10 @@ public class ContextHolder implements IResultHolder {
 			i++;
 		}
 		return res;
+	}
+
+
+	public void updateStatus(SubTest subTest, boolean hadException) {
+		//Empty. Can be overridden if exporters want to update sub test statuses.
 	}
 }
