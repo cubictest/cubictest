@@ -21,6 +21,8 @@ import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
+import org.cubictest.ui.gef.view.CubicTestHeaderLabel;
+import org.cubictest.ui.gef.view.CubicTestLabel;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
@@ -84,6 +86,13 @@ public class AutoLayout {
 			 * Calculate dimensions
 			 */
 			int width = nodeEditPart.getFigure().getMinimumSize().width;
+			if (nodeEditPart instanceof AbstractPageEditPart) {
+				CubicTestHeaderLabel label = ((AbstractPageEditPart) nodeEditPart).getHeaderFigure();
+				int headerWidth = label.getUnmodifiedPreferredSize().width + 6;
+				if (width < headerWidth) {
+					width = headerWidth;
+				}
+			}
 			int height = 25;
 			
 			for(Object child : nodeEditPart.getChildren()) {

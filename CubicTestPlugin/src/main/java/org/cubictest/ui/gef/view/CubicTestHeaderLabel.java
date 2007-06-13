@@ -48,5 +48,7 @@ public class CubicTestHeaderLabel extends CubicTestLabel {
 		}
 	}
 	
-	
+	public Dimension getUnmodifiedPreferredSize() {
+		return super.getPreferredSize(-1, -1);
+	}
 }

@@ -21,6 +21,8 @@ import org.cubictest.ui.gef.policies.ContextLayoutEditPolicy;
 import org.cubictest.ui.gef.policies.PageNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
+import org.cubictest.ui.gef.view.CubicTestHeaderLabel;
+import org.cubictest.ui.gef.view.CubicTestLabel;
 import org.cubictest.ui.gef.view.CubicTestScrollableGroupFigure;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.IFigure;
@@ -154,5 +156,9 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 		if (manager != null) {
 			manager.setText(title);
 		}
+	}
+	
+	public CubicTestHeaderLabel getHeaderFigure() {
+		return (CubicTestHeaderLabel) ((CubicTestGroupFigure) getFigure()).getHeader();
 	}
 }

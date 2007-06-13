@@ -127,7 +127,7 @@ public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithPr
 		
 		if (!ExportUtils.testIsOkForExport(test)) {
 			if (isSelected) {
-				ExportUtils.throwTestNotOkForExport(test);
+				ExportUtils.throwTestNotOkForExportException(test);
 				return;
 			}
 			else {
