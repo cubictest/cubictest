@@ -13,6 +13,7 @@ import org.cubictest.custom.IElementContext;
 import org.cubictest.export.IResultHolder;
 import org.cubictest.exporters.cubicunit.ui.BrowserType;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UrlStartPoint;
 import org.cubicunit.Browser;
@@ -165,6 +166,11 @@ public class Holder implements IResultHolder {
 
 	public UrlStartPoint getHandledUrlStartPoint() {
 		return urlStartPoint;
+	}
+
+	public void updateStatus(SubTest subTest, boolean hadException) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
