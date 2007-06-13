@@ -52,7 +52,7 @@ public class HtmlExportDirectoryWalker<T extends IResultHolder> extends Director
 		
 		if (!ExportUtils.testIsOkForExport(test)) {
 			if (isSelected) {
-				ExportUtils.throwTestNotOkForExport(test);
+				ExportUtils.throwTestNotOkForExportException(test);
 				return;
 			}
 			else {
