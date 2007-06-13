@@ -28,17 +28,21 @@ import org.eclipse.ui.PartInitException;
  */
 public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 
+	private static final String MOVE = "move";
+	private static final String DELETE = "delete";
+
+
 	public boolean visit(IResourceDelta delta) throws PartInitException {
 		IResource resource = delta.getResource();
 		if(delta.getKind() == IResourceDelta.REMOVED){
 			if("aat".equals(resource.getFileExtension())) {
 				if (delta.getMovedToPath() == null){
 					//delete
-					closeOpenEditorsOfRemovedFiles(resource, false, "delete");
+					closeOpenEditorsOfRemovedFiles(resource, false, DELETE);
 				}
 				else {
 					//move
-					closeOpenEditorsOfRemovedFiles(resource, true, "move");
+					closeOpenEditorsOfRemovedFiles(resource, true, MOVE);
 					
 					UpdateTestsSubTests operation = new UpdateTestsSubTests(resource,delta.getMovedToPath());
 					operation.setRule(resource.getProject());
@@ -75,7 +79,9 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 			
 			//close the editors:
 			if (toClose.size() > 0) {
-				ErrorHandler.showInfoDialog("Closing editor due to " + operation + ": " + names);
+				if (!operation.equals(DELETE)) {
+					ErrorHandler.showInfoDialog("Closing editor due to " + operation + ": " + names);
+				}
 				pages[i].closeEditors(toCloseArray, save);
 			}
 		}
