@@ -5,6 +5,7 @@
 package org.cubictest.exporters.watir.holders;
 
 import org.cubictest.export.IResultHolder;
+import org.cubictest.model.SubTest;
 
 
 /**
@@ -121,5 +122,11 @@ public class StepList implements IResultHolder {
 	
 	public void addSeparator() {
 		rubyBuffer.add("\n");
+	}
+
+
+	public void updateStatus(SubTest subTest, boolean hadException) {
+		// TODO Auto-generated method stub
+		
 	}
 }
