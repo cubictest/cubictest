@@ -4,6 +4,8 @@
  */
 package org.cubictest.export;
 
+import org.cubictest.model.SubTest;
+
 /**
  * Holds the exported test.
  * Has method for getting the final result of the export as a string.
@@ -17,4 +19,10 @@ public interface IResultHolder {
 	 * Get the final String representation of the result holder (after export is done).
 	 */
 	public String toResultString();
+	
+	/**
+	 * Update status on the passed in sub test.
+	 * @param subTest
+	 */
+	public void updateStatus(SubTest subTest, boolean hadException);
 }

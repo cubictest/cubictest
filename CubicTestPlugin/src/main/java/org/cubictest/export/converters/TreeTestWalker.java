@@ -172,8 +172,15 @@ public class TreeTestWalker<T extends IResultHolder> {
 					}
 				}
 				//convert subtest:
-				convertTransitionNode(resultHolder, subTestTest.getStartPoint(), targetExPoint);
-			} 
+				try {
+					convertTransitionNode(resultHolder, subTestTest.getStartPoint(), targetExPoint);
+					resultHolder.updateStatus(((SubTest) node), false);
+				}
+				catch (RuntimeException e) {
+					resultHolder.updateStatus(((SubTest) node), true);
+					throw e;
+				}
+			}
 			else if (node instanceof Page) {
 				pageWalker.handlePage(resultHolder, (Page) node);
 			} 

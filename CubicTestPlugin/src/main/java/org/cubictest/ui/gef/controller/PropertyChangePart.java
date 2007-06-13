@@ -89,7 +89,6 @@ public abstract class PropertyChangePart extends AbstractGraphicalEditPart imple
 	
 	private void handleStatusChange(PropertyChangeEvent evt) {
 		TestPartStatus newStatus = (TestPartStatus)evt.getNewValue();
-		//TestPartStatus oldStatus = (TestPartStatus)evt.getOldValue();
 		if (getFigure() instanceof TestStepLabel) {
 			((TestStepLabel)getFigure()).setStatus(newStatus);
 		}

@@ -5,6 +5,7 @@
  */
 package org.cubictest.ui.gef.view;
 
+import org.cubictest.model.TestPartStatus;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
@@ -42,6 +43,35 @@ public class SubTestFigure extends AbstractTransitionNodeFigure {
 		d.height = 18;
 		d.width = d.width + 12; 
 		return d;
+	}
+
+
+	public void setStatus(TestPartStatus status){
+		if(status == null){
+			return;
+		}
+		switch (status){
+			case UNKNOWN:
+				setForegroundColor(ColorConstants.white);
+				setBackgroundColor(ColorConstants.darkBlue);
+				break;		
+			case PASS:
+				setForegroundColor(ColorConstants.black);
+				setBackgroundColor(ColorConstants.green);
+				break;
+			case WARN:
+				setForegroundColor(ColorConstants.black);
+				setBackgroundColor(ColorConstants.yellow);
+				break;
+			case FAIL:
+				setForegroundColor(ColorConstants.black);
+				setBackgroundColor(ColorConstants.red);
+				break;
+			case EXCEPTION:
+				setForegroundColor(ColorConstants.black);
+				setBackgroundColor(ColorConstants.orange);;
+				break;
+		}
 	}
 	
 }

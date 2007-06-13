@@ -88,6 +88,7 @@ public class SubTest extends ConnectionPoint {
 
 	@Override
 	public void resetStatus() {
+		setStatus(TestPartStatus.UNKNOWN);
 		test = null;
 	}
 
@@ -103,4 +104,44 @@ public class SubTest extends ConnectionPoint {
 	public String toString() {
 		return getClass().getSimpleName() + ": Name = " + getName() + ", FilePath = " + getFilePath();
 	}
+
+	public void updateStatus(boolean hadException) {
+		if (hadException) {
+			setStatus(TestPartStatus.EXCEPTION);
+			return;
+		}
+		int passed = 0;
+		int failed = 0;
+		int exception = 0;
+		int warn = 0;
+		int unknown = 0;
+		int elementCount = 0;
+		for (AbstractPage page : getTest(false).getPages()) {
+			for (PageElement pe : page.getElements()) {
+				elementCount++;
+				if (pe.getStatus().equals(TestPartStatus.PASS))
+					passed++;
+				else if (pe.getStatus().equals(TestPartStatus.FAIL))
+					failed++;
+				else if (pe.getStatus().equals(TestPartStatus.EXCEPTION))
+					exception++;
+				else if (pe.getStatus().equals(TestPartStatus.WARN))
+					warn++;
+				else if (pe.getStatus().equals(TestPartStatus.UNKNOWN))
+					unknown++;
+			}
+		}
+		if (passed == elementCount)
+			setStatus(TestPartStatus.PASS);
+		else if (failed == elementCount)
+			setStatus(TestPartStatus.FAIL);
+		else if (exception == elementCount)
+			setStatus(TestPartStatus.EXCEPTION);
+		else if (unknown == elementCount)
+			setStatus(TestPartStatus.UNKNOWN);
+		else
+			setStatus(TestPartStatus.WARN);
+	}
+	
+	
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import junit.framework.AssertionFailedError;
 
 import org.cubictest.export.IResultHolder;
+import org.cubictest.model.SubTest;
 
 /**
  * List used for asserting that object is present.
@@ -72,5 +73,12 @@ public class AssertionList<T> extends ArrayList<T> implements IResultHolder {
 
 	public String toResultString() {
 		return toString();
+	}
+
+
+
+	public void updateStatus(SubTest subTest, boolean hadException) {
+		// TODO Auto-generated method stub
+		
 	}
 }

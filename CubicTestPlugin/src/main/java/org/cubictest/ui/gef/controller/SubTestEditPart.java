@@ -16,6 +16,7 @@ import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
+import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
@@ -23,6 +24,7 @@ import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.PageNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.SubTestFigure;
+import org.cubictest.ui.gef.view.TestStepLabel;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -88,6 +90,10 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 				//refresh name of this extension start point
 				refresh();
 			}
+		}
+		else if (PropertyAwareObject.STATUS.equals(property)) {
+			TestPartStatus newStatus = (TestPartStatus)evt.getNewValue();
+			((SubTestFigure)getFigure()).setStatus(newStatus);
 		}
 		else {
 			//source is self, refresh on all changes
