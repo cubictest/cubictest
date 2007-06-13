@@ -7,15 +7,14 @@ package org.cubictest.recorder.ui;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Page;
 import org.cubictest.model.SubTest;
-import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
-import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.model.Transition;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.recorder.CubicRecorder;
@@ -56,26 +55,19 @@ public class RecordEditorAction implements IEditorActionDelegate {
 		
 		AutoLayout autoLayout = new AutoLayout(testEditor);
 		Test test = testEditor.getTest();
-		if (test.getStartPoint() instanceof SubTestStartPoint) {
-			ErrorHandler.logAndShowErrorDialog("It is not possible to record from tests that start with a sub test start point.");
-			return;
-		}
-		else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
-			ErrorHandler.logAndShowErrorDialog("It is not possible to record in a test suite.\n\n" + 
-					"To add tests to the suite, drag and drop test-files from the package explorer into the test suite editor.");
-			return;
-		}
 		
+		if (!ExportUtils.testIsOkForRecord(test)) {
+			return;
+		}
 		
 		test.resetStatus();
 
 		if(!running) {
 			setRunning(true);
 
-			if (test.getStartPoint() instanceof ExtensionStartPoint && test.getStartPoint().getOutTransitions().size() >= 1 && !firstPageIsEmpty(test)) {
-				ErrorHandler.showWarnDialog("Could not record from extension start point, as test is not empty.\n\n" +
-						"Tip: Create a new test and record from there.");
-				return; //ModelUtil should show error message.
+			if (test.getStartPoint().getOutTransitions().size() >= 1 && !firstPageIsEmpty(test)) {
+				ErrorHandler.showErrorDialog("The test must be empty to use the recorder.");
+				return;
 			}
 
 
