@@ -11,7 +11,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.apache.commons.lang.builder.StandardToStringStyle;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.cubictest.utils.CubicCloner;
+import org.cubictest.common.utils.CubicCloner;
 
 /**
  * Base class for all model objects. Contains publish subscribe logic.

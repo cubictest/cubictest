@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.cubictest.common.utils.CubicCloner;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
-import org.cubictest.utils.CubicCloner;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 

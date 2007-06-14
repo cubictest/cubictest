@@ -8,7 +8,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.apache.commons.lang.StringUtils;
-import org.cubictest.utils.CubicCloner;
+import org.cubictest.common.utils.CubicCloner;
 
 
 /**
