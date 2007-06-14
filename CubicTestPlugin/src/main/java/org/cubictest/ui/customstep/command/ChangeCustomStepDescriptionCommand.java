@@ -1,19 +1,19 @@
 package org.cubictest.ui.customstep.command;
 
-import org.cubictest.model.customstep.CustomStep;
+import org.cubictest.model.customstep.CustomTestStep;
 import org.eclipse.gef.commands.Command;
 
 public class ChangeCustomStepDescriptionCommand extends Command {
 
 	private String description;
-	private CustomStep customStep;
+	private CustomTestStep customStep;
 	private String oldDescription;
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public void setCustomStep(CustomStep customStep) {
+	public void setCustomStep(CustomTestStep customStep) {
 		this.customStep = customStep;	
 	}
 

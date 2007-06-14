@@ -9,7 +9,7 @@ package org.cubictest.ui.gef.policies;
 
 import org.cubictest.model.Common;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.SubTest;
@@ -50,7 +50,7 @@ public class TestComponentEditPolicy extends ComponentEditPolicy {
 			deleteCmd = new DeleteSubTestCommand();
 		}else if (transitionNode instanceof ExtensionPoint){
 			deleteCmd = new DeleteExtensionPointCommand();
-		} else if (transitionNode instanceof CustomTestStep) {
+		} else if (transitionNode instanceof CustomTestStepHolder) {
 			deleteCmd = new DeleteCustomTestStepCommand();
 		} else if (transitionNode instanceof ConnectionPoint) {
 			deleteCmd = new DeleteConnectionPointCommand();

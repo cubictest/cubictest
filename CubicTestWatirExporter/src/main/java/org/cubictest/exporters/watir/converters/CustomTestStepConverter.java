@@ -7,7 +7,7 @@ package org.cubictest.exporters.watir.converters;
 import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.StepList;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 
 /**
  * Watir custom test step converter.
@@ -16,7 +16,7 @@ import org.cubictest.model.CustomTestStep;
  */
 public class CustomTestStepConverter implements ICustomTestStepConverter<StepList> {
 
-	public void handleCustomStep(StepList t, CustomTestStep cts) {
+	public void handleCustomStep(StepList t, CustomTestStepHolder cts) {
 		throw new ExporterException("Custom test step not supported in Watir exporter");
 	}
 

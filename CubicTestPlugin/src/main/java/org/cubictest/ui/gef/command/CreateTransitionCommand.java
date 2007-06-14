@@ -14,7 +14,7 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.IActionElement;
@@ -152,7 +152,7 @@ public class CreateTransitionCommand extends Command {
 				}
 			}
 			else if(sourceNode instanceof Page && (targetNode instanceof Page || 
-					targetNode instanceof SubTest || targetNode instanceof CustomTestStep)) {
+					targetNode instanceof SubTest || targetNode instanceof CustomTestStepHolder)) {
 				//User Interactions transition:
 				transition = new UserInteractionsTransition(sourceNode, targetNode);
 				test.addTransition(transition);

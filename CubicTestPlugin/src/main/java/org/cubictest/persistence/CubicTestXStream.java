@@ -8,7 +8,7 @@ import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.ContextWindow;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
@@ -106,7 +106,7 @@ public class CubicTestXStream extends XStream {
 		//Added by Genesis Campos
 		this.alias("contextWindow", ContextWindow.class);
 		//End;
-		this.alias("customTestStep", CustomTestStep.class);
+		this.alias("customTestStep", CustomTestStepHolder.class);
 		this.alias("identifier", Identifier.class);
 		this.alias("identifierType",IdentifierType.class);
 		

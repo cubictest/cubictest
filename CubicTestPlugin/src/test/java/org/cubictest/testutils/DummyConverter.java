@@ -11,7 +11,7 @@ import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.converters.IUrlStartPointConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteractionsTransition;
@@ -39,7 +39,7 @@ public class DummyConverter implements
 		return null;
 	}
 
-	public void handleCustomStep(AssertionList<String> AssertionList, CustomTestStep cts) {
+	public void handleCustomStep(AssertionList<String> AssertionList, CustomTestStepHolder cts) {
 		AssertionList.add(cts.getDisplayText());
 	}
 

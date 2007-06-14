@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
@@ -100,7 +100,7 @@ public class CutAction extends BaseEditorAction {
 				deleteCmd.setTransitionNode((TransitionNode) item.getModel());
 				compoundCmd.add(deleteCmd);
 			}
-			else if (item.getModel() instanceof CustomTestStep) {
+			else if (item.getModel() instanceof CustomTestStepHolder) {
 				DeleteCustomTestStepCommand deleteCmd = new DeleteCustomTestStepCommand();
 				deleteCmd.setTest((Test) item.getParent().getModel());
 				deleteCmd.setTransitionNode((TransitionNode) item.getModel());

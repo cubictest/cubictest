@@ -7,7 +7,7 @@
  */
 package org.cubictest.ui.gef.wizards;
 
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 import org.eclipse.jface.wizard.Wizard;
 
 /**
@@ -16,12 +16,12 @@ import org.eclipse.jface.wizard.Wizard;
 public class NewCustomTestStepWizard extends Wizard {
 
 	private WizardNewCustomTestStepCreationPage newCustomTestStepCreationPage;
-	private CustomTestStep customTestStep;
+	private CustomTestStepHolder customTestStep;
 
 	/**
 	 * @param sourceNode
 	 */
-	public NewCustomTestStepWizard(CustomTestStep customTestStep) {
+	public NewCustomTestStepWizard(CustomTestStepHolder customTestStep) {
 		this.customTestStep = customTestStep;
 		setNeedsProgressMonitor(true);
 	}

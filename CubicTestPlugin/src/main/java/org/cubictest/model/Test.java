@@ -29,7 +29,7 @@ public class Test extends PropertyAwareObject {
 	private List<AbstractPage> pages = new ArrayList<AbstractPage>();
 	private List<SubTest> subTests = new ArrayList<SubTest>();
 	private List<Transition> transitions = new ArrayList<Transition>();
-	private List<CustomTestStep> customTestSteps = new ArrayList<CustomTestStep>();
+	private List<CustomTestStepHolder> customTestSteps = new ArrayList<CustomTestStepHolder>();
 	private AllLanguages allLanguages = null;
 	private ParameterList paramList = null; 
 	private String name;
@@ -220,6 +220,9 @@ public class Test extends PropertyAwareObject {
 		for(SubTest subTest : subTests) {
 			subTest.setProject(file.getProject());
 		}
+		for(CustomTestStepHolder customTestStep :customTestSteps) {
+			customTestStep.setProject(file.getProject());
+		}
 		if (startPoint instanceof ExtensionStartPoint) {
 			ExtensionStartPoint esp = (ExtensionStartPoint) startPoint;
 			esp.setProject(file.getProject());
@@ -254,15 +257,15 @@ public class Test extends PropertyAwareObject {
 		firePropertyChange(CHILD, null, test);
 	}
 	
-	public List<CustomTestStep> getCustomTestSteps() {
+	public List<CustomTestStepHolder> getCustomTestSteps() {
 		return customTestSteps;
 	}
 	
-	public void removeCustomTestSteps(CustomTestStep customTestStep) {
+	public void removeCustomTestSteps(CustomTestStepHolder customTestStep) {
 		customTestSteps.remove(customTestStep);
 		firePropertyChange(CHILD,customTestStep,null);
 	}
-	public void addCustomTestStep(CustomTestStep customTestStep) {
+	public void addCustomTestStep(CustomTestStepHolder customTestStep) {
 		customTestSteps.add(customTestStep);
 		firePropertyChange(CHILD, null, customTestStep);
 	}

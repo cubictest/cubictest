@@ -6,7 +6,7 @@ package org.cubictest.ui.gef.factory;
 
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
@@ -129,8 +129,8 @@ public class TestEditPartFactory implements EditPartFactory {
 			return new ContextEditPart((AbstractContext) model);
 		if (model instanceof AbstractContext)
 			return new ContextEditPart((AbstractContext) model);
-		if (model instanceof CustomTestStep)
-			return new CustomTestStepEditPart((CustomTestStep) model);
+		if (model instanceof CustomTestStepHolder)
+			return new CustomTestStepEditPart((CustomTestStepHolder) model);
 		if (model instanceof UrlStartPoint)
 			return new UrlStartPointEditPart((UrlStartPoint)model);
 		if (model instanceof SubTestStartPoint)

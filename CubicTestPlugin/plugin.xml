@@ -215,7 +215,7 @@
                class="org.cubictest.ui.sections.CustomTestStepInput"
                id="org.cubictest.test.customTestStepInput"
                tab="org.cubictest.tab.customTestStepInput">
-            <input type="org.cubictest.model.CustomTestStep"/>
+            <input type="org.cubictest.model.CustomTestStepHolder"/>
          </propertySection>
          <!--
          <propertySection

@@ -7,7 +7,7 @@ package org.cubictest.exporters.selenium.selenese.converters;
 import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 
 /**
  * Selenium custom test step converter.
@@ -16,7 +16,7 @@ import org.cubictest.model.CustomTestStep;
  */
 public class CustomTestStepConverter implements ICustomTestStepConverter<SeleneseDocument> {
 
-	public void handleCustomStep(SeleneseDocument t, CustomTestStep cts) {
+	public void handleCustomStep(SeleneseDocument t, CustomTestStepHolder cts) {
 		throw new ExporterException("Custom test step not supported in Selenium exporter yet");
 	}
 

@@ -7,7 +7,7 @@
  */
 package org.cubictest.ui.gef.command;
 
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 
 
 /**
@@ -23,7 +23,7 @@ public class DeleteCustomTestStepCommand extends DeleteTransitionNodeCommand {
 	 */
 	public void execute(){
 		super.execute();
-		test.removeCustomTestSteps((CustomTestStep) transitionNode);
+		test.removeCustomTestSteps((CustomTestStepHolder) transitionNode);
 	}
 
 	/*
@@ -32,6 +32,6 @@ public class DeleteCustomTestStepCommand extends DeleteTransitionNodeCommand {
 	 */
 	public void undo(){
 		super.undo();
-		test.addCustomTestStep((CustomTestStep) transitionNode);
+		test.addCustomTestStep((CustomTestStepHolder) transitionNode);
 	}
 }

@@ -8,7 +8,7 @@
 package org.cubictest.ui.gef.policies;
 
 import org.cubictest.model.AbstractPage;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
@@ -54,8 +54,8 @@ public class TestContainerEditPolicy extends ContainerEditPolicy {
 			subTestCommand.setTest(test);
 			subTestCommand.setSubTest(subTest);
 			return subTestCommand;
-		} else if(newObject instanceof CustomTestStep) {
-			CustomTestStep testStep = (CustomTestStep) newObject;
+		} else if(newObject instanceof CustomTestStepHolder) {
+			CustomTestStepHolder testStep = (CustomTestStepHolder) newObject;
 			testStep.setPosition(location);
 			AddCustomTestStepCommand addCustomTestStepCommand = new AddCustomTestStepCommand((Test) getHost().getModel(), testStep);
 			return addCustomTestStepCommand;

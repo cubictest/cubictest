@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.cubictest.model.customstep.data.CustomTestStepData;
 
-public class CustomStep {
+public class CustomTestStep {
 
 	private Map<String, CustomTestStepData> customSteps = new HashMap<String, CustomTestStepData>();
 	private String description;
@@ -43,5 +43,10 @@ public class CustomStep {
 			listeners = new ArrayList<ICustomStepListener>();
 		for(ICustomStepListener listener : listeners)
 			listener.handleEvent(event);
+	}
+
+	public List<String> getArgumentNames() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

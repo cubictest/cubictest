@@ -4,7 +4,7 @@
  */
 package org.cubictest.ui.gef.command;
 
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.wizards.NewCustomTestStepWizard;
 import org.eclipse.gef.commands.Command;
@@ -14,16 +14,16 @@ import org.eclipse.swt.widgets.Shell;
 public class AddCustomTestStepCommand extends Command {
 
 	private Test test;
-	private CustomTestStep customTestStep;
+	private CustomTestStepHolder customTestStep;
 
-	public AddCustomTestStepCommand(Test test, CustomTestStep customTestStep) {
+	public AddCustomTestStepCommand(Test test, CustomTestStepHolder customTestStep) {
 		this.test = test;
 		this.customTestStep = customTestStep;
 	}
 	
 	@Override
 	public void execute() {
-		if(customTestStep.getFile() == null) {
+		if(customTestStep.getFilePath() == null) {
 			NewCustomTestStepWizard wizard = new NewCustomTestStepWizard(customTestStep);
 			WizardDialog dlg = new WizardDialog(new Shell(),
 					wizard);

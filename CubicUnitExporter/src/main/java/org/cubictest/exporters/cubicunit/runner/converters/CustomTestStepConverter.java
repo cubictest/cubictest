@@ -6,11 +6,11 @@ package org.cubictest.exporters.cubicunit.runner.converters;
 
 import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.exporters.cubicunit.runner.holders.Holder;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 
 public class CustomTestStepConverter implements ICustomTestStepConverter<Holder> {
 
-	public void handleCustomStep(Holder holder, CustomTestStep cts) {
+	public void handleCustomStep(Holder holder, CustomTestStepHolder cts) {
 		//cts.execute(holder.getContext(), holder.getDocument());
 	}
 }

@@ -11,22 +11,20 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.FileTransfer;
 
-public abstract class FileTransferDropTargetListener extends
+public class FileTransferDropTargetListener extends
 		AbstractTransferDropTargetListener {
+
+	private FileFactory factory;
 
 	public FileTransferDropTargetListener(EditPartViewer viewer) {
 		super(viewer, FileTransfer.getInstance());
+		factory = new FileFactory();
 	}
-
-	protected abstract String getFileExt();
-	
-	protected abstract FileFactory getFactory();
-	
 	
 	@Override
 	protected Request createTargetRequest() {
 		CreateRequest request = new CreateRequest();
-		request.setFactory(getFactory());
+		request.setFactory(factory);
 		return request;
 	}
 
@@ -44,12 +42,11 @@ public abstract class FileTransferDropTargetListener extends
 	@Override
 	protected void handleDrop() {
 		String filePath = ((String[]) getCurrentEvent().data)[0];
-		if (filePath.endsWith(".aat")) { 
+		if (filePath.endsWith(".aat") || filePath.endsWith(".custom")) { 
 			IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(filePath));
-			getFactory().setFile(iFile);
+			factory.setFile(iFile);
 		}
 		super.handleDrop();
 	}
 	
-
 }

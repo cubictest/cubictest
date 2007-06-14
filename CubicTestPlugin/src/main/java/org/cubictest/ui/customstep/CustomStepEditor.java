@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.model.customstep.CustomStep;
+import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.CustomTestStepEvent;
 import org.cubictest.model.customstep.ICustomStepListener;
-import org.cubictest.persistence.CustomStepPersistance;
+import org.cubictest.persistence.CustomTestStepPersistance;
 import org.cubictest.ui.customstep.command.ChangeCustomStepDescriptionCommand;
 import org.cubictest.ui.customstep.section.CustomStepSection;
 import org.eclipse.core.runtime.CoreException;
@@ -52,7 +52,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 
 	private static final String CUBIC_TEST_CUSTOM_STEP_EXTENSION = "org.cubictest.exporters";
 
-	private CustomStep customStep;
+	private CustomTestStep customStep;
 
 	private boolean isDirty;
 
@@ -114,7 +114,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		
 		IFileEditorInput input = (IFileEditorInput) editorInput;
 
-		customStep = CustomStepPersistance.loadFromFile(input.getFile());
+		customStep = CustomTestStepPersistance.loadFromFile(input.getFile());
 		customStep.addCustomStepListener(this);
 		
 		setSite(site);
@@ -137,7 +137,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 	
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		CustomStepPersistance.saveToFile(customStep,
+		CustomTestStepPersistance.saveToFile(customStep,
 				((IFileEditorInput) getEditorInput()).getFile());
 
 		try {

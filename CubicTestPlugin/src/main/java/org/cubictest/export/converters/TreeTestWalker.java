@@ -15,7 +15,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.IResultHolder;
 import org.cubictest.export.utils.TestWalkerUtils;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.CustomTestStep;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
@@ -184,9 +184,9 @@ public class TreeTestWalker<T extends IResultHolder> {
 			else if (node instanceof Page) {
 				pageWalker.handlePage(resultHolder, (Page) node);
 			} 
-			else if (node instanceof CustomTestStep) {
+			else if (node instanceof CustomTestStepHolder) {
 				customTestStepConverter.newInstance().handleCustomStep(resultHolder,
-						(CustomTestStep) node);
+						(CustomTestStepHolder) node);
 			}
 
 			int pathNum = 0;
