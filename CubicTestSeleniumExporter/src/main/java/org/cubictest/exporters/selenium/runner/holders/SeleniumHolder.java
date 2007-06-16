@@ -36,6 +36,7 @@ public class SeleniumHolder extends ContextHolder {
 	private IProgressMonitor monitor;
 	private UrlStartPoint handledUrlStartPoint;
 	private final Display display;
+	private boolean failOnAssertionFailure;
 	
 	public SeleniumHolder(Selenium selenium, Display display) {
 		//use Selenium from client e.g. the CubicRecorder
@@ -65,35 +66,45 @@ public class SeleniumHolder extends ContextHolder {
 				result = TestPartStatus.PASS;
 			}
 		}
+		if (failOnAssertionFailure && result.equals(TestPartStatus.FAIL)) {
+			throw new ExporterException("Assertion failed");
+		}
 		addResult(element, result);
 		
 	}
 	
 	public void addResult(final PageElement element, TestPartStatus result) {
+		if (failOnAssertionFailure && result.equals(TestPartStatus.FAIL)) {
+			throw new ExporterException("Assertion failed");
+		}
 		handleUserCancel();
 		elementsAsserted.add(element);
 		results.add(result);
 
 		//show result immediately in the GUI:
 		final TestPartStatus finalResult = result;
-		display.asyncExec(new Runnable() {
-			public void run() {
-				if(element != null)
-					element.setStatus(finalResult);
-			}
-		});
+		if (display != null) {
+			display.asyncExec(new Runnable() {
+				public void run() {
+					if(element != null)
+						element.setStatus(finalResult);
+				}
+			});
+		}
 	}
 	
 	@Override
 	public void updateStatus(SubTest theSubTest, boolean hadException) {
 		final boolean hadEx = hadException;
 		final SubTest subTest = theSubTest;
-		display.asyncExec(new Runnable() {
-			public void run() {
-				if(subTest != null)
-					subTest.updateStatus(hadEx);
-			}
-		});
+		if (display != null) {
+			display.asyncExec(new Runnable() {
+				public void run() {
+					if(subTest != null)
+						subTest.updateStatus(hadEx);
+				}
+			});
+		}
 	}
 	
 	public String showResults() {
@@ -140,6 +151,10 @@ public class SeleniumHolder extends ContextHolder {
 
 	public UrlStartPoint getHandledUrlStartPoint() {
 		return handledUrlStartPoint;
+	}
+
+	public void setFailOnAssertionFailure(boolean failOnAssertionFailuer) {
+		this.failOnAssertionFailure = failOnAssertionFailuer;
 	}
 
 }

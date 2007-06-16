@@ -88,18 +88,22 @@ public class RunnerSetup implements IRunnableWithProgress {
 					PageElementConverter.class, ContextConverter.class, 
 					TransitionConverter.class, CustomTestStepConverter.class);
 			
-			monitor.beginTask("Traversing the test model...", IProgressMonitor.UNKNOWN);
+			if (monitor != null) {
+				monitor.beginTask("Traversing the test model...", IProgressMonitor.UNKNOWN);
+			}
 			
 			testWalker.convertTest(test, targetExPoint, seleniumHolder);
 
-			monitor.done();
+			if (monitor != null) {
+				monitor.done();
+			}
 
 		}
 		catch (UserCancelledException e) {
 			//ok, user cancelled
 		}
 		catch (Exception e) {
-			ErrorHandler.rethrow(e);
+			ErrorHandler.logAndRethrow(e);
 		}
 	}
 
