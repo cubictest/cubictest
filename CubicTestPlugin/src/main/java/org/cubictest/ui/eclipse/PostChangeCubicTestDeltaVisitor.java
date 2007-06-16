@@ -11,15 +11,10 @@ import java.util.List;
 
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.model.Test;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -34,7 +29,7 @@ import org.eclipse.ui.PartInitException;
  */
 public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 
-	private static final String MOVE = "move";
+	private static final String MOVE = "move/rename";
 	private static final String DELETE = "delete";
 
 

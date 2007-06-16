@@ -41,9 +41,9 @@ public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 
 	@Override
 	public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-		monitor.beginTask("Updating file paths", 1);
-		traverseContainer(sourceResource.getProject());
 		this.monitor = monitor;
+		monitor.beginTask("Updating possible references to test file " + sourceResource.getFullPath(), 1);
+		traverseContainer(sourceResource.getProject());
 		sourceResource.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 		return Status.OK_STATUS;
 	}
@@ -56,8 +56,8 @@ public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 		try {
 			for (IResource entry : container.members()) {
 				ResourceAttributes resourceAttr = ResourceAttributes.fromFile(entry.getFullPath().toFile());
-				if (resourceAttr.isHidden()) {
-					//skip hidden files/folders
+				if (resourceAttr.isHidden() || entry.getName().equals(".svn")) {
+					//skip hidden/SVN files/folders
 					continue;
 				}
 
