@@ -7,6 +7,7 @@ package org.cubictest.ui.eclipse;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -17,16 +18,16 @@ import org.eclipse.core.runtime.IPath;
  * 
  * @author SK Skytteren
  */
-public class UpdateTestsSubTests extends TraverseTestFilesWorkspaceJob{
+public class UpdateTestsSubTests extends TraverseTestFilesWorkspaceJob {
 
 	private final IPath movedFromPath;
-	private IPath movedToPath;
+	private IFile movedToPath;
 
-	public UpdateTestsSubTests(IResource resource, IPath movedToPath) {
+	public UpdateTestsSubTests(IResource resource, IFile movedToPath) {
 		super("Update Tests", resource);
 		this.movedToPath = movedToPath;
-		movedFromPath = resource.getFullPath();
-	}				
+		movedFromPath = resource.getProjectRelativePath();
+	}
 
 	@Override
 	public boolean updateTest(Test test) throws CoreException {
@@ -45,14 +46,14 @@ public class UpdateTestsSubTests extends TraverseTestFilesWorkspaceJob{
 
 	
 	/**
-	 * Private utility method.
+	 * Update path to sub test.
 	 * @param updated
 	 * @param subtest
 	 * @return
 	 */
 	private void updatePath(SubTest subtest) {
 		if(subtest.getFilePath().equals(movedFromPath.toPortableString())){
-			subtest.setFilePath(movedToPath.toPortableString());
+			subtest.setFilePath(movedToPath.getProjectRelativePath().toPortableString());
 		}
 	}
 }

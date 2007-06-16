@@ -17,6 +17,6 @@ package org.cubictest.model;
 public class ModelInfo {
 
 	public static String getCurrentModelVersion() {
-		return "7";
+		return "8";
 	}
 }

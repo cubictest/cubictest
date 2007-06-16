@@ -12,6 +12,7 @@ import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -40,6 +41,7 @@ public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 
 	@Override
 	public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
+		monitor.beginTask("Updating file paths", 1);
 		traverseContainer(sourceResource.getProject());
 		this.monitor = monitor;
 		sourceResource.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
@@ -53,9 +55,16 @@ public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 	private void traverseContainer(IContainer container){
 		try {
 			for (IResource entry : container.members()) {
+				ResourceAttributes resourceAttr = ResourceAttributes.fromFile(entry.getFullPath().toFile());
+				if (resourceAttr.isHidden()) {
+					//skip hidden files/folders
+					continue;
+				}
+
 				if (entry.getType() == IResource.FOLDER) {
 					traverseContainer((IContainer) entry);
-				} else if(entry.getType() == IResource.FILE){
+				}
+				else if(entry.getType() == IResource.FILE){
 					// convert file if it is a .aat test
 					String fileName = entry.getName();
 					IFile testFile = (IFile) entry;

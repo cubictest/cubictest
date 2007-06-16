@@ -37,6 +37,7 @@ public class LegacyUpgrade {
 		xml = upgradeModel4to5(xml, version);
 		xml = upgradeModel5to6(xml, version, project);
 		xml = upgradeModel6to7(xml, version, project);
+		xml = upgradeModel7to8(xml, version, project);
 		return xml;
 	}
 
@@ -318,6 +319,17 @@ public class LegacyUpgrade {
 		}
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Could not convert old file format to new format.");
+		}
+		version.increment();
+		return xml;
+	}
+	
+	private static String upgradeModel7to8(String xml, ModelVersion version, IProject project) {
+		if (version.getVersion() != 7) {
+			return xml;
+		}
+		if (xml.indexOf("<filePath>/") > 0) {
+			xml = StringUtils.replace(xml, "<filePath>/", "<filePath>");
 		}
 		version.increment();
 		return xml;

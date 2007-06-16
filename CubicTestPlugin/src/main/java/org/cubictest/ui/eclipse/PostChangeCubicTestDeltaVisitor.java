@@ -11,9 +11,15 @@ import java.util.List;
 
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.model.Test;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -44,13 +50,21 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 					//move
 					closeOpenEditorsOfRemovedFiles(resource, true, MOVE);
 					
-					UpdateTestsSubTests operation = new UpdateTestsSubTests(resource,delta.getMovedToPath());
+					//Schedule traversal of tests to update references (if any)
+					IFile newFile = resource.getWorkspace().getRoot().getFile(delta.getMovedToPath());
+					UpdateTestsSubTests operation = new UpdateTestsSubTests(resource, newFile);
 					operation.setRule(resource.getProject());
 					operation.schedule();
 				}
 			}
+			else if (resource.getType() == IResource.FOLDER){
+				IResourceDelta[] deltas = delta.getAffectedChildren();
+				for (int i = 0; i < deltas.length; i++) {
+					visit(deltas[i]);
+				}
+			}
 		}
-		return true; // visit the children
+		return true;
 	}
 
 	
@@ -86,5 +100,4 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 			}
 		}
 	}
-
 }
