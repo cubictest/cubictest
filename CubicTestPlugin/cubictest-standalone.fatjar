@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sun Jun 17 01:31:23 CEST 2007
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=cubictest-1.7.5.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=
