@@ -59,7 +59,7 @@ public class TestPersistance {
 
 	
 	/**
-	 * Reads a test from File.
+	 * Reads a test from File, upgrading legacy tests if necessary.
 	 * 
 	 * @param file The file containing the test. 
 	 * @return The test.
@@ -70,7 +70,7 @@ public class TestPersistance {
 			xml = FileUtils.readFileToString(file, "ISO-8859-1");
 			xml = LegacyUpgrade.upgradeIfNecessary(xml, project);
 		} catch (FileNotFoundException e) {
-			Logger.error(e, "Error loading test.");
+			Logger.error(e, "Test file not found.");
 			throw new TestNotFoundException(e.getMessage());
 		} catch (IOException e) {
 			ErrorHandler.logAndRethrow(e);
@@ -79,8 +79,6 @@ public class TestPersistance {
 		Test test = (Test) new CubicTestXStream().fromXML(xml);
 		return test;
 	}
-
-
 
 	
 	/**
