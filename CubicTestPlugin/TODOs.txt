@@ -170,6 +170,7 @@ Export:
 M4	  Make it possible to store output directory in a cubics-project.properties file
 2.0?  HTML export: Have a ID on page, such that HTML exporter can merge different tests to better site?
 
+Sending mail to us on error!
 
 
 
