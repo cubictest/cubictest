@@ -28,6 +28,7 @@ import org.eclipse.ui.ide.ResourceUtil;
  * Updates subtests / extension start points in .aat files with new path after a file move.
  * 
  * @author SK Skytteren
+ * @author Christian Schwarz
  */
 public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 
