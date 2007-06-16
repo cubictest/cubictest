@@ -4,6 +4,8 @@
 */
 package org.cubictest.ui.eclipse;
 
+import java.io.File;
+
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Test;
@@ -55,9 +57,10 @@ public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 	private void traverseContainer(IContainer container){
 		try {
 			for (IResource entry : container.members()) {
-				ResourceAttributes resourceAttr = ResourceAttributes.fromFile(entry.getFullPath().toFile());
+				File file = entry.getWorkspace().getRoot().getFile(entry.getFullPath()).getLocation().toFile();
+				ResourceAttributes resourceAttr = ResourceAttributes.fromFile(file);
 				if (resourceAttr.isHidden() || entry.getName().equals(".svn")) {
-					//skip hidden/SVN files/folders
+					//skip hidden / SVN files/folders
 					continue;
 				}
 
