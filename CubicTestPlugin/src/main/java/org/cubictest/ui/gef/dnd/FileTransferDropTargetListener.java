@@ -45,8 +45,8 @@ public class FileTransferDropTargetListener extends
 		if (filePath.endsWith(".aat") || filePath.endsWith(".custom")) { 
 			IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(filePath));
 			factory.setFile(iFile);
+			super.handleDrop();
 		}
-		super.handleDrop();
 	}
 	
 }

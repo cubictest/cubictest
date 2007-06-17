@@ -24,14 +24,15 @@ public class NewTestSuiteWizard extends AbstractNewSimpleStartPointTestWizard im
 	@Override
 	public void addPages() {
 		testDetailsPage = new TestDetailsPage(selection, !extensionPointMap.isEmpty(), "test suite");
+		testDetailsPage.setFileExt(".ats");
 		addPage(testDetailsPage);
 	}
-	
+	@Override
 	public Test createEmptyTest(String name, String description) {
 		Test emptyTest = WizardUtils.createEmptyTestWithTestSuiteStartPoint("test" + System.currentTimeMillis(), name, description);
 		return emptyTest;
 	}
-
+	@Override
 	protected void getWizardTitle() {
 		setWindowTitle("New CubicTest test suite");
 	}

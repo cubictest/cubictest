@@ -14,6 +14,14 @@
             id="org.cubictest.ui.gef.editors.GraphicalTestEditor"
             name="Graphical Test Editor"/>
       <editor
+            class="org.cubictest.ui.gef.editors.GraphicalTestEditor"
+            contributorClass="org.cubictest.ui.gef.actions.TestActionBarContributor"
+            default="true"
+            extensions="ats"
+            icon="$nl$/icons/fileicon.gif"
+            id="org.cubictest.ui.gef.editors.GraphicalTestEditor"
+            name="Graphical Test Suite Editor"/>
+      <editor
             class="org.cubictest.ui.parameterization.ParamsEditor"
             default="true"
             extensions="params"

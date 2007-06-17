@@ -33,10 +33,11 @@ import org.eclipse.ui.dialogs.ContainerSelectionDialog;
  * The "New" wizard page allows setting the container for
  * the new file as well as the file name. The page
  * will only accept file name without the extension OR
- * with the extension that matches the expected one (aat).
+ * with the extension that matches the expected one (aat or one set).
  */
 
 public class TestDetailsPage extends WizardPage {
+	private String fileExt = ".aat";
 	private Text containerText;
 	private Text filenameText;
 	private boolean updatingTestName;
@@ -51,7 +52,10 @@ public class TestDetailsPage extends WizardPage {
 	private final boolean extentionPoint;
 	private String newItemType;
 	
-
+	public void setFileExt(String fileExt) {
+		this.fileExt = fileExt;
+	}
+	@Override
 	public IWizardPage getNextPage() {
 		if(extentionPoint)
 			return getWizard().getPage(StartPointTypeSelectionPage.NAME);
@@ -111,6 +115,7 @@ public class TestDetailsPage extends WizardPage {
 		Button button = new Button(container, SWT.PUSH);
 		button.setText("Browse...");
 		button.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleBrowse();
 			}
@@ -189,14 +194,14 @@ public class TestDetailsPage extends WizardPage {
 			for (int i = 0; i < inputContents.length; i++) {
 				File file = inputContents[i];
 				String existingFileName = file.getName();
-				if (highestNumber < 1 && existingFileName.equals(baseName + ".aat"))
+				if (highestNumber < 1 && existingFileName.equals(baseName + fileExt))
 				{
 					highestNumber = 1;
 				}
-				else if (existingFileName.endsWith(".aat") && existingFileName.startsWith(baseName)) {
+				else if (existingFileName.endsWith(fileExt) && existingFileName.startsWith(baseName)) {
 					int fileNumber = 0;
 					try {
-						fileNumber = Integer.parseInt(existingFileName.substring(baseName.length(), existingFileName.indexOf((".aat"))));
+						fileNumber = Integer.parseInt(existingFileName.substring(baseName.length(), existingFileName.indexOf((fileExt))));
 					}
 					catch (Exception e) {
 						//no problem
@@ -208,10 +213,10 @@ public class TestDetailsPage extends WizardPage {
 			}
 		}
 		if (highestNumber < 1) {
-			return baseName + ".aat";
+			return baseName + fileExt;
 		}
 		else {
-			return baseName + (highestNumber + 1) + ".aat";			
+			return baseName + (highestNumber + 1) + fileExt;			
 		}
 	}
 
@@ -272,8 +277,8 @@ public class TestDetailsPage extends WizardPage {
 			return;
 		}
 		
-		if (!fileName.endsWith(".aat")) {
-			updateStatus("File extension must be \".aat\"", STATUS_ERROR);
+		if (!fileName.endsWith(fileExt)) {
+			updateStatus("File extension must be \"" + fileExt + "\"", STATUS_ERROR);
 			return;
 		}
 		
@@ -303,11 +308,11 @@ public class TestDetailsPage extends WizardPage {
 	public String getFileName() {
 		return filenameText.getText();
 	}
-	
+	@Override
 	public String getName() {
 		return testNameText.getText();
 	}
-	
+	@Override
 	public String getDescription() {
 		return descriptionText.getText();
 	}
