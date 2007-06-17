@@ -13,6 +13,7 @@ import java.util.List;
 import org.cubictest.common.exception.UnknownExtensionPointException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.IResultHolder;
+import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.export.utils.TestWalkerUtils;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
@@ -175,6 +176,12 @@ public class TreeTestWalker<T extends IResultHolder> {
 				try {
 					convertTransitionNode(resultHolder, subTestTest.getStartPoint(), targetExPoint);
 					resultHolder.updateStatus(((SubTest) node), false);
+				}
+				catch (TestFailedException e) {
+					resultHolder.updateStatus(((SubTest) node), false);
+					String msg = e.getMessage();
+					msg += ", in subtest \"" + ((SubTest) node).getFileName() + "\"";
+					throw new TestFailedException(msg);
 				}
 				catch (RuntimeException e) {
 					resultHolder.updateStatus(((SubTest) node), true);

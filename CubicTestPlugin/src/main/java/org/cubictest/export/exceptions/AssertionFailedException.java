@@ -3,19 +3,19 @@ package org.cubictest.export.exceptions;
 import org.cubictest.common.exception.CubicException;
 
 /**
- * Exception indicating that test has failed (had assertion errors).
+ * Exception indicating that an assertion has failed.
  * 
  * @author Christian Schwarz
  *
  */
-public class TestFailedException extends CubicException {
+public class AssertionFailedException extends CubicException {
 
 
-	public TestFailedException(String message) {
+	public AssertionFailedException(String message) {
 		super(message);
 	}
 
-	public TestFailedException(String message, Exception cause) {
+	public AssertionFailedException(String message, Exception cause) {
 		super(cause, message);
 	}
 

@@ -125,6 +125,19 @@ public class SubTest extends ConnectionPoint {
 					unknown++;
 			}
 		}
+		for (SubTest subTest : getTest(false).getSubTests()) {
+			elementCount++;
+			if (subTest.getStatus().equals(TestPartStatus.PASS))
+				passed++;
+			else if (subTest.getStatus().equals(TestPartStatus.FAIL))
+				failed++;
+			else if (subTest.getStatus().equals(TestPartStatus.EXCEPTION))
+				exception++;
+			else if (subTest.getStatus().equals(TestPartStatus.WARN))
+				warn++;
+			else if (subTest.getStatus().equals(TestPartStatus.UNKNOWN))
+				unknown++;
+		}
 		if (passed == elementCount)
 			setStatus(TestPartStatus.PASS);
 		else if (failed == elementCount)

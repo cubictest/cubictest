@@ -74,15 +74,12 @@ public class UserInfo {
 		e = ErrorHandler.getCause(e);
 		
 		try {
-			CubicTestPlugin plugin = CubicTestPlugin.getDefault();
-	
 			if (e == null) {
 				MessageDialog.openError(shell, UiText.APP_TITLE, userMessage);
 			}
 			else {
 				String extendedMsg = userMessage + ((e == null) ? "" : ": \n" + e.toString());
-				IStatus status = new Status(IStatus.ERROR, plugin.getId(), IStatus.OK, userMessage, e);
-				ErrorDialog.openError(shell, UiText.APP_TITLE, extendedMsg, status);
+				MessageDialog.openError(shell, UiText.APP_TITLE, extendedMsg);
 			}
 		}
 		catch (Throwable t) {
