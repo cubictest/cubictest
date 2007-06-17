@@ -58,7 +58,7 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 		}
 		
 		if( test == null ) {
-			ErrorHandler.showErrorDialog("Could not get test. Close editor and retry");
+			UserInfo.showErrorDialog("Could not get test. Close editor and retry");
 			return;
 		}
 		if (!ExportUtils.testIsOkForExport(test)) {

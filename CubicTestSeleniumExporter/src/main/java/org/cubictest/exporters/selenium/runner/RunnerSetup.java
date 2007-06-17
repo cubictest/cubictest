@@ -50,6 +50,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 	private Display display;
 	private Selenium selenium;
 	private ExtensionPoint targetExPoint;
+	private boolean failOnAssertionFailure;
 
 	
 	public RunnerSetup(Test test, ExtensionPoint targetExPoint, Display display) {
@@ -78,6 +79,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 			
 			//ser monitor used to detect user cancel request:
 			seleniumHolder.setMonitor(monitor);
+			seleniumHolder.setFailOnAssertionFailure(failOnAssertionFailure);
 			
 			while (!seleniumHolder.isSeleniumStarted()) {
 				//wait for selenium (server & test system) to start
@@ -168,6 +170,10 @@ public class RunnerSetup implements IRunnableWithProgress {
 
 	public void setSelenium(Selenium selenium) {
 		this.selenium = selenium;
+	}
+
+	public void setFailOnAssertionFailure(boolean failOnAssertionFailure) {
+		this.failOnAssertionFailure = failOnAssertionFailure;
 	}
 
 

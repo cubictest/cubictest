@@ -5,6 +5,7 @@
 package org.cubictest.exporters.selenium.ui;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.CubicTestExport;
 import org.cubictest.exporters.selenium.selenese.converters.ContextConverter;
 import org.cubictest.exporters.selenium.selenese.converters.CustomTestStepConverter;
@@ -40,7 +41,7 @@ public class ExportToSeleniumEditorAction implements IEditorActionDelegate {
 	 */
 	public void run(IAction action) {
 		if (selection == null) {
-			ErrorHandler.showErrorDialog("Could not export test (selection unavailable).");
+			UserInfo.showErrorDialog("Could not export test (selection unavailable).");
 		}
 		
 		try {
@@ -52,7 +53,7 @@ public class ExportToSeleniumEditorAction implements IEditorActionDelegate {
 					PageElementConverter.class, 
 					ContextConverter.class,
 					SeleneseDocument.class);
-			ErrorHandler.showInfoDialog(ExportToSeleniumAction.OK_MESSAGE);
+			UserInfo.showInfoDialog(ExportToSeleniumAction.OK_MESSAGE);
 		} 
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in Selenium export.");

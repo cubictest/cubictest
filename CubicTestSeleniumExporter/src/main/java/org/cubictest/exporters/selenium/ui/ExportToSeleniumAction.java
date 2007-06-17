@@ -5,6 +5,7 @@
 package org.cubictest.exporters.selenium.ui;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.CubicTestExport;
 import org.cubictest.exporters.selenium.selenese.converters.ContextConverter;
 import org.cubictest.exporters.selenium.selenese.converters.CustomTestStepConverter;
@@ -46,7 +47,7 @@ public class ExportToSeleniumAction implements IActionDelegate {
 					PageElementConverter.class, 
 					ContextConverter.class,
 					SeleneseDocument.class);
-			ErrorHandler.showInfoDialog(OK_MESSAGE);
+			UserInfo.showInfoDialog(OK_MESSAGE);
 		} 
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in CubicTest Selenium exporter.");

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.utils.ContextHolder;
 import org.cubictest.model.PageElement;
@@ -67,7 +68,7 @@ public class SeleniumHolder extends ContextHolder {
 			}
 		}
 		if (failOnAssertionFailure && result.equals(TestPartStatus.FAIL)) {
-			throw new ExporterException("Assertion failed");
+			throw new TestFailedException("Page element assertion failed: " + element.toString());
 		}
 		addResult(element, result);
 		
@@ -75,7 +76,7 @@ public class SeleniumHolder extends ContextHolder {
 	
 	public void addResult(final PageElement element, TestPartStatus result) {
 		if (failOnAssertionFailure && result.equals(TestPartStatus.FAIL)) {
-			throw new ExporterException("Assertion failed");
+			throw new TestFailedException("Page element assertion failed: " + element.toString());
 		}
 		handleUserCancel();
 		elementsAsserted.add(element);
@@ -153,8 +154,8 @@ public class SeleniumHolder extends ContextHolder {
 		return handledUrlStartPoint;
 	}
 
-	public void setFailOnAssertionFailure(boolean failOnAssertionFailuer) {
-		this.failOnAssertionFailure = failOnAssertionFailuer;
+	public void setFailOnAssertionFailure(boolean failOnAssertionFailure) {
+		this.failOnAssertionFailure = failOnAssertionFailure;
 	}
 
 }
