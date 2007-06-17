@@ -344,11 +344,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 				paramCombo.select(paramCombo.indexOf(identifier.getParamKey()));
 			paramCombo.addSelectionListener(paramComboListener);
 		}
-		thirdRow.setVisible(paramLabel.getVisible() || i18nLabel.getVisible());
-		getParent().pack();
-		getParent().update();
-		getParent().redraw();
-		
+		thirdRow.setVisible(paramLabel.getVisible() || i18nLabel.getVisible());		
 	}
 	
 	private void setProbability(int newProbability){
