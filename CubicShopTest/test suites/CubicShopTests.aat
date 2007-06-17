@@ -29,12 +29,13 @@
                         <height>95</height>
                       </dimension>
                       <name></name>
+                      <status>UNKNOWN</status>
                     </end>
                   </simpleTransition>
                 </outTransitions>
                 <id>subtest142978431182082259135</id>
                 <position>
-                  <x>97</x>
+                  <x>77</x>
                   <y>175</y>
                 </position>
                 <dimension>
@@ -42,6 +43,7 @@
                   <height>95</height>
                 </dimension>
                 <name></name>
+                <status reference="../outTransitions/simpleTransition/end/status"/>
               </end>
             </simpleTransition>
           </outTransitions>
@@ -55,6 +57,7 @@
             <height>95</height>
           </dimension>
           <name></name>
+          <status reference="../outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/status"/>
         </end>
       </simpleTransition>
     </outTransitions>
