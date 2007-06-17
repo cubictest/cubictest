@@ -66,7 +66,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 			setRunning(true);
 
 			if (test.getStartPoint().getOutTransitions().size() >= 1 && !firstPageIsEmpty(test)) {
-				ErrorHandler.showErrorDialog("The test must be empty to use the recorder.");
+				UserInfo.showErrorDialog("The test must be empty to use the recorder.");
 				return;
 			}
 
