@@ -4,6 +4,7 @@
 */
 package org.cubictest.exporters.selenium.runner.converters;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,6 +12,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
@@ -48,21 +50,12 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				Logger.warn("Action element was null. Skipping user interaction: " + action);
 				continue;
 			}
-			try {
-				String commandName = handleUserInteraction(seleniumHolder, action);
-				if (!commandName.equals(SeleniumUtils.FIREEVENT)) {
-					waitForPageToLoad = true;
-				}
-				seleniumHolder.addResult(null, TestPartStatus.PASS);
+			String commandName = handleUserInteraction(seleniumHolder, action);
+			if (!commandName.equals(SeleniumUtils.FIREEVENT)) {
+				waitForPageToLoad = true;
 			}
-			catch (SeleniumException e) {
-				seleniumHolder.addResult(null, TestPartStatus.PASS);
-				Logger.warn(e, "Test step failed");
-			}
-			catch (Exception e) {
-				seleniumHolder.addResult(null, TestPartStatus.PASS);
-				ErrorHandler.logAndRethrow(e, "Error invoking Selenium command.");
-			}
+			seleniumHolder.addResult(null, TestPartStatus.PASS);
+
 		}
 		if (waitForPageToLoad) {
 			waitForPageToLoad(seleniumHolder, 40);
@@ -76,7 +69,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			seleniumHolder.getSelenium().waitForPageToLoad(millis + "");
 		}
 		catch (SeleniumException e) {
-			Logger.error(e, "Error waiting for page to load");
+			ErrorHandler.logAndThrow("Error waiting for page to load");
 		}
 	}
 	
@@ -85,7 +78,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 	 * Converts a single user interaction to a Selenium command.
 	 * @return the Selenium command name invoked. 
 	 */
-	private String handleUserInteraction(SeleniumHolder seleniumHolder, UserInteraction userInteraction) throws Exception {
+	private String handleUserInteraction(SeleniumHolder seleniumHolder, UserInteraction userInteraction) {
 
 		IActionElement element = userInteraction.getElement();
 		ActionType actionType = userInteraction.getActionType();
@@ -113,19 +106,33 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			inputValue = SeleniumUtils.getValue(userInteraction, seleniumHolder);
 		}
 		
-		//invoke user interaction by reflection using command name from SeleniumUtil:
-		if (StringUtils.isBlank(inputValue)) {
-			
-			//one parameter only
-			Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class});
-			method.invoke(seleniumHolder.getSelenium(), new Object[] {locator});
+		try {
+			//invoke user interaction by reflection using command name from SeleniumUtil:
+			if (StringUtils.isBlank(inputValue)) {
+				
+				//one parameter only
+				Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class});
+				method.invoke(seleniumHolder.getSelenium(), new Object[] {locator});
+			}
+			else {
+				
+				//two parameters
+				Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class, String.class});
+				method.invoke(seleniumHolder.getSelenium(), new Object[] {locator, inputValue});
+			}
+			return commandName;
 		}
-		else {
-			
-			//two parameters
-			Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class, String.class});
-			method.invoke(seleniumHolder.getSelenium(), new Object[] {locator, inputValue});
+		catch (Exception e) {
+			Throwable ex = ErrorHandler.getCause(e);
+			if (ex instanceof SeleniumException) {
+				String msg = "Error invoking user interaction: " + userInteraction.toString() + ". Please verify identifiers and surrounding context.";
+				Logger.error(msg);
+				throw new TestFailedException(msg);
+			}
+			else {
+				ErrorHandler.logAndRethrow(ex);
+			}
+			return null;
 		}
-		return commandName;
 	}
 }

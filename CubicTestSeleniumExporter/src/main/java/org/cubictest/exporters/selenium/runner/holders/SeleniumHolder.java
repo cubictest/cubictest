@@ -7,14 +7,15 @@ package org.cubictest.exporters.selenium.runner.holders;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.utils.ContextHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UrlStartPoint;
+import org.cubictest.model.context.AbstractContext;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 
@@ -67,17 +68,24 @@ public class SeleniumHolder extends ContextHolder {
 				result = TestPartStatus.PASS;
 			}
 		}
-		if (failOnAssertionFailure && result.equals(TestPartStatus.FAIL)) {
-			throw new TestFailedException("Page element assertion failed: " + element.toString());
-		}
 		addResult(element, result);
+
+		if (result.equals(TestPartStatus.FAIL)) {
+			handleAssertionFailure(element);
+		}
 		
+	}
+
+	private void handleAssertionFailure(PageElement element) {
+		String childs = "";
+		if (element instanceof AbstractContext) {
+			AbstractContext context = (AbstractContext) element;
+			childs = "\n\nRequired child elements of context (all must be present):\n" + context.getElements().toString();
+		}
+		throw new AssertionFailedException("Page element assertion failed: " + element.toString() + childs);
 	}
 	
 	public void addResult(final PageElement element, TestPartStatus result) {
-		if (failOnAssertionFailure && result.equals(TestPartStatus.FAIL)) {
-			throw new TestFailedException("Page element assertion failed: " + element.toString());
-		}
 		handleUserCancel();
 		elementsAsserted.add(element);
 		results.add(result);
@@ -91,6 +99,9 @@ public class SeleniumHolder extends ContextHolder {
 						element.setStatus(finalResult);
 				}
 			});
+		}
+		if (result.equals(TestPartStatus.FAIL)) {
+			handleAssertionFailure(element);
 		}
 	}
 	
@@ -156,6 +167,10 @@ public class SeleniumHolder extends ContextHolder {
 
 	public void setFailOnAssertionFailure(boolean failOnAssertionFailure) {
 		this.failOnAssertionFailure = failOnAssertionFailure;
+	}
+
+	public boolean shouldFailOnAssertionFailure() {
+		return failOnAssertionFailure;
 	}
 
 }

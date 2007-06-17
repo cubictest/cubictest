@@ -14,6 +14,7 @@ import java.util.concurrent.TimeoutException;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.TreeTestWalker;
+import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
@@ -50,7 +51,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 	private Display display;
 	private Selenium selenium;
 	private ExtensionPoint targetExPoint;
-	private boolean failOnAssertionFailure;
+	private boolean failOnAssertionFailure = true;
 
 	
 	public RunnerSetup(Test test, ExtensionPoint targetExPoint, Display display) {
@@ -103,6 +104,9 @@ public class RunnerSetup implements IRunnableWithProgress {
 		}
 		catch (UserCancelledException e) {
 			//ok, user cancelled
+		}
+		catch (TestFailedException e) {
+			throw e;
 		}
 		catch (Exception e) {
 			ErrorHandler.logAndRethrow(e);
