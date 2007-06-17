@@ -54,7 +54,6 @@ public class MavenSeleniumRunner extends AbstractMojo
         	File file = (File) iter.next();
         	getLog().info("=========================================");
         	getLog().info("Converting: " + file);
-        	getLog().info("=========================================");
         	Test test = TestPersistance.loadFromFile(file, null);
         	getLog().info("Test loaded: " + test.getName());
 
@@ -66,7 +65,8 @@ public class MavenSeleniumRunner extends AbstractMojo
     			passedTests.add(file.getName());
     		}
     		catch (TestFailedException tfe) {
-    			getLog().warn(tfe);
+            	getLog().error("=========================================");
+    			getLog().error("Failure in test " + file.getName() + ": " + tfe.getMessage());
     			failedTests.add(file.getName());
     			buildOk = false;
     		}
