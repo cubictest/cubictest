@@ -75,6 +75,8 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 
 	private EditDomain editDomain;
 
+	private ParameterTableComposite parameterTableComposite;
+
 	public CustomStepEditor() {
 		super();
 		sections = new HashMap<String,CustomStepSection>();
@@ -209,6 +211,10 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 				commandStack.execute(command);
 			}			
 		});
+		
+		parameterTableComposite = new ParameterTableComposite(composite,SWT.NONE);
+		parameterTableComposite.setCustemTestStepParameters(customStep.getParameters());
+		parameterTableComposite.setCommandStack(commandStack);
 		
 		for(String key : sections.keySet()){
 			sections.get(key).createControl(composite);

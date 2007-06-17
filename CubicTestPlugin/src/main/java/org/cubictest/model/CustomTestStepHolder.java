@@ -4,11 +4,11 @@
  */
 package org.cubictest.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 import org.cubictest.model.customstep.CustomTestStep;
+import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.persistence.CustomTestStepPersistance;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -17,7 +17,8 @@ import org.eclipse.core.runtime.Path;
 public class CustomTestStepHolder extends ConnectionPoint {
 
 	private transient CustomTestStep customTestStep;
-	private HashMap<String, String> config = new HashMap<String, String>();
+	private Map<CustomTestStepParameter, String> config = 
+		new HashMap<CustomTestStepParameter, String>();
 	private String file;
 	private transient IProject project;
 	
@@ -25,8 +26,6 @@ public class CustomTestStepHolder extends ConnectionPoint {
 		super();
 		this.project = project;
 		this.file = file;
-		config.put("test", "bleh");
-		config.put("asdf", "qwer");
 	}
 	
 	public void setProject(IProject project) {
@@ -43,15 +42,8 @@ public class CustomTestStepHolder extends ConnectionPoint {
 		return customTestStep;
 	}
 
-	public HashMap<String,String> getConfig() {
+	public Map<CustomTestStepParameter,String> getConfig() {
 		return config;
-	}
-
-	public List<String> getArgumentNames() {
-		if(getCustomTestStep().getArgumentNames() != null) {
-			return customTestStep.getArgumentNames();
-		}
-		return new ArrayList<String>();
 	}
 
 	public String getFilePath() {

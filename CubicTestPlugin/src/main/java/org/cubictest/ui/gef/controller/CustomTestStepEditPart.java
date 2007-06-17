@@ -7,13 +7,9 @@
  */
 package org.cubictest.ui.gef.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.cubictest.common.resources.UiText;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
-import org.cubictest.model.SubTest;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
@@ -32,9 +28,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
-import org.eclipse.ui.views.properties.IPropertyDescriptor;
-import org.eclipse.ui.views.properties.IPropertySource;
-import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 
 /**
@@ -42,7 +35,7 @@ import org.eclipse.ui.views.properties.TextPropertyDescriptor;
  * Contoller for the <code>ExtensionPoint</code> model.
  *
  */
-public class CustomTestStepEditPart extends AbstractNodeEditPart implements IPropertySource {
+public class CustomTestStepEditPart extends AbstractNodeEditPart {
 
 	private AbstractTransitionNodeFigure customTestStepFigure;
 
@@ -68,12 +61,7 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements IPro
 		customTestStepFigure.setToolTipText("Custom test step: $labelText");
 		return customTestStepFigure;
 	}
-	
-	public void updateParams() {
-		refresh();
-		refreshVisuals();
-	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#createEditPolicies()
 	 */
@@ -123,45 +111,4 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements IPro
 		}
 		super.performRequest(request);
 	}
-
-	public Object getEditableValue() {
-		return ((CustomTestStepHolder) getModel()).getConfig();
-	}
-
-	public IPropertyDescriptor[] getPropertyDescriptors() {
-		List<IPropertyDescriptor> properties = new ArrayList<IPropertyDescriptor>();
-		
-		CustomTestStepHolder cts = (CustomTestStepHolder) getModel();
-		
-		for(String property : cts.getArgumentNames()) {
-			TextPropertyDescriptor pd = new TextPropertyDescriptor(property, property);
-			properties.add(pd);
-		}
-
-		IPropertyDescriptor[] ipdA = (IPropertyDescriptor[])properties.toArray( new IPropertyDescriptor[] {});
-
-		return ipdA;
-	}
-
-	public Object getPropertyValue(Object arg0) {
-		String property = (String) arg0;
-		CustomTestStepHolder cts = (CustomTestStepHolder) getModel();
-		if(cts.getConfig().get(property) != null) {
-			return cts.getConfig().get(property);
-		}
-		return "";
-	}
-
-	public boolean isPropertySet(Object property) {
-		return ((CustomTestStepHolder) getModel()).getConfig().get((String) property) != null;
-	}
-
-	public void resetPropertyValue(Object property) {
-		((CustomTestStepHolder) getModel()).getConfig().remove((String) property);
-	}
-
-	public void setPropertyValue(Object property, Object value) {
-		((CustomTestStepHolder) getModel()).getConfig().put((String) property, (String) value);
-	}
-
 }

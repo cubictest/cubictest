@@ -12,6 +12,7 @@ public class CustomTestStep {
 	private Map<String, CustomTestStepData> customSteps = new HashMap<String, CustomTestStepData>();
 	private String description;
 	private transient List<ICustomStepListener> listeners = new ArrayList<ICustomStepListener>();
+	private CustomTestStepParameterList parameters;
 	private static final String DESCRIPTION_CHANGED = "DescriptionChanged";
 	
 	public CustomTestStepData getData(String key) {
@@ -45,8 +46,9 @@ public class CustomTestStep {
 			listener.handleEvent(event);
 	}
 
-	public List<String> getArgumentNames() {
-		// TODO Auto-generated method stub
-		return null;
+	public CustomTestStepParameterList getParameters() {
+		if(parameters == null)
+			parameters = new CustomTestStepParameterList();
+		return parameters;
 	}
 }
