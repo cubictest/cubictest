@@ -1,5 +1,5 @@
 #Fat Jar Configuration File
-#Sun Jun 17 12:15:52 CEST 2007
+#Sun Jun 17 12:31:08 CEST 2007
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
@@ -10,5 +10,5 @@ manifest.mainclass=
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=
-excludes=<jar|runtime_registry_compatibility.jar>;<jar|org.eclipse.equinox.registry_3.2.1.R32x_v20060814.jar>;<jar|org.eclipse.core.contenttype_3.2.0.v20060603.jar>;<jar|org.eclipse.ui.ide_3.2.1.M20060915-1030.jar>;<jar|org.eclipse.gef_3.2.2.v20070208.jar>;<jar|org.eclipse.swt_3.2.2.v3236b.jar>;<jar|org.eclipse.ui.views.properties.tabbed_3.2.1.M20060830-0800.jar>;<jar|org.eclipse.ui.forms_3.2.0.v20060602.jar>;<jar|org.eclipse.ui.views_3.2.1.M20060906-0800.jar>;<jar|org.eclipse.ui_3.2.1.M20061108.jar>;<jar|org.eclipse.core.commands_3.2.0.I20060605-1400.jar>;<jar|org.eclipse.jdt.core_3.2.3.v_686_R32x.jar>;<jar|org.eclipse.ui.editors_3.2.1.r321_v20060721.jar>;<jar|org.eclipse.core.filebuffers_3.2.1.r321_v20060721.jar>;<jar|org.eclipse.ui.workbench.texteditor_3.2.0.v20060605-1400.jar>;<jar|org.eclipse.debug.core_3.2.1.v20060823.jar>;<jar|junit-4.1.jar>;<jar|org.eclipse.jdt.ui_3.2.2.r322_v20070124.jar>;<jar|org.eclipse.help_3.2.2.R322_v20061213.jar>;<jar|org.eclipse.ui.console_3.1.100.v20060605.jar>;<jar|org.eclipse.ui.intro_3.2.2.R322_v20061214.jar>;<jar|org.eclipse.jface.text_3.2.2.r322_v20070104.jar>;<jar|org.eclipse.text_3.2.0.v20060605-1400.jar>
+excludes=<jar|runtime_registry_compatibility.jar>;<jar|org.eclipse.equinox.registry_3.2.1.R32x_v20060814.jar>;<jar|org.eclipse.core.contenttype_3.2.0.v20060603.jar>;<jar|org.eclipse.ui.ide_3.2.1.M20060915-1030.jar>;<jar|org.eclipse.gef_3.2.2.v20070208.jar>;<jar|org.eclipse.swt_3.2.2.v3236b.jar>;<jar|org.eclipse.ui.views.properties.tabbed_3.2.1.M20060830-0800.jar>;<jar|org.eclipse.ui.forms_3.2.0.v20060602.jar>;<jar|org.eclipse.ui.views_3.2.1.M20060906-0800.jar>;<jar|org.eclipse.ui_3.2.1.M20061108.jar>;<jar|org.eclipse.core.commands_3.2.0.I20060605-1400.jar>;<jar|org.eclipse.ui.workbench_3.2.2.M20070119-0800.jar>;<jar|org.eclipse.jdt.core_3.2.3.v_686_R32x.jar>;<jar|org.eclipse.ui.editors_3.2.1.r321_v20060721.jar>;<jar|org.eclipse.core.filebuffers_3.2.1.r321_v20060721.jar>;<jar|org.eclipse.ui.workbench.texteditor_3.2.0.v20060605-1400.jar>;<jar|org.eclipse.debug.core_3.2.1.v20060823.jar>;<jar|junit-4.1.jar>;<jar|org.eclipse.jdt.ui_3.2.2.r322_v20070124.jar>;<jar|org.eclipse.help_3.2.2.R322_v20061213.jar>;<jar|org.eclipse.ui.console_3.1.100.v20060605.jar>;<jar|org.eclipse.ui.intro_3.2.2.R322_v20061214.jar>;<jar|org.eclipse.jface.text_3.2.2.r322_v20070104.jar>;<jar|org.eclipse.text_3.2.0.v20060605-1400.jar>
 includes=

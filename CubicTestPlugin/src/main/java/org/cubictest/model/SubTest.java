@@ -4,7 +4,6 @@
  */
 package org.cubictest.model;
 
-import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.eclipse.core.resources.IProject;
@@ -33,11 +32,6 @@ public class SubTest extends ConnectionPoint {
 	 */
 	public Test getTest(boolean forceRefreshFile) {
 		if(test == null || forceRefreshFile) {
-			if (project == null) {
-				//try to get it from the customElementLoader 
-				//project = customTestStepLoader.getProject();
-				ErrorHandler.logAndShowErrorDialog("Error loading subtest");
-			}
 			test = TestPersistance.loadFromFile(project, getFilePath());
 			test.setResourceMonitor(resourceMonitor);
 			test.resetStatus();

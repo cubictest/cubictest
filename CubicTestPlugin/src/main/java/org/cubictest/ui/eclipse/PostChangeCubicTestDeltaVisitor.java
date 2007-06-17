@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.CubicTestPlugin;
-import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
@@ -89,7 +89,7 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 			//close the editors:
 			if (toClose.size() > 0) {
 				if (!operation.equals(DELETE)) {
-					ErrorHandler.showInfoDialog("Closing editor due to " + operation + ": " + names);
+					UserInfo.showInfoDialog("Closing editor due to " + operation + ": " + names);
 				}
 				pages[i].closeEditors(toCloseArray, save);
 			}

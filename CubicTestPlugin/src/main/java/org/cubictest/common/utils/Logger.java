@@ -4,84 +4,56 @@
  */
 package org.cubictest.common.utils;
 
-import org.apache.commons.lang.StringUtils;
-import org.cubictest.CubicTestPlugin;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-
 /**
- * Cubic Test logger that logs to the Eclipse log system (if available) or to System.out.
+ * Cubic Test logger that logs to the available log system 
+ * (Eclipse log system if running in eclipse, otherwise Commons Logging). 
  * 
- * @author chr_schwarz
+ * @author Christian Schwarz
  */
 public class Logger {
 
 	public static void error(String message) {
-		log(IStatus.ERROR, null, message);
+		if (EnvironmentInfo.isRunningInEclipse())
+			EclipseLogger.error(message);
+		else
+			CommonsLoggingLogger.error(message);
+			
 	}
 	
 	public static void error(Throwable e) {
-		log(IStatus.ERROR, e, e.toString());
+		if (EnvironmentInfo.isRunningInEclipse())
+			EclipseLogger.error(e);
+		else
+			CommonsLoggingLogger.error(e);
 	}
 
 	public static void error(Throwable e, String message) {
-		log(IStatus.ERROR, e, message);
+		if (EnvironmentInfo.isRunningInEclipse())
+			EclipseLogger.error(e, message);
+		else
+			CommonsLoggingLogger.error(e, message);
 	}
 	
 	
 	public static void warn(String message) {
-		log(IStatus.WARNING, null, message);
+		if (EnvironmentInfo.isRunningInEclipse())
+			EclipseLogger.warn(message);
+		else
+			CommonsLoggingLogger.warn(message);
 	}
 
 	public static void warn(Throwable e, String message) {
-		log(IStatus.WARNING, e, message);
+		if (EnvironmentInfo.isRunningInEclipse())
+			EclipseLogger.warn(e, message);
+		else
+			CommonsLoggingLogger.warn(e, message);
 	}
 	
 	public static void info(String message) {
-		log(IStatus.INFO, null, message);
-	}
-	
-	
-	
-	/**
-	 * Internal method to log to the Eclipse log system (if available) and to System.out.
-	 * 
-	 * @param severity the severity; one of <code>IStatus.OK</code>, <code>IStatus.ERROR</code>, 
-	 * <code>IStatus.INFO</code>, <code>IStatus.WARNING</code>,  or <code>IStatus.CANCEL</code>
-	 * @param e the throwable to log
-	 * @param message the message (humanly readable)
-	 */
-	private static void log(int severity, Throwable e, String message) {
-		if (StringUtils.isBlank(message)) {
-			message = "An error has occurred";
-		}
-		
-		//Log to System.out:
-		System.out.println(getLogLevel(severity) + ": " + message + ((e == null) ? "" : (", " + e)));
-
-		if (e != null) {
-			e.printStackTrace();
-			e = ErrorHandler.getCause(e);
-		}
-		CubicTestPlugin plugin = CubicTestPlugin.getDefault();
-		if (plugin != null) {
-			//Log to Eclipse:
-			IStatus status = new Status(severity, plugin.getId(), IStatus.OK, message, e);
-			plugin.getLog().log(status);
-		}
+		if (EnvironmentInfo.isRunningInEclipse())
+			EclipseLogger.info(message);
+		else
+			CommonsLoggingLogger.info(message);
 	}
 
-	
-	private static String getLogLevel(int severity) {
-		if (severity == IStatus.ERROR)
-			return "Error";
-		
-		if (severity == IStatus.WARNING)
-			return "Warn";
-
-		if (severity == IStatus.INFO)
-			return "Info";
-		
-		return "Unknown log level";
-	}
 }

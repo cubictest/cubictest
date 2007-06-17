@@ -4,7 +4,7 @@
  */
 package org.cubictest.ui.utils;
 
-import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.Common;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.IStartPoint;
@@ -55,7 +55,7 @@ public class ModelUtil {
 
 		if (sourceNode instanceof IStartPoint && (isReconnectingSourceNode || isNewTransition)) {
 			if (sourceNode.getOutTransitions().size() >= 1) { 
-				ErrorHandler.showInfoDialog("Only one out-transition is allowed from startpoints.\n" +
+				UserInfo.showInfoDialog("Only one out-transition is allowed from startpoints.\n" +
 				"Hint: Create a new test or a tree after the first page/state.");
 				return TRANSITION_EDIT_NOT_VALID;
 			}
@@ -64,7 +64,7 @@ public class ModelUtil {
 		if (isReconnectingSourceNode) {
 			if (sourceNode.hasInTransition() && sourceNode.getInTransition().getStart().equals(targetNode)) {
 				//cycle between source and target
-				ErrorHandler.showInfoDialog("Cycles are not allowed.\n" +
+				UserInfo.showInfoDialog("Cycles are not allowed.\n" +
 						"Hint: Create a new page/state instead.");
 				return TRANSITION_EDIT_NOT_VALID;
 			}
@@ -74,7 +74,7 @@ public class ModelUtil {
 			
 			if (sourceNode.hasInTransition() && sourceNode.getInTransition().getStart().equals(targetNode))  {
 				//cycle between source and target
-				ErrorHandler.showInfoDialog("Cycles are not allowed.\n" +
+				UserInfo.showInfoDialog("Cycles are not allowed.\n" +
 						"Hint: Create a new page/state instead.");
 				return TRANSITION_EDIT_NOT_VALID;
 			}
@@ -87,7 +87,7 @@ public class ModelUtil {
 				}
 				else {
 					//multiple in-transitions not allowed, unless from Common
-					ErrorHandler.showInfoDialog("Multiple in-connections to a page are not allowed, unless from a Common.\n" +
+					UserInfo.showInfoDialog("Multiple in-connections to a page are not allowed, unless from a Common.\n" +
 							"Hint: Create a new page/state instead.");
 					return TRANSITION_EDIT_NOT_VALID;
 				}

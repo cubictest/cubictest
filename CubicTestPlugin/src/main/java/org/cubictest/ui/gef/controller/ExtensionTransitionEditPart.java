@@ -12,6 +12,7 @@ import java.beans.PropertyChangeEvent;
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.TestNotFoundException;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.SubTest;
@@ -75,7 +76,7 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 			
 			if (getModel().getStart() instanceof ExtensionStartPoint) {
 				ExtensionStartPoint start = (ExtensionStartPoint) getModel().getStart();
-				ErrorHandler.showWarnDialog("The extension point \"" + start.getSourceExtensionPointName() + "\" used as start point " +
+				UserInfo.showWarnDialog("The extension point \"" + start.getSourceExtensionPointName() + "\" used as start point " +
 						"was not found in file \"" + start.getFileName() + "\"\n\n" +
 						"Press OK to select a new extension point to use as start point in the test.");
 				UpdateStartPointWizard wiz = launchNewTestWizard(start.getTest(true));
@@ -90,7 +91,7 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 			else {
 				//SubTest
 				SubTest start = (SubTest) getModel().getStart();
-				ErrorHandler.showWarnDialog("The extension point that was used in subtest \"" + start.getName() +  
+				UserInfo.showWarnDialog("The extension point that was used in subtest \"" + start.getName() +  
 						"\" was not found in that subtest.\n" +
 						"Press OK to select a new extension point to continue from.");
 				

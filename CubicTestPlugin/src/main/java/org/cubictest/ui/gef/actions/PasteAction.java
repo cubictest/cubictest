@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -195,7 +196,7 @@ public class PasteAction extends SelectionAction {
 									}
 								}
 								if (!elementFound) {
-									ErrorHandler.showErrorDialog("Unable to copy User Interactions from page \"" + sourceClone.getName() +
+									UserInfo.showErrorDialog("Unable to copy User Interactions from page \"" + sourceClone.getName() +
 											"\". Check that it does not have user interaction elements from a Common.\n\n" +
 											"Paste operation cancelled.");
 									return;
