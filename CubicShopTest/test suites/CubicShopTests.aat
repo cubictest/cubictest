@@ -1,0 +1,85 @@
+<test>
+  <startPoint class="testSuiteStartPoint">
+    <outTransitions>
+      <simpleTransition>
+        <start class="testSuiteStartPoint" reference="../../.."/>
+        <end class="subTest">
+          <filePath>tests/search.aat</filePath>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <simpleTransition>
+              <start class="subTest" reference="../../.."/>
+              <end class="subTest">
+                <filePath>tests/feedback.aat</filePath>
+                <inTransition class="simpleTransition" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="subTest" reference="../../.."/>
+                    <end class="subTest">
+                      <filePath>tests/purchase cube.aat</filePath>
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>subtest210530181182082269870</id>
+                      <position>
+                        <x>78</x>
+                        <y>250</y>
+                      </position>
+                      <dimension>
+                        <width>150</width>
+                        <height>95</height>
+                      </dimension>
+                      <name></name>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>subtest142978431182082259135</id>
+                <position>
+                  <x>97</x>
+                  <y>175</y>
+                </position>
+                <dimension>
+                  <width>150</width>
+                  <height>95</height>
+                </dimension>
+                <name></name>
+              </end>
+            </simpleTransition>
+          </outTransitions>
+          <id>subtest240072291182082253136</id>
+          <position>
+            <x>116</x>
+            <y>100</y>
+          </position>
+          <dimension>
+            <width>150</width>
+            <height>95</height>
+          </dimension>
+          <name></name>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>testsuitestartpoint63343321182082249651</id>
+    <position>
+      <x>4</x>
+      <y>4</y>
+    </position>
+    <name>Test Suite start point</name>
+  </startPoint>
+  <extensionPoints/>
+  <pages/>
+  <subTests>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+  </subTests>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <name>CubicShopTests</name>
+  <description></description>
+  <id>test1182082249651</id>
+  <modelVersion>8</modelVersion>
+</test>
