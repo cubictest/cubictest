@@ -235,7 +235,7 @@ public class SeleniumUtils {
 		if (pe instanceof Option)
 			return "option";
 		if (pe instanceof Button)
-			return "input[@type=\"button\" or @type=\"submit\"]";
+			return "input[@type=\"button\" or @type=\"submit\" or @type=\"image\"]";
 		if (pe instanceof TextField)
 			return "input[@type=\"text\"]";
 		if (pe instanceof Password)
