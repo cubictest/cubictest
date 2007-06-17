@@ -52,7 +52,6 @@ public class MavenSeleniumRunner extends AbstractMojo
         
         while (iter.hasNext()) {
         	File file = (File) iter.next();
-        	getLog().info("=========================================");
         	getLog().info("Converting: " + file);
         	Test test = TestPersistance.loadFromFile(file, null);
         	getLog().info("Test loaded: " + test.getName());
@@ -65,15 +64,18 @@ public class MavenSeleniumRunner extends AbstractMojo
     			passedTests.add(file.getName());
     		}
     		catch (TestFailedException tfe) {
-            	getLog().error("=========================================");
+            	getLog().error("==========================================================");
     			getLog().error("Failure in test " + file.getName() + ": " + tfe.getMessage());
+            	getLog().error("==========================================================");
     			failedTests.add(file.getName());
     			buildOk = false;
+    			break;
     		}
     		catch (Throwable e) {
     			getLog().error(e);
     			exceptionTests.add(file.getName());
     			buildOk = false;
+    			break;
 			}
     		finally {
 				((RunnerSetup) testRunner).stopSelenium();
@@ -85,7 +87,7 @@ public class MavenSeleniumRunner extends AbstractMojo
         getLog().info("Threw exception: " + exceptionTests.toString());
 
         if (!buildOk) {
-        	throw new MojoFailureException("There were test failures.");
+        	throw new MojoFailureException("[CubicTest] There were test failures.");
         }
 }
  
