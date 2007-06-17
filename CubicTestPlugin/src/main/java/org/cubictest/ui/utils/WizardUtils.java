@@ -7,9 +7,15 @@
  */
 package org.cubictest.ui.utils;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -19,7 +25,6 @@ import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
-import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.core.resources.IFile;
@@ -147,5 +152,15 @@ public class WizardUtils {
 		List<AbstractPage> pages = new ArrayList<AbstractPage>();
 		pages.add(page);
 		test.setPages(pages);
+	}
+	
+	
+	public static void copyPom(File destinationFolder) throws IOException {
+		String fileName = "pom.xml";
+		File destFile = new File(destinationFolder.getAbsolutePath() + "/" + fileName);
+		InputStream in = WizardUtils.class.getResourceAsStream(fileName);
+		OutputStream out = FileUtils.openOutputStream(destFile);
+		IOUtils.copy(in, out);
+		IOUtils.closeQuietly(out);
 	}
 }

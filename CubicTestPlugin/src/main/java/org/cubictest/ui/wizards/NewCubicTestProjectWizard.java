@@ -7,6 +7,7 @@ package org.cubictest.ui.wizards;
 import java.lang.reflect.InvocationTargetException;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -107,7 +108,9 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			
 			IFolder libFolder = project.getFolder("lib");
 			libFolder.create(false, true, monitor);
-						
+			
+			WizardUtils.copyPom(project.getLocation().toFile());
+			
 			javaProject.setOutputLocation(binFolder.getFullPath(), monitor);
 			IClasspathEntry[] classpath;
 			classpath = new IClasspathEntry[] {
@@ -132,7 +135,7 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			
 			project.refreshLocal(IResource.DEPTH_INFINITE, null);
 			
-		} catch (CoreException e) {
+		} catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 	}
