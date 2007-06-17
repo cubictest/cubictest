@@ -1,7 +1,7 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.cubictest</groupId>
-  <artifactId>CubicShopTest</artifactId>
+  <artifactId>CubicTest</artifactId>
   <version>1</version>
   
   <build>
@@ -9,6 +9,7 @@
       <plugin>
         <groupId>org.cubictest</groupId>
         <artifactId>MavenSeleniumRunner</artifactId>
+		<version>1.0-SNAPSHOT</version>
         <executions>
           <execution>
             <phase>test</phase>
@@ -24,6 +25,12 @@
     </plugins>
   </build>
   
+  <pluginRepositories>
+    <pluginRepository>
+      <id>CubicTest</id>
+      <url>http://boss.bekk.no/cubictest/m2repo/</url>
+    </pluginRepository>
+  </pluginRepositories>
   
   <dependencies>
     <dependency>
