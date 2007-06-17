@@ -5,6 +5,7 @@
 package org.cubictest.exporters.watir.ui;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.CubicTestExport;
 import org.cubictest.exporters.watir.converters.ContextConverter;
 import org.cubictest.exporters.watir.converters.CustomTestStepConverter;
@@ -44,7 +45,7 @@ public class ExportToWatirAction implements IActionDelegate {
 					PageElementConverter.class, 
 					ContextConverter.class,
 					StepList.class);
-			ErrorHandler.showInfoDialog(OK_MESSAGE);
+			UserInfo.showInfoDialog(OK_MESSAGE);
 		} 
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in CubicTest Watir exporter.");
