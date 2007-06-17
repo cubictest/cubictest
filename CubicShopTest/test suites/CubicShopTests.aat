@@ -10,18 +10,18 @@
             <simpleTransition>
               <start class="subTest" reference="../../.."/>
               <end class="subTest">
-                <filePath>tests/feedback.aat</filePath>
+                <filePath>tests/purchase cube.aat</filePath>
                 <inTransition class="simpleTransition" reference="../.."/>
                 <outTransitions>
                   <simpleTransition>
                     <start class="subTest" reference="../../.."/>
                     <end class="subTest">
-                      <filePath>tests/purchase cube.aat</filePath>
+                      <filePath>tests/feedback.aat</filePath>
                       <inTransition class="simpleTransition" reference="../.."/>
                       <outTransitions/>
-                      <id>subtest210530181182082269870</id>
+                      <id>subtest142978431182082259135</id>
                       <position>
-                        <x>78</x>
+                        <x>77</x>
                         <y>250</y>
                       </position>
                       <dimension>
@@ -33,9 +33,9 @@
                     </end>
                   </simpleTransition>
                 </outTransitions>
-                <id>subtest142978431182082259135</id>
+                <id>subtest210530181182082269870</id>
                 <position>
-                  <x>77</x>
+                  <x>78</x>
                   <y>175</y>
                 </position>
                 <dimension>
@@ -72,8 +72,8 @@
   <pages/>
   <subTests>
     <subTest reference="../../startPoint/outTransitions/simpleTransition/end"/>
-    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
     <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
   </subTests>
   <transitions>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>

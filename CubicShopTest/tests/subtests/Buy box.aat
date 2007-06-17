@@ -134,13 +134,13 @@
                     <inTransition class="extensionTransition">
                       <id>page124927371177885602720</id>
                       <start class="subTest">
-                        <filePath>/tests/log_in.aat</filePath>
+                        <filePath>tests/log_in.aat</filePath>
                         <inTransition class="extensionTransition">
                           <id>page129011931162367112723</id>
                           <start class="extensionStartPoint">
                             <sourceExtensionPointPageId>page313031181162367078413</sourceExtensionPointPageId>
                             <sourceExtensionPointName>Webshop Extension Point</sourceExtensionPointName>
-                            <filePath>/tests/frontpage.aat</filePath>
+                            <filePath>tests/frontpage.aat</filePath>
                             <outTransitions>
                               <extensionTransition reference="../../.."/>
                             </outTransitions>
@@ -239,21 +239,6 @@
                     <not>false</not>
                     <status reference="../../../../../../elements/link/status"/>
                   </button>
-                  <text>
-                    <identifiers>
-                      <identifier>
-                        <value>Buy this item</value>
-                        <probability>100</probability>
-                        <type reference="../../../../../../../../elements/link/identifiers/identifier/type"/>
-                        <paramKey></paramKey>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                      </identifier>
-                    </identifiers>
-                    <directEditIdentifier reference="../identifiers/identifier"/>
-                    <not>true</not>
-                    <status reference="../../../../../../elements/link/status"/>
-                  </text>
                 </elements>
                 <name>3D Shooter Box</name>
                 <inTransition class="userInteractionsTransition" reference="../.."/>
@@ -327,7 +312,7 @@
                 </position>
                 <dimension>
                   <width>115</width>
-                  <height>67</height>
+                  <height>46</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
               </end>
@@ -368,8 +353,12 @@
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition"/>
   </transitions>
   <customTestSteps/>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
   <name>Buy box</name>
   <description></description>
   <id>test1179663601530</id>
-  <modelVersion>7</modelVersion>
+  <modelVersion>8</modelVersion>
 </test>
