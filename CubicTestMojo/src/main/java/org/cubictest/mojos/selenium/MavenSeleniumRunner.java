@@ -1,28 +1,23 @@
+/*
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ */
 package org.cubictest.mojos.selenium;
 
-/*
- * Copyright 2001-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+
+import junit.framework.TestFailure;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.exporters.selenium.runner.RunnerSetup;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
@@ -44,26 +39,54 @@ public class MavenSeleniumRunner extends AbstractMojo
     private File testDir;
 
     public void execute()
-        throws MojoExecutionException
+        throws MojoExecutionException, MojoFailureException
     {
+    	
         Collection files = FileUtils.listFiles(testDir, new String[] {"aat"}, true);
         Iterator iter = files.iterator();
-
+        List<String> passedTests = new ArrayList<String>();
+        List<String> failedTests = new ArrayList<String>();
+        List<String> exceptionTests = new ArrayList<String>();
+        
+        boolean buildOk = true;
+        
         while (iter.hasNext()) {
         	File file = (File) iter.next();
+        	getLog().info("=========================================");
         	getLog().info("Converting: " + file);
+        	getLog().info("=========================================");
         	Test test = TestPersistance.loadFromFile(file, null);
         	getLog().info("Test loaded: " + test.getName());
 
     		RunnerSetup testRunner = null;
     		try {
     			testRunner = new RunnerSetup(test, null);
+    			testRunner.setFailOnAssertionFailure(true);
     			testRunner.run(null);
+    			passedTests.add(file.getName());
     		}
+    		catch (TestFailedException tfe) {
+    			getLog().warn(tfe);
+    			failedTests.add(file.getName());
+    			buildOk = false;
+    		}
+    		catch (Throwable e) {
+    			getLog().error(e);
+    			exceptionTests.add(file.getName());
+    			buildOk = false;
+			}
     		finally {
 				((RunnerSetup) testRunner).stopSelenium();
     		}
         }
-    }
+        
+        getLog().info("Tests passed: " + passedTests.toString());
+        getLog().info("Tests failed: " + failedTests.toString());
+        getLog().info("Threw exception: " + exceptionTests.toString());
+
+        if (!buildOk) {
+        	throw new MojoFailureException("There were test failures.");
+        }
+}
  
 }
