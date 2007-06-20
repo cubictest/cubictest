@@ -9,8 +9,6 @@ public class CustomTestStepParameterList {
 	public static final String ADD = "ADD";
 	public static final String NEW = "NEW";
 	public static final String DELETE = "DELETE";
-	
-
 	private List<CustomTestStepParameter> parameters = new ArrayList<CustomTestStepParameter>();
 
 	private transient PropertyChangeSupport propertyChangeListeners = new PropertyChangeSupport(this);

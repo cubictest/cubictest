@@ -165,7 +165,7 @@
          <propertyTab
                category="CubicTest"
                id="org.cubictest.tab.customTestStepInput"
-               label="Input"/>
+               label="Custom Test Step Input"/>
          <propertyTab
                afterTab="org.cubictest.tab.sation"
                category="CubicTest"
@@ -220,7 +220,7 @@
             <input type="org.cubictest.model.Test"/>
          </propertySection>
          <propertySection
-               class="org.cubictest.ui.sections.CustomTestStepInput"
+               class="org.cubictest.ui.sections.CustomTestStepInputSection"
                id="org.cubictest.test.customTestStepInput"
                tab="org.cubictest.tab.customTestStepInput">
             <input type="org.cubictest.model.CustomTestStepHolder"/>

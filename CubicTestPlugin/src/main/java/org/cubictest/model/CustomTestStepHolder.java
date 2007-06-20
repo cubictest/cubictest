@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.CustomTestStepParameter;
+import org.cubictest.model.customstep.CustomTestStepValue;
 import org.cubictest.persistence.CustomTestStepPersistance;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -21,6 +22,7 @@ public class CustomTestStepHolder extends ConnectionPoint {
 		new HashMap<CustomTestStepParameter, String>();
 	private String file;
 	private transient IProject project;
+	private HashMap<CustomTestStepParameter, CustomTestStepValue> values;
 	
 	public CustomTestStepHolder(String file, IProject project) {
 		super();
@@ -36,7 +38,7 @@ public class CustomTestStepHolder extends ConnectionPoint {
 		return file;
 	}
 	
-	private CustomTestStep getCustomTestStep() {
+	public CustomTestStep getCustomTestStep() {
 		if(customTestStep == null)
 			customTestStep = CustomTestStepPersistance.loadFromFile(getFile());
 		return customTestStep;
@@ -56,5 +58,16 @@ public class CustomTestStepHolder extends ConnectionPoint {
 
 	public IFile getFile() {
 		return project.getFile(new Path(file));
+	}
+	
+	public CustomTestStepValue getValue(CustomTestStepParameter parameter){
+		if(values == null)
+			values = new HashMap<CustomTestStepParameter,CustomTestStepValue>();
+		CustomTestStepValue value = values.get(parameter);
+		if(value == null){
+			value = new CustomTestStepValue(parameter);
+			values.put(parameter, value);
+		}
+		return value;
 	}
 }
