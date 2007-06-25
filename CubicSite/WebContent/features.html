@@ -21,31 +21,34 @@
 	</div>
 	<div id="sponsors">
 		<img id="bekkLogo" class="logo" src="images/bekkLogo.png"/>
-		<img id="steriaLogo" class="logo" src="images/steriaLogo.jpg"/>
 		<img id="ntnuLogo" class="logo" src="images/ntnuLogo.gif"/>
 		<img id="osiLogo" class="logo" src="images/osiLogo.jpg"/>
 	</div>
 	<div id="body">
 		<h1>Features</h1>
 
-		<strong>CubicTest</strong>
-		<ul style="margin-top: 3px;">
-			<li>lets users model tests instead of writing test scripts</li>
-			<li>supports test driven development of web applications as well as testing of existing web applications</li>
-			<li>supports AJAX applications</li>
-			<li>exports to executable Selenium and Watir tests</li>
-			<li>creates a HTML mock-up of the modeled web site</li>
-			<li>supports abstractions and creating a domain language</li>
-			<li>make tests for web applications easier to design, understand and run for nontechnical as well as technical users</li>
+		<h2>CubicTest</h2>
+		<ul style="margin-top: 0px;">
+			<li>is an open source Eclipse plugin
+			<li>uses a graphical user interface to let users model tests instead of writing test scripts
+			<li>focuses on both testing existing applications and test driven development of web applications
+			<li>make tests easier to design, understand and run for nontechnical as well as technical users
+			<li>exports to executable Selenium and Watir tests</li> 
 		</ul>
-
-
-		<strong>Tests in CubicTest can replace</strong>
-		<ul style="margin-top: 3px;">
-			<li>A custom HTML prototype</li>
-			<li>A detailed requirements specification</li>
-			<li>Manual test scripts</li>
-			<li>Bug tracker database</li>
+		
+		<h2>Unique features in CubicTest</h2> 
+		<ul style="margin-top: 0px;">
+			<li>Tests can be run directly in the Eclipse GUI for fast feedback
+			<li>Visual test composition and test orchestration to make it easier to read and write larger test sets. Sub-tests can be used to create a domain language in the test
+			<li>A way to intuitively and robustly identify elements on a web page by looking at neighbouring or surrounding elements ("contexts")
+			<li>Exporter architechture for easy additions of exporters/runners of the test model
+			<li>A recorder for recording tests from existing web applications (based on Selenium RC)
+			<li>A sample exporter for creating a mock-up (HTML skeleton) of the modeled web application based on the tests, with e.g. forms and site navigation present
+		</ul>
+			
+		<h2>Automated running of tests with Maven 2</h2>
+		<ul style="margin-top: 0px;">
+			<li>CubicTest tests can be run standalone by a Maven 2 build without starting or depending on Eclipse.
 		</ul>
 
 	</div>
