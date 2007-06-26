@@ -21,7 +21,7 @@ public class ExporterSetup {
 	/**
 	 * Provides a runnable directory walker for HTML skeleton export.
 	 * Sets up the HTML skeleton implementation of the relavant interfaces.
-	 * @param res The resource that contains the tests. Either a .aat file or a directory.
+	 * @param res The resource that contains the tests. Either a test file or a directory.
 	 */
 	public static IRunnableWithProgress getRunnableExporter(IResource res) {	
 		//The walker takes them all as input:
