@@ -12,9 +12,11 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.exceptions.TestFailedException;
+import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
@@ -55,12 +57,16 @@ public class RunnerSetup implements IRunnableWithProgress {
 
 	
 	public RunnerSetup(Test test, ExtensionPoint targetExPoint, Display display) {
+		readProperties();
 		this.test = test;
 		this.targetExPoint = targetExPoint;
 		this.display = display;
 	}
 
+
+
 	public RunnerSetup(Test test, Selenium selenium) {
+		readProperties();
 		this.test = test;
 		this.selenium = selenium;
 	}
@@ -180,5 +186,10 @@ public class RunnerSetup implements IRunnableWithProgress {
 		this.failOnAssertionFailure = failOnAssertionFailure;
 	}
 
-
+	private void readProperties() {
+		Boolean inject = CubicTestProjectSettings.getBoolean(SeleniumExporterPlugin.getId(), "seleniumProxyInjectionMode");
+		if (inject == true) {
+			System.out.println("Should inject script");
+		}
+	}
 }

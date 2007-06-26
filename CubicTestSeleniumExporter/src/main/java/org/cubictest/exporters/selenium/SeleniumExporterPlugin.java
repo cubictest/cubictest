@@ -14,4 +14,8 @@ public class SeleniumExporterPlugin extends AbstractUIPlugin {
 		return plugin;
 	}
 	
+	public static String getId() {
+		return "org.cubictest.exporters.CubicTestSeleniumExporter";
+	}
+	
 }
