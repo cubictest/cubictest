@@ -8,6 +8,7 @@
 package org.cubictest.ui.gef.interfaces.exported;
 
 import org.cubictest.model.Test;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.gef.commands.CommandStack;
 
 /**
@@ -28,5 +29,7 @@ public interface ITestEditor {
 	public void addDisposeListener(IDisposeListener listener);
 	
 	public CommandStack getCommandStack();
+	
+	public IProject getProject();
 	
 }

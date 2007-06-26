@@ -39,6 +39,7 @@ import org.cubictest.ui.gef.interfaces.IDisposeSubject;
 import org.cubictest.ui.gef.interfaces.exported.IDisposeListener;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.view.AddElementContextMenuList;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -304,7 +305,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	
 	public IResourceMonitor getResourceMonitor() {
 		if(resourceMonitor == null) {
-			resourceMonitor = new ResourceMonitor(((IFileEditorInput)getEditorInput()).getFile().getProject());
+			resourceMonitor = new ResourceMonitor(getProject());
 		}
 		return resourceMonitor;
 	}
@@ -539,9 +540,13 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 	
 	protected PaletteRoot getPaletteRoot() {
 		if (paletteRoot == null){
-			paletteRoot = new PaletteRootCreator(((IFileEditorInput)getEditorInput()).getFile().getProject());
+			paletteRoot = new PaletteRootCreator(getProject());
 		}
 		return paletteRoot;
+	}
+
+	public IProject getProject() {
+		return ((IFileEditorInput)getEditorInput()).getFile().getProject();
 	}
 	
 	/**

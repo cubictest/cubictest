@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
@@ -22,12 +23,15 @@ import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
 import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.ui.IEditorPart;
 
 
 /**
@@ -305,5 +309,14 @@ public class ViewUtil {
 			}
 		}
 		return false;
+	}
+	
+	public static IProject getProjectFromActivePage() {
+		IProject project = null;
+		IEditorPart editorPart = CubicTestPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		if (editorPart != null && editorPart instanceof ITestEditor) {
+			project = ((ITestEditor) editorPart).getProject();
+		}
+		return project;
 	}
 }
