@@ -1,6 +1,7 @@
 package org.cubictest.ui.gef.dnd;
 
 import org.cubictest.ui.gef.factory.FileFactory;
+import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
@@ -42,7 +43,7 @@ public class FileTransferDropTargetListener extends
 	@Override
 	protected void handleDrop() {
 		String filePath = ((String[]) getCurrentEvent().data)[0];
-		if (filePath.endsWith(".aat") || filePath.endsWith(".custom")) { 
+		if (ModelUtil.isTestFile(filePath) || filePath.endsWith(".custom")) { 
 			IFile iFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(filePath));
 			factory.setFile(iFile);
 			super.handleDrop();

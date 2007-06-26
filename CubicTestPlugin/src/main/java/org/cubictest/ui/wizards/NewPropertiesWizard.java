@@ -25,6 +25,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 public class NewPropertiesWizard extends Wizard implements INewWizard {
 
 	private WizardNewPropertiesCreationPage namePage;
+	private String defaultDestFolder;
 	
 	@Override
 	public boolean performFinish() {	
@@ -68,12 +69,19 @@ public class NewPropertiesWizard extends Wizard implements INewWizard {
 	public void addPages() {
 		super.addPages();
 		namePage = new WizardNewPropertiesCreationPage("newCubicTestPropertiesNamepage");
-		namePage.setTitle("New CubicTest properties");
-		namePage.setDescription("Choose name of propterties");
+		namePage.setTitle("New CubicTest internationalization file");
+		namePage.setDescription("Choose name and location of internationalization file");
+		namePage.setContainerName(defaultDestFolder);
 		addPage(namePage);
 	}
 	
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		IStructuredSelection iss = (IStructuredSelection) selection;
+		if (iss.getFirstElement() instanceof IResource) {
+			IResource res = (IResource) iss.getFirstElement();
+			this.defaultDestFolder = res.getFullPath().toPortableString();
+		}
+				
 	}
 	
 	private void throwCoreException(String message) throws CoreException {

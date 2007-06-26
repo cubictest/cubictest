@@ -17,6 +17,6 @@ public class ResourceNotCubicTestFileException extends CubicException {
 	
 	@Override
 	public String toString() {
-		return "Resource is not an .aat file!";
+		return "Resource is not a CubicTest test file!";
 	}
 }

@@ -19,6 +19,7 @@ import org.cubictest.persistence.CubicTestXStream;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.resources.ResourceMonitor;
 import org.cubictest.resources.interfaces.IResourceMonitor;
+import org.cubictest.ui.utils.ModelUtil;
 import org.cubictest.ui.utils.ResourceNavigatorGetter;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.IContainer;
@@ -50,7 +51,7 @@ import org.eclipse.ui.ide.IDE;
 
 
 /**
- * Wizard for creating new tests.  The wizard creates one file with the extension "aat".
+ * Wizard for creating new tests.
  * If the container resource (a folder or a project) is selected in the workspace 
  * when the wizard is opened, it will accept it as the target container.
  * 
@@ -222,8 +223,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 
 		try {
 			if (project == null) {
-				throw new CubicException("Could create new test (could not get project). Please try again.\n" +
-						"Hint: New CubicTest tests must be created within a CubicTest project.");
+				throw new CubicException("Could not create new test (unable to get reference to the CubicTest project). Please retry the operation.");
 			}
 			IResourceMonitor monitor = new ResourceMonitor(project);
 			populateExtensionPointMap(project, extensionPointMap, monitor);
@@ -274,10 +274,10 @@ public class NewTestWizard extends Wizard implements INewWizard {
 			if (entry.getType() == IResource.FOLDER) {
 				traverseFolder((IFolder) entry, map, monitor);
 			} else {
-				// convert file if it is a .aat test
+				// convert file if it is a test
 				String fileName = entry.getName();
 
-				if (fileName.endsWith(".aat")) {
+				if (ModelUtil.isTestFile(fileName)) {
 					try {
 						Test test = TestPersistance.loadFromFile((IFile)entry);
 						for(ExtensionPoint ep : test.getAllExtensionPoints()){

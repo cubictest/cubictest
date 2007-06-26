@@ -183,7 +183,7 @@ public class TestDetailsPage extends WizardPage {
 		}
 	}
 	
-	private String getNextDefaultAatFilenameInDir(String baseName) {
+	private String getNextDefaultTestFilenameInDir(String baseName) {
 		int highestNumber = 0;
 		if (!selectedFile.isDirectory()) {
 			selectedFile = selectedFile.getParentFile();
@@ -256,7 +256,7 @@ public class TestDetailsPage extends WizardPage {
 		
 		if(testName.length() > 0 && !manualName) {
 			updatingTestName = true;
-			filenameText.setText(getNextDefaultAatFilenameInDir(testName));
+			filenameText.setText(getNextDefaultTestFilenameInDir(testName));
 			updatingTestName = false;
 		}
 

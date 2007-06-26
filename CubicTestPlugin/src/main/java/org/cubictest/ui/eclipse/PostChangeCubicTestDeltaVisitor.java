@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
@@ -36,7 +37,7 @@ public class PostChangeCubicTestDeltaVisitor implements IResourceDeltaVisitor {
 	public boolean visit(IResourceDelta delta) throws PartInitException {
 		IResource resource = delta.getResource();
 		if(delta.getKind() == IResourceDelta.REMOVED){
-			if("aat".equals(resource.getFileExtension())) {
+			if(ModelUtil.isTestFile(resource.getName())) {
 				if (delta.getMovedToPath() == null){
 					//delete
 					closeOpenEditorsOfRemovedFiles(resource, false, DELETE);

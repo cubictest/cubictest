@@ -29,6 +29,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 public class NewParamWizard extends Wizard implements INewWizard{
 
 	private WizardNewParamCreationPage namePage;
+	private String defaultDestFolder;
 	
 	@Override
 	public boolean performFinish() {	
@@ -75,12 +76,17 @@ public class NewParamWizard extends Wizard implements INewWizard{
 		super.addPages();
 		namePage = new WizardNewParamCreationPage("newCubicTestParamNamepage");
 		namePage.setTitle("New CubicTest parameters");
-		namePage.setDescription("Choose name of parameters");
-		
+		namePage.setDescription("Choose name and location of parameter file");
+		namePage.setContainerName(defaultDestFolder);
 		addPage(namePage);
 	}
 	
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		IStructuredSelection iss = (IStructuredSelection) selection;
+		if (iss.getFirstElement() instanceof IResource) {
+			IResource res = (IResource) iss.getFirstElement();
+			this.defaultDestFolder = res.getFullPath().toPortableString();
+		}
 		
 	}
 	

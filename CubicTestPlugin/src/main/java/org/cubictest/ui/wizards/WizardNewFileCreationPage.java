@@ -1,5 +1,6 @@
 package org.cubictest.ui.wizards;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.wizard.WizardPage;
@@ -20,11 +21,14 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 	
 	private Text fileText;
 	private Text containerText;
+	private String defaultContainerName;
 	
+	private static final String fileNameEmptyWarning = 
+		"File name must be set";
 	private static final String fileExtWarning = 
-		"Filename has to end with ";
+		"File name has to end with ";
 	private static final String pathWarning = 
-		"Path must be set";
+		"Location for the file must be set";
 	
 	protected WizardNewFileCreationPage(String pageName) {
 		super(pageName);
@@ -38,10 +42,27 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 		layout.verticalSpacing = 9;
 		
 		Label label = new Label(container, SWT.NULL);
+		label.setText("File name:");
+		
+		fileText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		fileText.setText(getFileExtention());
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = 2;
+		fileText.setLayoutData(gd);
+		fileText.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				dialogChanged();
+			}
+		});
+
+		label = new Label(container, SWT.NULL);
 		label.setText("Location:");
 
 		containerText = new Text(container, SWT.BORDER | SWT.SINGLE | SWT.READ_ONLY);
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		if (defaultContainerName != null) {
+			containerText.setText(defaultContainerName);
+		}
+		gd = new GridData(GridData.FILL_HORIZONTAL);
 		containerText.setLayoutData(gd);
 		containerText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
@@ -58,17 +79,6 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 			}
 		});
 		
-		label = new Label(container, SWT.NULL);
-		label.setText("File name:");
-		
-		fileText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		fileText.setLayoutData(gd);
-		fileText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				dialogChanged();
-			}
-		});
 		
 		setPageComplete(false);
 		dialogChanged();
@@ -82,6 +92,10 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 	
 	public String getContainerName(){
 		return containerText.getText();
+	}
+	
+	public void setContainerName(String name){
+		this.defaultContainerName = name;
 	}
 	
 	/**
@@ -99,7 +113,7 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 		if (dialog.open() == ContainerSelectionDialog.OK) {
 			Object[] result = dialog.getResult();
 			if (result.length == 1) {
-				containerText.setText(((Path)result[0]).toOSString());
+				containerText.setText(((Path)result[0]).toPortableString());
 			}
 		}
 	}
@@ -107,7 +121,10 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 	private void dialogChanged() {
 		String fileName = getFileName();
 		String containerName = getContainerName();
-		if (!fileName.endsWith(getFileExtention())) {
+		if (StringUtils.isBlank(fileName) || fileName.equals(getFileExtention())) {
+			setErrorMessage(fileNameEmptyWarning);
+			setPageComplete(false);
+		}else if (!fileName.endsWith(getFileExtention())) {
 			setErrorMessage(fileExtWarning + getFileExtention());
 			setPageComplete(false);
 		}else if("".equals(containerName)){

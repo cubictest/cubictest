@@ -14,6 +14,7 @@ import org.cubictest.export.utils.FileExportUtils;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
+import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -60,7 +61,7 @@ public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithPr
 			IFolder destFolder = FileExportUtils.prepareOutputFolder(monitor, project, resource);
 			
 			if(resource.getRawLocation().toFile().isFile()) {
-				if (resource.getName().endsWith(("aat"))) {
+				if (ModelUtil.isTestFile(resource.getName())) {
 					convertCubicTestFile((IFile)resource, destFolder, monitor, true);
 				}
 				else {
@@ -103,10 +104,10 @@ public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithPr
 				traverseFolder((IFolder)entry, newOutFolder, monitor);
 			} 
 			else {
-				// convert file if it is a .aat test
+				// convert file if it is a CubicTest test
 				String fileName = entry.getName();
 
-				if (fileName.endsWith(".aat")) {
+				if (ModelUtil.isTestFile(fileName)) {
 					convertCubicTestFile((IFile)entry, destFolder, monitor, false);
 				}
 				if (monitor != null) {
@@ -119,11 +120,11 @@ public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithPr
 
 
 	/**
-	 * Exports an .aat (CubicTest) file.
+	 * Exports a CubicTest file.
 	 */
-	protected void convertCubicTestFile(IFile aatFile, IFolder outFolder, IProgressMonitor monitor, boolean isSelected) throws Exception {
+	protected void convertCubicTestFile(IFile testFile, IFolder outFolder, IProgressMonitor monitor, boolean isSelected) throws Exception {
 		//load Test and start the conversion:
-		Test test = TestPersistance.loadFromFile(aatFile);
+		Test test = TestPersistance.loadFromFile(testFile);
 		
 		if (!ExportUtils.testIsOkForExport(test)) {
 			if (isSelected) {
@@ -140,9 +141,9 @@ public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithPr
 		testWalker.convertTest(test, resultHolder);
 
 		//write result to file:
-		String aatFileName = aatFile.getName();
-		int length = aatFileName.length() - 4;
-		String outFileName = aatFileName.substring(0, length) + "." + outFileExtension;
+		String testFileName = testFile.getName();
+		int length = testFileName.length() - 4;
+		String outFileName = testFileName.substring(0, length) + "." + outFileExtension;
 		if (!outFolder.exists()) {
 			outFolder.create(false, true, monitor);
 		}

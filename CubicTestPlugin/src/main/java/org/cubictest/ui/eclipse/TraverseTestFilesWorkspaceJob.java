@@ -11,6 +11,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
+import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -25,7 +26,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.ide.ResourceUtil;
 
 /**
- * Updates subtests / extension start points in .aat files with new path after a file move.
+ * Updates subtests / extension start points in CubicTest test files with new path after a file move.
  * 
  * @author SK Skytteren
  * @author Christian Schwarz
@@ -52,7 +53,7 @@ public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 	}
 	
 	/**
-	 * Traverse project, folder or file and update subtests in .aat files with new path.
+	 * Traverse project, folder or file and update subtests in test files with new path.
 	 * @param container
 	 */
 	private void traverseContainer(IContainer container){
@@ -69,10 +70,10 @@ public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 					traverseContainer((IContainer) entry);
 				}
 				else if(entry.getType() == IResource.FILE){
-					// convert file if it is a .aat test
+					// convert file if it is a test
 					String fileName = entry.getName();
 					IFile testFile = (IFile) entry;
-					if (fileName.endsWith(".aat") && !entry.getFullPath().equals(sourceResource.getFullPath())) {
+					if (ModelUtil.isTestFile(fileName) && !entry.getFullPath().equals(sourceResource.getFullPath())) {
 						boolean updated = false;
 						//get editor if file is open
 						for(IWorkbenchWindow window : CubicTestPlugin.getDefault().getWorkbench().getWorkbenchWindows()){

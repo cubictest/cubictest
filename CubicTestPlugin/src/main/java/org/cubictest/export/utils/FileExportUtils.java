@@ -7,6 +7,7 @@ package org.cubictest.export.utils;
 import java.io.File;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -67,19 +68,19 @@ public class FileExportUtils {
 		StringBuffer addedSegments = new StringBuffer();
 		while (i < resource.getProjectRelativePath().segmentCount()) {
 			addedSegments.append("/" + resource.getProjectRelativePath().segment(i));
-			IFolder ff = project.getFolder(destFolder.getProjectRelativePath() + addedSegments.toString());
-			if (!ff.exists()) {
-				if (-1 == ff.getName().indexOf("aat")) {
+			IFolder folder = project.getFolder(destFolder.getProjectRelativePath() + addedSegments.toString());
+			if (!folder.exists()) {
+				if (!ModelUtil.isTestFile(folder.getName())) {
 					try {
-						ff.create(true, true, monitor);
+						folder.create(true, true, monitor);
 					} 
 					catch (CoreException e) {
 						ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error creating directory");
 					}
-					updatedFolder = ff;
+					updatedFolder = folder;
 				}
 			} else {
-				updatedFolder = ff;
+				updatedFolder = folder;
 			}
 			i++;
 		}

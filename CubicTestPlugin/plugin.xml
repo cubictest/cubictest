@@ -93,7 +93,7 @@
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/fileicon_params.gif"
             id="org.cubictest.ui.wizards.NewParamWizard"
-            name="New CubicTest Param file"
+            name="New CubicTest Test-parameter file"
             preferredPerspectives="org.cubictest.CubicTestPerspective"
             project="true"/>
       <wizard
@@ -102,7 +102,7 @@
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/fileicon_l18n.gif"
             id="org.cubictest.ui.wizards.NewPropertiesWizard"
-            name="New CubicTest Properties file"
+            name="New CubicTest Internationalization file"
             preferredPerspectives="org.cubictest.CubicTestPerspective"
             project="true"/>
    </extension>

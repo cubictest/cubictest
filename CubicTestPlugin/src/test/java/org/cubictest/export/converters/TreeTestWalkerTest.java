@@ -24,7 +24,7 @@ import org.junit.Before;
 
 /**
  * Tests the TreeTestWalker, integration test style.
- * Uses .aat files created in CubicTest, and asserts that the corrent elements are being converted in the correct order.
+ * Uses test files created in CubicTest, and asserts that the corrent elements are being converted in the correct order.
  * Also checks that e.g. only paths to extension points have been converted (if subtest / extension start point mode).
  * 
  * @author chr_schwarz

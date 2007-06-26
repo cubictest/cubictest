@@ -8,6 +8,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
+import org.cubictest.ui.utils.ModelUtil;
 
 
 /**
@@ -34,6 +35,10 @@ public class ExportUtils {
 			return false;
 		}
 		return true;
+	}
+	
+	public static boolean isTestFile(String fileName) {
+		return ModelUtil.isTestFile(fileName);
 	}
 	
 	public static boolean testIsOkForRecord(Test test) {

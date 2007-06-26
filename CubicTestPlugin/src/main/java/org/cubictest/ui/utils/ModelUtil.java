@@ -117,4 +117,11 @@ public class ModelUtil {
 		}
 		return assertHasOnlyOnePathFrom(node.getOutTransitions().get(0).getEnd());
 	}
+	
+	public static boolean isTestFile(String fileName) {
+		if (fileName.endsWith(".aat") || fileName.endsWith(".ats")) {
+			return true;
+		}
+		return false;
+	}
 }

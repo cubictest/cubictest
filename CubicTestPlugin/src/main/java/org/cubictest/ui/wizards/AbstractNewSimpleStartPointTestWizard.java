@@ -14,6 +14,7 @@ import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.CubicTestXStream;
 import org.cubictest.resources.interfaces.IResourceMonitor;
+import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -27,7 +28,7 @@ import org.eclipse.ui.INewWizard;
 
 
 /**
- * Wizard for creating new sub tests.  The wizard creates one file with the extension "aat".
+ * Wizard for creating new sub tests.
  * If the container resource (a folder or a project) is selected in the workspace 
  * when the wizard is opened, it will accept it as the target container.
  * 
@@ -127,10 +128,10 @@ public abstract class AbstractNewSimpleStartPointTestWizard extends NewTestWizar
 	
 	@Override
 	public boolean canFinish() {
-		if(testDetailsPage.getFileName().startsWith(".aat")) {
-			return false;
+		if(ModelUtil.isTestFile(testDetailsPage.getFileName()) && !testDetailsPage.getFileName().startsWith(".")) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	

@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.IPath;
 
 
 /**
- * Updates subtests / extension start points in .aat files with new path after a file move.
+ * Updates subtests / extension start points in test files with new path after a file move.
  * 
  * @author SK Skytteren
  */
