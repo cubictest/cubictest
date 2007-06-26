@@ -8,11 +8,11 @@
     <plugins>
       <plugin>
         <groupId>org.cubictest</groupId>
-        <artifactId>MavenSeleniumRunner</artifactId>
-		<version>1.0-SNAPSHOT</version>
+        <artifactId>cubictest-selenium-runner-maven-plugin</artifactId>
+		<version>1.7.5</version>
         <executions>
           <execution>
-            <phase>test</phase>
+            <phase>integration-test</phase>
             <goals>
               <goal>run-tests</goal>
             </goals>
