@@ -9,13 +9,9 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
-import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.Logger;
-import org.cubictest.ui.gef.editors.GraphicalTestEditor;
-import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.ui.IEditorPart;
 
 /**
  * Properties for CubicTest projects.
@@ -44,10 +40,8 @@ public class CubicTestProjectSettings {
 	 * @param property
 	 * @return
 	 */
-	public static Boolean getBooleanProperty(String exporterId, String property) {
-		if (properties == null) {
-			loadProperties();
-		}
+	public static Boolean getBoolean(String exporterId, String property) {
+		loadProperties();
 		Object prop = properties.get(exporterId + "." + property);
 		if (prop != null) {
 			return ((String) prop).equalsIgnoreCase("true");

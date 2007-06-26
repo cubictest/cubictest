@@ -36,6 +36,7 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5,
  JavaSE-1.6
 Eclipse-LazyStart: true
 Export-Package: org.cubictest.common.resources,
+ org.cubictest.common.settings,
  org.cubictest.common.utils,
  org.cubictest.export,
  org.cubictest.export.converters,
