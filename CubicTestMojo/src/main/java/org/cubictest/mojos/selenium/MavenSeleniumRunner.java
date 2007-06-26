@@ -42,7 +42,7 @@ public class MavenSeleniumRunner extends AbstractMojo
         throws MojoExecutionException, MojoFailureException
     {
     	
-        Collection files = FileUtils.listFiles(testDir, new String[] {"aat"}, true);
+        Collection files = FileUtils.listFiles(testDir, new String[] {"aat", "ats"}, true);
         Iterator iter = files.iterator();
         List<String> passedTests = new ArrayList<String>();
         List<String> failedTests = new ArrayList<String>();
