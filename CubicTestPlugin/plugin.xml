@@ -32,7 +32,6 @@
             class="org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor"
             default="true"
             extensions="properties"
-            icon="$nl$/icons/fileicon_l18n.gif"
             id="org.cubictest.ui.i18n.PropertiesEditor"
             name="I18n Editor"/>
       <editor

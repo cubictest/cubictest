@@ -1,10 +1,10 @@
 #Fat Jar Configuration File
-#Sun Jun 17 14:51:42 CEST 2007
+#Wed Jun 27 23:40:33 CEST 2007
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=cubictest-1.7.5.jar
+jarname=cubictest-1.7.6.jar
 manifest.mergeall=true
 manifest.mainclass=
 manifest.file=<createnew>
