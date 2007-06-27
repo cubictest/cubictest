@@ -17,6 +17,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.exporters.selenium.runner.RunnerSetup;
 import org.cubictest.model.Test;
@@ -41,13 +42,15 @@ public class MavenSeleniumRunner extends AbstractMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-    	String basedir = System.getProperty("basedir", System.getProperty("user.dir"));
+    	String baseDir = System.getProperty("basedir", System.getProperty("user.dir"));
+        CubicTestProjectSettings settings = new CubicTestProjectSettings(new File(baseDir));
+
         Collection files = FileUtils.listFiles(testDir, new String[] {"aat", "ats"}, true);
         Iterator iter = files.iterator();
         List<String> passedTests = new ArrayList<String>();
         List<String> failedTests = new ArrayList<String>();
         List<String> exceptionTests = new ArrayList<String>();
-        
+
         boolean buildOk = true;
         
         while (iter.hasNext()) {
@@ -58,7 +61,7 @@ public class MavenSeleniumRunner extends AbstractMojo
 
     		RunnerSetup testRunner = null;
     		try {
-    			testRunner = new RunnerSetup(test, null);
+    			testRunner = new RunnerSetup(test, null, settings);
     			testRunner.setFailOnAssertionFailure(true);
     			testRunner.run(null);
     			passedTests.add(file.getName());
