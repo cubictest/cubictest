@@ -469,10 +469,14 @@ public class SeleniumUtils {
 	
 	public static int getTimeout(CubicTestProjectSettings settings) {
 		int timeout = 60; //default
-		Integer timeoutProp = settings.getInteger(SeleniumExporterPlugin.getName(), "timeout");
+		Integer timeoutProp = settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(), "timeout");
 		if (timeoutProp != null) {
 			timeout = timeoutProp;
 		}
 		return timeout;
+	}
+	
+	public static String getPluginPropertyPrefix() {
+		return "SeleniumExporterPlugin";
 	}
 }

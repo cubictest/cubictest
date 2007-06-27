@@ -8,6 +8,7 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
+import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.openqa.selenium.server.SeleniumServer;
 
 /**
@@ -28,7 +29,7 @@ public class CubicSeleniumServer {
 			port = 28242; //cubic
 			seleniumServer = new SeleniumServer(port);
 			
-			Boolean inject = settings.getBoolean(SeleniumExporterPlugin.getName(), "useSeleniumProxyInjectionMode");
+			Boolean inject = settings.getBoolean(SeleniumUtils.getPluginPropertyPrefix(), "useSeleniumProxyInjectionMode");
 			if (inject != null && inject) {
 				seleniumServer.setProxyInjectionMode(true);
 			}
