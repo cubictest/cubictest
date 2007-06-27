@@ -110,6 +110,11 @@ A:VISITED{
 .introduction{
 	font-style: italic;	
 }
+
+.introduction em{
+	font-style: normal;	
+}
+
 p:first-letter{
 	font-size: large;
 }
