@@ -41,7 +41,7 @@ public class MavenSeleniumRunner extends AbstractMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-    	
+    	String basedir = System.getProperty("basedir", System.getProperty("user.dir"));
         Collection files = FileUtils.listFiles(testDir, new String[] {"aat", "ats"}, true);
         Iterator iter = files.iterator();
         List<String> passedTests = new ArrayList<String>();
