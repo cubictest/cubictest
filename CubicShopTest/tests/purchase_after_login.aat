@@ -20,7 +20,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>PASS</status>
+              <status>UNKNOWN</status>
             </text>
           </elements>
           <name>Frontpage</name>
@@ -39,7 +39,7 @@
               <page class="page" reference="../../.."/>
               <start class="page" reference="../../.."/>
               <end class="subTest">
-                <filePath>/tests/purchase.aat</filePath>
+                <filePath>tests/purchase.aat</filePath>
                 <inTransition class="userInteractionsTransition" reference="../.."/>
                 <outTransitions>
                   <extensionTransition>
@@ -97,6 +97,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
+                          <status reference="../../../../../../../../../elements/text/status"/>
                         </link>
                       </elements>
                       <name>Login error</name>
@@ -116,14 +117,14 @@
                           <page class="page" reference="../../.."/>
                           <start class="page" reference="../../.."/>
                           <end class="subTest">
-                            <filePath>/tests/log_in.aat</filePath>
+                            <filePath>tests/log_in.aat</filePath>
                             <inTransition class="userInteractionsTransition" reference="../.."/>
                             <outTransitions>
                               <extensionTransition>
                                 <id>page124927371177885602720</id>
                                 <start class="subTest" reference="../../.."/>
                                 <end class="subTest">
-                                  <filePath>/tests/purchase.aat</filePath>
+                                  <filePath>tests/purchase.aat</filePath>
                                   <inTransition class="extensionTransition" reference="../.."/>
                                   <outTransitions>
                                     <extensionTransition>
@@ -145,7 +146,7 @@
                                             </identifiers>
                                             <directEditIdentifier reference="../identifiers/identifier"/>
                                             <not>false</not>
-                                            <status>UNKNOWN</status>
+                                            <status reference="../../../../../../../../../../../../../../../../../../elements/text/status"/>
                                           </text>
                                         </elements>
                                         <name>Bought box</name>
@@ -158,83 +159,95 @@
                                               <outTransitions/>
                                               <id></id>
                                               <position>
-                                                <x>493</x>
-                                                <y>489</y>
+                                                <x>281</x>
+                                                <y>584</y>
                                               </position>
+                                              <dimension>
+                                                <width>150</width>
+                                                <height>95</height>
+                                              </dimension>
                                               <name>Bought box Extension Point</name>
-                                              <autoPosition>false</autoPosition>
                                             </end>
                                           </simpleTransition>
                                         </outTransitions>
                                         <id>1157465786120</id>
                                         <position>
-                                          <x>322</x>
-                                          <y>471</y>
+                                          <x>113</x>
+                                          <y>564</y>
                                         </position>
                                         <dimension>
-                                          <width>93</width>
-                                          <height>70</height>
+                                          <width>115</width>
+                                          <height>46</height>
                                         </dimension>
                                         <name defined-in="transitionNode"></name>
-                                        <autoPosition>false</autoPosition>
                                       </end>
                                     </extensionTransition>
                                   </outTransitions>
                                   <id>1157465774794</id>
                                   <position>
-                                    <x>136</x>
-                                    <y>443</y>
+                                    <x>104</x>
+                                    <y>489</y>
                                   </position>
+                                  <dimension>
+                                    <width>150</width>
+                                    <height>95</height>
+                                  </dimension>
                                   <name></name>
-                                  <autoPosition>false</autoPosition>
+                                  <status reference="../../../../../../../../../../../../../elements/text/status"/>
                                 </end>
                               </extensionTransition>
                             </outTransitions>
                             <id>1157465588656</id>
                             <position>
-                              <x>134</x>
-                              <y>371</y>
+                              <x>120</x>
+                              <y>414</y>
                             </position>
+                            <dimension>
+                              <width>150</width>
+                              <height>95</height>
+                            </dimension>
                             <name></name>
-                            <autoPosition>false</autoPosition>
+                            <status reference="../../../../../../../../../../elements/text/status"/>
                           </end>
                         </userInteractionsTransition>
                       </outTransitions>
                       <id>1157465552374</id>
                       <position>
-                        <x>77</x>
-                        <y>244</y>
+                        <x>54</x>
+                        <y>284</y>
                       </position>
                       <dimension>
-                        <width>128</width>
-                        <height>79</height>
+                        <width>233</width>
+                        <height>67</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
-                      <autoPosition>false</autoPosition>
                     </end>
                   </extensionTransition>
                 </outTransitions>
                 <id>1157465536862</id>
                 <position>
-                  <x>77</x>
-                  <y>169</y>
+                  <x>104</x>
+                  <y>209</y>
                 </position>
+                <dimension>
+                  <width>150</width>
+                  <height>95</height>
+                </dimension>
                 <name></name>
-                <autoPosition>false</autoPosition>
+                <status reference="../../../../elements/text/status"/>
               </end>
             </userInteractionsTransition>
           </outTransitions>
           <id>page80283801157465511866</id>
           <position>
-            <x>43</x>
-            <y>61</y>
+            <x>91</x>
+            <y>100</y>
           </position>
           <dimension>
-            <width>162</width>
-            <height>49</height>
+            <width>159</width>
+            <height>46</height>
           </dimension>
           <name defined-in="transitionNode"></name>
-          <autoPosition>false</autoPosition>
         </end>
       </simpleTransition>
     </outTransitions>
@@ -244,7 +257,6 @@
       <y>0</y>
     </position>
     <name>Frontpage</name>
-    <autoPosition>false</autoPosition>
   </startPoint>
   <extensionPoints>
     <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/simpleTransition/end"/>
@@ -276,5 +288,5 @@
   <name>Purchase after login</name>
   <description></description>
   <id>/CubicShopTest/tests/check_login_required.aat</id>
-  <modelVersion>6</modelVersion>
+  <modelVersion>8</modelVersion>
 </test>

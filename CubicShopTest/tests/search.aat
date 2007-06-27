@@ -2,7 +2,7 @@
   <startPoint class="extensionStartPoint">
     <sourceExtensionPointPageId>page215362701162367169184</sourceExtensionPointPageId>
     <sourceExtensionPointName>Search Extension Point</sourceExtensionPointName>
-    <filePath>/tests/frontpage.aat</filePath>
+    <filePath>tests/frontpage.aat</filePath>
     <outTransitions>
       <extensionTransition>
         <id>page215362701162367169184</id>
@@ -217,7 +217,6 @@
                   <height>46</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
-                <autoPosition>false</autoPosition>
               </end>
             </userInteractionsTransition>
           </outTransitions>
@@ -231,7 +230,6 @@
             <height>113</height>
           </dimension>
           <name defined-in="transitionNode"></name>
-          <autoPosition>false</autoPosition>
         </end>
       </extensionTransition>
     </outTransitions>
@@ -241,7 +239,6 @@
       <y>0</y>
     </position>
     <name></name>
-    <autoPosition>false</autoPosition>
   </startPoint>
   <extensionPoints/>
   <pages>
@@ -261,5 +258,5 @@
   <name>search</name>
   <description></description>
   <id>test1162408155135</id>
-  <modelVersion>6</modelVersion>
+  <modelVersion>8</modelVersion>
 </test>

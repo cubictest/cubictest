@@ -5,7 +5,7 @@
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
         <end class="subTest">
-          <filePath>/tests/log_in.aat</filePath>
+          <filePath>tests/log_in.aat</filePath>
           <inTransition class="simpleTransition" reference="../.."/>
           <outTransitions>
             <extensionTransition>
@@ -106,5 +106,5 @@
   <name>purchase cube</name>
   <description></description>
   <id>test1179672651273</id>
-  <modelVersion>7</modelVersion>
+  <modelVersion>8</modelVersion>
 </test>
