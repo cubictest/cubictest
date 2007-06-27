@@ -9,9 +9,11 @@ import static org.cubictest.exporters.selenium.runner.util.SeleniumController.Op
 
 import java.util.concurrent.Callable;
 
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
+import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.swt.widgets.Display;
 
@@ -35,6 +37,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 	private boolean seleniumStarted;
 	private Display display;
 	private Selenium selenium;
+	CubicTestProjectSettings settings;
 	
 	/**
 	 * Method to start/stop the Selenium proxy server and Selenium test system.
@@ -44,7 +47,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 	public SeleniumHolder call() throws InterruptedException {
 		if (START.equals(operation)) {
 			if (selenium == null) {
-				server = new CubicSeleniumServer();
+				server = new CubicSeleniumServer(settings);
 				server.start();
 				while (!server.isStarted()) {
 					//wait for server thread to start
@@ -57,15 +60,18 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 
 			if (selenium == null) {
 				Logger.info("Opening test browser and connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + initialUrlStartPoint);
-				seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), initialUrlStartPoint.getBeginAt(), display);
+				seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), initialUrlStartPoint.getBeginAt(), display, settings);
 				seleniumHolder.getSelenium().start();
+				int timeout = SeleniumUtils.getTimeout(settings) * 1000;
+				seleniumHolder.getSelenium().setTimeout(timeout + "");
+
 				//open start URL and check connection (that browser profiles has been set correctly):
 				seleniumHolder.getSelenium().open(initialUrlStartPoint.getBeginAt());
 			}
 			else {
 				//use custom Selenium, e.g. from the CubicRecorder.
 				Logger.info("Using Selenium from another plugin.");
-				seleniumHolder = new SeleniumHolder(selenium, display);
+				seleniumHolder = new SeleniumHolder(selenium, display, settings);
 			}
 			seleniumStarted = true;
 			
@@ -122,5 +128,9 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 
 	public void setSelenium(Selenium selenium) {
 		this.selenium = selenium;
+	}
+
+	public void setSettings(CubicTestProjectSettings settings) {
+		this.settings = settings;
 	}
 }

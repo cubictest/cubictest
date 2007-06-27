@@ -34,7 +34,9 @@ import static org.cubictest.model.IdentifierType.TITLE;
 import static org.cubictest.model.IdentifierType.VALUE;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
@@ -462,5 +464,15 @@ public class SeleniumUtils {
 			}
 			return "";
 		}
+	}
+	
+	
+	public static int getTimeout(CubicTestProjectSettings settings) {
+		int timeout = 60; //default
+		Integer timeoutProp = settings.getInteger(SeleniumExporterPlugin.getName(), "timeout");
+		if (timeoutProp != null) {
+			timeout = timeoutProp;
+		}
+		return timeout;
 	}
 }

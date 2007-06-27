@@ -91,6 +91,6 @@ public class SeleneseDocument extends ContextHolder implements IResultHolder {
 		table.setAttribute("cellspacing", "0");
 		body.addContent(table);
 		
-		table.addContent(new Command("setTimeout", "10000"));
+		table.addContent(new Command("setTimeout", "30000"));
 	}
 }

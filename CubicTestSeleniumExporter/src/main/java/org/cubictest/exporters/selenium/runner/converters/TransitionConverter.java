@@ -58,7 +58,8 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 
 		}
 		if (waitForPageToLoad) {
-			waitForPageToLoad(seleniumHolder, 40);
+			int timeout = SeleniumUtils.getTimeout(seleniumHolder.getSettings());
+			waitForPageToLoad(seleniumHolder, timeout);
 		}
 	}
 

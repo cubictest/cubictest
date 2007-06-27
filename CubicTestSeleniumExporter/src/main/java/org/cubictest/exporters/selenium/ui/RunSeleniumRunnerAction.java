@@ -5,6 +5,7 @@
 package org.cubictest.exporters.selenium.ui;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.utils.exported.ExportUtils;
@@ -69,8 +70,10 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 		
 		RunnerSetup testRunner = null;
 		Shell shell = null;
+		CubicTestProjectSettings settings = new CubicTestProjectSettings(testEditor.getProject());
+		
 		try {
-			testRunner = new RunnerSetup(test, targetExPoint, Display.getCurrent());
+			testRunner = new RunnerSetup(test, targetExPoint, Display.getCurrent(), settings);
 			if (selenium != null) {
 				testRunner.setSelenium(selenium);
 			}

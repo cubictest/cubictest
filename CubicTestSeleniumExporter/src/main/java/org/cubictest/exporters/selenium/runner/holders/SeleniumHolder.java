@@ -7,10 +7,12 @@ package org.cubictest.exporters.selenium.runner.holders;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.utils.ContextHolder;
+import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
@@ -39,14 +41,17 @@ public class SeleniumHolder extends ContextHolder {
 	private UrlStartPoint handledUrlStartPoint;
 	private final Display display;
 	private boolean failOnAssertionFailure;
+	private CubicTestProjectSettings settings;
 	
-	public SeleniumHolder(Selenium selenium, Display display) {
+	public SeleniumHolder(Selenium selenium, Display display, CubicTestProjectSettings settings) {
+		this.settings = settings;
 		//use Selenium from client e.g. the CubicRecorder
 		this.selenium = selenium;
 		this.display = display;
 	}
 	
-	public SeleniumHolder(int port, String browser, String initialUrl, Display display) {
+	public SeleniumHolder(int port, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
+		this.settings = settings;
 		this.display = display;
 		if (port < 80) {
 			throw new ExporterException("Invalid port");
@@ -171,6 +176,10 @@ public class SeleniumHolder extends ContextHolder {
 
 	public boolean shouldFailOnAssertionFailure() {
 		return failOnAssertionFailure;
+	}
+
+	public CubicTestProjectSettings getSettings() {
+		return settings;
 	}
 
 }

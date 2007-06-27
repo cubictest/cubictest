@@ -4,8 +4,10 @@
  */
 package org.cubictest.exporters.selenium.runner.util;
 
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.openqa.selenium.server.SeleniumServer;
 
 /**
@@ -21,10 +23,18 @@ public class CubicSeleniumServer {
 	int port;
 	boolean started;
 	
-	public CubicSeleniumServer() {
+	public CubicSeleniumServer(CubicTestProjectSettings settings) {
 		try {
 			port = 28242; //cubic
 			seleniumServer = new SeleniumServer(port);
+			
+			Boolean inject = settings.getBoolean(SeleniumExporterPlugin.getName(), "useSeleniumProxyInjectionMode");
+			if (inject != null && inject) {
+				seleniumServer.setProxyInjectionMode(true);
+			}
+			else {
+				seleniumServer.setProxyInjectionMode(false);
+			}
 			
 	        serverThread = new Thread(new Runnable() {
 	            public void run() {

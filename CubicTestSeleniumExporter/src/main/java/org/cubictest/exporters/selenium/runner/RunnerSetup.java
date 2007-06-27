@@ -27,6 +27,7 @@ import org.cubictest.exporters.selenium.runner.util.Browser;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController;
 import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
 import org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation;
+import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.SubTest;
@@ -54,10 +55,11 @@ public class RunnerSetup implements IRunnableWithProgress {
 	private Selenium selenium;
 	private ExtensionPoint targetExPoint;
 	private boolean failOnAssertionFailure = true;
+	private CubicTestProjectSettings settings;
 
 	
-	public RunnerSetup(Test test, ExtensionPoint targetExPoint, Display display) {
-		readProperties();
+	public RunnerSetup(Test test, ExtensionPoint targetExPoint, Display display, CubicTestProjectSettings settings) {
+		this.settings = settings;
 		this.test = test;
 		this.targetExPoint = targetExPoint;
 		this.display = display;
@@ -65,8 +67,8 @@ public class RunnerSetup implements IRunnableWithProgress {
 
 
 
-	public RunnerSetup(Test test, Selenium selenium) {
-		readProperties();
+	public RunnerSetup(Test test, Selenium selenium, CubicTestProjectSettings settings) {
+		this.settings = settings;
 		this.test = test;
 		this.selenium = selenium;
 	}
@@ -79,10 +81,13 @@ public class RunnerSetup implements IRunnableWithProgress {
 			controller.setBrowser(Browser.FIREFOX);
 			controller.setDisplay(display);
 			controller.setSelenium(selenium);
+			controller.setSettings(settings);
 			
 			//start Selenium (browser and server), guard by timeout:
 			controller.setOperation(Operation.START);
-			seleniumHolder = call(controller, 45, TimeUnit.SECONDS);
+			
+			int timeout = SeleniumUtils.getTimeout(settings);
+			seleniumHolder = call(controller, timeout, TimeUnit.SECONDS);
 			
 			//ser monitor used to detect user cancel request:
 			seleniumHolder.setMonitor(monitor);
@@ -118,6 +123,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 			ErrorHandler.logAndRethrow(e);
 		}
 	}
+
 
 	/**
 	 * Method for stopping Selenium. Can be invoked by a client class.
@@ -184,12 +190,5 @@ public class RunnerSetup implements IRunnableWithProgress {
 
 	public void setFailOnAssertionFailure(boolean failOnAssertionFailure) {
 		this.failOnAssertionFailure = failOnAssertionFailure;
-	}
-
-	private void readProperties() {
-		Boolean inject = CubicTestProjectSettings.getBoolean(SeleniumExporterPlugin.getId(), "seleniumProxyInjectionMode");
-		if (inject == true) {
-			System.out.println("Should inject script");
-		}
 	}
 }
