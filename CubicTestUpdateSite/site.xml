@@ -3,7 +3,7 @@
    <description url="http://www.cubictest.org/update">
       The default update site!
    </description>
-   <feature url="features/org.cubictest_1.7.5.jar" id="org.cubictest" version="1.7.5">
+   <feature url="features/org.cubictest_1.7.6.jar" id="org.cubictest" version="1.7.6">
       <category name="CubicTest"/>
    </feature>
    <category-def name="CubicTest" label="CubicTest">
