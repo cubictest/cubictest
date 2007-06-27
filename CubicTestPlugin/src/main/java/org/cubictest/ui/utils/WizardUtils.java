@@ -157,10 +157,20 @@ public class WizardUtils {
 	
 	public static void copyPom(File destinationFolder) throws IOException {
 		String fileName = "pom.xml";
+		copyFile(destinationFolder, fileName);
+	}
+
+	public static void copySettings(File destinationFolder) throws IOException {
+		String fileName = "test-project.properties";
+		copyFile(destinationFolder, fileName);
+	}
+	
+	private static void copyFile(File destinationFolder, String fileName) throws IOException {
 		File destFile = new File(destinationFolder.getAbsolutePath() + "/" + fileName);
 		InputStream in = WizardUtils.class.getResourceAsStream(fileName);
 		OutputStream out = FileUtils.openOutputStream(destFile);
 		IOUtils.copy(in, out);
 		IOUtils.closeQuietly(out);
 	}
+	
 }

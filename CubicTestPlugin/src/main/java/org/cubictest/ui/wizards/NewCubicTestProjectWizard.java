@@ -110,6 +110,7 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			libFolder.create(false, true, monitor);
 			
 			WizardUtils.copyPom(project.getLocation().toFile());
+			WizardUtils.copySettings(project.getLocation().toFile());
 			
 			javaProject.setOutputLocation(binFolder.getFullPath(), monitor);
 			IClasspathEntry[] classpath;

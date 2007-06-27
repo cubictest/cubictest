@@ -5,16 +5,18 @@
 package org.cubictest.common.settings;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.cubictest.common.exception.CubicException;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IProject;
 
 /**
- * Properties for CubicTest projects.
+ * Provies access to properties for CubicTest projects.
  * 
  * @author Christian Schwarz
  * 
@@ -22,16 +24,22 @@ import org.eclipse.core.resources.IProject;
 public class CubicTestProjectSettings {
 
 	/** The property file to load */
-	private static final String FILE_NAME = "test-project.properties";
+	static final String FILE_NAME = "test-project.properties";
 
-	/** Cached properties */
-	private static Properties properties;
+	/** The test project's properties */
+	Properties properties;
 
-	/** Timestamp of the property file that is cached */
-	private static long cachedLastModified = 0;
+	
+	public CubicTestProjectSettings(IProject project) {
+		File projectFolder = project.getLocation().toFile();
+		File propsFile = getPropsFile(projectFolder);
+		loadProperties(propsFile);
+	}
 
-	/** Lock to hold while reading properties */
-	private static Object lock = new Object();
+	public CubicTestProjectSettings(File projectFolder) {
+		File propsFile = getPropsFile(projectFolder);
+		loadProperties(propsFile);
+	}
 
 	/**
 	 * Get boolean property from test-project.properties.
@@ -40,54 +48,72 @@ public class CubicTestProjectSettings {
 	 * @param property
 	 * @return
 	 */
-	public static Boolean getBoolean(String exporterId, String property) {
-		loadProperties();
-		Object prop = properties.get(exporterId + "." + property);
+	public Boolean getBoolean(String prefix, String property) {
+		Object prop = properties.get(prefix + "." + property);
 		if (prop != null) {
 			return ((String) prop).equalsIgnoreCase("true");
 		}
 		return null;
 	}
+	
+	/**
+	 * Get boolean property from test-project.properties.
+	 * 
+	 * @param exporterId
+	 * @param property
+	 * @return
+	 */
+	public Integer getInteger(String prefix, String property) {
+		Object prop = properties.get(prefix + "." + property);
+		if (prop != null) {
+			return Integer.parseInt((String) prop);
+		}
+		return null;
+	}
+	
 
 	/**
 	 * Looks up a resource named test-project.properties in the classpath.
 	 * Caches the result.
 	 */
-	private static void loadProperties() {
+	private void loadProperties(File propsFile) {
 		InputStream in = null;
-		long lastModified = 0;
-
+		
 		try {
-			IProject project = ViewUtil.getProjectFromActivePage();
-			File propsFile = project.getFile(FILE_NAME).getLocation().toFile();
-			lastModified = propsFile.lastModified();
-
-			if (properties != null && lastModified == cachedLastModified) {
-				// use cached properties
-				return;
-			}
-
 			in = FileUtils.openInputStream(propsFile);
+			properties = new Properties();
+			properties.load(in);
+		} 
+		catch (Exception e) {
+			ErrorHandler.logAndRethrow(e, "Error loading properties");
+		} 
+		finally {
 			if (in != null) {
-				//load the properties
-				synchronized (lock) {
-					properties = new Properties();
-					properties.load(in);
-					cachedLastModified = lastModified;
-				}
-			}
-		} catch (Exception e) {
-			Logger.error("Error loading properties: " + e.toString());
-			properties = null;
-		} finally {
-			if (in != null)
 				try {
 					in.close();
 				} catch (Exception e2) {
 					Logger.warn("Error closing input stream from property file.");
 				}
+			}
 		}
 	}
 
+	private File getPropsFile(File folder) {
+		File[] files = folder.listFiles(getFilenameFilter());
+		if (files == null || files.length == 0) {
+			throw new CubicException("Did not find " + FILE_NAME);
+		}
+		return files[0];
+	}
 
+	private FilenameFilter getFilenameFilter() {
+		return new FilenameFilter() {
+			public boolean accept(File dir, String fileName) {
+				if (fileName.equals(FILE_NAME)) {
+					return true;
+				}
+				return false;
+			}
+		};
+	}
 }
