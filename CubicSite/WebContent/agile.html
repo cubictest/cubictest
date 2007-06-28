@@ -29,7 +29,7 @@
 
 		<p>
 			The main reason why CubicTest was created was to fill a gap in the tools that support agile software development
-			(e.g. eXtreme Programming) of web applications.
+			of web applications.
 			There were few or no tools that let the "customer" (non-technical / business-side person) easily write the tests
 			of a web application, let alone a tool that provided the visual abstractions needed to make the customer
 			comfortable with writing the tests <em>before</em> the application was implemented.
@@ -47,26 +47,16 @@
 		<ol style="margin-top: 3px;">
 			<li>as input to the developer when a feature is about to be implemented,
 			<li>for specifying changes to existing functionality,
-			<li>to report bugs (represent interaction and input that led to the bug),
-			<li>to regression test existing features when changes are made, and
-			<li>for performance tests (future work).
+			<li>to report bugs (in the form of a failing test), and
+			<li>to regression test existing features when changes are made.
 		</ol>
 			
 		<p>
-			All the above would be in the form of failing tests, and the developer's job would be to make the tests pass.
-		</p>
-			
-		<p>
-			In line with eXtreme Programming practice, the tests should be written only when they are needed.
-			This is typically in a development iteration where a particular user story is going to be implemented and 
-			needs to be detailed. At this time, as much information about the requirements as possible should be 
-			contained in the tests.
-		</p>
-			
-		<p>
+			Tests for new functionality is typically written at the start of an iteration, when the user story is 
+			detailed. The customer should ideally "own" the tests.
 			The following figure is an attempt to illustrate how CubicTest is used when implementing a user story:
-			<img src="images/test-cycle.gif" alt="CubicTest test-cycle" vspace="2" hspace="2" border="0"/>
 		</p>
+		<img src="images/test-cycle.gif" alt="CubicTest test-cycle" vspace="2" hspace="2" border="0"/>
 		
 	</div>
 	<div id="footer"></div>
