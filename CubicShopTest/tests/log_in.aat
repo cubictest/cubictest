@@ -20,8 +20,9 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
+              <status>UNKNOWN</status>
             </text>
-            <password>
+            <textField>
               <description></description>
               <identifiers>
                 <identifier>
@@ -32,14 +33,14 @@
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
-                  <value>password</value>
+                  <value>Username</value>
                   <probability>100</probability>
                   <type>ID</type>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
-                  <value>password</value>
+                  <value>username</value>
                   <probability>100</probability>
                   <type>NAME</type>
                   <useI18n>false</useI18n>
@@ -62,8 +63,9 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier[2]"/>
               <not>false</not>
-            </password>
-            <textField>
+              <status reference="../../text/status"/>
+            </textField>
+            <password>
               <description></description>
               <identifiers>
                 <identifier>
@@ -74,37 +76,38 @@
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
-                  <value>username</value>
+                  <value>Password</value>
                   <probability>100</probability>
-                  <type reference="../../../../password/identifiers/identifier[2]/type"/>
+                  <type reference="../../../../textField/identifiers/identifier[2]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
-                  <value>username</value>
+                  <value>password</value>
                   <probability>100</probability>
-                  <type reference="../../../../password/identifiers/identifier[3]/type"/>
+                  <type reference="../../../../textField/identifiers/identifier[3]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type reference="../../../../password/identifiers/identifier[4]/type"/>
+                  <type reference="../../../../textField/identifiers/identifier[4]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type reference="../../../../password/identifiers/identifier[5]/type"/>
+                  <type reference="../../../../textField/identifiers/identifier[5]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier[2]"/>
               <not>false</not>
-            </textField>
+              <status reference="../../text/status"/>
+            </password>
             <button>
               <description></description>
               <identifiers>
@@ -118,27 +121,28 @@
                 <identifier>
                   <value>logIn</value>
                   <probability>100</probability>
-                  <type reference="../../../../password/identifiers/identifier[3]/type"/>
+                  <type reference="../../../../textField/identifiers/identifier[3]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
                   <value>logIn</value>
                   <probability>100</probability>
-                  <type reference="../../../../password/identifiers/identifier[2]/type"/>
+                  <type reference="../../../../textField/identifiers/identifier[2]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type reference="../../../../password/identifiers/identifier[5]/type"/>
+                  <type reference="../../../../textField/identifiers/identifier[5]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
+              <status reference="../../text/status"/>
             </button>
           </elements>
           <name>CubicShop</name>
@@ -149,7 +153,7 @@
               <userInteractions>
                 <userInteraction>
                   <element class="textField" reference="../../../../../elements/textField"/>
-                  <input>Test</input>
+                  <input>John</input>
                   <action>ENTER_TEXT</action>
                   <i18nKey></i18nKey>
                   <paramKey></paramKey>
@@ -158,7 +162,7 @@
                 </userInteraction>
                 <userInteraction>
                   <element class="password" reference="../../../../../elements/password"/>
-                  <input>t</input>
+                  <input>pw</input>
                   <action reference="../../userInteraction/action"/>
                   <i18nKey></i18nKey>
                   <paramKey></paramKey>
@@ -175,6 +179,7 @@
                   <useParam>false</useParam>
                 </userInteraction>
               </userInteractions>
+              <page class="page" reference="../../.."/>
               <start class="page" reference="../../.."/>
               <end class="page">
                 <commons/>
@@ -183,7 +188,7 @@
                     <description></description>
                     <identifiers>
                       <identifier>
-                        <value>Welcome Test! You are now logged in.</value>
+                        <value>Welcome John! You are now logged in.</value>
                         <probability>100</probability>
                         <type reference="../../../../../../../../elements/text/identifiers/identifier/type"/>
                         <useI18n>false</useI18n>
@@ -192,6 +197,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
+                    <status reference="../../../../../../elements/text/status"/>
                   </text>
                 </elements>
                 <name>Logged in</name>
@@ -203,41 +209,38 @@
                     <end class="extensionPoint">
                       <inTransition class="simpleTransition" reference="../.."/>
                       <outTransitions/>
-                      <id>extensionpoint124387321177885643238</id>
+                      <id>extensionpoint299655571183409409192</id>
                       <position>
-                        <x>330</x>
-                        <y>341</y>
+                        <x>329</x>
+                        <y>331</y>
                       </position>
-                      <name>CubicShop Extension Point</name>
-                      <autoPosition>false</autoPosition>
+                      <name>Logged in Extension Point</name>
                     </end>
                   </simpleTransition>
                 </outTransitions>
                 <id>page124927371177885602720</id>
                 <position>
-                  <x>52</x>
-                  <y>309</y>
+                  <x>61</x>
+                  <y>308</y>
                 </position>
                 <dimension>
-                  <width>188</width>
+                  <width>218</width>
                   <height>46</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
-                <autoPosition>true</autoPosition>
               </end>
             </userInteractionsTransition>
           </outTransitions>
           <id>page17536991177885511999</id>
           <position>
-            <x>74</x>
+            <x>91</x>
             <y>100</y>
           </position>
           <dimension>
-            <width>144</width>
+            <width>159</width>
             <height>109</height>
           </dimension>
           <name defined-in="transitionNode"></name>
-          <autoPosition>false</autoPosition>
         </end>
       </simpleTransition>
     </outTransitions>
@@ -247,7 +250,6 @@
       <y>4</y>
     </position>
     <name>URL</name>
-    <autoPosition>false</autoPosition>
   </startPoint>
   <extensionPoints>
     <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end"/>
@@ -258,8 +260,8 @@
   </pages>
   <subTests/>
   <transitions>
-    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
     <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition"/>
   </transitions>
   <customTestSteps/>
@@ -270,5 +272,5 @@
   <name>log_in</name>
   <description></description>
   <id>test1177885511999</id>
-  <modelVersion>6</modelVersion>
+  <modelVersion>8</modelVersion>
 </test>
