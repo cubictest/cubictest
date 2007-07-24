@@ -28,28 +28,28 @@
 		<div class="introduction">
 			<h1>Welcome to web testing with CubicTest!</h1>
 			<p>
-				CubicTest is a visual tool for writing Selenium and Watir tests. It makes tests faster and easier to write, 
-				and provides abstractions to make tests more robust and reusable.
-			</p>			
+				CubicTest is a visual Eclipse plug-in for writing Selenium and Watir tests. 
+				CubicTest makes web tests faster and easier to write, as well as making it easier to write "tests first".
+			</p>
 			<p>
-				CubicTest's graphical test editor is centered around <em>"pages"</em> and <em>"transitions"</em> between pages.
-				To be more specific, these pages are modeled as states of the application under test, 
-				and the model fits both Ajax and traditional web applications.
-			</p>			
+				CubicTest's graphical test editor is centered around pages/states and transitions between these pages/states.
+				The model is intuitive for both Ajax and traditional web applications and supports most user interaction types.
+			</p>
 			<p>
-				CubicTest is focused around writing tests that assert "what you see" on the page, and not
-				"testing the HTML source". To support this, CubicTest has a concept called a "context" which a page element can
-				reside in. A context can be a any HTML parent element, e.g. a part of the page, a table row, a portlet etc.
-				Using contexts, it is easy to model user interactions such as  "Press the 'Foo'-button on the row that
-				contains the text 'Bar'" (i.e. identifying an element by specifying neighbouring elements). 
-			</p>			
+				CubicTest is focused around testing "what you see" on the page, and not
+				"testing the HTML source". To support this, CubicTest introduces a "context" concept that can be any HTML parent element, e.g. a table row.
+				Using contexts, child elements of a context help identify each other. E.g. is easy to model user interactions 
+				such as  "Press the 'Buy'-button that is in the same context (e.g. row) as the text 'xyz'".
+			</p>
 			<p>
-				Page elements can also be identified by the usual set of identifiers (e.g. "id" and "name"), 
-				and it is possible to apply numerous of them at the same time.
-			</p>			
+				Another feature of CubicTest is that page elements (and contexts) easily can be identified by multiple identifiers at the same time 
+				(e.g. "id" and "name"), and CubicTest will automatically build the required XPath expressions.
+			</p>
 			<p>
-				CubicTest comes with a Selenium RC runner (Eclipse and Maven 2 plugin), a Selenium Core exporter and a Watir exporter, 
-				but is extensible to other test frameworks as well. Writing a test-exporter is not a hard task.
+				CubicTest comes with a plugin architecture for running/exporting the tests and for recording new tests. 
+				Among the implementations provided are a mature Selenium RC runner, a Selenium Core exporter and a Watir exporter.
+				A recorder based on Selenium RC is also provided for recording directly into the Eclipse perspective. 
+				A HTML mock-up exporter is also provided when used for test-driven development.
 			</p>
 		</div>
 
