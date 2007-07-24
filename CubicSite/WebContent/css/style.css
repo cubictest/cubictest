@@ -12,6 +12,11 @@ body{
 	height: 120px;
 	background-color: black;
 }
+
+img {
+	border: 0;
+}
+
 #title{
 	position: absolute;
 	top: 0px;
