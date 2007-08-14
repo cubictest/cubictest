@@ -164,6 +164,7 @@ M4?   Bigger canvas, should be easier to extend (place elements at edge) (bug in
    (Easier "not present")
    (Drag and drop element to another *test* (refactoring))
    (Show page name from extenison point (?))
+   Name Identifiers-tab "Identifiers" instead of Properties?
    
    
 Export:
