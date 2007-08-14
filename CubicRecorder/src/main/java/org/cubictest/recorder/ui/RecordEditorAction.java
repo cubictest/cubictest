@@ -97,6 +97,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 						Thread.sleep(100);
 					}
 	 				RunSeleniumRunnerAction runner = new RunSeleniumRunnerAction();
+	 				runner.setActiveEditor(action, (IEditorPart) testEditor);
 	 				runner.setCustomCompletedMessage("Test browser forwarded. Result: $result. Recording can begin (test browser is open).");
 	 				runner.setShowCompletedMessageInStatusLine(true);
 	 				runner.setStopSeleniumWhenFinished(false);
