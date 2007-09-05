@@ -46,7 +46,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 			ServletHandler servletHandler = new ServletHandler();
 			servletHandler.addServlet("JSON-RPC", "/JSON-RPC", JSONRPCServlet.class.getName());
 			cubicRecorder.addHandler(servletHandler);
-			servletHandler.getSessionManager().addEventListener(new SeleniumRecorderSessionListener(recorder));
+			servletHandler.getSessionManager().addEventListener(new SeleniumRecorderSessionListener(recorder, url));
 		} catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}

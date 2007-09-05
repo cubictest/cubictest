@@ -17,9 +17,11 @@ import com.metaparadigm.jsonrpc.JSONRPCBridge;
 public class SeleniumRecorderSessionListener implements HttpSessionListener {
 
 	private IRecorder recorder;
+	private final String url;
 
-	public SeleniumRecorderSessionListener(IRecorder recorder) {
+	public SeleniumRecorderSessionListener(IRecorder recorder, String url) {
 		this.recorder = recorder;
+		this.url = url;
 	}
 
 	public void sessionCreated(HttpSessionEvent sessionEvent) {
@@ -31,7 +33,7 @@ public class SeleniumRecorderSessionListener implements HttpSessionListener {
 		    session.setAttribute("JSONRPCBridge", json_bridge);
 			json_bridge.setDebug(true);
 		}
-		json_bridge.registerObject("recorder", new JSONRecorder(recorder, new JSONElementConverter()));
+		json_bridge.registerObject("recorder", new JSONRecorder(recorder, new JSONElementConverter(url)));
 	}
 
 	public void sessionDestroyed(HttpSessionEvent sessionEvent) {}

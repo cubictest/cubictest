@@ -7,9 +7,11 @@ package org.cubictest.recorder;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tools.ant.util.regexp.Regexp;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
@@ -30,9 +32,11 @@ import org.json.JSONObject;
 
 public class JSONElementConverter {
 	private HashMap<String, PageElement> pageElements = new HashMap<String, PageElement>();
-
-	public JSONElementConverter() {
-		
+	private final String baseUrl;
+	
+	
+	public JSONElementConverter(String baseUrl) {
+		this.baseUrl = baseUrl;
 	}
 	
 	private String getString(JSONObject object, String property) {
@@ -126,6 +130,7 @@ public class JSONElementConverter {
 			
 			for(IdentifierType idType : pe.getIdentifierTypes()){
 				String key = null;
+				String src = "";
 				
 				switch (idType){
 					case CHECKED:
@@ -136,8 +141,8 @@ public class JSONElementConverter {
 						key = "id";
 						break;
 					case SRC:
-						//TODO: Handle relative/absolute URLs. Selenium always gets absolute, even if page uses relative URL.
-//						key = "src";
+						key = "src";
+						src = makeRelativeUrl(getString(properties, "src"));
 						break;
 					case LABEL:
 						if(pe instanceof Button)
@@ -177,8 +182,11 @@ public class JSONElementConverter {
 					Identifier identifier = pe.getIdentifier(idType);
 					identifier.setValue("");
 					identifier.setProbability(0);
-				}
-				else {
+				} else if(key.equals("src")) {
+					Identifier identifier = pe.getIdentifier(idType);
+					identifier.setValue(src);
+					identifier.setProbability(100);
+				} else {
 					String value = getString(properties, key);
 					if (StringUtils.isNotBlank(value)) {
 						Identifier identifier = pe.getIdentifier(idType);
@@ -202,5 +210,9 @@ public class JSONElementConverter {
 
 	public PageElement getPageElement(String cubicId) {
 		return pageElements.get(cubicId);
+	}
+	
+	private String makeRelativeUrl(String url) {
+		return url.replaceAll("^" + Pattern.quote(baseUrl), "");
 	}
 }
