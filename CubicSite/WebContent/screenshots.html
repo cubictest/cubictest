@@ -33,8 +33,10 @@
 				</div>
 				<img class="screenshotImage" src="images/testSample_login.png" />
 				<div class="screenshotDescription">
-					This test defines an extension point ("Logged in extension point") that
-					other tests can start from.
+					This test asserts the presence of a welcome text and three form elements, as well as links and header/footer.
+					It then uses the three form elements to log in a user and checks that a login confirmation message is displayed.
+					The test then defines an extension point ("Logged in extension point") that other tests can start from.
+					In this way, other tests can start from a logged in state using this test as setup and common start of test.
 				</div>
 				<br/><br/>
 			</div>
