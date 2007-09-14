@@ -9,6 +9,7 @@ package org.cubictest.ui.gef.controller.formElement;
 
 import java.util.List;
 
+import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
@@ -50,7 +51,7 @@ public class FormSelectEditPart extends FormElementEditPart {
 	}
 	
 	@Override
-	public List getModelChildren() {
+	public List<PageElement> getModelChildren() {
 		return getModel().getElements();
 	}
 
@@ -64,6 +65,7 @@ public class FormSelectEditPart extends FormElementEditPart {
 		return figure;
 	}
 	
+	@Override
 	public void startDirectEdit(){
 		if (manager == null)
 			manager = new CubicTestDirectEditManager(this,
@@ -78,6 +80,7 @@ public class FormSelectEditPart extends FormElementEditPart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.EditPart#setSelected(int)
 	 */
+	@Override
 	public void setSelected(int value) {
 		super.setSelected(value);
 		CubicTestGroupFigure figure = (CubicTestGroupFigure) getFigure();
