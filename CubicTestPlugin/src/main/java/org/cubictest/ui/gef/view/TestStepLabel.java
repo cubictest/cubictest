@@ -5,8 +5,6 @@
  */
 package org.cubictest.ui.gef.view;
 
-import org.cubictest.model.TestPartStatus;
-import org.eclipse.draw2d.ColorConstants;
 
 
 public class TestStepLabel extends CubicTestLabel{
