@@ -30,7 +30,7 @@ public class CommonTransitionEditPart extends TransitionEditPart {
 	public CommonTransitionEditPart(CommonTransition transition) {
 		super(transition);
 	}
-	
+	@Override
 	protected IFigure createFigure() {
 		IFigure fig = super.createFigure();
 		fig.setForegroundColor(ColorConstants.gray);
