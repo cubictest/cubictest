@@ -20,7 +20,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>UNKNOWN</status>
+              <status>PASS</status>
             </text>
             <textField>
               <description></description>
@@ -33,8 +33,8 @@
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
-                  <value>Username</value>
-                  <probability>100</probability>
+                  <value></value>
+                  <probability>0</probability>
                   <type>ID</type>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
@@ -61,7 +61,7 @@
                   <useParam>false</useParam>
                 </identifier>
               </identifiers>
-              <directEditIdentifier reference="../identifiers/identifier[2]"/>
+              <directEditIdentifier reference="../identifiers/identifier[3]"/>
               <not>false</not>
               <status reference="../../text/status"/>
             </textField>
@@ -76,8 +76,8 @@
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
-                  <value>Password</value>
-                  <probability>100</probability>
+                  <value></value>
+                  <probability>0</probability>
                   <type reference="../../../../textField/identifiers/identifier[2]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
@@ -104,7 +104,7 @@
                   <useParam>false</useParam>
                 </identifier>
               </identifiers>
-              <directEditIdentifier reference="../identifiers/identifier[2]"/>
+              <directEditIdentifier reference="../identifiers/identifier[3]"/>
               <not>false</not>
               <status reference="../../text/status"/>
             </password>
@@ -136,6 +136,13 @@
                   <value></value>
                   <probability>0</probability>
                   <type reference="../../../../textField/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>CLASS</type>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
@@ -197,7 +204,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/text/status"/>
+                    <status>FAIL</status>
                   </text>
                 </elements>
                 <name>Logged in</name>
