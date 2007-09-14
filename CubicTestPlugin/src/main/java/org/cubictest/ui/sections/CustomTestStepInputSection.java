@@ -15,21 +15,21 @@ import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.gef.EditPart;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.views.properties.tabbed.AdvancedPropertySection;
+import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
-public class CustomTestStepInputSection extends AdvancedPropertySection {	
+public class CustomTestStepInputSection extends AbstractPropertySection {	
 	private Composite composite;
 	private List<CustomTestStepParameterComposite> composites = new ArrayList<CustomTestStepParameterComposite>();
 	private CustomTestStepHolder customTestStepHolder;
+	private Composite parent;
 
 	@Override
 	public void setInput(IWorkbenchPart part, ISelection selection) {
@@ -71,10 +71,10 @@ public class CustomTestStepInputSection extends AdvancedPropertySection {
 	public void createControls(Composite parent,
 			TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
-		
-		composite = getWidgetFactory().createFlatFormComposite(parent);
-		composite.setBackground(ColorConstants.white);
-		
+		this.parent = parent;
+		if(composite == null)
+			composite = getWidgetFactory().createFlatFormComposite(parent);
+
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 1;
 		layout.verticalSpacing = 2;
@@ -85,11 +85,11 @@ public class CustomTestStepInputSection extends AdvancedPropertySection {
 	@Override
 	public void refresh() {
 		super.refresh();
-		/*
-		composite.getParent().pack(true);
-		composite.getParent().redraw();
-		composite.getParent().update();
-		*/
+		
+		parent.pack(true);
+		parent.redraw();
+		parent.update();
+		
 	}
 	
 	@Override
