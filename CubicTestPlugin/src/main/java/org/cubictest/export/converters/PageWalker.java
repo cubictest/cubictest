@@ -7,7 +7,7 @@
  */
 package org.cubictest.export.converters;
 
-import org.cubictest.export.IResultHolder;
+import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.Page;

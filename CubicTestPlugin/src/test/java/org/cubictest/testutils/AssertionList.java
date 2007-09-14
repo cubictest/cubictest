@@ -9,7 +9,7 @@ import java.util.List;
 
 import junit.framework.AssertionFailedError;
 
-import org.cubictest.export.IResultHolder;
+import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.model.SubTest;
 
 /**

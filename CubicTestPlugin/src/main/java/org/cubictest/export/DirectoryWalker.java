@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import org.cubictest.common.exception.ResourceNotCubicTestFileException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.TreeTestWalker;
+import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.export.utils.FileExportUtils;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.Test;

@@ -12,8 +12,8 @@ import java.util.List;
 
 import org.cubictest.common.exception.UnknownExtensionPointException;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.export.IResultHolder;
 import org.cubictest.export.exceptions.TestFailedException;
+import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.export.utils.TestWalkerUtils;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
