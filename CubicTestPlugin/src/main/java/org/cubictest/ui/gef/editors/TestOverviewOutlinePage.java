@@ -46,6 +46,7 @@ public class TestOverviewOutlinePage extends Page implements IContentOutlinePage
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.part.Page#createControl(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void createControl(Composite parent) {
 		canvas = new Canvas(parent, SWT.NONE);
         LightweightSystem lws = new LightweightSystem(canvas);
@@ -59,6 +60,7 @@ public class TestOverviewOutlinePage extends Page implements IContentOutlinePage
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.part.Page#getControl()
 	 */
+	@Override
 	public Control getControl() {
 		return canvas;
 	}
@@ -66,6 +68,7 @@ public class TestOverviewOutlinePage extends Page implements IContentOutlinePage
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.part.Page#setFocus()
 	 */
+	@Override
 	public void setFocus() {
 		if (getControl() != null)
             getControl().setFocus();
