@@ -14,9 +14,10 @@ import java.util.concurrent.TimeoutException;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.export.ITestRunner;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.exceptions.TestFailedException;
-import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
+import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
@@ -24,9 +25,8 @@ import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.Browser;
-import org.cubictest.exporters.selenium.runner.util.SeleniumController;
-import org.cubictest.exporters.selenium.runner.util.UserCancelledException;
-import org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation;
+import org.cubictest.exporters.selenium.runner.util.SeleniumWorkerThread;
+import org.cubictest.exporters.selenium.runner.util.SeleniumWorkerThread.Operation;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -35,7 +35,6 @@ import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.Selenium;
@@ -45,11 +44,11 @@ import com.thoughtworks.selenium.Selenium;
  * 
  * @author Christian Schwarz
  */
-public class RunnerSetup implements IRunnableWithProgress {
+public class TestRunner implements ITestRunner {
 
 	Test test;
 	SeleniumHolder seleniumHolder;
-	SeleniumController controller;
+	SeleniumWorkerThread controller;
 	private static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
 	private Display display;
 	private Selenium selenium;
@@ -58,7 +57,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 	private CubicTestProjectSettings settings;
 
 	
-	public RunnerSetup(Test test, ExtensionPoint targetExPoint, Display display, CubicTestProjectSettings settings) {
+	public TestRunner(Test test, ExtensionPoint targetExPoint, Display display, CubicTestProjectSettings settings) {
 		this.settings = settings;
 		this.test = test;
 		this.targetExPoint = targetExPoint;
@@ -67,7 +66,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 
 
 
-	public RunnerSetup(Test test, Selenium selenium, CubicTestProjectSettings settings) {
+	public TestRunner(Test test, Selenium selenium, CubicTestProjectSettings settings) {
 		this.settings = settings;
 		this.test = test;
 		this.selenium = selenium;
@@ -76,7 +75,7 @@ public class RunnerSetup implements IRunnableWithProgress {
 	public void run(IProgressMonitor monitor) {
 		
 		try {
-			controller = new SeleniumController();
+			controller = new SeleniumWorkerThread();
 			controller.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
 			controller.setBrowser(Browser.FIREFOX);
 			controller.setDisplay(display);
@@ -143,9 +142,9 @@ public class RunnerSetup implements IRunnableWithProgress {
 	 * Show the results of the test in the GUI.
 	 * @return
 	 */
-	public String showResults() {
+	public String getResultMessage() {
 		if (seleniumHolder != null) {
-			return seleniumHolder.showResults();
+			return seleniumHolder.getResults();
 		}
 		return "";
 	}

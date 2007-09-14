@@ -6,14 +6,12 @@ package org.cubictest.exporters.selenium.utils;
 
 import static org.junit.Assert.assertEquals;
 
+import org.cubictest.export.holders.ContextHolder;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
-import org.cubictest.model.PageElement;
-import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.SimpleContext;
-import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.TextArea;
 import org.eclipse.core.runtime.CoreException;
 import org.junit.Before;

@@ -77,7 +77,7 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 			else {
 				throw new ExporterException("Unsupported action element type");
 			}
-			inputValue = SeleniumUtils.getValue(userInteraction, doc);
+			inputValue = SeleniumUtils.getValue(userInteraction);
 		}
 		
 		doc.addCommand(commandName, locator, inputValue).setDescription(commandDesc);

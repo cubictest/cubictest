@@ -6,23 +6,16 @@ package org.cubictest.exporters.selenium.ui;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
-import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.UserInfo;
-import org.cubictest.export.utils.exported.ExportUtils;
+import org.cubictest.export.ITestRunner;
+import org.cubictest.export.ui.BaseRunnerAction;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
-import org.cubictest.exporters.selenium.runner.RunnerSetup;
+import org.cubictest.exporters.selenium.runner.TestRunner;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Test;
-import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IActionDelegate;
-import org.eclipse.ui.IEditorActionDelegate;
-import org.eclipse.ui.IEditorPart;
 
 import com.thoughtworks.selenium.Selenium;
 
@@ -31,9 +24,8 @@ import com.thoughtworks.selenium.Selenium;
  * 
  * @author Christian Schwarz
  */
-public class RunSeleniumRunnerAction implements IEditorActionDelegate {
+public class RunSeleniumRunnerAction extends BaseRunnerAction  {
 
-	ITestEditor testEditor;
 	boolean stopSeleniumWhenFinished = true;
 	Selenium selenium;
 	private ExtensionPoint targetExPoint;
@@ -41,15 +33,33 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 	private boolean showCompletedMessageInStatusLine;
 	private Test preSelectedTest;
 
-	public RunSeleniumRunnerAction() {
-		super();	
-	}
-		
 
-	/**
-	 * @see IActionDelegate#run(IAction)
-	 */
-	public void run(IAction action) {
+	@Override
+	public Shell getShell() {
+		return SeleniumExporterPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
+	}
+
+
+	@Override
+	public ITestRunner getTestRunner(Test test, Display display, CubicTestProjectSettings settings) {
+		TestRunner runner = new TestRunner(test, targetExPoint, display, settings);
+		if (selenium != null) {
+			runner.setSelenium(selenium);
+		}
+		return runner;
+	}
+
+
+	@Override
+	protected void finalCleanUp() {
+		if (stopSeleniumWhenFinished && testRunner != null) {
+			((TestRunner) testRunner).stopSelenium();
+		}
+	}
+
+	
+	@Override
+	protected Test getTest() {
 		Test test = null;
 		if (preSelectedTest != null) {
 			test = preSelectedTest;
@@ -57,53 +67,12 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 		else {
 			test = testEditor.getTest();
 		}
-		
-		if( test == null ) {
-			UserInfo.showErrorDialog("Could not get test. Close editor and retry");
-			return;
-		}
-		if (!ExportUtils.testIsOkForExport(test)) {
-			ExportUtils.showTestNotOkForExportMsg(test);
-			return;
-		}
-		test.resetStatus();
-		
-		RunnerSetup testRunner = null;
-		Shell shell = null;
-		CubicTestProjectSettings settings = new CubicTestProjectSettings(testEditor.getProject());
-		
-		try {
-			testRunner = new RunnerSetup(test, targetExPoint, Display.getCurrent(), settings);
-			if (selenium != null) {
-				testRunner.setSelenium(selenium);
-			}
-			shell = SeleniumExporterPlugin.getDefault().
-					getWorkbench().getActiveWorkbenchWindow().getShell();
-			
-			//run the test:
-			new ProgressMonitorDialog(shell).run(true, true, testRunner);
-			
-			//show result:
-			String result = ((RunnerSetup) testRunner).showResults();
-			showCompletedMessage(shell, result);
-		}
-		catch (Exception e) {
-			if (testRunner != null) {
-				((RunnerSetup) testRunner).showResults();
-			}
-			if(shell != null)
-				shell.forceActive();
-			ErrorHandler.logAndShowErrorDialog(e, "Error when running test", shell);
-		}
-		finally {
-			if (stopSeleniumWhenFinished && testRunner != null) {
-				((RunnerSetup) testRunner).stopSelenium();
-			}
-		}
+		return test;
 	}
-
-
-	private void showCompletedMessage(Shell shell, String result) {
+	
+	
+	@Override
+	protected void showCompletedMessage(Shell shell, String result) {
 		String msg = "Test run finished. " + result + ". Press OK to close test browser.";
 		if (StringUtils.isNotBlank(customCompletedMessage)) {
 			//use custom message instead
@@ -117,47 +86,30 @@ public class RunSeleniumRunnerAction implements IEditorActionDelegate {
 			MessageDialog.openInformation(shell, "CubicTest Selenium Exporter", msg);
 		}
 	}
+
+
 	
-
-	/**
-	 * Set active editor and get the Test.
-	 */
-	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
-		if (targetEditor != null && targetEditor instanceof ITestEditor) {
-			testEditor = ((ITestEditor) targetEditor);
-		}
-	}
-
-
-	public void selectionChanged(IAction action, ISelection selection) {
-	}
-
 
 	public void setStopSeleniumWhenFinished(boolean stopSeleniumWhenFinished) {
 		this.stopSeleniumWhenFinished = stopSeleniumWhenFinished;
 	}
 
-
 	public void setSelenium(Selenium selenium) {
 		this.selenium = selenium;
 	}
-
 
 	public void setPreSelectedTest(Test test) {
 		this.preSelectedTest = test;
 	}
 
-
 	public void setTargetExtensionPoint(ExtensionPoint targetExPoint) {
 		this.targetExPoint = targetExPoint;
 	}
 
-
 	public void setCustomCompletedMessage(String customCompletedMessage) {
 		this.customCompletedMessage = customCompletedMessage;
 	}
-
-
+	
 	public void setShowCompletedMessageInStatusLine(boolean b) {
 		this.showCompletedMessageInStatusLine = b;
 	}

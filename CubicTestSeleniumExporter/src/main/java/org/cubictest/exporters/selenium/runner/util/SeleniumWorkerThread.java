@@ -4,8 +4,8 @@
  */
 package org.cubictest.exporters.selenium.runner.util;
 
-import static org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation.START;
-import static org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation.STOP;
+import static org.cubictest.exporters.selenium.runner.util.SeleniumWorkerThread.Operation.START;
+import static org.cubictest.exporters.selenium.runner.util.SeleniumWorkerThread.Operation.STOP;
 
 import java.util.concurrent.Callable;
 
@@ -25,11 +25,11 @@ import com.thoughtworks.selenium.Selenium;
  * 
  * @author Christian Schwarz
  */
-public class SeleniumController implements Callable<SeleniumHolder> {
+public class SeleniumWorkerThread implements Callable<SeleniumHolder> {
 
 	public enum Operation {START, STOP};
 	
-	CubicSeleniumServer server;
+	SeleniumProxyServer server;
 	SeleniumHolder seleniumHolder;
 	public Operation operation = START;
 	private UrlStartPoint initialUrlStartPoint;
@@ -47,7 +47,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 	public SeleniumHolder call() throws InterruptedException {
 		if (START.equals(operation)) {
 			if (selenium == null) {
-				server = new CubicSeleniumServer(settings);
+				server = new SeleniumProxyServer(settings);
 				server.start();
 				while (!server.isStarted()) {
 					//wait for server thread to start
@@ -110,6 +110,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 		return null;
 	}
 
+	
 	public void setOperation(Operation operation) {
 		this.operation = operation;
 	}

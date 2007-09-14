@@ -7,7 +7,6 @@ package org.cubictest.exporters.selenium.runner.util;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
-import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.openqa.selenium.server.SeleniumServer;
 
@@ -17,14 +16,15 @@ import org.openqa.selenium.server.SeleniumServer;
  * 
  * @author Christian Schwarz
  */
-public class CubicSeleniumServer {
+public class SeleniumProxyServer {
 
 	SeleniumServer seleniumServer;
 	Thread serverThread;
 	int port;
 	boolean started;
 	
-	public CubicSeleniumServer(CubicTestProjectSettings settings) {
+	
+	public SeleniumProxyServer(CubicTestProjectSettings settings) {
 		try {
 			port = 28242; //cubic
 			seleniumServer = new SeleniumServer(port);

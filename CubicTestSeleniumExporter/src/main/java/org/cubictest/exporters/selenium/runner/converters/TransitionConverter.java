@@ -104,7 +104,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				throw new ExporterException("Unsupported action element type");
 
 			}
-			inputValue = SeleniumUtils.getValue(userInteraction, seleniumHolder);
+			inputValue = SeleniumUtils.getValue(userInteraction);
 		}
 		
 		try {
