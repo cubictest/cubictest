@@ -10,6 +10,7 @@ package org.cubictest.ui.sections;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.cubictest.model.Test;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.persistence.ParameterPersistance;
@@ -17,6 +18,7 @@ import org.cubictest.ui.gef.command.ChangeParameterListCommand;
 import org.cubictest.ui.gef.command.ChangeParameterListIndexCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -31,6 +33,8 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -89,22 +93,19 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 				dialog.setInitialSelection(test.getParamList().getFileName());
 			}
 			if (dialog.open() == Window.OK) {
-				IResource element= (IResource) dialog.getFirstResult();
+				IResource element = (IResource) dialog.getFirstResult();
+				if (element == null)
+					return;
+				String oldName = fileName.getText();
 				fileName.setText(element.getFullPath().toString());
+				if(!oldName.equals(fileName.getText()))
+					filePathChanged();
 			}
 		}
 	};
 	
-	class FileNameListener implements FocusListener, SelectionListener{
-		public void widgetDefaultSelected(SelectionEvent e) {}
-		public void widgetSelected(SelectionEvent e) {
-			fileNameUpdated();
-		}
-		public void focusGained(FocusEvent e) {}
-		public void focusLost(FocusEvent e) {
-			fileNameUpdated();
-		}
-		private void fileNameUpdated(){
+	class FileNameListener implements ModifyListener{
+		public void modifyText(ModifyEvent e) {
 			String text = fileName.getText();
 			ParameterList list = test.getParamList();
 			if((list == null && !"".equals(text)) || 
@@ -134,8 +135,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		fileName = getWidgetFactory().createText(composite, "");
 		fileName.setLayoutData(data);
 		FileNameListener fileNameListener = new FileNameListener();
-		fileName.addSelectionListener(fileNameListener);
-		fileName.addFocusListener(fileNameListener);
+		fileName.addModifyListener(fileNameListener);
 		
 		data = new GridData();
 		data.widthHint = 150;
@@ -147,9 +147,9 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		
 		paramIndexLabel = getWidgetFactory().createLabel(composite, "Parameter index:");
 		paramIndexSpinner = new Spinner(composite, SWT.BORDER);
-		paramIndexSpinner.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
+		paramIndexSpinner.addModifyListener(new ModifyListener(){
+			
+			public void modifyText(ModifyEvent e) {
 				ChangeParameterListIndexCommand command = new ChangeParameterListIndexCommand();
 				command.setParameterList(test.getParamList());
 				command.setNewIndex(paramIndexSpinner.getSelection());
@@ -174,7 +174,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 			ParameterList list = test.getParamList();
 			int length = list.inputParameterSize();
 			paramIndexSpinner.setValues(list.getParameterIndex(), 0, 
-					length <= 0 ? 0 : length-1,0, 1, 5);
+					(length <= 0) ? 0 : length-1,0, 1, 5);
 		}
 	}
 
@@ -199,31 +199,37 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		String text = fileName.getText();
 		ParameterList list = null;
 		try{
-			list = ParameterPersistance.loadFromFile(ResourcesPlugin.
-					getWorkspace().getRoot().getFile(new Path(text)));
+			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(text));
+			if(file.exists())
+				list = ParameterPersistance.loadFromFile(file);
 		}catch (Exception e) {
 			// list will be null
 		}
-		ChangeParameterListCommand command = new ChangeParameterListCommand();
-		command.setTest(test);
-		command.setNewParamList(list);
-		command.setOldParamList(test.getParamList());
-		executeCommand(command);
+		
+		if(!ObjectUtils.equals(list, test.getParamList())){
+			ChangeParameterListCommand command = new ChangeParameterListCommand();
+			command.setTest(test);
+			command.setNewParamList(list);
+			command.setOldParamList(test.getParamList());
+			executeCommand(command);
+		}
 	}
 
 	private void executeCommand(Command command) {
 		IWorkbenchPart part = getPart();
 		if(part instanceof GraphicalTestEditor)
 			((GraphicalTestEditor)part).getCommandStack().execute(command);
+		
 	}
 	
 	@Override
 	public void refresh() {
 		super.refresh();
 		boolean visibile = (test.getParamList() != null);
-		paramIndexLabel.setVisible(visibile);
-		paramIndexSpinner.setVisible(visibile);
 		refreshParamButton.setVisible(visibile);
+		paramIndexLabel.setVisible(visibile && test.getParamList().inputParameterSize()>1);
+		paramIndexSpinner.setVisible(visibile && test.getParamList().inputParameterSize()>1);
+		
 		if(test.getParamList() != null){
 			fileName.setText(test.getParamList().getFileName());
 			updateIndexSpinner();
@@ -231,13 +237,13 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 	}
 
 	public void propertyChange(PropertyChangeEvent event) {
-		refresh();
 		if(event.getOldValue() instanceof ParameterList){
 			((ParameterList)event.getOldValue()).removePropertyChangeListener(this);
 		}
 		if(event.getNewValue() instanceof ParameterList){
 			((ParameterList)event.getNewValue()).removePropertyChangeListener(this);
 		}
+		refresh();
 	}
 	
 	@Override
