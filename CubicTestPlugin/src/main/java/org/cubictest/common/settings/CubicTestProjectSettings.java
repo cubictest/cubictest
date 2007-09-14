@@ -28,15 +28,18 @@ public class CubicTestProjectSettings {
 
 	/** The test project's properties */
 	Properties properties;
+	
+	File projectFolder;
 
 	
 	public CubicTestProjectSettings(IProject project) {
-		File projectFolder = project.getLocation().toFile();
+		projectFolder = project.getLocation().toFile();
 		File propsFile = getPropsFile(projectFolder);
 		loadProperties(propsFile);
 	}
 
 	public CubicTestProjectSettings(File projectFolder) {
+		this.projectFolder = projectFolder;
 		File propsFile = getPropsFile(projectFolder);
 		loadProperties(propsFile);
 	}
@@ -115,5 +118,9 @@ public class CubicTestProjectSettings {
 				return false;
 			}
 		};
+	}
+
+	public File getProjectFolder() {
+		return projectFolder;
 	}
 }
