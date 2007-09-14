@@ -58,7 +58,7 @@ public class ContextEditPart extends PageElementEditPart {
 	}
 	
 	@Override
-	public List getModelChildren() {
+	public List<?> getModelChildren() {
 		return ((AbstractContext)getModel()).getElements();
 	}
 
