@@ -49,7 +49,7 @@ public abstract class PageElement extends PropertyAwareObject
 				if (id.getProbability() < 0) {
 					op = "!=";
 				}
-				buff.append(id.getType() + op + "\"" + id.getValue() + "\"");
+				buff.append(id.getType() + op + "\'" + id.getValue() + "\'");
 			}
 			i++;
 		}
