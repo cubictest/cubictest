@@ -21,7 +21,7 @@ public class EnvironmentInfo {
 	public static boolean isRunningInEclipse() {
 		if (runningInEclipse == null) {
 			try {
-				Class plugin = Class.forName("org.cubictest.CubicTestPlugin");
+				Class<?> plugin = Class.forName("org.cubictest.CubicTestPlugin");
 				if (plugin == null) {
 					runningInEclipse = false;
 				}
