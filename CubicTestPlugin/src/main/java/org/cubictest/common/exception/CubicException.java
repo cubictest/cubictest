@@ -14,10 +14,6 @@ public class CubicException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 	private Throwable cause;
-	
-	private CubicException() {
-		super();
-	}
 
 	public CubicException(Throwable cause) {
 		super(cause.toString());
