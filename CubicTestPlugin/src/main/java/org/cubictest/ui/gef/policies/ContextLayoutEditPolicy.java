@@ -48,6 +48,7 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.OrderedLayoutEditPolicy#createAddCommand(org.eclipse.gef.EditPart, org.eclipse.gef.EditPart)
 	 */
+	@Override
 	protected Command createAddCommand(EditPart child, EditPart after) {
 		
 		//only allow PageElements to be added:
@@ -69,7 +70,7 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 		int newIndex = 0;
 		newPage = container;
 
-		List children = getHost().getChildren();
+		List<?> children = getHost().getChildren();
 
 		if (after != null) {
 			//moved behind another element on other page
@@ -114,10 +115,11 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.OrderedLayoutEditPolicy#createMoveChildCommand(org.eclipse.gef.EditPart, org.eclipse.gef.EditPart)
 	 */
+	@Override
 	protected Command createMoveChildCommand(EditPart child, EditPart after) {
 		
 		int newIndex = 0;
-		List children = getHost().getChildren();
+		List<?> children = getHost().getChildren();
 		
 		if (after != null){
 			//element is put after another element
@@ -150,6 +152,7 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.LayoutEditPolicy#getCreateCommand(org.eclipse.gef.requests.CreateRequest)
 	 */
+	@Override
 	protected Command getCreateCommand(CreateRequest request) {
 		
 		return null;
@@ -158,6 +161,7 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.LayoutEditPolicy#getDeleteDependantCommand(org.eclipse.gef.Request)
 	 */
+	@Override
 	protected Command getDeleteDependantCommand(Request request) {
 		return null;
 	}
@@ -166,7 +170,7 @@ public class ContextLayoutEditPolicy extends FlowLayoutEditPolicy {
 	public void showTargetFeedback(Request request) {
 		if (request instanceof CreateRequest) {
 			CreateRequest createReq = (CreateRequest) request;
-			Class type = (Class) createReq.getNewObjectType();
+			Class<?> type = (Class<?>) createReq.getNewObjectType();
 			if (type != null && PageElement.class.isAssignableFrom(type)) {
 				super.showTargetFeedback(request);
 			}
