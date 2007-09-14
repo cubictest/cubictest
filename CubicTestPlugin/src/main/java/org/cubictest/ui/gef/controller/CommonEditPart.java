@@ -36,6 +36,7 @@ public class CommonEditPart extends AbstractPageEditPart {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
+	@Override
 	protected IFigure createFigure() {
 		CubicTestGroupFigure figure = (CubicTestGroupFigure) super.createFigure();
 		figure.getHeader().setBackgroundColor(ColorConstants.lightGray);
