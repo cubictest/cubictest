@@ -14,13 +14,6 @@ import org.eclipse.swt.graphics.Image;
 public class ParamsLabelProvider extends LabelProvider implements ITableLabelProvider  {
 
 	
-	//private ParamsEditor editor;
-	
-	public ParamsLabelProvider(ParamsEditor editor) {
-		//this.editor = editor;
-	}
-	
-	
 	public Image getColumnImage(Object element, int columnIndex) {
 		return null;
 	}

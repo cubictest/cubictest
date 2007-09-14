@@ -166,7 +166,7 @@ public class ParamsEditor extends EditorPart {
 		tableViewer.setCellEditors(cellEditors);
 		tableViewer.setCellModifier(new ParamsTableCellModifier(this));
 		tableViewer.setContentProvider(new ParamsContentProvider());
-		tableViewer.setLabelProvider(new ParamsLabelProvider(this));
+		tableViewer.setLabelProvider(new ParamsLabelProvider());
 	}
 	private void createButtons(Composite superparent) {
 		this.parent = new Composite(superparent,superparent.getStyle());
