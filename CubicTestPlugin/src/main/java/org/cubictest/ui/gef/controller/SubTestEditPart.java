@@ -24,7 +24,6 @@ import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.PageNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.SubTestFigure;
-import org.cubictest.ui.gef.view.TestStepLabel;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
