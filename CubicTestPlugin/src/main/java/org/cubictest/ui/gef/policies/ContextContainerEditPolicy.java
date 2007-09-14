@@ -47,6 +47,7 @@ public class ContextContainerEditPolicy extends ContainerEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.AbstractEditPolicy#getTargetEditPart(org.eclipse.gef.Request)
 	 */
+	@Override
 	public EditPart getTargetEditPart(Request request) {
 		if(REQ_CREATE.equals(request.getType()))
 			return getHost();
@@ -57,6 +58,7 @@ public class ContextContainerEditPolicy extends ContainerEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.ContainerEditPolicy#getCreateCommand(org.eclipse.gef.requests.CreateRequest)
 	 */
+	@Override
 	protected Command getCreateCommand(CreateRequest request) {
 		
 		int index = getIndex(request);

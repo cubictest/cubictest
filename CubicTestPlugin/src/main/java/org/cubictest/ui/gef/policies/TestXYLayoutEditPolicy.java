@@ -34,6 +34,7 @@ public class TestXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy#createAddCommand(org.eclipse.gef.EditPart, java.lang.Object)
 	 */
+	@Override
 	protected Command createAddCommand(EditPart child, Object constraint) {
 		return null;
 	}
@@ -41,6 +42,7 @@ public class TestXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy#createChangeConstraintCommand(org.eclipse.gef.EditPart, java.lang.Object)
 	 */
+	@Override
 	protected Command createChangeConstraintCommand(EditPart child,
 			Object constraint) {
 		if (!(child instanceof AbstractNodeEditPart))
@@ -80,6 +82,7 @@ public class TestXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.LayoutEditPolicy#getCreateCommand(org.eclipse.gef.requests.CreateRequest)
 	 */
+	@Override
 	protected Command getCreateCommand(CreateRequest request) {
 		return null;
 	}
@@ -87,6 +90,7 @@ public class TestXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.LayoutEditPolicy#getDeleteDependantCommand(org.eclipse.gef.Request)
 	 */
+	@Override
 	protected Command getDeleteDependantCommand(Request request) {
 		return null;
 	}

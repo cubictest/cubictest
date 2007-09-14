@@ -26,6 +26,7 @@ public class TransitionConnectionEditPolicy extends ConnectionEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.ConnectionEditPolicy#getDeleteCommand(org.eclipse.gef.requests.GroupRequest)
 	 */
+	@Override
 	protected Command getDeleteCommand(GroupRequest request) {
 		Transition transition = (Transition) getHost().getModel();
 		Test test = (Test)((RootEditPart)getHost().getParent()).getContents().getModel();

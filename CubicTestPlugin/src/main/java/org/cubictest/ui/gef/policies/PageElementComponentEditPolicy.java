@@ -27,6 +27,7 @@ public class PageElementComponentEditPolicy extends ComponentEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.ComponentEditPolicy#createDeleteCommand(org.eclipse.gef.requests.GroupRequest)
 	 */
+	@Override
 	protected Command createDeleteCommand(GroupRequest deleteRequest) {
 		DeletePageElementCommand deleteCmd = new DeletePageElementCommand();
 		deleteCmd.setElementParent((IContext)getHost().getParent().getModel());

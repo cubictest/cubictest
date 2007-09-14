@@ -20,6 +20,7 @@ public class StartPointNodeEditPolicy extends AbstractNodeEditPolicy {
 		return null;
 	}
 
+	@Override
 	protected Command getReconnectSourceCommand(ReconnectRequest request) {
 		return null;
 	}

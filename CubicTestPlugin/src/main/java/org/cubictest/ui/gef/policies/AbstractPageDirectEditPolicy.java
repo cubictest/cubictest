@@ -25,6 +25,7 @@ public class AbstractPageDirectEditPolicy extends DirectEditPolicy {
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.DirectEditPolicy#getDirectEditCommand(org.eclipse.gef.requests.DirectEditRequest)
 	 */
+	@Override
 	protected Command getDirectEditCommand(DirectEditRequest request) {
 		ChangeAbstractPageNameCommand editCommand = new ChangeAbstractPageNameCommand();
 		AbstractPage page = (AbstractPage) getHost().getModel();

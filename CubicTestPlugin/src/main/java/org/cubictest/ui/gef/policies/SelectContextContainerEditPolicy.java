@@ -26,6 +26,7 @@ public class SelectContextContainerEditPolicy extends
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editpolicies.ContainerEditPolicy#getCreateCommand(org.eclipse.gef.requests.CreateRequest)
 	 */
+	@Override
 	protected Command getCreateCommand(CreateRequest request) {
 		
 		int index = super.getIndex(request);

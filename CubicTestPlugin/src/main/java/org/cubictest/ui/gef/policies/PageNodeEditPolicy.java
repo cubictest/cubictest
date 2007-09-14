@@ -24,6 +24,7 @@ public class PageNodeEditPolicy extends AbstractNodeEditPolicy {
 	/*
 	 * @see GraphicalNodeEditPolicy#getConnectionCompleteCommand(CreateConnectionRequest)
 	 */
+	@Override
 	protected Command getConnectionCompleteCommand(CreateConnectionRequest request){
 		Test test = (Test)getHost().getParent().getModel();
 		CreateTransitionCommand cmd = (CreateTransitionCommand) request.getStartCommand();

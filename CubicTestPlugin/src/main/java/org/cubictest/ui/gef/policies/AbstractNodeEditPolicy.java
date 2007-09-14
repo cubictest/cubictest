@@ -31,6 +31,7 @@ public abstract class AbstractNodeEditPolicy extends GraphicalNodeEditPolicy {
 	/*
 	 * @see GraphicalNodeEditPolicy#getConnectionCreateCommand(CreateConnectionRequest)
 	 */
+	@Override
 	protected Command getConnectionCreateCommand(CreateConnectionRequest request){
 		CreateTransitionCommand cmd = new CreateTransitionCommand();
 		AbstractNodeEditPart part = (AbstractNodeEditPart) getHost();
@@ -42,6 +43,7 @@ public abstract class AbstractNodeEditPolicy extends GraphicalNodeEditPolicy {
 	/*
 	 * @see GraphicalNodeEditPolicy#getConnectionCompleteCommand(CreateConnectionRequest)
 	 */
+	@Override
 	protected Command getConnectionCompleteCommand(CreateConnectionRequest request){
 		Test test = (Test)getHost().getParent().getModel();
 		CreateTransitionCommand cmd = (CreateTransitionCommand) request.getStartCommand();
@@ -54,6 +56,7 @@ public abstract class AbstractNodeEditPolicy extends GraphicalNodeEditPolicy {
 	/*
 	 * @see GraphicalNodeEditPolicy#getReconnectSourceCommand(ReconnectRequest)
 	 */
+	@Override
 	protected Command getReconnectSourceCommand(ReconnectRequest request){
 		TransitionNode newSource = ((TransitionNode)((AbstractNodeEditPart) getHost()).getModel());
 		Transition transition = ((Transition) request.getConnectionEditPart().getModel());
@@ -64,6 +67,7 @@ public abstract class AbstractNodeEditPolicy extends GraphicalNodeEditPolicy {
 	/*
 	 * @see GraphicalNodeEditPolicy#getReconnectTargetCommand(ReconnectRequest)
 	 */
+	@Override
 	protected Command getReconnectTargetCommand(ReconnectRequest request){
 		ReconnectTrasitionTargetCommand cmd = new ReconnectTrasitionTargetCommand();
 		cmd.setTransition((Transition)request.getConnectionEditPart().getModel());

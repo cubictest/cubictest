@@ -16,11 +16,11 @@ import org.eclipse.gef.requests.ReconnectRequest;
  *
  */
 public class CommonNodeEditPolicy extends AbstractNodeEditPolicy {
-
+	@Override
 	protected Command getConnectionCompleteCommand( CreateConnectionRequest request) {
 		return null;
 	}
-	
+	@Override
 	protected Command getReconnectTargetCommand(ReconnectRequest request) {
 		return null;
 	}
