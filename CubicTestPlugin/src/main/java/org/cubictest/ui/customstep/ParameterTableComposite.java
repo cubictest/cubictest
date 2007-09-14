@@ -74,7 +74,7 @@ public class ParameterTableComposite extends Composite implements PropertyChange
 			}
 		}
 	}; 
-	private CustomTestStepParameterList parameters;  //  @jve:decl-index=0:
+	private CustomTestStepParameterList parameters;  
 	private ICellModifier modifier = new ICellModifier(){
 		public boolean canModify(Object element, String property) {
 			return true;
@@ -246,6 +246,6 @@ public class ParameterTableComposite extends Composite implements PropertyChange
 		}else{
 			tableViewer.setInput(parameters);
 		}
-	};
+	}
 	
 }
