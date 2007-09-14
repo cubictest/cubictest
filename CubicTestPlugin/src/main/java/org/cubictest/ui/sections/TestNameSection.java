@@ -92,7 +92,8 @@ public class TestNameSection extends AbstractPropertySection implements Property
 	@Override
 	public void dispose() {
 		super.dispose();
-		test.removePropertyChangeListener(this);
+		if(test != null)
+			test.removePropertyChangeListener(this);
 	}
 	
 	@Override
