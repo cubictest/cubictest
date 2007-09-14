@@ -7,7 +7,8 @@ package org.cubictest.exporters.watir.holders;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.cubictest.export.IResultHolder;
+import org.cubictest.common.settings.CubicTestProjectSettings;
+import org.cubictest.export.holders.RunnerResultHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.eclipse.swt.widgets.Display;
@@ -19,7 +20,7 @@ import org.eclipse.swt.widgets.Display;
  * 
  * @author chr_schwarz
  */
-public class StepList implements IResultHolder {
+public class StepList extends RunnerResultHolder {
 	
 	private RubyBuffer rubyBuffer;
 	private boolean browserStarted = false;
@@ -32,18 +33,18 @@ public class StepList implements IResultHolder {
 	/** Initial prefix */
 	private String prefix = "ie";
 	private boolean runnerMode;
-	private Display display;
+	
 	
 	public StepList() {
-		this(false, null);
+		this(false, null, null);
 	}
 	
 	/**
 	 * Constructor that sets up the Watir script.
 	 * @param testName
 	 */
-	public StepList(boolean runnerMode, Display display) {
-		this.display = display;
+	public StepList(boolean runnerMode, Display display, CubicTestProjectSettings settings) {
+		super(display, settings);
 		this.runnerMode = runnerMode;
 		this.rubyBuffer = new RubyBuffer();
 		pageElementMap = new HashMap<String, PageElement>();

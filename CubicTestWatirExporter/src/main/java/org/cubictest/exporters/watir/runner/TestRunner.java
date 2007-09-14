@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.export.ITestRunner;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.exporters.watir.converters.ContextConverter;
@@ -30,15 +31,15 @@ import org.eclipse.swt.widgets.Display;
  * 
  * @author Christian Schwarz
  */
-public class RunnerSetup implements IRunnableWithProgress {
+public class TestRunner implements ITestRunner {
 
 	Test test;
-	WatirMonitor watirMonitor;
 	private Display display;
 	private CubicTestProjectSettings settings;
 	private boolean processDone;
+	StepList stepList;
 
-	public RunnerSetup(Test test, Display display, CubicTestProjectSettings settings) {
+	public TestRunner(Test test, Display display, CubicTestProjectSettings settings) {
 		this.settings = settings;
 		this.test = test;
 		this.display = display;
@@ -48,8 +49,8 @@ public class RunnerSetup implements IRunnableWithProgress {
 	public void run(IProgressMonitor monitor) {
 
 		try {
-			StepList stepList = new StepList(true, display);
-			watirMonitor = new WatirMonitor(stepList, display);
+			stepList = new StepList(true, display, settings);
+			WatirMonitor watirMonitor = new WatirMonitor(stepList);
 
 			TreeTestWalker<StepList> testWalker = new TreeTestWalker<StepList>(
 					UrlStartPointConverter.class, PageElementConverter.class,
@@ -102,9 +103,9 @@ public class RunnerSetup implements IRunnableWithProgress {
 	/** Class that monitors the Proces object and detects when it shuts down */
 	public class ProcessTerminationDetector extends Thread {
 		Process process;
-		RunnerSetup runner;
+		TestRunner runner;
 		
-		public ProcessTerminationDetector(Process process, RunnerSetup runner) {
+		public ProcessTerminationDetector(Process process, TestRunner runner) {
 			this.process = process;
 			this.runner = runner;
 		}
@@ -124,8 +125,8 @@ public class RunnerSetup implements IRunnableWithProgress {
 	 * Show the results of the test in the GUI.
 	 * @return
 	 */
-	public String getResultInfo() {
-		return watirMonitor.getResultInfo();
+	public String getResultMessage() {
+		return stepList.getResults();
 	}
 
 	/** Tell that the Watir process has shut down */
