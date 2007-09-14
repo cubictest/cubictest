@@ -50,6 +50,7 @@ public class CustomStepEditorActionBarContributor extends
 	 *  (non-Javadoc)
 	 * @see org.eclipse.gef.ui.actions.ActionBarContributor#declareGlobalActionKeys()
 	 */
+	@Override
 	protected void declareGlobalActionKeys(){
 		//addGlobalActionKey(ActionFactory.PRINT.getId());
 		addGlobalActionKey(ActionFactory.CUT.getId());
