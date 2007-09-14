@@ -85,18 +85,6 @@ public class WatirMonitor {
 		}
 	}
 	
-	public void updateStatus(SubTest theSubTest, boolean hadException) {
-		final boolean hadEx = hadException;
-		final SubTest subTest = theSubTest;
-		if (display != null) {
-			display.asyncExec(new Runnable() {
-				public void run() {
-					if(subTest != null)
-						subTest.updateStatus(hadEx);
-				}
-			});
-		}
-	}
 	
 	public String getResultInfo() {
 		handleUserCancel();
