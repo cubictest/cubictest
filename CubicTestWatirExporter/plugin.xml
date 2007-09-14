@@ -41,7 +41,14 @@
                id="org.cubictest.exporters.watir.ui.ExportToWatirEditorAction"
                label="Create Watir tests"
                menubarPath="additions"/>
+         <action
+               class="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"
+               icon="icons/watir_run_icon.gif"
+               id="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"
+               label="Run Test with Cubic Watir Runner"
+               menubarPath="additions"/>
       </viewerContribution>
+      
       
    </extension>
 </plugin>

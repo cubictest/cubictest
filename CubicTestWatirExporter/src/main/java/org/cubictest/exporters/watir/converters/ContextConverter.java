@@ -42,6 +42,9 @@ public class ContextConverter implements IContextConverter<StepList> {
 		if (ctx instanceof AbstractPage) {
 			return PreContextHandle.CONTINUE;
 		}
+		if (ctx instanceof PageElement) {
+			stepList.registerPageElement((PageElement) ctx);
+		}
 
 		stepList.addSeparator();
 
@@ -50,15 +53,16 @@ public class ContextConverter implements IContextConverter<StepList> {
 		}
 		else if (ctx instanceof Frame){
 			handleFrame(stepList, ctx);
-			
 		}
 		else if (ctx instanceof AbstractContext) {
 			handleAbstractContext(stepList, ctx);
 		}
 
 		PageElement element = (PageElement) ctx;
+		stepList.add("puts \"" + StepList.PASS + stepList.getId(element) + "\"", 3);
 		stepList.add("passedSteps += 1 ", 3);
 		stepList.add("rescue " + StepList.TEST_STEP_FAILED, 2);
+		stepList.add("puts \"" + StepList.FAIL + stepList.getId(element) + "\"", 3);
 		stepList.add("failedSteps += 1 ", 3);
 
 		String id = StringUtils.replace(element.getMainIdentifier().toString(),"\"", "\\\"");

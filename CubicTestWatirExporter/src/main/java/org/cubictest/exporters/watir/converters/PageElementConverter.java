@@ -34,12 +34,13 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 	 * Converts a page element located on a page to a watir assertion.
 	 */
 	public void handlePageElement(StepList stepList, PageElement pe) {
+		stepList.registerPageElement(pe);
 		stepList.addSeparator();
 		String idText = "\"" + StringUtils.replace(WatirUtils.getIdText(pe),"\"", "\\\"") + "\"";
 		String idType = WatirUtils.getIdType(pe);
 		
 		String not = pe.isNot() ? " not" : ""; 
-		stepList.add("# asserting " + pe.getType() + " with " + pe.getMainIdentifierType() + " = " + idText + not + " present", 2);
+		stepList.add("# asserting " + stepList.getId(pe) + " with " + pe.getMainIdentifierType() + " = " + idText + not + " present", 2);
 		stepList.add("begin", 2);
 
 		if (WatirUtils.shouldGetLabelTargetId(pe)) {
@@ -110,6 +111,8 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 			stepList.add("end", 3);
 
 		}
+		stepList.add("puts \"" + StepList.PASS + stepList.getId(pe) + "\"", 3);
+		stepList.add("passedSteps += 1 ", 3);		
 	}
 
 	
@@ -131,8 +134,8 @@ public class PageElementConverter implements IPageElementConverter<StepList> {
 	}
 	
 	private void handleAssertionFailure(StepList stepList, PageElement pe) {
-		stepList.add("passedSteps += 1 ", 3);
 		stepList.add("rescue " + StepList.TEST_STEP_FAILED, 2);
+		stepList.add("puts \"" + StepList.FAIL + stepList.getId(pe) + "\"", 3);
 		stepList.add("failedSteps += 1 ", 3);
 
 		String prefix = StringUtils.replace(stepList.getPrefix(),"\"", "\\\"");

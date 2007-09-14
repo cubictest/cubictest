@@ -4,8 +4,13 @@
  */
 package org.cubictest.exporters.watir.holders;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.cubictest.export.IResultHolder;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
+import org.eclipse.swt.widgets.Display;
 
 
 /**
@@ -19,17 +24,30 @@ public class StepList implements IResultHolder {
 	private RubyBuffer rubyBuffer;
 	private boolean browserStarted = false;
 	public static final String TEST_STEP_FAILED = "TestStepFailed";
-	
+	public Map<String, PageElement> pageElementMap;
+	public Map<PageElement, String> idMap;
+	public static String PASS = "[pass]>";
+	public static String FAIL = "[fail]>";
+	public static String EXCEPTION = "[exception]>";
 	/** Initial prefix */
 	private String prefix = "ie";
+	private boolean runnerMode;
+	private Display display;
+	
+	public StepList() {
+		this(false, null);
+	}
 	
 	/**
 	 * Constructor that sets up the Watir script.
 	 * @param testName
 	 */
-	public StepList() {
+	public StepList(boolean runnerMode, Display display) {
+		this.display = display;
+		this.runnerMode = runnerMode;
 		this.rubyBuffer = new RubyBuffer();
-		
+		pageElementMap = new HashMap<String, PageElement>();
+		idMap = new HashMap<PageElement, String>();
 		setUpWatirTest();
 	}
 
@@ -73,7 +91,9 @@ public class StepList implements IResultHolder {
 		rubyBuffer.add("end", 2);
 		
 		rubyBuffer.add("puts \"Press enter to exit\"", 2);
-		rubyBuffer.add("gets", 2);
+		if (!runnerMode) {
+			rubyBuffer.add("gets", 2);
+		}
 		rubyBuffer.add("ie.close", 2);
 		rubyBuffer.add("end", 1);
 		rubyBuffer.add("end", 0);
@@ -103,7 +123,7 @@ public class StepList implements IResultHolder {
 		rubyBuffer.add("require 'test/unit'", 0);
 		rubyBuffer.add("class " + TEST_STEP_FAILED + " < RuntimeError", 0);
 		rubyBuffer.add("end", 0);
-		rubyBuffer.add("class TC_cubicTestWatirExport_" + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
+		rubyBuffer.add("class CubicTestExport_" + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
 		rubyBuffer.add("def test_exported", 1);
 		rubyBuffer.add("failedSteps = 0", 2);
 		rubyBuffer.add("passedSteps = 0", 2);
@@ -125,8 +145,21 @@ public class StepList implements IResultHolder {
 	}
 
 
-	public void updateStatus(SubTest subTest, boolean hadException) {
-		// TODO Auto-generated method stub
-		
+	public void updateStatus(SubTest theSubTest, boolean hadException) {
+		//not possible to track subtests without putting logic in generated watir file
+	}
+	
+	public void registerPageElement(PageElement pe) {
+		String id = pe.toString();
+		pageElementMap.put(id, pe);
+		idMap.put(pe, id);
+	}
+	
+	public PageElement getPageElement(String id) {
+		return pageElementMap.get(id);
+	}
+
+	public String getId(PageElement pe) {
+		return idMap.get(pe);
 	}
 }

@@ -106,6 +106,7 @@ public class TransitionConverter implements ITransitionConverter<StepList> {
 			stepList.add("passedSteps += 1 ", 3);
 
 			stepList.add("rescue", 2);
+			stepList.add("puts " + "\"" + StepList.EXCEPTION + "$!" + "\"");
 			stepList.add("failedSteps += 1 ", 3);
 			String interactionType = StringUtils.replace(WatirUtils.getInteraction(userInteraction) ,"\"", "\\\"");
 			stepList.add("puts \"Could not " + interactionType + " " + 

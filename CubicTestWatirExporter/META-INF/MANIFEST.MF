@@ -13,3 +13,4 @@ Eclipse-LazyStart: true
 Bundle-ClassPath: .,
  lib/commons-lang-2.3.jar
 Bundle-Vendor: cubictest.org
+Bundle-Activator: org.cubictest.exporters.watir.WatirExporterPlugin
