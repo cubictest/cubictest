@@ -31,11 +31,13 @@ public abstract class AbstractNodeEditPart extends PropertyChangePart
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
+	@Override
 	protected abstract IFigure createFigure(); 
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#createEditPolicies()
 	 */
+	@Override
 	protected abstract void createEditPolicies();
 	
 	/* (non-Javadoc)
@@ -69,14 +71,16 @@ public abstract class AbstractNodeEditPart extends PropertyChangePart
 	/*
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#getModelSourceConnections()
 	 */
-	protected List getModelSourceConnections() {
+	@Override
+	protected List<Transition> getModelSourceConnections() {
 		return ((TransitionNode)getModel()).getOutTransitions();	
 	}
 
 	/*
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#getModelTargetConnections()
 	 */
-	protected List getModelTargetConnections(){
+	@Override
+	protected List<Transition> getModelTargetConnections(){
 		Transition trans = ((TransitionNode)getModel()).getInTransition();
 		List<Transition> list = new ArrayList<Transition>();
 		if (trans != null)
