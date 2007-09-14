@@ -360,7 +360,7 @@ public class LegacyUpgrade {
 		public int getVersion() {
 			return version;
 		}
-		
+		@Override
 		public String toString() {
 			return "Version: " + version;
 		}
