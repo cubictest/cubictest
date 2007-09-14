@@ -21,7 +21,7 @@ public class IdentifierSection extends AbstractPropertySection {
 	private PageElement pageElement;
 	private Composite composite;
 	private List<IdentifierComposite> composites = new ArrayList<IdentifierComposite>();
-	private Composite parent;;
+	private Composite parent;
 
 	@Override
 	public void setInput(IWorkbenchPart part, ISelection selection) {
