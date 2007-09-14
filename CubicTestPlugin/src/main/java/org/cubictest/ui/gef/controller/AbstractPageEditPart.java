@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
@@ -104,7 +105,7 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	 * @see org.eclipse.gef.editparts.AbstractEditPart#getModelChildren()
 	 */
 	@Override
-	protected List getModelChildren(){
+	protected List<PageElement> getModelChildren(){
 		return ((AbstractPage)getModel()).getElements();
 	}
 
