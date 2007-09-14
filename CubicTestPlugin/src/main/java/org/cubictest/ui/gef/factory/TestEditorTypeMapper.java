@@ -12,7 +12,8 @@ import org.eclipse.ui.views.properties.tabbed.AbstractTypeMapper;
 
 public class TestEditorTypeMapper extends AbstractTypeMapper {
 
-	public Class mapType(Object object) {
+	@Override
+	public Class<?> mapType(Object object) {
 		if(object instanceof EditPart)
 			return ((EditPart)object).getModel().getClass();
 		return super.mapType(object);

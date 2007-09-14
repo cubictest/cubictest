@@ -33,7 +33,7 @@ public class DataCreationFactory implements CreationFactory {
 	 */
 	public Object getNewObject(){
 		try{
-			return ((Class) clazz).newInstance();
+			return ((Class<?>) clazz).newInstance();
 		}
 		catch (Exception e){
 			ErrorHandler.logAndThrow("Error creating object of class " + clazz);
