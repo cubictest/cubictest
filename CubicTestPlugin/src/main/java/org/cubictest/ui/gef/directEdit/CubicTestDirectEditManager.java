@@ -9,7 +9,6 @@ package org.cubictest.ui.gef.directEdit;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editparts.ZoomListener;
 import org.eclipse.gef.editparts.ZoomManager;
@@ -54,7 +53,7 @@ public class CubicTestDirectEditManager extends DirectEditManager {
 			CellEditorLocator locator)</code>
 	 * @param label the label to edit
 	 */
-	public CubicTestDirectEditManager(GraphicalEditPart source, Class editorType,
+	public CubicTestDirectEditManager(GraphicalEditPart source, Class<?> editorType,
 			CellEditorLocator locator, String label) {
 		super(source, editorType, locator);
 		this.label = label;
@@ -64,6 +63,7 @@ public class CubicTestDirectEditManager extends DirectEditManager {
 	 * Unregisters actions (copy, paste etc) and zoom listeners.
 	 * @see org.eclipse.gef.tools.DirectEditManager#bringDown()
 	 */
+	@Override
 	protected void bringDown() {
 		ZoomManager zoomMgr = (ZoomManager)getEditPart().getViewer()
 				.getProperty(ZoomManager.class.toString());
@@ -96,6 +96,7 @@ public class CubicTestDirectEditManager extends DirectEditManager {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.gef.tools.DirectEditManager#initCellEditor()
 	 */
+	@Override
 	protected void initCellEditor(){
 		Text text = (Text) getCellEditor().getControl();
 
