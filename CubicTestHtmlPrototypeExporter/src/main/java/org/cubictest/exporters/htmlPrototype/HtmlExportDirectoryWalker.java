@@ -15,7 +15,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.DirectoryWalker;
-import org.cubictest.export.IResultHolder;
+import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.htmlPrototype.delegates.TestConverter;
 import org.cubictest.model.Test;
