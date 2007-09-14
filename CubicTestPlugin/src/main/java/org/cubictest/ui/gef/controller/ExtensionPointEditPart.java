@@ -44,7 +44,7 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 		setModel(point);
 		
 	}
-	
+	@Override
 	public void propertyChange(PropertyChangeEvent evt){
 		String property = evt.getPropertyName();
 		if (evt.getSource() instanceof Page) {
