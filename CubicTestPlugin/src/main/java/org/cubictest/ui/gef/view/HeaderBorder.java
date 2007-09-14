@@ -46,6 +46,7 @@ public class HeaderBorder extends AbstractBorder {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.draw2d.Border#isOpaque()
 	 */
+	@Override
 	public boolean isOpaque() {
 		return true;
 	}

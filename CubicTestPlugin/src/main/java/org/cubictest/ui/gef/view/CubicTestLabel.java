@@ -36,6 +36,7 @@ public class CubicTestLabel extends Label {
 	/* (non-Javadoc)
 	 * @see org.eclipse.draw2d.Label#setText(java.lang.String)
 	 */
+	@Override
 	public void setText(String s) {
 		fullText = s;
 		if (s != null && s.length() > length)
