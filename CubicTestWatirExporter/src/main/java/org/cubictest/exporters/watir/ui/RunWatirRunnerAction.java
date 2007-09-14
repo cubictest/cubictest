@@ -83,7 +83,7 @@ public class RunWatirRunnerAction implements IEditorActionDelegate {
 
 
 	private void showCompletedMessage(Shell shell, String result) {
-		MessageDialog.openInformation(shell, "CubicTest Watir Exporter", result);
+		MessageDialog.openInformation(shell, "Watir Test Runner done", result);
 	}
 	
 
