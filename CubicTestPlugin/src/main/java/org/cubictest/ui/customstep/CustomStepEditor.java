@@ -201,14 +201,17 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		layoutData.width = CustomStepSection.STANDARD_LABEL_WIDTH * 2;
 		layoutData.height = 50;
 		descText.setLayoutData(layoutData);
+		descText.setText(customStep.getDescription());		
 		
 		descText.addFocusListener(new FocusListener(){
 			public void focusGained(FocusEvent e) {}
 			public void focusLost(FocusEvent e) {
-				ChangeCustomStepDescriptionCommand command = new ChangeCustomStepDescriptionCommand();
-				command.setDescription(descText.getText());
-				command.setCustomStep(customStep);
-				commandStack.execute(command);
+				if(!descText.getText().equals(customStep.getDescription())){
+					ChangeCustomStepDescriptionCommand command = new ChangeCustomStepDescriptionCommand();
+					command.setDescription(descText.getText());
+					command.setCustomStep(customStep);
+					commandStack.execute(command);
+				}
 			}			
 		});
 		
