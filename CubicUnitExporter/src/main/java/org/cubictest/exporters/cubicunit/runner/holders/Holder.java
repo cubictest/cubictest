@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.cubictest.custom.IElementContext;
-import org.cubictest.export.IResultHolder;
+import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.exporters.cubicunit.ui.BrowserType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
