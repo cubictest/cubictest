@@ -487,7 +487,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 				}
 				else if(!ctPerspectiveId.equals(currentPerspective.getId())){
 					MessageDialog dialog = new MessageDialog(new Shell(), "Change Perspective", 
-							null, "Change Perspective to CubicTest(Recomended)?", 0, 
+							null, "Change Perspective to CubicTest? (Recomended)", 0, 
 								new String[]{"Yes", "Allways Yes", "No", "Allways No"}, 0);
 					int dialogResult = dialog.open();
 					switch (dialogResult) {
