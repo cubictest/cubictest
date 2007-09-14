@@ -22,7 +22,6 @@ import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.view.CubicTestHeaderLabel;
-import org.cubictest.ui.gef.view.CubicTestLabel;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
@@ -169,7 +168,7 @@ public class AutoLayout {
 	 * @param page
 	 */
 	public void setPageSelected(AbstractPage page) {
-		Iterator iter = this.getTestEditPart().getChildren().iterator();
+		Iterator<?> iter = this.getTestEditPart().getChildren().iterator();
 		while (iter.hasNext()) {
 			EditPart part = (EditPart) iter.next();
 			if (part instanceof AbstractPageEditPart) {
