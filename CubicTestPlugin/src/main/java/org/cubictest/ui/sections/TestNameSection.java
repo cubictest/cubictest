@@ -14,7 +14,7 @@ import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.ChangeTestNameCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;

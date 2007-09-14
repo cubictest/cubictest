@@ -10,7 +10,7 @@ import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.controller.UserInteractionsTransitionEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.wizards.UserInteractionsComponent;
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;

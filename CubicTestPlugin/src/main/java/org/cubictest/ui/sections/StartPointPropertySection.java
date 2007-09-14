@@ -11,7 +11,7 @@ import org.cubictest.model.UrlStartPoint;
 import org.cubictest.ui.gef.command.ChangeUrlStartPointBeginAtCommand;
 import org.cubictest.ui.gef.controller.UrlStartPointEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;

@@ -21,9 +21,9 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
@@ -46,8 +46,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.ui.views.navigator.ResourceComparator;
 import org.eclipse.ui.views.navigator.ResourcePatternFilter;
-import org.eclipse.ui.views.navigator.ResourceSorter;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
@@ -84,7 +84,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 			
 			dialog.addFilter(filter);
 			dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
-			dialog.setSorter(new ResourceSorter(ResourceSorter.NAME));
+			dialog.setComparator(new ResourceComparator(ResourceComparator.NAME));
 			if(test.getParamList() != null){
 				dialog.setInitialSelection(test.getParamList().getFileName());
 			}

@@ -4,7 +4,7 @@ import org.cubictest.model.IDescription;
 import org.cubictest.ui.gef.command.ChangeDescriptionCommand;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.gef.EditPart;
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;

@@ -7,7 +7,7 @@ import org.cubictest.model.PageElement;
 import org.cubictest.ui.gef.command.ChangePageElementNotCommand;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.gef.EditPart;
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;

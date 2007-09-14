@@ -17,7 +17,7 @@ import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.gef.EditPart;
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.layout.GridLayout;
@@ -63,6 +63,7 @@ public class CustomTestStepInputSection extends AdvancedPropertySection {
 		}
 		composites.addAll(newIdComs);
 		refresh();
+		
 	}
 
 
@@ -71,20 +72,24 @@ public class CustomTestStepInputSection extends AdvancedPropertySection {
 			TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		
-		if(composite == null)
-			composite = getWidgetFactory().createFlatFormComposite(parent);
+		composite = getWidgetFactory().createFlatFormComposite(parent);
 		composite.setBackground(ColorConstants.white);
+		
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 1;
 		layout.verticalSpacing = 2;
 		composite.setLayout(layout);
+		
 	}
 
 	@Override
 	public void refresh() {
+		super.refresh();
+		/*
 		composite.getParent().pack(true);
 		composite.getParent().redraw();
 		composite.getParent().update();
+		*/
 	}
 	
 	@Override
