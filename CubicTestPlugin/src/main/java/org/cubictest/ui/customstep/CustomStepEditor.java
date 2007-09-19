@@ -50,7 +50,7 @@ import org.eclipse.ui.part.EditorPart;
 
 public class CustomStepEditor extends EditorPart implements ICustomStepListener {
 
-	private static final String CUBIC_TEST_CUSTOM_STEP_EXTENSION = "org.cubictest.exporters";
+	public static final String CUBIC_TEST_CUSTOM_STEP_EXTENSION = "org.cubictest.exporters";
 
 	private CustomTestStep customStep;
 
@@ -89,7 +89,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 			// For each member of the extension ...
 			for (IConfigurationElement element : elements) {
 				try {
-					CustomStepSection section = (CustomStepSection)element.createExecutableExtension("class");
+					CustomStepSection section = (CustomStepSection)element.createExecutableExtension("section");
 					sections.put(extension.getUniqueIdentifier(),section);
 				} catch (CoreException e) {
 					ErrorHandler.logAndShowErrorDialog(e);

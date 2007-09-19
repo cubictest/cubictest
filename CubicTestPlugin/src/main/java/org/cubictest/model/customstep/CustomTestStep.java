@@ -10,15 +10,17 @@ import org.cubictest.model.customstep.data.CustomTestStepData;
 public class CustomTestStep {
 
 	private Map<String, CustomTestStepData> customSteps = new HashMap<String, CustomTestStepData>();
-	private String description;
+	private String description = "";
 	private transient List<ICustomStepListener> listeners = new ArrayList<ICustomStepListener>();
 	private CustomTestStepParameterList parameters;
 	private static final String DESCRIPTION_CHANGED = "DescriptionChanged";
 	
 	public CustomTestStepData getData(String key) {
 		CustomTestStepData customStep = customSteps.get(key);
-		if(customStep == null)
+		if(customStep == null){
 			customStep = new CustomTestStepData();
+			customSteps.put(key,customStep);
+		}
 		return customStep;
 	}
 	

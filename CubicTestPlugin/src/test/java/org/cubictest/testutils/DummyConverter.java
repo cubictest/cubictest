@@ -12,10 +12,12 @@ import org.cubictest.export.converters.IUrlStartPointConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.model.CustomTestStepHolder;
+import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.IContext;
+import org.cubictest.model.customstep.data.CustomTestStepData;
 
 
 /**
@@ -39,7 +41,7 @@ public class DummyConverter implements
 		return null;
 	}
 
-	public void handleCustomStep(AssertionList<String> AssertionList, CustomTestStepHolder cts) {
+	public void handleCustomStep(AssertionList<String> AssertionList, ICustomTestStepHolder cts, CustomTestStepData data) {
 		AssertionList.add(cts.getDisplayText());
 	}
 
@@ -56,6 +58,8 @@ public class DummyConverter implements
 		AssertionList.add(urlStartPoint.getBeginAt());		
 	}
 
-
+	public String getDataKey() {
+		return "dummy";
+	}
 
 }

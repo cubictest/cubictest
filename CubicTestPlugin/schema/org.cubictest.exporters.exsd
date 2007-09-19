@@ -44,13 +44,23 @@
 
    <element name="CustomStepExtension">
       <complexType>
-         <attribute name="class" type="string">
+         <attribute name="section" type="string">
             <annotation>
                <documentation>
                   
                </documentation>
                <appInfo>
                   <meta.attribute kind="java" basedOn="org.cubictest.ui.customstep.CustomStepSection"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="buildpathSupporter" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.cubictest.ui.customstep.IBuildPathSupporter"/>
                </appInfo>
             </annotation>
          </attribute>

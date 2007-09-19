@@ -4,9 +4,17 @@
  */
 package org.cubictest.ui.wizards;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
+import org.cubictest.export.IBuildPathSupporter;
+import org.cubictest.ui.customstep.CustomStepEditor;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFolder;
@@ -16,9 +24,14 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -45,6 +58,7 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 		super();
 		setNeedsProgressMonitor(true);
 	}
+	@Override
 	public void addPages() {
 		super.addPages();
 		namePage = new WizardNewProjectCreationPage("newCubicTestProjectNamepage");
@@ -59,9 +73,12 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 		addPage(summaryPage);
 		
 	}
+	
+	@Override
 	public boolean performFinish() {
 		try {
 			getContainer().run(false, false, new WorkspaceModifyOperation(null) {
+				@Override
 				protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 					createProject(monitor, summaryPage.getCreateTestOnFinish());
 				}
@@ -111,14 +128,41 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			
 			WizardUtils.copyPom(project.getLocation().toFile());
 			WizardUtils.copySettings(project.getLocation().toFile());
+		
+			//construct build path for the new project
+			List<IClasspathEntry> classpathlist = new ArrayList<IClasspathEntry>();
+			classpathlist.add(JavaCore.newSourceEntry(srcFolder.getFullPath()));
+			classpathlist.add(JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER")));
+
+			IExtensionRegistry registry = RegistryFactory.getRegistry();
+			IExtensionPoint extensionPoint = registry.getExtensionPoint(CustomStepEditor.CUBIC_TEST_CUSTOM_STEP_EXTENSION);
+			IExtension[] extensions = extensionPoint.getExtensions();
+			
+			// For each extension ...
+			for (IExtension extension : extensions) {
+				IConfigurationElement[] elements = extension.getConfigurationElements();
+				// For each member of the extension ...
+				for (IConfigurationElement element : elements) {
+					try {
+						IBuildPathSupporter supporter = (IBuildPathSupporter)element.createExecutableExtension("buildpathSupporter");
+						List<File> files = supporter.getFiles();
+						for (File file : files) {
+							FileUtils.copyFile(file, libFolder.getFile(file.getName()).getLocation().toFile());
+							classpathlist.add(JavaCore.newLibraryEntry(libFolder.getFile(file.getName()).getFullPath(), null, null));
+						}
+					} catch (CoreException e) {
+						Logger.info("Didn't find buildpath supporter for: " + element.getName() );
+					} catch (Exception e) {
+						Logger.error(e, "Error when getting file from buildpath suppoerter");
+					}
+				}
+			}
+				//*/		
 			
 			javaProject.setOutputLocation(binFolder.getFullPath(), monitor);
-			IClasspathEntry[] classpath;
-			classpath = new IClasspathEntry[] {
-				JavaCore.newSourceEntry(srcFolder.getFullPath()),
-				JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER")),
-			};
-			javaProject.setRawClasspath(classpath, binFolder.getFullPath(), monitor);
+			
+			javaProject.setRawClasspath(classpathlist.toArray(
+					new IClasspathEntry[classpathlist.size()]), binFolder.getFullPath(), monitor);
 			
 			ResourceNavigator navigator = null;
 			IViewPart viewPart = workbench.getActiveWorkbenchWindow().getActivePage().getViewReferences()[0].getView(false);
@@ -155,7 +199,8 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 		dialog.open();
 	}
 
-    public boolean canFinish() {
+    @Override
+	public boolean canFinish() {
     	if (getContainer().getCurrentPage() instanceof NewProjectSummaryPage) {
     		return true;
     	}

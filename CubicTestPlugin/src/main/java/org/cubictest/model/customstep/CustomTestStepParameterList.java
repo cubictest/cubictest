@@ -3,6 +3,7 @@ package org.cubictest.model.customstep;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CustomTestStepParameterList {	
@@ -68,8 +69,8 @@ public class CustomTestStepParameterList {
 		return parameter;
 	}
 
-	public Object[] toArray() {
-		return parameters.toArray();
+	public CustomTestStepParameter[] toArray() {
+		return parameters.toArray(new CustomTestStepParameter[parameters.size()]);
 	}
 
 }

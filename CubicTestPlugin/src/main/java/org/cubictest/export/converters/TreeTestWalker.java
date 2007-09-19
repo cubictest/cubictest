@@ -192,8 +192,10 @@ public class TreeTestWalker<T extends IResultHolder> {
 				pageWalker.handlePage(resultHolder, (Page) node);
 			} 
 			else if (node instanceof CustomTestStepHolder) {
-				customTestStepConverter.newInstance().handleCustomStep(resultHolder,
-						(CustomTestStepHolder) node);
+				CustomTestStepHolder ctsh = (CustomTestStepHolder) node;
+				ICustomTestStepConverter<T> ctsc = customTestStepConverter.newInstance();
+				ctsc.handleCustomStep(resultHolder,
+						ctsh, ctsc.getDataKey() == null ? null : ctsh.getCustomTestStep().getData( ctsc.getDataKey()));
 			}
 
 			int pathNum = 0;

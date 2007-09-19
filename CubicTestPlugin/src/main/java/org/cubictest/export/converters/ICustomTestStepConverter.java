@@ -5,8 +5,11 @@
 package org.cubictest.export.converters;
 
 import org.cubictest.export.holders.IResultHolder;
-import org.cubictest.model.CustomTestStepHolder;
+import org.cubictest.model.ICustomTestStepHolder;
+import org.cubictest.model.customstep.data.CustomTestStepData;
 
 public interface ICustomTestStepConverter<T extends IResultHolder> {
-	public void handleCustomStep(T t, CustomTestStepHolder cts);
+	public void handleCustomStep(T t, ICustomTestStepHolder cts, CustomTestStepData data);
+
+	public String getDataKey();
 }

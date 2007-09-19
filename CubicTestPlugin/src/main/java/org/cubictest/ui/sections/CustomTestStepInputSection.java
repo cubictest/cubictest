@@ -19,11 +19,19 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class CustomTestStepInputSection extends AbstractPropertySection {	
 	private Composite composite;
@@ -39,6 +47,12 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 		Assert.isTrue(input instanceof EditPart);
 		this.customTestStepHolder = (CustomTestStepHolder) ((EditPart) input).getModel();
 		
+		updateInput(part);
+		
+	}
+
+
+	private void updateInput(IWorkbenchPart part) {
 		Iterator<CustomTestStepParameterComposite> idComIterator = composites.iterator();
 		CustomTestStep customTestStep = customTestStepHolder.getCustomTestStep();
 		List<CustomTestStepParameterComposite> newIdComs = new ArrayList<CustomTestStepParameterComposite>();
@@ -63,7 +77,6 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 		}
 		composites.addAll(newIdComs);
 		refresh();
-		
 	}
 
 
@@ -79,7 +92,19 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 		layout.numColumns = 1;
 		layout.verticalSpacing = 2;
 		composite.setLayout(layout);
-		
+			
+		Button refreshButton = getWidgetFactory().createButton(composite, "Refresh", SWT.PUSH);
+		GridData data = new GridData();
+		data.horizontalAlignment = SWT.END;
+		refreshButton.setLayoutData(data);
+		refreshButton.addSelectionListener(new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent event) {
+				super.widgetDefaultSelected(event);
+				customTestStepHolder.reloadCustomTestStep();
+				updateInput(getPart());
+			}
+		});
 	}
 
 	@Override
