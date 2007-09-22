@@ -10,6 +10,9 @@ import org.cubictest.common.exception.CubicException;
  */
 public class ExporterException extends CubicException {
 
+	public ExporterException(Exception cause) {
+		super(cause);
+	}
 
 	public ExporterException(String message) {
 		super(message);
