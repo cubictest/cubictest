@@ -4,20 +4,15 @@
  */
 package org.cubictest.exporters.selenium.runner;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.export.ITestRunner;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.export.exceptions.UserCancelledException;
+import org.cubictest.export.runner.BaseTestRunner;
+import org.cubictest.export.runner.RunnerWorkerThread.Operation;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
@@ -26,7 +21,6 @@ import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.Browser;
 import org.cubictest.exporters.selenium.runner.util.SeleniumWorkerThread;
-import org.cubictest.exporters.selenium.runner.util.SeleniumWorkerThread.Operation;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -44,30 +38,23 @@ import com.thoughtworks.selenium.Selenium;
  * 
  * @author Christian Schwarz
  */
-public class TestRunner implements ITestRunner {
+public class TestRunner extends BaseTestRunner {
 
-	Test test;
 	SeleniumHolder seleniumHolder;
 	SeleniumWorkerThread controller;
-	private static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
-	private Display display;
-	private Selenium selenium;
-	private ExtensionPoint targetExPoint;
-	private boolean failOnAssertionFailure = true;
-	private CubicTestProjectSettings settings;
+	Selenium selenium;
+	ExtensionPoint targetExPoint;
 
 	
 	public TestRunner(Test test, ExtensionPoint targetExPoint, Display display, CubicTestProjectSettings settings) {
-		this.settings = settings;
+		super(display, settings, test);
 		this.test = test;
 		this.targetExPoint = targetExPoint;
-		this.display = display;
 	}
 
 
-
 	public TestRunner(Test test, Selenium selenium, CubicTestProjectSettings settings) {
-		this.settings = settings;
+		super(null, settings, test);
 		this.test = test;
 		this.selenium = selenium;
 	}
@@ -123,6 +110,7 @@ public class TestRunner implements ITestRunner {
 		}
 	}
 
+	
 
 	/**
 	 * Method for stopping Selenium. Can be invoked by a client class.
@@ -149,6 +137,7 @@ public class TestRunner implements ITestRunner {
 		return "";
 	}
 	
+	
 	/**
 	 * Get the initial URL start point of the test (expands subtests).
 	 */
@@ -172,22 +161,8 @@ public class TestRunner implements ITestRunner {
 	}
 
 
-	/**
-	 * Call a callable object, guarded by timeout.
-	 */
-	private static <T> T call(Callable<T> c, long timeout, TimeUnit timeUnit)
-	    throws InterruptedException, ExecutionException, TimeoutException
-	{
-	    FutureTask<T> t = new FutureTask<T>(c);
-	    THREADPOOL.execute(t);
-	    return t.get(timeout, timeUnit);
-	}
-
 	public void setSelenium(Selenium selenium) {
 		this.selenium = selenium;
 	}
 
-	public void setFailOnAssertionFailure(boolean failOnAssertionFailure) {
-		this.failOnAssertionFailure = failOnAssertionFailure;
-	}
 }

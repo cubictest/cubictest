@@ -83,7 +83,6 @@ public class ContextHolderTest {
 	@Test
 	public void testSingleElement() {
 		String exp = "//a[@href=\"linkHref\"]";
-		assertEquals(exp, holder.getXPathWithFullContextAndPreviousElements(link));
 		assertEquals(exp, holder.getFullContextWithAllElements(link));
 	}
 	
@@ -92,7 +91,6 @@ public class ContextHolderTest {
 		outerContext.addElement(link);
 		holder.pushContext(outerContext);
 		String exp = "/descendant-or-self::*[@id=\"outerId\"]/descendant-or-self::a[@href=\"linkHref\"]";
-		assertEquals(exp, holder.getXPathWithFullContextAndPreviousElements(link));
 		assertEquals(exp, holder.getFullContextWithAllElements(link));
 	}
 	
@@ -103,7 +101,6 @@ public class ContextHolderTest {
 		holder.pushContext(outerContext);
 		holder.pushContext(innerContext1);
 		String exp = "/descendant-or-self::*[@id=\"outerId\"]/descendant-or-self::*[@id=\"inner1Id\"]/descendant-or-self::a[@href=\"linkHref\"]";
-		assertEquals(exp, holder.getXPathWithFullContextAndPreviousElements(link));
 		assertEquals(exp, holder.getFullContextWithAllElements(link));
 	}
 	
@@ -116,8 +113,6 @@ public class ContextHolderTest {
 		outerContext.addElement(image);
 		outerContext.addElement(textArea);
 		holder.pushContext(outerContext);
-		String expPrev = "/descendant-or-self::*[@id=\"outerId\"][.//a[@href=\"linkHref\"]]/descendant-or-self::img[@id=\"imageId\"]";
-		assertEquals(expPrev, holder.getXPathWithFullContextAndPreviousElements(image));
 
 		String expAll = "/descendant-or-self::*[@id=\"outerId\"][.//a[@href=\"linkHref\"] and .//textarea[@name=\"textAreaName\"]]/descendant-or-self::img[@id=\"imageId\"]";
 		assertEquals(expAll, holder.getFullContextWithAllElements(image));
@@ -132,8 +127,6 @@ public class ContextHolderTest {
 		innerContext1.addElement(textArea);
 		holder.pushContext(outerContext);
 		holder.pushContext(innerContext1);
-		String expPrev = "/descendant-or-self::*[@id=\"outerId\"]/descendant-or-self::*[@id=\"inner1Id\"][.//a[@href=\"linkHref\"]]/descendant-or-self::img[@id=\"imageId\"]";
-		assertEquals(expPrev, holder.getXPathWithFullContextAndPreviousElements(image));
 
 		String expAll = "/descendant-or-self::*[@id=\"outerId\"]/descendant-or-self::*[@id=\"inner1Id\"][.//a[@href=\"linkHref\"] and .//textarea[@name=\"textAreaName\"]]/descendant-or-self::img[@id=\"imageId\"]";
 		assertEquals(expAll, holder.getFullContextWithAllElements(image));
@@ -170,8 +163,6 @@ public class ContextHolderTest {
 		holder.pushContext(outerContext2);
 		holder.pushContext(innerContext2);
 		
-		String expPrev = "/descendant-or-self::*[@id=\"outerId\"][.//*[@id=\"inner1Id\"] and .//img[@id=\"imageId\"]]/descendant-or-self::*[@id=\"inner1Id\"]/descendant-or-self::a[@id=\"innderLinkId\"]";
-		assertEquals(expPrev, holder.getXPathWithFullContextAndPreviousElements(innerLink));
 
 		String expAll =  "/descendant-or-self::*[@id=\"outerId\"][.//*[@id=\"inner1Id\"] and .//img[@id=\"imageId\"]]/descendant-or-self::*[@id=\"inner1Id\"][.//textarea[@name=\"textAreaName\"]]/descendant-or-self::a[@id=\"innderLinkId\"]";
 		assertEquals(expAll, holder.getFullContextWithAllElements(innerLink));

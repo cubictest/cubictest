@@ -40,7 +40,7 @@ public class PageElementConverter implements IPageElementConverter<SeleneseDocum
 		}
 		else {
 			//all other elements
-			String locator = "xpath=" + doc.getXPathWithFullContextAndPreviousElements(pe);
+			String locator = "xpath=" + doc.getFullContextWithAllElements(pe);
 			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
 		}
 	}

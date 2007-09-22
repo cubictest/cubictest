@@ -32,20 +32,20 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 
 			//assert context present:
 			PageElement pe = (PageElement) ctx;
-			String locator = "xpath=" + seleniumHolder.getXPathWithFullContextAndPreviousElements(pe);
+			String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(pe);
 			
 			String text = null;
 			try {
 				text = seleniumHolder.getSelenium().getText(locator);
+				if (text == null) {
+					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+				}
+				else {
+					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
+				}
 			}
 			catch (SeleniumException e) {
-			}
-			
-			if (text == null) {
 				seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
-			}
-			else {
-				seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
 			}
 
 			//save the context:

@@ -22,7 +22,7 @@ import static org.cubictest.model.ActionType.UNCHECK;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.export.utils.XPathBuilder;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
@@ -52,7 +52,7 @@ public class SeleniumUtils {
 			locator = "index=0";
 		}
 		else {
-			locator = XPathBuilder.getIdType(optionMainId) + "=" + optionMainId.getValue();
+			locator = ExportUtils.getHtmlIdType(optionMainId) + "=" + optionMainId.getValue();
 		}
 		return locator;
 	}
