@@ -13,7 +13,6 @@ import org.cubictest.model.customstep.data.CustomTestStepData;
 
 public class CustomTestStepConverter implements ICustomTestStepConverter<Holder> {
 	
-	@Override
 	public String getDataKey(){
 		return "org.cubictest.cubicunitexporter";
 	}
