@@ -51,7 +51,6 @@ public class PageElementAsserterXPath {
 			stepList.add("if (pass > 20)", 4);
 			stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 5);
 			stepList.add("end", 4);
-			stepList.add("puts \"sleep 0.1\"", 4);
 			stepList.add("sleep 0.1", 4);
 			stepList.add("pass += 1", 4);
 			stepList.add("end", 3);

@@ -80,6 +80,21 @@ public class WatirHolder extends RunnerResultHolder {
 	public void add(String s, int indent) {
 		rubyBuffer.add(s, indent);
 	}
+
+
+	private void setUpWatirTest() {
+		rubyBuffer.add("require 'rubygems'", 0);
+		rubyBuffer.add("require 'watir'", 0);
+		rubyBuffer.add("require 'test/unit'", 0);
+		rubyBuffer.add("class " + TEST_STEP_FAILED + " < RuntimeError", 0);
+		rubyBuffer.add("end", 0);
+		rubyBuffer.add("class CubicTestExport_" + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
+		rubyBuffer.add("def test_exported", 1);
+		rubyBuffer.add("failedSteps = 0", 2);
+		rubyBuffer.add("passedSteps = 0", 2);
+		rubyBuffer.add("labelTargetId = \"\"", 2);
+		rubyBuffer.add("selectListId = nil", 2);
+	}
 	
 	
 	/**
@@ -106,21 +121,6 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("end", 1);
 		rubyBuffer.add("end", 0);
 		return rubyBuffer.toString(); 
-	}
-
-
-
-	private void setUpWatirTest() {
-		rubyBuffer.add("require 'rubygems'", 0);
-		rubyBuffer.add("require 'watir'", 0);
-		rubyBuffer.add("require 'test/unit'", 0);
-		rubyBuffer.add("class " + TEST_STEP_FAILED + " < RuntimeError", 0);
-		rubyBuffer.add("end", 0);
-		rubyBuffer.add("class CubicTestExport_" + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
-		rubyBuffer.add("def test_exported", 1);
-		rubyBuffer.add("failedSteps = 0", 2);
-		rubyBuffer.add("passedSteps = 0", 2);
-		rubyBuffer.add("labelTargetId = \"\"", 2);
 	}
 
 

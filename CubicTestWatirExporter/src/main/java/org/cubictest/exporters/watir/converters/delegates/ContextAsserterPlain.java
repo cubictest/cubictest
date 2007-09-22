@@ -62,17 +62,11 @@ public class ContextAsserterPlain {
 	private static void handleSelect(WatirHolder stepList, IContext ctx) {
 		
 		Select select = (Select) ctx;
-		stepList.add("# asserting Select box present with " + select.getMainIdentifierType() + 
-				" = " + select.getMainIdentifierValue(), 2);
 		
 		String idText = "\"" + select.getMainIdentifierValue() + "\"";
 		String idType = WatirUtils.getIdType(select);
 
-		if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
-			//declare ID to save to be able to select options:
-			stepList.add("selectListId = nil", 2);
-		}
-		stepList.add("begin", 2);
+
 		if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 			stepList.add(WatirUtils.getLabelTargetId(select));
 			idText = "selectListId";

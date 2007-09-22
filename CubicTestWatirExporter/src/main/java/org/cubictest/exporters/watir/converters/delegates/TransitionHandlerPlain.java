@@ -29,9 +29,6 @@ public class TransitionHandlerPlain {
 		String idType = WatirUtils.getIdType(pe);
 		String idValue = "\"" + pe.getMainIdentifierValue() + "\"";
 
-		stepList.add("# user interaction");
-		stepList.add("begin");
-
 		//Handle Label identifier:
 		if (WatirUtils.shouldGetLabelTargetId(pe)) {
 			stepList.add(WatirUtils.getLabelTargetId(pe));
@@ -47,16 +44,6 @@ public class TransitionHandlerPlain {
 		else {
 			//handle all other interaction types:
 			stepList.add("ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idValue + ")." + WatirUtils.getInteraction(userInteraction), 3);
-			stepList.add("passedSteps += 1 ", 3);
-
-			stepList.add("rescue", 2);
-			stepList.add("puts " + "\"" + WatirHolder.EXCEPTION + "$!" + "\"");
-			stepList.add("failedSteps += 1 ", 3);
-			String interactionType = StringUtils.replace(WatirUtils.getInteraction(userInteraction) ,"\"", "\\\"");
-			stepList.add("puts \"Could not " + interactionType + " " + 
-					WatirUtils.getElementType(pe) + " with " + pe.getMainIdentifierType() + " = '" + pe.getMainIdentifierValue() + "'\"", 3);
-	
-			stepList.add("end", 2);
 		}
 	}
 
@@ -86,12 +73,6 @@ public class TransitionHandlerPlain {
 		else {
 			stepList.add(selectList + ".option(" + idType + ", " + idText + ").select", 3);
 		}
-		
-		stepList.add("rescue",2);
-		stepList.add("failedSteps += 1 ",3);
-		stepList.add("puts \"Step failed: Select option with " + idType + " = '" + option.getMainIdentifierValue() + "'\"", 3);		
-		stepList.add("end", 2);
-
 	}
 		
 }
