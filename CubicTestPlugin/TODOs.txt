@@ -30,7 +30,7 @@ Better Watir runner
 Lower limit on "start firefox timeout", do not follow transition timeout below 15 sec.
 Capture image of failing test page (and the previous page). Selenium: http://binil.wordpress.com/2006/12/22/taking-screenshots-with-selenium/
 Test suites should continue to next test even if a test fails
-
+Form as context type (with name, action method? attribute
 
 Before OpenQA release:
 ----------------------
