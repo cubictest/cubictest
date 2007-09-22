@@ -12,7 +12,7 @@ import org.cubictest.exporters.watir.converters.CustomTestStepConverter;
 import org.cubictest.exporters.watir.converters.PageElementConverter;
 import org.cubictest.exporters.watir.converters.TransitionConverter;
 import org.cubictest.exporters.watir.converters.UrlStartPointConverter;
-import org.cubictest.exporters.watir.holders.StepList;
+import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -27,9 +27,7 @@ import org.eclipse.ui.IActionDelegate;
 public class ExportToWatirAction implements IActionDelegate {
 	ISelection selection;
 	
-	public static final String OK_MESSAGE = "Test exported OK to the \"generated\" directory.\n\n" +
-	"The exported test (.rb file) can be run by right clicking  -> " +
-	"Open With -> System Editor (Watir and Ruby must be installed)";
+	public static final String OK_MESSAGE = "Test exported OK to the \"generated\" directory.";
 	
 	/* 
 	 * @see IActionDelegate#run(IAction)
@@ -44,7 +42,7 @@ public class ExportToWatirAction implements IActionDelegate {
 					CustomTestStepConverter.class, 
 					PageElementConverter.class, 
 					ContextConverter.class,
-					StepList.class);
+					WatirHolder.class);
 			UserInfo.showInfoDialog(OK_MESSAGE);
 		} 
 		catch (Exception e) {

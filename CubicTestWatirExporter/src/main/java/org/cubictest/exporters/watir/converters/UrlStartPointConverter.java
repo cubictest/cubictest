@@ -8,7 +8,7 @@
 package org.cubictest.exporters.watir.converters;
 
 import org.cubictest.export.converters.IUrlStartPointConverter;
-import org.cubictest.exporters.watir.holders.StepList;
+import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.UrlStartPoint;
 
 /**
@@ -16,10 +16,10 @@ import org.cubictest.model.UrlStartPoint;
  * 
  * @author chr_schwarz
  */
-public class UrlStartPointConverter implements IUrlStartPointConverter<StepList> {
+public class UrlStartPointConverter implements IUrlStartPointConverter<WatirHolder> {
 	
 	
-	public void handleUrlStartPoint(StepList stepList, UrlStartPoint sp, boolean firstUrl) {
+	public void handleUrlStartPoint(WatirHolder stepList, UrlStartPoint sp, boolean firstUrl) {
 		if (!stepList.isBrowserStarted()) {
 			stepList.add("ie = Watir::IE.new");
 			stepList.setBrowserStarted(true);

@@ -18,6 +18,7 @@ import static org.cubictest.model.ActionType.KEY_PRESSED;
 import static org.cubictest.model.ActionType.MOUSE_OUT;
 import static org.cubictest.model.ActionType.MOUSE_OVER;
 import static org.cubictest.model.ActionType.NO_ACTION;
+import static org.cubictest.model.ActionType.SELECT;
 import static org.cubictest.model.ActionType.UNCHECK;
 import static org.cubictest.model.IdentifierType.HREF;
 import static org.cubictest.model.IdentifierType.ID;
@@ -29,9 +30,9 @@ import static org.cubictest.model.IdentifierType.TITLE;
 import static org.cubictest.model.IdentifierType.VALUE;
 
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.watir.holders.RubyBuffer;
-import org.cubictest.exporters.watir.holders.StepList;
+import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.ActionType;
+import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
@@ -39,7 +40,6 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.context.AbstractContext;
-import org.cubictest.model.context.Frame;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Option;
@@ -56,6 +56,7 @@ import org.cubictest.model.formElement.TextField;
  */
 public class WatirUtils {
 
+	
 	public static String getIdType(PageElement pe) {
 		IdentifierType idType = pe.getMainIdentifierType();
 		if (idType.equals(ID))
@@ -85,14 +86,6 @@ public class WatirUtils {
 		}
 	}
 	
-	/**
-	 * Get the identifier value of the most significant identifier.
-	 * @param pe
-	 * @return
-	 */
-	public static String getIdText(PageElement pe) {
-		return pe.getMainIdentifierValue();
-	}
 	
 	/**
 	 * Get the Watir element type corresponding to the page element.
@@ -114,14 +107,12 @@ public class WatirUtils {
 			return "option";
 		if (pe instanceof Link)
 			return "link";
-		if (pe instanceof Frame)
-			return "frame";
 		if (pe instanceof AbstractContext)
 			return "div";
 		if (pe instanceof Image)
 			return "image";
 		if (pe instanceof Text)
-			throw new ExporterException("Text is not a supported element type for identification.");
+			return "text";
 		
 		throw new ExporterException("Unknown element type");
 	}
@@ -139,6 +130,8 @@ public class WatirUtils {
 			return "set";
 		if (a.equals(UNCHECK))
 			return "clear";
+		if (a.equals(SELECT))
+			return "select";
 		if (a.equals(ENTER_TEXT))
 			return "set(\"" + textualInput +"\")";
 		if (a.equals(ENTER_PARAMETER_TEXT))
@@ -164,7 +157,7 @@ public class WatirUtils {
 		if (a.equals(NO_ACTION))
 			throw new ExporterException(a.getText() + " is not a supported action type");
 
-		throw new ExporterException("Unknown ActionType");
+		throw new ExporterException("Unknown ActionType: " + a);
 	}
 
 	
@@ -183,7 +176,7 @@ public class WatirUtils {
 		buff.add("end", 4);
 		buff.add("end", 3);
 		buff.add("if (labelTargetId == nil)", 3);
-		buff.add("raise " + StepList.TEST_STEP_FAILED, 4);
+		buff.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
 		buff.add("end", 3);
 		return buff.toString();
 	}

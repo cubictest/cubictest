@@ -11,18 +11,17 @@ import java.io.InputStreamReader;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.export.ITestRunner;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.exceptions.TestFailedException;
+import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.exporters.watir.converters.ContextConverter;
 import org.cubictest.exporters.watir.converters.CustomTestStepConverter;
 import org.cubictest.exporters.watir.converters.PageElementConverter;
 import org.cubictest.exporters.watir.converters.TransitionConverter;
 import org.cubictest.exporters.watir.converters.UrlStartPointConverter;
-import org.cubictest.exporters.watir.holders.StepList;
+import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.Test;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 
 /**
@@ -31,17 +30,18 @@ import org.eclipse.swt.widgets.Display;
  * 
  * @author Christian Schwarz
  */
-public class TestRunner implements ITestRunner {
+public class TestRunner extends BaseTestRunner {
 
-	Test test;
+	public static final String RUNNER_TEMP_FILENAME = "cubictest_watir_runner_temp.rb";
 	private Display display;
 	private CubicTestProjectSettings settings;
-	private boolean processDone;
-	StepList stepList;
+	protected boolean processDone;
+	WatirHolder stepList;
 
+	
 	public TestRunner(Test test, Display display, CubicTestProjectSettings settings) {
+		super(display, settings, test);
 		this.settings = settings;
-		this.test = test;
 		this.display = display;
 	}
 
@@ -49,10 +49,10 @@ public class TestRunner implements ITestRunner {
 	public void run(IProgressMonitor monitor) {
 
 		try {
-			stepList = new StepList(true, display, settings);
+			stepList = new WatirHolder(true, display, settings);
 			WatirMonitor watirMonitor = new WatirMonitor(stepList);
 
-			TreeTestWalker<StepList> testWalker = new TreeTestWalker<StepList>(
+			TreeTestWalker<WatirHolder> testWalker = new TreeTestWalker<WatirHolder>(
 					UrlStartPointConverter.class, PageElementConverter.class,
 					ContextConverter.class, TransitionConverter.class,
 					CustomTestStepConverter.class);
@@ -67,7 +67,7 @@ public class TestRunner implements ITestRunner {
 			//write exported watir script to temp file:
 			File generatedFolder = new File(settings.getProjectFolder().getAbsolutePath() + File.separator + "generated");
 			generatedFolder.mkdir();
-			File tempFile = new File(generatedFolder.getAbsolutePath() + File.separator + "cubictest_watir_runner_temp.rb");
+			File tempFile = new File(generatedFolder.getAbsolutePath() + File.separator + RUNNER_TEMP_FILENAME);
 			FileWriter out = new FileWriter(tempFile);
 			out.write(stepList.toResultString());
 			out.close();
@@ -78,15 +78,20 @@ public class TestRunner implements ITestRunner {
 			Process process = builder.start();
 			ProcessTerminationDetector terminationDetector = new ProcessTerminationDetector(process, this);
 			terminationDetector.start();
-			
+
 			//monitor process output:
 			BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String line;
-			while (!processDone && (line = input.readLine()) != null) {
+			while (!monitor.isCanceled() && (line = input.readLine()) != null) {
 				System.out.println(line);
 				watirMonitor.handle(line);
 			}
 			input.close();
+			
+			if (monitor.isCanceled() && !processDone) {
+				process.destroy();
+			}
+			processDone = true;
 
 			if (monitor != null) {
 				monitor.done();
@@ -100,26 +105,7 @@ public class TestRunner implements ITestRunner {
 	}
 	
 	
-	/** Class that monitors the Proces object and detects when it shuts down */
-	public class ProcessTerminationDetector extends Thread {
-		Process process;
-		TestRunner runner;
-		
-		public ProcessTerminationDetector(Process process, TestRunner runner) {
-			this.process = process;
-			this.runner = runner;
-		}
-		
-		public void run() {
-			try {
-				process.waitFor();
-			} catch (InterruptedException e) {
-				runner.setProcessDone(true);
-			}
-			runner.setProcessDone(true);
-		}
-	}
-	
+
 	
 	/**
 	 * Show the results of the test in the GUI.
@@ -132,6 +118,11 @@ public class TestRunner implements ITestRunner {
 	/** Tell that the Watir process has shut down */
 	public void setProcessDone(boolean b) {
 		this.processDone = b;
+	}
+	
+	/** Get whether the Watir process has shut down */
+	public boolean isProcessDone() {
+		return processDone;
 	}
 
 }

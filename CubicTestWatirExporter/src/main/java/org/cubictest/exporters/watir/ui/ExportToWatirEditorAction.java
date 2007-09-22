@@ -12,7 +12,7 @@ import org.cubictest.exporters.watir.converters.CustomTestStepConverter;
 import org.cubictest.exporters.watir.converters.PageElementConverter;
 import org.cubictest.exporters.watir.converters.TransitionConverter;
 import org.cubictest.exporters.watir.converters.UrlStartPointConverter;
-import org.cubictest.exporters.watir.holders.StepList;
+import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -48,7 +48,7 @@ public class ExportToWatirEditorAction implements IEditorActionDelegate {
 					CustomTestStepConverter.class, 
 					PageElementConverter.class, 
 					ContextConverter.class,
-					StepList.class);
+					WatirHolder.class);
 			UserInfo.showInfoDialog(ExportToWatirAction.OK_MESSAGE);
 		} 
 		catch (Exception e) {

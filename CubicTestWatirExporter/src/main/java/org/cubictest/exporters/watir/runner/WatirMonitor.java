@@ -5,7 +5,7 @@
 package org.cubictest.exporters.watir.runner;
 
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.watir.holders.StepList;
+import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 
@@ -17,26 +17,28 @@ import org.cubictest.model.TestPartStatus;
  */
 public class WatirMonitor {
 
-	private StepList stepList;
+	private WatirHolder watirHolder;
 	
-	public WatirMonitor(StepList stepList) {
-		this.stepList = stepList;
+	public WatirMonitor(WatirHolder watirHolder) {
+		this.watirHolder = watirHolder;
 	}
 
 
 
 	public void handle(String line) {
-		if(line.startsWith(StepList.PASS)) {
-			PageElement pe = stepList.getPageElement(line.substring(line.indexOf(StepList.PASS) + StepList.PASS.length()));
-			stepList.addResult(pe, TestPartStatus.PASS);
+		if(line.contains("error") && line.contains(TestRunner.RUNNER_TEMP_FILENAME)) {
+			throw new ExporterException(line);
 		}
-		else if(line.startsWith(StepList.FAIL)) {
-			PageElement pe = stepList.getPageElement(line.substring(line.indexOf(StepList.FAIL) + StepList.FAIL.length()));
-			stepList.addResult(pe, TestPartStatus.FAIL);
+		if(line.startsWith(WatirHolder.PASS)) {
+			PageElement pe = watirHolder.getPageElement(line.substring(line.indexOf(WatirHolder.PASS) + WatirHolder.PASS.length()));
+			watirHolder.addResult(pe, TestPartStatus.PASS);
 		}
-		else if(line.startsWith(StepList.EXCEPTION)) {
-			throw new ExporterException("Exception when running test: " + 
-					line.substring(line.indexOf(StepList.EXCEPTION) + StepList.EXCEPTION.length()));
+		else if(line.startsWith(WatirHolder.FAIL)) {
+			PageElement pe = watirHolder.getPageElement(line.substring(line.indexOf(WatirHolder.FAIL) + WatirHolder.FAIL.length()));
+			watirHolder.addResult(pe, TestPartStatus.FAIL);
+		}
+		else if(line.startsWith(WatirHolder.EXCEPTION)) {
+			throw new ExporterException(line.substring(line.indexOf(WatirHolder.EXCEPTION) + WatirHolder.EXCEPTION.length()));
 		}
 	}
 	

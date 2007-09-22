@@ -9,8 +9,11 @@ import java.util.Map;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.holders.RunnerResultHolder;
+import org.cubictest.exporters.watir.utils.RubyBuffer;
+import org.cubictest.model.Identifier;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
+import org.cubictest.model.context.SimpleContext;
 import org.eclipse.swt.widgets.Display;
 
 
@@ -20,22 +23,25 @@ import org.eclipse.swt.widgets.Display;
  * 
  * @author chr_schwarz
  */
-public class StepList extends RunnerResultHolder {
+public class WatirHolder extends RunnerResultHolder {
 	
 	private RubyBuffer rubyBuffer;
 	private boolean browserStarted = false;
 	public static final String TEST_STEP_FAILED = "TestStepFailed";
-	public Map<String, PageElement> pageElementMap;
+	public Map<String, PageElement> pageElementIdMap;
 	public Map<PageElement, String> idMap;
 	public static String PASS = "[pass]>";
-	public static String FAIL = "[fail]>";
-	public static String EXCEPTION = "[exception]>";
+	public static String FAIL = "[-FAIL-]>";
+	public static String EXCEPTION = "[-EXCEPTION-]>";
 	/** Initial prefix */
-	private String prefix = "ie";
 	private boolean runnerMode;
+	public Map<PageElement, Boolean> pageElementInContextMap;
+	
+	/** Prefix for non-xpath contexts */
+	private String prefix = "ie";
 	
 	
-	public StepList() {
+	public WatirHolder() {
 		this(false, null, null);
 	}
 	
@@ -43,12 +49,13 @@ public class StepList extends RunnerResultHolder {
 	 * Constructor that sets up the Watir script.
 	 * @param testName
 	 */
-	public StepList(boolean runnerMode, Display display, CubicTestProjectSettings settings) {
+	public WatirHolder(boolean runnerMode, Display display, CubicTestProjectSettings settings) {
 		super(display, settings);
 		this.runnerMode = runnerMode;
 		this.rubyBuffer = new RubyBuffer();
-		pageElementMap = new HashMap<String, PageElement>();
+		pageElementIdMap = new HashMap<String, PageElement>();
 		idMap = new HashMap<PageElement, String>();
+		pageElementInContextMap = new HashMap<PageElement, Boolean>();
 		setUpWatirTest();
 	}
 
@@ -91,8 +98,8 @@ public class StepList extends RunnerResultHolder {
 		rubyBuffer.add("puts(passedSteps.to_s + \" steps passed, \" + failedSteps.to_s + \" steps failed!\")", 3);
 		rubyBuffer.add("end", 2);
 		
-		rubyBuffer.add("puts \"Press enter to exit\"", 2);
 		if (!runnerMode) {
+			rubyBuffer.add("puts \"Press enter to exit\"", 2);
 			rubyBuffer.add("gets", 2);
 		}
 		rubyBuffer.add("ie.close", 2);
@@ -101,22 +108,7 @@ public class StepList extends RunnerResultHolder {
 		return rubyBuffer.toString(); 
 	}
 
-	
-	/**
-	 * Set prefix to use (e.g. for contexts).
-	 * Default prefix is "ie" (internet explorer root).
-	 */
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
 
-	/**
-	 * Get prefix to use (e.g. for contexts).
-	 * Default prefix is "ie" (internet explorer root).
-	 */
-	public String getPrefix() {
-		return prefix;
-	}
 
 	private void setUpWatirTest() {
 		rubyBuffer.add("require 'rubygems'", 0);
@@ -151,16 +143,53 @@ public class StepList extends RunnerResultHolder {
 	}
 	
 	public void registerPageElement(PageElement pe) {
+		if (pe instanceof SimpleContext) {
+			for (PageElement p : ((SimpleContext) pe).getElements()) {
+				pageElementInContextMap.put(p, true);
+			}
+		}
 		String id = pe.toString();
-		pageElementMap.put(id, pe);
+		pageElementIdMap.put(id, pe);
 		idMap.put(pe, id);
 	}
 	
+	public boolean requiresXPath(PageElement pe) {
+		if (pe instanceof SimpleContext) {
+			return true;
+		}
+		if (Boolean.TRUE.equals(pageElementInContextMap.get(pe))) {
+			return true;
+		}
+		int num = 0;
+		for (Identifier id : pe.getIdentifiers()) {
+			if (id.isNotIndifferent()) {
+				num++;
+			}
+		}
+		return num > 1;
+	}
+	
 	public PageElement getPageElement(String id) {
-		return pageElementMap.get(id);
+		return pageElementIdMap.get(id);
 	}
 
 	public String getId(PageElement pe) {
 		return idMap.get(pe);
+	}
+	
+	/**
+	 * Set prefix to use (e.g. for contexts).
+	 * Default prefix is "ie" (internet explorer root).
+	 */
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	/**
+	 * Get prefix to use (e.g. for contexts).
+	 * Default prefix is "ie" (internet explorer root).
+	 */
+	public String getPrefix() {
+		return prefix;
 	}
 }
