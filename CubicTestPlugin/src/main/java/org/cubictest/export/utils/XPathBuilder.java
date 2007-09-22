@@ -1,28 +1,25 @@
+/*
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ */
 package org.cubictest.export.utils;
 
 import static org.cubictest.model.IdentifierType.CHECKED;
-import static org.cubictest.model.IdentifierType.CLASS;
 import static org.cubictest.model.IdentifierType.ELEMENT_NAME;
-import static org.cubictest.model.IdentifierType.HREF;
-import static org.cubictest.model.IdentifierType.ID;
 import static org.cubictest.model.IdentifierType.INDEX;
 import static org.cubictest.model.IdentifierType.LABEL;
 import static org.cubictest.model.IdentifierType.MULTISELECT;
-import static org.cubictest.model.IdentifierType.NAME;
 import static org.cubictest.model.IdentifierType.SELECTED;
-import static org.cubictest.model.IdentifierType.SRC;
-import static org.cubictest.model.IdentifierType.TITLE;
-import static org.cubictest.model.IdentifierType.VALUE;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
-import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
@@ -43,17 +40,12 @@ import org.cubictest.model.formElement.TextField;
 public class XPathBuilder {
 
 	
-	public static final String FIREEVENT = "fireEvent";
-	
 	/**
 	 * Get the string that represents the Selenium locator-string for the element.
 	 * @param element
 	 * @return
 	 */
 	public static String getXPath(IActionElement element) {
-		if (element instanceof WebBrowser) {
-			return "";
-		}
 		PageElement pe = (PageElement) element;
 		PredicateSeperator predicateSeperator = new PredicateSeperator();
 
@@ -69,7 +61,6 @@ public class XPathBuilder {
 	}
 	
 	
-
 	
 	
 	/**
@@ -118,17 +109,17 @@ public class XPathBuilder {
 			}
 
 			if (pe instanceof Text) {
-				result += "contains(normalize-space(.), \"" + labelText + "\")";
+				result += "contains(normalize-space(.), '" + labelText + "')";
 			}
 			else if (pe instanceof Link || pe instanceof Option) {
-				result += "normalize-space(text())" + comparisonOperator + "\"" + labelText + "\"";
+				result += "normalize-space(text())" + comparisonOperator + "'" + labelText + "'";
 			}
 			else if (pe instanceof Button) {
-				result += "@value" + comparisonOperator + "\"" + labelText + "\"" ;
+				result += "@value" + comparisonOperator + "'" + labelText + "'" ;
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
-				result += "@id" + comparisonOperator + "(//label[text()=\"" + labelText + "\"]/@for)";
+				result += "@id" + comparisonOperator + "(//label[text()='" + labelText + "']/@for)";
 			}
 		}
 
@@ -139,53 +130,6 @@ public class XPathBuilder {
 			predicateSeperator.setNeedsSeparator(true);
 			return result;
 		}
-	}
-	
-	
-	/**
-	 * Get the Selenium ID type based on the specified Identifier.
-	 * Also works for HTML ID's except for LABEL.
-	 * @param id
-	 * @return
-	 */
-	public static String getIdType(Identifier id) {
-		if (id.getType().equals(LABEL)) {
-			return "label";
-		}
-		else if (id.getType().equals(NAME)) {
-			return "name";
-		}
-		else if (id.getType().equals(ID)) {
-			return "id";
-		}
-		else if (id.getType().equals(VALUE)) {
-			return "value";
-		}
-		else if (id.getType().equals(HREF)) {
-			return "href";
-		}
-		else if (id.getType().equals(SRC)) {
-			return "src";
-		}
-		else if (id.getType().equals(TITLE)) {
-			return "title";
-		}
-		else if (id.getType().equals(CHECKED)) {
-			return "checked";
-		}
-		else if (id.getType().equals(SELECTED)) {
-			return "selected";
-		}
-		else if (id.getType().equals(MULTISELECT)) {
-			return "multiple";
-		}
-		else if (id.getType().equals(INDEX)) {
-			return "index";
-		}
-		else if (id.getType().equals(CLASS)) {
-			return "class";
-		}
-		return null;
 	}
 	
 	
@@ -214,15 +158,15 @@ public class XPathBuilder {
 			if (id.getType().equals(CHECKED) || id.getType().equals(SELECTED) || id.getType().equals(MULTISELECT)) {
 				//idType with no value
 				if (id.getProbability() > 0) {
-					result += "@" + getIdType(id)+ "=\"\"";
+					result += "@" + ExportUtils.getHtmlIdType(id)+ "=''";
 				}
 				else {
-					result += "not(@" + getIdType(id) + ")";
+					result += "not(@" + ExportUtils.getHtmlIdType(id) + ")";
 				}
 			}
 			else {
 				//normal ID type (name, value)
-				result += "@" + getIdType(id) + comparisonOperator + "\"" + id.getValue() + "\"";
+				result += "@" + ExportUtils.getHtmlIdType(id) + comparisonOperator + "'" + id.getValue() + "'";
 			}
 			i++;
 		}		
@@ -242,21 +186,21 @@ public class XPathBuilder {
 	 * @param pe
 	 * @return
 	 */
-	public static String getElementType(PageElement pe) {
+	private static String getElementType(PageElement pe) {
 		if (pe instanceof Select)
 			return "select";
 		if (pe instanceof Option)
 			return "option";
 		if (pe instanceof Button)
-			return "input[@type=\"button\" or @type=\"submit\" or @type=\"image\"]";
+			return "input[@type='button' or @type='submit' or @type='image']";
 		if (pe instanceof TextField)
-			return "input[@type=\"text\"]";
+			return "input[@type='text']";
 		if (pe instanceof Password)
-			return "input[@type=\"password\"]";
+			return "input[@type='password']";
 		if (pe instanceof Checkbox)
-			return "input[@type=\"checkbox\"]";
+			return "input[@type='checkbox']";
 		if (pe instanceof RadioButton)
-			return "input[@type=\"radio\"]";
+			return "input[@type='radio']";
 		if (pe instanceof Link)
 			return "a";
 		if (pe instanceof Image)

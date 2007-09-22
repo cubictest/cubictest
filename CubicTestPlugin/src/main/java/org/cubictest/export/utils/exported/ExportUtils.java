@@ -4,7 +4,21 @@
  */
 package org.cubictest.export.utils.exported;
 
+import static org.cubictest.model.IdentifierType.CHECKED;
+import static org.cubictest.model.IdentifierType.CLASS;
+import static org.cubictest.model.IdentifierType.HREF;
+import static org.cubictest.model.IdentifierType.ID;
+import static org.cubictest.model.IdentifierType.INDEX;
+import static org.cubictest.model.IdentifierType.LABEL;
+import static org.cubictest.model.IdentifierType.MULTISELECT;
+import static org.cubictest.model.IdentifierType.NAME;
+import static org.cubictest.model.IdentifierType.SELECTED;
+import static org.cubictest.model.IdentifierType.SRC;
+import static org.cubictest.model.IdentifierType.TITLE;
+import static org.cubictest.model.IdentifierType.VALUE;
+
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.model.Identifier;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
@@ -52,5 +66,52 @@ public class ExportUtils {
 			return false;
 		}
 		return true;
+	}
+	
+	
+	/**
+	 * Get the Selenium ID type based on the specified Identifier.
+	 * Also works for HTML ID's except for LABEL.
+	 * @param id
+	 * @return
+	 */
+	public static String getHtmlIdType(Identifier id) {
+		if (id.getType().equals(LABEL)) {
+			return "label";
+		}
+		else if (id.getType().equals(NAME)) {
+			return "name";
+		}
+		else if (id.getType().equals(ID)) {
+			return "id";
+		}
+		else if (id.getType().equals(VALUE)) {
+			return "value";
+		}
+		else if (id.getType().equals(HREF)) {
+			return "href";
+		}
+		else if (id.getType().equals(SRC)) {
+			return "src";
+		}
+		else if (id.getType().equals(TITLE)) {
+			return "title";
+		}
+		else if (id.getType().equals(CHECKED)) {
+			return "checked";
+		}
+		else if (id.getType().equals(SELECTED)) {
+			return "selected";
+		}
+		else if (id.getType().equals(MULTISELECT)) {
+			return "multiple";
+		}
+		else if (id.getType().equals(INDEX)) {
+			return "index";
+		}
+		else if (id.getType().equals(CLASS)) {
+			return "class";
+		}
+		return null;
 	}
 }
