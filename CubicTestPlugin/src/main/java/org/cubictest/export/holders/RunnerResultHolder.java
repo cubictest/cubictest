@@ -1,3 +1,7 @@
+/*
+ * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
+ * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
+ */
 package org.cubictest.export.holders;
 
 import java.util.ArrayList;
@@ -63,7 +67,9 @@ public abstract class RunnerResultHolder extends ContextHolder {
 			AbstractContext context = (AbstractContext) element;
 			childs = "\n\nRequired child elements of context (all must be present):\n" + context.getElements().toString();
 		}
-		throw new AssertionFailedException("Page element assertion failed: " + element.toString() + childs);
+		if (failOnAssertionFailure) {
+			throw new AssertionFailedException("Page element assertion failed: " + element.toString() + childs);
+		}
 	}
 	
 	public void addResult(final PageElement element, TestPartStatus result) {

@@ -9,12 +9,10 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.apache.commons.lang.StringUtils;
-import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.utils.XPathBuilder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.context.IContext;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * Holder for context info for runners and exporters.
@@ -65,27 +63,20 @@ public class ContextHolder implements IResultHolder {
 	}
 	
 	
-	
-	/**
-	 * Gets "smart context": Asserts all previous elements in context present.
-	 */
-	public String getXPathWithFullContextAndPreviousElements(PageElement pageElement) {
-		return getFullContextWithOtherElements(pageElement, true, pageElement);
-	}
 
 	/**
 	 * Gets "smart context": Asserts all elements in context present.
 	 */
 	public String getFullContextWithAllElements(PageElement pageElement) {
-		return getFullContextWithOtherElements(pageElement, false, pageElement);
+		return getSmartContext(pageElement, pageElement);
 	}
 	
 	
 	
 	/**
-	 * Private utility method. Gets "smart context": Asserts all or previous elements in context present.
+	 * Recursive private utility method. Gets "smart context": Asserts all or previous elements in context present.
 	 */
-	private String getFullContextWithOtherElements(PageElement pageElement, boolean assertOnlyPrevElements, PageElement orgElement) {
+	private String getSmartContext(PageElement pageElement, PageElement orgElement) {
 		String res = "";
 		if (pageElement == null) {
 			return "";
@@ -98,28 +89,24 @@ public class ContextHolder implements IResultHolder {
 		res += axis + XPathBuilder.getXPath(pageElement);
 		
 		if (pageElement instanceof IContext && ((IContext) pageElement).getElements().size() > 1) {
-			String assertion = getContextElementsAssertion((IContext) pageElement, assertOnlyPrevElements, orgElement);
+			String assertion = getElementsInContextXPath((IContext) pageElement, orgElement);
 			if (StringUtils.isNotBlank(assertion)) {
 				res += "[" + assertion + "]";
 			}
 		}
 		
 		PageElement parent = elementParentMap.get(pageElement);
-		return getFullContextWithOtherElements(parent, assertOnlyPrevElements, orgElement) + res;
+		return getSmartContext(parent, orgElement) + res;
 	}
+	
 
 
-	private String getContextElementsAssertion(IContext context, boolean assertOnlyPrevElements, PageElement orgElement) {
+	private String getElementsInContextXPath(IContext context, PageElement orgElement) {
 		String res = "";
 		int i = 0;
 		for (PageElement pe : context.getElements()) {
 			if (pe.equals(orgElement)) {
-				if (assertOnlyPrevElements) {
-					break; //done
-				}
-				else {
-					continue; //skip current element
-				}
+				continue; //skip current element
 			}
 			if (i > 0) {
 				res += " and ";
