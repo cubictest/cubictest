@@ -49,7 +49,7 @@ public abstract class PageElement extends PropertyAwareObject
 				if (id.getProbability() < 0) {
 					op = "!=";
 				}
-				buff.append(id.getType() + op + "\'" + id.getValue() + "\'");
+				buff.append(id.getType() + op + "'" + id.getValue() + "'");
 			}
 			i++;
 		}
@@ -57,7 +57,7 @@ public abstract class PageElement extends PropertyAwareObject
 			buff.append(", not = " + this.not);
 		}
 		if (StringUtils.isNotBlank(description)) {
-			buff.append(", description = \"" + this.description + "\"");
+			buff.append(", description = '" + this.description + "'");
 		}
 		return buff.toString();
 	}
