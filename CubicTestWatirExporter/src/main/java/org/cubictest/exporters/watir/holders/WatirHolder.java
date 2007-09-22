@@ -8,12 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
+import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
 import org.cubictest.exporters.watir.utils.RubyBuffer;
 import org.cubictest.model.Identifier;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.context.SimpleContext;
+import org.cubictest.model.formElement.Option;
 import org.eclipse.swt.widgets.Display;
 
 
@@ -153,13 +156,31 @@ public class WatirHolder extends RunnerResultHolder {
 		idMap.put(pe, id);
 	}
 	
+	/**
+	 * XPath is slow in Watir, so only require it when necessary.
+	 * @param pe
+	 * @return
+	 */
 	public boolean requiresXPath(PageElement pe) {
 		if (pe instanceof SimpleContext) {
 			return true;
 		}
+		else if (pe instanceof Option) {
+			if (!hasMoreThanOneIdentifier(pe) && (pe.getMainIdentifierType().equals(IdentifierType.LABEL) || pe.getMainIdentifierType().equals(IdentifierType.VALUE))) {
+				return false;
+			}
+			throw new ExporterException(pe.toString() + ":\n\nWatir does not support more than one identifier on Options in SelectLists. " +
+					"In addition, only \"Value\" and \"Label\" are supported identifiers.");
+		}
+		
 		if (Boolean.TRUE.equals(pageElementInContextMap.get(pe))) {
 			return true;
 		}
+		
+		return hasMoreThanOneIdentifier(pe);
+	}
+
+	private boolean hasMoreThanOneIdentifier(PageElement pe) {
 		int num = 0;
 		for (Identifier id : pe.getIdentifiers()) {
 			if (id.isNotIndifferent()) {

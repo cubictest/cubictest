@@ -26,43 +26,44 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 	public static final String ROOT_CONTEXT = "ie";
 
 
-	public PostContextHandle handlePostContext(WatirHolder steps, IContext a) {
+	public PostContextHandle handlePostContext(WatirHolder watirHolder, IContext a) {
+		watirHolder.setPrefix(ROOT_CONTEXT);
 		return PostContextHandle.DONE;
 	}
 	
 
-	public PreContextHandle handlePreContext(WatirHolder stepList, IContext ctx) {
+	public PreContextHandle handlePreContext(WatirHolder watirHolder, IContext ctx) {
 		if (ctx instanceof AbstractPage) {
 			return PreContextHandle.CONTINUE;
 		}
 		
 		PageElement pe = (PageElement) ctx;
-		stepList.registerPageElement(pe);
-		stepList.addSeparator();
+		watirHolder.registerPageElement(pe);
+		watirHolder.addSeparator();
 		IContext context = (IContext) ctx;
-		stepList.pushContext(context);
+		watirHolder.pushContext(context);
 
-		stepList.add("# asserting " + context.toString() + " present", 2);
-		stepList.add("begin", 2);
+		watirHolder.add("# asserting " + context.toString() + " present", 2);
+		watirHolder.add("begin", 2);
 		
 		
-		if (stepList.requiresXPath(pe)) {
-			ContextAsserterXPath.handle(stepList, pe);
+		if (watirHolder.requiresXPath(pe)) {
+			ContextAsserterXPath.handle(watirHolder, pe);
 		}
 		else {
-			ContextAsserterPlain.handle(stepList, pe);
+			ContextAsserterPlain.handle(watirHolder, pe);
 		}
 		
 
 		PageElement element = (PageElement) ctx;
-		stepList.add("puts \"" + WatirHolder.PASS + stepList.getId(element) + "\"", 3);
-		stepList.add("passedSteps += 1 ", 3);
-		stepList.add("rescue " + WatirHolder.TEST_STEP_FAILED, 2);
-		stepList.add("puts \"" + WatirHolder.FAIL + stepList.getId(element) + "\"", 3);
-		stepList.add("failedSteps += 1 ", 3);
+		watirHolder.add("puts \"" + WatirHolder.PASS + watirHolder.getId(element) + "\"", 3);
+		watirHolder.add("passedSteps += 1 ", 3);
+		watirHolder.add("rescue " + WatirHolder.TEST_STEP_FAILED, 2);
+		watirHolder.add("puts \"" + WatirHolder.FAIL + watirHolder.getId(element) + "\"", 3);
+		watirHolder.add("failedSteps += 1 ", 3);
 
-		stepList.add("puts \"Step failed: Check " + element.toString() + " present\"", 3);
-		stepList.add("end", 2);
+		watirHolder.add("puts \"Step failed: Check " + element.toString() + " present\"", 3);
+		watirHolder.add("end", 2);
 		
 		return PreContextHandle.CONTINUE;
 	}
