@@ -76,9 +76,10 @@ public class TestRunner extends BaseTestRunner {
 			ProcessBuilder builder = new ProcessBuilder(new String[]{"ruby", tempFile.getAbsolutePath()});
 			builder.redirectErrorStream(true);
 			Process process = builder.start();
-			ProcessTerminationDetector terminationDetector = new ProcessTerminationDetector(process, this);
-			terminationDetector.start();
 
+			CancelHandler cancelHandler = new CancelHandler(process, monitor, this);
+			cancelHandler.start();
+			
 			//monitor process output:
 			BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String line;
@@ -86,12 +87,8 @@ public class TestRunner extends BaseTestRunner {
 				System.out.println(line);
 				watirMonitor.handle(line);
 			}
-			input.close();
-			
-			if (monitor.isCanceled() && !processDone) {
-				process.destroy();
-			}
 			processDone = true;
+			input.close();
 
 			if (monitor != null) {
 				monitor.done();
