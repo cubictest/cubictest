@@ -49,6 +49,34 @@
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
                       </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type>ID</type>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type>HREF</type>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type>TITLE</type>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type>CLASS</type>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
@@ -61,6 +89,34 @@
                         <probability>100</probability>
                         <type reference="../../../../title/identifiers/identifier/type"/>
                         <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[5]/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
                       </identifier>
@@ -79,6 +135,34 @@
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
                       </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
@@ -94,6 +178,34 @@
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
                       </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
@@ -106,6 +218,34 @@
                         <probability>100</probability>
                         <type reference="../../../../title/identifiers/identifier/type"/>
                         <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../link/identifiers/identifier[5]/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
                       </identifier>
@@ -150,6 +290,34 @@
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
                             </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[3]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
@@ -162,6 +330,34 @@
                               <probability>100</probability>
                               <type>NAME</type>
                               <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/title/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
                             </identifier>
@@ -180,6 +376,34 @@
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
                             </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[3]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
@@ -195,10 +419,38 @@
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
                             </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../button/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../elements/title/status"/>
+                          <status>UNKNOWN</status>
                         </button>
                         <link>
                           <identifiers>
@@ -210,6 +462,34 @@
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
                             </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[3]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
@@ -225,10 +505,38 @@
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
                             </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../button/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../elements/title/status"/>
+                          <status reference="../../button[2]/status"/>
                         </button>
                         <link>
                           <identifiers>
@@ -240,6 +548,34 @@
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
                             </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[3]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
@@ -252,6 +588,34 @@
                               <probability>100</probability>
                               <type reference="../../../../../../../../elements/title/identifiers/identifier/type"/>
                               <paramKey></paramKey>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../button/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
                             </identifier>
@@ -299,7 +663,7 @@
                             <text>
                               <identifiers>
                                 <identifier>
-                                  <value>Welcome Stein Kåre</value>
+                                  <value>Welcome Stein K</value>
                                   <probability>100</probability>
                                   <type reference="../../../../../../../../../../elements/title/identifiers/identifier/type"/>
                                   <paramKey></paramKey>
@@ -309,7 +673,7 @@
                               </identifiers>
                               <directEditIdentifier reference="../identifiers/identifier"/>
                               <not>false</not>
-                              <status reference="../../../../../../../../elements/title/status"/>
+                              <status>FAIL</status>
                             </text>
                           </elements>
                           <name>Logged in</name>
@@ -326,12 +690,40 @@
                                       <useI18n>false</useI18n>
                                       <useParam>false</useParam>
                                     </identifier>
+                                    <identifier>
+                                      <value></value>
+                                      <probability>0</probability>
+                                      <type reference="../../../../../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                                      <useI18n>false</useI18n>
+                                      <useParam>false</useParam>
+                                    </identifier>
+                                    <identifier>
+                                      <value></value>
+                                      <probability>0</probability>
+                                      <type reference="../../../../../../../../../elements/button/identifiers/identifier/type"/>
+                                      <useI18n>false</useI18n>
+                                      <useParam>false</useParam>
+                                    </identifier>
+                                    <identifier>
+                                      <value></value>
+                                      <probability>0</probability>
+                                      <type>VALUE</type>
+                                      <useI18n>false</useI18n>
+                                      <useParam>false</useParam>
+                                    </identifier>
+                                    <identifier>
+                                      <value></value>
+                                      <probability>0</probability>
+                                      <type reference="../../../../../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                                      <useI18n>false</useI18n>
+                                      <useParam>false</useParam>
+                                    </identifier>
                                   </identifiers>
                                   <directEditIdentifier reference="../identifiers/identifier"/>
                                   <not>false</not>
                                   <status reference="../../../../../../../../../../elements/title/status"/>
                                 </element>
-                                <input>Stein Kåre</input>
+                                <input>Stein K</input>
                                 <action>ENTER_TEXT</action>
                                 <paramKey></paramKey>
                                 <useI18n>false</useI18n>
@@ -345,6 +737,34 @@
                                       <probability>100</probability>
                                       <type reference="../../../../../../../../../../../../elements/title/identifiers/identifier/type"/>
                                       <paramKey></paramKey>
+                                      <useI18n>false</useI18n>
+                                      <useParam>false</useParam>
+                                    </identifier>
+                                    <identifier>
+                                      <value></value>
+                                      <probability>0</probability>
+                                      <type reference="../../../../../../../../../elements/button/identifiers/identifier/type"/>
+                                      <useI18n>false</useI18n>
+                                      <useParam>false</useParam>
+                                    </identifier>
+                                    <identifier>
+                                      <value></value>
+                                      <probability>0</probability>
+                                      <type reference="../../../../../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                                      <useI18n>false</useI18n>
+                                      <useParam>false</useParam>
+                                    </identifier>
+                                    <identifier>
+                                      <value></value>
+                                      <probability>0</probability>
+                                      <type reference="../../../../../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                                      <useI18n>false</useI18n>
+                                      <useParam>false</useParam>
+                                    </identifier>
+                                    <identifier>
+                                      <value></value>
+                                      <probability>0</probability>
+                                      <type reference="../../../../../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
                                       <useI18n>false</useI18n>
                                       <useParam>false</useParam>
                                     </identifier>
@@ -373,11 +793,10 @@
                             <y>237</y>
                           </position>
                           <dimension>
-                            <width>93</width>
+                            <width>114</width>
                             <height>70</height>
                           </dimension>
                           <name defined-in="transitionNode"></name>
-                          <autoPosition>false</autoPosition>
                         </page>
                         <start class="page" reference="../page"/>
                         <end class="page" reference="../.."/>
@@ -455,14 +874,21 @@
                                   <identifier>
                                     <value>removeShippingCreate</value>
                                     <probability>0</probability>
-                                    <type>ID</type>
+                                    <type reference="../../../../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
                                     <useI18n>false</useI18n>
                                     <useParam>false</useParam>
                                   </identifier>
                                   <identifier>
                                     <value></value>
                                     <probability>0</probability>
-                                    <type>TITLE</type>
+                                    <type reference="../../../../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                  <identifier>
+                                    <value></value>
+                                    <probability>0</probability>
+                                    <type>CHECKED</type>
                                     <useI18n>false</useI18n>
                                     <useParam>false</useParam>
                                   </identifier>
@@ -478,6 +904,34 @@
                                     <probability>100</probability>
                                     <type reference="../../../../../../../../../../../elements/title/identifiers/identifier/type"/>
                                     <paramKey></paramKey>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                  <identifier>
+                                    <value></value>
+                                    <probability>0</probability>
+                                    <type reference="../../../../../../../../elements/button/identifiers/identifier/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                  <identifier>
+                                    <value></value>
+                                    <probability>0</probability>
+                                    <type reference="../../../../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                  <identifier>
+                                    <value></value>
+                                    <probability>0</probability>
+                                    <type reference="../../../../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </identifier>
+                                  <identifier>
+                                    <value></value>
+                                    <probability>0</probability>
+                                    <type reference="../../../../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
                                     <useI18n>false</useI18n>
                                     <useParam>false</useParam>
                                   </identifier>
@@ -564,7 +1018,6 @@
                                     <height>70</height>
                                   </dimension>
                                   <name defined-in="transitionNode"></name>
-                                  <autoPosition>false</autoPosition>
                                 </end>
                               </userInteractionsTransition>
                             </outTransitions>
@@ -578,7 +1031,6 @@
                               <height>120</height>
                             </dimension>
                             <name defined-in="transitionNode"></name>
-                            <autoPosition>false</autoPosition>
                           </end>
                         </userInteractionsTransition>
                       </outTransitions>
@@ -592,7 +1044,6 @@
                         <height>225</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
-                      <autoPosition>false</autoPosition>
                     </end>
                   </commonTransition>
                   <commonTransition reference="../commonTransition[2]/end/inTransition/page/commons/commonTransition"/>
@@ -609,7 +1060,6 @@
                   <height>198</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
-                <autoPosition>false</autoPosition>
               </start>
               <end class="page" reference="../../.."/>
             </commonTransition>
@@ -641,6 +1091,34 @@
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../commons/commonTransition/start/elements/link/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/elements/button/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/page/inTransition/userInteractions/userInteraction/element/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../commons/commonTransition/start/elements/link/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
@@ -654,6 +1132,34 @@
                   <probability>100</probability>
                   <type reference="../../../../../commons/commonTransition/start/elements/title/identifiers/identifier/type"/>
                   <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/elements/button/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../commons/commonTransition/start/elements/link/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../commons/commonTransition/start/elements/link/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../../commons/commonTransition/start/elements/link/identifiers/identifier[5]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
@@ -678,7 +1184,6 @@
             <height>133</height>
           </dimension>
           <name defined-in="transitionNode"></name>
-          <autoPosition>false</autoPosition>
         </end>
       </simpleTransition>
     </outTransitions>
@@ -688,7 +1193,6 @@
       <y>0</y>
     </position>
     <name>Frontpage</name>
-    <autoPosition>false</autoPosition>
   </startPoint>
   <extensionPoints/>
   <pages>
@@ -720,5 +1224,5 @@
   <name>Test contents</name>
   <description></description>
   <id>/CubicShopTest/tests/contents.aat</id>
-  <modelVersion>5</modelVersion>
+  <modelVersion>8</modelVersion>
 </test>
