@@ -7,7 +7,6 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.ContextWindow;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -35,11 +34,7 @@ import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.AbstractContext;
-import org.cubictest.model.context.Frame;
-import org.cubictest.model.context.OrderedContext;
-import org.cubictest.model.context.Row;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Button;
@@ -102,10 +97,6 @@ public class CubicTestXStream extends XStream {
 		this.alias("transition", Transition.class);
 		this.alias("transitionNode", TransitionNode.class);
 		this.alias("userInteractionsTransition", UserInteractionsTransition.class);
-		this.alias("webBrowser", WebBrowser.class);
-		//Added by Genesis Campos
-		this.alias("contextWindow", ContextWindow.class);
-		//End;
 		this.alias("customTestStep", CustomTestStepHolder.class);
 		this.alias("identifier", Identifier.class);
 		this.alias("identifierType",IdentifierType.class);
@@ -114,11 +105,8 @@ public class CubicTestXStream extends XStream {
 		
 		//contexts:
 		this.alias("abstractContext", AbstractContext.class);
-		this.alias("orderedContext", OrderedContext.class);
 		this.alias("simpleContext", SimpleContext.class);
-		this.alias("row", Row.class);
 		//Added by Genesis Campos
-		this.alias("frame", Frame.class);
 		//End;
 		
 		//formElement:
