@@ -32,7 +32,6 @@ import static org.cubictest.model.IdentifierType.VALUE;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.ActionType;
-import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
@@ -57,7 +56,7 @@ import org.cubictest.model.formElement.TextField;
 public class WatirUtils {
 
 	
-	public static String getIdType(PageElement pe) {
+	public static String getMainIdType(PageElement pe) {
 		IdentifierType idType = pe.getMainIdentifierType();
 		if (idType.equals(ID))
 			return ":id";

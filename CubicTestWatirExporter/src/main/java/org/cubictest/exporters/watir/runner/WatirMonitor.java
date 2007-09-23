@@ -4,6 +4,7 @@
  */
 package org.cubictest.exporters.watir.runner;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.PageElement;
@@ -17,7 +18,9 @@ import org.cubictest.model.TestPartStatus;
  */
 public class WatirMonitor {
 
-	private WatirHolder watirHolder;
+	WatirHolder watirHolder;
+	boolean isInError;
+	StringBuffer errorBuffer = new StringBuffer();
 	
 	public WatirMonitor(WatirHolder watirHolder) {
 		this.watirHolder = watirHolder;
@@ -29,6 +32,10 @@ public class WatirMonitor {
 		if(line.contains("error") && line.contains(TestRunner.RUNNER_TEMP_FILENAME)) {
 			throw new ExporterException(line);
 		}
+		else if (isInError || line.contains(WatirHolder.TEST_CASE_NAME)) {
+			isInError = true;
+			errorBuffer.append(line);
+		}
 		if(line.startsWith(WatirHolder.PASS)) {
 			PageElement pe = watirHolder.getPageElement(line.substring(line.indexOf(WatirHolder.PASS) + WatirHolder.PASS.length()));
 			watirHolder.addResult(pe, TestPartStatus.PASS);
@@ -39,6 +46,12 @@ public class WatirMonitor {
 		}
 		else if(line.startsWith(WatirHolder.EXCEPTION)) {
 			throw new ExporterException(line.substring(line.indexOf(WatirHolder.EXCEPTION) + WatirHolder.EXCEPTION.length()));
+		}
+	}
+	
+	public void verify() {
+		if (StringUtils.isNotBlank(errorBuffer.toString())) {
+			throw new ExporterException(errorBuffer.toString());
 		}
 	}
 	

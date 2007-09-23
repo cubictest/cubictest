@@ -31,6 +31,7 @@ public class WatirHolder extends RunnerResultHolder {
 	private RubyBuffer rubyBuffer;
 	private boolean browserStarted = false;
 	public static final String TEST_STEP_FAILED = "TestStepFailed";
+	public static final String TEST_CASE_NAME = "CubicTestExport_";
 	public Map<String, PageElement> pageElementIdMap;
 	public Map<PageElement, String> idMap;
 	public static String PASS = "[pass]>";
@@ -91,7 +92,7 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("require 'test/unit'", 0);
 		rubyBuffer.add("class " + TEST_STEP_FAILED + " < RuntimeError", 0);
 		rubyBuffer.add("end", 0);
-		rubyBuffer.add("class CubicTestExport_" + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
+		rubyBuffer.add("class " + TEST_CASE_NAME + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
 		rubyBuffer.add("def test_exported", 1);
 		rubyBuffer.add("failedSteps = 0", 2);
 		rubyBuffer.add("passedSteps = 0", 2);
@@ -166,11 +167,13 @@ public class WatirHolder extends RunnerResultHolder {
 			return true;
 		}
 		else if (pe instanceof Option) {
-			if (!hasMoreThanOneIdentifier(pe) && (pe.getMainIdentifierType().equals(IdentifierType.LABEL) || pe.getMainIdentifierType().equals(IdentifierType.VALUE))) {
+			if (!hasMoreThanOneIdentifier(pe) && (pe.getMainIdentifierType().equals(IdentifierType.LABEL) || 
+					pe.getMainIdentifierType().equals(IdentifierType.VALUE) ||
+					pe.getMainIdentifierType().equals(IdentifierType.INDEX))) {
 				return false;
 			}
 			throw new ExporterException(pe.toString() + ":\n\nWatir does not support more than one identifier on Options in SelectLists. " +
-					"In addition, only \"Value\" and \"Label\" are supported identifiers.");
+					"In addition, only \"Value\", \"Index\" and \"Label\" are supported identifiers.");
 		}
 		
 		if (Boolean.TRUE.equals(pageElementInContextMap.get(pe))) {

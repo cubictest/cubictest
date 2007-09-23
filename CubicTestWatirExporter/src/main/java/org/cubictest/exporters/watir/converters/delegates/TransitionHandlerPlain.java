@@ -26,7 +26,7 @@ public class TransitionHandlerPlain {
 
 	public static void handle(WatirHolder stepList, UserInteraction userInteraction) {
 		PageElement pe = (PageElement) userInteraction.getElement();
-		String idType = WatirUtils.getIdType(pe);
+		String idType = WatirUtils.getMainIdType(pe);
 		String idValue = "\"" + pe.getMainIdentifierValue() + "\"";
 
 		//Handle Label identifier:
@@ -55,7 +55,7 @@ public class TransitionHandlerPlain {
 	private static void selectOptionInSelectList(WatirHolder stepList, Option option, String idType, String idText) {
 		Select select = (Select) option.getParent();
 		String selectIdValue = "\"" + select.getMainIdentifierValue() + "\"";
-		String selectIdType = WatirUtils.getIdType(select);
+		String selectIdType = WatirUtils.getMainIdType(select);
 		
 		if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 			//Handle label:
@@ -67,11 +67,14 @@ public class TransitionHandlerPlain {
 		String selectList = "ie.select_list(" + selectIdType + ", " + selectIdValue + ")";
 		
 		//Select the option:
-		if (option.getMainIdentifierType().equals(LABEL)) {
+		if (option.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 			stepList.add(selectList + ".select(" + idText + ")", 3);
 		}
-		else {
-			stepList.add(selectList + ".option(" + idType + ", " + idText + ").select", 3);
+		else if (option.getMainIdentifierType().equals(IdentifierType.VALUE)) {
+			stepList.add(selectList + ".option(" + idType + ", " + idText + ").select()", 3);
+		}
+		else if (option.getMainIdentifierType().equals(IdentifierType.INDEX)) {
+			stepList.add(selectList + ".getAllContents()[" + (Integer.parseInt(option.getMainIdentifierValue()) - 1) + "].select()", 3);
 		}
 	}
 		

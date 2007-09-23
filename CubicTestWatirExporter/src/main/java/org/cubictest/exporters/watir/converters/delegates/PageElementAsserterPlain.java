@@ -5,6 +5,7 @@
 package org.cubictest.exporters.watir.converters.delegates;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.IdentifierType;
@@ -12,6 +13,7 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.formElement.Option;
+import org.cubictest.model.formElement.Select;
 
 /**
  * Page element converter that uses standard Watir without XPath.
@@ -22,7 +24,7 @@ public class PageElementAsserterPlain {
 
 	public static void handle(WatirHolder stepList, PageElement pe) {
 		String idValue = "\"" + StringUtils.replace(pe.getMainIdentifierValue(),"\"", "\\\"") + "\"";
-		String idType = WatirUtils.getIdType(pe);
+		String idType = WatirUtils.getMainIdType(pe);
 
 
 
@@ -34,12 +36,14 @@ public class PageElementAsserterPlain {
 		else if (pe instanceof Option) {
 			Option option = (Option) pe;
 			String selectList = stepList.getPrefix();
-			if (option.getParent().getMainIdentifierType().equals(IdentifierType.LABEL)) {
+			Select select = (Select) option.getParent();
+			if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 				//If parent select list had label idType, assert that its label target ID was found:
 				stepList.add("if (selectListId == nil)", 3);
 				stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
 				stepList.add("end", 3);
 			}
+			
 			if (option.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 				stepList.add("optionFound = false", 3);
 				stepList.add(selectList + ".getAllContents().each do |opt|", 3);
@@ -51,14 +55,23 @@ public class PageElementAsserterPlain {
 				stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
 				stepList.add("end", 3);
 			}
-			else {
-				//value id type
-				stepList.add("if (" + selectList + ".option(:value, \"" + pe.getMainIdentifierValue() + "\") == nil)", 2);
+			else if (option.getMainIdentifierType().equals(IdentifierType.VALUE)) {
+				stepList.add("if (" + selectList + ".option(" + WatirUtils.getMainIdType(pe) + ", \"" + pe.getMainIdentifierValue() + "\") == nil)", 2);
 				stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 3);
 				stepList.add("end", 2);
 			}
+			else if (option.getMainIdentifierType().equals(IdentifierType.INDEX)) {
+				stepList.add("if (" + selectList + ".getAllContents()[" + (Integer.parseInt(pe.getMainIdentifierValue()) - 1) + "] == nil)", 2);
+				stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 3);
+				stepList.add("end", 2);
+			}			else {
+				throw new ExporterException("Only label, value and index are supported identifierts " +
+						"for options in select lists in Watir");
+			}
 		}
 		else {
+			//handle all other page elements:			
+
 			if (WatirUtils.shouldGetLabelTargetId(pe)) {
 				stepList.add(WatirUtils.getLabelTargetId(pe));
 				stepList.addSeparator();
@@ -66,7 +79,6 @@ public class PageElementAsserterPlain {
 				idType = ":id";
 			}
 			
-			//handle all other page elements:			
 			stepList.add("pass = 0", 3);
 			if (pe instanceof Text) {
 				String compare = pe.isNot() ? "!=" : "=="; 

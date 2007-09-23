@@ -44,7 +44,7 @@ public class ContextAsserterPlain {
 			throw new ExporterException("Contexts must have identifier type = ID for Watir export. Context in error: " + context);
 
 		String idValue = "\"" + StringUtils.replace(context.getMainIdentifierValue(),"\"", "\\\"") + "\"";
-		String idType = WatirUtils.getIdType(context);
+		String idType = WatirUtils.getMainIdType(context);
 
 		//set prefix:
 		stepList.setPrefix("(ie.div(" + idType + "," + idValue + "))");
@@ -64,7 +64,7 @@ public class ContextAsserterPlain {
 		Select select = (Select) ctx;
 		
 		String idText = "\"" + select.getMainIdentifierValue() + "\"";
-		String idType = WatirUtils.getIdType(select);
+		String idType = WatirUtils.getMainIdType(select);
 
 
 		if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {

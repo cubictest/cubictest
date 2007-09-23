@@ -93,6 +93,7 @@ public class TestRunner extends BaseTestRunner {
 			if (monitor != null) {
 				monitor.done();
 			}
+			watirMonitor.verify();
 
 		} catch (TestFailedException e) {
 			throw e;
