@@ -9,7 +9,7 @@ public final class CustomTestStepData {
 
 	private String displayText = "";
 	private String path = "";
-	private List<ICustomTestStepDataListener> listeners = new ArrayList<ICustomTestStepDataListener>();
+	private transient List<ICustomTestStepDataListener> listeners = new ArrayList<ICustomTestStepDataListener>();
 
 	public String getDisplayText() {
 		return displayText;
@@ -39,6 +39,13 @@ public final class CustomTestStepData {
 	}
 
 	public void addChangeListener(ICustomTestStepDataListener listener) {
-		listeners.add(listener);
+		
+		getListeners().add(listener);
+	}
+
+	private List<ICustomTestStepDataListener> getListeners() {
+		if(listeners == null)
+			listeners = new ArrayList<ICustomTestStepDataListener>();
+		return listeners;
 	}
 }
