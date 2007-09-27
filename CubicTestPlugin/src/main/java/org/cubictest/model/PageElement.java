@@ -38,20 +38,27 @@ public abstract class PageElement extends PropertyAwareObject
 	@Override
 	public String toString() {
 		StringBuffer buff = new StringBuffer();
-		buff.append("[" + getType() + "] ");
+		buff.append("[" + getType() + ": '" + getDirectEditIdentifier().getValue() + "']");
 		int i = 0;
-		for (Identifier id : getNonIndifferentIdentifierts()) {
-			if (StringUtils.isNotBlank(id.getValue())) {
-				if (i > 0) {
-					buff.append(", ");
+		if (getNonIndifferentIdentifierts().size() == 1 && 
+				getNonIndifferentIdentifierts().get(0).getType().equals(getDirectEditIdentifier().getType()) &&
+				getNonIndifferentIdentifierts().get(0).getProbability() > 0) {
+			//direct edit ID is only ID, do not repeat the ID in the toString signature
+		}
+		else {
+			for (Identifier id : getNonIndifferentIdentifierts()) {
+				if (StringUtils.isNotBlank(id.getValue())) {
+					if (i > 0) {
+						buff.append(",");
+					}
+					String op = "=";
+					if (id.getProbability() < 0) {
+						op = "!=";
+					}
+					buff.append(" " + id.getType().toString().toLowerCase() + op + "'" + id.getValue() + "'");
 				}
-				String op = "=";
-				if (id.getProbability() < 0) {
-					op = "!=";
-				}
-				buff.append(id.getType().toString().toLowerCase() + op + "'" + id.getValue() + "'");
+				i++;
 			}
-			i++;
 		}
 		if (not) {
 			buff.append(", not = " + this.not);
