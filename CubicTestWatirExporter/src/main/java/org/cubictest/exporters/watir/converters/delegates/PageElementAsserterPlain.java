@@ -61,9 +61,10 @@ public class PageElementAsserterPlain {
 				stepList.add("end", 2);
 			}
 			else if (option.getMainIdentifierType().equals(IdentifierType.INDEX)) {
-				stepList.add("if (" + selectList + ".getAllContents()[" + (Integer.parseInt(pe.getMainIdentifierValue()) - 1) + "] == nil)", 2);
-				stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 3);
-				stepList.add("end", 2);
+				stepList.add("optionLabel = " + selectList + ".getAllContents()[" + (Integer.parseInt(pe.getMainIdentifierValue()) - 1) + "]", 3);
+				stepList.add("if (optionLabel == nil)", 3);
+				stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
+				stepList.add("end", 3);
 			}			else {
 				throw new ExporterException("Only label, value and index are supported identifierts " +
 						"for options in select lists in Watir");

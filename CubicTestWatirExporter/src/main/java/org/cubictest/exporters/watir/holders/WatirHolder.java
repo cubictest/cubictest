@@ -98,6 +98,7 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("passedSteps = 0", 2);
 		rubyBuffer.add("labelTargetId = \"\"", 2);
 		rubyBuffer.add("selectListId = nil", 2);
+		rubyBuffer.add("optionLabel = nil", 2);
 	}
 	
 	

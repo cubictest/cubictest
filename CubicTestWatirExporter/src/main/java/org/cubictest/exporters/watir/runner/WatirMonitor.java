@@ -26,16 +26,18 @@ public class WatirMonitor {
 		this.watirHolder = watirHolder;
 	}
 
-
-
 	public void handle(String line) {
-		if(line.contains("error") && line.contains(TestRunner.RUNNER_TEMP_FILENAME)) {
-			throw new ExporterException(line);
+		if (isInError && (line.startsWith(WatirHolder.PASS) || line.startsWith(WatirHolder.FAIL))) {
+			//test is continuing after an exception, stop it:
+			throw new ExporterException(errorBuffer.toString());
 		}
-		else if (isInError || line.contains(WatirHolder.TEST_CASE_NAME)) {
+		else if (isInError || line.contains(WatirHolder.TEST_CASE_NAME) ||
+				(line.toLowerCase().contains("error") && line.contains(TestRunner.RUNNER_TEMP_FILENAME)) ||
+				line.startsWith(WatirHolder.EXCEPTION)) {
 			isInError = true;
-			errorBuffer.append(line);
+			errorBuffer.append(line + "\n");
 		}
+		
 		if(line.startsWith(WatirHolder.PASS)) {
 			PageElement pe = watirHolder.getPageElement(line.substring(line.indexOf(WatirHolder.PASS) + WatirHolder.PASS.length()));
 			watirHolder.addResult(pe, TestPartStatus.PASS);
@@ -43,9 +45,6 @@ public class WatirMonitor {
 		else if(line.startsWith(WatirHolder.FAIL)) {
 			PageElement pe = watirHolder.getPageElement(line.substring(line.indexOf(WatirHolder.FAIL) + WatirHolder.FAIL.length()));
 			watirHolder.addResult(pe, TestPartStatus.FAIL);
-		}
-		else if(line.startsWith(WatirHolder.EXCEPTION)) {
-			throw new ExporterException(line.substring(line.indexOf(WatirHolder.EXCEPTION) + WatirHolder.EXCEPTION.length()));
 		}
 	}
 	

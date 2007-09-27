@@ -74,7 +74,8 @@ public class TransitionHandlerPlain {
 			stepList.add(selectList + ".option(" + idType + ", " + idText + ").select()", 3);
 		}
 		else if (option.getMainIdentifierType().equals(IdentifierType.INDEX)) {
-			stepList.add(selectList + ".getAllContents()[" + (Integer.parseInt(option.getMainIdentifierValue()) - 1) + "].select()", 3);
+			//select optionLabel found earlier
+			stepList.add(selectList + ".select(optionLabel)", 3);
 		}
 	}
 		
