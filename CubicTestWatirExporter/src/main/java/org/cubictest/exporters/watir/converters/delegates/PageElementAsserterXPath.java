@@ -24,16 +24,16 @@ import org.cubictest.model.formElement.TextField;
 public class PageElementAsserterXPath {
 
 	
-	public static void handle(WatirHolder stepList, PageElement pe) {
+	public static void handle(WatirHolder watirHolder, PageElement pe) {
 		if (pe instanceof Title) {
-			stepList.add("if (ie.title() != " + escape(pe.getIdentifier(LABEL).getValue()) + ")", 2);
-			stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 3);
-			stepList.add("end", 2);
+			watirHolder.add("if (ie.title() != " + escape(pe.getIdentifier(LABEL).getValue()) + ")", 2);
+			watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 3);
+			watirHolder.add("end", 2);
 		}
 		else {
 			//handle all other page elements:			
-			stepList.add("pass = 0", 3);
-			String xpath = escape(stepList.getFullContextWithAllElements(pe));
+			watirHolder.add("pass = 0", 3);
+			String xpath = escape(watirHolder.getFullContextWithAllElements(pe));
 	
 			if (pe instanceof TextField || pe instanceof TextArea) {
 				//watir does not like type attribute for text input 
@@ -42,18 +42,18 @@ public class PageElementAsserterXPath {
 			
 			if (pe instanceof Text || pe instanceof Option) {
 				String not = pe.isNot() ? "not " : ""; 
-				stepList.add("while " + not + "ie.element_by_xpath(\"" + xpath + "\") == nil do", 3);
+				watirHolder.add("while " + not + "ie.element_by_xpath(\"" + xpath + "\") == nil do", 3);
 			}
 			else {
 				String not = pe.isNot() ? "": "not "; 
-				stepList.add("while " + not + "ie." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\").exists? do", 3);
+				watirHolder.add("while " + not + "ie." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\").exists? do", 3);
 			}
-			stepList.add("if (pass > 20)", 4);
-			stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 5);
-			stepList.add("end", 4);
-			stepList.add("sleep 0.1", 4);
-			stepList.add("pass += 1", 4);
-			stepList.add("end", 3);
+			watirHolder.add("if (pass > 20)", 4);
+			watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 5);
+			watirHolder.add("end", 4);
+			watirHolder.add("sleep 0.1", 4);
+			watirHolder.add("pass += 1", 4);
+			watirHolder.add("end", 3);
 	
 		}
 	}

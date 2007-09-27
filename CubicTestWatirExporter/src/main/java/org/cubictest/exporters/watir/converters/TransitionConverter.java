@@ -32,7 +32,7 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 	 * Converts a user interactions transition to a list of Watir steps.
 	 * @param transition The transition to convert.
 	 */
-	public void handleUserInteractions(WatirHolder stepList, UserInteractionsTransition transition) {
+	public void handleUserInteractions(WatirHolder watirHolder, UserInteractionsTransition transition) {
 		List actions = transition.getUserInteractions();
 		Iterator it = actions.iterator();
 		while(it.hasNext()) {
@@ -43,10 +43,10 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 				Logger.warn("Action element was null. Skipping user interaction: " + transition);
 				continue;
 			}
-			stepList.addSeparator();
+			watirHolder.addSeparator();
 			
 			if (actionElement instanceof PageElement) {
-				handlePageElementAction(stepList, action);
+				handlePageElementAction(watirHolder, action);
 			}
 		}
 	}
@@ -55,29 +55,29 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 	/**
 	 * Converts a UserInteraction on a page element to a Watir Step.
 	 */
-	private void handlePageElementAction(WatirHolder stepList, UserInteraction userInteraction) {
+	private void handlePageElementAction(WatirHolder watirHolder, UserInteraction userInteraction) {
 		PageElement pe = (PageElement) userInteraction.getElement();
 
-		stepList.add("# user interaction: " + userInteraction.toString());
-		stepList.add("begin");
+		watirHolder.add("# user interaction: " + userInteraction.toString());
+		watirHolder.add("begin");
 		
 		
-		if (stepList.requiresXPath(pe)) {
-			TransitionHandlerXPath.handle(stepList, userInteraction);
+		if (watirHolder.requiresXPath(pe)) {
+			TransitionHandlerXPath.handle(watirHolder, userInteraction);
 		}
 		else {
-			TransitionHandlerPlain.handle(stepList, userInteraction);
+			TransitionHandlerPlain.handle(watirHolder, userInteraction);
 		}
 		
 		
-		stepList.add("passedSteps += 1 ", 3);
+		watirHolder.add("passedSteps += 1 ", 3);
 
-		stepList.add("rescue", 2);
-		stepList.add("puts " + "\"" + WatirHolder.EXCEPTION + " \" + $!", 3);
-		stepList.add("failedSteps += 1 ", 3);
+		watirHolder.add("rescue", 2);
+		watirHolder.add("puts " + "\"" + WatirHolder.EXCEPTION + " \" + $!", 3);
+		watirHolder.add("failedSteps += 1 ", 3);
 		String interactionType = StringUtils.replace(WatirUtils.getInteraction(userInteraction) ,"\"", "\\\"");
-		stepList.add("puts \"Could not " + interactionType + " " + escape(pe.toString()) + "\"", 3);
-		stepList.add("end", 2);
+		watirHolder.add("puts \"Could not " + interactionType + " " + escape(pe.toString()) + "\"", 3);
+		watirHolder.add("end", 2);
 	}
 
 	

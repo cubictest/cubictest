@@ -36,7 +36,7 @@ public class TestRunner extends BaseTestRunner {
 	private Display display;
 	private CubicTestProjectSettings settings;
 	protected boolean processDone;
-	WatirHolder stepList;
+	WatirHolder watirHolder;
 
 	
 	public TestRunner(Test test, Display display, CubicTestProjectSettings settings) {
@@ -49,8 +49,8 @@ public class TestRunner extends BaseTestRunner {
 	public void run(IProgressMonitor monitor) {
 
 		try {
-			stepList = new WatirHolder(true, display, settings);
-			WatirMonitor watirMonitor = new WatirMonitor(stepList);
+			watirHolder = new WatirHolder(true, display, settings);
+			WatirMonitor watirMonitor = new WatirMonitor(watirHolder);
 
 			TreeTestWalker<WatirHolder> testWalker = new TreeTestWalker<WatirHolder>(
 					UrlStartPointConverter.class, PageElementConverter.class,
@@ -62,14 +62,14 @@ public class TestRunner extends BaseTestRunner {
 						IProgressMonitor.UNKNOWN);
 			}
 
-			testWalker.convertTest(test, null, stepList);
+			testWalker.convertTest(test, null, watirHolder);
 
 			//write exported watir script to temp file:
 			File generatedFolder = new File(settings.getProjectFolder().getAbsolutePath() + File.separator + "generated");
 			generatedFolder.mkdir();
 			File tempFile = new File(generatedFolder.getAbsolutePath() + File.separator + RUNNER_TEMP_FILENAME);
 			FileWriter out = new FileWriter(tempFile);
-			out.write(stepList.toResultString());
+			out.write(watirHolder.toResultString());
 			out.close();
 
 			//start Watir!
@@ -110,7 +110,7 @@ public class TestRunner extends BaseTestRunner {
 	 * @return
 	 */
 	public String getResultMessage() {
-		return stepList.getResults();
+		return watirHolder.getResults();
 	}
 
 	/** Tell that the Watir process has shut down */

@@ -15,11 +15,11 @@ import org.cubictest.model.PageElement;
 public class ContextAsserterXPath {
 
 	
-	public static void handle(WatirHolder stepList, PageElement pe) {
+	public static void handle(WatirHolder watirHolder, PageElement pe) {
 		// assert present:
-		stepList.add("if ie.element_by_xpath(\"" + stepList.getFullContextWithAllElements(pe) + "\") == nil", 3);
-		stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);		
-		stepList.add("end", 3);
+		watirHolder.add("if ie.element_by_xpath(\"" + watirHolder.getFullContextWithAllElements(pe) + "\") == nil", 3);
+		watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);		
+		watirHolder.add("end", 3);
 }
 	
 }

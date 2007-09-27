@@ -4,9 +4,13 @@
  */
 package org.cubictest.exporters.watir.holders;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
@@ -28,12 +32,15 @@ import org.eclipse.swt.widgets.Display;
  */
 public class WatirHolder extends RunnerResultHolder {
 	
+	private static final String UTIL_VARIABLES_PLACEHOLDER = "$$$UTIL_VARIABLES";
 	private RubyBuffer rubyBuffer;
 	private boolean browserStarted = false;
 	public static final String TEST_STEP_FAILED = "TestStepFailed";
 	public static final String TEST_CASE_NAME = "CubicTestExport_";
 	public Map<String, PageElement> pageElementIdMap;
 	public Map<PageElement, String> idMap;
+	public Map<PageElement, String> watirElementMap;
+	public Map<String, Integer> elementTypeCountMap;
 	public static String PASS = "[pass]>";
 	public static String FAIL = "[-FAIL-]>";
 	public static String EXCEPTION = "[-EXCEPTION-]>";
@@ -43,6 +50,7 @@ public class WatirHolder extends RunnerResultHolder {
 	
 	/** Prefix for non-xpath contexts */
 	private String prefix = "ie";
+	private int counter;
 	
 	
 	public WatirHolder() {
@@ -58,6 +66,8 @@ public class WatirHolder extends RunnerResultHolder {
 		this.runnerMode = runnerMode;
 		this.rubyBuffer = new RubyBuffer();
 		pageElementIdMap = new HashMap<String, PageElement>();
+		watirElementMap = new LinkedHashMap<PageElement, String>();
+		elementTypeCountMap = new HashMap<String, Integer>();
 		idMap = new HashMap<PageElement, String>();
 		pageElementInContextMap = new HashMap<PageElement, Boolean>();
 		setUpWatirTest();
@@ -97,8 +107,7 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("failedSteps = 0", 2);
 		rubyBuffer.add("passedSteps = 0", 2);
 		rubyBuffer.add("labelTargetId = \"\"", 2);
-		rubyBuffer.add("selectListId = nil", 2);
-		rubyBuffer.add("optionLabel = nil", 2);
+		rubyBuffer.add(UTIL_VARIABLES_PLACEHOLDER, 0);
 	}
 	
 	
@@ -125,9 +134,20 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("ie.close", 2);
 		rubyBuffer.add("end", 1);
 		rubyBuffer.add("end", 0);
-		return rubyBuffer.toString(); 
+		String res = rubyBuffer.toString();
+		res = StringUtils.replace(res, UTIL_VARIABLES_PLACEHOLDER, getWatirElementDefinitions());
+		return res;
 	}
 
+
+	private String getWatirElementDefinitions() {
+		RubyBuffer b = new RubyBuffer();
+		b.add("# temp variables for indirect (e.g. 'label') reference, where applicable:", 2);
+		for (String s : watirElementMap.values()) {
+			b.add(s + " = nil", 2);
+		}
+		return b.toString();
+	}
 
 	public boolean isBrowserStarted() {
 		return browserStarted;
@@ -156,6 +176,15 @@ public class WatirHolder extends RunnerResultHolder {
 		String id = pe.toString();
 		pageElementIdMap.put(id, pe);
 		idMap.put(pe, id);
+		
+		String type = pe.getType().toLowerCase();
+		int count = elementTypeCountMap.get(type) == null ? 0 : elementTypeCountMap.get(type);
+		watirElementMap.put(pe, type + count);
+		elementTypeCountMap.put(type, ++count);
+	}
+	
+	public String getWatirElementName(PageElement pe) {
+		return watirElementMap.get(pe);
 	}
 	
 	/**

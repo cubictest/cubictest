@@ -24,32 +24,30 @@ public class PageElementConverter implements IPageElementConverter<WatirHolder> 
 	/**
 	 * Converts a page element located on a page to a watir assertion.
 	 */
-	public void handlePageElement(WatirHolder stepList, PageElement pe) {
-		stepList.registerPageElement(pe);
-		stepList.addSeparator();
+	public void handlePageElement(WatirHolder watirHolder, PageElement pe) {
+		watirHolder.registerPageElement(pe);
+		watirHolder.addSeparator();
 		
 		String not = pe.isNot() ? " not" : ""; 
-		stepList.add("# asserting" + not + " present: " + pe.toString(), 2);
-		stepList.add("begin", 2);
+		watirHolder.add("# asserting" + not + " present: " + pe.toString(), 2);
+		watirHolder.add("begin", 2);
 
-		
-		if (stepList.requiresXPath(pe)) {
-			PageElementAsserterXPath.handle(stepList, pe);
+		if (watirHolder.requiresXPath(pe)) {
+			PageElementAsserterXPath.handle(watirHolder, pe);
 		}
 		else {
-			PageElementAsserterPlain.handle(stepList, pe);
+			PageElementAsserterPlain.handle(watirHolder, pe);
 		}
 
-		
-		stepList.add("puts \"" + WatirHolder.PASS + escape(stepList.getId(pe)) + "\"", 3);
-		stepList.add("passedSteps += 1 ", 3);
+		watirHolder.add("puts \"" + WatirHolder.PASS + escape(watirHolder.getId(pe)) + "\"", 3);
+		watirHolder.add("passedSteps += 1 ", 3);
 	
-		stepList.add("rescue " + WatirHolder.TEST_STEP_FAILED, 2);
-		stepList.add("puts \"" + WatirHolder.FAIL + escape(stepList.getId(pe)) + "\"", 3);
-		stepList.add("failedSteps += 1 ", 3);
+		watirHolder.add("rescue " + WatirHolder.TEST_STEP_FAILED, 2);
+		watirHolder.add("puts \"" + WatirHolder.FAIL + escape(watirHolder.getId(pe)) + "\"", 3);
+		watirHolder.add("failedSteps += 1 ", 3);
 
-		stepList.add("puts \"Step failed: Check" + not + " present: " + escape(pe.toString()) + "\"", 3);
-		stepList.add("end", 2);
+		watirHolder.add("puts \"Step failed: Check" + not + " present: " + escape(pe.toString()) + "\"", 3);
+		watirHolder.add("end", 2);
 }
 
 	

@@ -24,21 +24,21 @@ import org.cubictest.model.formElement.Select;
 public class ContextAsserterPlain {
 
 
-	public static void handle(WatirHolder stepList, PageElement pe) {
+	public static void handle(WatirHolder watirHolder, PageElement pe) {
 
 		if (pe instanceof Select) {
-			handleSelect(stepList, (Select) pe);
+			handleSelect(watirHolder, (Select) pe);
 		}
 		else if (pe instanceof AbstractContext) {
-			handleAbstractContext(stepList, (AbstractContext) pe);
+			handleAbstractContext(watirHolder, (AbstractContext) pe);
 		}
 	}
 
 	
 	/**
-	 * Assert Context present and set steplist prefix.
+	 * Assert Context present and set watirHolder prefix.
 	 */
-	private static void handleAbstractContext(WatirHolder stepList, AbstractContext context) {
+	private static void handleAbstractContext(WatirHolder watirHolder, AbstractContext context) {
 		
 		if (!(context.getMainIdentifierType().equals(ID)))
 			throw new ExporterException("Contexts must have identifier type = ID for Watir export. Context in error: " + context);
@@ -47,19 +47,19 @@ public class ContextAsserterPlain {
 		String idType = WatirUtils.getMainIdType(context);
 
 		//set prefix:
-		stepList.setPrefix("(ie.div(" + idType + "," + idValue + "))");
+		watirHolder.setPrefix("(ie.div(" + idType + "," + idValue + "))");
 		
 		//assert present:
-		stepList.add("if (ie.div(" + idType + "," + idValue + ") == nil)", 3);
-		stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
-		stepList.add("end", 3);
+		watirHolder.add("if (ie.div(" + idType + "," + idValue + ") == nil)", 3);
+		watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
+		watirHolder.add("end", 3);
 	}
 
 
 	/**
 	 * Assert Select present, set prefix and if label, save selectListID in script to be able to select options
 	 */
-	private static void handleSelect(WatirHolder stepList, IContext ctx) {
+	private static void handleSelect(WatirHolder watirHolder, IContext ctx) {
 		
 		Select select = (Select) ctx;
 		
@@ -68,10 +68,10 @@ public class ContextAsserterPlain {
 
 
 		if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
-			stepList.add(WatirUtils.getLabelTargetId(select));
-			idText = "selectListId";
+			watirHolder.add(WatirUtils.getLabelTargetId(select));
+			idText = watirHolder.getWatirElementName(select);
 			idType = ":id";
-			stepList.add("selectListId = labelTargetId", 3);
+			watirHolder.add(watirHolder.getWatirElementName(select) + " = labelTargetId", 3);
 		}
 		else if (select.getMainIdentifierType().equals(IdentifierType.NAME)) {
 			idType = ":name";
@@ -80,12 +80,12 @@ public class ContextAsserterPlain {
 			idType = ":id";
 		}
 		//set prefix (context):
-		stepList.setPrefix("ie.select_list(" + idType + ", " + idText + ")");
+		watirHolder.setPrefix("ie.select_list(" + idType + ", " + idText + ")");
 		
 		//assert select box present:
-		stepList.add("if (" + stepList.getPrefix() + " == nil)", 3);
-		stepList.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
-		stepList.add("end", 3);
+		watirHolder.add("if (" + watirHolder.getPrefix() + " == nil)", 3);
+		watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
+		watirHolder.add("end", 3);
 	}
 
 }

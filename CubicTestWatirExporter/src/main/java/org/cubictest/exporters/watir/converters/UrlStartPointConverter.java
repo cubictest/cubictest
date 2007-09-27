@@ -19,15 +19,15 @@ import org.cubictest.model.UrlStartPoint;
 public class UrlStartPointConverter implements IUrlStartPointConverter<WatirHolder> {
 	
 	
-	public void handleUrlStartPoint(WatirHolder stepList, UrlStartPoint sp, boolean firstUrl) {
-		if (!stepList.isBrowserStarted()) {
-			stepList.add("ie = Watir::IE.new");
-			stepList.setBrowserStarted(true);
+	public void handleUrlStartPoint(WatirHolder watirHolder, UrlStartPoint sp, boolean firstUrl) {
+		if (!watirHolder.isBrowserStarted()) {
+			watirHolder.add("ie = Watir::IE.new");
+			watirHolder.setBrowserStarted(true);
 		}
 
-		stepList.addSeparator();
-		stepList.add("# URL start point");
-		stepList.add("ie.goto(\"" + sp.getBeginAt() + "\")");
+		watirHolder.addSeparator();
+		watirHolder.add("# URL start point");
+		watirHolder.add("ie.goto(\"" + sp.getBeginAt() + "\")");
 	}
 	
 }

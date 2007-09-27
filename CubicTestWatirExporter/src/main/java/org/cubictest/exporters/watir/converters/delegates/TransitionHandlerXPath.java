@@ -22,11 +22,11 @@ import org.cubictest.model.formElement.TextField;
 public class TransitionHandlerXPath {
 
 	
-	public static void handle(WatirHolder stepList, UserInteraction userInteraction) {
+	public static void handle(WatirHolder watirHolder, UserInteraction userInteraction) {
 		PageElement pe = (PageElement) userInteraction.getElement();
 
 		//handle all other interaction types:
-		String xpath = escape(stepList.getFullContextWithAllElements(pe));
+		String xpath = escape(watirHolder.getFullContextWithAllElements(pe));
 
 		if (pe instanceof TextField || pe instanceof TextArea) {
 			//watir does not like type attribute for text input 
@@ -35,11 +35,11 @@ public class TransitionHandlerXPath {
 
 		if (pe instanceof Option) {
 			Select select = ((Option) pe).getParent();
-			String selectXpath = escape(stepList.getFullContextWithAllElements(select));
-			stepList.add("ie.select_list(\"/" + selectXpath + "\")." + WatirUtils.getInteraction(userInteraction), 3);
+			String selectXpath = escape(watirHolder.getFullContextWithAllElements(select));
+			watirHolder.add("ie.select_list(\"/" + selectXpath + "\")." + WatirUtils.getInteraction(userInteraction), 3);
 		}
 		else {
-			stepList.add("ie." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\")." + WatirUtils.getInteraction(userInteraction), 3);
+			watirHolder.add("ie." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\")." + WatirUtils.getInteraction(userInteraction), 3);
 		}
 	
 	}
