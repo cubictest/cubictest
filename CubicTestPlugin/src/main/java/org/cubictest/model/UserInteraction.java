@@ -138,9 +138,9 @@ public class UserInteraction extends PropertyAwareObject
 			result += " '" + input + "'";
 		}
 		if (element == null)
-			result += " @ " + "null element";			
+			result += " " + "null element";			
 		else
-			result += " @ " + element.toString();
+			result += " " + element.toString();
 		return result;
 	}
 
