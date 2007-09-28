@@ -171,6 +171,9 @@ public class WatirHolder extends RunnerResultHolder {
 			}
 		}
 		String id = pe.toString();
+		if (pageElementIdMap.get(id) != null) {
+			id = id + "--" + pe.hashCode();
+		}
 		pageElementIdMap.put(id, pe);
 		idMap.put(pe, id);
 		
