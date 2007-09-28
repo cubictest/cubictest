@@ -10,7 +10,6 @@ import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.exporters.watir.converters.delegates.ContextAsserterPlain;
 import org.cubictest.exporters.watir.converters.delegates.ContextAsserterXPath;
 import org.cubictest.exporters.watir.holders.WatirHolder;
-import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;

@@ -39,7 +39,7 @@ public class PageElementAsserterPlain {
 			Select select = (Select) option.getParent();
 			if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 				//If parent select list had label idType, assert that its label target ID was found:
-				watirHolder.add("if (" + watirHolder.getWatirElementName(select) + " == nil)", 3);
+				watirHolder.add("if (" + watirHolder.getVariableName(select) + " == nil)", 3);
 				watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
 				watirHolder.add("end", 3);
 			}
@@ -61,8 +61,8 @@ public class PageElementAsserterPlain {
 				watirHolder.add("end", 2);
 			}
 			else if (option.getMainIdentifierType().equals(IdentifierType.INDEX)) {
-				watirHolder.add(watirHolder.getWatirElementName(option) + " = " + selectList + ".getAllContents()[" + (Integer.parseInt(pe.getMainIdentifierValue()) - 1) + "]", 3);
-				watirHolder.add("if (" + watirHolder.getWatirElementName(option) + " == nil)", 3);
+				watirHolder.add(watirHolder.getVariableName(option) + " = " + selectList + ".getAllContents()[" + (Integer.parseInt(pe.getMainIdentifierValue()) - 1) + "]", 3);
+				watirHolder.add("if (" + watirHolder.getVariableName(option) + " == nil)", 3);
 				watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
 				watirHolder.add("end", 3);
 			}			else {
@@ -74,9 +74,9 @@ public class PageElementAsserterPlain {
 			//handle all other page elements:			
 
 			if (WatirUtils.shouldGetLabelTargetId(pe)) {
-				watirHolder.add(WatirUtils.getLabelTargetId(pe));
+				watirHolder.add(WatirUtils.getLabelTargetId(pe, watirHolder));
 				watirHolder.addSeparator();
-				idValue = "labelTargetId";
+				idValue = watirHolder.getVariableName(pe);
 				idType = ":id";
 			}
 			

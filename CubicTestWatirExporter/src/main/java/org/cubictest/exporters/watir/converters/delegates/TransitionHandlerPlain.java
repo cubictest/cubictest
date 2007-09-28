@@ -5,9 +5,7 @@
 package org.cubictest.exporters.watir.converters.delegates;
 
 import static org.cubictest.model.ActionType.SELECT;
-import static org.cubictest.model.IdentifierType.LABEL;
 
-import org.apache.commons.lang.StringUtils;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.IdentifierType;
@@ -17,7 +15,7 @@ import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Select;
 
 /**
- * Page element converter that uses standard Watir without XPath.
+ * Transition converter that uses standard Watir without XPath.
  * 
  * @author Christian Schwarz
  */
@@ -31,9 +29,9 @@ public class TransitionHandlerPlain {
 
 		//Handle Label identifier:
 		if (WatirUtils.shouldGetLabelTargetId(pe)) {
-			watirHolder.add(WatirUtils.getLabelTargetId(pe));
+			watirHolder.add(WatirUtils.getLabelTargetId(pe, watirHolder));
 			watirHolder.addSeparator();
-			idValue = "labelTargetId";
+			idValue = watirHolder.getVariableName(pe);
 			idType = ":id";
 		}
 		
@@ -59,8 +57,8 @@ public class TransitionHandlerPlain {
 		
 		if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
 			//Handle label:
-			watirHolder.add(WatirUtils.getLabelTargetId(select));
-			selectIdValue = "labelTargetId";
+			watirHolder.add(WatirUtils.getLabelTargetId(select, watirHolder));
+			selectIdValue = watirHolder.getVariableName(select);
 			selectIdType = ":id";
 		}
 		
@@ -75,7 +73,7 @@ public class TransitionHandlerPlain {
 		}
 		else if (option.getMainIdentifierType().equals(IdentifierType.INDEX)) {
 			//select optionLabel found earlier
-			watirHolder.add(selectList + ".select(" + watirHolder.getWatirElementName(option) + ")", 3);
+			watirHolder.add(selectList + ".select(" + watirHolder.getVariableName(option) + ")", 3);
 		}
 	}
 		

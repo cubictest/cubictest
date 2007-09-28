@@ -8,7 +8,7 @@ import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.PageElement;
 
 /**
- * Page element converter that uses XPath.
+ * Asserts contexts present using XPath.
  * 
  * @author Christian Schwarz
  */

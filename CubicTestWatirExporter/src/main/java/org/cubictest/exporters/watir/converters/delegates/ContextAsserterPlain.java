@@ -17,7 +17,7 @@ import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
 
 /**
- * Page element converter that uses standard Watir without XPath.
+ * Asserts contexts present without XPath (i.e. fast)
  * 
  * @author Christian Schwarz
  */
@@ -68,10 +68,9 @@ public class ContextAsserterPlain {
 
 
 		if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
-			watirHolder.add(WatirUtils.getLabelTargetId(select));
-			idText = watirHolder.getWatirElementName(select);
+			watirHolder.add(WatirUtils.getLabelTargetId(select, watirHolder));
+			idText = watirHolder.getVariableName(select);
 			idType = ":id";
-			watirHolder.add(watirHolder.getWatirElementName(select) + " = labelTargetId", 3);
 		}
 		else if (select.getMainIdentifierType().equals(IdentifierType.NAME)) {
 			idType = ":name";

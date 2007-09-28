@@ -15,7 +15,7 @@ import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
 
 /**
- * Page element converter that uses XPath.
+ * Transition converter that uses XPath.
  * 
  * @author Christian Schwarz
  */

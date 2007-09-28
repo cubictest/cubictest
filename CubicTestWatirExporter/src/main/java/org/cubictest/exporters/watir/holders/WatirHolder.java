@@ -4,11 +4,9 @@
  */
 package org.cubictest.exporters.watir.holders;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
@@ -39,7 +37,7 @@ public class WatirHolder extends RunnerResultHolder {
 	public static final String TEST_CASE_NAME = "CubicTestExport_";
 	public Map<String, PageElement> pageElementIdMap;
 	public Map<PageElement, String> idMap;
-	public Map<PageElement, String> watirElementMap;
+	public Map<PageElement, String> elementVariableMap;
 	public Map<String, Integer> elementTypeCountMap;
 	public static String PASS = "[pass]>";
 	public static String FAIL = "[-FAIL-]>";
@@ -66,7 +64,7 @@ public class WatirHolder extends RunnerResultHolder {
 		this.runnerMode = runnerMode;
 		this.rubyBuffer = new RubyBuffer();
 		pageElementIdMap = new HashMap<String, PageElement>();
-		watirElementMap = new LinkedHashMap<PageElement, String>();
+		elementVariableMap = new LinkedHashMap<PageElement, String>();
 		elementTypeCountMap = new HashMap<String, Integer>();
 		idMap = new HashMap<PageElement, String>();
 		pageElementInContextMap = new HashMap<PageElement, Boolean>();
@@ -106,7 +104,6 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("def test_exported", 1);
 		rubyBuffer.add("failedSteps = 0", 2);
 		rubyBuffer.add("passedSteps = 0", 2);
-		rubyBuffer.add("labelTargetId = \"\"", 2);
 		rubyBuffer.add(UTIL_VARIABLES_PLACEHOLDER, 0);
 	}
 	
@@ -143,7 +140,7 @@ public class WatirHolder extends RunnerResultHolder {
 	private String getWatirElementDefinitions() {
 		RubyBuffer b = new RubyBuffer();
 		b.add("# temp variables for indirect (e.g. 'label') reference, where applicable:", 2);
-		for (String s : watirElementMap.values()) {
+		for (String s : elementVariableMap.values()) {
 			b.add(s + " = nil", 2);
 		}
 		return b.toString();
@@ -179,12 +176,12 @@ public class WatirHolder extends RunnerResultHolder {
 		
 		String type = pe.getType().toLowerCase();
 		int count = elementTypeCountMap.get(type) == null ? 0 : elementTypeCountMap.get(type);
-		watirElementMap.put(pe, type + count);
+		elementVariableMap.put(pe, type + count);
 		elementTypeCountMap.put(type, ++count);
 	}
 	
-	public String getWatirElementName(PageElement pe) {
-		return watirElementMap.get(pe);
+	public String getVariableName(PageElement pe) {
+		return elementVariableMap.get(pe);
 	}
 	
 	/**
