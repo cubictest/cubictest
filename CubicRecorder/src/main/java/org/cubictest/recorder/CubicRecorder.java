@@ -45,7 +45,7 @@ public class CubicRecorder implements IRecorder {
 		this.autoLayout = autoLayout;
 		//reuse empty start page if present:
 		for(Transition t : test.getStartPoint().getOutTransitions()) {
-			if(t.getEnd() instanceof Page && ((Page)t.getEnd()).getElements().size() == 0) {
+			if(t.getEnd() instanceof Page && ((Page)t.getEnd()).getRootElements().size() == 0) {
 				setCursor((Page) t.getEnd());
 			}
 		}
@@ -84,7 +84,7 @@ public class CubicRecorder implements IRecorder {
 		
 		CreatePageElementCommand createElementCmd = new CreatePageElementCommand();
 		createElementCmd.setContext(this.cursor);
-		createElementCmd.setIndex(this.cursor.getElements().size());
+		createElementCmd.setIndex(this.cursor.getRootElements().size());
 		if(parent != null){
 			if(cursor.contains(parent) && parent instanceof IContext){
 				createElementCmd.setContext((IContext) parent);
@@ -108,7 +108,7 @@ public class CubicRecorder implements IRecorder {
 		}
 		
 		boolean elementExists = false;
-		for(PageElement element : cursor.getElements()) {
+		for(PageElement element : cursor.getRootElements()) {
 			if(action.getElement() == element) {
 				elementExists = true;
 			}

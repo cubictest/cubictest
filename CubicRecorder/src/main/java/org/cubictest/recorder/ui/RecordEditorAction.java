@@ -172,7 +172,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 
 	public boolean firstPageIsEmpty(Test test) {
 		for(Transition t : test.getStartPoint().getOutTransitions()) {
-			if(t.getEnd() instanceof Page && ((Page)t.getEnd()).getElements().size() == 0) {
+			if(t.getEnd() instanceof Page && ((Page)t.getEnd()).getRootElements().size() == 0) {
 				return true;
 			}
 		}
