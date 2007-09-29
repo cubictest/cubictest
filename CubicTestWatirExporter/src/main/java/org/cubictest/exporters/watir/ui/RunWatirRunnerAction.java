@@ -33,5 +33,8 @@ public class RunWatirRunnerAction extends BaseRunnerAction {
 		return new TestRunner(test, display, settings);
 	}
 
-
+	@Override
+	protected void finalCleanUp() {
+		((TestRunner) testRunner).closeBrowser();
+	}
 }

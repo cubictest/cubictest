@@ -4,10 +4,8 @@
  */
 package org.cubictest.exporters.watir.runner;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.InputStreamReader;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
@@ -33,10 +31,13 @@ import org.eclipse.swt.widgets.Display;
 public class TestRunner extends BaseTestRunner {
 
 	public static final String RUNNER_TEMP_FILENAME = "cubictest_watir_runner_temp.rb";
-	private Display display;
-	private CubicTestProjectSettings settings;
-	protected boolean processDone;
+	Display display;
+	CubicTestProjectSettings settings;
+	boolean processAlive;
+	boolean testRunning;
 	WatirHolder watirHolder;
+	Process process;
+	TestDoneHandler testDoneHandler;
 
 	
 	public TestRunner(Test test, Display display, CubicTestProjectSettings settings) {
@@ -50,7 +51,7 @@ public class TestRunner extends BaseTestRunner {
 
 		try {
 			watirHolder = new WatirHolder(true, display, settings);
-			WatirMonitor watirMonitor = new WatirMonitor(watirHolder);
+			watirHolder.setMonitor(monitor);
 
 			TreeTestWalker<WatirHolder> testWalker = new TreeTestWalker<WatirHolder>(
 					UrlStartPointConverter.class, PageElementConverter.class,
@@ -75,24 +76,23 @@ public class TestRunner extends BaseTestRunner {
 			//start Watir!
 			ProcessBuilder builder = new ProcessBuilder(new String[]{"ruby", tempFile.getAbsolutePath()});
 			builder.redirectErrorStream(true);
-			Process process = builder.start();
+			process = builder.start();
+			processAlive = true;
+			testRunning = true;
 
+			WatirMonitor watirMonitor = new WatirMonitor(watirHolder, process, monitor, this);
+			watirMonitor.start();
+			
 			CancelHandler cancelHandler = new CancelHandler(process, monitor, this);
 			cancelHandler.start();
-			
-			//monitor process output:
-			BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			String line;
-			while (!monitor.isCanceled() && (line = input.readLine()) != null) {
-				System.out.println(line);
-				watirMonitor.handle(line);
-			}
-			processDone = true;
-			input.close();
 
-			if (monitor != null) {
-				monitor.done();
+			while (testRunning) {
+				Thread.sleep(100);
 			}
+			
+			testDoneHandler = new TestDoneHandler(process, monitor, this);
+			testDoneHandler.start();
+
 			watirMonitor.verify();
 
 		} catch (TestFailedException e) {
@@ -103,8 +103,6 @@ public class TestRunner extends BaseTestRunner {
 	}
 	
 	
-
-	
 	/**
 	 * Show the results of the test in the GUI.
 	 * @return
@@ -113,14 +111,9 @@ public class TestRunner extends BaseTestRunner {
 		return watirHolder.getResults();
 	}
 
-	/** Tell that the Watir process has shut down */
-	public void setProcessDone(boolean b) {
-		this.processDone = b;
-	}
-	
-	/** Get whether the Watir process has shut down */
-	public boolean isProcessDone() {
-		return processDone;
+
+	public void closeBrowser() {
+		testDoneHandler.setCloseBrowser(true);
 	}
 
 }

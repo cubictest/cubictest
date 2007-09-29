@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Display;
 public class WatirHolder extends RunnerResultHolder {
 	
 	private static final String UTIL_VARIABLES_PLACEHOLDER = "$$$UTIL_VARIABLES";
+	public static final String TEST_DONE = "[Test done]";;
 	private RubyBuffer rubyBuffer;
 	private boolean browserStarted = false;
 	public static final String TEST_STEP_FAILED = "TestStepFailed";
@@ -97,14 +98,13 @@ public class WatirHolder extends RunnerResultHolder {
 	private void setUpWatirTest() {
 		rubyBuffer.add("require 'rubygems'", 0);
 		rubyBuffer.add("require 'watir'", 0);
-		rubyBuffer.add("require 'test/unit'", 0);
 		rubyBuffer.add("class " + TEST_STEP_FAILED + " < RuntimeError", 0);
 		rubyBuffer.add("end", 0);
-		rubyBuffer.add("class " + TEST_CASE_NAME + System.currentTimeMillis() + " < Test::Unit::TestCase", 0);
-		rubyBuffer.add("def test_exported", 1);
+		rubyBuffer.add("class " + TEST_CASE_NAME + System.currentTimeMillis(), 0);
 		rubyBuffer.add("failedSteps = 0", 2);
 		rubyBuffer.add("passedSteps = 0", 2);
 		rubyBuffer.add(UTIL_VARIABLES_PLACEHOLDER, 0);
+		rubyBuffer.add("puts \"Starting test\"", 0);
 	}
 	
 	
@@ -115,7 +115,6 @@ public class WatirHolder extends RunnerResultHolder {
 	public String toResultString() {
 		rubyBuffer.add("", 0);
 		rubyBuffer.add("", 0);
-		rubyBuffer.add("puts \"Done.\"", 2);
 		rubyBuffer.add("puts \"\"", 2);
 		
 		rubyBuffer.add("if (failedSteps == 0)", 2);
@@ -124,12 +123,13 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("puts(passedSteps.to_s + \" steps passed, \" + failedSteps.to_s + \" steps failed!\")", 3);
 		rubyBuffer.add("end", 2);
 		
-		if (!runnerMode) {
-			rubyBuffer.add("puts \"Press enter to exit\"", 2);
-			rubyBuffer.add("gets", 2);
-		}
+		rubyBuffer.add("puts \"" + TEST_DONE + "\"", 2);
+		rubyBuffer.add("puts \"Press enter to exit\"", 2);
+		rubyBuffer.add("STDOUT.flush", 2);
+		rubyBuffer.add("gets", 2);
+		rubyBuffer.add("puts \"Closing browser..\"", 2);
+		rubyBuffer.add("STDOUT.flush", 2);
 		rubyBuffer.add("ie.close", 2);
-		rubyBuffer.add("end", 1);
 		rubyBuffer.add("end", 0);
 		String res = rubyBuffer.toString();
 		res = StringUtils.replace(res, UTIL_VARIABLES_PLACEHOLDER, getWatirElementDefinitions());

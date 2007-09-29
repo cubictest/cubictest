@@ -23,15 +23,17 @@ public class CancelHandler extends Thread {
 	}
 	
 	public void run() {
-		while (!runner.processDone) {
-			if (monitor.isCanceled()) {
-				process.destroy();
-			}
-			try {
+		try {
+			while (runner.processAlive) {
+				if (monitor.isCanceled()) {
+					process.destroy();
+					runner.testRunning = false;
+					runner.processAlive = false;
+				}
 				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				ErrorHandler.logAndRethrow(e);
 			}
+		} catch (Exception e) {
+			ErrorHandler.logAndRethrow(e);
 		}
 	}
 }
