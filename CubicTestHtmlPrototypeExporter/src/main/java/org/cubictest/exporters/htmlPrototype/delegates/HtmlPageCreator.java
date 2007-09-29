@@ -101,11 +101,11 @@ public class HtmlPageCreator {
 		List<CommonTransition> commonTransitions = page.getCommonTransitions();
 		for(CommonTransition transition : commonTransitions) {
 			Common common = (Common)transition.getStart();
-			addPageElements(common.getElements());
+			addPageElements(common.getRootElements());
 		}
 		
 		// convert page elements
-		addPageElements(page.getElements());
+		addPageElements(page.getRootElements());
 		
 		save();
 	}

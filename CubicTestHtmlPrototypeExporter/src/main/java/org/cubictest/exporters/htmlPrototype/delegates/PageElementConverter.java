@@ -66,7 +66,7 @@ public class PageElementConverter implements IPageElementConverter {
 		Element legend = new Element("legend");
 		legend.addContent(getPositiveValue(context.getIdentifier(IdentifierType.LABEL)));
 		result.addContent(legend);
-		for(PageElement element : context.getElements()) {
+		for(PageElement element : context.getRootElements()) {
 			try {
 				result.addContent(convert(element));
 			} catch (UnknownPageElementException e) {}
