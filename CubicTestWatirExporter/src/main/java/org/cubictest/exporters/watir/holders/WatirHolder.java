@@ -167,7 +167,7 @@ public class WatirHolder extends RunnerResultHolder {
 	
 	public void registerPageElement(PageElement pe) {
 		if (pe instanceof SimpleContext) {
-			for (PageElement p : ((SimpleContext) pe).getElements()) {
+			for (PageElement p : ((SimpleContext) pe).getRootElements()) {
 				pageElementInContextMap.put(p, true);
 			}
 		}
