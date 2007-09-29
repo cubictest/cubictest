@@ -23,7 +23,6 @@ import org.eclipse.jdt.core.JavaCore;
 
 public class CustomTestStepConverter implements ICustomTestStepConverter<Holder> {
 	
-	@Override
 	public String getDataKey(){
 		return "org.cubictest.cubicunitexporter";
 	}
