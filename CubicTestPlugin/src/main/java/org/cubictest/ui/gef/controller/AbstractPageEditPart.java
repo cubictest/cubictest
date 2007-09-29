@@ -106,7 +106,7 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	 */
 	@Override
 	protected List<PageElement> getModelChildren(){
-		return ((AbstractPage)getModel()).getElements();
+		return ((AbstractPage)getModel()).getRootElements();
 	}
 
 	

@@ -56,7 +56,7 @@ public class Select extends FormElement implements IContext {
 	/**
 	 * @return Returns the elements.
 	 */
-	public List<PageElement> getElements() {
+	public List<PageElement> getRootElements() {
 		return elements;
 	}
 	/**
@@ -98,7 +98,7 @@ public class Select extends FormElement implements IContext {
 	@Override
 	public void resetStatus() {
 		setStatus(TestPartStatus.UNKNOWN);
-		for (PageElement pe : getElements()) {
+		for (PageElement pe : getRootElements()) {
 			pe.resetStatus();
 		}
 	}
@@ -111,7 +111,7 @@ public class Select extends FormElement implements IContext {
 	 * Gets all page elements of a page in flat structure (traverse contexts). 
 	 */
 	public List<PageElement> getFlattenedElements() {
-		return getElements();
+		return getRootElements();
 	}
 	
 }

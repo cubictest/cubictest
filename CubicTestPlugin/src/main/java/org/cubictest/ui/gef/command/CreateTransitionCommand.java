@@ -157,7 +157,7 @@ public class CreateTransitionCommand extends Command {
 				//User Interactions transition:
 				transition = new UserInteractionsTransition(sourceNode, targetNode);
 				test.addTransition(transition);
-				if (sourceNode instanceof Page && ((Page) sourceNode).getElements().size() > 0) {
+				if (sourceNode instanceof Page && ((Page) sourceNode).getRootElements().size() > 0) {
 					NewUserInteractionsWizard userActionWizard = new NewUserInteractionsWizard(
 							(UserInteractionsTransition) transition, test);
 					WizardDialog dlg = new WizardDialog(new Shell(), userActionWizard);

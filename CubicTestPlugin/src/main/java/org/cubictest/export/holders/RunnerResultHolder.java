@@ -65,7 +65,7 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		String childs = "";
 		if (element instanceof AbstractContext) {
 			AbstractContext context = (AbstractContext) element;
-			childs = "\n\nRequired child elements of context (all must be present):\n" + context.getElements().toString();
+			childs = "\n\nRequired child elements of context (all must be present):\n" + context.getRootElements().toString();
 		}
 		if (failOnAssertionFailure) {
 			throw new AssertionFailedException("Page element assertion failed: " + element.toString() + childs);

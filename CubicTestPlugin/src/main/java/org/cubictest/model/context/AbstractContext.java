@@ -66,7 +66,7 @@ public abstract class AbstractContext extends PageElement implements IContext {
 		firePropertyChange(PropertyAwareObject.LAYOUT,null,child);
 	}
 
-	public List<PageElement> getElements() {
+	public List<PageElement> getRootElements() {
 		return elements;
 	}
 	
@@ -102,7 +102,7 @@ public abstract class AbstractContext extends PageElement implements IContext {
 	@Override
 	public void resetStatus() {
 		setStatus(TestPartStatus.UNKNOWN);
-		for (PageElement pe : getElements()) {
+		for (PageElement pe : getRootElements()) {
 			pe.resetStatus();
 		}
 	}
@@ -129,7 +129,7 @@ public abstract class AbstractContext extends PageElement implements IContext {
 	public List<PageElement> getFlattenedElements() {
 		List<PageElement> flattenedElements = new ArrayList<PageElement>(); 
 
-		for (PageElement element: getElements()){
+		for (PageElement element: getRootElements()){
 
 			if(element instanceof IContext){
 				flattenedElements.add(element);

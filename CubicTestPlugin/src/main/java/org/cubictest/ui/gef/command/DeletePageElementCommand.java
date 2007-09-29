@@ -77,7 +77,7 @@ public class DeletePageElementCommand extends Command {
 		index = elementParent.getElementIndex(element);
 		if (element instanceof IContext) {
 			//delete each child element in context seperately, removing them from their user interactions if applicable
-			List<PageElement> elements = ((IContext) element).getElements();
+			List<PageElement> elements = ((IContext) element).getRootElements();
 			//save a backup of the elements for undo:
 			oldContextElements.addAll(elements);
 			//loop over backup-list to allow concurrent modifications:

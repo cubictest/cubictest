@@ -117,7 +117,7 @@ public class ViewUtil {
 		if (originatingCommand instanceof CreatePageElementCommand) {
 			PageElement pe  = ((CreatePageElementCommand) originatingCommand).getPageElement();
 			if (pe instanceof IContext) {
-				num = ((IContext) pe).getElements().size() + 1;
+				num = ((IContext) pe).getRootElements().size() + 1;
 				isContext = true;
 			}
 		}
@@ -154,7 +154,7 @@ public class ViewUtil {
 	}
 
 	private static int getElementHeight(IContext node) {
-		List<PageElement> elements = ((IContext) node).getElements();
+		List<PageElement> elements = ((IContext) node).getRootElements();
 		int height = elements.size() * LABEL_HEIGHT; 
 		for (PageElement element : elements) {
 			if (element instanceof IContext) {

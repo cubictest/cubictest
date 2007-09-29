@@ -42,7 +42,7 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 	 * Get root level elements of page.
 	 * @return Returns the elements.
 	 */
-	public List<PageElement> getElements() {
+	public List<PageElement> getRootElements() {
 		return elements;
 	}
 	
@@ -52,7 +52,7 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 	public List<PageElement> getFlattenedElements() {
 		List<PageElement> flattenedElements = new ArrayList<PageElement>(); 
 
-		for (PageElement element: getElements()){
+		for (PageElement element: getRootElements()){
 
 			if(element instanceof IContext){
 				flattenedElements.add(element);
@@ -122,7 +122,7 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 	
 	public ArrayList<Link> getLinkElements(){
 		ArrayList<Link> linkElements = new ArrayList<Link>();
-		for (PageElement element : getElements()){
+		for (PageElement element : getRootElements()){
 			if (element instanceof Link)
 				linkElements.add((Link)element);
 		}

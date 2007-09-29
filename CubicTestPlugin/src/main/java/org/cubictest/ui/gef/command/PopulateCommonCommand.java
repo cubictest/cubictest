@@ -44,11 +44,11 @@ public class PopulateCommonCommand extends Command{
 			return;
 		
 		Page p = pages.remove(0);
-		elements = new HashSet<PageElement>(p.getElements());
+		elements = new HashSet<PageElement>(p.getRootElements());
 		
 		List<PageElement> forRemoval = new ArrayList<PageElement>();
 		for (Page page : pages){
-			elements = getCommonElements(elements,page.getElements(), forRemoval);
+			elements = getCommonElements(elements,page.getRootElements(), forRemoval);
 		}
 		
 		pages.add(p);

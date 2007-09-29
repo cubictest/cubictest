@@ -52,7 +52,7 @@ public class FormSelectEditPart extends FormElementEditPart {
 	
 	@Override
 	public List<PageElement> getModelChildren() {
-		return getModel().getElements();
+		return getModel().getRootElements();
 	}
 
 	@Override

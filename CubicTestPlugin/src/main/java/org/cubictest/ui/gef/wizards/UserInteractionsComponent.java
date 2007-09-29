@@ -106,10 +106,10 @@ public class UserInteractionsComponent {
 		List<PageElement> elementsTree = new ArrayList<PageElement>();
 		AbstractPage start = (AbstractPage)transition.getStart();
 		if(start instanceof Page) { // process commonTrasitions for pages
-			elementsTree.addAll(start.getElements());
+			elementsTree.addAll(start.getRootElements());
 			List<CommonTransition> commonTransitions = ((Page)start).getCommonTransitions();
 			for (CommonTransition at : commonTransitions)
-				elementsTree.addAll(((Common)(at).getStart()).getElements());			
+				elementsTree.addAll(((Common)(at).getStart()).getRootElements());			
 		}
 		
 		allActionElements.addAll(UserInteractionDialogUtil.getFlattenedPageElements(elementsTree));
@@ -170,7 +170,7 @@ public class UserInteractionsComponent {
 		List<UserInteraction> initialUserInteractions = transition.getUserInteractions();
 		if (initialUserInteractions == null || initialUserInteractions.size() == 0) {
 			UserInteraction first = new UserInteraction();
-			List<PageElement> elements = ((AbstractPage) transition.getStart()).getElements();
+			List<PageElement> elements = ((AbstractPage) transition.getStart()).getRootElements();
 			if (elements.size() == 1 && !(elements.get(0) instanceof IContext)) {
 				//sinle element on page. Can preselct it:
 				first.setElement(elements.get(0));

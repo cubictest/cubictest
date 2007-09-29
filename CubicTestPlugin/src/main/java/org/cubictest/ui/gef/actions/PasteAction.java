@@ -189,7 +189,7 @@ public class PasteAction extends SelectionAction {
 							IActionElement actionElement = action.getElement();
 							if (actionElement instanceof PageElement) {
 								boolean elementFound = false;
-								for (PageElement pe : UserInteractionDialogUtil.getFlattenedPageElements(((AbstractPage) sourceClone).getElements())) {
+								for (PageElement pe : UserInteractionDialogUtil.getFlattenedPageElements(((AbstractPage) sourceClone).getRootElements())) {
 									if (pe.isEqualTo(actionElement)) {
 										action.setElement(pe);
 										elementFound = true;

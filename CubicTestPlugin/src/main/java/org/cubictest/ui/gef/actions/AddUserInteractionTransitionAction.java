@@ -70,7 +70,7 @@ public class AddUserInteractionTransitionAction extends BaseEditorAction {
 			}
 			
 			Page page = (Page) pageEditPart.getModel();
-			if (page.getElements().size() == 0) {
+			if (page.getRootElements().size() == 0) {
 				UserInfo.showWarnDialog("Cannot create user interaction. Page must have at least one page element.");
 				return;
 			}

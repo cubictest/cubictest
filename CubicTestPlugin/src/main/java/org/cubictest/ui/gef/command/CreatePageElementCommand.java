@@ -44,7 +44,7 @@ public class CreatePageElementCommand extends Command {
 	 */
 	public void execute(){
 		if (!indexSet) {
-			index = context.getElements().size();
+			index = context.getRootElements().size();
 		}
 		context.addElement(pageElement, index);
 	}

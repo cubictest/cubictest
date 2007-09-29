@@ -90,13 +90,13 @@ public class AddPageElementAction extends SelectionAction {
 			command.setPageElement(pe);
 			Object model = (editPart).getModel();
 			if(model instanceof IContext){
-				command.setIndex(((IContext)model).getElements().size());
+				command.setIndex(((IContext)model).getRootElements().size());
 				command.setContext((IContext)model);
 			}else if(model instanceof PageElement){
 				editPart = editPart.getParent();
 				IContext context = (IContext)editPart.getModel();
 				command.setContext(context);
-				command.setIndex(context.getElements().indexOf(model)+1);
+				command.setIndex(context.getRootElements().indexOf(model)+1);
 
 			}else return;
 

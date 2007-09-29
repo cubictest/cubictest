@@ -36,7 +36,7 @@ public class ContextHolder implements IResultHolder {
 		if (ctx instanceof PageElement) {
 			contextStack.push(ctx);
 			
-			for (PageElement pe : ctx.getElements()) {
+			for (PageElement pe : ctx.getRootElements()) {
 				//setting current context as parent of each page element within context
 				elementParentMap.put(pe, (PageElement) ctx);
 			}
@@ -88,7 +88,7 @@ public class ContextHolder implements IResultHolder {
 		}
 		res += axis + XPathBuilder.getXPath(pageElement);
 		
-		if (pageElement instanceof IContext && ((IContext) pageElement).getElements().size() > 1) {
+		if (pageElement instanceof IContext && ((IContext) pageElement).getRootElements().size() > 1) {
 			String assertion = getElementsInContextXPath((IContext) pageElement, orgElement);
 			if (StringUtils.isNotBlank(assertion)) {
 				res += "[" + assertion + "]";
@@ -104,7 +104,7 @@ public class ContextHolder implements IResultHolder {
 	private String getElementsInContextXPath(IContext context, PageElement orgElement) {
 		String res = "";
 		int i = 0;
-		for (PageElement pe : context.getElements()) {
+		for (PageElement pe : context.getRootElements()) {
 			if (pe.equals(orgElement)) {
 				continue; //skip current element
 			}

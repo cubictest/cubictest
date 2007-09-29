@@ -35,7 +35,7 @@ public class ContextWalker<T extends IResultHolder> {
 		try{
 			IContextConverter<T> cc = this.cc.newInstance();
 			cc.handlePreContext(t, context);
-			for (PageElement pe : context.getElements()) {
+			for (PageElement pe : context.getRootElements()) {
 	
 				if (pe instanceof IContext) {
 					new ContextWalker<T>(pec, this.cc).handleContext(t,

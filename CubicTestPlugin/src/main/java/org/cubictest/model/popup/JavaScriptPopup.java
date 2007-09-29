@@ -31,12 +31,12 @@ public abstract class JavaScriptPopup extends AbstractPage {
 
 	@Override
 	public int getElementIndex(PageElement element) {
-		return getElements().indexOf(element);
+		return getRootElements().indexOf(element);
 	}
 	
 	@Override
 	public void resetStatus() {
-		for (PageElement e: getElements())
+		for (PageElement e: getRootElements())
 			e.resetStatus();	
 	}
 	

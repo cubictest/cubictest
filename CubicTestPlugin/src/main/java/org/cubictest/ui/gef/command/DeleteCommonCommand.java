@@ -36,7 +36,7 @@ public class DeleteCommonCommand extends DeleteAbstractPageCommand {
 		//clean up target user interactions
 		abstractPage = (AbstractPage) transitionNode;
 		List<PageElement> elementsToDelete = new ArrayList<PageElement>();
-		elementsToDelete.addAll(abstractPage.getElements());
+		elementsToDelete.addAll(abstractPage.getRootElements());
 		for (PageElement element : elementsToDelete) {
 			DeletePageElementCommand deleteCmd = new DeletePageElementCommand();
 			if (redoing) {
