@@ -32,6 +32,7 @@ public class WatirHolder extends RunnerResultHolder {
 	
 	private static final String UTIL_VARIABLES_PLACEHOLDER = "$$$UTIL_VARIABLES";
 	public static final String TEST_DONE = "[Test done]";;
+	public static final String SUBTEST_DONE = "[Subtest done]> ";;
 	private RubyBuffer rubyBuffer;
 	private boolean browserStarted = false;
 	public static final String TEST_STEP_FAILED = "TestStepFailed";
@@ -160,8 +161,8 @@ public class WatirHolder extends RunnerResultHolder {
 	}
 
 
-	public void updateStatus(SubTest theSubTest, boolean hadException) {
-		//not possible to track subtests without putting logic in generated watir file
+	public void updateStatus(SubTest subTest, boolean hadException) {
+		rubyBuffer.add("puts \"" + SUBTEST_DONE + ": " + subTest.getName() + "\"", 2);
 	}
 	
 	public void registerPageElement(PageElement pe) {

@@ -76,6 +76,13 @@ public class WatirMonitor extends Thread {
 			PageElement pe = watirHolder.getPageElement(line.substring(line.indexOf(WatirHolder.FAIL) + WatirHolder.FAIL.length()));
 			watirHolder.addResult(pe, TestPartStatus.FAIL);
 		}
+		else if (line.startsWith(WatirHolder.SUBTEST_DONE)) {
+			runner.display.asyncExec(new Runnable() {
+				public void run() {
+					runner.getTest().updateTestStatus();
+				}
+			});
+		}
 		else if (line.startsWith(WatirHolder.TEST_DONE)) {
 			runner.testRunning = false;
 		}
