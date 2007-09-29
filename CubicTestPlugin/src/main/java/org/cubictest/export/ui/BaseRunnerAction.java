@@ -67,6 +67,7 @@ public abstract class BaseRunnerAction implements IEditorActionDelegate {
 			
 			//show result:
 			String result = testRunner.getResultMessage();
+			test.updateTestStatus();
 			showCompletedMessage(shell, result);
 		}
 		catch (Exception e) {

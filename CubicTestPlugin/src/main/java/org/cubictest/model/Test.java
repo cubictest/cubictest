@@ -299,4 +299,11 @@ public class Test extends PropertyAwareObject {
 		return null;
 		
 	}
+	
+	public void updateTestStatus() {
+		for (SubTest subTest : getSubTests()) {
+			subTest.updateStatus(false);
+		}
+		//TODO: Can be extended to other things as well
+	}
 }
