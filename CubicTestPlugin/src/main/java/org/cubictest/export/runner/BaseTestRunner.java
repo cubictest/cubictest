@@ -51,4 +51,8 @@ public abstract class BaseTestRunner implements ITestRunner {
 	public void setFailOnAssertionFailure(boolean failOnAssertionFailure) {
 		this.failOnAssertionFailure = failOnAssertionFailure;
 	}
+	
+	public Test getTest() {
+		return test;
+	}
 }
