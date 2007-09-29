@@ -73,7 +73,7 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction  {
 	
 	@Override
 	protected void showCompletedMessage(Shell shell, String result) {
-		String msg = "Test run finished. " + result + ". Press OK to close test browser.";
+		String msg = "Test run finished. " + result;
 		if (StringUtils.isNotBlank(customCompletedMessage)) {
 			//use custom message instead
 			msg = StringUtils.replace(customCompletedMessage, "$result", result); 
