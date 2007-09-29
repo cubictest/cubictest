@@ -128,7 +128,15 @@ public abstract class RunnerResultHolder extends ContextHolder {
 			}
 			i++;
 		}
-		return pass + " steps passed, " + failed + " steps failed.";
+		String res =  pass + " steps passed, " + failed + " steps failed";
+		if (monitor != null && !monitor.isCanceled()) {
+			res += getTestRunOkInfoAdditions();
+		}
+		return res;
+	}
+
+	protected String getTestRunOkInfoAdditions() {
+		return "\n\nPress OK to close test browser.";
 	}
 	
 	

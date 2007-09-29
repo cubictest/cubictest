@@ -66,7 +66,7 @@ public abstract class BaseRunnerAction implements IEditorActionDelegate {
 			new ProgressMonitorDialog(shell).run(true, true, testRunner);
 			
 			//show result:
-			String result = ((ITestRunner) testRunner).getResultMessage();
+			String result = testRunner.getResultMessage();
 			showCompletedMessage(shell, result);
 		}
 		catch (Exception e) {
