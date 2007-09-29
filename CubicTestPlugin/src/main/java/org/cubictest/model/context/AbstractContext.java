@@ -121,4 +121,24 @@ public abstract class AbstractContext extends PageElement implements IContext {
 	protected void setDefaultIdentifierValues() {
 		//leave the ID's as the constructor made them
 	}
+	
+	
+	/**
+	 * Gets all page elements of a page in flat structure (traverse contexts). 
+	 */
+	public List<PageElement> getFlattenedElements() {
+		List<PageElement> flattenedElements = new ArrayList<PageElement>(); 
+
+		for (PageElement element: getElements()){
+
+			if(element instanceof IContext){
+				flattenedElements.add(element);
+				flattenedElements.addAll(((IContext) element).getFlattenedElements());
+			}
+			else {
+				flattenedElements.add(element);
+			}
+		}
+		return flattenedElements;
+	}
 }

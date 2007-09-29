@@ -39,11 +39,32 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 		}
 	}
 	/**
+	 * Get root level elements of page.
 	 * @return Returns the elements.
 	 */
 	public List<PageElement> getElements() {
 		return elements;
 	}
+	
+	/**
+	 * Gets all page elements of a page in flat structure (traverse contexts). 
+	 */
+	public List<PageElement> getFlattenedElements() {
+		List<PageElement> flattenedElements = new ArrayList<PageElement>(); 
+
+		for (PageElement element: getElements()){
+
+			if(element instanceof IContext){
+				flattenedElements.add(element);
+				flattenedElements.addAll(((IContext) element).getFlattenedElements());
+			}
+			else {
+				flattenedElements.add(element);
+			}
+		}
+		return flattenedElements;
+	}
+	
 	/**
 	 * @param elements The elements to set.
 	 */

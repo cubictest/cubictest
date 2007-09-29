@@ -107,4 +107,11 @@ public class Select extends FormElement implements IContext {
 		return elements.contains(pe);
 	}
 	
+	/**
+	 * Gets all page elements of a page in flat structure (traverse contexts). 
+	 */
+	public List<PageElement> getFlattenedElements() {
+		return getElements();
+	}
+	
 }

@@ -32,4 +32,6 @@ public interface IContext extends IDescription {
 	 * @return
 	 */
 	public List<PageElement> getElements();
+	public List<PageElement> getFlattenedElements();
+
 }

@@ -300,10 +300,61 @@ public class Test extends PropertyAwareObject {
 		
 	}
 	
-	public void updateTestStatus() {
+	/**
+	 * Update test status.
+	 * @param hadException
+	 * @return copy of the new status
+	 */
+	public TestPartStatus updateAndGetStatus() {
+		TestPartStatus status = null;
+		int passed = 0;
+		int failed = 0;
+		int exception = 0;
+		int warn = 0;
+		int unknown = 0;
+		int elementCount = 0;
+		for (AbstractPage page : getPages()) {
+			for (PageElement pe : page.getFlattenedElements()) {
+				elementCount++;
+				if (pe.getStatus().equals(TestPartStatus.PASS))
+					passed++;
+				else if (pe.getStatus().equals(TestPartStatus.FAIL))
+					failed++;
+				else if (pe.getStatus().equals(TestPartStatus.EXCEPTION))
+					exception++;
+				else if (pe.getStatus().equals(TestPartStatus.WARN))
+					warn++;
+				else if (pe.getStatus().equals(TestPartStatus.UNKNOWN))
+					unknown++;
+			}
+		}
 		for (SubTest subTest : getSubTests()) {
 			subTest.updateStatus(false);
+			elementCount++;
+			if (subTest.getStatus().equals(TestPartStatus.PASS))
+				passed++;
+			else if (subTest.getStatus().equals(TestPartStatus.FAIL))
+				failed++;
+			else if (subTest.getStatus().equals(TestPartStatus.EXCEPTION))
+				exception++;
+			else if (subTest.getStatus().equals(TestPartStatus.WARN))
+				warn++;
+			else if (subTest.getStatus().equals(TestPartStatus.UNKNOWN))
+				unknown++;
 		}
-		//TODO: Can be extended to other things as well
+		
+		if (passed == elementCount)
+			status = TestPartStatus.PASS;
+		else if (failed == elementCount)
+			status = TestPartStatus.FAIL;
+		else if (exception == elementCount)
+			status = TestPartStatus.EXCEPTION;
+		else if (unknown == elementCount)
+			status = TestPartStatus.UNKNOWN;
+		else
+			status = TestPartStatus.WARN;
+		
+		setStatus(status);
+		return status;
 	}
 }
