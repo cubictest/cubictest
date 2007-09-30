@@ -4,6 +4,7 @@
  */
 package org.cubictest.export.holders;
 
+import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.SubTest;
 
 /**
@@ -20,9 +21,10 @@ public interface IResultHolder {
 	 */
 	public String toResultString();
 	
+
 	/**
 	 * Update status on the passed in sub test.
 	 * @param subTest
 	 */
-	public void updateStatus(SubTest subTest, boolean hadException);
+	public void updateStatus(SubTest subTest, boolean hadException, ConnectionPoint targetConnectionPoint);
 }

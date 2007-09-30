@@ -9,6 +9,7 @@ package org.cubictest.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.export.utils.TestWalkerUtils;
 import org.cubictest.model.i18n.AllLanguages;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.resources.interfaces.IResourceMonitor;
@@ -187,6 +188,7 @@ public class Test extends PropertyAwareObject {
 	}
 	@Override
 	public void resetStatus() {
+		getStartPoint().resetStatus();
 		for (Transition t: transitions)
 			t.resetStatus();
 		for (AbstractPage p : pages)
@@ -300,56 +302,58 @@ public class Test extends PropertyAwareObject {
 		
 	}
 	
+	
 	/**
 	 * Update test status.
 	 * @param hadException
 	 * @return copy of the new status
 	 */
-	public TestPartStatus updateAndGetStatus() {
+	public TestPartStatus updateAndGetStatus(ConnectionPoint targetConnectionPoint) {
 		TestPartStatus status = null;
 		int passed = 0;
 		int failed = 0;
 		int exception = 0;
 		int warn = 0;
 		int unknown = 0;
-		int elementCount = 0;
+		List<PropertyAwareObject> list = new ArrayList<PropertyAwareObject>();
 		for (AbstractPage page : getPages()) {
 			for (PageElement pe : page.getFlattenedElements()) {
-				elementCount++;
-				if (pe.getStatus().equals(TestPartStatus.PASS))
-					passed++;
-				else if (pe.getStatus().equals(TestPartStatus.FAIL))
-					failed++;
-				else if (pe.getStatus().equals(TestPartStatus.EXCEPTION))
-					exception++;
-				else if (pe.getStatus().equals(TestPartStatus.WARN))
-					warn++;
-				else if (pe.getStatus().equals(TestPartStatus.UNKNOWN))
-					unknown++;
+				if (targetConnectionPoint != null && !TestWalkerUtils.isOnExtensionPointPath(page, targetConnectionPoint)) {
+					continue;
+				}
+				list.add(pe);
 			}
 		}
 		for (SubTest subTest : getSubTests()) {
-			subTest.updateStatus(false);
-			elementCount++;
-			if (subTest.getStatus().equals(TestPartStatus.PASS))
+			subTest.updateStatus(false, targetConnectionPoint);
+			list.add(subTest);
+		}
+		if (getStartPoint() instanceof ExtensionStartPoint) {
+			ExtensionStartPoint exStartPoint = (ExtensionStartPoint) getStartPoint();
+			exStartPoint.updateStatus(false, exStartPoint);
+			list.add(exStartPoint);
+		}
+		
+		for (PropertyAwareObject object : list) {
+			if (object.getStatus().equals(TestPartStatus.PASS))
 				passed++;
-			else if (subTest.getStatus().equals(TestPartStatus.FAIL))
+			else if (object.getStatus().equals(TestPartStatus.FAIL))
 				failed++;
-			else if (subTest.getStatus().equals(TestPartStatus.EXCEPTION))
+			else if (object.getStatus().equals(TestPartStatus.EXCEPTION))
 				exception++;
-			else if (subTest.getStatus().equals(TestPartStatus.WARN))
+			else if (object.getStatus().equals(TestPartStatus.WARN))
 				warn++;
-			else if (subTest.getStatus().equals(TestPartStatus.UNKNOWN))
+			else if (object.getStatus().equals(TestPartStatus.UNKNOWN))
 				unknown++;
 		}
 		
-		if (passed == elementCount)
+		if (passed == list.size())
 			status = TestPartStatus.PASS;
-		else if (failed == elementCount)
+		else if (failed == list.size())
 			status = TestPartStatus.FAIL;
-		else if (exception == elementCount)
+		else if (exception == list.size())
 			status = TestPartStatus.EXCEPTION;
-		else if (unknown == elementCount)
+		else if (unknown == list.size())
 			status = TestPartStatus.UNKNOWN;
 		else
 			status = TestPartStatus.WARN;

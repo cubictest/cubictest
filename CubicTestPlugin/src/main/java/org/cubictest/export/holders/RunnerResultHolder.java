@@ -10,6 +10,8 @@ import java.util.List;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.export.exceptions.UserCancelledException;
+import org.cubictest.model.ConnectionPoint;
+import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
@@ -98,14 +100,16 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		}
 	}
 	
-	public void updateStatus(SubTest subtest, boolean hadException) {
+	@Override
+	public void updateStatus(SubTest st, boolean hadException, ConnectionPoint targetConnectionPoint) {
 		final boolean hadEx = hadException;
-		final SubTest subTest = subtest;
+		final SubTest subtest = st;
+		final ConnectionPoint targetConPoint = targetConnectionPoint;
 		if (display != null) {
 			display.asyncExec(new Runnable() {
 				public void run() {
-					if(subTest != null)
-						subTest.updateStatus(hadEx);
+					if(subtest != null)
+						subtest.updateStatus(hadEx, targetConPoint);
 				}
 			});
 		}

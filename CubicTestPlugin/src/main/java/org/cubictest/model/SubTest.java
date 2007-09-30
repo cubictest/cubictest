@@ -99,11 +99,13 @@ public class SubTest extends ConnectionPoint {
 		return getClass().getSimpleName() + ": Name = " + getName() + ", FilePath = " + getFilePath();
 	}
 
-	public void updateStatus(boolean hadException) {
+	
+	public void updateStatus(boolean hadException, ConnectionPoint targetConnectionPoint) {
 		if (hadException) {
 			setStatus(TestPartStatus.EXCEPTION);
 			return;
 		}
-		setStatus(getTest(false).updateAndGetStatus());
+		setStatus(getTest(false).updateAndGetStatus(targetConnectionPoint));
 	}
+	
 }

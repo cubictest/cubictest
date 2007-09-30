@@ -152,8 +152,8 @@ public class TreeTestWalker<T extends IResultHolder> {
 			} 
 			else if (node instanceof ExtensionStartPoint) {
 				convertTransitionNode(resultHolder, (((SubTest) node).getTest(true)).getStartPoint(), (ExtensionStartPoint) node);
-				resultHolder.updateStatus(((SubTest) node), false);
-			} 
+				resultHolder.updateStatus(((SubTest) node), false, (ExtensionStartPoint) node);
+			}
 			else if (node instanceof SubTest) {
 				Test subTestTest = ((SubTest) node).getTest(true);
 				List<Transition> outTransitions = node.getOutTransitions();
@@ -176,16 +176,16 @@ public class TreeTestWalker<T extends IResultHolder> {
 				//convert subtest:
 				try {
 					convertTransitionNode(resultHolder, subTestTest.getStartPoint(), targetExPoint);
-					resultHolder.updateStatus(((SubTest) node), false);
+					resultHolder.updateStatus(((SubTest) node), false, targetExtensionPoint);
 				}
 				catch (TestFailedException e) {
-					resultHolder.updateStatus(((SubTest) node), false);
+					resultHolder.updateStatus(((SubTest) node), false, targetExtensionPoint);
 					String msg = e.getMessage();
 					msg += ", in subtest \"" + ((SubTest) node).getFileName() + "\"";
 					throw new TestFailedException(msg);
 				}
 				catch (RuntimeException e) {
-					resultHolder.updateStatus(((SubTest) node), true);
+					resultHolder.updateStatus(((SubTest) node), true, targetExtensionPoint);
 					throw e;
 				}
 			}

@@ -10,6 +10,7 @@ import java.util.List;
 import junit.framework.AssertionFailedError;
 
 import org.cubictest.export.holders.IResultHolder;
+import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.SubTest;
 
 /**
@@ -76,9 +77,8 @@ public class AssertionList<T> extends ArrayList<T> implements IResultHolder {
 	}
 
 
-
-	public void updateStatus(SubTest subTest, boolean hadException) {
+	
+	public void updateStatus(SubTest subTest, boolean hadException, ConnectionPoint targetConnectionPoint) {
 		// TODO Auto-generated method stub
-		
 	}
 }

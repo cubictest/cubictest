@@ -24,8 +24,7 @@ public class TestWalkerUtils {
 	/**
 	 * Checks whether a node is on the path to the targeted extension point.
 	 */
-	public static boolean isOnExtensionPointPath(TransitionNode node, ConnectionPoint targetExtensionPoint)
-			throws InstantiationException, IllegalAccessException {
+	public static boolean isOnExtensionPointPath(TransitionNode node, ConnectionPoint targetExtensionPoint) {
 
 		String targetPageId = "";
 		
@@ -54,7 +53,6 @@ public class TestWalkerUtils {
 				return true;
 			}
 		}
-
 		return false;
 	}
 }
