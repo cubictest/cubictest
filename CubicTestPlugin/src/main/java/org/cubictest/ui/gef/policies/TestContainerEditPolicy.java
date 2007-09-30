@@ -25,7 +25,7 @@ import org.eclipse.gef.requests.GroupRequest;
 
 
 /**
- * @author Stein Kåre Skytteren
+ * @author SK Skytteren
  * 
  */
 public class TestContainerEditPolicy extends ContainerEditPolicy {
