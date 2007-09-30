@@ -98,9 +98,9 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		}
 	}
 	
-	public void updateStatus(SubTest theSubTest, boolean hadException) {
+	public void updateStatus(SubTest subtest, boolean hadException) {
 		final boolean hadEx = hadException;
-		final SubTest subTest = theSubTest;
+		final SubTest subTest = subtest;
 		if (display != null) {
 			display.asyncExec(new Runnable() {
 				public void run() {

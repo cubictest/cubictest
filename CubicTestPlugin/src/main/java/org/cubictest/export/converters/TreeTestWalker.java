@@ -152,6 +152,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 			} 
 			else if (node instanceof ExtensionStartPoint) {
 				convertTransitionNode(resultHolder, (((SubTest) node).getTest(true)).getStartPoint(), (ExtensionStartPoint) node);
+				resultHolder.updateStatus(((SubTest) node), false);
 			} 
 			else if (node instanceof SubTest) {
 				Test subTestTest = ((SubTest) node).getTest(true);
