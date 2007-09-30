@@ -87,6 +87,9 @@ public class TestRunner extends BaseTestRunner {
 			cancelHandler.start();
 
 			while (testRunning) {
+				if (watirMonitor.getWatirException() != null) {
+					throw watirMonitor.getWatirException();
+				}
 				Thread.sleep(100);
 			}
 			
@@ -95,8 +98,6 @@ public class TestRunner extends BaseTestRunner {
 
 			watirMonitor.verify();
 
-		} catch (TestFailedException e) {
-			throw e;
 		} catch (Exception e) {
 			ErrorHandler.logAndRethrow(e);
 		}

@@ -31,6 +31,7 @@ public class WatirMonitor extends Thread {
 	IProgressMonitor monitor;
 	TestRunner runner;
 	Process process;
+	Exception error;
 	
 	public WatirMonitor(WatirHolder watirHolder, Process process, IProgressMonitor monitor, TestRunner runner) {
 		this.watirHolder = watirHolder;
@@ -59,7 +60,7 @@ public class WatirMonitor extends Thread {
 	public void handle(String line) {
 		if (isInError && (line.startsWith(WatirHolder.PASS) || line.startsWith(WatirHolder.FAIL))) {
 			//test is continuing after an exception, stop it:
-			throw new ExporterException(errorBuffer.toString());
+			error = new ExporterException(errorBuffer.toString());
 		}
 		else if (isInError || line.contains(WatirHolder.TEST_CASE_NAME) ||
 				(line.toLowerCase().contains("error") && line.contains(TestRunner.RUNNER_TEMP_FILENAME)) ||
@@ -92,6 +93,10 @@ public class WatirMonitor extends Thread {
 		if (StringUtils.isNotBlank(errorBuffer.toString())) {
 			throw new ExporterException(errorBuffer.toString());
 		}
+	}
+
+	public Exception getWatirException() {
+		return error;
 	}
 
 }
