@@ -110,7 +110,7 @@ public class ContextHolder implements IResultHolder {
 				continue; //skip current element
 			}
 			if (i > 0) {
-				res += " and ";
+				res += "][";
 			}
 			res += ".//" + XPathBuilder.getXPath(pe);
 			i++;
