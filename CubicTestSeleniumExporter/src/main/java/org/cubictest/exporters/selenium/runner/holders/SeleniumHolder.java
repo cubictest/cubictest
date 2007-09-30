@@ -7,6 +7,8 @@ package org.cubictest.exporters.selenium.runner.holders;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
+import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.SubTest;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.swt.widgets.Display;
 
@@ -63,6 +65,5 @@ public class SeleniumHolder extends RunnerResultHolder {
 	public UrlStartPoint getHandledUrlStartPoint() {
 		return handledUrlStartPoint;
 	}
-
-
+	
 }
