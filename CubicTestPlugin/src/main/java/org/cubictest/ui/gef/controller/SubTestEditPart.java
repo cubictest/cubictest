@@ -171,9 +171,12 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 		Dimension dim = figure.getMinimumSize();
 		Rectangle r = new Rectangle(position.x, position.y, dim.width, dim.height);
 		((TestEditPart)getParent()).setLayoutConstraint(this, figure, r);
-		if (manager !=null)
+		if (manager !=null) {
 			manager.setText(title);
+		}
+		figure.setStatus(subtest.getStatus());
 	}
+	
 	@Override
 	protected List getModelTargetConnections() {
 		Transition trans = getModel().getInTransition();
