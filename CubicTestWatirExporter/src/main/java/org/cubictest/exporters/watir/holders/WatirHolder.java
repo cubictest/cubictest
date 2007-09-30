@@ -13,6 +13,7 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
 import org.cubictest.exporters.watir.utils.RubyBuffer;
+import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PageElement;
@@ -160,8 +161,8 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("\n");
 	}
 
-
-	public void updateStatus(SubTest subTest, boolean hadException) {
+	@Override
+	public void updateStatus(SubTest subTest, boolean hadException, ConnectionPoint targetConnectionPoint) {
 		rubyBuffer.add("puts \"" + SUBTEST_DONE + ": " + subTest.getName() + "\"", 2);
 	}
 	

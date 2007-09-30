@@ -80,7 +80,7 @@ public class WatirMonitor extends Thread {
 		else if (line.startsWith(WatirHolder.SUBTEST_DONE)) {
 			runner.display.asyncExec(new Runnable() {
 				public void run() {
-					runner.getTest().updateAndGetStatus();
+					runner.getTest().updateAndGetStatus(null);
 				}
 			});
 		}
