@@ -12,6 +12,7 @@ import java.util.Map;
 import org.cubictest.custom.IElementContext;
 import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.exporters.cubicunit.ui.BrowserType;
+import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
@@ -168,9 +169,7 @@ public class Holder implements IResultHolder {
 		return urlStartPoint;
 	}
 
-	public void updateStatus(SubTest subTest, boolean hadException) {
-		// TODO Auto-generated method stub
-		
+	public void updateStatus(SubTest subTest, boolean hadException, ConnectionPoint targetConnectionPoint) {
 	}
 	
 	
