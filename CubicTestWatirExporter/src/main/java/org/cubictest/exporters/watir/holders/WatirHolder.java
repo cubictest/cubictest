@@ -106,7 +106,7 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("failedSteps = 0", 2);
 		rubyBuffer.add("passedSteps = 0", 2);
 		rubyBuffer.add(UTIL_VARIABLES_PLACEHOLDER, 0);
-		rubyBuffer.add("puts \"Starting test\"", 0);
+		rubyBuffer.add("puts \"Starting test\"", 2);
 	}
 	
 	
