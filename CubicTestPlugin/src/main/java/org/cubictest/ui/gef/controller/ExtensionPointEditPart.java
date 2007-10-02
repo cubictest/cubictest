@@ -25,7 +25,7 @@ import org.eclipse.gef.EditPolicy;
 
 
 /**
- * Contoller for the <code>ExtensionPoint</code> model.
+ * Controller for the <code>ExtensionPoint</code> model.
  * 
  * @author SK Skytteren
  * @author Christian Schwarz
