@@ -72,6 +72,8 @@ public class CubicTestImageRegistry {
 
 	public static final String CONNECTION_IMAGE = "connection";
 
+	public static final String CHANGE_STARTPOINT_IMAGE = "changeStartPoint";
+
 	public static final String USER_INTERACTION_IMAGE = "userInteraction";
 
 	public static final String AUTO_LAYOUT_IMAGE = "autoLayout";
@@ -202,6 +204,11 @@ public class CubicTestImageRegistry {
 				+ CONNECTION_IMAGE + ".gif"), null);
 		imageRegistry.put(CONNECTION_IMAGE, ImageDescriptor
 				.createFromURL(connectionUrl));
+
+		URL changeStartPointUrl = FileLocator.find(pluginBundle, new Path(iconPath
+				+ CHANGE_STARTPOINT_IMAGE + ".gif"), null);
+		imageRegistry.put(CHANGE_STARTPOINT_IMAGE, ImageDescriptor
+				.createFromURL(changeStartPointUrl));
 
 		URL userInteractionUrl = FileLocator.find(pluginBundle, new Path(
 				iconPath + USER_INTERACTION_IMAGE + ".gif"), null);

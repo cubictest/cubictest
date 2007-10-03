@@ -7,6 +7,7 @@ package org.cubictest.ui.gef.actions;
 import java.util.Iterator;
 
 import org.cubictest.CubicTestPlugin;
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.controller.AbstractNodeEditPart;
@@ -41,6 +42,9 @@ public class UpdateTestStartPointAction extends BaseEditorAction  {
 					if (((EditPart) element).getModel() instanceof IStartPoint) {
 						return true;
 					}
+					else if (((EditPart) element).getModel() instanceof Test) {
+						return true;
+					}
 				}
 			}			
 		}
@@ -63,13 +67,19 @@ public class UpdateTestStartPointAction extends BaseEditorAction  {
 				TestEditPart testPart = (TestEditPart) pageEditPart.getParent();
 				launchNewTestWizard(testPart);
 			}
+			else if(element instanceof TestEditPart) {
+				launchNewTestWizard((TestEditPart) element);
+			}
+			else {
+				throw new CubicException("Selected item was not a start point or a test.");
+			}
 		}
 	}
 	
 	
 	@Override
 	public ImageDescriptor getImageDescriptor() {
-		return CubicTestImageRegistry.getDescriptor(CubicTestImageRegistry.CONNECTION_IMAGE);
+		return CubicTestImageRegistry.getDescriptor(CubicTestImageRegistry.CHANGE_STARTPOINT_IMAGE);
 	}
 	
 	

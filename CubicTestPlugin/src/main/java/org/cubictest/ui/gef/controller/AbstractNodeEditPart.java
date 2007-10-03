@@ -21,9 +21,9 @@ import org.eclipse.gef.Request;
 
 
 /**
+ * Abstract controller for all the <code>EditPart</code>'s that are nodes in the view.
+ * 
  * @author SK Skytteren
- * Abstract controller for al the <code>EditPart</code>'s that is an node in the view.
- *
  */
 public abstract class AbstractNodeEditPart extends PropertyChangePart 
 		implements NodeEditPart{
