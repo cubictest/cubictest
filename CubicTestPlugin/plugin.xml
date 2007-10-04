@@ -51,6 +51,16 @@
       </category>
       <wizard
             category="cubictest"
+            class="org.cubictest.ui.wizards.NewCubicTestProjectWizard"
+            finalPerspective="org.cubictest.CubicTestPerspective"
+            icon="icons/fileicon.gif"
+            id="org.cubictest.ui.wizards.NewCubicTestProjectWizard"
+            name="New CubicTest Project"
+            preferredPerspectives="org.cubictest.CubicTestPerspective"
+            project="true">
+      </wizard>
+      <wizard
+            category="cubictest"
             class="org.cubictest.ui.wizards.NewTestWizard"
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/fileicon.gif"
@@ -78,23 +88,12 @@
       </wizard>
       <wizard
             category="cubictest"
-            class="org.cubictest.ui.wizards.NewCubicTestProjectWizard"
-            finalPerspective="org.cubictest.CubicTestPerspective"
-            icon="icons/fileicon.gif"
-            id="org.cubictest.ui.wizards.NewCubicTestProjectWizard"
-            name="New CubicTest Project"
-            preferredPerspectives="org.cubictest.CubicTestPerspective"
-            project="true">
-      </wizard>
-      <wizard
-            category="cubictest"
             class="org.cubictest.ui.wizards.NewParamWizard"
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/fileicon_params.gif"
             id="org.cubictest.ui.wizards.NewParamWizard"
             name="New CubicTest Test-parameter file"
-            preferredPerspectives="org.cubictest.CubicTestPerspective"
-            project="true"/>
+            preferredPerspectives="org.cubictest.CubicTestPerspective"/>
       <wizard
             category="cubictest"
             class="org.cubictest.ui.wizards.NewPropertiesWizard"
@@ -102,8 +101,7 @@
             icon="icons/fileicon_l18n.gif"
             id="org.cubictest.ui.wizards.NewPropertiesWizard"
             name="New CubicTest Internationalization file"
-            preferredPerspectives="org.cubictest.CubicTestPerspective"
-            project="true"/>
+            preferredPerspectives="org.cubictest.CubicTestPerspective"/>
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
