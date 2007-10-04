@@ -4,6 +4,7 @@
  */
 package org.cubictest.model;
 
+import org.cubictest.common.utils.Logger;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.eclipse.core.resources.IProject;
@@ -25,6 +26,9 @@ public class SubTest extends ConnectionPoint {
 		super();
 		this.filePath = filePath;
 		this.project = project;
+		if (project == null) {
+			Logger.warn("Invoked SubTest constructor with null project");
+		}
 	}
 
 	/**
@@ -32,6 +36,9 @@ public class SubTest extends ConnectionPoint {
 	 */
 	public Test getTest(boolean forceRefreshFile) {
 		if(test == null || forceRefreshFile) {
+			if (project == null && test != null) {
+				project = test.getProject();
+			}
 			test = TestPersistance.loadFromFile(project, getFilePath());
 			test.setResourceMonitor(resourceMonitor);
 			test.resetStatus();
