@@ -361,4 +361,9 @@ public class Test extends PropertyAwareObject {
 		setStatus(status);
 		return status;
 	}
+	
+	@Override
+	public String toString() {
+		return "\"" + getName() + "\" <" + getFile().getName() + ">";
+	}
 }
