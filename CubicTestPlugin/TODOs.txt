@@ -7,8 +7,8 @@ Done	Fix copy and paste of subtests
 Done	Put "create project" on top of list
 Done	Better Watir runner (XPath, Color GUI)
 Done	Sort list over startpoints by name (maybe also sort test name)
+Done 	Create an empty test suite automatically.
 
-Create an empty test suite automatically.
 When exPoint is deleted, and extending test opens, invoke ChangeStartPointWizard
 IDE.saveAllEditors on changed files that are subtests of active editor (or just save all..)
 
