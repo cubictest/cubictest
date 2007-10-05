@@ -7,7 +7,7 @@
 
 package org.cubictest.model;
 
-public class ExtensionPoint extends ConnectionPoint {
+public class ExtensionPoint extends ConnectionPoint implements Comparable<ExtensionPoint>{
 
 	public String getPageId() {
 		return getPage().getId();
@@ -38,5 +38,9 @@ public class ExtensionPoint extends ConnectionPoint {
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + ": Name = " + getName();
+	}
+
+	public int compareTo(ExtensionPoint other) {
+		return getName().compareTo(other.getName());
 	}
 }

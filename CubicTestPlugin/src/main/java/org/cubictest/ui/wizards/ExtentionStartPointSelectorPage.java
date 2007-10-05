@@ -4,6 +4,8 @@
  */
 package org.cubictest.ui.wizards;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 import org.cubictest.model.ExtensionPoint;
@@ -65,7 +67,9 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 		
 		extentionPointNames = new String[extensionPoints.size()];
 		int i = 0;
-		for(ExtensionPoint ep : extensionPoints.keySet()) {
+		java.util.List<ExtensionPoint> sortedExPoints = new ArrayList<ExtensionPoint>(extensionPoints.keySet());
+		Collections.sort(sortedExPoints);
+		for(ExtensionPoint ep : sortedExPoints) {
 			extentionPointNames[i++] = getRowLabel(ep);
 		}
 		list.setItems(extentionPointNames);
