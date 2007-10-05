@@ -71,11 +71,11 @@ public class TestEditPart extends PropertyChangePart{
 			name += ": \n    " + ((Test)getModel()).getDescription();
 		}
 		Label nameLabel = new Label(name);
-		nameLabel.setLocation(new Point(250,15));
+		nameLabel.setLocation(new Point(170,15));
 		nameLabel.setTextAlignment(Label.TOP);
 		nameLabel.setLabelAlignment(Label.LEFT);
-		nameLabel.setSize(300, 50);
-		nameLabel.setFont(new Font(null,"tahoma", 15, 1));
+		nameLabel.setSize(600, 50);
+		nameLabel.setFont(new Font(null,"tahoma", 14, 1));
 		nameLabel.setForegroundColor(ColorConstants.lightGray);
 		fig.addNameLabel(nameLabel);
 		return fig;

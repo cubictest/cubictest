@@ -29,7 +29,7 @@ public class NewTestSuiteWizard extends AbstractNewSimpleStartPointTestWizard im
 	}
 	@Override
 	public Test createEmptyTest(String name, String description) {
-		Test emptyTest = WizardUtils.createEmptyTestWithTestSuiteStartPoint("test" + System.currentTimeMillis(), name, description);
+		Test emptyTest = WizardUtils.createEmptyTestWithTestSuiteStartPoint(name, description);
 		return emptyTest;
 	}
 	@Override

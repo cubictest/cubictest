@@ -42,8 +42,7 @@ public class WizardUtils {
 	/**
 	 * Creates an empty test with a ExtensionStartPoint.
 	 */
-	public static Test createEmptyTest(String id, String name, 
-			String description, IFile file, ExtensionPoint point) {
+	public static Test createEmptyTest(String id, String name, String description, IFile file, ExtensionPoint point) {
 
 		Test test = createTest(id,name,description);
 		addEmptyPage(test);
@@ -70,12 +69,13 @@ public class WizardUtils {
 	/**
 	 * Creates an empty test with a UrlStartPoint.
 	 */
-	public static Test createEmptyTest(String id, String name, 
-			String description, String url) {
+	public static Test createEmptyTest(String name, String description, String url) {
+		String id = "test" + System.currentTimeMillis();
+		
 		Test test = createTest(id,name,description);
 		addEmptyPage(test);
 		
-		UrlStartPoint startpoint = createUrlStartPoint(url, test);
+		UrlStartPoint startpoint = createUrlStartPoint(url);
 		test.setStartPoint(startpoint);
 		
 		SimpleTransition startTransition = new SimpleTransition(startpoint, test.getPages().get(0));	
@@ -91,7 +91,7 @@ public class WizardUtils {
 		Test test = createTest(id,name,description);
 		addEmptyPage(test);
 		
-		SubTestStartPoint startpoint = createSubTestStartPoint(test);
+		SubTestStartPoint startpoint = createSubTestStartPoint();
 		test.setStartPoint(startpoint);
 		
 		SimpleTransition startTransition = new SimpleTransition(startpoint, test.getPages().get(0));	
@@ -103,16 +103,18 @@ public class WizardUtils {
 	/**
 	 * Creates an empty test with a TestSuite start point.
 	 */
-	public static Test createEmptyTestWithTestSuiteStartPoint(String id, String name, String description) {
-		Test test = createTest(id,name,description);
+	public static Test createEmptyTestWithTestSuiteStartPoint(String name, String description) {
+		String id = "test" + System.currentTimeMillis();
 		
-		TestSuiteStartPoint startpoint = createTestSuiteStartPoint(test);
+		Test test = createTest(id, name, description);
+		
+		TestSuiteStartPoint startpoint = createTestSuiteStartPoint();
 		test.setStartPoint(startpoint);
 				
 		return test;
 	}
 	
-	public static UrlStartPoint createUrlStartPoint(String url, Test test) {
+	public static UrlStartPoint createUrlStartPoint(String url) {
 		UrlStartPoint startpoint = new UrlStartPoint();
 		startpoint.setBeginAt(url);
 		startpoint.setName("URL");
@@ -120,14 +122,14 @@ public class WizardUtils {
 		return startpoint;
 	}
 	
-	public static SubTestStartPoint createSubTestStartPoint(Test test) {
+	public static SubTestStartPoint createSubTestStartPoint() {
 		SubTestStartPoint startpoint = new SubTestStartPoint();
 		startpoint.setName("SubTest start point");
 		startpoint.setPosition(new Point(4, 4));
 		return startpoint;
 	}
 	
-	public static TestSuiteStartPoint createTestSuiteStartPoint(Test test) {
+	public static TestSuiteStartPoint createTestSuiteStartPoint() {
 		TestSuiteStartPoint startpoint = new TestSuiteStartPoint();
 		startpoint.setName("Test Suite start point");
 		startpoint.setPosition(new Point(4, 4));

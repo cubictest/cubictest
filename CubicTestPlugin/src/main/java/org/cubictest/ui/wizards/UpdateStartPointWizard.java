@@ -65,7 +65,7 @@ public class UpdateStartPointWizard extends NewTestWizard {
 
 		ConnectionPoint startPoint = null;
 		if (useUrlStartPoint) {
-			startPoint = WizardUtils.createUrlStartPoint(url, test);
+			startPoint = WizardUtils.createUrlStartPoint(url);
 			test.setStartPoint(null);
 			test.setStartPoint(startPoint);
 			SimpleTransition startTransition = new SimpleTransition(startPoint, firstPage);	

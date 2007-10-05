@@ -49,6 +49,7 @@ import org.eclipse.ui.views.navigator.ResourceNavigator;
 
 public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 
+	public static final String TEST_SUITES_FOLDER_NAME = "test suites";
 	private WizardNewProjectCreationPage namePage;
 	private NewProjectSummaryPage summaryPage;
 	
@@ -114,7 +115,7 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			IFolder testFolder = project.getFolder("tests");
 			testFolder.create(false, true, monitor);
 
-			IFolder suiteFolder = project.getFolder("test suites");
+			IFolder suiteFolder = project.getFolder(TEST_SUITES_FOLDER_NAME);
 			suiteFolder.create(false, true, monitor);
 
 			IFolder srcFolder = project.getFolder("src");

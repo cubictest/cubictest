@@ -155,27 +155,28 @@ public class NewTestWizard extends Wizard implements INewWizard {
 			throwCoreException("Container \"" + containerName + "\" does not exist.");
 		}
 		IContainer container = (IContainer) resource;
-		final IFile file = container.getFile(new Path(fileName));
+		final IFile testFile = container.getFile(new Path(fileName));
 		
-		try {
-			Test emptyTest = null;
-			if (useUrlStartPoint)
-				emptyTest = WizardUtils.createEmptyTest("test" + System.currentTimeMillis(), 
-						name, description, url);
-			else{
-				emptyTest = WizardUtils.createEmptyTest("test" + System.currentTimeMillis(), 
-						name, description, startTestFile, extensionPoint);
-			}
-			String xml = new CubicTestXStream().toXML(emptyTest);
-			FileUtils.writeStringToFile(file.getLocation().toFile(), xml, "ISO-8859-1");
-			file.getParent().refreshLocal(IResource.DEPTH_INFINITE, null);
-
-		} catch (IOException e) {
-			ErrorHandler.logAndRethrow(e);
+		//create test:
+		Test emptyTest = null;
+		if (useUrlStartPoint)
+			emptyTest = WizardUtils.createEmptyTest(name, description, url);
+		else{
+			emptyTest = WizardUtils.createEmptyTest("test" + System.currentTimeMillis(), 
+					name, description, startTestFile, extensionPoint);
 		}
+		TestPersistance.saveToFile(emptyTest, testFile);
 		monitor.worked(1);
-				
-		openFileForEditing(monitor, file);
+		
+		//create test suite:
+		Test emptySuite = WizardUtils.createEmptyTestWithTestSuiteStartPoint("Default test suite. To add tests, drag and drop them here.", "");
+		IFile suiteFile = project.getFolder(NewCubicTestProjectWizard.TEST_SUITES_FOLDER_NAME).getFile("test suite.aat");
+		TestPersistance.saveToFile(emptySuite, suiteFile);
+		monitor.worked(1);
+		
+		testFile.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
+
+		openFileForEditing(monitor, testFile);
 	}
 
 	
