@@ -26,9 +26,10 @@
 	</div>
 	<div id="body">
 		<div class="introduction">
-			<h1>Welcome to web testing with CubicTest!</h1>
+			<h1>Welcome to functional web testing with CubicTest!</h1>
 			<p>
-				CubicTest is a visual Eclipse plug-in for writing Selenium and Watir tests. 
+				CubicTest is a visual Eclipse plug-in for writing functional tests for web applications. Tests can 
+				be run using different underlying test frameworks, e.g. the provided Selenium or Watir exporters in CubicTest. 
 				CubicTest makes web tests faster and easier to write, as well as making it easier to write "tests first".
 			</p>
 			<p>
@@ -37,17 +38,14 @@
 			</p>
 			<p>
 				CubicTest is focused around testing "what you see" on the page, and not
-				"testing the HTML source". To support this, CubicTest introduces a "context" concept that can be any HTML parent element, e.g. a table row.
-				Using contexts, child elements of a context help identify each other. E.g. is easy to model user interactions 
-				such as  "Press the 'Buy'-button that is in the same context (e.g. row) as the text 'xyz'".
-			</p>
-			<p>
+				"testing the HTML source". To support this, CubicTest introduces a "context" principle which 
+				makes it possible for page elements to be identified by sibling elements, and not just by HTML attributes.
 				Another feature of CubicTest is that page elements (and contexts) easily can be identified by multiple identifiers at the same time 
-				(e.g. "id" and "name"), and CubicTest will automatically build the required XPath expressions.
+				(e.g. "id" and "name").
 			</p>
 			<p>
 				CubicTest comes with an extensible plugin architecture for running/exporting the tests and for recording new tests. 
-				Among the implementations provided are a Selenium RC test runner, a Selenium Core exporter and a Watir exporter.
+				Among the implementations provided are a Selenium RC test runner and Maven 2 plugin, a Selenium Core exporter and a Watir exporter.
 				A recorder based on Selenium RC is also provided for recording directly into the Eclipse perspective, as well as a 
 				HTML mock-up exporter that can be used during test-driven development.
 			</p>
