@@ -41,7 +41,7 @@ import com.thoughtworks.selenium.Selenium;
 public class TestRunner extends BaseTestRunner {
 
 	SeleniumHolder seleniumHolder;
-	SeleniumWorkerThread controller;
+	SeleniumWorkerThread workerThread;
 	Selenium selenium;
 	ExtensionPoint targetExPoint;
 
@@ -62,18 +62,18 @@ public class TestRunner extends BaseTestRunner {
 	public void run(IProgressMonitor monitor) {
 		
 		try {
-			controller = new SeleniumWorkerThread();
-			controller.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
-			controller.setBrowser(Browser.FIREFOX);
-			controller.setDisplay(display);
-			controller.setSelenium(selenium);
-			controller.setSettings(settings);
+			workerThread = new SeleniumWorkerThread();
+			workerThread.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
+			workerThread.setBrowser(Browser.FIREFOX);
+			workerThread.setDisplay(display);
+			workerThread.setSelenium(selenium);
+			workerThread.setSettings(settings);
 			
 			//start Selenium (browser and server), guard by timeout:
-			controller.setOperation(Operation.START);
+			workerThread.setOperation(Operation.START);
 			
 			int timeout = SeleniumUtils.getTimeout(settings);
-			seleniumHolder = call(controller, timeout, TimeUnit.SECONDS);
+			seleniumHolder = call(workerThread, timeout, TimeUnit.SECONDS);
 			
 			//ser monitor used to detect user cancel request:
 			seleniumHolder.setMonitor(monitor);
@@ -117,9 +117,9 @@ public class TestRunner extends BaseTestRunner {
 	 */
 	public void stopSelenium() {
 		try {
-			if (controller != null) {
-				controller.setOperation(Operation.STOP);
-				call(controller, 20, TimeUnit.SECONDS);
+			if (workerThread != null) {
+				workerThread.setOperation(Operation.STOP);
+				call(workerThread, 20, TimeUnit.SECONDS);
 			}
 		} catch (Exception e) {
 			ErrorHandler.rethrow(e);
