@@ -54,6 +54,7 @@ public abstract class BaseRunnerAction implements IEditorActionDelegate {
 			//saving all sub tests of the test (they may not be in test-referenced memory)
 			List<Test> subTests = new ArrayList<Test>();
 			addSubTestsRecursive(test, subTests);
+			subTests.remove(test); //"this" test can be in memory
 			IResource[] testResources = new IResource[subTests.size()];
 			int i = 0; for (Test t : subTests) {
 				testResources[i] = t.getFile();
