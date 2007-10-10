@@ -10,6 +10,7 @@ import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Test;
+import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.ui.gef.controller.AbstractNodeEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
@@ -39,10 +40,17 @@ public class UpdateTestStartPointAction extends BaseEditorAction  {
 		if(getParts() != null) {
 			for(Object element : getParts()) {
 				if(element instanceof EditPart) {
-					if (((EditPart) element).getModel() instanceof IStartPoint) {
+					Object model = ((EditPart) element).getModel();
+					if (model instanceof TestSuiteStartPoint) {
+						return false;
+					}
+					else if (model instanceof IStartPoint) {
 						return true;
 					}
-					else if (((EditPart) element).getModel() instanceof Test) {
+					else if (model instanceof Test) {
+						if (((Test) model).getStartPoint() instanceof TestSuiteStartPoint) {
+							return false;
+						}
 						return true;
 					}
 				}
