@@ -31,7 +31,7 @@ public class WatirMonitor extends Thread {
 	IProgressMonitor monitor;
 	TestRunner runner;
 	Process process;
-	Exception error;
+	ExporterException error;
 	
 	public WatirMonitor(WatirHolder watirHolder, Process process, IProgressMonitor monitor, TestRunner runner) {
 		this.watirHolder = watirHolder;
@@ -62,6 +62,11 @@ public class WatirMonitor extends Thread {
 			//test is continuing after an exception, stop it:
 			error = new ExporterException(errorBuffer.toString());
 		}
+		else if (isInError || (line.toLowerCase().contains("watir") && line.toLowerCase().contains("loaderror"))) {
+			//error loading watir
+			isInError = true;
+			error = new ExporterException("Could not start Watir (but Ruby was OK). Check that Watir is installed on your system.");
+		}
 		else if (isInError || line.contains(WatirHolder.TEST_CASE_NAME) ||
 				(line.toLowerCase().contains("error") && line.contains(TestRunner.RUNNER_TEMP_FILENAME)) ||
 				line.startsWith(WatirHolder.EXCEPTION)) {
@@ -90,6 +95,9 @@ public class WatirMonitor extends Thread {
 	}
 	
 	public void verify() {
+		if (error != null) {
+			throw error;
+		}
 		if (StringUtils.isNotBlank(errorBuffer.toString())) {
 			throw new ExporterException(errorBuffer.toString());
 		}
