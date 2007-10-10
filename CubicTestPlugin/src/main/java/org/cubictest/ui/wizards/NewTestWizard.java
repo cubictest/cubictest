@@ -14,7 +14,9 @@ import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
+import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.persistence.CubicTestXStream;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.resources.ResourceMonitor;
@@ -281,6 +283,12 @@ public class NewTestWizard extends Wizard implements INewWizard {
 				if (ModelUtil.isTestFile(fileName)) {
 					try {
 						Test test = TestPersistance.loadFromFile((IFile)entry);
+						if (test.getStartPoint() instanceof SubTestStartPoint) {
+							continue;
+						}
+						else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
+							continue;
+						}
 						for(ExtensionPoint ep : test.getAllExtensionPoints()){
 							map.put(ep, (IFile)entry);
 						}
