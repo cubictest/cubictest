@@ -76,7 +76,11 @@ public class TestRunner extends BaseTestRunner {
 			//start Watir!
 			ProcessBuilder builder = new ProcessBuilder(new String[]{"ruby", tempFile.getAbsolutePath()});
 			builder.redirectErrorStream(true);
-			process = builder.start();
+			try {
+				process = builder.start();
+			} catch (Exception e) {
+				ErrorHandler.logAndRethrow(e, "Could not start Watir/Ruby. Check that Ruby and Watir is installed on your system.\n\n");
+			}
 			processAlive = true;
 			testRunning = true;
 
