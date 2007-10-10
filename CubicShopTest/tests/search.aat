@@ -33,14 +33,14 @@
                     </identifier>
                     <identifier>
                       <value></value>
-                      <probability>-100</probability>
+                      <probability>0</probability>
                       <type>SELECTED</type>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
                     </identifier>
                     <identifier>
-                      <value>2</value>
-                      <probability>100</probability>
+                      <value></value>
+                      <probability>0</probability>
                       <type>INDEX</type>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
@@ -78,14 +78,14 @@
                     </identifier>
                     <identifier>
                       <value></value>
-                      <probability>100</probability>
+                      <probability>0</probability>
                       <type reference="../../../../option/identifiers/identifier[3]/type"/>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
                     </identifier>
                     <identifier>
-                      <value>1</value>
-                      <probability>100</probability>
+                      <value></value>
+                      <probability>0</probability>
                       <type reference="../../../../option/identifiers/identifier[4]/type"/>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
@@ -143,6 +143,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
+              <status reference="../elements/option/status"/>
             </select>
             <button>
               <identifiers>
@@ -209,11 +210,11 @@
                 <outTransitions/>
                 <id>page232692341162408385747</id>
                 <position>
-                  <x>65</x>
-                  <y>288</y>
+                  <x>97</x>
+                  <y>294</y>
                 </position>
                 <dimension>
-                  <width>131</width>
+                  <width>146</width>
                   <height>46</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
@@ -222,11 +223,11 @@
           </outTransitions>
           <id>page329926901162408155135</id>
           <position>
-            <x>80</x>
+            <x>113</x>
             <y>100</y>
           </position>
           <dimension>
-            <width>100</width>
+            <width>115</width>
             <height>113</height>
           </dimension>
           <name defined-in="transitionNode"></name>
@@ -239,6 +240,7 @@
       <y>0</y>
     </position>
     <name></name>
+    <status reference="../outTransitions/extensionTransition/end/elements/select/elements/option/status"/>
   </startPoint>
   <extensionPoints/>
   <pages>
