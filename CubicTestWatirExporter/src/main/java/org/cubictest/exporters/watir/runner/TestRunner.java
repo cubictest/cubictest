@@ -119,7 +119,8 @@ public class TestRunner extends BaseTestRunner {
 
 
 	public void closeBrowser() {
-		testDoneHandler.setCloseBrowser(true);
+		if(testDoneHandler != null)
+			testDoneHandler.setCloseBrowser(true);
 	}
 
 }
