@@ -212,7 +212,7 @@ public class WatirHolder extends RunnerResultHolder {
 			return true;
 		}
 		
-		return hasMoreThanOneIdentifier(pe);
+		return hasNoIdentifiers(pe) || hasMoreThanOneIdentifier(pe);
 	}
 
 	private boolean hasMoreThanOneIdentifier(PageElement pe) {
@@ -223,6 +223,16 @@ public class WatirHolder extends RunnerResultHolder {
 			}
 		}
 		return num > 1;
+	}
+
+	private boolean hasNoIdentifiers(PageElement pe) {
+		int num = 0;
+		for (Identifier id : pe.getIdentifiers()) {
+			if (id.isNotIndifferent()) {
+				num++;
+			}
+		}
+		return num == 0;
 	}
 	
 	public PageElement getPageElement(String id) {
