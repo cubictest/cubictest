@@ -79,7 +79,7 @@ public class TestRunner extends BaseTestRunner {
 			try {
 				process = builder.start();
 			} catch (Exception e) {
-				ErrorHandler.logAndRethrow(e, "Could not start Watir/Ruby. Check that Ruby and Watir is installed on your system.\n" +
+				ErrorHandler.logAndRethrow(e, "Could not start Watir/Ruby. Check that Ruby and Watir is installed on your system.\n\n" +
 						"Note: If Ruby is installed with CubicTest open, CubicTest must be restarted before the runner will work.\n\n");
 			}
 			processAlive = true;

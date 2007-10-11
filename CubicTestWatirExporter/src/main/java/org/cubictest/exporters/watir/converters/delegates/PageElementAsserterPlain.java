@@ -86,8 +86,8 @@ public class PageElementAsserterPlain {
 				watirHolder.add("while " + watirHolder.getPrefix() + ".text.index(" + idValue + ") " + compare + " nil do", 3);
 			}
 			else {
-				String not = pe.isNot() ? "not " : ""; 
-				watirHolder.add("while " + not + "ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idValue + ") == nil do", 3);
+				String not = pe.isNot() ? "" : "not "; 
+				watirHolder.add("while " + not + "ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idValue + ").exists? do", 3);
 			}
 			watirHolder.add("if (pass > 20)", 4);
 			watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 5);

@@ -62,7 +62,7 @@ public class WatirMonitor extends Thread {
 			//test is continuing after an exception, stop it:
 			error = new ExporterException(errorBuffer.toString());
 		}
-		else if (isInError || (line.toLowerCase().contains("watir") && line.toLowerCase().contains("loaderror"))) {
+		else if (line.toLowerCase().contains("watir") && line.toLowerCase().contains("loaderror")) {
 			//error loading watir
 			isInError = true;
 			error = new ExporterException("Could not start Watir (but Ruby was OK). Check that Watir is installed on your system.");

@@ -42,7 +42,7 @@ public class WatirHolder extends RunnerResultHolder {
 	public Map<PageElement, String> idMap;
 	public Map<PageElement, String> elementVariableMap;
 	public Map<String, Integer> elementTypeCountMap;
-	public static String PASS = "[pass]>";
+	public static String PASS = "[-PASS-]>";
 	public static String FAIL = "[-FAIL-]>";
 	public static String EXCEPTION = "[-EXCEPTION-]>";
 	/** Initial prefix */

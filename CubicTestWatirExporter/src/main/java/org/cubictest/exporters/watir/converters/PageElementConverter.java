@@ -48,7 +48,7 @@ public class PageElementConverter implements IPageElementConverter<WatirHolder> 
 
 		watirHolder.add("puts \"Step failed: Check" + not + " present: " + escape(pe.toString()) + "\"", 3);
 		watirHolder.add("end", 2);
-		watirHolder.add("STDOUT.flush", 3);
+		watirHolder.add("STDOUT.flush", 2);
 }
 
 	
