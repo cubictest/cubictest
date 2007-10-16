@@ -5,7 +5,9 @@
 package org.cubictest.ui.gef.controller;
 
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.SubTest;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.ui.gef.actions.UpdateTestStartPointAction;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.view.ExtensionStartPointFigure;
 import org.eclipse.draw2d.IFigure;
@@ -46,4 +48,9 @@ public class ExtensionStartPointEditPart extends SubTestEditPart {
 		return false;
 	}
 	
+	@Override
+	protected String getFileNotFoundMessage() {
+		return "Error opening test:\nFile \"" + ((SubTest)getModel()).getFilePath() + "\" not found.\n" +
+				"To fix, right click on start point and choose \"" + UpdateTestStartPointAction.ACTION_NAME + "\"";
+	}
 }

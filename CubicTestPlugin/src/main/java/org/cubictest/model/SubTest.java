@@ -4,6 +4,7 @@
  */
 package org.cubictest.model;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.resources.interfaces.IResourceMonitor;
@@ -21,6 +22,7 @@ public class SubTest extends ConnectionPoint {
 	private transient Test test;
 	private transient IProject project;
 	private transient IResourceMonitor resourceMonitor;
+	private boolean dangling;
 
 	public SubTest(String filePath, IProject project) {
 		super();
@@ -30,25 +32,44 @@ public class SubTest extends ConnectionPoint {
 			Logger.warn("Invoked SubTest constructor with null project");
 		}
 	}
-
+	
+	public boolean isDangling() {
+		getTest(false).getName();
+		return dangling;
+	}
+	
 	/**
 	 * @return Test	the sub test that this object represents
 	 */
 	public Test getTest(boolean forceRefreshFile) {
-		if(test == null || forceRefreshFile) {
-			if (project == null && test != null) {
-				project = test.getProject();
+		try {
+			if(test == null || forceRefreshFile) {
+				if (project == null && test != null) {
+					project = test.getProject();
+				}
+				test = TestPersistance.loadFromFile(project, getFilePath());
+				test.setResourceMonitor(resourceMonitor);
+				test.resetStatus();
+				dangling = false;
 			}
-			test = TestPersistance.loadFromFile(project, getFilePath());
-			test.setResourceMonitor(resourceMonitor);
-			test.resetStatus();
+			
+		} catch (Exception e) {
+			dangling = true;
+			test = new Test();
 		}
 		return test;
 	}
 	
 	@Override
 	public String getName() {
-		return getTest(false).getName() + " (" + getFileName() + ")";
+		Test test = getTest(false);
+		if (StringUtils.isBlank(test.getName())) {
+			return getFileName();
+			
+		}
+		else {
+			return test.getName() + " (" + getFileName() + ")";
+		}
 	}
 	
 	public String getFileName() {
@@ -114,5 +135,5 @@ public class SubTest extends ConnectionPoint {
 		}
 		setStatus(getTest(false).updateAndGetStatus(targetConnectionPoint));
 	}
-	
+
 }

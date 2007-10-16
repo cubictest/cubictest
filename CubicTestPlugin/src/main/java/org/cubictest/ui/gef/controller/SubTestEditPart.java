@@ -113,8 +113,7 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 			
 			if (!testFile.exists() || !(testFile instanceof IFile)) {
 				MessageDialog.openError(new Shell(), UiText.APP_TITLE, 
-						"Error opening subtest: \"" + ((SubTest)getModel()).getFilePath() + "\" not found.\n" +
-								"To fix, edit this file in text mode and set correct path to subtest.");
+						getFileNotFoundMessage());
 				return;
 			}
 
@@ -134,6 +133,12 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 			});
 		}
 		super.performRequest(request);
+	}
+
+
+	protected String getFileNotFoundMessage() {
+		return "Error opening subtest:\nFile \"" + ((SubTest)getModel()).getFilePath() + "\" not found.\n" +
+				"To fix, delete sub test node and add it again.";
 	}
 
 	/* (non-Javadoc)

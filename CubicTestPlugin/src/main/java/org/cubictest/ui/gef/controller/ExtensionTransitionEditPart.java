@@ -8,11 +8,13 @@
 package org.cubictest.ui.gef.controller;
 
 import java.beans.PropertyChangeEvent;
+import java.util.List;
 
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.TestNotFoundException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.SubTest;
@@ -52,10 +54,11 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 		
 		Label tooltip = null;
 		String tip = "\nThe source page of the extension point and the target page will be the same page/state.";
-		if (getModel().getStart() instanceof ExtensionStartPoint) {
+		TransitionNode startNode = getModel().getStart();
+		if (startNode instanceof ExtensionStartPoint) {
 			tooltip = new Label("Starting from an extension point in another test." + tip);
 		}
-		else if (getModel().getStart() instanceof SubTest) {
+		else if (startNode instanceof SubTest) {
 			tooltip = new Label("Connection from an extension point in a subtest." + tip);
 		}
 		else {
@@ -67,33 +70,27 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 			getModel().getExtensionPoint();
 		}
 		catch (TestNotFoundException e) {
-			SubTest subtest = (SubTest) getModel().getStart();
+			SubTest subtest = (SubTest) startNode;
 			ErrorHandler.logAndShowErrorDialogAndThrow("SubTest not found: " + subtest.getFilePath() + ". Unable to open test.");
 		}
 		
 		if (getModel().getExtensionPoint() == null) {
-			//ExtensionStartPoint
+			//Model is inconsistent. We must fix it.
 			
-			if (getModel().getStart() instanceof ExtensionStartPoint) {
-				ExtensionStartPoint start = (ExtensionStartPoint) getModel().getStart();
-				UserInfo.showWarnDialog("The extension point \"" + start.getSourceExtensionPointName() + "\" used as start point " +
-						"was not found in file \"" + start.getFileName() + "\"\n\n" +
+			if (startNode instanceof ExtensionStartPoint) {
+				ExtensionStartPoint exStartPoint = (ExtensionStartPoint) startNode;
+				UserInfo.showWarnDialog("The extension point \"" + exStartPoint.getSourceExtensionPointName() + "\" used as start point " +
+						"was not found in file \"" + exStartPoint.getFileName() + "\"\n\n" +
 						"Press OK to select a new extension point to use as start point in the test.");
-				UpdateStartPointWizard wiz = launchNewTestWizard(start.getTest(true));
+				UpdateStartPointWizard wiz = launchNewTestWizard(exStartPoint.getTest(true));
 				if (wiz.getExTrans() == null) {
-					ErrorHandler.logAndShowErrorDialogAndThrow("No extension point selected. Unable to continue.");
+					ErrorHandler.logAndThrow("No extension point selected. Unable to continue.");
 				}
 				setModel(wiz.getExTrans());
-				//set the new model on the exStartPoint edit part:
-				getSource().setModel(getModel().getStart());
-				getViewer().getEditDomain().getCommandStack().execute(new NoOperationCommand());
+				getSource().setModel(wiz.getExTrans().getStart());
 			}
-			else {
-				//SubTest
-				SubTest start = (SubTest) getModel().getStart();
-				UserInfo.showWarnDialog("The extension point that was used in subtest \"" + start.getName() +  
-						"\" was not found in that subtest.\n" +
-						"Press OK to select a new extension point to continue from.");
+			else if (startNode instanceof SubTest) {
+				SubTest subTest = (SubTest) startNode;
 				
 				//open dialog to select which exPoint to extend from:
 				TestEditPart testPart = null;
@@ -104,25 +101,48 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 					testPart = ViewUtil.getSurroundingTestPart(getSource());
 				}
 				else {
-					ErrorHandler.logAndShowErrorDialogAndThrow("Could not open test.");
+					ErrorHandler.logAndShowErrorDialog("Could not find sub test " + startNode.getName());
 				}
 				Test test = (Test) testPart.getModel();
-				ExposeExtensionPointWizard exposeExtensionPointWizard = new ExposeExtensionPointWizard(
-						(SubTest) getModel().getStart(), test);
-				WizardDialog dlg = new WizardDialog(new Shell(),
-						exposeExtensionPointWizard);
-				if (dlg.open() == WizardDialog.CANCEL) {
-					ErrorHandler.logAndShowErrorDialogAndThrow("No extension point selected. Unable to continue.");
+				
+				ExtensionPoint target = null;
+				List<ExtensionPoint> exPoints = subTest.getTest(true).getAllExtensionPoints();
+				if (subTest.isDangling()) {
+					//do nothing. Must be fixed in editor.
 				}
-				test.removeTransition(getModel());
-				ExtensionTransition transition = new ExtensionTransition(getModel().getStart(), getModel().getEnd(),
-						exposeExtensionPointWizard.getSelectedExtensionPoint());
-				test.addTransition(transition);
-				setModel(transition);
-				getViewer().getEditDomain().getCommandStack().execute(new NoOperationCommand());
+				else if (exPoints.size() == 0) {
+					ErrorHandler.logAndThrow("The extension point that was used in subtest \"" + subTest.getName() +  
+							"\" was not found.\n" +
+							"Create an extension point in " + subTest.getName() + " and retry.");
+				}
+				else {
+					UserInfo.showWarnDialog("The extension point that was used in subtest \"" + subTest.getName() +  
+							"\" has changed or has been removed.\n" +
+							"Press OK to select a new extension point to continue from.");
+
+					ExposeExtensionPointWizard exposeExtensionPointWizard = new ExposeExtensionPointWizard(subTest, test);
+					WizardDialog dlg = new WizardDialog(new Shell(),
+							exposeExtensionPointWizard);
+					if (dlg.open() == WizardDialog.CANCEL) {
+						ErrorHandler.logAndThrow("No extension point selected. Unable to continue.");
+					}
+					target = exposeExtensionPointWizard.getSelectedExtensionPoint();
+					test.removeTransition(getModel());
+					ExtensionTransition transition = new ExtensionTransition(subTest, getModel().getEnd(), target);
+					test.addTransition(transition);
+					setModel(transition);
+				}
 			}
+			//mark editor as dirty:
+			getViewer().getEditDomain().getCommandStack().execute(new NoOperationCommand());
 		}
-		label = new CubicTestLabel(getModel().getExtensionPoint().getName());
+		
+		if (getModel().getExtensionPoint() != null) {
+			label = new CubicTestLabel(getModel().getExtensionPoint().getName());
+		}
+		else {
+			label = new CubicTestLabel("");
+		}
 		label.setTooltipText(tooltip.getText());
 		
 		ConnectionEndpointLocator locator = new ConnectionEndpointLocator(conn, true);
