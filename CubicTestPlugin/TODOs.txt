@@ -15,16 +15,15 @@ Done	Sub test edit part: If test name is blank, do not have file name in paranth
 Done	Make better: catch (SeleniumException e) {     ErrorHandler.logAndThrow("Error waiting for page to load");  }
 Done	'snt matter - wider ID probability box
 Done	Bug in change start point for test suites.
+Done	TextInput //input[!@type OR type="text"], watir has own method
+Done	Button = input type="submit" OR <button> OR type="button" OR type="reset"
 
-Better error message if Firefox is not installed.
-TextInput //input[!@type OR type="text"], watir has own method
-Image <img> OR <input type="image">
-Button = input type="submit" OR <button> OR type="button" OR type="reset"
 Bug in test suite verifyer: Detected a tree when an exPoint was in use (and a page)
 Bug: When exPoint is deleted, and extending test opens, invoke ChangeStartPointWizard
 In Watir exporter, throw ruby exception if user interaction fails (should bubble up)
 Test suites should automatically create connections (from start point and from other tests)
 
+Better error message if Firefox is not installed.
 Do not close browser when M2 build fails - test project property
 Fix set test name. Does not always get stored on model.
 Error log should be available by default.

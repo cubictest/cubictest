@@ -2,7 +2,7 @@
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  */
-package org.cubictest.export.utils;
+package org.cubictest.export.utils.exported;
 
 import static org.cubictest.model.IdentifierType.CHECKED;
 import static org.cubictest.model.IdentifierType.ELEMENT_NAME;
@@ -13,7 +13,6 @@ import static org.cubictest.model.IdentifierType.SELECTED;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.Image;
@@ -40,6 +39,10 @@ import org.cubictest.model.formElement.TextField;
 public class XPathBuilder {
 
 	
+	public static final String TEXTFIELD_ATTRIBUTES = "[@type='text' or not(@type)]";
+
+
+
 	/**
 	 * Get the string that represents the Selenium locator-string for the element.
 	 * @param element
@@ -192,9 +195,9 @@ public class XPathBuilder {
 		if (pe instanceof Option)
 			return "option";
 		if (pe instanceof Button)
-			return "input[@type='button' or @type='submit' or @type='image']";
+			return "input[@type='button' or @type='submit' or @type='image' or @type='reset']";
 		if (pe instanceof TextField)
-			return "input[@type='text']";
+			return "input" + TEXTFIELD_ATTRIBUTES;
 		if (pe instanceof Password)
 			return "input[@type='password']";
 		if (pe instanceof Checkbox)

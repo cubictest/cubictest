@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.apache.commons.lang.StringUtils;
-import org.cubictest.export.utils.XPathBuilder;
+import org.cubictest.export.utils.exported.XPathBuilder;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
