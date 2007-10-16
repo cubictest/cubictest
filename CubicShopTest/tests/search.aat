@@ -284,6 +284,21 @@
                     <not>false</not>
                     <status reference="../../../../../../elements/select/elements/option/status"/>
                   </text>
+                  <text>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Rubik&apos;s cube</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/select/elements/option/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status reference="../../../../../../elements/select/elements/option/status"/>
+                  </text>
                 </elements>
                 <name>Search results</name>
                 <inTransition class="userInteractionsTransition" reference="../.."/>
@@ -295,7 +310,7 @@
                 </position>
                 <dimension>
                   <width>146</width>
-                  <height>46</height>
+                  <height>67</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
               </end>
