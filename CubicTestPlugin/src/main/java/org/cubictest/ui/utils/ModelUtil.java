@@ -6,6 +6,7 @@ package org.cubictest.ui.utils;
 
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.Common;
+import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Page;
@@ -109,13 +110,22 @@ public class ModelUtil {
 		if (node == null) {
 			return true;
 		}
-		if (node.getOutTransitions().size() == 0) {
+		int nextNodes = 0;
+		for (Transition transition : node.getOutTransitions()) {
+			if (!(transition.getEnd() instanceof ExtensionPoint)) {
+				nextNodes++;
+			}
+		}
+		
+		if (nextNodes == 0) {
 			return true;
 		}
-		if (node.getOutTransitions().size() > 1) {
+		else if(nextNodes == 1) {
+			return assertHasOnlyOnePathFrom(node.getOutTransitions().get(0).getEnd());
+		}
+		else {
 			return false;
 		}
-		return assertHasOnlyOnePathFrom(node.getOutTransitions().get(0).getEnd());
 	}
 	
 	public static boolean isTestFile(String fileName) {
