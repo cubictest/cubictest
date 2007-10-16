@@ -13,11 +13,9 @@ public class CubicException extends RuntimeException {
 
 	
 	private static final long serialVersionUID = 1L;
-	private Throwable cause;
 
 	public CubicException(Throwable cause) {
-		super(cause.toString());
-		this.cause = cause;
+		super(cause);
 	}
 
 	public CubicException(String message) {
@@ -25,19 +23,7 @@ public class CubicException extends RuntimeException {
 	}
 
 	public CubicException(Throwable cause, String message) {
-		super(message);
-		this.cause = cause;
-	}
-	@Override
-	public String toString() {
-		if (cause == null) {
-			return this.getMessage();
-		}
-		return this.getMessage() + " (cause: " + cause.toString() + ")";
+		super(message, cause);
 	}
 	
-	@Override
-	public StackTraceElement[] getStackTrace() {
-		return cause.getStackTrace();
-	}
 }
