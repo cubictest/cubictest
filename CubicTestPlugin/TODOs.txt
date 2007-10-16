@@ -17,22 +17,23 @@ Done	'snt matter - wider ID probability box
 Done	Bug in change start point for test suites.
 Done	TextInput //input[!@type OR type="text"], watir has own method
 Done	Button = input type="submit" OR <button> OR type="button" OR type="reset"
+Done	Bug: When exPoint is deleted, and extending test opens, invoke ChangeStartPointWizard
+Done	In Watir exporter, throw ruby exception if user interaction fails (should bubble up)
 
 Bug in test suite verifyer: Detected a tree when an exPoint was in use (and a page)
-Bug: When exPoint is deleted, and extending test opens, invoke ChangeStartPointWizard
-In Watir exporter, throw ruby exception if user interaction fails (should bubble up)
 Test suites should automatically create connections (from start point and from other tests)
 
-Better error message if Firefox is not installed.
 Do not close browser when M2 build fails - test project property
-Fix set test name. Does not always get stored on model.
-Error log should be available by default.
-Capturing HTML of page that failed (and the previous one). Selenium: getBodyText()
 Making error message more visible in M2 output, e.g. ----------------
+
+Error log should be available by default.
+
+Better error message if Firefox is not installed.
+Fix set test name. Does not always get stored on model.
 Better error messages when elements are not found. Search context for elements, incremental. Check context stand alone.
 Create an update site version of CUbicTest 1.7.9
 Possible to choose between IE, Firefox and Opera.
-Better error messages when a browser is not installed.
+Capturing HTML of page that failed (and the previous one). Selenium: getBodyText()
 Capture image of failing test page (and the previous page). Selenium: http://binil.wordpress.com/2006/12/22/taking-screenshots-with-selenium/
 Test suites should continue to next test even if a test fails. Create a property for it.
 
