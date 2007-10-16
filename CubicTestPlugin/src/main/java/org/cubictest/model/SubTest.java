@@ -22,7 +22,7 @@ public class SubTest extends ConnectionPoint {
 	private transient Test test;
 	private transient IProject project;
 	private transient IResourceMonitor resourceMonitor;
-	private boolean dangling;
+	private transient boolean dangling;
 
 	public SubTest(String filePath, IProject project) {
 		super();
