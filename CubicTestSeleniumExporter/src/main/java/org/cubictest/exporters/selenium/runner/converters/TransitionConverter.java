@@ -70,7 +70,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			seleniumHolder.getSelenium().waitForPageToLoad(millis + "");
 		}
 		catch (SeleniumException e) {
-			ErrorHandler.logAndThrow("Error waiting for page to load");
+			ErrorHandler.logAndThrow("Selenium error while waiting for page to load. Timeout used: " + seconds + " seconds");
 		}
 	}
 	
