@@ -55,7 +55,7 @@
                   </identifiers>
                   <directEditIdentifier reference="../identifiers/identifier"/>
                   <not>false</not>
-                  <status>UNKNOWN</status>
+                  <status>PASS</status>
                 </option>
                 <option>
                   <parent reference="../../.."/>
@@ -145,6 +145,49 @@
               <not>false</not>
               <status reference="../elements/option/status"/>
             </select>
+            <textField>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Query</value>
+                  <probability>0</probability>
+                  <type reference="../../../../select/elements/option/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../select/elements/option/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value>query</value>
+                  <probability>0</probability>
+                  <type reference="../../../../select/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../select/elements/option/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../select/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status reference="../../select/elements/option/status"/>
+            </textField>
             <button>
               <identifiers>
                 <identifier>
@@ -152,6 +195,34 @@
                   <probability>100</probability>
                   <type reference="../../../../select/elements/option/identifiers/identifier/type"/>
                   <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../select/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../select/elements/option/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../select/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>CLASS</type>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
@@ -170,6 +241,15 @@
                   <element class="option" reference="../../../../../elements/select/elements/option"/>
                   <input></input>
                   <action>SELECT</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+                <userInteraction>
+                  <element class="textField" reference="../../../../../elements/textField"/>
+                  <input>Rubik&apos;s cube</input>
+                  <action>ENTER_TEXT</action>
                   <i18nKey></i18nKey>
                   <paramKey></paramKey>
                   <useI18n>false</useI18n>
@@ -211,7 +291,7 @@
                 <id>page232692341162408385747</id>
                 <position>
                   <x>97</x>
-                  <y>294</y>
+                  <y>333</y>
                 </position>
                 <dimension>
                   <width>146</width>
@@ -228,7 +308,7 @@
           </position>
           <dimension>
             <width>115</width>
-            <height>113</height>
+            <height>134</height>
           </dimension>
           <name defined-in="transitionNode"></name>
         </end>
@@ -261,4 +341,5 @@
   <description></description>
   <id>test1162408155135</id>
   <modelVersion>8</modelVersion>
+  <status reference="../startPoint/outTransitions/extensionTransition/end/elements/select/elements/option/status"/>
 </test>
