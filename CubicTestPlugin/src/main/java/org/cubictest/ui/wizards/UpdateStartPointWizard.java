@@ -29,6 +29,7 @@ public class UpdateStartPointWizard extends NewTestWizard {
 	TransitionNode firstPage;
 	ExtensionTransition exTrans;
 	private CommandStack commandStack;
+	private String url;
 	
 	public UpdateStartPointWizard() {
 		super();
@@ -58,7 +59,7 @@ public class UpdateStartPointWizard extends NewTestWizard {
 			test.removeTransition(inTrans);
 		}
 
-		String url = newUrlStartPointPage.getUrl();
+		url = newUrlStartPointPage.getUrl();
 		ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
 		IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
 		boolean useUrlStartPoint = startPointTypeSelectionPage.getNextPage().equals(newUrlStartPointPage);
@@ -100,5 +101,9 @@ public class UpdateStartPointWizard extends NewTestWizard {
 
 	public void setCommandStack(CommandStack commandStack) {
 		this.commandStack = commandStack;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 }

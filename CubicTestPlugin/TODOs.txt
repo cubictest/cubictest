@@ -10,29 +10,32 @@ Done	Sort list over startpoints by name (maybe also sort test name)
 Done	IDE.saveAllEditors on changed files that are subtests of active editor
 Done	New test wizard: Do not list ex points from SubTests or test suites
 Done	Create an empty test suite automatically. .aas extension!
+Done	AutoLayout - Page with only ExPoint as next node -> place below
+Done	Sub test edit part: If test name is blank, do not have file name in parantheses.
+Done	Make better: catch (SeleniumException e) {     ErrorHandler.logAndThrow("Error waiting for page to load");  }
+Done	'snt matter - wider ID probability box
+Done	Bug in change start point for test suites.
 
-AutoLayout - Page with only ExPoint as next node -> place below
-Sub test edit part: If test name is blank, do not have file name in parantheses.
-Make better: catch (SeleniumException e) {     ErrorHandler.logAndThrow("Error waiting for page to load");  }
-'snt matter - wider ID probability box
-Do not close browser when M2 build fails - test project property
-Bug in change start point for test suites.
+Better error message if Firefox is not installed.
+TextInput //input[!@type OR type="text"], watir has own method
+Image <img> OR <input type="image">
+Button = input type="submit" OR <button> OR type="button" OR type="reset"
+Bug in test suite verifyer: Detected a tree when an exPoint was in use (and a page)
 Bug: When exPoint is deleted, and extending test opens, invoke ChangeStartPointWizard
+In Watir exporter, throw ruby exception if user interaction fails (should bubble up)
+Test suites should automatically create connections (from start point and from other tests)
 
+Do not close browser when M2 build fails - test project property
+Fix set test name. Does not always get stored on model.
 Error log should be available by default.
 Capturing HTML of page that failed (and the previous one). Selenium: getBodyText()
 Making error message more visible in M2 output, e.g. ----------------
 Better error messages when elements are not found. Search context for elements, incremental. Check context stand alone.
 Create an update site version of CUbicTest 1.7.9
-Better error messages.
-Possible to choose between IE, Firefox and Opera. Better error messages when a browser is not installed.
-Bug in test suite verifyer: Detected a tree when an exPoint was in use (and a page)
+Possible to choose between IE, Firefox and Opera.
+Better error messages when a browser is not installed.
 Capture image of failing test page (and the previous page). Selenium: http://binil.wordpress.com/2006/12/22/taking-screenshots-with-selenium/
 Test suites should continue to next test even if a test fails. Create a property for it.
-Test suites should automatically create connections (from start point and from other tests)
-Button = input type="submit" OR <button> OR type="button" OR type="reset"
-Image <img> OR <input type="image">
-TextInput //input[!@type OR type="text"], watir has own method
 
 Backlog
 -------

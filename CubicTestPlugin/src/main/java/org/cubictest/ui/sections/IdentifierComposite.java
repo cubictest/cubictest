@@ -119,7 +119,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		probability = factory.createCCombo(firstRow, SWT.BORDER);
 		//probability.setItems(new String[]{MUST, SHOULD, CAN, INDIFFERENT, CANNOT, SHOULD_NOT, MUST_NOT});
 		probability.setItems(new String[]{MUST, INDIFFERENT, MUST_NOT});
-		probability.setSize(100, ITabbedPropertyConstants.VSPACE);
+		probability.setSize(140, ITabbedPropertyConstants.VSPACE);
 		probability.addSelectionListener(probabilityListener);
 		probability.setBackground(ColorConstants.white);
 		probability.setLayoutData(data);
