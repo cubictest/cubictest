@@ -7,6 +7,7 @@ package org.cubictest.exporters.watir.converters.delegates;
 import static org.cubictest.model.IdentifierType.LABEL;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.export.utils.exported.XPathBuilder;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.PageElement;
@@ -36,8 +37,8 @@ public class PageElementAsserterXPath {
 			String xpath = escape(watirHolder.getFullContextWithAllElements(pe));
 	
 			if (pe instanceof TextField || pe instanceof TextArea) {
-				//watir does not like type attribute for text input 
-				xpath = StringUtils.replace(xpath, "[@type='text']", "");
+				//watir does not like type attribute for text input
+				xpath = StringUtils.replace(xpath, XPathBuilder.TEXTFIELD_ATTRIBUTES, "");
 			}
 			
 			if (pe instanceof Text || pe instanceof Option) {
