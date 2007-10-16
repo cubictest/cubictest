@@ -88,7 +88,7 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 		}
 		catch (SeleniumException e) {
 			Logger.error(e, "Test step failed");
-			seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+			seleniumHolder.addResult(pe, TestPartStatus.EXCEPTION, pe.isNot());
 			throw new TestFailedException(e.getMessage());
 		}
 	}
