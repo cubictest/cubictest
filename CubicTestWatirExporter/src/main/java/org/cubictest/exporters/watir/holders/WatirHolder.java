@@ -38,6 +38,7 @@ public class WatirHolder extends RunnerResultHolder {
 	private boolean browserStarted = false;
 	public static final String TEST_STEP_FAILED = "TestStepFailed";
 	public static final String TEST_CASE_NAME = "CubicTestExport_";
+	public static final String INTERACTION_FAILURE = "InteractionFailure";
 	public Map<String, PageElement> pageElementIdMap;
 	public Map<PageElement, String> idMap;
 	public Map<PageElement, String> elementVariableMap;
@@ -102,7 +103,10 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("require 'watir'", 0);
 		rubyBuffer.add("class " + TEST_STEP_FAILED + " < RuntimeError", 0);
 		rubyBuffer.add("end", 0);
+		rubyBuffer.add("class " + INTERACTION_FAILURE + " < RuntimeError", 0);
+		rubyBuffer.add("end", 0);
 		rubyBuffer.add("class " + TEST_CASE_NAME + System.currentTimeMillis(), 0);
+		rubyBuffer.add("begin", 1);
 		rubyBuffer.add("failedSteps = 0", 2);
 		rubyBuffer.add("passedSteps = 0", 2);
 		rubyBuffer.add(UTIL_VARIABLES_PLACEHOLDER, 0);
@@ -132,7 +136,11 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("puts \"Closing browser..\"", 2);
 		rubyBuffer.add("STDOUT.flush", 2);
 		rubyBuffer.add("ie.close", 2);
+		rubyBuffer.add("rescue " + INTERACTION_FAILURE, 1);
+		rubyBuffer.add("puts \"There were failures during user interactions. Test was stopped.\"", 2);
+		rubyBuffer.add("end", 1);
 		rubyBuffer.add("end", 0);
+		rubyBuffer.add("", 0);
 		String res = rubyBuffer.toString();
 		res = StringUtils.replace(res, UTIL_VARIABLES_PLACEHOLDER, getWatirElementDefinitions());
 		return res;
