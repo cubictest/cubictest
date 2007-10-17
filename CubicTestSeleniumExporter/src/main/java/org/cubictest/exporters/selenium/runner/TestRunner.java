@@ -72,7 +72,7 @@ public class TestRunner extends BaseTestRunner {
 			//start Selenium (browser and server), guard by timeout:
 			workerThread.setOperation(Operation.START);
 			
-			int timeout = SeleniumUtils.getTimeout(settings);
+			int timeout = SeleniumUtils.getTimeout(settings) + 10;
 			seleniumHolder = call(workerThread, timeout, TimeUnit.SECONDS);
 			
 			//ser monitor used to detect user cancel request:

@@ -194,6 +194,11 @@ public class SeleniumUtils {
 	}
 	
 
+	/**
+	 * Get user configured timeout in seconds.
+	 * @param settings
+	 * @return
+	 */
 	public static int getTimeout(CubicTestProjectSettings settings) {
 		int timeout = 60; //default
 		Integer timeoutProp = settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(), "timeout");
