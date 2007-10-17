@@ -182,6 +182,7 @@ Cubic.recorder.ActionRecorder.prototype = {
 	MOUSE_OVER: "Mouse over",
 	MOUSE_OUT: "Mouse out",
 	ENTER_TEXT: "Enter text",
+	SELECT: "Select",
 	
 	init: function(rpcRecorder, domNode) {
 		this.rpcRecorder = rpcRecorder;
@@ -192,6 +193,7 @@ Cubic.recorder.ActionRecorder.prototype = {
 	listen: function(domNode) {
 		Event.observe($(domNode), 'click', this.mouseClick.bindAsEventListener(this), true);
 		Event.observe($(domNode), 'keydown', this.keyDown.bindAsEventListener(this), true);
+		Event.observe($(domNode), 'change', this.onChange.bindAsEventListener(this), true);
 	},
 	
 	ignore: function(element) {
@@ -221,6 +223,25 @@ Cubic.recorder.ActionRecorder.prototype = {
 				|| element.tagName == "A" || element.tagName == "IMG"
 			) {
 				this.rpcRecorder.addAction(this.CLICK, Cubic.dom.serializeDomNode(element));
+			} 
+		}
+	},
+	
+	onChange: function(e) {
+		var element = Event.element(e);
+		if(element.tagName == "SELECT") {
+
+			if(typeof parentCubicId == 'undefined'){
+				this.rpcRecorder.assertPresent(Cubic.dom.serializeDomNode(element));
+			}
+
+			for(var i = 0; i < element.options.length; i++) {
+				var opt = element.options[i];
+				if(opt.value == element.value) {
+					this.rpcRecorder.assertPresent(Cubic.dom.serializeDomNode(opt));
+					this.rpcRecorder.addAction(this.SELECT, Cubic.dom.serializeDomNode(opt));
+					break;
+				}
 			}
 		}
 	},
@@ -257,19 +278,5 @@ Cubic.recorder.ActionRecorder.prototype = {
 	
 	isTextInput : function(element) {
 		return (element.tagName == "INPUT" && (element.type == "text" || element.type == "password")) || element.tagName == "TEXTAREA";
-	}
-}
-/**
- * 
- * @param {Element} element
- */
-Cubic.recorder.getParentCubicId = function (element){
-	if(typeof element.cubicId != "undefined"){
-		return element.cubicId + "";
-	}
-	if(element.parentElement != null || typeof element.parentElement != "undefined"){
-		return Cubic.recorder.getParentCubicId(element.parentElement);
-	}else{
-		return null;
 	}
 }

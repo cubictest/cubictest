@@ -11,6 +11,9 @@ Cubic.dom.serializeDomNode = function(domNode) {
 		var date = new Date();
 		domNode.cubicId = date.valueOf() + '';
 	}
+	
+	data.parentCubicId = Cubic.dom.getParentCubicId(domNode.parentNode);
+	
 	data.properties = {};
 	for(var i=0; i < Cubic.dom.serializeDomNode.properties.length; i++) {
 		property = Cubic.dom.serializeDomNode.properties[i];
@@ -30,6 +33,11 @@ Cubic.dom.serializeDomNode = function(domNode) {
 				data.label = labels[i].innerHTML;
 			}
 		}
+	}
+	
+	if(domNode.tagName == "SELECT") {
+		data.selected = domNode.value;
+		
 	}
 	
 	return toJSON(data);
@@ -69,4 +77,20 @@ Cubic.dom.getSelectedText = function(w) {
 	}
 
 	return txt;	
+}
+
+
+/**
+ * 
+ * @param {Element} element
+ */
+Cubic.dom.getParentCubicId = function (element){
+	if(typeof element.cubicId != "undefined"){
+		return element.cubicId + "";
+	}
+	if(element.parentElement != null || typeof element.parentElement != "undefined"){
+		return Cubic.dom.getParentCubicId(element.parentElement);
+	}else{
+		return null;
+	}
 }

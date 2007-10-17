@@ -37,10 +37,10 @@ public class GUIAwareRecorder implements IRecorder {
 		});
 	}
 
-	public void addUserInput(final UserInteraction action) {
+	public void addUserInput(final UserInteraction action, final PageElement parent) {
 		display.asyncExec(new Runnable() {
 			public void run() {
-				recorder.addUserInput(action);
+				recorder.addUserInput(action, parent);
 			}
 		});
 	}

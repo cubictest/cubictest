@@ -83,12 +83,12 @@ public class CubicRecorder implements IRecorder {
 		if (!enabled) return;
 		
 		CreatePageElementCommand createElementCmd = new CreatePageElementCommand();
-		createElementCmd.setContext(this.cursor);
-		createElementCmd.setIndex(this.cursor.getRootElements().size());
-		if(parent != null){
-			if(cursor.contains(parent) && parent instanceof IContext){
-				createElementCmd.setContext((IContext) parent);
-			}
+		if(parent != null && parent instanceof IContext){
+			createElementCmd.setIndex(((IContext) parent).getRootElements().size());
+			createElementCmd.setContext((IContext) parent);
+		} else {
+			createElementCmd.setIndex(cursor.getRootElements().size());
+			createElementCmd.setContext(this.cursor);
 		}
 		createElementCmd.setPageElement(element);
 		
@@ -100,7 +100,7 @@ public class CubicRecorder implements IRecorder {
 	/* (non-Javadoc)
 	 * @see org.cubictest.recorder.IRecorder#addUserInput(org.cubictest.model.UserInteraction)
 	 */
-	public void addUserInput(UserInteraction action) {
+	public void addUserInput(UserInteraction action, PageElement parent) {
 		if (!enabled) return;
 		
 		if(this.userInteractionsTransition == null) {
@@ -114,7 +114,7 @@ public class CubicRecorder implements IRecorder {
 			}
 		}
 		if(!elementExists) {
-			this.addPageElement((PageElement) action.getElement(),null);
+			this.addPageElement((PageElement) action.getElement(), parent);
 		}
 
 		this.userInteractionsTransition.addUserInteraction(action);

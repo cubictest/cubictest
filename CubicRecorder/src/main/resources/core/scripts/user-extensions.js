@@ -109,7 +109,7 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 		}
 		
 		cubicMenuItem.execute = function() {
-			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(this.target),Cubic.recorder.getParentCubicId(this.target));
+			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(this.target));
 		}
 
 		cubicContextMenu.addItem(cubicMenuItem);
@@ -174,11 +174,11 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 			var opt = elmt.options[elmt.selectedIndex];
 			var parentCubicId = elmt.cubicId;
 			if(typeof parentCubicId == 'undefined'){
-				jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(elmt),Cubic.recorder.getParentCubicId(elmt));
+				jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(elmt));
 				parentCubicId = elmt.cubicId;
 			}
 			if(opt != null && typeof opt != 'undefined'){
-				jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(opt),parentCubicId);
+				jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(opt));
 			}
 		}
 
@@ -200,13 +200,13 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 			var elmt = this.target;
 			var parentCubicId = elmt.cubicId;
 			if(typeof parentCubicId == 'undefined'){
-				jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(elmt),Cubic.recorder.getParentCubicId(elmt));
+				jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(elmt));
 				parentCubicId = elmt.cubicId;
 			}
 			for(var i = 0; i < elmt.options.length; i++){
 				var opt = elmt.options[i];
 				if(opt != null && typeof opt != 'undefined'){
-					jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(opt),parentCubicId);
+					jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(opt));
 				}
 			}
 			
@@ -225,7 +225,7 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 		}
 		
 		cubicMenuItem.execute = function() {
-			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(frameDoc.getElementsByTagName("TITLE")[0]),null);
+			jsonrpc.recorder.assertPresent(Cubic.dom.serializeDomNode(frameDoc.getElementsByTagName("TITLE")[0]));
 		}
 		
 		cubicContextMenu.addItem(cubicMenuItem);

@@ -11,6 +11,7 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.UserInteraction;
+import org.json.JSONObject;
 
 import com.metaparadigm.jsonrpc.JSONSerializer;
 
@@ -31,12 +32,15 @@ public class JSONRecorder {
 		}
 	}
 	
-	public boolean assertPresent(String json, String contextCubicId) {
+	public boolean assertPresent(String json) {
 		if (!recorder.isEnabled()) return false;
 
 		try {
+			JSONObject jsonObj = new JSONObject(json);
+			String contextCubicId = jsonObj.getString("parentCubicId");
+			
 			PageElement parent = converter.getPageElement(contextCubicId);
-			PageElement pe = converter.createElementFromJson(json);
+			PageElement pe = converter.createElementFromJson(jsonObj);
 			if(pe != null) {
 				recorder.addPageElement(pe, parent);
 				return true;
@@ -50,11 +54,14 @@ public class JSONRecorder {
 		return false;
 	}
 	
-	public boolean assertNotPresent(String json, String contextCubicId) {
+	public boolean assertNotPresent(String json) {
 		if (!recorder.isEnabled()) return false;
 
 		try {
-			PageElement pe = converter.createElementFromJson(json);
+			JSONObject jsonObj = new JSONObject(json);
+			String contextCubicId = jsonObj.getString("parentCubicId");
+
+			PageElement pe = converter.createElementFromJson(jsonObj);
 			PageElement parent = converter.getPageElement(contextCubicId);
 			pe.setNot(true);
 			recorder.addPageElement(pe, parent);
@@ -85,10 +92,14 @@ public class JSONRecorder {
 		if (!recorder.isEnabled()) return;
 
 		try {
-			PageElement pe = converter.createElementFromJson(jsonElement);
+			JSONObject jsonObj = new JSONObject(jsonElement);
+			PageElement pe = converter.createElementFromJson(jsonObj);
+			
 			if(pe != null) {
 				UserInteraction action = new UserInteraction(pe, ActionType.getActionType(actionType), value);
-				recorder.addUserInput(action);
+				String contextCubicId = jsonObj.getString("parentCubicId");
+				PageElement parent = converter.getPageElement(contextCubicId);
+				recorder.addUserInput(action, parent);
 			} else {
 				System.out.println("Action ignored");
 			}

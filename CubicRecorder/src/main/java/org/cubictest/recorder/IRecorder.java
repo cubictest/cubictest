@@ -27,8 +27,9 @@ public interface IRecorder {
 	 * Add a UserInteraction to the current page, creating a new transition if needed.
 	 * If action if of type CLICK, a the cursor is moved to the next page. 
 	 * @param action
+	 * @param parent 
 	 */
-	public void addUserInput(UserInteraction action);
+	public void addUserInput(UserInteraction action, PageElement parent);
 
 	/**
 	 * Set title of the current page to the specified string.
