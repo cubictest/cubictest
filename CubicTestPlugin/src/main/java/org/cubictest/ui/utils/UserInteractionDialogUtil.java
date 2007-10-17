@@ -72,13 +72,40 @@ public class UserInteractionDialogUtil {
 		return flattenedElements;
 	}
 	
-	public static String getLabel(IActionElement element) {
+	public static String getLabel(IActionElement element, List<PageElement> otherElements) {
+		String res = "";
 		if (element instanceof PageElement) {
-			PageElement pe = (PageElement) element;
-			return pe.getDirectEditIdentifier().getValue() + " (" + pe.getType() + ")";
+			PageElement pageElement = (PageElement) element;
+			res = getDefaultLabel(pageElement);
+			
+			String idInfo = "";
+			String contextInfo = "";
+			//check for similar elements, if found, add more info about identifiers
+			for (PageElement pe : otherElements) {
+				if (pe.equals(element)) {
+					continue;
+				}
+				if (pe instanceof IContext) {
+					if (((IContext) pe).contains(pageElement)) {
+						//we have found the parent context
+						contextInfo = ", context: '" + pe.getDirectEditIdentifier().getValue() + "'";
+					}
+				}
+				if (getDefaultLabel(pe).equals(getDefaultLabel(pageElement))) {
+					idInfo = ", " + pageElement.identifierListToString();
+				}
+			}
+			res = res + contextInfo + idInfo;
 		}
 		else {
-			return element.getType() + ": " + element.getDescription();						
+			res = element.getType() + ": " + element.getDescription();						
 		}
+		
+		return res;
+	}
+
+
+	private static String getDefaultLabel(PageElement pageElement) {
+		return pageElement.getDirectEditIdentifier().getValue() + " (" + pageElement.getType() + ")";
 	}
 }

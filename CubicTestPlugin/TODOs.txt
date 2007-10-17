@@ -21,9 +21,10 @@ Done	Bug: When exPoint is deleted, and extending test opens, invoke ChangeStartP
 Done	In Watir exporter, throw ruby exception if user interaction fails (should bubble up)
 Done	Bug in test suite verifyer: Detected a tree when an exPoint was in use (and a page)
 Done	Test suites should automatically create connections (from start point and from other tests)
+Done	Record selecting of options
+Done	If same element names in action dropdown, add IDs
+Done	If more than one same element, add context Info.
 
-If same element names in action dropdown, add IDs
-If more than one same element, add context Info.
 Do not close browser when M2 build fails - test project property
 Making error message more visible in M2 output, e.g. ----------------
 

@@ -39,32 +39,38 @@ public abstract class PageElement extends PropertyAwareObject
 	public String toString() {
 		StringBuffer buff = new StringBuffer();
 		buff.append("[" + getType() + ": '" + getDirectEditIdentifier().getValue() + "']");
-		int i = 0;
 		if (getNonIndifferentIdentifierts().size() == 1 && 
 				getNonIndifferentIdentifierts().get(0).getType().equals(getDirectEditIdentifier().getType()) &&
 				getNonIndifferentIdentifierts().get(0).getProbability() > 0) {
 			//direct edit ID is only ID, do not repeat the ID in the toString signature
 		}
 		else {
-			for (Identifier id : getNonIndifferentIdentifierts()) {
-				if (StringUtils.isNotBlank(id.getValue())) {
-					if (i > 0) {
-						buff.append(",");
-					}
-					String op = "=";
-					if (id.getProbability() < 0) {
-						op = "!=";
-					}
-					buff.append(" " + id.getType().toString().toLowerCase() + op + "'" + id.getValue() + "'");
-				}
-				i++;
-			}
+			buff.append(identifierListToString());
 		}
 		if (not) {
 			buff.append(", not = " + this.not);
 		}
 		if (StringUtils.isNotBlank(description)) {
 			buff.append(", description = '" + this.description + "'");
+		}
+		return buff.toString();
+	}
+
+	public String identifierListToString() {
+		StringBuffer buff = new StringBuffer();
+		int i = 0;
+		for (Identifier id : getNonIndifferentIdentifierts()) {
+			if (StringUtils.isNotBlank(id.getValue())) {
+				if (i > 0) {
+					buff.append(",");
+				}
+				String op = "=";
+				if (id.getProbability() < 0) {
+					op = "!=";
+				}
+				buff.append(" " + id.getType().toString().toLowerCase() + op + "'" + id.getValue() + "'");
+			}
+			i++;
 		}
 		return buff.toString();
 	}

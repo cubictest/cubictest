@@ -85,7 +85,7 @@ public class UserInteractionsComponent {
 	private String[] actionElements;
 	
 	private UserInteractionsTransition transition;
-	private List<IActionElement> allActionElements = new ArrayList<IActionElement>();
+	private List<PageElement> allActionElements = new ArrayList<PageElement>();
 	private Test test;
 	private TestEditPart testPart;
 	private boolean useCommandForActionChanges;
@@ -113,8 +113,6 @@ public class UserInteractionsComponent {
 		}
 		
 		allActionElements.addAll(UserInteractionDialogUtil.getFlattenedPageElements(elementsTree));
-		//allActionElements.add(new WebBrowser());
-		//allActionElements.add(new ContextWindow());
 		transition.setPage((AbstractPage)transition.getStart());
 	}
 	
@@ -236,7 +234,7 @@ public class UserInteractionsComponent {
 		int a = 1;
 		for (IActionElement element: allActionElements) {
 			if (element.getActionTypes().size() > 0) {
-				actionElements[a++] = UserInteractionDialogUtil.getLabel(element);
+				actionElements[a++] = UserInteractionDialogUtil.getLabel(element, allActionElements);
 			}
 		}
 		if (useCommandForActionChanges) {
@@ -294,7 +292,7 @@ public class UserInteractionsComponent {
 						else if (elementName.equals(MOVE_UP) || elementName.equals(MOVE_DOWN)) {
 							move = true;
 						}
-						else if (UserInteractionDialogUtil.getLabel(actionElement).equals(elementName)){
+						else if (UserInteractionDialogUtil.getLabel(actionElement, allActionElements).equals(elementName)){
 							selectedActionElement = actionElement;
 							break;
 						}
@@ -424,7 +422,7 @@ public class UserInteractionsComponent {
 					IActionElement element = userInteraction.getElement();
 					String elementName = CHOOSE;
 					if (element != null)
-						elementName = UserInteractionDialogUtil.getLabel(element);
+						elementName = UserInteractionDialogUtil.getLabel(element, allActionElements);
 					
 					for (int i = 0; i < actionElements.length; i++) {
 						if (elementName.equals(actionElements[i]))
@@ -570,7 +568,7 @@ public class UserInteractionsComponent {
 				case ACTION_ELEMENT_COLINDEX:
 					IActionElement element = userInteraction.getElement();
 					if (element != null) {
-						return UserInteractionDialogUtil.getLabel(element);
+						return UserInteractionDialogUtil.getLabel(element, allActionElements);
 					}
 					else
 						return CHOOSE;
