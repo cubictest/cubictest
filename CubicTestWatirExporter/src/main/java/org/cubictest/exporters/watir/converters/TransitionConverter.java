@@ -51,6 +51,9 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 		}
 	}
 	
+	private String escape(String s) { 
+		return StringUtils.replace(s, "\"", "\\\"");
+	}
 	
 	/**
 	 * Converts a UserInteraction on a page element to a Watir Step.
@@ -79,11 +82,6 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 		watirHolder.add("puts \"Could not " + interactionType + " " + escape(pe.toString()) + "\"", 3);
 		watirHolder.add("raise " + WatirHolder.INTERACTION_FAILURE, 3);
 		watirHolder.add("end", 2);
-	}
-
-	
-	private String escape(String s) { 
-		return StringUtils.replace(s, "\"", "\\\"");
 	}
 }
 
