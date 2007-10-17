@@ -110,17 +110,12 @@ public class ModelUtil {
 		if (node == null) {
 			return true;
 		}
-		int nextNodes = 0;
-		for (Transition transition : node.getOutTransitions()) {
-			if (!(transition.getEnd() instanceof ExtensionPoint)) {
-				nextNodes++;
-			}
-		}
+		int numNext = node.getOutTransitionsWithoutExtensionPoints().size();
 		
-		if (nextNodes == 0) {
+		if (numNext == 0) {
 			return true;
 		}
-		else if(nextNodes == 1) {
+		else if(numNext == 1) {
 			return assertHasOnlyOnePathFrom(node.getOutTransitions().get(0).getEnd());
 		}
 		else {

@@ -168,7 +168,8 @@ public class TreeTestWalker<T extends IResultHolder> {
 						//Other transition from SubTest
 						if(!ModelUtil.assertHasOnlyOnePathFrom(subTestTest.getStartPoint())) {
 							ErrorHandler.logAndShowErrorDialogAndThrow("Error traversing test: The \"" + ((SubTest) node).getFileName() + "\" subtest " +
-									"has more than one path and the transition from it is not from an extensoin point.");							
+									"has more than one path and the transition from it is not from an extensoin point.\n\n" +
+									"Hint: Create an extension point in test \"" + ((SubTest) node).getFileName() + "\"");
 						}
 						
 					}

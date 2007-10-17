@@ -102,6 +102,17 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		}
 		return outTransitions;
 	}
+	
+	public List<Transition> getOutTransitionsWithoutExtensionPoints() {
+		List<Transition> list = new ArrayList<Transition>();
+		for (Transition transition : getOutTransitions()) {
+			if (!(transition.getEnd() instanceof ExtensionPoint)) {
+				list.add(transition);
+			}
+		}
+		return list;
+	}
+	
 	/**
 	 * @param outTransitions The outTransitions to set.
 	 */

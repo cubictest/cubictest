@@ -8,12 +8,16 @@
 package org.cubictest.ui.gef.policies;
 
 import org.cubictest.model.AbstractPage;
+import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
+import org.cubictest.model.TestSuiteStartPoint;
+import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.AddCustomTestStepCommand;
 import org.cubictest.ui.gef.command.AddSubTestCommand;
+import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
@@ -34,10 +38,10 @@ public class TestContainerEditPolicy extends ContainerEditPolicy {
 	protected Command getCreateCommand(CreateRequest request) {
 		Object newObject = request.getNewObject();
 		Point location = request.getLocation();
+		TestEditPart editPart = (TestEditPart) getHost();
+		Test test = (Test) editPart.getModel();
 
 		if (newObject instanceof AbstractPage) {
-			TestEditPart editPart = (TestEditPart) getHost();
-			Test test = (Test) editPart.getModel();
 			AbstractPage page = (AbstractPage) newObject;
 			page.setPosition(location);
 			AddAbstractPageCommand pageAddCommand = new AddAbstractPageCommand();
@@ -45,22 +49,44 @@ public class TestContainerEditPolicy extends ContainerEditPolicy {
 			pageAddCommand.setPage(page);
 	
 			return pageAddCommand;
-		}else if(newObject instanceof SubTest) {
-			SubTest subTest = (SubTest) newObject;			
-			TestEditPart editPart = (TestEditPart) getHost();
-			Test test = (Test) editPart.getModel();
+		}
+		else if(newObject instanceof SubTest) {
+			SubTest subTest = (SubTest) newObject;
+			if (test.getFilePath().equals(subTest.getTest(false).getFilePath())) {
+				//nesting of subtests not allowed
+				return null;
+			}
 			subTest.setPosition(location);
-			AddSubTestCommand subTestCommand = new AddSubTestCommand();
-			subTestCommand.setTest(test);
-			subTestCommand.setSubTest(subTest);
-			return subTestCommand;
-		} else if(newObject instanceof CustomTestStepHolder) {
+			AddSubTestCommand addSubTestCmd = new AddSubTestCommand();
+			addSubTestCmd.setTest(test);
+			addSubTestCmd.setSubTest(subTest);
+			if (test.getStartPoint() instanceof TestSuiteStartPoint) {
+				CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
+				createTransitionCmd.setSource(getLastNodeInGraph(test.getStartPoint()));
+				createTransitionCmd.setTarget(subTest);
+				createTransitionCmd.setTest(test);
+				return addSubTestCmd.chain(createTransitionCmd);
+			}
+			else {
+				return addSubTestCmd;
+			}
+		}
+		else if(newObject instanceof CustomTestStepHolder) {
 			CustomTestStepHolder testStep = (CustomTestStepHolder) newObject;
 			testStep.setPosition(location);
 			AddCustomTestStepCommand addCustomTestStepCommand = new AddCustomTestStepCommand((Test) getHost().getModel(), testStep);
 			return addCustomTestStepCommand;
 		}
 		return null;
+	}
+
+	private TransitionNode getLastNodeInGraph(TransitionNode node) {
+		if (node.getOutTransitionsWithoutExtensionPoints().size() == 0) {
+			return node;
+		}
+		else {
+			return getLastNodeInGraph(node.getOutTransitionsWithoutExtensionPoints().get(0).getEnd());
+		}
 	}
 
 	@Override
