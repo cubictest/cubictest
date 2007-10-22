@@ -23,10 +23,13 @@ import org.cubictest.model.formElement.Select;
 public class PageElementAsserterPlain {
 
 	public static void handle(WatirHolder watirHolder, PageElement pe) {
+		if (pe instanceof Select) {
+			//use context asserter instead
+			throw new ExporterException("Internal error. " + pe.getType() + " not supported by this asserter.");
+		}
+		
 		String idValue = "\"" + StringUtils.replace(pe.getMainIdentifierValue(),"\"", "\\\"") + "\"";
 		String idType = WatirUtils.getMainIdType(pe);
-
-
 
 		if (pe instanceof Title) {
 			watirHolder.add("if (ie.title() != " + idValue + ")", 2);
@@ -35,45 +38,39 @@ public class PageElementAsserterPlain {
 		}
 		else if (pe instanceof Option) {
 			Option option = (Option) pe;
-			String selectList = watirHolder.getPrefix();
 			Select select = (Select) option.getParent();
-			if (select.getMainIdentifierType().equals(IdentifierType.LABEL)) {
-				//If parent select list had label idType, assert that its label target ID was found:
-				watirHolder.add("if (" + watirHolder.getVariableName(select) + " == nil)", 3);
-				watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
-				watirHolder.add("end", 3);
-			}
+
+			//Check parent select list:
+			watirHolder.add("if not " + watirHolder.getVariableName(select) + ".methods.member?(\"select_value\")", 3);
+			watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
+			watirHolder.add("end", 3);
 			
 			if (option.getMainIdentifierType().equals(IdentifierType.LABEL)) {
-				watirHolder.add("optionFound = false", 3);
-				watirHolder.add(selectList + ".getAllContents().each do |opt|", 3);
-				watirHolder.add("if(opt == \"" + pe.getMainIdentifierValue() + "\")", 4);
-				watirHolder.add("optionFound = true", 5);
+				watirHolder.add(watirHolder.getVariableName(select) + ".getAllContents().each do |opt|", 3);
+				watirHolder.add("if(opt == \"" + option.getMainIdentifierValue() + "\")", 4);
+				watirHolder.add(watirHolder.getVariableName(option) + " = opt", 5);
 				watirHolder.add("end", 4);
-				watirHolder.add("end", 3);
-				watirHolder.add("if (!optionFound)", 3);
-				watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
 				watirHolder.add("end", 3);
 			}
 			else if (option.getMainIdentifierType().equals(IdentifierType.VALUE)) {
-				watirHolder.add("if (" + selectList + ".option(" + WatirUtils.getMainIdType(pe) + ", \"" + pe.getMainIdentifierValue() + "\") == nil)", 2);
-				watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 3);
-				watirHolder.add("end", 2);
+				watirHolder.add(watirHolder.getVariableName(option) + " = " + watirHolder.getVariableName(select) + ".option(" + WatirUtils.getMainIdType(option) + ", \"" + option.getMainIdentifierValue() + "\")", 3);
 			}
 			else if (option.getMainIdentifierType().equals(IdentifierType.INDEX)) {
-				watirHolder.add(watirHolder.getVariableName(option) + " = " + selectList + ".getAllContents()[" + (Integer.parseInt(pe.getMainIdentifierValue()) - 1) + "]", 3);
-				watirHolder.add("if (" + watirHolder.getVariableName(option) + " == nil)", 3);
-				watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
-				watirHolder.add("end", 3);
-			}			else {
+				watirHolder.add(watirHolder.getVariableName(option) + " = " + watirHolder.getVariableName(select) + ".getAllContents()[" + option.getMainIdentifierValue() + "]", 3);
+			}			
+			else {
 				throw new ExporterException("Only label, value and index are supported identifierts " +
 						"for options in select lists in Watir");
 			}
+			watirHolder.add("if (" + watirHolder.getVariableName(option) + " == nil)", 3);
+			watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 4);
+			watirHolder.add("end", 3);
 		}
 		else {
-			//handle all other page elements:			
+			//all other page elements:			
 
-			if (WatirUtils.shouldGetLabelTargetId(pe)) {
+			if (WatirUtils.hasExternalLabel(pe)) {
+				//set identifier to "id", the one that the label points to.
 				watirHolder.add(WatirUtils.getLabelTargetId(pe, watirHolder));
 				watirHolder.addSeparator();
 				idValue = watirHolder.getVariableName(pe);
@@ -86,8 +83,13 @@ public class PageElementAsserterPlain {
 				watirHolder.add("while " + watirHolder.getPrefix() + ".text.index(" + idValue + ") " + compare + " nil do", 3);
 			}
 			else {
-				String not = pe.isNot() ? "" : "not "; 
-				watirHolder.add("while " + not + "ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idValue + ").exists? do", 3);
+				String not = pe.isNot() ? "" : "not ";
+				
+				//save variable
+				watirHolder.add(watirHolder.getVariableName(pe) + " = ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idValue + ")", 3);
+				
+				//assert present
+				watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".exists? do", 3);
 			}
 			watirHolder.add("if (pass > 20)", 4);
 			watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 5);

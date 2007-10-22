@@ -20,6 +20,7 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Option;
+import org.cubictest.model.formElement.Select;
 import org.eclipse.swt.widgets.Display;
 
 
@@ -206,10 +207,11 @@ public class WatirHolder extends RunnerResultHolder {
 		if (pe instanceof SimpleContext) {
 			return true;
 		}
-		else if (pe instanceof Option) {
-			if (!hasMoreThanOneIdentifier(pe) && (pe.getMainIdentifierType().equals(IdentifierType.LABEL) || 
-					pe.getMainIdentifierType().equals(IdentifierType.VALUE) ||
-					pe.getMainIdentifierType().equals(IdentifierType.INDEX))) {
+		if (pe instanceof Option) {
+			Option option = (Option) pe;
+			if (!hasMoreThanOneIdentifier(option) && (option.getMainIdentifierType().equals(IdentifierType.LABEL) || 
+					option.getMainIdentifierType().equals(IdentifierType.VALUE) ||
+					option.getMainIdentifierType().equals(IdentifierType.INDEX))) {
 				return false;
 			}
 			throw new ExporterException(pe.toString() + ":\n\nWatir does not support more than one identifier on Options in SelectLists. " +

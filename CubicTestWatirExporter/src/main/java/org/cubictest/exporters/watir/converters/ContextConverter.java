@@ -7,8 +7,7 @@ package org.cubictest.exporters.watir.converters;
 import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
-import org.cubictest.exporters.watir.converters.delegates.ContextAsserterPlain;
-import org.cubictest.exporters.watir.converters.delegates.ContextAsserterXPath;
+import org.cubictest.exporters.watir.converters.delegates.ContextAsserter;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
@@ -25,12 +24,6 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 	public static final String ROOT_CONTEXT = "ie";
 
 
-	public PostContextHandle handlePostContext(WatirHolder watirHolder, IContext a) {
-		watirHolder.setPrefix(ROOT_CONTEXT);
-		return PostContextHandle.DONE;
-	}
-	
-
 	public PreContextHandle handlePreContext(WatirHolder watirHolder, IContext ctx) {
 		if (ctx instanceof AbstractPage) {
 			return PreContextHandle.CONTINUE;
@@ -45,14 +38,7 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 		watirHolder.add("# asserting " + context.toString() + " present", 2);
 		watirHolder.add("begin", 2);
 		
-		
-		if (watirHolder.requiresXPath(pe)) {
-			ContextAsserterXPath.handle(watirHolder, pe);
-		}
-		else {
-			ContextAsserterPlain.handle(watirHolder, pe);
-		}
-		
+		ContextAsserter.handle(watirHolder, pe);
 
 		PageElement element = (PageElement) ctx;
 		watirHolder.add("puts \"" + WatirHolder.PASS + watirHolder.getId(element) + "\"", 3);
@@ -63,9 +49,14 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 
 		watirHolder.add("puts \"Step failed: Check " + element.toString() + " present\"", 3);
 		watirHolder.add("end", 2);
+		watirHolder.add("STDOUT.flush", 2);
 		
 		return PreContextHandle.CONTINUE;
 	}
 
 
+	public PostContextHandle handlePostContext(WatirHolder watirHolder, IContext a) {
+		watirHolder.setPrefix(ROOT_CONTEXT);
+		return PostContextHandle.DONE;
+	}
 }

@@ -11,8 +11,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
-import org.cubictest.exporters.watir.converters.delegates.TransitionHandlerPlain;
-import org.cubictest.exporters.watir.converters.delegates.TransitionHandlerXPath;
+import org.cubictest.exporters.watir.converters.delegates.TransitionHandler;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.IActionElement;
@@ -64,14 +63,7 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 		watirHolder.add("# user interaction: " + userInteraction.toString());
 		watirHolder.add("begin");
 		
-		
-		if (watirHolder.requiresXPath(pe)) {
-			TransitionHandlerXPath.handle(watirHolder, userInteraction);
-		}
-		else {
-			TransitionHandlerPlain.handle(watirHolder, userInteraction);
-		}
-		
+		TransitionHandler.handle(watirHolder, userInteraction);
 		
 		watirHolder.add("passedSteps += 1 ", 3);
 
