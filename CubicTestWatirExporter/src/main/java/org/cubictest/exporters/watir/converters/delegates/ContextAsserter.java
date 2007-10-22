@@ -39,7 +39,7 @@ public class ContextAsserter {
 			String xpath = watirHolder.getFullContextWithAllElements(pe);
 			watirHolder.add(watirHolder.getVariableName(pe) + " = ie." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\")", 3);
 			String not = pe.isNot() ? "" : "not "; 
-			watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".methods.member?(\"ole_get_methods\")", 3);
+			watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".methods.member?(\"display\")", 3);
 		}
 		
 		watirHolder.add("if (pass > 20)", 4);

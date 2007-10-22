@@ -119,6 +119,7 @@ public class WatirUtils {
 					elementName.equals("span") || 
 					elementName.equals("li") || 
 					elementName.equals("form") || 
+					elementName.equals("table") || 
 					elementName.equals("p")) {
 				return elementName;
 			}
