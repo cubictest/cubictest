@@ -114,11 +114,14 @@ public class WatirUtils {
 			return "text";
 		if (pe instanceof SimpleContext) {
 			SimpleContext ctx = (SimpleContext) pe;
-			String el = ctx.getIdentifier(IdentifierType.ELEMENT_NAME).getValue();
-			if (el.equals("div")) {
-				return "div";
+			String elementName = ctx.getIdentifier(IdentifierType.ELEMENT_NAME).getValue().toLowerCase();
+			if (elementName.equals("div") || 
+					elementName.equals("span") || 
+					elementName.equals("li") || 
+					elementName.equals("form") || 
+					elementName.equals("p")) {
+				return elementName;
 			}
-			//TODO: Add more!
 			else {
 				return "*";
 			}

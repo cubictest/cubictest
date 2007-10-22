@@ -35,6 +35,7 @@ public class ContextAsserter {
 			watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".methods.member?(\"ole_get_methods\")", 3);
 		}
 		else {
+			//context elements that have class in watir
 			String xpath = watirHolder.getFullContextWithAllElements(pe);
 			watirHolder.add(watirHolder.getVariableName(pe) + " = ie." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\")", 3);
 			String not = pe.isNot() ? "" : "not "; 
