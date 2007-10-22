@@ -18,10 +18,10 @@ import org.eclipse.core.resources.IProject;
 
 
 /**
- * A test of a web application. Can start from an extension point in another test
- * and include other subtests.
+ * A test of a web application.
  * 
  * @author SK Skytteren
+ * @author Christian Schwarz
  */
 public class Test extends PropertyAwareObject {
 	

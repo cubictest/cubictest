@@ -11,7 +11,9 @@ import java.util.List;
 
 
 /**
- * @author skyttere
+ * Text to assert present on page. Can be a substring of a larger string.
+ * 
+ * @author SK Skytteren
  *
  */
 public class Text extends PageElement {

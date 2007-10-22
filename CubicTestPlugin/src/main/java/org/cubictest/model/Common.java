@@ -10,7 +10,7 @@ package org.cubictest.model;
 /**
  * Class holding elements that are common between several pages.
  * 
- * @author skyttere
+ * @author SK Skytteren
  */
 public class Common extends AbstractPage{
 }

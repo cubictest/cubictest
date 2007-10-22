@@ -16,6 +16,11 @@ import static org.cubictest.model.IdentifierType.TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An image on the page.
+ * 
+ * @author Christian Schwarz
+ */
 public class Image extends PageElement {
 
 	@Override

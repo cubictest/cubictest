@@ -18,6 +18,8 @@ import org.cubictest.model.IdentifierType;
 
 
 /**
+ * A checkbox on the page.
+ * 
  * @author chr_schwarz
  */
 public class Checkbox extends Checkable {

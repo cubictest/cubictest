@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Class representing a collection of PageElementActions that the user preforms to go from one application state to the next.
  * 
- * A typical UserInteractionsTransition object contains PageElementActions that fills out a form or presses a link.
+ * A typical UserInteractionsTransition object contains several UserInteractions that e.g. fills out a form or presses a link.
  *  
  * @author chr_schwarz
  * @author SK Skytteren  

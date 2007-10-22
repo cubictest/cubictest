@@ -6,6 +6,12 @@
 */
 package org.cubictest.model;
 
+/**
+ * A transition that does nothing except connect two pages/states.
+ * 
+ * @author Christian Schwarz
+ *
+ */
 public class SimpleTransition extends Transition {
 	
 	public SimpleTransition() {}

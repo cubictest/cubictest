@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Page/State that can contain page elements.
+ * 
  * @author skyttere
  *
  */

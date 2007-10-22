@@ -7,6 +7,11 @@ package org.cubictest.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Title of web application to assert present.
+ * 
+ * @author Christian Schwarz
+ */
 public class Title extends PageElement {
 	
 	@Override

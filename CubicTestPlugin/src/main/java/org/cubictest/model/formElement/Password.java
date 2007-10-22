@@ -6,7 +6,12 @@
 */
 package org.cubictest.model.formElement;
 
-
+/**
+ * A password field on the page.
+ * 
+ * @author SK Skytteren
+ *
+ */
 public class Password extends AbstractTextInput {
 
 	@Override

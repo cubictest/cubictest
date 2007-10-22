@@ -6,7 +6,12 @@
 */
 package org.cubictest.model.formElement;
 
-
+/**
+ * A text area on the page.
+ * 
+ * @author SK Skytteren
+ *
+ */
 public class TextArea extends AbstractTextInput {
 	
 	@Override

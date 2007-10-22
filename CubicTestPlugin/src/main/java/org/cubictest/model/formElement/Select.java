@@ -16,7 +16,12 @@ import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.context.IContext;
 
-//TODO: Temporarily extending text input, later add option elements
+/**
+ * A select list ("drop down") that can contain Options.
+ * 
+ * @author Christian Schwarz
+ *
+ */
 public class Select extends FormElement implements IContext {
 
 	private List<PageElement> elements = new ArrayList<PageElement>();

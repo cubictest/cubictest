@@ -7,6 +7,8 @@
 package org.cubictest.model;
 
 /**
+ * Start point that invokes/opens a URL.
+ * 
  * @author skyttere
  *
  */

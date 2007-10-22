@@ -7,6 +7,8 @@
 package org.cubictest.model;
 
 /**
+ * Abstract base class for all transitions.
+ * 
  * @author trond
  *
  */

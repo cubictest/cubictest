@@ -4,6 +4,12 @@
  */
 package org.cubictest.model;
 
+/**
+ * Interface for parameterization observers.
+ * 
+ * @author SK Skytteren
+ *
+ */
 public interface SationObserver{
 
 	public void setUseParam(boolean useParam);

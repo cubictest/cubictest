@@ -5,7 +5,7 @@
 package org.cubictest.model;
 
 /**
- * Status of test part after running a test.
+ * Status of test element (e.g. page element) after running a test.
  * 
  * @author chr_schwarz
  */

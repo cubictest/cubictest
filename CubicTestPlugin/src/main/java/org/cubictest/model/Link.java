@@ -17,8 +17,9 @@ import java.util.List;
 
 
 /**
+ * Hyperlink on page.
+ * 
  * @author skyttere
- *
  */
 public class Link extends PageElement {
 	

@@ -11,7 +11,13 @@ import java.util.List;
 
 import org.cubictest.model.IdentifierType;
 
-
+/**
+ * Generic context element, default implementation of AbstractContext.
+ * Can be any parent HTML element.
+ * 
+ * @author Christian Schwarz
+ *
+ */
 public class SimpleContext extends AbstractContext {
 	
 	@Override

@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * The action types for user interaction with a web page.
  * 
- * @author skyt
+ * @author SK Skytteren
  * @author chr_schwarz
  */
 public enum ActionType {

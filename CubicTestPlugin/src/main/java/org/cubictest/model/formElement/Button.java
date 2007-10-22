@@ -10,7 +10,12 @@ import org.cubictest.model.FormElement;
 import org.cubictest.model.Identifier;
 
 
-
+/**
+ * A button on the page. Can be any type of button.
+ * 
+ * @author Christian Schwarz
+ *
+ */
 public class Button extends FormElement {
 
 	@Override

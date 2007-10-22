@@ -15,7 +15,7 @@ import org.cubictest.model.FormElement;
 import org.cubictest.model.PropertyAwareObject;
 
 /**
- * Class for checkable form elements.
+ * Base class for checkable form elements.
  * @author chr_schwarz
  */
 public abstract class Checkable extends FormElement {

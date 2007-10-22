@@ -156,6 +156,10 @@ public class Identifier implements Cloneable, SationObserver{
 		return probability != 0;
 	}
 	
+	public boolean isIndifferent() {
+		return probability == 0;
+	}
+	
 	public boolean isNotBlank() {
 		return StringUtils.isNotBlank(getValue());
 	}

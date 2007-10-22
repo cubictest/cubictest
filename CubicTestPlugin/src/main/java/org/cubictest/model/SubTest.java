@@ -11,7 +11,7 @@ import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.eclipse.core.resources.IProject;
 
 /**
- * Subtest node contained within another test.
+ * Subtest node that contains another test.
  * 
  * @author ehalvorsen
  * @author chr_schwarz

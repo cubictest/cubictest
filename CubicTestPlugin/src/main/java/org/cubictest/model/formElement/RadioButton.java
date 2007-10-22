@@ -14,7 +14,12 @@ import java.util.List;
 
 import org.cubictest.model.IdentifierType;
 
-
+/**
+ * A radiobutton on the page.
+ * 
+ * @author Christian Schwarz
+ *
+ */
 public class RadioButton extends Checkable{
 
 	@Override

@@ -7,7 +7,9 @@
 package org.cubictest.model;
 
 /**
- * @author skyttere
+ * Transition to connect a Common to a Page.
+ * 
+ * @author SK Skytteren
  */
 public class CommonTransition extends Transition {
 

@@ -16,6 +16,12 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 
+/**
+ * An option in a Select list.
+ * 
+ * @author Christian Schwarz
+ * 
+ */
 public class Option extends Checkable{
 
 	private Select parent;

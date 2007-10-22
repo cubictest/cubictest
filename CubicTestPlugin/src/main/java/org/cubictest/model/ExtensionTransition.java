@@ -6,7 +6,12 @@
  */
 package org.cubictest.model;
 
-
+/**
+ * 
+ * Transition from an ExtensionPoint in another Test to a Page/State in current test.
+ * 
+ * @author Christian Schwarz
+ */
 public class ExtensionTransition extends Transition {
 
 	private String id; //the source page ID

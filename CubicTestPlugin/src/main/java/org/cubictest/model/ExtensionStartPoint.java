@@ -9,7 +9,7 @@ import org.eclipse.core.resources.IProject;
 
 /**
  * Start point in test that includes another test before the current test.
- * Current test must continue from an extension point is the preceding test.
+ * The test must continue from an extension point is the preceding test.
  * 
  * @author Christian Schwarz
  */

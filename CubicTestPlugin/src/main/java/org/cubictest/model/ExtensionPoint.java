@@ -7,6 +7,12 @@
 
 package org.cubictest.model;
 
+/**
+ * An exposed state/node that other tests can continue from.
+ *  
+ * @author Christian Schwarz
+ *
+ */
 public class ExtensionPoint extends ConnectionPoint implements Comparable<ExtensionPoint>{
 
 	public String getPageId() {

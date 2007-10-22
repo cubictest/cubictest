@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Base class for form elements.
  * 
- * @author skyttere
+ * @author SK Skytteren
  * @author chr_schwarz
  */
 public abstract class FormElement extends PageElement{
