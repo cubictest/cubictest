@@ -63,13 +63,12 @@ public class WatirMonitor extends Thread {
 			error = new ExporterException(errorBuffer.toString());
 		}
 		else if (line.toLowerCase().contains("watir") && line.toLowerCase().contains("loaderror")) {
-			//error loading watir
+			//error loading Watir
 			isInError = true;
 			error = new ExporterException("Could not start Watir (but Ruby was OK). Check that Watir is installed on your system.");
 		}
-		else if (isInError || line.contains(WatirHolder.TEST_CASE_NAME) ||
-				(line.toLowerCase().contains("error") && line.contains(TestRunner.RUNNER_TEMP_FILENAME)) ||
-				line.startsWith(WatirHolder.EXCEPTION)) {
+		else if (line.startsWith(WatirHolder.EXCEPTION) || isInError || line.contains(WatirHolder.TEST_CASE_NAME) ||
+				(line.toLowerCase().contains("error") && line.contains(TestRunner.RUNNER_TEMP_FILENAME))) {
 			isInError = true;
 			errorBuffer.append(line + "\n");
 		}
@@ -81,6 +80,13 @@ public class WatirMonitor extends Thread {
 		else if(line.startsWith(WatirHolder.FAIL)) {
 			PageElement pe = watirHolder.getPageElement(line.substring(line.indexOf(WatirHolder.FAIL) + WatirHolder.FAIL.length()));
 			watirHolder.addResult(pe, TestPartStatus.FAIL);
+		}
+		else if(line.startsWith(WatirHolder.EXCEPTION)) {
+			String pattern = "] -- ";
+			int messagePos = line.lastIndexOf(pattern);
+			messagePos = (messagePos < 0) ? line.length() : messagePos + 1;
+			PageElement pe = watirHolder.getPageElement(line.substring(line.indexOf(WatirHolder.EXCEPTION) + WatirHolder.EXCEPTION.length(), messagePos));
+			watirHolder.addResult(pe, TestPartStatus.EXCEPTION);
 		}
 		else if (line.startsWith(WatirHolder.SUBTEST_DONE)) {
 			runner.display.asyncExec(new Runnable() {

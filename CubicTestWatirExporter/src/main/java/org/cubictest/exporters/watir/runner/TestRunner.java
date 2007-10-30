@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.TreeTestWalker;
-import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.exporters.watir.converters.ContextConverter;
 import org.cubictest.exporters.watir.converters.CustomTestStepConverter;

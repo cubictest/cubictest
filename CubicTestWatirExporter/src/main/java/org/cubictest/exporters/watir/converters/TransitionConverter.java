@@ -68,7 +68,7 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 		watirHolder.add("passedSteps += 1 ", 3);
 
 		watirHolder.add("rescue", 2);
-		watirHolder.add("puts " + "\"" + WatirHolder.EXCEPTION + " \" + $!", 3);
+		watirHolder.add("puts " + "\"" + WatirHolder.EXCEPTION + escape(watirHolder.getId(pe)) + " -- \" + $!", 3);
 		watirHolder.add("failedSteps += 1 ", 3);
 		String interactionType = StringUtils.replace(WatirUtils.getInteraction(userInteraction) ,"\"", "\\\"");
 		watirHolder.add("puts \"Could not " + interactionType + " " + escape(pe.toString()) + "\"", 3);
