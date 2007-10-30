@@ -12,7 +12,7 @@ import static org.cubictest.model.IdentifierType.LABEL;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.export.exceptions.AssertionFailedException;
-import org.cubictest.export.exceptions.TestFailedException;
+import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.PageElement;
@@ -82,14 +82,16 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 			}
 		}
 		catch (AssertionFailedException e) {
+			seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
 			if (seleniumHolder.shouldFailOnAssertionFailure()) {
-				throw new TestFailedException(e.getMessage());
+				throw e;
 			}
 		}
 		catch (SeleniumException e) {
-			Logger.error(e, "Test step failed");
-			seleniumHolder.addResult(pe, TestPartStatus.EXCEPTION, pe.isNot());
-			throw new TestFailedException(e.getMessage());
+			seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+			if (seleniumHolder.shouldFailOnAssertionFailure()) {
+				throw new AssertionFailedException(e);
+			}
 		}
 	}
 }

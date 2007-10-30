@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.TreeTestWalker;
-import org.cubictest.export.exceptions.TestFailedException;
 import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.export.runner.RunnerWorkerThread.Operation;
@@ -101,9 +100,6 @@ public class TestRunner extends BaseTestRunner {
 		}
 		catch (UserCancelledException e) {
 			//ok, user cancelled
-		}
-		catch (TestFailedException e) {
-			throw e;
 		}
 		catch (Exception e) {
 			ErrorHandler.logAndRethrow(e);

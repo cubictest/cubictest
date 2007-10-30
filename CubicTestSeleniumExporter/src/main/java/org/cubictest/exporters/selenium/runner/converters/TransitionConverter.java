@@ -4,7 +4,6 @@
 */
 package org.cubictest.exporters.selenium.runner.converters;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.apache.commons.lang.StringUtils;
@@ -12,12 +11,11 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.export.exceptions.TestFailedException;
+import org.cubictest.export.exceptions.UserInteractionException;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
-import org.cubictest.model.Identifier;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UserInteraction;
@@ -124,16 +122,16 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			return commandName;
 		}
 		catch (Exception e) {
-			Throwable ex = ErrorHandler.getCause(e);
-			if (ex instanceof SeleniumException) {
-				String msg = "Error invoking user interaction: " + userInteraction.toString() + ". Please verify identifiers and surrounding context.";
-				Logger.error(msg);
-				throw new TestFailedException(msg);
+			String msg = "Error invoking user interaction: " + userInteraction.toString() + ".";
+			if (element instanceof PageElement) {
+				PageElement pe = (PageElement) element;
+				if (pe.getStatus().equals(TestPartStatus.FAIL)) {
+					msg += "\n\nPage element " + pe.toString() + " not found.";
+				}
+				seleniumHolder.addResult(pe, TestPartStatus.EXCEPTION, pe.isNot());
 			}
-			else {
-				ErrorHandler.logAndRethrow(ex);
-			}
-			return null;
+			Logger.error(e, msg);
+			throw new UserInteractionException(msg);
 		}
 	}
 }
