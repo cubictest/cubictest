@@ -4,12 +4,14 @@
  */
 package org.cubictest.export.exceptions;
 
+import org.cubictest.common.exception.CubicException;
+
 /**
  * Exception indicating user cancel.
  * 
  * @author Christian Schwarz
  */
-public class UserCancelledException extends RuntimeException {
+public class UserCancelledException extends CubicException {
 
 	private static final long serialVersionUID = 1L;
 

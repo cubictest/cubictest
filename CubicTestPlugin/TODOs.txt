@@ -24,12 +24,13 @@ Done	Test suites should automatically create connections (from start point and f
 Done	Record selecting of options
 Done	If same element names in action dropdown, add IDs
 Done	If more than one same element, add context Info.
+Done	Test suites should continue to next test even if a test fails. Create a property for it.
 
 Do not close browser when M2 build fails - test project property
-Making error message more visible in M2 output, e.g. ----------------
 
 Error log should be available by default.
 
+Making error message more visible in M2 output, e.g. ----------------
 Better error message if Firefox is not installed.
 Fix set test name. Does not always get stored on model.
 Better error messages when elements are not found. Search context for elements, incremental. Check context stand alone.
@@ -37,7 +38,6 @@ Create an update site version of CUbicTest 1.7.9
 Possible to choose between IE, Firefox and Opera.
 Capturing HTML of page that failed (and the previous one). Selenium: getBodyText()
 Capture image of failing test page (and the previous page). Selenium: http://binil.wordpress.com/2006/12/22/taking-screenshots-with-selenium/
-Test suites should continue to next test even if a test fails. Create a property for it.
 
 Backlog
 -------

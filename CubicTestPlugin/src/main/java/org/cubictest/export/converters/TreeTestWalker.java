@@ -12,7 +12,8 @@ import java.util.List;
 
 import org.cubictest.common.exception.UnknownExtensionPointException;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.export.exceptions.TestFailedException;
+import org.cubictest.export.exceptions.AssertionFailedException;
+import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.export.utils.TestWalkerUtils;
 import org.cubictest.model.ConnectionPoint;
@@ -23,6 +24,7 @@ import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Page;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
+import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
@@ -158,36 +160,26 @@ public class TreeTestWalker<T extends IResultHolder> {
 				Test subTestTest = ((SubTest) node).getTest(true);
 				List<Transition> outTransitions = node.getOutTransitions();
 				ExtensionPoint targetExPoint = null;
-				if (outTransitions != null && outTransitions.size() > 0) {
-					Transition transition = outTransitions.get(0);
-					if (transition instanceof ExtensionTransition) {
-						// only convert path in subtest leading to the extension point that is extended from
-						targetExPoint = ((ExtensionTransition) transition).getExtensionPoint();
-					}
-					else {
-						//Other transition from SubTest
-						if(!ModelUtil.assertHasOnlyOnePathFrom(subTestTest.getStartPoint())) {
-							ErrorHandler.logAndShowErrorDialogAndThrow("Error traversing test: The \"" + ((SubTest) node).getFileName() + "\" subtest " +
-									"has more than one path and the transition from it is not from an extensoin point.\n\n" +
-									"Hint: Create an extension point in test \"" + ((SubTest) node).getFileName() + "\"");
-						}
-						
+				if (outTransitions != null && outTransitions.size() > 0 && outTransitions.get(0) instanceof ExtensionTransition) {
+						// convert path in SubTest leading to the extension point that is extended from
+						targetExPoint = ((ExtensionTransition) outTransitions.get(0)).getExtensionPoint();
+				}
+				else {
+					// other or no transition from SubTest. Check that only one path in it
+					if(!ModelUtil.assertHasOnlyOnePathFrom(subTestTest.getStartPoint())) {
+						ErrorHandler.logAndShowErrorDialogAndThrow("Error traversing subtest: The \"" + ((SubTest) node).getFileName() + "\" subtest " +
+								"is a tree (has more than one path in it) and an extension point is not used. The exporter does not know which path to execute.\n\n" +
+								"To fix, create an extension point in the test, and extend from it where the subtest is used.");
 					}
 				}
-				//convert subtest:
+				
+				// Convert SubTest:
 				try {
 					convertTransitionNode(resultHolder, subTestTest.getStartPoint(), targetExPoint);
 					resultHolder.updateStatus(((SubTest) node), false, targetExtensionPoint);
 				}
-				catch (TestFailedException e) {
-					resultHolder.updateStatus(((SubTest) node), false, targetExtensionPoint);
-					String msg = e.getMessage();
-					msg += ", in subtest \"" + ((SubTest) node).getFileName() + "\"";
-					throw new TestFailedException(msg);
-				}
-				catch (RuntimeException e) {
-					resultHolder.updateStatus(((SubTest) node), true, targetExtensionPoint);
-					throw e;
+				catch (Exception e) {
+					handleSubTestException(resultHolder, (SubTest) node, targetExtensionPoint, e);
 				}
 			}
 			else if (node instanceof Page) {
@@ -245,6 +237,31 @@ public class TreeTestWalker<T extends IResultHolder> {
 		}
 		
 		return nodeFinished;
+	}
+
+
+	private void handleSubTestException(T resultHolder, SubTest subTest, ConnectionPoint targetExtensionPoint, Exception e) {
+		if (e instanceof AssertionFailedException) {
+			resultHolder.updateStatus(subTest, false, targetExtensionPoint);
+			if (isNotTestSuiteTest(subTest)) {
+				throw new AssertionFailedException(e.getMessage() + ", in subtest \"" + subTest.getFileName() + "\"");
+			}
+		}
+		else if (e instanceof ExporterException) {
+			resultHolder.updateStatus(subTest, true, targetExtensionPoint);
+			if (isNotTestSuiteTest(subTest)) {
+				throw new ExporterException(e.getMessage() + ", in subtest \"" + subTest.getFileName() + "\"");
+			}
+		}
+		else if (e instanceof Exception) {
+			resultHolder.updateStatus(subTest, true, targetExtensionPoint);
+			ErrorHandler.logAndRethrow(e);
+		}
+	}
+
+
+	private boolean isNotTestSuiteTest(TransitionNode node) {
+		return !(ModelUtil.getStartPoint(node) instanceof TestSuiteStartPoint);
 	}
 
 	

@@ -87,7 +87,7 @@ public class CubicTestLabel extends Label {
 				setBackgroundColor(ColorConstants.red);
 				break;
 			case EXCEPTION:
-				setBackgroundColor(ColorConstants.orange);;
+				setBackgroundColor(ColorConstants.orange);
 				break;
 			default:
 				setOpaque(false);

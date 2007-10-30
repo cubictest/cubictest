@@ -128,12 +128,18 @@ public class SubTest extends ConnectionPoint {
 	}
 
 	
+	/**
+	 * Tells the subtest to update its status (examine its page elements).
+	 * @param hadException Flag indicating that subtest had exception.
+	 * @param targetConnectionPoint must be known when examining subtest path to check statuses in page elements.
+	 */
 	public void updateStatus(boolean hadException, ConnectionPoint targetConnectionPoint) {
 		if (hadException) {
 			setStatus(TestPartStatus.EXCEPTION);
-			return;
 		}
-		setStatus(getTest(false).updateAndGetStatus(targetConnectionPoint));
+		else {
+			setStatus(getTest(false).updateAndGetStatus(targetConnectionPoint));
+		}
 	}
 
 }

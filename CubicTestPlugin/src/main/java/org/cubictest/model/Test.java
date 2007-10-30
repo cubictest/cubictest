@@ -304,7 +304,8 @@ public class Test extends PropertyAwareObject {
 	
 	
 	/**
-	 * Update test status.
+	 * Updates and return the overall test status (aggregates all page element statuses).
+	 * If all elements pass, test passes, else it returns fail, warn or exception status. 
 	 * @param hadException
 	 * @return copy of the new status
 	 */
@@ -351,7 +352,7 @@ public class Test extends PropertyAwareObject {
 			status = TestPartStatus.PASS;
 		else if (failed == list.size())
 			status = TestPartStatus.FAIL;
-		else if (exception == list.size())
+		else if (exception > 0)
 			status = TestPartStatus.EXCEPTION;
 		else if (unknown == list.size())
 			status = TestPartStatus.UNKNOWN;

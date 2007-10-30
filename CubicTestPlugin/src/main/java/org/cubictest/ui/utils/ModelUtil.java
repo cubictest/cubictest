@@ -129,4 +129,21 @@ public class ModelUtil {
 		}
 		return false;
 	}
+	
+	/**
+	 * Traverses the test model and finds the start point of the node in the test it belongs to.
+	 * @param node
+	 * @return
+	 */
+	public static IStartPoint getStartPoint(TransitionNode node) {
+		if (node == null || node.getInTransition() == null) {
+			return null;
+		}
+		else if(node.getInTransition().getStart() instanceof IStartPoint) {
+			return (IStartPoint) node.getInTransition().getStart();
+		}
+		else {
+			return getStartPoint(node.getInTransition().getStart());
+		}
+	}
 }

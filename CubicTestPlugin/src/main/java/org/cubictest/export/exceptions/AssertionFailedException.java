@@ -1,14 +1,13 @@
 package org.cubictest.export.exceptions;
 
-import org.cubictest.common.exception.CubicException;
 
 /**
- * Exception indicating that an assertion has failed.
+ * Exception indicating that an assertion  of a page elemenet has failed.
  * 
  * @author Christian Schwarz
  *
  */
-public class AssertionFailedException extends CubicException {
+public class AssertionFailedException extends ExporterException {
 
 
 	public AssertionFailedException(String message) {
@@ -16,9 +15,13 @@ public class AssertionFailedException extends CubicException {
 	}
 
 	public AssertionFailedException(String message, Exception cause) {
-		super(cause, message);
+		super(message, cause);
 	}
 
+	public AssertionFailedException(Exception cause) {
+		super(cause);
+	}
+	
 	private static final long serialVersionUID = 1L;
 
 }

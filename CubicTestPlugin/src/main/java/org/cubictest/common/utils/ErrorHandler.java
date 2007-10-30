@@ -18,18 +18,18 @@ import org.eclipse.swt.widgets.Shell;
 public class ErrorHandler {
 
 	public static void rethrow(Throwable e) {
+		e = getCause(e);
 		if (e instanceof RuntimeException) {
 			throw (RuntimeException) e;
 		}
-		e = getCause(e);
 		throw new CubicException(e);
 	}
 
 	public static void rethrow(Throwable e, String message) {
+		e = getCause(e);
 		if (e instanceof RuntimeException) {
 			throw (RuntimeException) e;
 		}
-		e = getCause(e);
 		throw new CubicException(e, message);
 	}
 	

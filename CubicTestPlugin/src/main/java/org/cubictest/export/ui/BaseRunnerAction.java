@@ -12,6 +12,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ITestRunner;
 import org.cubictest.export.utils.exported.ExportUtils;
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
@@ -55,6 +56,9 @@ public abstract class BaseRunnerAction implements IEditorActionDelegate {
 			List<Test> subTests = new ArrayList<Test>();
 			addSubTestsRecursive(test, subTests);
 			subTests.remove(test); //"this" test can be in memory
+			if (test.getStartPoint() instanceof ExtensionStartPoint) {
+				subTests.add(((SubTest) test.getStartPoint()).getTest(false));
+			}
 			IResource[] testResources = new IResource[subTests.size()];
 			int i = 0; for (Test t : subTests) {
 				testResources[i] = t.getFile();
