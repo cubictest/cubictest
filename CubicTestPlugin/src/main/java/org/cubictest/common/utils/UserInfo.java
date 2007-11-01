@@ -78,7 +78,7 @@ public class UserInfo {
 				MessageDialog.openError(shell, UiText.APP_TITLE, userMessage);
 			}
 			else {
-				String extendedMsg = userMessage + ((e == null) ? "" : ": \n" + e.toString());
+				String extendedMsg = userMessage + ((e == null) ? "" : "\n\n" + e.toString());
 				MessageDialog.openError(shell, UiText.APP_TITLE, extendedMsg);
 			}
 		}
