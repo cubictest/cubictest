@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Display;
  */
 public class WatirHolder extends RunnerResultHolder {
 	
+	public static final String UNEXPECTED_ERROR_FROM_WATIR_RUNNER = "Unexpected error from Watir runner";
 	private static final String UTIL_VARIABLES_PLACEHOLDER = "$$$UTIL_VARIABLES";
 	public static final String TEST_DONE = "[Test done]";;
 	public static final String SUBTEST_DONE = "[Subtest done]> ";;
@@ -139,6 +140,8 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("ie.close", 2);
 		rubyBuffer.add("rescue " + INTERACTION_FAILURE, 1);
 		rubyBuffer.add("puts \"There were failures during user interactions. Test was stopped.\"", 2);
+		rubyBuffer.add("rescue", 1);
+		rubyBuffer.add("puts \"" + UNEXPECTED_ERROR_FROM_WATIR_RUNNER + ": \" + $!", 2);
 		rubyBuffer.add("end", 1);
 		rubyBuffer.add("end", 0);
 		rubyBuffer.add("", 0);
