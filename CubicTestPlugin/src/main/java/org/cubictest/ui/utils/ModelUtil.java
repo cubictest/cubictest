@@ -88,8 +88,7 @@ public class ModelUtil {
 				}
 				else {
 					//multiple in-transitions not allowed, unless from Common
-					UserInfo.showInfoDialog("Multiple in-connections to a page are not allowed, unless from a Common.\n" +
-							"Hint: Create a new page/state instead.");
+					UserInfo.showInfoDialog("Multiple in-connections to a Page/State is not allowed (unless from a Common).");
 					return TRANSITION_EDIT_NOT_VALID;
 				}
 			}
