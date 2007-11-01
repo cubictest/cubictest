@@ -150,7 +150,7 @@ public class WatirHolder extends RunnerResultHolder {
 
 	private String getWatirElementDefinitions() {
 		RubyBuffer b = new RubyBuffer();
-		b.add("# temp variables for indirect (e.g. 'label') reference, where applicable:", 2);
+		b.add("# variables for the page elements in the test:", 2);
 		for (String s : elementVariableMap.values()) {
 			b.add(s + " = nil", 2);
 		}
