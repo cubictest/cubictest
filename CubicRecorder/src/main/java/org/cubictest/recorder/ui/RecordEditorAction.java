@@ -73,7 +73,7 @@ public class RecordEditorAction implements IEditorActionDelegate {
 
 			IRecorder cubicRecorder = new CubicRecorder(test, testEditor.getCommandStack(), autoLayout);
 			IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder);
-			seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, getInitialUrlStartPoint(test).getBeginAt());
+			seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, getInitialUrlStartPoint(test).getBeginAt(), new Shell());
 
 			testEditor.addDisposeListener(new IDisposeListener() {
 				public void disposed() {

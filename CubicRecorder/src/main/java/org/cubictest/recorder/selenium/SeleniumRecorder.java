@@ -10,9 +10,11 @@ import java.net.ServerSocket;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.recorder.IRecorder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.swt.widgets.Shell;
 import org.mortbay.http.HttpContext;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.ServletHandler;
@@ -30,9 +32,11 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 	private int port = 4444;
 	private final String url;
 	private Thread serverThread;
+	protected Shell shell;
 
-	public SeleniumRecorder(IRecorder recorder, String url) {
+	public SeleniumRecorder(IRecorder recorder, String url, Shell shell) {
 		this.url = url;
+		this.shell = shell;
 		
 		// start server
 		
@@ -77,8 +81,19 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 						ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 					}
 					seleniumStarted = true;
-		        } catch (Exception e) {
-					ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+		        } catch (final Exception e) {
+		        	String msg = "Error occured when recording test. Recording might not work.\n\n";
+		        	if (e.toString().indexOf("Location.href") >= 0) {
+		        		msg += "Looks like Selenium failed when following a redirect. If this occured at start of test, " +
+		        				"try modifying the start point URL to the correct/redirected address.";
+		        	}
+		        	final String finalMsg = msg;
+		    		shell.getDisplay().asyncExec(new Runnable() {
+		    			public void run() {
+		    				UserInfo.showErrorDialog(e, finalMsg);
+		    			}
+		    		});
+					ErrorHandler.logAndRethrow(e, finalMsg);
 				}
 			}
 			
