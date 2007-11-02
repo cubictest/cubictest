@@ -170,12 +170,6 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		TestPersistance.saveToFile(emptyTest, testFile);
 		monitor.worked(1);
 		
-		//create test suite:
-		Test emptySuite = WizardUtils.createEmptyTestWithTestSuiteStartPoint("Default test suite", "");
-		IFile suiteFile = project.getFolder(NewCubicTestProjectWizard.TEST_SUITES_FOLDER_NAME).getFile("test suite.aat");
-		TestPersistance.saveToFile(emptySuite, suiteFile);
-		monitor.worked(1);
-		
 		testFile.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 
 		openFileForEditing(monitor, testFile);

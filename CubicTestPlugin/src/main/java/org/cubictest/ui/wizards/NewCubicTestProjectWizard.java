@@ -14,9 +14,12 @@ import org.apache.commons.io.FileUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.IBuildPathSupporter;
+import org.cubictest.model.Test;
+import org.cubictest.persistence.TestPersistance;
 import org.cubictest.ui.customstep.CustomStepEditor;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.ICommand;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -81,18 +84,18 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			getContainer().run(false, false, new WorkspaceModifyOperation(null) {
 				@Override
 				protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-					createProject(monitor, summaryPage.getCreateTestOnFinish());
+					IProject project = createProject(monitor, summaryPage.getCreateTestOnFinish());
+					createTestSuite(project);
 				}
 			});
-		} catch (InvocationTargetException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
-		} catch (InterruptedException e) {
+			
+		} catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 		return true;
 	}
 	
-	private void createProject(IProgressMonitor monitor, boolean launchNewTestWizard) {
+	private IProject createProject(IProgressMonitor monitor, boolean launchNewTestWizard) {
 		
 		try {
 			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
@@ -181,11 +184,21 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			
 			project.refreshLocal(IResource.DEPTH_INFINITE, null);
 			
+			return project;
+			
 		} catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+			return null;
 		}
 	}
 
+	private void createTestSuite(IProject project) throws CoreException {
+		Test emptySuite = WizardUtils.createEmptyTestWithTestSuiteStartPoint("Default test suite", "");
+		IFile suiteFile = project.getFolder(NewCubicTestProjectWizard.TEST_SUITES_FOLDER_NAME).getFile("test suite.aat");
+		TestPersistance.saveToFile(emptySuite, suiteFile);
+		project.refreshLocal(IResource.DEPTH_INFINITE, null);
+	}
+	
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
 	}
