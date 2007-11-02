@@ -109,6 +109,9 @@ public class ContextHolder implements IResultHolder {
 			if (pe.equals(orgElement)) {
 				continue; //skip current element
 			}
+			if (pe.isNot()) {
+				continue; //skip elements that are not there
+			}
 			if (i > 0) {
 				res += "][";
 			}

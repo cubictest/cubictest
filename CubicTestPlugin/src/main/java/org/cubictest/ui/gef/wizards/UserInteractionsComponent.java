@@ -66,7 +66,7 @@ import org.eclipse.swt.widgets.TableItem;
 public class UserInteractionsComponent {
 	
 	private static final String CHOOSE = "--Choose--";
-	private static final String DELETE_ROW = "--Delete row--";
+	private static final String DELETE_ROW = "--Delete user interaction--";
 	private static final String MOVE_UP = "--Move up--";
 	private static final String MOVE_DOWN = "--Move down--";
 	private TableViewer tableViewer;
@@ -112,7 +112,12 @@ public class UserInteractionsComponent {
 				elementsTree.addAll(((Common)(at).getStart()).getRootElements());			
 		}
 		
-		allActionElements.addAll(UserInteractionDialogUtil.getFlattenedPageElements(elementsTree));
+		List<PageElement> flatList = UserInteractionDialogUtil.getFlattenedPageElements(elementsTree);
+		for (PageElement pe : flatList) {
+			if (!((PageElement) pe).isNot()){
+				allActionElements.add(pe);
+			}
+		}
 		transition.setPage((AbstractPage)transition.getStart());
 	}
 	

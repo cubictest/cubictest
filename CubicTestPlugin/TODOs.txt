@@ -28,6 +28,7 @@ Done	Test suites should continue to next test even if a test fails. Create a pro
 
 Better cancel of Selenium Runner. Especially when user interactions that does not lead to page load.
 Problem with image button im IMDB
+Better error message when element not found in context (search within it for elements).
 Do not close browser when M2 build fails - test project property
 
 Error log should be available by default.
