@@ -1,14 +1,14 @@
 #Fat Jar Configuration File
-#Wed Jun 27 23:40:33 CEST 2007
+#Fri Nov 02 20:25:06 CET 2007
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=cubictest-1.7.6.jar
-manifest.mergeall=true
+jarname=cubictest-1.7.11.jar
+manifest.mergeall=false
 manifest.mainclass=
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=
-excludes=<jar|org.eclipse.osgi_3.2.2.R32x_v20070118.jar>;<jar|runtime_registry_compatibility.jar>;<jar|org.eclipse.equinox.registry_3.2.1.R32x_v20060814.jar>;<jar|org.eclipse.equinox.preferences_3.2.1.R32x_v20060717.jar>;<jar|org.eclipse.core.contenttype_3.2.0.v20060603.jar>;<jar|org.eclipse.ui.ide_3.2.1.M20060915-1030.jar>;<jar|org.eclipse.gef_3.2.2.v20070208.jar>;<jar|org.eclipse.swt_3.2.2.v3236b.jar>;<jar|org.eclipse.ui.views.properties.tabbed_3.2.1.M20060830-0800.jar>;<jar|org.eclipse.ui.forms_3.2.0.v20060602.jar>;<jar|org.eclipse.ui.views_3.2.1.M20060906-0800.jar>;<jar|org.eclipse.ui_3.2.1.M20061108.jar>;<jar|org.eclipse.core.commands_3.2.0.I20060605-1400.jar>;<jar|org.eclipse.ui.workbench_3.2.2.M20070119-0800.jar>;<jar|org.eclipse.jdt.core_3.2.3.v_686_R32x.jar>;<jar|org.eclipse.ui.editors_3.2.1.r321_v20060721.jar>;<jar|org.eclipse.core.filebuffers_3.2.1.r321_v20060721.jar>;<jar|org.eclipse.ui.workbench.texteditor_3.2.0.v20060605-1400.jar>;<jar|org.eclipse.debug.core_3.2.1.v20060823.jar>;<jar|junit-4.1.jar>;<jar|org.eclipse.jdt.ui_3.2.2.r322_v20070124.jar>;<jar|org.eclipse.help_3.2.2.R322_v20061213.jar>;<jar|org.eclipse.ui.console_3.1.100.v20060605.jar>;<jar|org.eclipse.ui.intro_3.2.2.R322_v20061214.jar>;<jar|org.eclipse.jface.text_3.2.2.r322_v20070104.jar>;<jar|org.eclipse.text_3.2.0.v20060605-1400.jar>
+excludes=<po|CubicTestPlugin>~.svn/;<jar|commons-logging-1.1.jar>;<jar|org.eclipse.osgi_3.3.1.R33x_v20070828.jar>;<jar|runtime_registry_compatibility.jar>;<jar|org.eclipse.equinox.registry_3.3.1.R33x_v20070802.jar>;<jar|org.eclipse.equinox.preferences_3.2.100.v20070522.jar>;<jar|org.eclipse.core.contenttype_3.2.100.v20070319.jar>;<jar|org.eclipse.equinox.app_1.0.1.R33x_v20070828.jar>;<jar|org.eclipse.ui.ide_3.3.1.M20070910-0800b.jar>;<jar|org.eclipse.gef_3.2.101.v20070814.jar>;<jar|org.eclipse.ui.views.properties.tabbed_3.3.1.M20070831-0800.jar>;<jar|org.eclipse.ui.forms_3.3.0.v20070511.jar>;<jar|org.eclipse.ui.views_3.2.101.M20070910-0800b.jar>;<jar|org.eclipse.ui_3.3.1.M20070910-0800b.jar>;<jar|org.eclipse.core.commands_3.3.0.I20070605-0010.jar>;<jar|org.eclipse.ui.workbench_3.3.1.M20070921-1200.jar>;<jar|org.eclipse.jdt.core_3.3.1.v_780_R33x.jar>;<jar|org.eclipse.jdt.compiler.apt_1.0.1.R33x_v20070831-0435.jar>;<jar|org.eclipse.jdt.compiler.tool_1.0.1.v_780_R33x.jar>;<jar|org.eclipse.ui.editors_3.3.1.r331_v20070629.jar>;<jar|org.eclipse.core.filebuffers_3.3.1.r331_v20070829.jar>;<jar|org.eclipse.ui.workbench.texteditor_3.3.1.r331_v20070806.jar>;<jar|org.eclipse.debug.core_3.3.1.v20070731_r331.jar>;<jar|junit.jar>;<jar|org.eclipse.jdt.ui_3.3.1.r331_v20070906.jar>;<jar|org.eclipse.help_3.3.1.v20070726_33x.jar>;<jar|org.eclipse.core.expressions_3.3.0.v20070606-0010.jar>;<jar|org.eclipse.ui.console_3.2.1.v20070824_r331.jar>;<jar|org.eclipse.ui.intro_3.2.101.v20070827_33x.jar>;<jar|org.eclipse.jface.text_3.3.1.r331_v20070629.jar>;<jar|org.eclipse.text_3.3.0.v20070606-0010.jar>
 includes=

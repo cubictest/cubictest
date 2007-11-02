@@ -1,7 +1,7 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.myCompany</groupId>
-  <artifactId>CubicTests</artifactId>
+  <artifactId>FunctionalTests</artifactId>
   <version>1</version>
   
   <build>
@@ -9,7 +9,7 @@
       <plugin>
         <groupId>org.cubictest</groupId>
         <artifactId>cubictest-selenium-runner-maven-plugin</artifactId>
-		<version>1.7.6</version>
+		<version>1.7.11</version>
         <executions>
           <execution>
             <phase>integration-test</phase>

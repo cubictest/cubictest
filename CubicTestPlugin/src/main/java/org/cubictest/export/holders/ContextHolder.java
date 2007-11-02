@@ -25,7 +25,7 @@ public class ContextHolder implements IResultHolder {
 
 	private Stack<IContext> contextStack = new Stack<IContext>(); 
 	private Map<PageElement, PageElement> elementParentMap = new HashMap<PageElement, PageElement>();
-	
+	private boolean shouldFailOnAssertionFailure;
 	
 	/**
 	 * Set new context, i.e. XPath starting point (path) for lookup of elements.
@@ -124,5 +124,14 @@ public class ContextHolder implements IResultHolder {
 
 	public void updateStatus(SubTest subTest, boolean hadException, ConnectionPoint targetConnectionPoint) {
 		//Empty. Can be overridden if exporters want to update sub test statuses.
+	}
+
+
+	public boolean shouldFailOnAssertionFailure() {
+		return shouldFailOnAssertionFailure;
+	}
+
+	public void setShouldFailOnAssertionFailure(boolean shouldFailOnAssertionFailure) {
+		this.shouldFailOnAssertionFailure = shouldFailOnAssertionFailure;
 	}
 }

@@ -27,4 +27,10 @@ public interface IResultHolder {
 	 * @param subTest
 	 */
 	public void updateStatus(SubTest subTest, boolean hadException, ConnectionPoint targetConnectionPoint);
+	
+	/**
+	 * Get whether runner should fail on assertion failure.
+	 * @return
+	 */
+	public boolean shouldFailOnAssertionFailure();
 }

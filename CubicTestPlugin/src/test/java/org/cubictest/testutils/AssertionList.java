@@ -81,4 +81,11 @@ public class AssertionList<T> extends ArrayList<T> implements IResultHolder {
 	public void updateStatus(SubTest subTest, boolean hadException, ConnectionPoint targetConnectionPoint) {
 		// TODO Auto-generated method stub
 	}
+
+
+
+	public boolean shouldFailOnAssertionFailure() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

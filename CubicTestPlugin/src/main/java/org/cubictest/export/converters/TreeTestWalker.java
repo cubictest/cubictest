@@ -10,6 +10,8 @@ package org.cubictest.export.converters;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.cubictest.common.exception.UnknownExtensionPointException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.exceptions.AssertionFailedException;
@@ -243,13 +245,13 @@ public class TreeTestWalker<T extends IResultHolder> {
 	private void handleSubTestException(T resultHolder, SubTest subTest, ConnectionPoint targetExtensionPoint, Exception e) {
 		if (e instanceof AssertionFailedException) {
 			resultHolder.updateStatus(subTest, false, targetExtensionPoint);
-			if (isNotTestSuiteTest(subTest)) {
+			if (shouldThrowException(resultHolder, subTest)) {
 				throw new AssertionFailedException(e.getMessage() + ", in subtest \"" + subTest.getFileName() + "\"");
 			}
 		}
 		else if (e instanceof ExporterException) {
 			resultHolder.updateStatus(subTest, true, targetExtensionPoint);
-			if (isNotTestSuiteTest(subTest)) {
+			if (shouldThrowException(resultHolder, subTest)) {
 				throw new ExporterException(e.getMessage() + ", in subtest \"" + subTest.getFileName() + "\"");
 			}
 		}
@@ -260,8 +262,14 @@ public class TreeTestWalker<T extends IResultHolder> {
 	}
 
 
-	private boolean isNotTestSuiteTest(TransitionNode node) {
-		return !(ModelUtil.getStartPoint(node) instanceof TestSuiteStartPoint);
+	private boolean shouldThrowException(IResultHolder resultHolder, TransitionNode node) {
+		if (resultHolder.shouldFailOnAssertionFailure()) {
+			return true;
+		}
+		else {
+			//throw if not a test suite
+			return !(ModelUtil.getStartPoint(node) instanceof TestSuiteStartPoint);
+		}
 	}
 
 	

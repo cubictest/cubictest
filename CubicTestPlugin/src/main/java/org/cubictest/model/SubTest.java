@@ -5,6 +5,7 @@
 package org.cubictest.model;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.resources.interfaces.IResourceMonitor;
@@ -54,8 +55,11 @@ public class SubTest extends ConnectionPoint {
 			}
 			
 		} catch (Exception e) {
+			String message = "Failed to load test from file path " + getFilePath();
+			Logger.error(e, message);
 			dangling = true;
 			test = new Test();
+			test.setName(message);
 		}
 		return test;
 	}

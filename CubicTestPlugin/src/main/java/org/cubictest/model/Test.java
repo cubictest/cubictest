@@ -241,7 +241,10 @@ public class Test extends PropertyAwareObject {
 	}
 	
 	public IProject getProject() {
-		return filePath.getProject();
+		if (filePath != null) {
+			return filePath.getProject();
+		}
+		return null;
 	}
 	
 	public List<SubTest> getSubTests() {
@@ -365,6 +368,10 @@ public class Test extends PropertyAwareObject {
 	
 	@Override
 	public String toString() {
-		return "\"" + getName() + "\" <" + getFile().getName() + ">";
+		String s = "\"" + getName() + "\"";
+		if (getFile() != null) {
+			s += " <" + getFile().getName() + ">";
+		}
+		return s;
 	}
 }
