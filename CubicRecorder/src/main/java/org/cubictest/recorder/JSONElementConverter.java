@@ -131,6 +131,9 @@ public class JSONElementConverter {
 			//looping over the created page element's ID types and setting all applicable values:
 			
 			for(IdentifierType idType : pe.getIdentifierTypes()){
+				//override default "must" typically used for direct edit:
+				pe.getIdentifier(idType).setProbability(0);
+				
 				String key = null;
 				String src = "";
 				
