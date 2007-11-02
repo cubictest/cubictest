@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.exporters.htmlPrototype.interfaces.IPageElementConverter;
 import org.cubictest.exporters.htmlPrototype.interfaces.IPageElementConverter.UnknownPageElementException;
 import org.cubictest.exporters.htmlPrototype.utils.XmlUtils;
@@ -130,7 +131,7 @@ public class HtmlPageCreator {
 			FileWriter fw = new FileWriter(file);
 			XmlUtils.getNewXmlOutputter().output(document, fw);
 		} catch (IOException e) {
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error saving file");
 		}
 	}
 	

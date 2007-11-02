@@ -4,6 +4,7 @@
  */
 package org.cubictest.exporters.htmlPrototype.ui;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.CubicTestExport;
 import org.cubictest.exporters.htmlPrototype.ExporterSetup;
 import org.eclipse.core.resources.IResource;
@@ -41,8 +42,7 @@ public class ExportToHtmlAction implements IActionDelegate {
 			CubicTestExport.exportWithCustomDirectoryWalker(ExporterSetup.getRunnableExporter(res));
 		} 
 		catch (Exception e) {
-			MessageDialog.openError(new Shell(), "CubicTest HTML prototype exporter", "An error has occurred!" + "\n" + e.toString());
-			e.printStackTrace();
+			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error creating HTML prototype");
 		}
 		
 	}
