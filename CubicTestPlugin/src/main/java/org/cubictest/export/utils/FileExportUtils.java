@@ -75,7 +75,7 @@ public class FileExportUtils {
 						folder.create(true, true, monitor);
 					} 
 					catch (CoreException e) {
-						ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error creating directory");
+						ErrorHandler.logAndShowErrorDialogAndRethrow("Error creating directory", e);
 					}
 					updatedFolder = folder;
 				}

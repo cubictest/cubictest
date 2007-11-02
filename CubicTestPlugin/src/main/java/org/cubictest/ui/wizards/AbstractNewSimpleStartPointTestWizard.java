@@ -78,7 +78,7 @@ public abstract class AbstractNewSimpleStartPointTestWizard extends NewTestWizar
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {
-			ErrorHandler.logAndShowErrorDialog(e, "Error creating test");
+			ErrorHandler.logAndShowErrorDialog("Error creating test", e);
 			return false;
 		}
 		return true;

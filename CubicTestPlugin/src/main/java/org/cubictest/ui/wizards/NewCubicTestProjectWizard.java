@@ -154,7 +154,7 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 					} catch (CoreException e) {
 						Logger.info("Didn't find buildpath supporter for: " + element.getName() );
 					} catch (Exception e) {
-						Logger.error(e, "Error when getting file from buildpath suppoerter");
+						Logger.error("Error when getting file from buildpath suppoerter", e);
 					}
 				}
 			}

@@ -56,7 +56,7 @@ public class SubTest extends ConnectionPoint {
 			
 		} catch (Exception e) {
 			String message = "Failed to load test from file path " + getFilePath();
-			Logger.error(e, message);
+			Logger.error(message, e);
 			dangling = true;
 			test = new Test();
 			test.setName(message);

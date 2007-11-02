@@ -88,7 +88,7 @@ public class CubicTestProjectSettings {
 			properties.load(in);
 		} 
 		catch (Exception e) {
-			ErrorHandler.logAndRethrow(e, "Error loading properties");
+			ErrorHandler.logAndRethrow("Error loading properties", e);
 		} 
 		finally {
 			if (in != null) {

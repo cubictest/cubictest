@@ -25,7 +25,7 @@ public class ErrorHandler {
 		throw new CubicException(e);
 	}
 
-	public static void rethrow(Throwable e, String message) {
+	public static void rethrow(String message, Throwable e) {
 		e = getCause(e);
 		if (e instanceof RuntimeException) {
 			throw (RuntimeException) e;
@@ -34,43 +34,43 @@ public class ErrorHandler {
 	}
 	
 	public static void logAndRethrow(Throwable e) {
-		Logger.error(e, e.getMessage());
+		Logger.error(e.getMessage(), e);
 		rethrow(e);
 	}
 
 	public static void logAndThrow(String message) {
-		Logger.error(null, message);
+		Logger.error(message, null);
 		throw new CubicException(message);
 	}
 	
-	public static void logAndRethrow(Throwable e, String message) {
-		Logger.error(e, message);
-		rethrow(e, message);
+	public static void logAndRethrow(String message, Throwable e) {
+		Logger.error(message, e);
+		rethrow(message, e);
 	}
 
 	public static void logAndShowErrorDialog(String message) {
-		Logger.error(null, message);
+		Logger.error(message, null);
 		if (EnvironmentInfo.isRunningInEclipse()) {
 			UserInfo.showErrorDialog(null, message);
 		}
 	}
 	
 	public static void logAndShowErrorDialog(Throwable e) {
-		Logger.error(e, e.getMessage());
+		Logger.error(e.getMessage(), e);
 		if (EnvironmentInfo.isRunningInEclipse()) {
 			UserInfo.showErrorDialog(e);
 		}
 	}
 	
-	public static void logAndShowErrorDialog(Throwable e, String message) {
-		Logger.error(e, message);
+	public static void logAndShowErrorDialog(String message, Throwable e) {
+		Logger.error(message, e);
 		if (EnvironmentInfo.isRunningInEclipse()) {
 			UserInfo.showErrorDialog(e, message);
 		}
 	}
 
-	public static void logAndShowErrorDialog(Throwable e, String message, Shell shell) {
-		Logger.error(e, message);
+	public static void logAndShowErrorDialog(String message, Throwable e, Shell shell) {
+		Logger.error(message, e);
 		if (EnvironmentInfo.isRunningInEclipse()) {
 			UserInfo.showErrorDialog(e, message, shell);
 		}
@@ -78,7 +78,7 @@ public class ErrorHandler {
 
 	
 	public static void logAndShowErrorDialogAndThrow(String message) {
-		Logger.error(null, message);
+		Logger.error(message, null);
 		if (EnvironmentInfo.isRunningInEclipse()) {
 			UserInfo.showErrorDialog(message);
 		}
@@ -86,7 +86,7 @@ public class ErrorHandler {
 	}
 	
 	public static void logAndShowErrorDialogAndRethrow(Throwable e) {
-		Logger.error(e, e.getMessage()); 
+		Logger.error(e.getMessage(), e); 
 		if (EnvironmentInfo.isRunningInEclipse()) {
 			UserInfo.showErrorDialog(e);
 		}
@@ -94,12 +94,12 @@ public class ErrorHandler {
 	}
 
 	
-	public static void logAndShowErrorDialogAndRethrow(Throwable e, String message) {
-		Logger.error(e, message);
+	public static void logAndShowErrorDialogAndRethrow(String message, Throwable e) {
+		Logger.error(message, e);
 		if (EnvironmentInfo.isRunningInEclipse()) {
 			UserInfo.showErrorDialog(e, message);
 		}
-		rethrow(e, message);
+		rethrow(message, e);
 	}
 	
 	

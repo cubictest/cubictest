@@ -66,9 +66,9 @@ public class AddPageElementAction extends SelectionAction {
 		try {
 			setText("Add new " + pageElement.newInstance().getType());
 		} catch (InstantiationException e) {
-			Logger.error(e, "Could not set action text.");
+			Logger.error("Could not set action text.", e);
 		} catch (IllegalAccessException e) {
-			Logger.error(e, "Could not set action text.");
+			Logger.error("Could not set action text.", e);
 		}
     	setId(getActionId(pageElement));
 	}
@@ -84,7 +84,7 @@ public class AddPageElementAction extends SelectionAction {
 					return;
 				pe = pageElement.newInstance();
 			} catch (Exception e) {
-				ErrorHandler.logAndShowErrorDialogAndRethrow(e,"Problems with adding the new pageElement");
+				ErrorHandler.logAndShowErrorDialogAndRethrow("Problems with adding the new pageElement",e);
 				return;
 			}
 			command.setPageElement(pe);

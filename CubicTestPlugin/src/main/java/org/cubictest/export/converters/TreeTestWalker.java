@@ -235,7 +235,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 		}
 		else {
 			String msg = "Target extension point connected to page not present in test: " + node + ", " + targetExtensionPoint;
-			ErrorHandler.logAndShowErrorDialogAndRethrow(new UnknownExtensionPointException(msg), msg);;
+			ErrorHandler.logAndShowErrorDialogAndRethrow(msg, new UnknownExtensionPointException(msg));;
 		}
 		
 		return nodeFinished;

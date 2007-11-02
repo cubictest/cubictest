@@ -27,7 +27,7 @@ public class Logger {
 			CommonsLoggingLogger.error(e);
 	}
 
-	public static void error(Throwable e, String message) {
+	public static void error(String message, Throwable e) {
 		if (EnvironmentInfo.isRunningInEclipse())
 			EclipseLogger.error(e, message);
 		else
@@ -42,7 +42,7 @@ public class Logger {
 			CommonsLoggingLogger.warn(message);
 	}
 
-	public static void warn(Throwable e, String message) {
+	public static void warn(String message, Throwable e) {
 		if (EnvironmentInfo.isRunningInEclipse())
 			EclipseLogger.warn(e, message);
 		else

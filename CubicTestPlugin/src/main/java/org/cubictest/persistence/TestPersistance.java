@@ -70,7 +70,7 @@ public class TestPersistance {
 			xml = FileUtils.readFileToString(file, "ISO-8859-1");
 			xml = LegacyUpgrade.upgradeIfNecessary(xml, project);
 		} catch (FileNotFoundException e) {
-			Logger.error(e, "Test file not found.");
+			Logger.error("Test file not found.", e);
 			throw new TestNotFoundException(e.getMessage());
 		} catch (IOException e) {
 			ErrorHandler.logAndRethrow(e);

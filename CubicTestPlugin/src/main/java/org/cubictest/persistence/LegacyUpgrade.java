@@ -168,7 +168,7 @@ public class LegacyUpgrade {
 			xml = new XMLOutputter().outputString(document);
 		}
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Could not convert old file format to new format.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Could not convert old file format to new format.", e);
 		}
 		
 		version.increment();
@@ -295,7 +295,7 @@ public class LegacyUpgrade {
 			xml = new XMLOutputter().outputString(document);
 		}
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Could not convert old file format to new format.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Could not convert old file format to new format.", e);
 		}
 
 		version.increment();
@@ -318,7 +318,7 @@ public class LegacyUpgrade {
 			xml = new XMLOutputter().outputString(document);
 		}
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Could not convert old file format to new format.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Could not convert old file format to new format.", e);
 		}
 		version.increment();
 		return xml;

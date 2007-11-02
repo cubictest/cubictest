@@ -125,7 +125,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {
-			ErrorHandler.logAndShowErrorDialog(e, "Error creating test");
+			ErrorHandler.logAndShowErrorDialog("Error creating test", e);
 			return false;
 		}
 		setPackageExplorerLinkingEnabled(false);

@@ -359,7 +359,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		try{
 			((IFileEditorInput)getEditorInput()).getFile().refreshLocal(1, monitor);
 		} catch (CoreException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error saving file.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error saving file.", e);
 		}
 	}
 	

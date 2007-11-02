@@ -100,7 +100,7 @@ public abstract class BaseRunnerAction implements IEditorActionDelegate {
 			if(shell != null) {
 				shell.forceActive();
 			}
-			ErrorHandler.logAndShowErrorDialog(e, "Error when running test", shell);
+			ErrorHandler.logAndShowErrorDialog("Error when running test", e, shell);
 		}
 		finally {
 			finalCleanUp();

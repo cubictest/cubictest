@@ -19,7 +19,7 @@ public class CustomTestStepPersistance {
 		try {
 			xml = FileUtils.readFileToString(file.getLocation().toFile(), "ISO-8859-1");
 		} catch (FileNotFoundException e) {
-			Logger.error(e, "Error loading test.");
+			Logger.error("Error loading test.", e);
 			throw new TestNotFoundException(e.getMessage());
 		} catch (IOException e) {
 			ErrorHandler.logAndRethrow(e);

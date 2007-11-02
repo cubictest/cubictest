@@ -101,7 +101,7 @@ public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 			}
 		} 
 		catch (CoreException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error when updating tests with new path after file move / rename.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error when updating tests with new path after file move / rename.", e);
 		}
 	}
 

@@ -74,7 +74,7 @@ public class ParamsEditor extends EditorPart {
 		try {
 			((IFileEditorInput)getEditorInput()).getFile().refreshLocal(1, monitor);
 		} catch (CoreException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error saving file");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error saving file", e);
 		}
 		
 		this.isDirty = false;

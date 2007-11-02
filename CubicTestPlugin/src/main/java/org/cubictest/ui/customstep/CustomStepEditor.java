@@ -147,7 +147,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 					monitor);
 		} catch (CoreException e) {
 			ErrorHandler
-					.logAndShowErrorDialogAndRethrow(e, "Error saving file");
+					.logAndShowErrorDialogAndRethrow("Error saving file", e);
 		}
 		commandStack.markSaveLocation();
 		this.isDirty = false;
