@@ -1,12 +1,4 @@
 Required to run tests:
 
-org.eclipse.draw2d
-org.eclipse.core.jobs
-org.eclipse.equinox.common
-org.eclipse.swt.win32 		(2 meg)
-org.eclipse.jface 			(1 meg)
-org.eclipse.core.resources
-commons-io
-commons-lang
-xstream
-xpp
+selenium-server
+selenium-java-client-driver
