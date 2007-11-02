@@ -61,7 +61,7 @@ public class CubicUnitRunner implements IRunnableWithProgress, ILaunchConfigurat
 		try {
 			server.stop();
 		} catch (InterruptedException e) {
-			ErrorHandler.logAndShowErrorDialog(e, "Problems stopping the CubicSeleniumServer");
+			ErrorHandler.logAndShowErrorDialog("Problems stopping the CubicSeleniumServer", e);
 		}
 		
 		monitor.done();

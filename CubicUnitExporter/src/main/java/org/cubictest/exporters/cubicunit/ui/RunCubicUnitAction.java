@@ -61,7 +61,7 @@ public class RunCubicUnitAction implements IEditorActionDelegate {
 			}catch (Exception e) {
 				if(shell != null)
 					shell.forceActive();
-				ErrorHandler.logAndShowErrorDialog(e, "Error when running test", shell);
+				ErrorHandler.logAndShowErrorDialog("Error when running test", e, shell);
 			}
 		}
 	}

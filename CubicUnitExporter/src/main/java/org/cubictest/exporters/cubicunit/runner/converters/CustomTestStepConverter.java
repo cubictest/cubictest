@@ -71,7 +71,7 @@ public class CustomTestStepConverter implements ICustomTestStepConverter<Holder>
 			ctsimpl.execute(null, null, null);
 			*/
 		} catch (Exception e) {
-			ErrorHandler.logAndRethrow(e, "File in error: " + data.getPath());
+			ErrorHandler.logAndRethrow("File in error: " + data.getPath(), e);
 		}
 	}
 }
