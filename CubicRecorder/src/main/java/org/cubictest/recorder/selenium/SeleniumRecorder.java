@@ -61,7 +61,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 			selenium.stop();
 			seleniumProxy.stop();
 		} catch(SeleniumException e) {
-			Logger.error(e, e.toString());
+			Logger.error(e.toString(), e);
 		}
 	}
 
@@ -93,7 +93,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 		    				UserInfo.showErrorDialog(e, finalMsg);
 		    			}
 		    		});
-					ErrorHandler.logAndRethrow(e, finalMsg);
+					ErrorHandler.logAndRethrow(finalMsg, e);
 				}
 			}
 			
