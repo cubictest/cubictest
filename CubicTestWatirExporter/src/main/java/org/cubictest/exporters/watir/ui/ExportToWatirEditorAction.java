@@ -52,7 +52,7 @@ public class ExportToWatirEditorAction implements IEditorActionDelegate {
 			UserInfo.showInfoDialog(ExportToWatirAction.OK_MESSAGE);
 		} 
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in Watir export");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error occured in Watir export", e);
 		}
 		
 		

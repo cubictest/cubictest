@@ -78,8 +78,8 @@ public class TestRunner extends BaseTestRunner {
 			try {
 				process = builder.start();
 			} catch (Exception e) {
-				ErrorHandler.logAndRethrow(e, "Could not start Ruby. Check that Ruby is installed on your system.\n\n" +
-						"Note: After Ruby installation, CubicTest must be restarted before the runner will work.\n\n");
+				ErrorHandler.logAndRethrow("Could not start Ruby. Check that Ruby is installed on your system.\n\n" +
+						"Note: After Ruby installation, CubicTest must be restarted before the runner will work.\n\n", e);
 			}
 			processAlive = true;
 			testRunning = true;

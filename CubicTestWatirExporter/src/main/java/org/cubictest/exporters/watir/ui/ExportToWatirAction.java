@@ -46,7 +46,7 @@ public class ExportToWatirAction implements IActionDelegate {
 			UserInfo.showInfoDialog(OK_MESSAGE);
 		} 
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in CubicTest Watir exporter.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error occured in CubicTest Watir exporter.", e);
 		}
 		
 	}
