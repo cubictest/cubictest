@@ -130,7 +130,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				}
 				seleniumHolder.addResult(pe, TestPartStatus.EXCEPTION, pe.isNot());
 			}
-			Logger.error(e, msg);
+			Logger.error(msg, e);
 			throw new UserInteractionException(msg);
 		}
 	}

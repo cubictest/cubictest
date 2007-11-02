@@ -56,7 +56,7 @@ public class ExportToSeleniumEditorAction implements IEditorActionDelegate {
 			UserInfo.showInfoDialog(ExportToSeleniumAction.OK_MESSAGE);
 		} 
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in Selenium export.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error occured in Selenium export.", e);
 		}
 		
 	}

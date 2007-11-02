@@ -90,7 +90,7 @@ public class SeleniumWorkerThread extends RunnerWorkerThread<SeleniumHolder> {
 			}
 		} 
 		catch (Exception e) {
-			ErrorHandler.logAndRethrow(e, "Error when stopping selenium test system");
+			ErrorHandler.logAndRethrow("Error when stopping selenium test system", e);
 		}
 		finally {
 			try {
@@ -99,7 +99,7 @@ public class SeleniumWorkerThread extends RunnerWorkerThread<SeleniumHolder> {
 				}
 			} 
 			catch (InterruptedException e) {
-				ErrorHandler.logAndRethrow(e, "Error when stopping server");
+				ErrorHandler.logAndRethrow("Error when stopping server", e);
 			}
 		}	
 		return null;

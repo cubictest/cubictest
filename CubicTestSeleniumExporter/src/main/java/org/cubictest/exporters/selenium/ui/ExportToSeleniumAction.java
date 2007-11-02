@@ -50,7 +50,7 @@ public class ExportToSeleniumAction implements IActionDelegate {
 			UserInfo.showInfoDialog(OK_MESSAGE);
 		} 
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error occured in CubicTest Selenium exporter.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error occured in CubicTest Selenium exporter.", e);
 		}
 		
 	}

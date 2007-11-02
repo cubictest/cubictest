@@ -46,13 +46,13 @@ public class SeleniumProxyServer {
 	                    Logger.info("Server started");
 	                }
 	                catch (Exception e) {
-	                    ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error starting selenium server.");
+	                    ErrorHandler.logAndShowErrorDialogAndRethrow("Error starting selenium server.", e);
 	                }
 	            }
 	        });
 	        
 		} catch (Exception e) {
-            ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error starting selenium server.");
+            ErrorHandler.logAndShowErrorDialogAndRethrow("Error starting selenium server.", e);
 		}
 	}
 	
