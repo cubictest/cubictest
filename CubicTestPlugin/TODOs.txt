@@ -26,6 +26,8 @@ Done	If same element names in action dropdown, add IDs
 Done	If more than one same element, add context Info.
 Done	Test suites should continue to next test even if a test fails. Create a property for it.
 
+Better cancel of Selenium Runner. Especially when user interactions that does not lead to page load.
+Problem with image button im IMDB
 Do not close browser when M2 build fails - test project property
 
 Error log should be available by default.
