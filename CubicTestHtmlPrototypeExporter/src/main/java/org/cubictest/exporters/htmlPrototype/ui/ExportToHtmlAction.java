@@ -42,7 +42,7 @@ public class ExportToHtmlAction implements IActionDelegate {
 			CubicTestExport.exportWithCustomDirectoryWalker(ExporterSetup.getRunnableExporter(res));
 		} 
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error creating HTML prototype");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error creating HTML prototype", e);
 		}
 		
 	}

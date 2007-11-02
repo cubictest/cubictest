@@ -43,7 +43,7 @@ public class ExportToHtmlEditorAction implements IEditorActionDelegate {
 			CubicTestExport.exportWithCustomDirectoryWalker(ExporterSetup.getRunnableExporter(currentFile));
 		} 
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error creating HTML prototype");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error creating HTML prototype", e);
 		}
 		
 	}

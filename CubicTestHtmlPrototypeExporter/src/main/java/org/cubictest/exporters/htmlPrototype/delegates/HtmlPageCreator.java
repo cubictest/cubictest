@@ -131,7 +131,7 @@ public class HtmlPageCreator {
 			FileWriter fw = new FileWriter(file);
 			XmlUtils.getNewXmlOutputter().output(document, fw);
 		} catch (IOException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error saving file");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error saving file", e);
 		}
 	}
 	

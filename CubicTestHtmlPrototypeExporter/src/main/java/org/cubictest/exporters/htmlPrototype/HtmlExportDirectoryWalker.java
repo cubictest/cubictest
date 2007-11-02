@@ -80,7 +80,7 @@ public class HtmlExportDirectoryWalker<T extends IResultHolder> extends Director
 			copy(destinationFolder, "cubic.js");
 		}
 		catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e, "Error copying stylesheet or javascript file! The prototype will have limited functionality.");
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error copying stylesheet or javascript file! The prototype will have limited functionality.", e);
 		}
 			
 	}
