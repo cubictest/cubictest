@@ -187,10 +187,6 @@ public class JSONElementConverter {
 					Identifier identifier = pe.getIdentifier(idType);
 					identifier.setValue("");
 					identifier.setProbability(0);
-				} else if(key.equals("src")) {
-					Identifier identifier = pe.getIdentifier(idType);
-					identifier.setValue(src);
-					identifier.setProbability(100);
 				} else {
 					String value = getString(properties, key);
 					if (StringUtils.isNotBlank(value)) {
