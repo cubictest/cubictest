@@ -11,15 +11,13 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import junit.framework.TestFailure;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.cubictest.common.settings.CubicTestProjectSettings;
-import org.cubictest.export.exceptions.TestFailedException;
-import org.cubictest.exporters.selenium.runner.RunnerSetup;
+import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.selenium.runner.TestRunner;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 
@@ -55,20 +53,23 @@ public class MavenSeleniumRunner extends AbstractMojo
         
         while (iter.hasNext()) {
         	File file = (File) iter.next();
-        	getLog().info("Converting: " + file);
+        	getLog().info("---------------------------");
+        	getLog().info("Running test: " + file);
+        	getLog().info("---------------------------");
         	Test test = TestPersistance.loadFromFile(file, null);
         	getLog().info("Test loaded: " + test.getName());
 
-    		RunnerSetup testRunner = null;
+    		TestRunner testRunner = null;
     		try {
-    			testRunner = new RunnerSetup(test, null, settings);
+    			testRunner = new TestRunner(test, null, settings);
     			testRunner.setFailOnAssertionFailure(true);
+    			//RUN IT!
     			testRunner.run(null);
     			passedTests.add(file.getName());
     		}
-    		catch (TestFailedException tfe) {
+    		catch (ExporterException e) {
             	getLog().error("==========================================================");
-    			getLog().error("Failure in test " + file.getName() + ": " + tfe.getMessage());
+    			getLog().error("Failure in test " + file.getName() + ": " + e.getMessage());
             	getLog().error("==========================================================");
     			failedTests.add(file.getName());
     			buildOk = false;
@@ -81,7 +82,7 @@ public class MavenSeleniumRunner extends AbstractMojo
     			break;
 			}
     		finally {
-				((RunnerSetup) testRunner).stopSelenium();
+				((TestRunner) testRunner).stopSelenium();
     		}
         }
         

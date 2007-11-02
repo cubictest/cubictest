@@ -4,7 +4,7 @@
   <groupId>org.cubictest</groupId>
   <artifactId>cubictest-selenium-runner-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.7.6</version>
+  <version>1.7.11</version>
   <name>test-runner Maven Mojo</name>
   <url>http://www.cubictest.org</url>
 
@@ -32,15 +32,28 @@
     <dependency>
       <groupId>org.cubictest</groupId>
       <artifactId>selenium-exporter</artifactId>
-      <version>1.7.6</version>
+      <version>1.7.11</version>
     </dependency>
     
     <dependency>
       <groupId>org.cubictest</groupId>
       <artifactId>cubictest</artifactId>
-      <version>1.7.6</version>
+      <version>1.7.11</version>
     </dependency>
     
   </dependencies>
 
+  <build>
+	
+	<plugins>
+		<plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-compiler-plugin</artifactId>
+           <configuration>
+              <source>1.5</source>
+              <target>1.5</target>
+           </configuration>
+        </plugin>
+     </plugins>
+  </build>
 </project>
