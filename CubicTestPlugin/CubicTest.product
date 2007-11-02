@@ -42,7 +42,6 @@ Erlend Halvorsen
       <plugin id="com.ibm.icu"/>
       <plugin id="com.jcraft.jsch"/>
       <plugin id="org.apache.ant"/>
-      <plugin id="org.apache.commons.logging"/>
       <plugin id="org.apache.lucene"/>
       <plugin id="org.cubictest"/>
       <plugin id="org.cubictest.exporters.htmlprototype"/>
