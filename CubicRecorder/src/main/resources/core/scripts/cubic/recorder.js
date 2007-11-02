@@ -116,6 +116,7 @@ Cubic.recorder.ContextMenuItem.prototype = {
 			case "password":
 				label = "Password Field";
 				break;
+			case "image":
 			case "button":
 			case "submit":
 				label = "Button";

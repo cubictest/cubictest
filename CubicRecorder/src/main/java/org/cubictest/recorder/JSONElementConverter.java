@@ -101,6 +101,8 @@ public class JSONElementConverter {
 					pe = new Button();
 				} else if(type.equalsIgnoreCase("radio")) {
 					pe = new RadioButton();
+				} else if(type.equalsIgnoreCase("image")) {
+					pe = new Button();
 				} else if(type.equalsIgnoreCase("checkbox")) {
 					pe = new Checkbox();
 				}
