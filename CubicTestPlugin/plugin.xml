@@ -347,6 +347,10 @@
          <property
                name="windowImages"
                value="icons/logo16x16.gif,icons/logo32x32.gif,icons/logo48x48.gif,icons/logo64x64.gif,icons/logo128x128.gif"/>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
+         </property>
       </product>
    </extension>
 </plugin>
