@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
    <description url="http://www.cubictest.org/update">
-      The default update site!
+      The default update site.
    </description>
-   <feature url="features/org.cubictest_1.7.8.jar" id="org.cubictest" version="1.7.8">
+   <feature url="features/org.cubictest_1.7.11.jar" id="org.cubictest" version="1.7.11">
       <category name="CubicTest"/>
    </feature>
    <category-def name="CubicTest" label="CubicTest">
