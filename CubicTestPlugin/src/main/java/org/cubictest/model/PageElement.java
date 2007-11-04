@@ -289,7 +289,10 @@ public abstract class PageElement extends PropertyAwareObject
 	 * If more than one has the same probability, returns the one with DirectEdit or the first.
 	 */
 	public IdentifierType getMainIdentifierType() {
-		return getMainIdentifier().getType();
+		if (getMainIdentifier() != null)  {
+			return getMainIdentifier().getType();
+		}
+		return null;
 	}
 	
 	/**
