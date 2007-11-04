@@ -160,4 +160,8 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		return failOnAssertionFailure;
 	}
 
+	public Display getDisplay() {
+		return display;
+	}
+
 }

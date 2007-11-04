@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.PageElement;
@@ -98,6 +99,17 @@ public class WatirMonitor extends Thread {
 		}
 		else if (line.startsWith(WatirHolder.TEST_DONE)) {
 			runner.testRunning = false;
+		}
+		
+		if (line.contains("REXML::ParseException")) {
+			watirHolder.getDisplay().asyncExec(new Runnable() {
+    			public void run() {
+    				UserInfo.showErrorDialog("Watir failed to parse a page/state probably due to malformed HTML. If the HTML page cannot be fixed, " +
+    						"try the following to prevent the need for parsing the page:\n\n" +
+    						"1. Avoid using Contexts\n" +
+    						"2. Have page elements use only one identifier.\n\n");
+    			}
+    		});
 		}
 	}
 	
