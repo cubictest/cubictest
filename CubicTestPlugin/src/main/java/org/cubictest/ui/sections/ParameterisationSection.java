@@ -65,6 +65,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 	private Label paramIndexLabel;
 	private Spinner paramIndexSpinner;
 	private Button refreshParamButton;
+	private Button createParamsFileButton;
 	
 	ResourcePatternFilter filter = new ResourcePatternFilter(){
 		@Override
@@ -125,7 +126,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 3;
 		gridLayout.makeColumnsEqualWidth = false;
-		fileLabel = getWidgetFactory().createLabel(composite, "Parameter file:");
+		fileLabel = getWidgetFactory().createLabel(composite, "Choose parameter file:");
 		GridData data = new GridData();
 		data.widthHint = STANDARD_LABEL_WIDTH + 50;
 		fileLabel.setLayoutData(data);
@@ -136,6 +137,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		fileName.setLayoutData(data);
 		FileNameListener fileNameListener = new FileNameListener();
 		fileName.addModifyListener(fileNameListener);
+
 		
 		data = new GridData();
 		data.widthHint = 150;
@@ -144,6 +146,15 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		chooseFileButton.setText("Browse...");
 		chooseFileButton.addSelectionListener(selectionListener);
 		chooseFileButton.setLayoutData(data);
+
+		createParamsFileButton = getWidgetFactory().createButton(composite, "Create parameter file", SWT.PUSH);
+		createParamsFileButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				System.out.println("WOO");
+			}
+		});
+		createParamsFileButton.setLayoutData(data);
 		
 		paramIndexLabel = getWidgetFactory().createLabel(composite, "Parameter index:");
 		paramIndexSpinner = new Spinner(composite, SWT.BORDER);
