@@ -133,7 +133,6 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		gridLayout.numColumns = 3;
 		gridLayout.makeColumnsEqualWidth = false;
 		fileLabel = getWidgetFactory().createLabel(composite, "Choose parameter file:");
-		fileLabel.setAlignment(SWT.CENTER);
 		GridData data = new GridData();
 		data.widthHint = STANDARD_LABEL_WIDTH + 50;
 		fileLabel.setLayoutData(data);
