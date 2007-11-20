@@ -25,33 +25,37 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.ui.ide.IDE;
 
 public class NewParamWizard extends Wizard implements INewWizard{
 
 	private WizardNewParamCreationPage namePage;
 	private String defaultDestFolder;
-	
+	private String paramsName;
+
 	@Override
 	public boolean performFinish() {	
 		try {
 			getContainer().run(false, false, new WorkspaceModifyOperation(null) {
 				@Override
 				protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
-					createParams(monitor, namePage.getFileName(), namePage.getContainerName());
+					IFile paramsFile = createParams(monitor, namePage.getFileName(), namePage.getContainerName());
+					
+					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+					IDE.openEditor(page, paramsFile, true);
 				}
-
 			});
-		} catch (InvocationTargetException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
 		
 		return true;
 	}
 	
-	private void createParams(IProgressMonitor monitor, String fileName, String containerName) throws CoreException {
+	private IFile createParams(IProgressMonitor monitor, String fileName, String containerName) throws CoreException {
 		monitor.beginTask("Creating " + fileName, 2);
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IResource resource = root.findMember(new Path(containerName));
@@ -69,13 +73,16 @@ public class NewParamWizard extends Wizard implements INewWizard{
 			}
 			stream.close();
 		} catch (IOException e) {
+			ErrorHandler.logAndRethrow("Error creating params", e);
 		}
+		return file;
 	}
 	
 	@Override
 	public void addPages() {
 		super.addPages();
 		namePage = new WizardNewParamCreationPage("newCubicTestParamNamepage");
+		namePage.setFileName(paramsName);
 		namePage.setTitle("New CubicTest parameters");
 		namePage.setDescription("Choose name and location of parameter file");
 		namePage.setContainerName(defaultDestFolder);
@@ -84,13 +91,15 @@ public class NewParamWizard extends Wizard implements INewWizard{
 	
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		IStructuredSelection iss = (IStructuredSelection) selection;
-		if (iss.getFirstElement() instanceof IResource) {
-			IResource res = (IResource) iss.getFirstElement();
-			this.defaultDestFolder = res.getFullPath().toPortableString();
-		}
-		else if (iss.getFirstElement() instanceof JavaProject) {
-			JavaProject res = (JavaProject) iss.getFirstElement();
-			this.defaultDestFolder = res.getPath().toPortableString();
+		if (defaultDestFolder == null) {
+			if (iss.getFirstElement() instanceof IResource) {
+				IResource res = (IResource) iss.getFirstElement();
+				this.defaultDestFolder = res.getFullPath().toPortableString();
+			}
+			else if (iss.getFirstElement() instanceof JavaProject) {
+				JavaProject res = (JavaProject) iss.getFirstElement();
+				this.defaultDestFolder = res.getPath().toPortableString();
+			}
 		}
 	}
 	
@@ -98,6 +107,14 @@ public class NewParamWizard extends Wizard implements INewWizard{
 	private void throwCoreException(String message) throws CoreException {
 		IStatus status = new Status(IStatus.ERROR, "cubicTestPlugin", IStatus.OK, message, null);
 		throw new CoreException(status);
+	}
+
+	public void setParamsName(String paramsName) {
+		this.paramsName = paramsName;
+	}
+
+	public void setDefaultDestFolder(String defaultDestFolder) {
+		this.defaultDestFolder = defaultDestFolder;
 	}
 
 }

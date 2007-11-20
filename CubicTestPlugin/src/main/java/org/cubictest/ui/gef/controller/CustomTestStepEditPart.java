@@ -8,6 +8,7 @@
 package org.cubictest.ui.gef.controller;
 
 import org.cubictest.common.resources.UiText;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.TransitionNode;
@@ -114,6 +115,7 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart {
 					try {
 						IDE.openEditor(page, file, true);
 					} catch (PartInitException e) {
+						Logger.warn("Failed to open custom step", e);
 					}
 				}
 			});

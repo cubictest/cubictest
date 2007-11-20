@@ -125,12 +125,12 @@ public class ParamsEditor extends EditorPart {
 		parent.setLayout (layout);
 		
 		
+		createButtons(parent);
 		createTable(parent);
 		createTableViewer();
 		
 		tableViewer.setInput(paramList);
 		
-		createButtons(parent);
 	}
 
 	private void createTable(Composite parent) {
@@ -240,7 +240,7 @@ public class ParamsEditor extends EditorPart {
 			@Override
 			public void widgetSelected(SelectionEvent e) {			
 				InputDialog dialog = new InputDialog(new Shell(),
-						"Key Name", "Please enter key name:","",new IInputValidator(){
+						"CubicTest Parameterisation", "Enter key name:","",new IInputValidator(){
 							public String isValid(String newText) {
 								if (newText.length() < 3)
 									return "Minimum 3 letters";

@@ -28,6 +28,11 @@ Done	Test suites should continue to next test even if a test fails. Create a pro
 Done	Problem with image button im IMDB
 Done	Error log should be available by default.
 
+
+Fix the following:  I can connect to my https site only when using the experimental browser *chrome,  but when doing the same from CubicTest I get the impression that *firefox is used. I did not find a way to change this (yet) 
+Document test-project.properties better.
+
+Upgrade to latest version of Selenium RC.
 Parameters on sub tests and extension start points (property view).
 
 Do not close browser when M2 build fails - test project property

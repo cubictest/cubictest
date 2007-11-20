@@ -22,6 +22,7 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 	private Text fileText;
 	private Text containerText;
 	private String defaultContainerName;
+	private String initFileName = "";
 	
 	private static final String fileNameEmptyWarning = 
 		"File name must be set";
@@ -45,7 +46,7 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 		label.setText("File name:");
 		
 		fileText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		fileText.setText(getFileExtention());
+		fileText.setText(initFileName + getFileExtention());
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.horizontalSpan = 2;
 		fileText.setLayoutData(gd);
@@ -88,6 +89,10 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 
 	public String getFileName() {
 		return fileText.getText();
+	}
+	
+	public void setFileName(String name) {
+		initFileName = name;
 	}
 	
 	public String getContainerName(){

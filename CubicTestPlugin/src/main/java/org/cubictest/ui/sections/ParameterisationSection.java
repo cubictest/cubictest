@@ -11,6 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.cubictest.CubicTestPlugin;
 import org.cubictest.model.Test;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.persistence.ParameterPersistance;
@@ -18,6 +19,8 @@ import org.cubictest.ui.gef.command.ChangeParameterListCommand;
 import org.cubictest.ui.gef.command.ChangeParameterListIndexCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
+import org.cubictest.ui.wizards.NewParamWizard;
+import org.cubictest.ui.wizards.UpdateStartPointWizard;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -28,8 +31,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -46,6 +51,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
@@ -127,6 +133,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		gridLayout.numColumns = 3;
 		gridLayout.makeColumnsEqualWidth = false;
 		fileLabel = getWidgetFactory().createLabel(composite, "Choose parameter file:");
+		fileLabel.setAlignment(SWT.CENTER);
 		GridData data = new GridData();
 		data.widthHint = STANDARD_LABEL_WIDTH + 50;
 		fileLabel.setLayoutData(data);
@@ -146,15 +153,6 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		chooseFileButton.setText("Browse...");
 		chooseFileButton.addSelectionListener(selectionListener);
 		chooseFileButton.setLayoutData(data);
-
-		createParamsFileButton = getWidgetFactory().createButton(composite, "Create parameter file", SWT.PUSH);
-		createParamsFileButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				System.out.println("WOO");
-			}
-		});
-		createParamsFileButton.setLayoutData(data);
 		
 		paramIndexLabel = getWidgetFactory().createLabel(composite, "Parameter index:");
 		paramIndexSpinner = new Spinner(composite, SWT.BORDER);
@@ -177,7 +175,29 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 			}
 		});
 		refreshParamButton.setLayoutData(data);
+		
+		createParamsFileButton = getWidgetFactory().createButton(composite, "Create new parameter file", SWT.PUSH);
+		createParamsFileButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				launchNewTestWizard();
+			}
+		});
+		createParamsFileButton.setLayoutData(data);
+		
 		composite.setLayout(gridLayout);
+	}
+	
+	public void launchNewTestWizard() {
+		NewParamWizard wiz = new NewParamWizard();
+		String testName = test.getFile().getName();
+		String testExt = "." + test.getFile().getFileExtension();
+		wiz.setParamsName(testName.substring(0, testName.indexOf(testExt)));
+		wiz.setDefaultDestFolder(test.getFile().getParent().getFullPath().toPortableString());
+		IWorkbench workbench = CubicTestPlugin.getDefault().getWorkbench();
+		wiz.init(workbench, new StructuredSelection(test.getProject()));
+		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wiz);
+		dialog.open();
 	}
 	
 	private void updateIndexSpinner() {
