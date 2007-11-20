@@ -20,7 +20,6 @@ import org.cubictest.ui.gef.command.ChangeParameterListIndexCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.wizards.NewParamWizard;
-import org.cubictest.ui.wizards.UpdateStartPointWizard;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -36,8 +35,6 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -171,6 +168,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				filePathChanged();
+				refresh();
 			}
 		});
 		refreshParamButton.setLayoutData(data);
