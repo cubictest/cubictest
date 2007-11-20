@@ -35,6 +35,7 @@ public class NewParamWizard extends Wizard implements INewWizard{
 	private WizardNewParamCreationPage namePage;
 	private String defaultDestFolder;
 	private String paramsName;
+	private String createdFilePath;
 
 	@Override
 	public boolean performFinish() {	
@@ -43,9 +44,9 @@ public class NewParamWizard extends Wizard implements INewWizard{
 				@Override
 				protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 					IFile paramsFile = createParams(monitor, namePage.getFileName(), namePage.getContainerName());
-					
 					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 					IDE.openEditor(page, paramsFile, true);
+					createdFilePath = paramsFile.getFullPath().toPortableString();
 				}
 			});
 		} catch (Exception e) {
@@ -115,6 +116,10 @@ public class NewParamWizard extends Wizard implements INewWizard{
 
 	public void setDefaultDestFolder(String defaultDestFolder) {
 		this.defaultDestFolder = defaultDestFolder;
+	}
+
+	public String getCreatedFilePath() {
+		return createdFilePath;
 	}
 
 }

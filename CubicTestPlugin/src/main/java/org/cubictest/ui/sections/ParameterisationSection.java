@@ -180,7 +180,9 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		createParamsFileButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				launchNewTestWizard();
+				NewParamWizard wiz = launchNewTestWizard();
+				fileName.setText(wiz.getCreatedFilePath());
+				
 			}
 		});
 		createParamsFileButton.setLayoutData(data);
@@ -188,7 +190,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		composite.setLayout(gridLayout);
 	}
 	
-	public void launchNewTestWizard() {
+	public NewParamWizard launchNewTestWizard() {
 		NewParamWizard wiz = new NewParamWizard();
 		String testName = test.getFile().getName();
 		String testExt = "." + test.getFile().getFileExtension();
@@ -198,6 +200,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		wiz.init(workbench, new StructuredSelection(test.getProject()));
 		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wiz);
 		dialog.open();
+		return wiz;
 	}
 	
 	private void updateIndexSpinner() {
@@ -258,8 +261,8 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		super.refresh();
 		boolean visibile = (test.getParamList() != null);
 		refreshParamButton.setVisible(visibile);
-		paramIndexLabel.setVisible(visibile && test.getParamList().inputParameterSize()>1);
-		paramIndexSpinner.setVisible(visibile && test.getParamList().inputParameterSize()>1);
+		paramIndexLabel.setVisible(visibile && test.getParamList().inputParameterSize() > 0);
+		paramIndexSpinner.setVisible(visibile && test.getParamList().inputParameterSize() > 0);
 		
 		if(test.getParamList() != null){
 			fileName.setText(test.getParamList().getFileName());
