@@ -11,9 +11,11 @@ import java.beans.PropertyChangeListener;
 
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.Identifier;
+import org.cubictest.model.Moderator;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.ChangeDirectEditIdentifierCommand;
+import org.cubictest.ui.gef.command.ChangeIdentiferModeratorCommand;
 import org.cubictest.ui.gef.command.ChangeIdentiferProbabilityCommand;
 import org.cubictest.ui.gef.command.ChangeIdentiferValueToActualCommand;
 import org.cubictest.ui.gef.command.ChangeIdentifierI18nKeyCommand;
@@ -58,11 +60,17 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private static final String CAN = "can";
 	private static final String SHOULD = "should";
 	private static final String MUST = "must";
+	
+	private static final String EQUAL = "be equalt to";
+	private static final String BEGIN = "begin with";
+	private static final String END = "end with";
+	private static final String CONTAIN = "contain";
+	
 	private Text value;
 	private Label booleanLabel;
 	private CCombo probability;
 	private Identifier identifier;
-	private Label propLabel;
+	private CCombo moderator;
 	private Label type;
 	private Composite firstRow;
 	private Button dirEdit;
@@ -124,15 +132,19 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		probability.setBackground(ColorConstants.white);
 		probability.setLayoutData(data);
 		
-		//Adding label: "be"
+		//Adding label: "moderator"
 		data = new FormData();
 		data.left = new FormAttachment(probability, 7);
-		propLabel = factory.createLabel(firstRow, "be ");
-		propLabel.setLayoutData(data);
+		moderator = factory.createCCombo(firstRow, SWT.BORDER);
+		moderator.setItems(new String[]{EQUAL, BEGIN, END, CONTAIN});
+		moderator.setSize(140, ITabbedPropertyConstants.VSPACE);
+		moderator.addSelectionListener(moderatorListener);
+		moderator.setBackground(ColorConstants.white);
+		moderator.setLayoutData(data);
 
 		//Adding label for value ("true")
 		data = new FormData();
-		data.left = new FormAttachment(propLabel,ITabbedPropertyConstants.HSPACE);
+		data.left = new FormAttachment(moderator,ITabbedPropertyConstants.HSPACE);
 		data.width = lableWidth * 3;
 		booleanLabel = factory.createLabel(firstRow, "true");
 		booleanLabel.setLayoutData(data);
@@ -140,7 +152,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 
 		//Id has value (is not boolean). Adding value input:
 		data = new FormData();
-		data.left = new FormAttachment(propLabel,ITabbedPropertyConstants.HSPACE);
+		data.left = new FormAttachment(moderator,ITabbedPropertyConstants.HSPACE);
 		data.width = lableWidth * 3;
 		value = factory.createText(firstRow, "");
 		value.setLayoutData(data);
@@ -283,6 +295,10 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		setProbability(identifier.getProbability());
 		probability.addSelectionListener(probabilityListener);
 		
+		moderator.removeSelectionListener(moderatorListener);
+		setModerator(identifier.getModerator());
+		moderator.addSelectionListener(moderatorListener);
+		
 		dirEdit.removeSelectionListener(dirEditListener);
 		dirEdit.setSelection(pageElement.getDirectEditIdentifier().equals(identifier));
 		dirEdit.addSelectionListener(dirEditListener);
@@ -349,7 +365,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	
 	private void setProbability(int newProbability){
 		value.setEnabled(true);
-		propLabel.setEnabled(true);
+		moderator.setEnabled(true);
 		booleanLabel.setEnabled(true);
 		
 		if(newProbability > 66)
@@ -360,7 +376,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			probability.select(probability.indexOf(CAN));
 		else if(newProbability == 0) {
 			probability.select(probability.indexOf(INDIFFERENT));
-			propLabel.setEnabled(false);
+			moderator.setEnabled(false);
 		}
 		else if(newProbability > -34)
 			probability.select(probability.indexOf(CANNOT));
@@ -368,6 +384,30 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			probability.select(probability.indexOf(SHOULD_NOT));
 		else
 			probability.select(probability.indexOf(MUST_NOT));
+	}
+	
+	private void setModerator(Moderator mod) {
+		if(mod == null){
+			moderator.select(moderator.indexOf(EQUAL));
+			return;
+		}
+		switch (mod) {
+		case BEGIN:
+			moderator.select(moderator.indexOf(BEGIN));
+			break;
+		case END:
+			moderator.select(moderator.indexOf(END));
+			break;
+		case CONTAIN:
+			moderator.select(moderator.indexOf(CONTAIN));
+			break;
+		case EQUAL:
+			moderator.select(moderator.indexOf(EQUAL));
+			break;
+		default:
+			moderator.select(moderator.indexOf(EQUAL));
+			break;
+		}
 	}
 
 	/**
@@ -381,7 +421,11 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			}else if(Identifier.ACTUAL.equals(eventName)){
 				//TODO
 			}else if(Identifier.TYPE.equals(eventName)){
-				
+			
+			}else if(Identifier.MODERATOR.equals(eventName)){
+				moderator.removeSelectionListener(moderatorListener);
+				setModerator((Moderator)event.getNewValue());
+				moderator.addSelectionListener(moderatorListener);
 			}else if(Identifier.PROBABILITY.equals(eventName)){
 				probability.removeSelectionListener(probabilityListener);
 				setProbability((Integer) event.getNewValue());
@@ -421,7 +465,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			String label = probability.getItem(index);
 			int prob;
 			value.setEnabled(true);
-			propLabel.setEnabled(true);
+			moderator.setEnabled(true);
 			booleanLabel.setEnabled(true);
 			
 			if (label.equals(MUST))
@@ -436,12 +480,12 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 				if (dirEdit.getSelection() && identifier.getType().equals(LABEL)) {
 					//the id is Direct Edit and of type Label. Should be editable.
 					value.setEnabled(false);
-					propLabel.setEnabled(false);
+					moderator.setEnabled(false);
 					booleanLabel.setEnabled(false);
 				}
 				else {
 					value.setEnabled(false);
-					propLabel.setEnabled(false);
+					moderator.setEnabled(false);
 					booleanLabel.setEnabled(false);
 				}
 			}
@@ -461,6 +505,36 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			command.setIdentifier(identifier);
 			command.setNewProbability(prob);
 			command.setOldProbability(identifier.getProbability());
+			executeCommand(command);
+			
+		}
+		public void widgetDefaultSelected(SelectionEvent e) {}
+	};
+	
+	private SelectionListener moderatorListener = new SelectionListener(){
+		public void widgetSelected(SelectionEvent e) {
+			int index = moderator.getSelectionIndex();
+			String label = moderator.getItem(index);
+
+			Moderator mod;
+			if (label.equals(END))
+				mod = Moderator.END;
+			else if (label.equals(BEGIN))
+				mod = Moderator.BEGIN;
+			else if (label.equals(CONTAIN))
+				mod = Moderator.CONTAIN;
+			else if (label.equals(EQUAL)) {
+				mod = Moderator.EQUAL;
+			}else {
+				Logger.warn("Unknown moderator");
+				mod = Moderator.EQUAL;
+			}
+			
+			ChangeIdentiferModeratorCommand command = 
+				new ChangeIdentiferModeratorCommand();
+			command.setIdentifier(identifier);
+			command.setNewModerator(mod);
+			command.setOldModerator(identifier.getModerator());
 			executeCommand(command);
 			
 		}

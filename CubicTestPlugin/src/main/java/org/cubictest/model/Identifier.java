@@ -31,6 +31,7 @@ public class Identifier implements Cloneable, SationObserver{
 	public final static String VALUE = "value";
 	public final static String TYPE = "type";
 	public final static String PROBABILITY = "probability";
+	public static final String MODERATOR = "moderator";
 	public static final String ACTUAL = "actual";
 	private static final String USE_I18N = "useI18n";
 	private static final String I18N_KEY = "i18nKey";
@@ -39,6 +40,7 @@ public class Identifier implements Cloneable, SationObserver{
 	private transient PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 	private boolean useI18n = false;
 	private boolean useParam = false;
+	private Moderator moderator = Moderator.EQUAL;
 	
 	public void setType(IdentifierType type){
 		IdentifierType oldType = type;
@@ -162,5 +164,15 @@ public class Identifier implements Cloneable, SationObserver{
 	
 	public boolean isNotBlank() {
 		return StringUtils.isNotBlank(getValue());
+	}
+
+	public Moderator getModerator() {
+		return moderator;
+	}
+
+	public void setModerator(Moderator moderator) {
+		Moderator oldModerator = this.moderator;
+		this.moderator = moderator;
+		firePropertyChanged(MODERATOR, oldModerator, moderator);
 	}
 }
