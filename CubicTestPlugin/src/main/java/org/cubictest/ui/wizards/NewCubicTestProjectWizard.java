@@ -5,7 +5,6 @@
 package org.cubictest.ui.wizards;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +51,7 @@ import org.eclipse.ui.views.navigator.ResourceNavigator;
 
 public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 
+	public static final String TESTS_FOLDER_NAME = "tests";
 	public static final String TEST_SUITES_FOLDER_NAME = "test suites";
 	private WizardNewProjectCreationPage namePage;
 	private NewProjectSummaryPage summaryPage;
@@ -115,7 +115,7 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 
 			IJavaProject javaProject = JavaCore.create(project);
 			
-			IFolder testFolder = project.getFolder("tests");
+			IFolder testFolder = project.getFolder(TESTS_FOLDER_NAME);
 			testFolder.create(false, true, monitor);
 
 			IFolder suiteFolder = project.getFolder(TEST_SUITES_FOLDER_NAME);

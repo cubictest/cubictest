@@ -9,9 +9,11 @@ package org.cubictest.ui.sections;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.cubictest.CubicTestPlugin;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Test;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.persistence.ParameterPersistance;
@@ -19,6 +21,8 @@ import org.cubictest.ui.gef.command.ChangeParameterListCommand;
 import org.cubictest.ui.gef.command.ChangeParameterListIndexCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
+import org.cubictest.ui.utils.ModelUtil;
+import org.cubictest.ui.wizards.NewCubicTestProjectWizard;
 import org.cubictest.ui.wizards.NewParamWizard;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -26,6 +30,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.ISelection;
@@ -177,7 +182,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		createParamsFileButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				NewParamWizard wiz = launchNewTestWizard();
+				NewParamWizard wiz = launchNewParamsWizard();
 				fileName.setText(wiz.getCreatedFilePath());
 				
 			}
@@ -187,17 +192,38 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		composite.setLayout(gridLayout);
 	}
 	
-	public NewParamWizard launchNewTestWizard() {
+	public NewParamWizard launchNewParamsWizard() {
 		NewParamWizard wiz = new NewParamWizard();
 		String testName = test.getFile().getName();
 		String testExt = "." + test.getFile().getFileExtension();
 		wiz.setParamsName(testName.substring(0, testName.indexOf(testExt)));
-		wiz.setDefaultDestFolder(test.getFile().getParent().getFullPath().toPortableString());
+		createParamsFolder();
+		wiz.setDefaultDestFolder(getNewParamsPath());
 		IWorkbench workbench = CubicTestPlugin.getDefault().getWorkbench();
 		wiz.init(workbench, new StructuredSelection(test.getProject()));
 		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wiz);
 		dialog.open();
 		return wiz;
+	}
+
+	private String getNewParamsPath() {
+		String path = test.getFile().getParent().getFullPath().toPortableString();
+		if (test.getFile().getProjectRelativePath().toString().startsWith(NewCubicTestProjectWizard.TESTS_FOLDER_NAME)) {
+			path = path.replaceFirst(NewCubicTestProjectWizard.TESTS_FOLDER_NAME, "params");
+		}
+		return path;
+	}
+
+	private void createParamsFolder() {
+		IFolder folder = test.getProject().getFolder("/params");
+		if (!folder.exists()) {
+			try {
+				folder.create(true, true, null);
+			} 
+			catch (CoreException e) {
+				ErrorHandler.logAndShowErrorDialogAndRethrow("Error creating params directory", e);
+			}
+		}
 	}
 	
 	private void updateIndexSpinner() {
