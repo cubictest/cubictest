@@ -252,11 +252,16 @@
             <input type="org.cubictest.model.PageElement"/>
          </propertySection>
          <propertySection
-               afterSection="org.cubictest.element.not"
                class="org.cubictest.ui.sections.NameSection"
                id="org.cubictest.abstractpage.name"
                tab="org.cubictest.tab.properties">
             <input type="org.cubictest.model.AbstractPage"/>
+         </propertySection>
+         <propertySection
+               class="org.cubictest.ui.sections.SubTestParamsSection"
+               id="org.cubictest.subtest.params"
+               tab="org.cubictest.tab.param">
+            <input type="org.cubictest.model.SubTest"/>
          </propertySection>
       </propertySections>
    </extension>
