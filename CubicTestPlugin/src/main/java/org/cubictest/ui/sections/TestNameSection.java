@@ -56,7 +56,7 @@ public class TestNameSection extends AbstractPropertySection implements Property
 
 		labelText = getWidgetFactory().createText(composite, ""); 
 		data = new FormData();
-		data.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
+		data.left = new FormAttachment(0, STANDARD_LABEL_WIDTH + 10);
 		data.right = new FormAttachment(100, 0);
 		data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		labelText.setLayoutData(data);

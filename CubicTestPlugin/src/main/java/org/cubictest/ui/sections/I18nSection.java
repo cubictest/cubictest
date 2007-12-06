@@ -150,7 +150,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
         composite.setLayout(gridLayout);
         
         GridData labelData = new GridData();
-        labelData.widthHint = STANDARD_LABEL_WIDTH + 50;
+        labelData.widthHint = STANDARD_LABEL_WIDTH + 70;
         
         GridData inputData = new GridData();
 		inputData.widthHint = 300;

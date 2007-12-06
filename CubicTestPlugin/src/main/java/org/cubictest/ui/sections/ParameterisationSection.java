@@ -136,7 +136,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		gridLayout.makeColumnsEqualWidth = false;
 		fileLabel = getWidgetFactory().createLabel(composite, "Choose parameter file:");
 		GridData data = new GridData();
-		data.widthHint = STANDARD_LABEL_WIDTH + 50;
+		data.widthHint = STANDARD_LABEL_WIDTH + 70;
 		fileLabel.setLayoutData(data);
 		data = new GridData();
 		//data.horizontalSpan = 2;
@@ -178,6 +178,8 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		});
 		refreshParamButton.setLayoutData(data);
 		
+		data = new GridData();
+		data.horizontalSpan = 2;
 		createParamsFileButton = getWidgetFactory().createButton(composite, "Create new parameter file", SWT.PUSH);
 		createParamsFileButton.addSelectionListener(new SelectionAdapter() {
 			@Override

@@ -47,7 +47,7 @@ public class TestDescriptionSection extends AbstractPropertySection {
 
 		labelText = getWidgetFactory().createText(composite, ""); //$NON-NLS-1$
 		data = new FormData();
-		data.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
+		data.left = new FormAttachment(0, STANDARD_LABEL_WIDTH + 10);
 		data.right = new FormAttachment(100, 0);
 		data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		data.height = 125;
