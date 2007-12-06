@@ -42,6 +42,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+/**
+ * Table composite for Custom Step parameters.
+ * 
+ * @author SK Skytteren
+ */
 public class ParameterTableComposite extends Composite implements PropertyChangeListener {
 
 	private static final String KEY = "Key";
