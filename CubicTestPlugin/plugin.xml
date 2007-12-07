@@ -153,13 +153,13 @@
          <propertyTab
                afterTab="org.cubictest.tab.test"
                category="CubicTest"
-               id="org.cubictest.tab.i18n"
-               label="Internationalisation"/>
+               id="org.cubictest.tab.param"
+               label="Parameterisation"/>
          <propertyTab
                afterTab="org.cubictest.tab.test"
                category="CubicTest"
-               id="org.cubictest.tab.param"
-               label="Parameterisation"/>
+               id="org.cubictest.tab.i18n"
+               label="Internationalisation"/>
          <propertyTab
                category="CubicTest"
                id="org.cubictest.tab.customTestStepInput"
