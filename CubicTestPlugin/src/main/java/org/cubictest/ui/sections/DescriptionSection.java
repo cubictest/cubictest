@@ -53,7 +53,7 @@ public class DescriptionSection extends AbstractPropertySection {
 		
 		FormData data = new FormData();
 		data.left = new FormAttachment(0,0); 
-		data.width = STANDARD_LABEL_WIDTH;
+		data.width = STANDARD_LABEL_WIDTH + 35;
 		label.setLayoutData(data);
 		
 		descText = factory.createText(composite,"",SWT.MULTI|SWT.V_SCROLL);

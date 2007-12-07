@@ -49,7 +49,7 @@ public class NotSection extends AbstractPropertySection implements PropertyChang
 		Label label = factory.createLabel(composite, "Should NOT exist: ");
 		FormData data = new FormData();
 		data.left = new FormAttachment(0,0);
-		data.width = STANDARD_LABEL_WIDTH;
+		data.width = STANDARD_LABEL_WIDTH + 35;
 		label.setLayoutData(data);
 		
 		data = new FormData();

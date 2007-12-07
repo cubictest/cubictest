@@ -154,7 +154,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		data = new FormData();
 		data.left = new FormAttachment(moderator,ITabbedPropertyConstants.HSPACE);
 		data.width = lableWidth * 3;
-		value = factory.createText(firstRow, "");
+		value = factory.createText(firstRow, "", SWT.BORDER);
 		value.setLayoutData(data);
 		value.addSelectionListener(valueListener);
 		value.addFocusListener(valueListener);
