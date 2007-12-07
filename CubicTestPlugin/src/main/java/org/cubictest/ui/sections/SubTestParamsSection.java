@@ -23,6 +23,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -40,6 +42,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 
 	private Test test;
 	private Label paramLabel;
+	private Label noParamsLabel;
 	private Spinner paramIndexSpinner;
 	
 	@Override
@@ -48,10 +51,16 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		Composite composite = getWidgetFactory().createFlatFormComposite(parent);
 		
 		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 3;
+		gridLayout.numColumns = 2;
 		gridLayout.makeColumnsEqualWidth = false;
 		
+		GridData data = new GridData();
+		data.horizontalSpan = 2;
+		noParamsLabel = getWidgetFactory().createLabel(composite, "Test in subtest has no parameterization configured");
+		noParamsLabel.setLayoutData(data);
+
 		paramLabel = getWidgetFactory().createLabel(composite, "Parameter index:");
+
 		paramIndexSpinner = new Spinner(composite, SWT.BORDER);
 		paramIndexSpinner.addModifyListener(new ModifyListener(){
 			public void modifyText(ModifyEvent e) {
@@ -102,15 +111,16 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	public void refresh() {
 		super.refresh();
 		boolean visibile = (test.getParamList() != null);
+		paramIndexSpinner.setVisible(visibile && testHasParams());
+		
 		if (testHasParams()) {
-			paramLabel.setText("Parameter index");
-			paramLabel.redraw();
+			paramLabel.setVisible(true);
+			noParamsLabel.setVisible(false);
 		}
 		else {
-			paramLabel.setText("Test in subtest has no parameterization configured");
-			paramLabel.redraw();
+			paramLabel.setVisible(false);
+			noParamsLabel.setVisible(true);
 		}
-		paramIndexSpinner.setVisible(visibile && testHasParams());
 		
 		if(test.getParamList() != null) {
 			updateIndexSpinner();

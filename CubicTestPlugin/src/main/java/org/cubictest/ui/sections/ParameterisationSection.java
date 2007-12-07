@@ -28,6 +28,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -54,8 +55,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.ide.ResourceUtil;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
@@ -72,6 +78,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 	private Button chooseFileButton;
 	private Label paramIndexLabel;
 	private Spinner paramIndexSpinner;
+	private Button openParamsButton;
 	private Button refreshParamButton;
 	private Button createParamsFileButton;
 	
@@ -167,17 +174,24 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 				executeCommand(command);
 			}
 		});
-		
-		refreshParamButton = getWidgetFactory().createButton(composite, "Refresh parameters", SWT.PUSH);
-		refreshParamButton.addSelectionListener(new SelectionAdapter() {
+
+		openParamsButton = getWidgetFactory().createButton(composite, "Open parameter file", SWT.PUSH);
+		openParamsButton.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				filePathChanged();
-				refresh();
+			public void widgetSelected(SelectionEvent se) {
+				IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+				IResource resource = root.findMember(new Path(fileName.getText()));
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				try {
+					IDE.openEditor(page, ResourceUtil.getFile(resource), true);
+				} catch (PartInitException e) {
+					ErrorHandler.logAndShowErrorDialogAndRethrow("Error opening parameter file", e);
+				}
 			}
 		});
-		refreshParamButton.setLayoutData(data);
-		
+		openParamsButton.setLayoutData(data);
+
+				
 		data = new GridData();
 		data.horizontalSpan = 2;
 		createParamsFileButton = getWidgetFactory().createButton(composite, "Create new parameter file", SWT.PUSH);
@@ -191,6 +205,19 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		});
 		createParamsFileButton.setLayoutData(data);
 		
+		data = new GridData();
+		data.widthHint = 150;
+		data.horizontalSpan = 1;
+		refreshParamButton = getWidgetFactory().createButton(composite, "Refresh parameters", SWT.PUSH);
+		refreshParamButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				filePathChanged();
+				refresh();
+			}
+		});
+		refreshParamButton.setLayoutData(data);
+
 		composite.setLayout(gridLayout);
 	}
 	
