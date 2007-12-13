@@ -9,7 +9,7 @@ public class ChangeParameterListCommand extends Command {
 
 	private Test test;
 	private ParameterList newParameterList;
-	private ParameterList oldParamterList;
+	private ParameterList oldParameterList;
 
 	public void setTest(Test test) {
 		this.test = test;
@@ -19,14 +19,14 @@ public class ChangeParameterListCommand extends Command {
 		this.newParameterList = newParameterList;
 	}
 
-	public void setOldParamList(ParameterList oldParamterList) {
-		this.oldParamterList = oldParamterList;
+	public void setOldParamList(ParameterList oldParameterList) {
+		this.oldParameterList = oldParameterList;
 	}
 
 	@Override
 	public void execute() {
 		super.execute();
-		updateObservers(newParameterList,oldParamterList);
+		updateObservers(newParameterList,oldParameterList);
 		test.setParamList(newParameterList);
 		test.updateObservers();
 	}
@@ -34,8 +34,8 @@ public class ChangeParameterListCommand extends Command {
 	@Override
 	public void undo() {
 		super.undo();
-		updateObservers(oldParamterList, newParameterList);
-		test.setParamList(oldParamterList);
+		updateObservers(oldParameterList, newParameterList);
+		test.setParamList(oldParameterList);
 		test.updateObservers();
 	}
 	

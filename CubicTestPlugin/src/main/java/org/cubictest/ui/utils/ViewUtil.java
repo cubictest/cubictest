@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.CubicException;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
@@ -25,6 +26,10 @@ import org.cubictest.ui.gef.controller.PropertyChangePart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPart;
@@ -32,6 +37,11 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.ide.ResourceUtil;
 
 
 /**
@@ -45,6 +55,21 @@ public class ViewUtil {
 	public static final String REMOVE = "remove";
 	public static final int LABEL_HEIGHT = 21;
 
+	
+	/**
+	 * Opens file for viewing.
+	 * @param filePath the file to open.
+	 */
+	public static void openFileForViewing(String filePath) {
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IResource resource = root.findMember(new Path(filePath));
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		try {
+			IDE.openEditor(page, ResourceUtil.getFile(resource), true);
+		} catch (PartInitException e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error opening file", e);
+		}
+	}
 	
 	/**
 	 * Get whether the page element has just been created.

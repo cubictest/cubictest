@@ -24,6 +24,7 @@ public class SubTest extends ConnectionPoint {
 	private transient IProject project;
 	private transient IResourceMonitor resourceMonitor;
 	private transient boolean dangling;
+	private int parameterIndex;
 
 	public SubTest(String filePath, IProject project) {
 		super();
@@ -144,6 +145,14 @@ public class SubTest extends ConnectionPoint {
 		else {
 			setStatus(getTest(false).updateAndGetStatus(targetConnectionPoint));
 		}
+	}
+
+	public int getParameterIndex() {
+		return parameterIndex;
+	}
+
+	public void setParameterIndex(int parameterIndex) {
+		this.parameterIndex = parameterIndex;
 	}
 
 }

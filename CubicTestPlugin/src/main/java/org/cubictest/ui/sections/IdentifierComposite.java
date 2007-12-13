@@ -233,7 +233,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		i18nCombo.setLayoutData(data);
 		
 		//Adding parameterisation
-		paramLabel = factory.createLabel(thirdRow, "Paramterization:");
+		paramLabel = factory.createLabel(thirdRow, "Parameterisation:");
 		data = new FormData();
 		data.left = new FormAttachment(i18nCombo,ITabbedPropertyConstants.HSPACE + 20);
 		paramLabel.setLayoutData(data);
