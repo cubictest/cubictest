@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.model.PropertyAwareObject;
+import org.cubictest.model.SationObserver;
 
 
 public class ParameterList extends PropertyAwareObject {
@@ -19,6 +20,20 @@ public class ParameterList extends PropertyAwareObject {
 	private List<Parameter> parameters;
 	private int parameterIndex;
 	private String fileName;
+	
+	public boolean hasObservers() {
+		int num = 0;
+		for (Parameter param : parameters) {
+			for (SationObserver observer : param.getObservers()) {
+				num++;
+			}
+		}
+		return num > 0;
+	}
+	
+	public boolean hasParameters() {
+		return inputParameterSize() > 0;
+	}
 
 	public ParameterList() {
 		parameters = new ArrayList<Parameter>();
@@ -65,7 +80,7 @@ public class ParameterList extends PropertyAwareObject {
 	}
 
 	public void updateObservers() {
-		for(Parameter param :parameters)
+		for(Parameter param : parameters)
 			param.setParameterIndex(parameterIndex);
 	}
 

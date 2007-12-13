@@ -22,6 +22,14 @@ public class ChangeParameterListCommand extends Command {
 	public void setOldParamList(ParameterList oldParameterList) {
 		this.oldParameterList = oldParameterList;
 	}
+	
+	@Override
+	public boolean canExecute() {
+		if (newParameterList.equals(oldParameterList)) {
+			return false;
+		}
+		return true;
+	}
 
 	@Override
 	public void execute() {

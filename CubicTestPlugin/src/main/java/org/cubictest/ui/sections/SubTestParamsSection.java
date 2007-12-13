@@ -50,7 +50,6 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	private Label noParamsLabel;
 	private Spinner paramIndexSpinner;
 	private Label useParamIndexFromTestLabel;
-	private boolean refreshing;
 	private SubTest subtest;
 	private Label testLabel;
 	private Button openParamsButton;
@@ -118,7 +117,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		paramIndexSpinner = new Spinner(composite, SWT.BORDER);
 		paramIndexSpinner.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				if (!refreshing) {
+				if (subtest.getParameterIndex() != paramIndexSpinner.getSelection()) {
 					ChangeSubTestParamIndexCommand command = new ChangeSubTestParamIndexCommand();
 					command.setNewIndex(paramIndexSpinner.getSelection());
 					command.setTest(subtest);
@@ -185,8 +184,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	public void refresh() {
 		super.refresh();
 		
-		refreshing = true;
-		if (testHasParams()) {
+		if (test.hasParamsConfigured()) {
 			paramIndexSpinner.setVisible(true);
 			paramIndexLabel.setVisible(true);
 			openParamsButton.setVisible(true);
@@ -211,15 +209,8 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		if(test.getParamList() != null) {
 			updateIndexSpinner();
 		}
-		refreshing = false;
 	}
 
-	private boolean testHasParams() {
-		if (test.getParamList() != null) {
-			return test.getParamList().inputParameterSize() > 0;
-		}
-		return false;
-	}
 
 	public void propertyChange(PropertyChangeEvent event) {
 		refresh();

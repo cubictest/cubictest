@@ -225,6 +225,7 @@ public class ParamsEditor extends EditorPart {
 				setDirty();
 			}
 		});
+		addInput.setVisible(paramList.hasParameters());
 		parent.update();
 		parent.redraw();
 	}
@@ -283,6 +284,8 @@ public class ParamsEditor extends EditorPart {
 				table.redraw();
 				
 				setDirty();
+				
+				addInput.setVisible(true);
 				
 			}
 		});

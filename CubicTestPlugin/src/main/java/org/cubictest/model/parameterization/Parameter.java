@@ -48,7 +48,7 @@ public class Parameter {
 	
 	public void setParameterIndex(int parameterIndex) {
 		if(parameterIndex < size()){
-			for(SationObserver observer: observers){
+			for(SationObserver observer : observers){
 				String paramValue = inputs.get(parameterIndex);
 				if(observer.useI18n()){
 					String[] values = paramValue.split(";");

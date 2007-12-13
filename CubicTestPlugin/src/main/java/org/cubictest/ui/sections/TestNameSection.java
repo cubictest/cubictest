@@ -38,12 +38,14 @@ public class TestNameSection extends AbstractPropertySection implements Property
 
 	private FocusListener listener = new FocusListener(){
 		public void focusLost(FocusEvent e) {
-			ChangeTestNameCommand cmd = new ChangeTestNameCommand();
-			cmd.setTest(test);
-			cmd.setOldName(test.getName());
-			cmd.setNewName(labelText.getText());
-			ITestEditor editor = (ITestEditor) getPart();
-			editor.getCommandStack().execute(cmd);
+			if (!test.getName().equals(labelText.getText())) {
+				ChangeTestNameCommand cmd = new ChangeTestNameCommand();
+				cmd.setTest(test);
+				cmd.setOldName(test.getName());
+				cmd.setNewName(labelText.getText());
+				ITestEditor editor = (ITestEditor) getPart();
+				editor.getCommandStack().execute(cmd);
+			}
 		}
 		public void focusGained(FocusEvent e) {}
 	};

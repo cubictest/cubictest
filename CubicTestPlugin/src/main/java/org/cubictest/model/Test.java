@@ -305,6 +305,17 @@ public class Test extends PropertyAwareObject {
 		
 	}
 	
+	/**
+	 * Get whether test has parameterization enabled.
+	 * @return
+	 */
+	public boolean hasParamsConfigured() {
+		if (getParamList() != null) {
+			return paramList.hasParameters() && paramList.hasObservers();
+		}
+		return false;
+	}
+	
 	
 	/**
 	 * Updates and return the overall test status (aggregates all page element statuses).
