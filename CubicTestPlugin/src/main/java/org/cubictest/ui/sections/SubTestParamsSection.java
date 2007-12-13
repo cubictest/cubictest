@@ -50,7 +50,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	private Label noParamsLabel;
 	private Spinner paramIndexSpinner;
 	private Label useParamIndexFromTestLabel;
-
+	private boolean refreshing;
 	private SubTest subtest;
 	private Label testLabel;
 	private Button openParamsButton;
@@ -118,10 +118,12 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		paramIndexSpinner = new Spinner(composite, SWT.BORDER);
 		paramIndexSpinner.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				ChangeSubTestParamIndexCommand command = new ChangeSubTestParamIndexCommand();
-				command.setNewIndex(paramIndexSpinner.getSelection());
-				command.setTest(subtest);
-				executeCommand(command);
+				if (!refreshing) {
+					ChangeSubTestParamIndexCommand command = new ChangeSubTestParamIndexCommand();
+					command.setNewIndex(paramIndexSpinner.getSelection());
+					command.setTest(subtest);
+					executeCommand(command);
+				}
 			}
 		});
 		paramIndexSpinner.setLayoutData(data);
@@ -183,6 +185,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	public void refresh() {
 		super.refresh();
 		
+		refreshing = true;
 		if (testHasParams()) {
 			paramIndexSpinner.setVisible(true);
 			paramIndexLabel.setVisible(true);
@@ -200,9 +203,15 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 			useParamIndexFromTestLabel.setVisible(false);
 		}
 		
+		if (subtest != null && subtest.getParameterIndex() < 0) {
+			useParamIndexFromTestCheckbox.setSelection(true);
+			paramIndexSpinner.setEnabled(false);
+		}
+
 		if(test.getParamList() != null) {
 			updateIndexSpinner();
 		}
+		refreshing = false;
 	}
 
 	private boolean testHasParams() {
