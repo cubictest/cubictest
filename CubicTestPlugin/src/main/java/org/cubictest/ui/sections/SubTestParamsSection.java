@@ -13,11 +13,16 @@ import java.beans.PropertyChangeListener;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.parameterization.ParameterList;
+import org.cubictest.persistence.ParameterPersistance;
+import org.cubictest.ui.gef.command.ChangeParameterListCommand;
 import org.cubictest.ui.gef.command.ChangeSubTestParamIndexCommand;
 import org.cubictest.ui.gef.controller.SubTestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.utils.ViewUtil;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -45,6 +50,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 public class SubTestParamsSection extends AbstractPropertySection implements PropertyChangeListener {
 
 	private Test test;
+	private ParameterList paramList;
 	private Label paramIndexLabel;
 	private Button useParamIndexFromTestCheckbox;
 	private Label noParamsLabel;
@@ -52,6 +58,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	private Label useParamIndexFromTestLabel;
 	private SubTest subtest;
 	private Button openParamsButton;
+	private Button refreshParamButton;
 	
 	@Override
 	public void createControls(Composite parent, TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -66,8 +73,31 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		createIndexSpinner(composite);
 		createUseIndexDefinedInTestCheckbox(composite);
 		createOpenParamsButton(composite);
+		createRefreshParamsButton(composite);
 		
 		composite.setLayout(gridLayout);
+	}
+
+	private void createRefreshParamsButton(Composite composite) {
+		GridData data = new GridData();
+		data.horizontalSpan = 2;
+		refreshParamButton = getWidgetFactory().createButton(composite, "Refresh parameters", SWT.PUSH);
+		refreshParamButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				test = subtest.getTest(true);
+				IFile paramFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(paramList.getFileName()));
+				if(paramFile.exists()) {
+					ChangeParameterListCommand command = new ChangeParameterListCommand();
+					command.setTest(test);
+					command.setNewParamList(ParameterPersistance.loadFromFile(paramFile));
+					command.setOldParamList(paramList);
+					executeCommand(command);
+				}
+				refresh();
+			}
+		});
+		refreshParamButton.setLayoutData(data);
 	}
 
 	private void createUseIndexDefinedInTestCheckbox(Composite composite) {
@@ -126,6 +156,8 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	}
 
 	private void createOpenParamsButton(Composite composite) {
+		GridData data = new GridData();
+		data.horizontalSpan = 2;
 		openParamsButton = getWidgetFactory().createButton(composite, "Open test parameter file", SWT.PUSH);
 		openParamsButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -133,6 +165,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 				ViewUtil.openFileForViewing(test.getParamList().getFileName());
 			}
 		});
+		openParamsButton.setLayoutData(data);
 	}
 	
 	
@@ -154,6 +187,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		
 		subtest = (SubTest) ((SubTestEditPart) input).getModel();
 		test = subtest.getTest(false);
+		paramList = test.getParamList();
 	}
 			
 	private void executeCommand(Command command) {

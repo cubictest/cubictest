@@ -11,7 +11,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Test;
