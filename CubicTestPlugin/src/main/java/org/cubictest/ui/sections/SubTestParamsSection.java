@@ -109,7 +109,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	private void createUseIndexDefinedInTestCheckbox(Composite composite) {
 		GridData data = new GridData();
 		data.horizontalSpan = 2;
-		useParamIndexFromTestLabel = getWidgetFactory().createLabel(composite, "Use parameter index defined in test:");
+		useParamIndexFromTestLabel = getWidgetFactory().createLabel(composite, "Use parameter index as defined in test:");
 		useParamIndexFromTestCheckbox = getWidgetFactory().createButton(composite, "", SWT.CHECK);
 		useParamIndexFromTestCheckbox.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent e) {}
