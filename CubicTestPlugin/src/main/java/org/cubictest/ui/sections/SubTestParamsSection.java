@@ -85,21 +85,27 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		refreshParamButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				test = subtest.getTest(true);
-				IFile paramFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(paramList.getFileName()));
-				if(paramFile.exists()) {
-					ChangeParameterListCommand command = new ChangeParameterListCommand();
-					command.setTest(test);
-					command.setNewParamList(ParameterPersistance.loadFromFile(paramFile));
-					command.setOldParamList(paramList);
-					executeCommand(command);
-				}
-				refresh();
+				refreshParamsFromDisk();
 			}
+
 		});
 		refreshParamButton.setLayoutData(data);
 	}
 
+	private void refreshParamsFromDisk() {
+		test = subtest.getTest(true);
+		IFile paramFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(paramList.getFileName()));
+		if(paramFile.exists()) {
+			ChangeParameterListCommand command = new ChangeParameterListCommand();
+			command.setTest(test);
+			command.setNewParamList(ParameterPersistance.loadFromFile(paramFile));
+			command.setOldParamList(paramList);
+			executeCommand(command);
+		}
+		refresh();
+	}
+
+	
 	private void createUseIndexDefinedInTestCheckbox(Composite composite) {
 		GridData data = new GridData();
 		data.horizontalSpan = 2;
@@ -186,8 +192,13 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		Assert.isTrue(input instanceof SubTestEditPart);
 		
 		subtest = (SubTest) ((SubTestEditPart) input).getModel();
+		boolean testWasNull = (test == null);
 		test = subtest.getTest(false);
 		paramList = test.getParamList();
+
+		if (testWasNull) {
+			refreshParamsFromDisk();
+		}
 	}
 			
 	private void executeCommand(Command command) {
