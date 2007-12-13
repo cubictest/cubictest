@@ -167,6 +167,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 			
 		paramIndexLabel = getWidgetFactory().createLabel(composite, "Parameter index:");
 		paramIndexSpinner = new Spinner(composite, SWT.BORDER);
+		paramIndexSpinner.setSelection(-1);
 		paramIndexSpinner.addModifyListener(new ModifyListener(){
 			
 			public void modifyText(ModifyEvent e) {
@@ -225,11 +226,13 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 
 		data = new GridData();
 		data.horizontalSpan = 3;
-		noParamsLabel = getWidgetFactory().createLabel(composite, "Status: No parameters in parameter list");
+		noParamsLabel = getWidgetFactory().createLabel(composite, "Status: No parameters in parameter file (try to press \"Refresh parameters\")");
 		noParamsLabel.setLayoutData(data);
+		noParamsLabel.setVisible(false);
 		noObserversLabel = getWidgetFactory().createLabel(composite, "Status: No page elements has parameterization enabled. " +
 				"To enable, check \"Use parameterisation\" on page element identifiers.");
 		noObserversLabel.setLayoutData(data);
+		noObserversLabel.setVisible(false);
 
 		composite.setLayout(gridLayout);
 	}
@@ -272,8 +275,12 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		if(test != null && null != paramList){
 			ParameterList list = paramList;
 			int length = list.inputParameterSize();
+			int oldValue = paramIndexSpinner.getSelection();
 			paramIndexSpinner.setValues(list.getParameterIndex(), 0, 
 					(length <= 0) ? 0 : length-1,0, 1, 5);
+			if (length > oldValue && oldValue > 0) {
+				paramIndexSpinner.setSelection(oldValue);
+			}
 		}
 	}
 

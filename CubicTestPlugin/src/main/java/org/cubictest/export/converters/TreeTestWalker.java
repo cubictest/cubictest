@@ -159,7 +159,8 @@ public class TreeTestWalker<T extends IResultHolder> {
 				resultHolder.updateStatus(((SubTest) node), false, (ExtensionStartPoint) node);
 			}
 			else if (node instanceof SubTest) {
-				Test subTestTest = ((SubTest) node).getTest(true);
+				SubTest subtest = (SubTest) node;
+				Test subtestTest = subtest.getTest(true);
 				List<Transition> outTransitions = node.getOutTransitions();
 				ExtensionPoint targetExPoint = null;
 				if (outTransitions != null && outTransitions.size() > 0 && outTransitions.get(0) instanceof ExtensionTransition) {
@@ -168,20 +169,26 @@ public class TreeTestWalker<T extends IResultHolder> {
 				}
 				else {
 					// other or no transition from SubTest. Check that only one path in it
-					if(!ModelUtil.assertHasOnlyOnePathFrom(subTestTest.getStartPoint())) {
-						ErrorHandler.logAndShowErrorDialogAndThrow("Error traversing subtest: The \"" + ((SubTest) node).getFileName() + "\" subtest " +
+					if(!ModelUtil.assertHasOnlyOnePathFrom(subtestTest.getStartPoint())) {
+						ErrorHandler.logAndShowErrorDialogAndThrow("Error traversing subtest: The \"" + subtest.getFileName() + "\" subtest " +
 								"is a tree (has more than one path in it) and an extension point is not used. The exporter does not know which path to execute.\n\n" +
 								"To fix, create an extension point in the test, and extend from it where the subtest is used.");
 					}
 				}
 				
+				// Set correct parameter in sub test:
+				if (subtest.hasOwnParams()) {
+					subtestTest.getParamList().setParameterIndex(subtest.getParameterIndex());
+					subtestTest.updateObservers();
+				}
+				
 				// Convert SubTest:
 				try {
-					convertTransitionNode(resultHolder, subTestTest.getStartPoint(), targetExPoint);
-					resultHolder.updateStatus(((SubTest) node), false, targetExtensionPoint);
+					convertTransitionNode(resultHolder, subtestTest.getStartPoint(), targetExPoint);
+					resultHolder.updateStatus(subtest, false, targetExtensionPoint);
 				}
 				catch (Exception e) {
-					handleSubTestException(resultHolder, (SubTest) node, targetExtensionPoint, e);
+					handleSubTestException(resultHolder, subtest, targetExtensionPoint, e);
 				}
 			}
 			else if (node instanceof Page) {

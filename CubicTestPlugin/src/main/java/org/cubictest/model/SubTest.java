@@ -24,7 +24,7 @@ public class SubTest extends ConnectionPoint {
 	private transient IProject project;
 	private transient IResourceMonitor resourceMonitor;
 	private transient boolean dangling;
-	private int parameterIndex;
+	private int parameterIndex = -1;
 
 	public SubTest(String filePath, IProject project) {
 		super();
@@ -40,6 +40,13 @@ public class SubTest extends ConnectionPoint {
 		return dangling;
 	}
 	
+	/**
+	 * Get whether this test has its own params configured, and target test has params enabled.
+	 * @return
+	 */
+	public boolean hasOwnParams() {
+		return getTest(false).hasParamsConfigured() && parameterIndex >= 0;
+	}
 	/**
 	 * @return Test	the sub test that this object represents
 	 */

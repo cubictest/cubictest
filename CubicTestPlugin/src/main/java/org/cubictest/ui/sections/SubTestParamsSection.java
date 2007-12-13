@@ -51,9 +51,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	private Spinner paramIndexSpinner;
 	private Label useParamIndexFromTestLabel;
 	private SubTest subtest;
-	private Label testLabel;
 	private Button openParamsButton;
-	private Button openTestButton;
 	
 	@Override
 	public void createControls(Composite parent, TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -64,7 +62,6 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		gridLayout.numColumns = 3;
 		gridLayout.makeColumnsEqualWidth = false;
 		
-		createOpenTestButton(composite);
 		createNoParamsLabel(composite);
 		createIndexSpinner(composite);
 		createUseIndexDefinedInTestCheckbox(composite);
@@ -139,19 +136,6 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	}
 	
 	
-	private void createOpenTestButton(Composite composite) {
-		testLabel = getWidgetFactory().createLabel(composite, "");
-
-		openTestButton = getWidgetFactory().createButton(composite, "Open", SWT.PUSH);
-		openTestButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent se) {
-				ViewUtil.openFileForViewing(test.getFile().getFullPath().toPortableString());
-			}
-		});
-	}
-
-	
 	private void updateIndexSpinner() {
 		if(test != null && test.getParamList() != null){
 			ParameterList list = test.getParamList();
@@ -170,7 +154,6 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		
 		subtest = (SubTest) ((SubTestEditPart) input).getModel();
 		test = subtest.getTest(false);
-		testLabel.setText("Test in subtest: " + test.getName());
 	}
 			
 	private void executeCommand(Command command) {

@@ -186,6 +186,12 @@
             <input type="org.cubictest.model.Test"/>
          </propertySection>
          <propertySection
+               class="org.cubictest.ui.sections.SubTestInfoSection"
+               id="org.cubictest.test.name"
+               tab="org.cubictest.tab.test">
+            <input type="org.cubictest.model.SubTest"/>
+         </propertySection>
+         <propertySection
                class="org.cubictest.ui.sections.StartPointPropertySection"
                id="org.cubictest.test.startPoint"
                tab="org.cubictest.tab.test">
