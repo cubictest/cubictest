@@ -29,7 +29,7 @@ public class SeleniumProxyServer {
 			this.port = port;
 			seleniumServer = new SeleniumServer(port);
 			
-			Boolean inject = settings.getBoolean(SeleniumUtils.getPluginPropertyPrefix(), "useSeleniumProxyInjectionMode");
+			Boolean inject = settings.getBoolean(SeleniumUtils.getPluginPropertyPrefix(), "useSeleniumProxyInjectionMode", false);
 			if (inject != null && inject) {
 				seleniumServer.setProxyInjectionMode(true);
 			}

@@ -45,7 +45,7 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 	public ITestRunner getTestRunner(Test test, Display display, CubicTestProjectSettings settings) {
 		TestRunner runner = null;
 		Shell shell = SeleniumExporterPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
-		SeleniumRunnerWizard wizard = new SeleniumRunnerWizard();
+		SeleniumRunnerWizard wizard = new SeleniumRunnerWizard(settings);
 		WizardDialog dlg = new WizardDialog(shell, wizard);
 		
 		if(dlg.open() != WizardDialog.CANCEL){	

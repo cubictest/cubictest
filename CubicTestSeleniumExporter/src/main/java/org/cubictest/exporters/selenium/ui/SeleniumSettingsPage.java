@@ -4,8 +4,12 @@
  */
 package org.cubictest.exporters.selenium.ui;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.cubictest.common.settings.CubicTestProjectSettings;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
+import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -26,16 +30,19 @@ public class SeleniumSettingsPage extends WizardPage {
 	private static final String SELENIUM_RUNNER_BROWSER_TYPE = "SeleniumRunnerBrowserType";
 	private static final String SELENIUM_RUNNER_PORT_NUMBER = "SeleniumRunnerPortNumber";
 	private static final String PLEASE_ENTER_A_PORT_NUMBER = "Choose Browser. Enter another port number if the current doesn't work.";
+	public static final int DEFAULT_PORT = 4444;
+	public static final BrowserType DEFAULT_BROWSER = BrowserType.FIREFOX;
 	private Label portLabel;
 	private Text portText;
-	private int port;
 	private Label browserLabel;
 	private Combo browserCombo;
-	private BrowserType browserType;
-
-	protected SeleniumSettingsPage() {
+	private CubicTestProjectSettings settings;
+	private int port = DEFAULT_PORT;
+	private BrowserType browserType = DEFAULT_BROWSER;
+	
+	protected SeleniumSettingsPage(CubicTestProjectSettings settings) {
 		super("Set CubicSeleniumServerPort");
-		port = 4444;
+		this.settings = settings;
 		
 	}
 
@@ -63,7 +70,11 @@ public class SeleniumSettingsPage extends WizardPage {
 		try{
 			port = SeleniumExporterPlugin.getDefault().getDialogSettings().getInt(SELENIUM_RUNNER_PORT_NUMBER);
 		}
-		catch(NumberFormatException ignore){
+		catch(NumberFormatException nfe){
+			try {
+				port = settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(), "defaultPortNumber", DEFAULT_PORT);
+			} catch (Exception ignore) {
+			}
 		}
 		portText.setText(port + "");
 		portText.addModifyListener(new ModifyListener(){
@@ -119,16 +130,22 @@ public class SeleniumSettingsPage extends WizardPage {
 							browserCombo.getSelectionIndex());
 			}
 		});
-		int storedBrowserType = 0;
+		int storedBrowserTypeIndex = 0;
 		try {
-			storedBrowserType = SeleniumExporterPlugin.getDefault().
-				getDialogSettings().getInt(SELENIUM_RUNNER_BROWSER_TYPE);
-			if (storedBrowserType < 0 || storedBrowserType > BrowserType.values().length - 1)
-				storedBrowserType = 0;
+			storedBrowserTypeIndex = SeleniumExporterPlugin.getDefault().getDialogSettings().getInt(SELENIUM_RUNNER_BROWSER_TYPE);
+			if (storedBrowserTypeIndex < 0 || storedBrowserTypeIndex > BrowserType.values().length - 1) {
+				storedBrowserTypeIndex = 0;
+			}
+			browserType = BrowserType.values()[storedBrowserTypeIndex];
 		} 
-		catch(NumberFormatException ignore){
+		catch(NumberFormatException nfe) {
+			try {
+				browserType = BrowserType.fromId(settings.getString(SeleniumUtils.getPluginPropertyPrefix(), "defaultBrowserType",
+						DEFAULT_BROWSER.getId()));
+				storedBrowserTypeIndex = ArrayUtils.indexOf(BrowserType.values(), browserType);
+			} catch (Exception ignore) {
+			}
 		}
-		browserCombo.select(storedBrowserType);
-		browserType = BrowserType.values()[storedBrowserType];
+		browserCombo.select(storedBrowserTypeIndex);
 	}
 }

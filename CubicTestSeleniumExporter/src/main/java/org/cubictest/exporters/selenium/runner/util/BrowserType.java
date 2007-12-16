@@ -34,4 +34,13 @@ public enum BrowserType {
 	public String getDisplayName() {
 		return displayName;
 	}
+	
+	public static BrowserType fromId(String id) {
+		for (BrowserType browserType : values()) {
+			if (browserType.getId().equals(id)) {
+				return browserType;
+			}
+		}
+		throw new IllegalArgumentException("Unknown BrowserType: " + id);
+	}
 }

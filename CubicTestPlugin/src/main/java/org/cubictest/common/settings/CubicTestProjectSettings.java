@@ -51,12 +51,14 @@ public class CubicTestProjectSettings {
 	 * @param property
 	 * @return
 	 */
-	public Boolean getBoolean(String prefix, String property) {
+	public Boolean getBoolean(String prefix, String property, Boolean defaultValue) {
 		Object prop = properties.get(prefix + "." + property);
 		if (prop != null) {
 			return ((String) prop).equalsIgnoreCase("true");
 		}
-		return null;
+		Logger.warn("Error getting boolean property " + prefix + "." + property + " from test-project.properties." +
+				"Using default value: " + defaultValue);
+		return defaultValue;
 	}
 	
 	/**
@@ -66,12 +68,34 @@ public class CubicTestProjectSettings {
 	 * @param property
 	 * @return
 	 */
-	public Integer getInteger(String prefix, String property) {
+	public Integer getInteger(String prefix, String property, Integer defaultValue) {
 		Object prop = properties.get(prefix + "." + property);
-		if (prop != null) {
+		try {
 			return Integer.parseInt((String) prop);
 		}
-		return null;
+		catch (Exception e) {
+			Logger.warn("Error getting integer property " + prefix + "." + property + " from test-project.properties." +
+					"Using default value: " + defaultValue);
+			return defaultValue;
+		}
+	}
+
+	
+	/**
+	 * Get string property from test-project.properties.
+	 * 
+	 * @param exporterId
+	 * @param property
+	 * @return
+	 */
+	public String getString(String prefix, String property, String defaultValue) {
+		Object prop = properties.get(prefix + "." + property);
+		if (prop != null) {
+			return (String) prop;
+		}
+		Logger.warn("Error getting string property " + prefix + "." + property + " from test-project.properties. " +
+				"Using default value: " + defaultValue);
+		return defaultValue;
 	}
 	
 

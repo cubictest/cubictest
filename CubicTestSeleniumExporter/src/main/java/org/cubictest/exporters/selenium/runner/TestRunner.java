@@ -20,6 +20,7 @@ import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.cubictest.exporters.selenium.runner.util.SeleniumWorkerThread;
+import org.cubictest.exporters.selenium.ui.SeleniumSettingsPage;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -46,7 +47,9 @@ public class TestRunner extends BaseTestRunner {
 	int port; 
 	BrowserType browserType = BrowserType.FIREFOX;
 
-	
+	/**
+	 * Typically invoked by the CubicTest Selenium exporter Eclipse plugin.
+	 */
 	public TestRunner(Test test, ExtensionPoint targetExPoint, Display display, CubicTestProjectSettings settings,
 			int port, BrowserType browserType) {
 		super(display, settings, test);
@@ -57,10 +60,16 @@ public class TestRunner extends BaseTestRunner {
 	}
 
 
+	/**
+	 * Typically invoked by the Maven plugin.
+	 */
 	public TestRunner(Test test, Selenium selenium, CubicTestProjectSettings settings) {
 		super(null, settings, test);
 		this.test = test;
 		this.selenium = selenium;
+		this.port = settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(), "defaultPortNumber", SeleniumSettingsPage.DEFAULT_PORT);
+		this.browserType = BrowserType.fromId(settings.getString(SeleniumUtils.getPluginPropertyPrefix(), "defaultBrowserType", 
+				SeleniumSettingsPage.DEFAULT_BROWSER.getId()));
 	}
 	
 	public void run(IProgressMonitor monitor) {
