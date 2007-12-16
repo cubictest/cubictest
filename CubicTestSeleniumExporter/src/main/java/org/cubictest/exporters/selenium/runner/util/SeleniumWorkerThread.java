@@ -25,9 +25,10 @@ public class SeleniumWorkerThread extends RunnerWorkerThread<SeleniumHolder> {
 	SeleniumProxyServer server;
 	SeleniumHolder seleniumHolder;
 	UrlStartPoint initialUrlStartPoint;
-	Browser browser;
+	BrowserType browser;
 	boolean seleniumStarted;
 	Selenium selenium;
+	private int port;
 	
 	
 	/**
@@ -36,7 +37,7 @@ public class SeleniumWorkerThread extends RunnerWorkerThread<SeleniumHolder> {
 	@Override
 	public SeleniumHolder doStart() {
 		if (selenium == null) {
-			server = new SeleniumProxyServer(settings);
+			server = new SeleniumProxyServer(settings, port);
 			server.start();
 			while (!server.isStarted()) {
 				//wait for server thread to start
@@ -53,7 +54,7 @@ public class SeleniumWorkerThread extends RunnerWorkerThread<SeleniumHolder> {
 
 		if (selenium == null) {
 			Logger.info("Opening test browser and connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + initialUrlStartPoint);
-			seleniumHolder = new SeleniumHolder(server.getPort(), browser.getId(), initialUrlStartPoint.getBeginAt(), display, settings);
+			seleniumHolder = new SeleniumHolder(port, browser.getId(), initialUrlStartPoint.getBeginAt(), display, settings);
 			seleniumHolder.getSelenium().start();
 			int timeout = SeleniumUtils.getTimeout(settings) * 1000;
 			seleniumHolder.getSelenium().setTimeout(timeout + "");
@@ -110,11 +111,18 @@ public class SeleniumWorkerThread extends RunnerWorkerThread<SeleniumHolder> {
 		this.initialUrlStartPoint = initialUrlStartPoint;
 	}
 
-	public void setBrowser(Browser browser) {
+	public void setBrowser(BrowserType browser) {
 		this.browser = browser;
 	}
 
 	public void setSelenium(Selenium selenium) {
 		this.selenium = selenium;
+	}
+
+
+
+	public void setPort(int port) {
+		this.port = port;
+		
 	}
 }

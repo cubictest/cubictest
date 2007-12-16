@@ -24,9 +24,9 @@ public class SeleniumProxyServer {
 	boolean started;
 	
 	
-	public SeleniumProxyServer(CubicTestProjectSettings settings) {
+	public SeleniumProxyServer(CubicTestProjectSettings settings, int port) {
 		try {
-			port = 28242; //cubic
+			this.port = port;
 			seleniumServer = new SeleniumServer(port);
 			
 			Boolean inject = settings.getBoolean(SeleniumUtils.getPluginPropertyPrefix(), "useSeleniumProxyInjectionMode");
@@ -37,10 +37,11 @@ public class SeleniumProxyServer {
 				seleniumServer.setProxyInjectionMode(false);
 			}
 			
+			final int portInfo = port;
 	        serverThread = new Thread(new Runnable() {
 	            public void run() {
 	                try {
-	        			Logger.info("Starting selenium server at port " + port);
+	        			Logger.info("Starting selenium server at port " + portInfo);
 	                    seleniumServer.start();
 	                    started = true;
 	                    Logger.info("Server started");

@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ITestRunner;
 import org.cubictest.export.utils.exported.ExportUtils;
@@ -82,6 +83,10 @@ public abstract class BaseRunnerAction implements IEditorActionDelegate {
 			CubicTestProjectSettings settings = new CubicTestProjectSettings(testEditor.getProject());
 		
 			testRunner = getTestRunner(test, Display.getCurrent(), settings);
+			if (testRunner == null) {
+				Logger.info("Test runner was null");
+				return;
+			}
 
 			shell = getShell();
 			

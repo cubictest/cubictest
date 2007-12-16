@@ -16,12 +16,14 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.apache.commons.logging.Log;
 import org.apache.tools.ant.util.FileUtils;
 import org.eclipse.core.runtime.FileLocator;
-
+import org.mortbay.log.LogFactory;
 
 public class ResourceExtractor {
 
+    static Log log = LogFactory.getLog(ResourceExtractor.class);
     private static final int BUF_SIZE = 8192;
     
     public static File extractResourcePath(String resourcePath, File dest) throws IOException {
@@ -37,14 +39,18 @@ public class ResourceExtractor {
             File jarFile = getJarFileFromUrl(url);
             extractResourcePathFromJar(cl, jarFile, resourcePath, dest);
         } else {
-        	// HACK: I had to hack around this to make it work with bundleresource:// urls
-            File resourceFile = org.apache.commons.io.FileUtils.toFile(FileLocator.toFileURL(url)); //new File(new URI(url.toExternalForm()));
-			if (!alwaysExtract) return resourceFile;
-			if (resourceFile.isDirectory()) {
-			    LauncherUtils.copyDirectory(resourceFile, dest);
-			} else {
-			    FileUtils.getFileUtils().copyFile(resourceFile, dest);
-			}
+            try {
+	        	// HACK: I had to hack around this to make it work with bundleresource:// urls
+	            File resourceFile = org.apache.commons.io.FileUtils.toFile(FileLocator.toFileURL(url)); //new File(new URI(url.toExternalForm()));
+				if (!alwaysExtract) return resourceFile;
+				if (resourceFile.isDirectory()) {
+				    LauncherUtils.copyDirectory(resourceFile, dest);
+				} else {
+				    FileUtils.getFileUtils().copyFile(resourceFile, dest);
+				}
+			} catch (Exception e) {
+                throw new RuntimeException("Couldn't convert URL to File:" + url, e);
+            }
         }
         return dest;
     }
@@ -53,7 +59,7 @@ public class ResourceExtractor {
         ZipFile z = new ZipFile(jarFile, ZipFile.OPEN_READ);
         String zipStyleResourcePath = resourcePath.substring(1) + "/"; 
         ZipEntry ze = z.getEntry(zipStyleResourcePath);
-        System.out.println( "Extracting "+resourcePath+" to " + dest.getAbsolutePath() );
+        log.debug( "Extracting "+resourcePath+" to " + dest.getAbsolutePath() );
         if (ze != null) {
             // DGF If it's a directory, then we need to look at all the entries
             for (Enumeration entries = z.entries(); entries.hasMoreElements();) {

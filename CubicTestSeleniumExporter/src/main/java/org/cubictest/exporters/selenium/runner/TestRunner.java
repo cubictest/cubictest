@@ -18,7 +18,7 @@ import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
 import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
-import org.cubictest.exporters.selenium.runner.util.Browser;
+import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.cubictest.exporters.selenium.runner.util.SeleniumWorkerThread;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ExtensionPoint;
@@ -43,12 +43,17 @@ public class TestRunner extends BaseTestRunner {
 	SeleniumWorkerThread workerThread;
 	Selenium selenium;
 	ExtensionPoint targetExPoint;
+	int port; 
+	BrowserType browserType = BrowserType.FIREFOX;
 
 	
-	public TestRunner(Test test, ExtensionPoint targetExPoint, Display display, CubicTestProjectSettings settings) {
+	public TestRunner(Test test, ExtensionPoint targetExPoint, Display display, CubicTestProjectSettings settings,
+			int port, BrowserType browserType) {
 		super(display, settings, test);
 		this.test = test;
 		this.targetExPoint = targetExPoint;
+		this.port = port;
+		this.browserType = browserType;
 	}
 
 
@@ -63,10 +68,11 @@ public class TestRunner extends BaseTestRunner {
 		try {
 			workerThread = new SeleniumWorkerThread();
 			workerThread.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
-			workerThread.setBrowser(Browser.FIREFOX);
+			workerThread.setBrowser(browserType);
 			workerThread.setDisplay(display);
 			workerThread.setSelenium(selenium);
 			workerThread.setSettings(settings);
+			workerThread.setPort(port);
 			
 			//start Selenium (browser and server), guard by timeout:
 			workerThread.setOperation(Operation.START);
@@ -74,7 +80,7 @@ public class TestRunner extends BaseTestRunner {
 			int timeout = SeleniumUtils.getTimeout(settings) + 10;
 			seleniumHolder = call(workerThread, timeout, TimeUnit.SECONDS);
 			
-			//ser monitor used to detect user cancel request:
+			//monitor used to detect user cancel request:
 			seleniumHolder.setMonitor(monitor);
 			seleniumHolder.setFailOnAssertionFailure(failOnAssertionFailure);
 			

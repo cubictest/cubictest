@@ -14,6 +14,7 @@ import org.cubictest.exporters.selenium.runner.TestRunner;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Test;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -24,7 +25,7 @@ import com.thoughtworks.selenium.Selenium;
  * 
  * @author Christian Schwarz
  */
-public class RunSeleniumRunnerAction extends BaseRunnerAction  {
+public class RunSeleniumRunnerAction extends BaseRunnerAction {
 
 	boolean stopSeleniumWhenFinished = true;
 	Selenium selenium;
@@ -42,9 +43,16 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction  {
 
 	@Override
 	public ITestRunner getTestRunner(Test test, Display display, CubicTestProjectSettings settings) {
-		TestRunner runner = new TestRunner(test, targetExPoint, display, settings);
-		if (selenium != null) {
-			runner.setSelenium(selenium);
+		TestRunner runner = null;
+		Shell shell = SeleniumExporterPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
+		SeleniumRunnerWizard wizard = new SeleniumRunnerWizard();
+		WizardDialog dlg = new WizardDialog(shell, wizard);
+		
+		if(dlg.open() != WizardDialog.CANCEL){	
+			runner = new TestRunner(test, targetExPoint, display, settings, wizard.getPort(), wizard.getBrowserType());
+			if (selenium != null) {
+				runner.setSelenium(selenium);
+			}
 		}
 		return runner;
 	}
