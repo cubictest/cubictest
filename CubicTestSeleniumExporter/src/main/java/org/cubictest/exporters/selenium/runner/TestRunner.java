@@ -75,10 +75,16 @@ public class TestRunner extends BaseTestRunner {
 			workerThread.setPort(port);
 			
 			//start Selenium (browser and server), guard by timeout:
-			workerThread.setOperation(Operation.START);
-			
 			int timeout = SeleniumUtils.getTimeout(settings) + 10;
-			seleniumHolder = call(workerThread, timeout, TimeUnit.SECONDS);
+			try {
+				workerThread.setOperation(Operation.START);
+				seleniumHolder = call(workerThread, timeout, TimeUnit.SECONDS);
+			}
+			catch (Exception e) {
+				ErrorHandler.rethrow("Unable to start " + browserType.getDisplayName() + 
+						". Check that the browser is installed.\n\n" + 
+						"Error message: " + e.toString(), e);
+			}
 			
 			//monitor used to detect user cancel request:
 			seleniumHolder.setMonitor(monitor);
