@@ -203,9 +203,12 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		createParamsFileButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				NewParamWizard wiz = launchNewParamsWizard();
-				fileName.setText(wiz.getCreatedFilePath());
-				
+				NewParamWizard wiz = createNewParamsWizard();
+				WizardDialog dlg = new WizardDialog(new Shell(), wiz);
+				if(dlg.open() != WizardDialog.CANCEL){	
+					fileName.setText(wiz.getCreatedFilePath());
+					filePathChanged();
+				}
 			}
 		});
 		createParamsFileButton.setLayoutData(data);
@@ -236,8 +239,8 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		composite.setLayout(gridLayout);
 	}
 	
-	public NewParamWizard launchNewParamsWizard() {
-		NewParamWizard wiz = new NewParamWizard();
+	public NewParamWizard createNewParamsWizard() {
+		NewParamWizard wiz = new NewParamWizard(test.getProject());
 		String testName = test.getFile().getName();
 		String testExt = "." + test.getFile().getFileExtension();
 		wiz.setParamsName(testName.substring(0, testName.indexOf(testExt)));
@@ -246,7 +249,6 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		IWorkbench workbench = CubicTestPlugin.getDefault().getWorkbench();
 		wiz.init(workbench, new StructuredSelection(test.getProject()));
 		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wiz);
-		dialog.open();
 		return wiz;
 	}
 
@@ -318,6 +320,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 			command.setOldParamList(paramList);
 			executeCommand(command);
 		}
+		refresh();
 	}
 
 	private void executeCommand(Command command) {
@@ -333,8 +336,8 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		paramList = test.getParamList();
 		boolean paramListNotNull = (paramList != null);
 		refreshParamButton.setVisible(paramListNotNull);
-		paramIndexLabel.setVisible(paramListNotNull && paramList.hasParameters());
-		paramIndexSpinner.setVisible(paramListNotNull && paramList.hasParameters());
+		paramIndexLabel.setVisible(paramListNotNull && paramList.hasParameters() && paramList.hasObservers());
+		paramIndexSpinner.setVisible(paramListNotNull && paramList.hasParameters() && paramList.hasObservers());
 		openParamsButton.setVisible(paramListNotNull);
 		
 		if(paramList != null) {

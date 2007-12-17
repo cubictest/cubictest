@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -36,7 +37,12 @@ public class NewParamWizard extends Wizard implements INewWizard{
 	private String defaultDestFolder;
 	private String paramsName;
 	private String createdFilePath;
+	private IProject project;
 
+	public NewParamWizard(IProject project) {
+		this.project = project;
+	}
+	
 	@Override
 	public boolean performFinish() {	
 		try {
@@ -59,9 +65,12 @@ public class NewParamWizard extends Wizard implements INewWizard{
 	private IFile createParams(IProgressMonitor monitor, String fileName, String containerName) throws CoreException {
 		monitor.beginTask("Creating " + fileName, 2);
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		IResource resource = root.findMember(new Path(containerName));
-		if (!resource.exists() || !(resource instanceof IContainer)) {
-			throwCoreException("Container \"" + containerName + "\" does not exist.");
+		IResource resource = project.findMember(new Path(containerName));
+		if (resource == null || !resource.exists() || !(resource instanceof IContainer)) {
+			Path path = new Path(project.getLocation().removeLastSegments(1) + containerName);
+			path.toFile().mkdir();
+			project.refreshLocal(Integer.MAX_VALUE, monitor);
+			resource = project.findMember(new Path(containerName).removeFirstSegments(1));
 		}
 		IContainer container = (IContainer) resource;
 		final IFile file = container.getFile(new Path(fileName));
