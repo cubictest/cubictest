@@ -33,7 +33,6 @@ import org.eclipse.swt.widgets.Display;
 public class WatirHolder extends RunnerResultHolder {
 	
 	public static final String UNEXPECTED_ERROR_FROM_WATIR_RUNNER = "Unexpected error from Watir runner";
-	private static final String UTIL_VARIABLES_PLACEHOLDER = "$$$UTIL_VARIABLES";
 	public static final String TEST_DONE = "[Test done]";;
 	public static final String SUBTEST_DONE = "[Subtest done]> ";;
 	private RubyBuffer rubyBuffer;
@@ -111,7 +110,6 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("begin", 1);
 		rubyBuffer.add("failedSteps = 0", 2);
 		rubyBuffer.add("passedSteps = 0", 2);
-		rubyBuffer.add(UTIL_VARIABLES_PLACEHOLDER, 0);
 		rubyBuffer.add("puts \"Starting test..\"", 2);
 	}
 	
@@ -146,19 +144,9 @@ public class WatirHolder extends RunnerResultHolder {
 		rubyBuffer.add("end", 0);
 		rubyBuffer.add("", 0);
 		String res = rubyBuffer.toString();
-		res = StringUtils.replace(res, UTIL_VARIABLES_PLACEHOLDER, getWatirElementDefinitions());
 		return res;
 	}
 
-
-	private String getWatirElementDefinitions() {
-		RubyBuffer b = new RubyBuffer();
-		b.add("# variables for the page elements in the test:", 2);
-		for (String s : elementVariableMap.values()) {
-			b.add(s + " = nil", 2);
-		}
-		return b.toString();
-	}
 
 	public boolean isBrowserStarted() {
 		return browserStarted;
@@ -193,7 +181,7 @@ public class WatirHolder extends RunnerResultHolder {
 		
 		String type = pe.getType().toLowerCase();
 		int count = elementTypeCountMap.get(type) == null ? 0 : elementTypeCountMap.get(type);
-		elementVariableMap.put(pe, type + count);
+		elementVariableMap.put(pe, "@" + type + count);
 		elementTypeCountMap.put(type, ++count);
 	}
 	
