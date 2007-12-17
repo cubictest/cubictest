@@ -151,7 +151,7 @@ public class Identifier implements Cloneable, SationObserver{
 	}
 	@Override
 	public String toString() {
-		return type + "=\"" + value + "\" (probability = " + probability + ")";
+		return type + " " + getModerator().getDisplayText() + " \"" + value + "\" (probability = " + probability + ")";
 	}
 	
 	public boolean isNotIndifferent() {
@@ -167,6 +167,8 @@ public class Identifier implements Cloneable, SationObserver{
 	}
 
 	public Moderator getModerator() {
+		if (moderator == null)
+			moderator = Moderator.EQUAL;
 		return moderator;
 	}
 

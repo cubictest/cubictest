@@ -28,6 +28,7 @@ Done	Test suites should continue to next test even if a test fails. Create a pro
 Done	Problem with image button im IMDB
 Done	Error log should be available by default.
 
+Add param input row automatically on first key addition
 
 Fix the following:  I can connect to my https site only when using the experimental browser *chrome,  but when doing the same from CubicTest I get the impression that *firefox is used. I did not find a way to change this (yet) 
 Document test-project.properties better.
@@ -282,64 +283,64 @@ Espen's Cubic Diary (norwegian):
 ------------------------------------------------------------------------
 Funksjonelt:
 ------------------------------------------------------------------------
-[Done] - I Package Explorer burde man når man høyre-klikker "New" muligheten til å legge til en 
-[Done] 	- Det må være mulig å redigere en User Action.
+[Done] - I Package Explorer burde man nï¿½r man hï¿½yre-klikker "New" muligheten til ï¿½ legge til en 
+[Done] 	- Det mï¿½ vï¿½re mulig ï¿½ redigere en User Action.
 [Done]  Aspekt, hva er det?
 [Done] - Select box burde hete Select list ettersom det er hva den heter
 
-- Få inn XPath støtte 
-- Følgende burde vært bundlet med:
+- Fï¿½ inn XPath stï¿½tte 
+- Fï¿½lgende burde vï¿½rt bundlet med:
   - One click instalation med:
     - Et Cubic prosjekt
     - En batch fil som starter Jetty/Tomcat med en demo webshop installert som Cubic testen
-      bruker. Da har man noe å se på slik at man kommer igang lettere
+      bruker. Da har man noe ï¿½ se pï¿½ slik at man kommer igang lettere
 - Bytte Add med Check for eller lignende
 - Hvorfor er det skille mellom Input elements og Controls
 
-- Vanskelig å forstå hva man skal gjøre når man har laget testen. Hvordan bygger/kjører jeg testene?
-     - Burde hatt en knapp i Toolbaren med "Generate" eller lignende slik at man kan kjøre Cubic testene.
-     - Burde hatt muligheten til å velge Cubic under "Run as", slik at du ikke må inn under 
-     den Cubic test greiene for å kjøre testen
-- Hvordan kan jeg sjekke på andre elementer enn de som er i toolboxen? f.eks Table, div, etc
-- Page vs State, burde være en av delene eller to ulike
-- "Description" feltet på "New Cubic Test" burde wrape linje når man kommer til slutten av boksen. Brukeren burde ikke måtte trykke enter i feltet slik man må nå.
+- Vanskelig ï¿½ forstï¿½ hva man skal gjï¿½re nï¿½r man har laget testen. Hvordan bygger/kjï¿½rer jeg testene?
+     - Burde hatt en knapp i Toolbaren med "Generate" eller lignende slik at man kan kjï¿½re Cubic testene.
+     - Burde hatt muligheten til ï¿½ velge Cubic under "Run as", slik at du ikke mï¿½ inn under 
+     den Cubic test greiene for ï¿½ kjï¿½re testen
+- Hvordan kan jeg sjekke pï¿½ andre elementer enn de som er i toolboxen? f.eks Table, div, etc
+- Page vs State, burde vï¿½re en av delene eller to ulike
+- "Description" feltet pï¿½ "New Cubic Test" burde wrape linje nï¿½r man kommer til slutten av boksen. Brukeren burde ikke mï¿½tte trykke enter i feltet slik man mï¿½ nï¿½.
 - Extension Point??? Hva er dette?
-Folder også, uten å måtte gå til "Other". Foldere vil man bruker til å strukturere testene.
-- "Custom action": Enten burde man kunne definere sine egne Actions (det hadde egentlig vært det beste) slik at man 
-f.eks kan teste på back knappen eller andre ting som man kan gjøre vha Javascript. Å lage det som en custom action gjør 
+Folder ogsï¿½, uten ï¿½ mï¿½tte gï¿½ til "Other". Foldere vil man bruker til ï¿½ strukturere testene.
+- "Custom action": Enten burde man kunne definere sine egne Actions (det hadde egentlig vï¿½rt det beste) slik at man 
+f.eks kan teste pï¿½ back knappen eller andre ting som man kan gjï¿½re vha Javascript. ï¿½ lage det som en custom action gjï¿½r 
 at man vil kunne skrive denne slik man selv vil. 
-- Når man skriver en test så burde man kunne scrolle "uendelig". Slik det er nå så må man legge en kontroll langt nede på siden 
-for at man skal få mere plass. Her burde man kunne bare scrolle videre nedover også kunne man legge til noe der. Kanskje 
-ikke uendelig, men ihvertfall burde man sette av litt mere plass. Burde også være en opsjon og scrolle horizontalt, ettersom 
-det kan være brukere som ønsker dette også. Man leser bedre bortover enn nedover. 
+- Nï¿½r man skriver en test sï¿½ burde man kunne scrolle "uendelig". Slik det er nï¿½ sï¿½ mï¿½ man legge en kontroll langt nede pï¿½ siden 
+for at man skal fï¿½ mere plass. Her burde man kunne bare scrolle videre nedover ogsï¿½ kunne man legge til noe der. Kanskje 
+ikke uendelig, men ihvertfall burde man sette av litt mere plass. Burde ogsï¿½ vï¿½re en opsjon og scrolle horizontalt, ettersom 
+det kan vï¿½re brukere som ï¿½nsker dette ogsï¿½. Man leser bedre bortover enn nedover. 
 - I18n and Parameters burde hete Locale, Regional Settings eller noe lignende.
-- Arv av Aspects, burde kunne koble en aspect til en annen dersom man ønsker det i enkelte tilfeller. Da ville man enklere 
-gjenbruke Aspecter på tvers av tester... muligens er dette ikke smart men...
+- Arv av Aspects, burde kunne koble en aspect til en annen dersom man ï¿½nsker det i enkelte tilfeller. Da ville man enklere 
+gjenbruke Aspecter pï¿½ tvers av tester... muligens er dette ikke smart men...
 
 ------------------------------------------------------------------------
 Visuelt:
 ------------------------------------------------------------------------
-[Done]- Toolbox panet er for stort, det trenger ikke være større enn den lengste teksten
-- Sidene man drar ut burde ha shading og i tillegg burde "tittel feltet" vært større, følge boksen og en større font. Burde ikke trime strengen, dette burde brukerne besteme selv
+[Done]- Toolbox panet er for stort, det trenger ikke vï¿½re stï¿½rre enn den lengste teksten
+- Sidene man drar ut burde ha shading og i tillegg burde "tittel feltet" vï¿½rt stï¿½rre, fï¿½lge boksen og en stï¿½rre font. Burde ikke trime strengen, dette burde brukerne besteme selv
 - Startpage:
-     - Startpage er veldig uklart fremstilt, burde også være alignet midt på og ikke oppe i hjørnet når man starter
+     - Startpage er veldig uklart fremstilt, burde ogsï¿½ vï¿½re alignet midt pï¿½ og ikke oppe i hjï¿½rnet nï¿½r man starter
      - Burde gjemme URL'en slik at den vises bare i f.eks properties view'et
-     - Burde hatt et annet icon for start, en running eller noe slik man bruker når man tegner prosessflyt
+     - Burde hatt et annet icon for start, en running eller noe slik man bruker nï¿½r man tegner prosessflyt
 - Aspect og Page/State burde ha ulike bokser
-- Aspects burde komponeres inn i bokser eller lignende. Slik det er nå blir det veldig rotete skjema dersom man bruker et aspekt som går på f.eks 5-6 sider/tilstander
-- Større font, alt er veldig smått og puslete slik det er nå.
-- Burde vist testene på en bedre måte i "Package Explorer"
-- Alle iconer burde vært større idet man trekker de inn i en Page/State/Aspect. Da ville det vært enklere å få oversikt. Nå må man myse veldig før man ser hva det er.
-- Iconene burde i større grad lign elementene de skal teste, slik som knapper. Muligens burde man sett på hva Web Tools bruker av iconer.
+- Aspects burde komponeres inn i bokser eller lignende. Slik det er nï¿½ blir det veldig rotete skjema dersom man bruker et aspekt som gï¿½r pï¿½ f.eks 5-6 sider/tilstander
+- Stï¿½rre font, alt er veldig smï¿½tt og puslete slik det er nï¿½.
+- Burde vist testene pï¿½ en bedre mï¿½te i "Package Explorer"
+- Alle iconer burde vï¿½rt stï¿½rre idet man trekker de inn i en Page/State/Aspect. Da ville det vï¿½rt enklere ï¿½ fï¿½ oversikt. Nï¿½ mï¿½ man myse veldig fï¿½r man ser hva det er.
+- Iconene burde i stï¿½rre grad lign elementene de skal teste, slik som knapper. Muligens burde man sett pï¿½ hva Web Tools bruker av iconer.
 
 ------------------------------------------------------------------------
 Feil/Bugs:
 ------------------------------------------------------------------------
 [Done]- Kan ikke redigere en User Action. Properties er tomt og man kan ikke redigere.
-[Done]- Undo på en Page/State med en selectbox fører til Exception
-[Done]- Har du en TXT inne i en Page/State som er lengre enn Page/State boksen så vises ikke hele teksten når man markerer TXT kontrollen. Den ser ut til å bli liggende bak eller noe slik.
-[Done]- Fungerer ikke å generere Watir tester for kataloger, får følgende melding i Consolet: org.eclipse.core.internal.resources.ResourceException: Resource /PBA-Fondshandel/dev/runtime-EclipseApplication/PBA-Fondshandel/tests does not exist.
-- Tab order på New Cubic Test User Input er ikke riktig, burde kunne Tab'e seg fra element til action og til input. Nå så går man fra element til "Add New User Input"
-- Burde legge på Keyboard shortcuts på _alle_ knapper i alle Wizards
-- Properties view'et. F.eks når man har lagt til en kontroll og vil endre f.eks  Identifier Type sin value fra Name til ID, så burde man kunne skrive med keyboardet ID ikke måtte bruke pilene. 
-- Når jeg cut'n paster en Aspect fra en test inn til en annen så kan jeg ikke sette på Connectors fra Aspect'en til en Page/State
+[Done]- Undo pï¿½ en Page/State med en selectbox fï¿½rer til Exception
+[Done]- Har du en TXT inne i en Page/State som er lengre enn Page/State boksen sï¿½ vises ikke hele teksten nï¿½r man markerer TXT kontrollen. Den ser ut til ï¿½ bli liggende bak eller noe slik.
+[Done]- Fungerer ikke ï¿½ generere Watir tester for kataloger, fï¿½r fï¿½lgende melding i Consolet: org.eclipse.core.internal.resources.ResourceException: Resource /PBA-Fondshandel/dev/runtime-EclipseApplication/PBA-Fondshandel/tests does not exist.
+- Tab order pï¿½ New Cubic Test User Input er ikke riktig, burde kunne Tab'e seg fra element til action og til input. Nï¿½ sï¿½ gï¿½r man fra element til "Add New User Input"
+- Burde legge pï¿½ Keyboard shortcuts pï¿½ _alle_ knapper i alle Wizards
+- Properties view'et. F.eks nï¿½r man har lagt til en kontroll og vil endre f.eks  Identifier Type sin value fra Name til ID, sï¿½ burde man kunne skrive med keyboardet ID ikke mï¿½tte bruke pilene. 
+- Nï¿½r jeg cut'n paster en Aspect fra en test inn til en annen sï¿½ kan jeg ikke sette pï¿½ Connectors fra Aspect'en til en Page/State

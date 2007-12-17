@@ -76,6 +76,8 @@ public class ContextHolder implements IResultHolder {
 	
 	/**
 	 * Recursive private utility method. Gets "smart context": Asserts all or previous elements in context present.
+	 * @param pageElement Current page element to get XPath for.
+	 * @param orgElement The original element for the query.
 	 */
 	private String getSmartContext(PageElement pageElement, PageElement orgElement) {
 		String res = "";

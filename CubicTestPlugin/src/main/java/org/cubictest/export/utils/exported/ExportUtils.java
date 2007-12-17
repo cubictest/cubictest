@@ -77,7 +77,7 @@ public class ExportUtils {
 	 */
 	public static String getHtmlIdType(Identifier id) {
 		if (id.getType().equals(LABEL)) {
-			return "label";
+			return "value";
 		}
 		else if (id.getType().equals(NAME)) {
 			return "name";

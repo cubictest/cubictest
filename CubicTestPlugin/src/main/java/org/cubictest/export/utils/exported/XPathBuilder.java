@@ -17,6 +17,7 @@ import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
+import org.cubictest.model.Moderator;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.context.AbstractContext;
@@ -118,7 +119,7 @@ public class XPathBuilder {
 				result += "normalize-space(text())" + comparisonOperator + "'" + labelText + "'";
 			}
 			else if (pe instanceof Button) {
-				result += "@value" + comparisonOperator + "'" + labelText + "'" ;
+				result += getAttributeCondition(id);
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
@@ -153,24 +154,8 @@ public class XPathBuilder {
 			if (i > 0) {
 				result += " and ";
 			}
-			String comparisonOperator = "=";
-			if (id.getProbability() < 0) {
-				comparisonOperator = "!=";
-			}
 			
-			if (id.getType().equals(CHECKED) || id.getType().equals(SELECTED) || id.getType().equals(MULTISELECT)) {
-				//idType with no value
-				if (id.getProbability() > 0) {
-					result += "@" + ExportUtils.getHtmlIdType(id)+ "=''";
-				}
-				else {
-					result += "not(@" + ExportUtils.getHtmlIdType(id) + ")";
-				}
-			}
-			else {
-				//normal ID type (name, value)
-				result += "@" + ExportUtils.getHtmlIdType(id) + comparisonOperator + "'" + id.getValue() + "'";
-			}
+			result = getAttributeCondition(id);
 			i++;
 		}		
 		
@@ -181,6 +166,62 @@ public class XPathBuilder {
 			predicateSeperator.setNeedsSeparator(true);
 			return result;
 		}
+	}
+
+
+
+
+	private static String getAttributeCondition(Identifier id) {
+		String result = "";
+		if (id.getType().equals(CHECKED) || id.getType().equals(SELECTED) || id.getType().equals(MULTISELECT)) {
+			//idType with no value
+			if (id.getProbability() > 0) {
+				result += "@" + ExportUtils.getHtmlIdType(id)+ "=''";
+			}
+			else {
+				result += "not(@" + ExportUtils.getHtmlIdType(id) + ")";
+			}
+		}
+		else {
+			//normal ID type (name, value)
+			if (id.getModerator().equals(Moderator.EQUAL)) {
+				//normal equal check
+				String comparisonOperator = getStringComparisonOperator(id);
+				result += "@" + ExportUtils.getHtmlIdType(id) + comparisonOperator + "'" + id.getValue() + "'";
+			}
+			else {
+				String prefixOperator = getPrefixComparisonOperator(id);
+				String attr = "@" + ExportUtils.getHtmlIdType(id);
+				if (id.getModerator().equals(Moderator.BEGIN)) {
+					result += "substring(" + attr + ", 0, string-length('" + id.getValue() + "') + 1) = '" + id.getValue() + "'";
+				}
+				else if (id.getModerator().equals(Moderator.CONTAIN)) {
+					result += prefixOperator + "contains(@" + ExportUtils.getHtmlIdType(id) + ", " + "'" + id.getValue() + "')";
+				}
+				else if (id.getModerator().equals(Moderator.END)) {
+					result += "substring(" + attr + ", string-length(" + attr + ") - string-length(" + "'" + id.getValue() +"')" +
+							" + 1, string-length('" + id.getValue() + "')) = '" + id.getValue() + "'";
+				}
+			}
+		}
+		return result;
+	}
+
+
+	private static String getPrefixComparisonOperator(Identifier id) {
+		if (id.getProbability() < 0) {
+			return "!";
+		}
+		return "";
+	}
+
+
+
+	private static String getStringComparisonOperator(Identifier id) {
+		if (id.getProbability() < 0) {
+			return "!=";
+		}
+		return "=";
 	}
 	
 		

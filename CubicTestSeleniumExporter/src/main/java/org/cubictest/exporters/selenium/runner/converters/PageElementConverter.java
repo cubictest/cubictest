@@ -9,12 +9,12 @@ package org.cubictest.exporters.selenium.runner.converters;
 
 import static org.cubictest.model.IdentifierType.LABEL;
 
-import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.export.exceptions.AssertionFailedException;
-import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.export.utils.exported.RunnerUtils;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.FormElement;
+import org.cubictest.model.Identifier;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.Text;
@@ -39,9 +39,10 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 		try {
 			if (pe instanceof Title) {
 				String actual = seleniumHolder.getSelenium().getTitle();
-				String expected = pe.getIdentifier(LABEL).getValue();
+				Identifier identifier = pe.getIdentifier(LABEL);
+				String expected = identifier.getValue();
 	
-				if (actual.equals(expected)) {
+				if (RunnerUtils.pass(expected, actual, identifier.getModerator())) {
 					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
 				}
 				else {
