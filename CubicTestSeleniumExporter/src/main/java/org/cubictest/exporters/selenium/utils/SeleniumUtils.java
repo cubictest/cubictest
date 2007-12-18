@@ -26,6 +26,7 @@ import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.formElement.Option;
 
@@ -52,11 +53,22 @@ public class SeleniumUtils {
 			locator = "index=0";
 		}
 		else {
-			locator = ExportUtils.getHtmlIdType(optionMainId) + "=" + optionMainId.getValue();
+			locator = getOptionIdType(optionMainId) + "=" + optionMainId.getValue();
 		}
 		return locator;
 	}
 	
+	
+	
+	private static String getOptionIdType(Identifier optionMainId) {
+		if (optionMainId.getType().equals(IdentifierType.LABEL))
+			return "label";
+		else
+			return ExportUtils.getHtmlIdType(optionMainId);
+	}
+
+
+
 	/**
 	 * Get the Selenium command name for the specified ActionType.
 	 * @param a

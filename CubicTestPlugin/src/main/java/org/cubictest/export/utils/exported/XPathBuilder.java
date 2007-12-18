@@ -105,25 +105,19 @@ public class XPathBuilder {
 		
 		Identifier id = pe.getIdentifier(LABEL);
 		if (id != null && id.isNotIndifferent()) {
-			String labelText = id.getValue();
-			
-			String comparisonOperator = "=";
-			if (pe.getIdentifier(LABEL).getProbability() < 0) {
-				comparisonOperator = "!=";
-			}
-
 			if (pe instanceof Text) {
-				result += "contains(normalize-space(.), '" + labelText + "')";
+				result += "contains(normalize-space(.), '" + id.getValue() + "')";
 			}
 			else if (pe instanceof Link || pe instanceof Option) {
-				result += "normalize-space(text())" + comparisonOperator + "'" + labelText + "'";
+				result += getPageValueCheck(id, "normalize-space(text())");
 			}
 			else if (pe instanceof Button) {
-				result += getAttributeCondition(id);
+				result += getIdentifierCondition(id);
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
-				result += "@id" + comparisonOperator + "(//label[text()='" + labelText + "']/@for)";
+				String labelCondition = getPageValueCheck(id, "normalize-space(text())");
+				result += "@id" + getStringComparisonOperator(id) + "(//label[" + labelCondition + "]/@for)";
 			}
 		}
 
@@ -135,8 +129,6 @@ public class XPathBuilder {
 			return result;
 		}
 	}
-	
-	
 
 	/**
 	 * Get string to assert for all the page elements Identifier/HTML attribute values.
@@ -155,7 +147,7 @@ public class XPathBuilder {
 				result += " and ";
 			}
 			
-			result = getAttributeCondition(id);
+			result += getIdentifierCondition(id);
 			i++;
 		}		
 		
@@ -169,9 +161,7 @@ public class XPathBuilder {
 	}
 
 
-
-
-	private static String getAttributeCondition(Identifier id) {
+	private static String getIdentifierCondition(Identifier id) {
 		String result = "";
 		if (id.getType().equals(CHECKED) || id.getType().equals(SELECTED) || id.getType().equals(MULTISELECT)) {
 			//idType with no value
@@ -184,27 +174,48 @@ public class XPathBuilder {
 		}
 		else {
 			//normal ID type (name, value)
-			if (id.getModerator().equals(Moderator.EQUAL)) {
-				//normal equal check
-				String comparisonOperator = getStringComparisonOperator(id);
-				result += "@" + ExportUtils.getHtmlIdType(id) + comparisonOperator + "'" + id.getValue() + "'";
+			String attr = getAttributeToCheck(id);
+			result += getPageValueCheck(id, attr);
+		}
+		return result;
+	}
+
+
+
+	/**
+	 * Check a page value against an identifier
+	 * @param id the identifier
+	 * @param pageValue the XPath fragement for which page value to check
+	 * @return
+	 */
+	private static String getPageValueCheck(Identifier id, String pageValue) {
+		String result = "";
+		if (id.getModerator().equals(Moderator.EQUAL)) {
+			//normal equal check
+			String comparisonOperator = getStringComparisonOperator(id);
+			result += pageValue + comparisonOperator + "'" + id.getValue() + "'";
+		}
+		else {
+			String prefixOperator = getPrefixComparisonOperator(id);
+			if (id.getModerator().equals(Moderator.BEGIN)) {
+				result += "substring(" + pageValue + ", 0, string-length('" + id.getValue() + "') + 1) = '" + id.getValue() + "'";
 			}
-			else {
-				String prefixOperator = getPrefixComparisonOperator(id);
-				String attr = "@" + ExportUtils.getHtmlIdType(id);
-				if (id.getModerator().equals(Moderator.BEGIN)) {
-					result += "substring(" + attr + ", 0, string-length('" + id.getValue() + "') + 1) = '" + id.getValue() + "'";
-				}
-				else if (id.getModerator().equals(Moderator.CONTAIN)) {
-					result += prefixOperator + "contains(@" + ExportUtils.getHtmlIdType(id) + ", " + "'" + id.getValue() + "')";
-				}
-				else if (id.getModerator().equals(Moderator.END)) {
-					result += "substring(" + attr + ", string-length(" + attr + ") - string-length(" + "'" + id.getValue() +"')" +
-							" + 1, string-length('" + id.getValue() + "')) = '" + id.getValue() + "'";
-				}
+			else if (id.getModerator().equals(Moderator.CONTAIN)) {
+				result += prefixOperator + "contains(" + pageValue + ", " + "'" + id.getValue() + "')";
+			}
+			else if (id.getModerator().equals(Moderator.END)) {
+				result += "substring(" + pageValue + ", string-length(" + pageValue + ") - string-length(" + "'" + id.getValue() +"')" +
+						" + 1, string-length('" + id.getValue() + "')) = '" + id.getValue() + "'";
 			}
 		}
 		return result;
+	}
+
+
+
+
+	private static String getAttributeToCheck(Identifier id) {
+		return "@" + ExportUtils.getHtmlIdType(id);
 	}
 
 
