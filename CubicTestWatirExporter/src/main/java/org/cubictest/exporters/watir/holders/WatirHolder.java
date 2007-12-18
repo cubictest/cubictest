@@ -16,6 +16,7 @@ import org.cubictest.exporters.watir.utils.RubyBuffer;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
+import org.cubictest.model.Moderator;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.context.SimpleContext;
@@ -198,6 +199,13 @@ public class WatirHolder extends RunnerResultHolder {
 		if (pe instanceof SimpleContext) {
 			return true;
 		}
+		
+		for (Identifier id : pe.getIdentifiers()) {
+			if (id.isNotIndifferent() && !id.getModerator().equals(Moderator.EQUAL)) {
+				return true;
+			}
+		}
+		
 		if (pe instanceof Option) {
 			Option option = (Option) pe;
 			if (!hasMoreThanOneIdentifier(option) && (option.getMainIdentifierType().equals(IdentifierType.LABEL) || 
