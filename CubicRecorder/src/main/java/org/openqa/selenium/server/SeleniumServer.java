@@ -20,24 +20,40 @@ package org.openqa.selenium.server;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Formatter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
+import org.apache.commons.logging.Log;
+import org.mortbay.http.HashUserRealm;
 import org.mortbay.http.HttpContext;
-import org.mortbay.http.NCSARequestLog;
+import org.mortbay.http.SecurityConstraint;
 import org.mortbay.http.SocketListener;
+import org.mortbay.http.handler.SecurityHandler;
 import org.mortbay.jetty.Server;
+import org.mortbay.log.LogFactory;
 import org.openqa.selenium.server.browserlaunchers.AsyncExecute;
 import org.openqa.selenium.server.browserlaunchers.BrowserLauncher;
+import org.openqa.selenium.server.browserlaunchers.UnixUtils;
 import org.openqa.selenium.server.htmlrunner.HTMLLauncher;
 import org.openqa.selenium.server.htmlrunner.HTMLResultsListener;
 import org.openqa.selenium.server.htmlrunner.SeleniumHTMLRunnerResultsHandler;
 import org.openqa.selenium.server.htmlrunner.SingleTestSuiteResourceHandler;
+import org.openqa.selenium.server.log.MaxLevelFilter;
+import org.openqa.selenium.server.log.StdOutHandler;
+import org.openqa.selenium.server.log.TerseFormatter;
 
 /**
  * Provides a server that can launch/terminate browsers and can receive remote Selenium commands
@@ -136,7 +152,7 @@ import org.openqa.selenium.server.htmlrunner.SingleTestSuiteResourceHandler;
  * @author plightbo
  */
 public class SeleniumServer {
-
+    private static Log log;
     private Server server;
     private SeleniumDriverResourceHandler driver;
     private SeleniumHTMLRunnerResultsHandler postResultsHandler;
@@ -145,11 +161,16 @@ public class SeleniumServer {
     private boolean multiWindow = false;
     private Thread shutDownHook;
 
+    private static ProxyHandler customProxyHandler;
     private static String debugURL = "";  // add special tracing for debug when this URL is requested
-    private static boolean debugMode = false;
-    private static boolean alwaysProxy = false;
+    private static boolean browserSideLogEnabled = false;
+    private static boolean avoidProxy = false;
     private static boolean proxyInjectionMode = false;
     private static File firefoxProfileTemplate = null;
+    private static Handler[] defaultHandlers;
+    private static Map<Handler, Formatter> defaultFormatters;
+    private static Map<Handler, Level> defaultLevels;
+    private static Map<File, FileHandler> seleniumFileHandlers = new HashMap<File, FileHandler>();
 
     public static final int DEFAULT_PORT = 4444;
 
@@ -164,16 +185,28 @@ public class SeleniumServer {
     // to the default port 4444.  At this point, you would open tcptrace to bridge the gap and be able to watch   
     // all the data coming in and out:
     private static int portDriversShouldContact = 0;
-    private static PrintStream logOut = null;
     private static String logOutFileName = null;
     private static String forcedBrowserMode = null; 
 
     public static final int DEFAULT_TIMEOUT = (30 * 60);
     public static int timeoutInSeconds = DEFAULT_TIMEOUT;
+    
+    // Minimum and maximum number of jetty threads
+    public static final int MIN_JETTY_THREADS = 1;
+    public static final int MAX_JETTY_THREADS = 1024;
+    public static final int DEFAULT_JETTY_THREADS = 512;
+    
+    // Number of jetty threads for the server
+    private static int jettyThreads = DEFAULT_JETTY_THREADS;
+    
     private static Boolean reusingBrowserSessions = null;
 
     private static String dontInjectRegex = null;
     private static boolean FORCE_PROXY_CHAIN = false;
+    private static boolean debugMode = false;
+
+    // useful for situations where Selenium is being invoked programatically and the outside container wants to own logging
+    private static boolean dontTouchLogging = false;
 
     /**
      * Starts up the server on the specified port (or default if no port was specified)
@@ -183,10 +216,13 @@ public class SeleniumServer {
      * @throws Exception - you know, just in case.
      */
     public static void main(String[] args) throws Exception {
+        
         int port = SeleniumServer.getDefaultPort();
         boolean interactive = false;
 
         boolean htmlSuite = false;
+        boolean selfTest = false;
+        File selfTestDir = null;
         boolean multiWindow = false;
         File userExtensions = null;
         boolean proxyInjectionModeArg = false;
@@ -208,16 +244,14 @@ public class SeleniumServer {
                         SeleniumServer.forcedBrowserMode += " ";
                     SeleniumServer.forcedBrowserMode += args[i];
                 }
-                SeleniumServer.log("\"" + forcedBrowserMode + "\" will be used as the browser " +
-                        "mode for all sessions, no matter what is passed to getNewBrowserSession.");
             } else if ("-log".equalsIgnoreCase(arg)) {
-                setLogOut(getArg(args, ++i));
+                logOutFileName = getArg(args, ++i);
             } else if ("-port".equalsIgnoreCase(arg)) {
                 port = Integer.parseInt(getArg(args, ++i));
             } else if ("-multiWindow".equalsIgnoreCase(arg)) {
                 multiWindow = true;
-            } else if ("-alwaysProxy".equalsIgnoreCase(arg)) {
-                alwaysProxy = true;
+            } else if ("-avoidProxy".equalsIgnoreCase(arg)) {
+                setAvoidProxy(true);
             } else if ("-proxyInjectionMode".equalsIgnoreCase(arg)) {
                 proxyInjectionModeArg = true;
             } else if ("-portDriversShouldContact".equalsIgnoreCase(arg)) {
@@ -236,12 +270,19 @@ public class SeleniumServer {
                 }
             } else if ("-dontInjectRegex".equalsIgnoreCase(arg)) {
                 dontInjectRegex = getArg(args, ++i);
+            } else if ("-browserSideLog".equalsIgnoreCase(arg)) {
+                SeleniumServer.setBrowserSideLogEnabled(true);
             } else if ("-debug".equalsIgnoreCase(arg)) {
                 SeleniumServer.setDebugMode(true);
             } else if ("-debugURL".equalsIgnoreCase(arg)) {
                 debugURL = getArg(args, ++i);
             } else if ("-timeout".equalsIgnoreCase(arg)) {
                 timeoutInSeconds = Integer.parseInt(getArg(args, ++i));
+            } else if ("-jettyThreads".equalsIgnoreCase(arg)) {
+            	int jettyThreads = Integer.parseInt(getArg(args, ++i));
+            	
+            	// Set the number of jetty threads before we construct the instance
+            	SeleniumServer.setJettyThreads(jettyThreads);
             } else if ("-userJsInjection".equalsIgnoreCase(arg)) {
                 userJsInjection = true;
                 if (!InjectionHelper.addUserJsInjectionFile(getArg(args, ++i))) {
@@ -263,6 +304,10 @@ public class SeleniumServer {
                     System.err.println("User extensions file MUST be called \"user-extensions.js\": " + userExtensions.getAbsolutePath());
                     System.exit(1);
                 }
+            } else if ("-selfTest".equalsIgnoreCase(arg)) {
+                selfTest = true;
+                selfTestDir = new File(getArg(args, ++i));
+                selfTestDir.mkdirs();
             } else if ("-htmlSuite".equalsIgnoreCase(arg)) {
                 try {
                     System.setProperty("htmlSuite.browserString", args[++i]);
@@ -299,7 +344,7 @@ public class SeleniumServer {
         System.setProperty("org.mortbay.http.HttpRequest.maxFormContentSize", "0"); // default max is 200k; zero is infinite
         final SeleniumServer seleniumProxy = new SeleniumServer(port);
         seleniumProxy.multiWindow = multiWindow;
-        checkArgsSanity(port, interactive, htmlSuite,
+        checkArgsSanity(port, interactive, htmlSuite, selfTest,
                 proxyInjectionModeArg, portDriversShouldContactArg, seleniumProxy);
         Thread jetty = new Thread(new Runnable() {
             public void run() {
@@ -307,8 +352,7 @@ public class SeleniumServer {
                     seleniumProxy.start();
                 }
                 catch (Exception e) {
-                    System.err.println("jetty run exception seen:");
-                    e.printStackTrace();
+                    log.error("jetty run exception seen", e);
                 }
             }
         });
@@ -323,6 +367,11 @@ public class SeleniumServer {
 
         if (userExtensions != null) {
             seleniumProxy.addNewStaticContent(userExtensions.getParentFile());
+        }
+        
+        if (selfTest) {
+            boolean result = new HTMLLauncher(seleniumProxy).runSelfTests(selfTestDir);
+            System.exit(result ? 0 : 1);
         }
 
         if (htmlSuite) {
@@ -339,6 +388,7 @@ public class SeleniumServer {
             final String[] lastSessionId = new String[]{""};
 
             while ((userInput = stdIn.readLine()) != null) {
+                userInput = userInput.trim();
                 if ("exit".equals(userInput) || "quit".equals(userInput)) {
                     System.out.println("Stopping...");
                     seleniumProxy.stop();
@@ -361,7 +411,7 @@ public class SeleniumServer {
                 Thread t = new Thread(new Runnable() {
                     public void run() {
                         try {
-                            SeleniumServer.log("---> Requesting " + url.toString());
+                            log.info("---> Requesting " + url.toString());
                             URLConnection conn = url.openConnection();
                             conn.connect();
                             InputStream is = conn.getInputStream();
@@ -393,23 +443,22 @@ public class SeleniumServer {
         }
     }
 
-    private static void setLogOut(String logFileName) {
-        logOutFileName = logFileName;
-
-        try {
-            logOut = new PrintStream(logFileName);
-        } catch (FileNotFoundException e) {
-            System.err.println("could not write to " + logFileName);
-            Runtime.getRuntime().halt(-1);
+    private static void checkArgsSanity(int port, boolean interactive, boolean htmlSuite, boolean selfTest, boolean proxyInjectionModeArg, int portDriversShouldContactArg, SeleniumServer seleniumProxy) throws Exception {
+        if (interactive) {
+            if (htmlSuite) {
+                System.err.println("You can't use -interactive and -htmlSuite on the same line!");
+                System.exit(1);
+            }
+            if (selfTest) {
+                System.err.println("You can't use -interactive and -selfTest on the same line!");
+                System.exit(1);
+            }
+        } else if (selfTest) {
+            if (htmlSuite) {
+                System.err.println("You can't use -selfTest and -htmlSuite on the same line!");
+                System.exit(1);
+            }
         }
-    }
-
-    private static void checkArgsSanity(int port, boolean interactive, boolean htmlSuite, boolean proxyInjectionModeArg, int portDriversShouldContactArg, SeleniumServer seleniumProxy) throws Exception {
-        if (interactive && htmlSuite) {
-            System.err.println("You can't use -interactive and -htmlSuite on the same line!");
-            System.exit(1);
-        }
-
         SingleEntryAsyncQueue.setDefaultTimeout(timeoutInSeconds);
         seleniumProxy.setProxyInjectionMode(proxyInjectionModeArg);
         
@@ -426,9 +475,6 @@ public class SeleniumServer {
                     " provides).");
             System.exit(1);
         }
-        if (reusingBrowserSessions()) {
-            SeleniumServer.log("Will recycle browser sessions when possible.");
-        }
     }
 
     private static String getArg(String[] args, int i) {
@@ -437,10 +483,6 @@ public class SeleniumServer {
             System.exit(-1);
         }
         return args[i];
-    }
-
-    private static void proxyInjectionSpeech() {
-        SeleniumServer.log("The selenium server will execute in proxyInjection mode.");
     }
 
     private static void setSystemProperty(String arg) {
@@ -468,9 +510,11 @@ public class SeleniumServer {
         printWrappedErrorLine(INDENT, "-forcedBrowserMode <browser>: sets the browser mode (e.g. \"*iexplore\" for all sessions, no matter what is passed to getNewBrowserSession");
         printWrappedErrorLine(INDENT, "-userExtensions <file>: indicates a JavaScript file that will be loaded into selenium");
         printWrappedErrorLine(INDENT, "-browserSessionReuse: stops re-initialization and spawning of the browser between tests");
-        printWrappedErrorLine(INDENT, "-alwaysProxy: By default, we proxy as little as we can; set this flag to force all browser traffic through the proxy");
+        printWrappedErrorLine(INDENT, "-avoidProxy: By default, we proxy every browser request; set this flag to make the browser use our proxy only for URLs containing '/selenium-server'");
         printWrappedErrorLine(INDENT, "-firefoxProfileTemplate <dir>: normally, we generate a fresh empty Firefox profile every time we launch.  You can specify a directory to make us copy your profile directory instead.");
-        printWrappedErrorLine(INDENT, "-debug: puts you into debug mode, with more trace information and diagnostics");
+        printWrappedErrorLine(INDENT, "-debug: puts you into debug mode, with more trace information and diagnostics on the console");
+        printWrappedErrorLine(INDENT, "-browserSideLog: enables logging on the browser side; logging messages will be transmitted to the server.  This can affect performance.");
+        printWrappedErrorLine(INDENT, "-log <logFileName>: writes lots of debug information out to a log file");
         printWrappedErrorLine(INDENT, "-htmlSuite <browser> <startURL> <suiteFile> <resultFile>: Run a single HTML Selenese (Selenium Core) suite and then exit immediately, using the specified browser (e.g. \"*firefox\") on the specified URL (e.g. \"http://www.google.com\").  You need to specify the absolute path to the HTML test suite as well as the path to the HTML results file we'll generate.");
         printWrappedErrorLine(INDENT, "-proxyInjectionMode: puts you into proxy injection mode, a mode where the selenium server acts as a proxy server " +
                 "for all content going to the test application.  Under this mode, multiple domains can be visited, and the " +
@@ -517,34 +561,155 @@ public class SeleniumServer {
      * @throws Exception you know, just in case
      */
     public SeleniumServer(int port, boolean slowResources, boolean multiWindow) throws Exception {
-        this.port = port;
-        // HACK: had to change this to let us have multiple instances of the recorder
-        // Note that this will make all new clients connect to the last created server
-//        if (portDriversShouldContact==0) {
-            SeleniumServer.setPortDriversShouldContact(port);
-//        }
-        if (logOut==null && System.getProperty("selenium.log")!=null) {
-            setLogOut(System.getProperty("selenium.log"));
+        configureLogging();
+        log.info("Java: " + System.getProperty("java.vm.vendor") + ' ' + System.getProperty("java.vm.version"));
+        log.info("OS: " + System.getProperty("os.name") + ' ' + System.getProperty("os.version") + ' ' + System.getProperty("os.arch"));
+        logVersionNumber();
+        if (debugMode) {
+            log.info("Selenium server running in debug mode.");
         }
+        if (proxyInjectionMode) {
+            log.info("The selenium server will execute in proxyInjection mode.");
+        }
+        if (reusingBrowserSessions()) {
+            log.info("Will recycle browser sessions when possible.");
+        }
+        if (forcedBrowserMode != null) {
+            log.info("\"" + forcedBrowserMode + "\" will be used as the browser " +
+                "mode for all sessions, no matter what is passed to getNewBrowserSession.");
+        }
+        this.port = port;
+        String proxyHost = System.getProperty("http.proxyHost");
+		String proxyPort = System.getProperty("http.proxyPort");
+		if (Integer.toString(port).equals(proxyPort)) {
+			log.debug("http.proxyPort is the same as the Selenium Server port " + port);
+			log.debug("http.proxyHost="+proxyHost);
+			if ("localhost".equals(proxyHost) || "127.0.0.1".equals(proxyHost)) {
+				log.info("Forcing http.proxyHost to '' to avoid infinite loop");
+				System.setProperty("http.proxyHost", "");
+			}
+		}
+		//CubicTest Hack to enable multiple recording sessions:
+        //if (portDriversShouldContact==0) {
+            SeleniumServer.setPortDriversShouldContact(port);
+        //}
         this.multiWindow = multiWindow;
         server = new Server();
-        
-        if (logOut!=null) {
-            NCSARequestLog log = new NCSARequestLog();
-            log.setFilename(logOutFileName + ".jetty");
-            log.setRetainDays(3);
-            log.setExtended(true);
-            log.setAppend(true);
-            server.setRequestLog(log);
-        }  
+
         SocketListener socketListener = new SocketListener();
         socketListener.setMaxIdleTimeMs(60000);
+        socketListener.setMaxThreads(jettyThreads);
         socketListener.setPort(port);
         server.addListener(socketListener);
         configServer();
         assembleHandlers(slowResources);
     }
+
+    public synchronized static void configureLogging() {
+        if (dontTouchLogging) {
+            log = LogFactory.getLog(SeleniumServer.class);
+            return;
+        }
+
+        Logger logger = Logger.getLogger("");
+    	resetLogger();
+        // configure console logger
+        for (Handler handler : logger.getHandlers()) {
+            if (handler instanceof ConsoleHandler) {
+                Formatter formatter = handler.getFormatter();
+                if (formatter instanceof SimpleFormatter) {
+                    /* DGF Nobody likes the SimpleFormatter; surely they
+                     * wanted our terse formatter instead.
+                     * Furthermore, we all want DEBUG/INFO on stdout and WARN/ERROR on stderr */
+                    Level originalLevel = handler.getLevel();
+                    handler.setFormatter(new TerseFormatter(false));
+                    handler.setLevel(Level.WARNING);
+                    StdOutHandler stdOutHandler = new StdOutHandler();
+                    stdOutHandler.setFormatter(new TerseFormatter(false));
+                    stdOutHandler.setFilter(new MaxLevelFilter(Level.INFO));
+                    stdOutHandler.setLevel(originalLevel);
+                    logger.addHandler(stdOutHandler);
+                    if (isDebugMode()) {
+                        if (originalLevel.intValue() > Level.FINE.intValue()) {
+                            stdOutHandler.setLevel(Level.FINE);
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (isDebugMode()) {
+            logger.setLevel(Level.FINE);
+        }
+        
+        log = LogFactory.getLog(SeleniumServer.class);
+        if (logOutFileName==null && System.getProperty("selenium.log")!=null) {
+            logOutFileName = System.getProperty("selenium.log");
+        }
+        if (logOutFileName!=null) {
+            try {
+                File logFile = new File(logOutFileName);
+                FileHandler fileHandler = seleniumFileHandlers.get(logFile);
+                if (fileHandler == null) {
+                    fileHandler = new FileHandler(logFile.getAbsolutePath());
+                    seleniumFileHandlers.put(logFile, fileHandler);
+                }   
+                fileHandler.setFormatter(new TerseFormatter(true));
+                logger.setLevel(Level.FINE);
+                fileHandler.setLevel(Level.FINE);
+                logger.addHandler(fileHandler);
+                log.info("Writing debug logs to " + logFile.getAbsolutePath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
     
+    private static void logVersionNumber() throws IOException {
+    	InputStream stream = SeleniumServer.class.getResourceAsStream("/VERSION.txt");
+    	if (stream == null) {
+    		log.error("Couldn't determine version number");
+    		return;
+    	}
+//    	BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+//    	StringBuffer sb = new StringBuffer();
+//        String line;
+//        while ((line = reader.readLine()) != null) {
+//            sb.append(line);
+//        }
+//        String pac = sb.toString();
+    	Properties p = new Properties();
+    	p.load(stream);
+    	String rcVersion = p.getProperty("selenium.rc.version");
+    	String rcRevision = p.getProperty("selenium.rc.revision");
+    	String coreVersion = p.getProperty("selenium.core.version");
+    	String coreRevision = p.getProperty("selenium.core.revision");
+    	log.info("v" + rcVersion + " [" + rcRevision + "], with Core v" + coreVersion + " [" +coreRevision+"]");
+    }
+    
+    private static void resetLogger() {
+    	Logger logger = Logger.getLogger("");
+    	if (defaultHandlers == null) {
+        	defaultHandlers = logger.getHandlers();
+        	defaultFormatters = new HashMap<Handler, Formatter>();
+        	defaultLevels = new HashMap<Handler, Level>();
+        	for (Handler handler : defaultHandlers) {
+        		defaultFormatters.put(handler, handler.getFormatter());
+        		defaultLevels.put(handler, handler.getLevel());
+        	}
+        } else {
+        	for (Handler handler : logger.getHandlers()) {
+        		logger.removeHandler(handler);
+        	}
+        	for (Handler handler : defaultHandlers) {
+        		logger.addHandler(handler);
+        		handler.setFormatter(defaultFormatters.get(handler));
+        		handler.setLevel(defaultLevels.get(handler));
+        	}
+        }
+    	
+    }
+
     public SeleniumServer(int port, boolean slowResources) throws Exception {
         this(port, slowResources, false);
     }
@@ -552,27 +717,47 @@ public class SeleniumServer {
     private void assembleHandlers(boolean slowResources) {
         HttpContext root = new HttpContext();
         root.setContextPath("/");
-        ProxyHandler rootProxy = new ProxyHandler();
-        root.addHandler(rootProxy);
+
+        ProxyHandler proxyHandler;
+        if (customProxyHandler == null) {
+            proxyHandler = new ProxyHandler();
+            root.addHandler(proxyHandler);
+        } else {
+            proxyHandler = customProxyHandler;
+            root.addHandler(proxyHandler);
+        }
+        // pre-compute the 1-16 SSL relays+certs for the logging hosts (see selenium-remoterunner.js sendToRCAndForget for more info)
+        if (browserSideLogEnabled) {
+            proxyHandler.generateSSLCertsForLoggingHosts(server);
+        }       
+
         server.addContext(root);
 
         HttpContext context = new HttpContext();
         context.setContextPath("/selenium-server");
         context.setMimeMapping("xhtml", "application/xhtml+xml");
+        
+        SecurityConstraint constraint = new SecurityConstraint();
+        constraint.setName(SecurityConstraint.__BASIC_AUTH);;
+        constraint.addRole("user");
+        constraint.setAuthenticate(true);
 
-        staticContentHandler = new StaticContentHandler(slowResources);
+        context.addSecurityConstraint("/tests/html/basicAuth/*", constraint);
+        HashUserRealm realm = new HashUserRealm("MyRealm");
+        realm.put("alice", "foo");
+        realm.addUserToRole("alice", "user");
+        context.setRealm(realm);
+        
+        SecurityHandler sh = new SecurityHandler();
+        context.addHandler(sh);
+
+        StaticContentHandler.setSlowResources(slowResources);
+        staticContentHandler = new StaticContentHandler();
         String overrideJavascriptDir = System.getProperty("selenium.javascript.dir");
         if (overrideJavascriptDir != null) {
             staticContentHandler.addStaticContent(new FsResourceLocator(new File(overrideJavascriptDir)));
         }
         staticContentHandler.addStaticContent(new ClasspathResourceLocator());
-
-        if (logOutFileName==null) {
-            logOutFileName = System.getProperty("selenium.log.fileName");
-        }
-        if (logOutFileName != null) {
-            setLogOut(logOutFileName);
-        }
         
         context.addHandler(staticContentHandler);
         context.addHandler(new SingleTestSuiteResourceHandler());
@@ -604,6 +789,9 @@ public class SeleniumServer {
         if (!isDebugMode() && System.getProperty("selenium.debugMode") != null) {
             setDebugMode("true".equals(System.getProperty("selenium.debugMode")));
         }
+        if (!isBrowserSideLogEnabled() && System.getProperty("selenium.browserSideLog") != null) {
+            setBrowserSideLogEnabled("true".equals(System.getProperty("selenium.browserSideLog")));
+        }
     }
 
 
@@ -623,9 +811,17 @@ public class SeleniumServer {
     public static File getFirefoxProfileTemplate() {
         return firefoxProfileTemplate;
     }
+    
+    public static void setFirefoxProfileTemplate(File template) {
+        firefoxProfileTemplate = template;
+    }
 
     private static boolean slowResourceProperty() {
         return ("true".equals(System.getProperty("slowResources")));
+    }
+
+    public static void setTimeoutInSeconds(int timeoutInSeconds) {
+        SeleniumServer.timeoutInSeconds = timeoutInSeconds;
     }
 
     public void addNewStaticContent(File directory) {
@@ -656,11 +852,19 @@ public class SeleniumServer {
         FORCE_PROXY_CHAIN = force;
     }
 
+    /**
+     * Used for implementations that invoke SeleniumServer programmatically and require additional logic
+     * when proxying data.
+     */
+    public static void setCustomProxyHandler(ProxyHandler customProxyHandler) {
+        SeleniumServer.customProxyHandler = customProxyHandler;
+    }
+
     private class ShutDownHook implements Runnable {
     	SeleniumServer selenium;
     	ShutDownHook(SeleniumServer selenium) { this.selenium = selenium; } 
     	public void run() {
-            System.out.println("Shutting down...");
+            log.info("Shutting down...");
             selenium.stop();
         }
     }
@@ -681,8 +885,14 @@ public class SeleniumServer {
                 }
         	} catch (IllegalStateException e) {} // if we're shutting down, it's too late for that!
         }
-        
-        
+    }
+
+    /**
+     * Returns a map of session IDs and their associated browser launchers for all active sessions.
+     * @return
+     */
+    public Map<String, BrowserLauncher> getBrowserLaunchers() {
+        return driver.getLaunchers();
     }
 
     public int getPort() {
@@ -714,25 +924,90 @@ public class SeleniumServer {
     public void registerBrowserLauncher(String sessionId, BrowserLauncher launcher) {
     	driver.registerBrowserLauncher(sessionId, launcher);
     }
+    
+    /**
+     * Get the number of threads that the server will use to configure the embedded Jetty instance.
+     * 
+     * @return Returns the number of threads for Jetty.
+     */
+    public static int getJettyThreads() {
+    	return jettyThreads;
+    }
+    
+    /**
+	 * Set the number of threads that the server will use for Jetty.
+	 * 
+	 * In order to use this, you must call this method before you call the
+	 * SeleniumServer constructor.
+	 * 
+	 * @param jettyThreads
+	 *            Number of jetty threads for the server to use
+	 * @throws IllegalArgumentException
+	 *             when jettyThreads < MIN_JETTY_THREADS or > MAX_JETTY_THREADS
+	 */
+	public static void setJettyThreads(int jettyThreads) {
+		if (jettyThreads < MIN_JETTY_THREADS
+				|| jettyThreads > MAX_JETTY_THREADS) {
+			throw new IllegalArgumentException(
+					"Number of jetty threads specified as an argument must be greater than zero and less than "
+							+ MAX_JETTY_THREADS);
+		}
+
+		SeleniumServer.jettyThreads = jettyThreads;
+	}    
 
     public static boolean isDebugMode() {
-        return SeleniumServer.debugMode;
+        return debugMode;
+    }
+
+    public static boolean isBrowserSideLogEnabled() {
+        return SeleniumServer.browserSideLogEnabled;
     }
 
     static public void setDebugMode(boolean debugMode) {
-        SeleniumServer.debugMode = debugMode;
-        if (debugMode) {
-            SeleniumServer.log("Selenium server running in debug mode.");
-            System.err.println("Standard error test.");
-        }
+        SeleniumServer.debugMode  = debugMode;
+    }
+
+    static public void setBrowserSideLogEnabled(boolean browserSideLogEnabled) {
+        SeleniumServer.browserSideLogEnabled = browserSideLogEnabled;
     }
 
     public static boolean isProxyInjectionMode() {
         return proxyInjectionMode;
     }
+
+    /** 
+     * By default, we proxy every browser request; set this flag to make the browser use our proxy only for URLs containing '/selenium-server'
+     * @param alwaysProxy true if we should always proxy, false otherwise
+     * @deprecated use setAvoidProxy instead (note that avoidProxy is the opposite of alwaysProxy)
+     */
+    @Deprecated
+    public static void setAlwaysProxy(boolean alwaysProxy) {
+        setAvoidProxy(!alwaysProxy);
+    }
     
+    /** 
+     * By default, we proxy every browser request; set this flag to make the browser use our proxy only for URLs containing '/selenium-server'
+     * @param avoidProxy true if we should proxy as little as possible, false to proxy everything
+     */
+    public static void setAvoidProxy(boolean avoidProxy) {
+        SeleniumServer.avoidProxy = avoidProxy;
+    }
+
+    /** 
+     * By default, we proxy every browser request; if this flag is false, we make the browser use our proxy only for URLs containing '/selenium-server'
+     * @deprecated use isAvoidProxy instaed (note that avoidProxy is th opposite of alwaysProxy)
+     */
+    @Deprecated
     public static boolean isAlwaysProxy() {
-        return alwaysProxy;
+        return !isAvoidProxy();
+    }
+
+    /** 
+     * By default, we proxy every browser request; if this flag is set, we make the browser use our proxy only for URLs containing '/selenium-server'
+     */
+    public static boolean isAvoidProxy() {
+        return avoidProxy;
     }
 
     public static int getPortDriversShouldContact() {
@@ -744,9 +1019,6 @@ public class SeleniumServer {
     }
 
 	public void setProxyInjectionMode(boolean proxyInjectionMode) {
-        if (proxyInjectionMode) {
-            proxyInjectionSpeech();
-        }
         SeleniumServer.proxyInjectionMode = proxyInjectionMode;
     }
 
@@ -764,6 +1036,10 @@ public class SeleniumServer {
 
     public static void setDontInjectRegex(String dontInjectRegex) {
         SeleniumServer.dontInjectRegex = dontInjectRegex;
+    }
+
+    public static void setDontTouchLogging(boolean dontTouchLogging) {
+        SeleniumServer.dontTouchLogging = dontTouchLogging;
     }
 
     public static boolean reusingBrowserSessions() {
@@ -837,15 +1113,6 @@ public class SeleniumServer {
     }
 
     
-    public static void log(String logMessages) {
-        PrintStream out = (logOut != null) ? logOut : System.out;
-        if (logMessages.endsWith("\n")) {
-            out.print(logMessages);
-        } else {
-            out.println(logMessages);
-        }
-    }
-
     public static void setReusingBrowserSessions(boolean reusingBrowserSessions) {
         SeleniumServer.reusingBrowserSessions = reusingBrowserSessions;
     }
