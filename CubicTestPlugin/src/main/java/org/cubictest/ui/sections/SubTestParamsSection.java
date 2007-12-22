@@ -94,15 +94,18 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 
 	private void refreshParamsFromDisk() {
 		test = subtest.getTest(true);
-		IFile paramFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(paramList.getFileName()));
-		if(paramFile.exists()) {
-			ChangeParameterListCommand command = new ChangeParameterListCommand();
-			command.setTest(test);
-			command.setNewParamList(ParameterPersistance.loadFromFile(paramFile));
-			command.setOldParamList(paramList);
-			executeCommand(command);
+		paramList = test.getParamList();
+		if (paramList != null) {
+			IFile paramFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(paramList.getFileName()));
+			if(paramFile.exists()) {
+				ChangeParameterListCommand command = new ChangeParameterListCommand();
+				command.setTest(test);
+				command.setNewParamList(ParameterPersistance.loadFromFile(paramFile));
+				command.setOldParamList(paramList);
+				executeCommand(command);
+			}
+			refresh();
 		}
-		refresh();
 	}
 
 	

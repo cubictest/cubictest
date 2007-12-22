@@ -115,7 +115,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 				String oldName = fileName.getText();
 				fileName.setText(element.getFullPath().toString());
 				if(!oldName.equals(fileName.getText()))
-					filePathChanged();
+					filePathChanged(fileName.getText());
 			}
 		}
 	};
@@ -127,7 +127,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 			ParameterList list = paramList;
 			if((list == null && !"".equals(text)) || 
 					(list != null && !list.getFileName().equals(text)))
-				filePathChanged();
+				filePathChanged(text);
 		}
 	}
 
@@ -207,7 +207,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 				WizardDialog dlg = new WizardDialog(new Shell(), wiz);
 				if(dlg.open() != WizardDialog.CANCEL){	
 					fileName.setText(wiz.getCreatedFilePath());
-					filePathChanged();
+					filePathChanged(wiz.getCreatedFilePath());
 				}
 			}
 		});
@@ -220,7 +220,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		refreshParamButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				filePathChanged();
+				filePathChanged(fileName.getText());
 				refresh();
 			}
 		});
@@ -302,14 +302,13 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 			paramList.addPropertyChangeListener(this);
 	}
 			
-	private void filePathChanged() {
-		String text = fileName.getText();
+	private void filePathChanged(String filePath) {
 		ParameterList list = null;
 		try{
-			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(text));
+			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(filePath));
 			if(file.exists())
 				list = ParameterPersistance.loadFromFile(file);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// list will be null
 		}
 		

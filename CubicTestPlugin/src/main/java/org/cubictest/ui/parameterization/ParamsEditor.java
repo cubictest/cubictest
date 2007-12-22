@@ -219,17 +219,21 @@ public class ParamsEditor extends EditorPart {
        		// Add a task to the ExampleTaskList and refresh the view
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				ParamMapper input = paramList.createInputRow();
-				tableViewer.add(input);
-				tableViewer.refresh();
-				setDirty();
+				createInputRow();
 			}
 		});
 		addInput.setVisible(paramList.hasParameters());
 		parent.update();
 		parent.redraw();
 	}
-	
+
+	private void createInputRow() {
+		ParamMapper input = paramList.createInputRow();
+		tableViewer.add(input);
+		tableViewer.refresh();
+		setDirty();
+	}
+
 	private void createAddKey(){
 		addKey  = new Button(parent, SWT.PUSH | SWT.CENTER);
 		addKey.setText("Add Key");
@@ -283,10 +287,12 @@ public class ParamsEditor extends EditorPart {
 				table.update();
 				table.redraw();
 				
+				if (paramList.getInputLines().size() == 0) {
+					createInputRow();
+				}
 				setDirty();
 				
 				addInput.setVisible(true);
-				
 			}
 		});
 	}
