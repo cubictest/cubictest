@@ -27,14 +27,20 @@ Done	If more than one same element, add context Info.
 Done	Test suites should continue to next test even if a test fails. Create a property for it.
 Done	Problem with image button im IMDB
 Done	Error log should be available by default.
+Done	Add param input row automatically on first key addition
+Done	Fix the following:  I can connect to my https site only when using the experimental browser *chrome,  but when doing the same from CubicTest I get the impression that *firefox is used. I did not find a way to change this (yet) 
+Done	Parameters on sub tests and extension start points (property view).
+Done	Possible to choose between IE, Firefox and Opera.
+Done	Create an update site version of CUbicTest 1.7.9
 
-Add param input row automatically on first key addition
-
-Fix the following:  I can connect to my https site only when using the experimental browser *chrome,  but when doing the same from CubicTest I get the impression that *firefox is used. I did not find a way to change this (yet) 
+"Remember browser" option in Selenium launcher. 
 Document test-project.properties better.
+Possible to record from any page/state
+Better download info on web site. GEF update site + Cubic update site recommended download.
+Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
+setUp and tearDown with custom steps.
 
 Upgrade to latest version of Selenium RC.
-Parameters on sub tests and extension start points (property view).
 
 Do not close browser when M2 build fails - test project property
 Change order of logging parameters
@@ -44,11 +50,8 @@ Making error message more visible in M2 output, e.g. ----------------
 Better error message if Firefox is not installed.
 Fix set test name. Does not always get stored on model.
 Better error messages when elements are not found. Search context for elements, incremental. Check context stand alone.
-Create an update site version of CUbicTest 1.7.9
-Possible to choose between IE, Firefox and Opera.
 Capturing HTML of page that failed (and the previous one). Selenium: getBodyText()
 Capture image of failing test page (and the previous page). Selenium: http://binil.wordpress.com/2006/12/22/taking-screenshots-with-selenium/
-Possible to record from any page/state
 
 Backlog
 -------
