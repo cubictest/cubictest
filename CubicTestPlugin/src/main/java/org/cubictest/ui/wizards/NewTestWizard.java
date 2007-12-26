@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
@@ -216,16 +217,23 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		else {
 			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 			project = root.getProject();
+			if (project == null) {
+				if (root.getProjects().length == 0) {
+					ErrorHandler.logAndShowErrorDialogAndThrow("A CubicTest Project has to be created " +
+							"before a Test can be created.");
+				}
+			}
 		}
 
+		if (project == null) {
+			ErrorHandler.logAndShowErrorDialogAndThrow("Could not create new test (Unable to get reference " +
+					"to the CubicTest project). " +
+					"Please retry the operation, and make sure a CubicTest project is target for the new test.");
+		}
+		
 		try {
-			if (project == null) {
-				throw new CubicException("Could not create new test (unable to get reference to the CubicTest project). Please retry the operation.");
-			}
 			IResourceMonitor monitor = new ResourceMonitor(project);
 			populateExtensionPointMap(project, extensionPointMap, monitor);
-		} catch (RuntimeException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}		
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);

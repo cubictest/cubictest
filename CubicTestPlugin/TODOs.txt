@@ -44,6 +44,7 @@ Better download info on web site. GEF update site + Cubic update site recommende
 Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 Upgrade to latest version of Selenium RC.
 Form as context type (with name, action method? attribute
+Context must have a element name?
 
 1.8.1:
 Custom steps
