@@ -44,6 +44,15 @@
             id="org.cubictest.ui.customstep.CustomStepEditor"
             name="Custom Step Editor"/>
    </extension>
+   
+   <extension 
+   		 point="org.eclipse.ui.preferencePages">
+	  <page id="CubicTestPreferencePage"
+		 name="CubicTest"
+			class="org.cubictest.ui.preferences.DefaultPreferencePage">
+	  </page>
+   </extension>
+   
    <extension
          point="org.eclipse.ui.newWizards">
       <category

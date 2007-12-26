@@ -20,6 +20,7 @@ import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.cubictest.exporters.selenium.runner.util.SeleniumWorkerThread;
+import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.exporters.selenium.ui.SeleniumSettingsPage;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ExtensionPoint;
@@ -67,9 +68,9 @@ public class TestRunner extends BaseTestRunner {
 		super(null, settings, test);
 		this.test = test;
 		this.selenium = selenium;
-		this.port = settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(), "defaultPortNumber", SeleniumSettingsPage.DEFAULT_PORT);
+		this.port = settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(), "defaultPortNumber", RunSeleniumRunnerAction.DEFAULT_SELENIUM_PORT);
 		this.browserType = BrowserType.fromId(settings.getString(SeleniumUtils.getPluginPropertyPrefix(), "defaultBrowserType", 
-				SeleniumSettingsPage.DEFAULT_BROWSER.getId()));
+				RunSeleniumRunnerAction.DEFAULT_BROWSER.getId()));
 	}
 	
 	public void run(IProgressMonitor monitor) {

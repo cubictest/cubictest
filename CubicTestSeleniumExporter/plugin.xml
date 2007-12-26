@@ -46,7 +46,13 @@
                menubarPath="additions"/>
       </viewerContribution>
 
-
-      
    </extension>
+   
+   <extension point="org.eclipse.ui.preferencePages">
+ 	  <page id="CubicTestSeleniumExporterPreferencePage"
+  	      	name="Selenium Exporter"
+	      	class="org.cubictest.exporters.selenium.ui.preferences.SeleniumExporterPreferencePage"
+		    category="CubicTestPreferencePage">
+   	  </page>
+</extension>
 </plugin>

@@ -35,19 +35,21 @@ Done	Create an update site version of CUbicTest 1.7.9
 Done	Better error message if Firefox is not installed.
 Done	Add support for equals, contains, beginsWith, endsWith in identifiers
 Done	Parameterization controlled on subtests
+Done	Better download info on web site. GEF update site + Cubic update site recommended download.
+Done	Document test-project.properties better.
+Done	Add name attribute to contexts
 
 1.7.12:
 "Remember browser" option in Selenium launcher. 
-Possible to record from any page/state
-Document test-project.properties better.
-Better download info on web site. GEF update site + Cubic update site recommended download.
-Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 Upgrade to latest version of Selenium RC.
-Form as context type (with name, action method? attribute
-Context must have a element name?
+Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
+Upgrade to Eclipse Public License
 
 1.8.1:
+Context must have a element name?
+Possible to record from any page/state
 Custom steps
+Write tests for multiple nested context assertions. Ensure that all available info is used. 
 setUp and tearDown with custom steps.
 Do not close browser when M2 build fails - test project property
 Change order of logging parameters
