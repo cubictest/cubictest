@@ -38,12 +38,13 @@ Done	Parameterization controlled on subtests
 Done	Better download info on web site. GEF update site + Cubic update site recommended download.
 Done	Document test-project.properties better.
 Done	Add name attribute to contexts
+Done	"Remember browser" option in Selenium launcher. 
+Done	Upgrade to latest version of Selenium RC on runner
 
 1.7.12:
-"Remember browser" option in Selenium launcher. 
-Upgrade to latest version of Selenium RC.
-Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
+Upgrade to latest version of Selenium RC on Recorder
 Upgrade to Eclipse Public License
+Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 
 1.8.1:
 Context must have a element name?

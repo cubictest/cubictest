@@ -8,6 +8,7 @@ import java.io.File;
 
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
@@ -47,8 +48,10 @@ public abstract class TraverseTestFilesWorkspaceJob extends WorkspaceJob {
 	public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 		this.monitor = monitor;
 		monitor.beginTask("Updating possible references to test file " + sourceResource.getFullPath(), 1);
-		traverseContainer(sourceResource.getProject());
-		sourceResource.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
+		if (sourceResource.getProject().exists()) {
+			traverseContainer(sourceResource.getProject());
+			sourceResource.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
+		}
 		return Status.OK_STATUS;
 	}
 	

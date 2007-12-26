@@ -94,23 +94,24 @@ public class ExtensionTransitionEditPart extends TransitionEditPart {
 				
 				//open dialog to select which exPoint to extend from:
 				TestEditPart testPart = null;
+				Test test = null;
 				if (getTarget() != null) {
 					testPart = ViewUtil.getSurroundingTestPart(getTarget());
+					test = (Test) testPart.getModel();
 				}
 				else if (getSource() != null) {
 					testPart = ViewUtil.getSurroundingTestPart(getSource());
+					test = (Test) testPart.getModel();
 				}
 				else {
-					ErrorHandler.logAndShowErrorDialog("Could not find sub test " + startNode.getName());
+					test = new Test();
 				}
-				Test test = (Test) testPart.getModel();
 				
 				ExtensionPoint target = null;
-				List<ExtensionPoint> exPoints = subTest.getTest(true).getAllExtensionPoints();
 				if (subTest.isDangling()) {
 					//do nothing. Must be fixed in editor.
 				}
-				else if (exPoints.size() == 0) {
+				else if (subTest.getTest(true).getAllExtensionPoints().size() == 0) {
 					ErrorHandler.logAndThrow("The extension point that was used in subtest \"" + subTest.getName() +  
 							"\" was not found.\n" +
 							"Create an extension point in " + subTest.getName() + " and retry.");
