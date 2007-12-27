@@ -143,13 +143,17 @@ public class JSONElementConverter {
 					case LABEL:
 						if(pe instanceof Button) {
 							key = "value";
-							setIdentifier(properties, pe, idType, key);
-							break idTypesLoop;
+							if (handleIdentifier(properties, pe, idType, key))
+								break idTypesLoop;
+							else
+								continue idTypesLoop;
 						}
 						else if (pe instanceof Link || pe instanceof Title || pe instanceof Option) {
 							key = "innerHTML";
-							setIdentifier(properties, pe, idType, key);
-							break idTypesLoop;
+							if (handleIdentifier(properties, pe, idType, key))
+								break idTypesLoop;
+							else
+								continue idTypesLoop;
 						}
 						else {
 							//TODO: Get html <label> tag 
@@ -157,42 +161,52 @@ public class JSONElementConverter {
 						}
 					case ID:
 						key = "id";
-						setIdentifier(properties, pe, idType, key);
-						break idTypesLoop;
+						if (handleIdentifier(properties, pe, idType, key))
+							break idTypesLoop;
+						else
+							continue idTypesLoop;
 					case SRC:
 						key = "src";
 						src = makeRelativeUrl(getString(properties, "src"));
-						setIdentifier(properties, pe, idType, key);
-						break idTypesLoop;
+						if (handleIdentifier(properties, pe, idType, key))
+							break idTypesLoop;
+						else
+							continue idTypesLoop;
 					case NAME:
 						key = "name";
-						setIdentifier(properties, pe, idType, key);
-						break idTypesLoop;
+						if (handleIdentifier(properties, pe, idType, key))
+							break idTypesLoop;
+						else
+							continue idTypesLoop;
 					case HREF:
 						//TODO: Handle relative/absolute URLs. Selenium always gets absolute, even if page uses relative URL.
-						//key = "href";
-						break idTypesLoop;
+//						key = "href";
+						continue idTypesLoop;
 					case TITLE:
 						key = "title";
-						setIdentifier(properties, pe, idType, key);
-						break idTypesLoop;
+						if (handleIdentifier(properties, pe, idType, key))
+							break idTypesLoop;
+						else
+							continue idTypesLoop;
 					case VALUE:
 						//TODO: Get value present when page loaded.
 //						if(pe instanceof AbstractTextInput)
 //							key = "value";
-						break idTypesLoop;
+						continue idTypesLoop;
 					case INDEX:
 						key = "index";
-						setIdentifier(properties, pe, idType, key);
-						break idTypesLoop;
+						if (handleIdentifier(properties, pe, idType, key))
+							break idTypesLoop;
+						else
+							continue idTypesLoop;
 					case CHECKED:
 						//TODO: Handle checked
-						//key = "checked";
-						break idTypesLoop;
+//						key = "checked";
+						continue idTypesLoop;
 					case MULTISELECT:
 						//TODO: Handle Multiselect
 //						key = "multiple";
-						break idTypesLoop;
+						continue idTypesLoop;
 
 				} //end switch (idType)
 
@@ -206,7 +220,11 @@ public class JSONElementConverter {
 		}
 	}
 
-	private void setIdentifier(JSONObject properties, PageElement pe, IdentifierType idType, String key) {
+	/**
+	 * Sets the identifier if it has a value.
+	 * @return true if it has a value, else false.
+	 */
+	private boolean handleIdentifier(JSONObject properties, PageElement pe, IdentifierType idType, String key) {
 		String value = getString(properties, key);
 		if (StringUtils.isNotBlank(value)) {
 			Identifier identifier = pe.getIdentifier(idType);
@@ -215,7 +233,9 @@ public class JSONElementConverter {
 			identifier.setValue(value);
 			identifier.setProbability(100);
 			pe.setDirectEditIdentifier(identifier);
+			return true;
 		}
+		return false;
 	}
 
 	private void initializeEmptyIdentifier(PageElement pe, IdentifierType idType) {
