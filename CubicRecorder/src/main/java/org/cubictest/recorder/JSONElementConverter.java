@@ -130,10 +130,11 @@ public class JSONElementConverter {
 			
 			//looping over the created page element's ID types and setting all applicable values:
 			
+			idTypesLoop:
 			for(IdentifierType idType : pe.getIdentifierTypes()){
 				//override default "must" typically used for direct edit:
-				pe.getIdentifier(idType).setProbability(0);
-				
+				initializeEmptyIdentifier(pe, idType);
+			
 				String key = null;
 				String src = "";
 				
@@ -142,76 +143,85 @@ public class JSONElementConverter {
 					case LABEL:
 						if(pe instanceof Button) {
 							key = "value";
-							break;
+							setIdentifier(properties, pe, idType, key);
+							break idTypesLoop;
 						}
 						else if (pe instanceof Link || pe instanceof Title || pe instanceof Option) {
 							key = "innerHTML";
-							break;
+							setIdentifier(properties, pe, idType, key);
+							break idTypesLoop;
 						}
 						else {
 							//TODO: Get html <label> tag 
-							key = null;
+							continue idTypesLoop;
 						}
 					case ID:
 						key = "id";
-						break;
+						setIdentifier(properties, pe, idType, key);
+						break idTypesLoop;
 					case SRC:
 						key = "src";
 						src = makeRelativeUrl(getString(properties, "src"));
-						break;
+						setIdentifier(properties, pe, idType, key);
+						break idTypesLoop;
 					case NAME:
 						key = "name";
-						break;
+						setIdentifier(properties, pe, idType, key);
+						break idTypesLoop;
 					case HREF:
 						//TODO: Handle relative/absolute URLs. Selenium always gets absolute, even if page uses relative URL.
 						//key = "href";
-						//break;
+						break idTypesLoop;
 					case TITLE:
 						key = "title";
-						break;
+						setIdentifier(properties, pe, idType, key);
+						break idTypesLoop;
 					case VALUE:
 						//TODO: Get value present when page loaded.
 //						if(pe instanceof AbstractTextInput)
 //							key = "value";
-//						break;
+						break idTypesLoop;
 					case INDEX:
 						key = "index";
-						break;
+						setIdentifier(properties, pe, idType, key);
+						break idTypesLoop;
 					case CHECKED:
 						//TODO: Handle checked
 						//key = "checked";
-						break;
+						break idTypesLoop;
 					case MULTISELECT:
 						//TODO: Handle Multiselect
 //						key = "multiple";
-						break;
+						break idTypesLoop;
 
 				} //end switch (idType)
-
-				if (key == null) {
-					Identifier identifier = pe.getIdentifier(idType);
-					identifier.setValue("");
-					identifier.setProbability(0);
-				} else {
-					String value = getString(properties, key);
-					if (StringUtils.isNotBlank(value)) {
-						Identifier identifier = pe.getIdentifier(idType);
-						value = TextUtil.normalize(value);
-						value = StringEscapeUtils.unescapeHtml(value);
-						identifier.setValue(value);
-						identifier.setProbability(100);
-					}
-				}
 
 			} //end for (idTypes)
 			
 			pageElements.put(getString(properties, "cubicId"), pe);
-			pe.setDirectEditIdentifier(pe.getMainIdentifier());
 			
 			return pe;
 		} catch(NoSuchElementException e) {
 			return null;
 		}
+	}
+
+	private void setIdentifier(JSONObject properties, PageElement pe, IdentifierType idType, String key) {
+		String value = getString(properties, key);
+		if (StringUtils.isNotBlank(value)) {
+			Identifier identifier = pe.getIdentifier(idType);
+			value = TextUtil.normalize(value);
+			value = StringEscapeUtils.unescapeHtml(value);
+			identifier.setValue(value);
+			identifier.setProbability(100);
+			pe.setDirectEditIdentifier(identifier);
+		}
+	}
+
+	private void initializeEmptyIdentifier(PageElement pe, IdentifierType idType) {
+		Identifier identifier = pe.getIdentifier(idType);
+		identifier.setValue("");
+		identifier.setProbability(0);
 	}
 
 	public PageElement getPageElement(String cubicId) {
