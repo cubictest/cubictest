@@ -51,6 +51,12 @@ public class ParameterList extends PropertyAwareObject {
 		parameters.add(parameter);
 	}
 	
+	public void removeObserverFromAllParams(SationObserver observer) {
+		for (Parameter param : parameters) {
+			param.removeObserver(observer);
+		}
+	}
+	
 	public int inputParameterSize(){
 		if (parameters.size() == 0)
 			return 0;

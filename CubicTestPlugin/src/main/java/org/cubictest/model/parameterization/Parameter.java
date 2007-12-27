@@ -52,7 +52,6 @@ public class Parameter {
 				String paramValue = inputs.get(parameterIndex);
 				if(observer.useI18n()){
 					String[] values = paramValue.split(";");
-					paramValue = observer.getValue();
 					if(paramValue == null)
 						paramValue = "";
 					for(int i = 0; i < values.length; i++)
