@@ -142,11 +142,11 @@ public class JSONElementConverter {
 					case LABEL:
 						if(pe instanceof Button) {
 							key = "value";
-							continue;
+							break;
 						}
 						else if (pe instanceof Link || pe instanceof Title || pe instanceof Option) {
 							key = "innerHTML";
-							continue;
+							break;
 						}
 						else {
 							//TODO: Get html <label> tag 
@@ -154,37 +154,37 @@ public class JSONElementConverter {
 						}
 					case ID:
 						key = "id";
-						continue;
+						break;
 					case SRC:
 						key = "src";
 						src = makeRelativeUrl(getString(properties, "src"));
-						continue;
+						break;
 					case NAME:
 						key = "name";
-						continue;
+						break;
 					case HREF:
 						//TODO: Handle relative/absolute URLs. Selenium always gets absolute, even if page uses relative URL.
 						//key = "href";
-						//continue;
+						//break;
 					case TITLE:
 						key = "title";
-						continue;
+						break;
 					case VALUE:
 						//TODO: Get value present when page loaded.
 //						if(pe instanceof AbstractTextInput)
 //							key = "value";
-//						continue;
+//						break;
 					case INDEX:
 						key = "index";
-						continue;
+						break;
 					case CHECKED:
 						//TODO: Handle checked
 						//key = "checked";
-						continue;
+						break;
 					case MULTISELECT:
 						//TODO: Handle Multiselect
 //						key = "multiple";
-						continue;
+						break;
 
 				} //end switch (idType)
 
