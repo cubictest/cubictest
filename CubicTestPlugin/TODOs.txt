@@ -40,9 +40,9 @@ Done	Document test-project.properties better.
 Done	Add name attribute to contexts
 Done	"Remember browser" option in Selenium launcher. 
 Done	Upgrade to latest version of Selenium RC on runner
+Done	Upgrade to latest version of Selenium RC on Recorder
 
 1.7.12:
-Upgrade to latest version of Selenium RC on Recorder
 Upgrade to Eclipse Public License
 Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 
