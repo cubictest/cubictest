@@ -34,8 +34,8 @@ public class Select extends FormElement implements IContext {
 	public List<IdentifierType> getIdentifierTypes() {
 		List<IdentifierType> identifierTypes = new ArrayList<IdentifierType>();
 		identifierTypes.add(IdentifierType.LABEL);
-		identifierTypes.add(IdentifierType.NAME);
 		identifierTypes.add(IdentifierType.ID);
+		identifierTypes.add(IdentifierType.NAME);
 		identifierTypes.add(IdentifierType.MULTISELECT);
 		identifierTypes.add(IdentifierType.TITLE);
 		return identifierTypes;
