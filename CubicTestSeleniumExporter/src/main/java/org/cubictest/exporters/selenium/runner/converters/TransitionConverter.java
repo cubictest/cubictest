@@ -107,17 +107,16 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 		
 		try {
 			//invoke user interaction by reflection using command name from SeleniumUtil:
-			if (StringUtils.isBlank(inputValue)) {
-				
-				//one parameter only
-				Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class});
-				method.invoke(seleniumHolder.getSelenium(), new Object[] {locator});
-			}
-			else {
-				
+			
+			if (SeleniumUtils.hasSeleniumInputColumn(userInteraction)) {
 				//two parameters
 				Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class, String.class});
 				method.invoke(seleniumHolder.getSelenium(), new Object[] {locator, inputValue});
+			}
+			else {
+				//one parameter only
+				Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class});
+				method.invoke(seleniumHolder.getSelenium(), new Object[] {locator});
 			}
 			return commandName;
 		}

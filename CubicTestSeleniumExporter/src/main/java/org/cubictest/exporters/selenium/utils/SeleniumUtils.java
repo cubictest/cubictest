@@ -205,6 +205,34 @@ public class SeleniumUtils {
 			return "";
 	}
 	
+	
+	/**
+	 * Get the value for a Selenium command (get value for third column in a Selenese row).
+	 * @param userInteraction
+	 */
+	public static boolean hasSeleniumInputColumn(UserInteraction userInteraction) {
+		ActionType a = userInteraction.getActionType();
+		
+		if (a.equals(ENTER_TEXT) || a.equals(ENTER_PARAMETER_TEXT))
+			return true;
+		if (a.equals(SELECT))
+			return true;
+		if (a.equals(KEY_PRESSED))
+			return true;
+		if (a.equals(MOUSE_OVER))
+			return true;
+		if (a.equals(MOUSE_OUT))
+			return true;
+		if (a.equals(DBLCLICK))
+			return true;
+		if (a.equals(FOCUS))
+			return true;
+		if (a.equals(BLUR))
+			return true;
+		else
+			return false;
+	}
+	
 
 	/**
 	 * Get user configured timeout in seconds.

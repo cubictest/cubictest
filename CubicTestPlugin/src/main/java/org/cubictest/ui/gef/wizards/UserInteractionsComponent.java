@@ -499,7 +499,7 @@ public class UserInteractionsComponent {
 							userInteraction.setActionType(action);
 						}
 
-						userInteraction.setUseI18n(ActionType.ENTER_PARAMETER_TEXT.equals(action));
+						userInteraction.setUseParam(ActionType.ENTER_PARAMETER_TEXT.equals(action));
 						break;
 						
 					case TEXT_INPUT_COLINDEX:
