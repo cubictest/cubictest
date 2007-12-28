@@ -1,0 +1,3 @@
+
+overlay	chrome://browser/content/browser.xul	chrome://xpathchecker/content/overlay.xul
+content	xpathchecker	jar:chrome/xpathchecker.jar!/content/
