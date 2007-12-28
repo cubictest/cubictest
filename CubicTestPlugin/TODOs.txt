@@ -43,6 +43,7 @@ Done	Upgrade to latest version of Selenium RC on runner
 Done	Upgrade to latest version of Selenium RC on Recorder
 
 1.7.12:
+Convert URLs to absolute URLs for Selenium runner (to be compatible with watir (or change watir to use relative URLs)
 Upgrade to Eclipse Public License
 Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 
