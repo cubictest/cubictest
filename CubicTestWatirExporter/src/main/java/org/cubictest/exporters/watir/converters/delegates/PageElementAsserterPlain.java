@@ -85,6 +85,17 @@ public class PageElementAsserterPlain {
 			else {
 				String not = pe.isNot() ? "" : "not ";
 				
+				if ((pe.getMainIdentifierType().equals(IdentifierType.SRC) || pe.getMainIdentifierType().equals(IdentifierType.HREF)) && !pe.getMainIdentifierValue().startsWith("http")) {
+					//SRC or HREF is relative and must be made absolute:
+					if (pe.getMainIdentifierValue().startsWith("/")) {
+						//we want to extract protocol and hostname, and append our value
+						idValue = "ie.url[0, ie.url.split('//')[1].index('/') + ie.url.split('//')[0].length + 2] + \"" + pe.getMainIdentifierValue() + "\"";
+					}
+					else {
+						//we want to extract the whole path except last file, and append our value
+						idValue = "ie.url[0, ie.url.rindex('/')] + \"/" + pe.getMainIdentifierValue() + "\"";
+					}
+				}
 				//save variable
 				watirHolder.add(watirHolder.getVariableName(pe) + " = ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idValue + ")", 3);
 				
