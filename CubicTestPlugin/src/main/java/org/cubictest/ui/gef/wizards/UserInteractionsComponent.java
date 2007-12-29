@@ -504,14 +504,18 @@ public class UserInteractionsComponent {
 						
 					case TEXT_INPUT_COLINDEX:
 						if(ActionType.ENTER_PARAMETER_TEXT.equals(userInteraction.getActionType())){
-							userInteraction.setParamKey(test.getParamList().getHeaders().get((Integer)value));
-							test.getParamList().removeObserverFromAllParams(userInteraction);
-							test.getParamList().getParameters().get((Integer) value).addObserver(userInteraction);
-							test.updateObservers();
+							if (test.getParamList() != null) {
+								userInteraction.setParamKey(test.getParamList().getHeaders().get((Integer)value));
+								test.getParamList().removeObserverFromAllParams(userInteraction);
+								test.getParamList().getParameters().get((Integer) value).addObserver(userInteraction);
+								test.updateObservers();
+							}
 						}
 						else {
 							//edit model:
-							test.getParamList().removeObserverFromAllParams(userInteraction);
+							if (test.getParamList() != null) {
+								test.getParamList().removeObserverFromAllParams(userInteraction);
+							}
 							
 							if (useCommandForActionChanges) {
 								EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
