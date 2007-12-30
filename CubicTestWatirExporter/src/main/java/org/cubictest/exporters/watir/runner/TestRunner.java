@@ -62,7 +62,7 @@ public class TestRunner extends BaseTestRunner {
 						IProgressMonitor.UNKNOWN);
 			}
 
-			testWalker.convertTest(test, null, watirHolder);
+			testWalker.convertTest(test, watirHolder);
 
 			//write exported watir script to temp file:
 			File generatedFolder = new File(settings.getProjectFolder().getAbsolutePath() + File.separator + "generated");
