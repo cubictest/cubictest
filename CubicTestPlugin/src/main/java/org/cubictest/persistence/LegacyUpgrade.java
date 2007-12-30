@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.TextUtil;
 import org.eclipse.core.resources.IProject;
 import org.jaxen.jdom.JDOMXPath;
@@ -271,6 +272,12 @@ public class LegacyUpgrade {
 
 	private static String upgradeModel5to6(String xml, ModelVersion version, IProject project) {
 		if (version.getVersion() != 5) {
+			return xml;
+		}
+		if (project == null) {
+			Logger.error("Could not update subtest paths when converting test file to new format. " +
+					"Paths in the test file will have to be upgraded manually.");
+			version.increment();
 			return xml;
 		}
 		
