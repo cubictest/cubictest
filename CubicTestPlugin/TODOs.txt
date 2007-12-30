@@ -42,6 +42,7 @@ Done	"Remember browser" option in Selenium launcher.
 Done	Upgrade to latest version of Selenium RC on runner
 Done	Upgrade to latest version of Selenium RC on Recorder
 Done	Convert URLs to absolute on the fly for Watir runner
+Done	Possible to record from any page/state
 
 1.7.12:
 Document XPath checker
@@ -51,7 +52,6 @@ Wiki documentation on parameterization. + best practice for e.g. login with diff
 1.8.1:
 Make possible to record and "make additions while recording"
 Context must have a element name?
-Possible to record from any page/state
 Custom steps
 Write tests for multiple nested context assertions. Ensure that all available info is used. 
 setUp and tearDown with custom steps.

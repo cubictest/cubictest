@@ -66,4 +66,8 @@ public class CreatePageElementCommand extends Command {
 		indexSet = true;
 	}
 
+	public IContext getContext() {
+		return context;
+	}
+
 }
