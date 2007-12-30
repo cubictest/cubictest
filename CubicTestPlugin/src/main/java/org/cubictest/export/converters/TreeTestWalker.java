@@ -162,7 +162,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 			return true;
 		}
 
-		if (targetExtensionPoint == null || TestWalkerUtils.isOnPathToNode(node, targetExtensionPoint)) {
+		if (nodeShouldBeConverted(node, targetExtensionPoint, targetPage)) {
 
 			if (node instanceof UrlStartPoint) {
 				urlStartPointConverter.newInstance().handleUrlStartPoint(resultHolder, (UrlStartPoint) node, 
@@ -172,7 +172,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 				ExtensionStartPoint exStartPoint = (ExtensionStartPoint) node;
 				Test subtestTest = (((SubTest) node).getTest(true));
 				ExtensionPoint targetInSubTest = ((ExtensionTransition) exStartPoint.getOutTransitions().get(0)).getExtensionPoint();
-				convertTransitionNode(resultHolder, subtestTest.getStartPoint(), targetInSubTest, targetPage);
+				convertTransitionNode(resultHolder, subtestTest.getStartPoint(), targetInSubTest, null);
 				resultHolder.updateStatus(((SubTest) node), false, (ExtensionStartPoint) node);
 			}
 			else if (node instanceof SubTest) {
@@ -201,7 +201,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 				
 				// Convert SubTest:
 				try {
-					convertTransitionNode(resultHolder, subtestTest.getStartPoint(), targetExPoint, targetPage);
+					convertTransitionNode(resultHolder, subtestTest.getStartPoint(), targetExPoint, null);
 					resultHolder.updateStatus(subtest, false, targetExtensionPoint);
 				}
 				catch (Exception e) {
@@ -232,7 +232,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 					continue;
 				}
 				else {
-					if (targetExtensionPoint == null || TestWalkerUtils.isOnPathToNode(endNode, targetExtensionPoint)) {
+					if (nodeShouldBeConverted(endNode, targetExtensionPoint, targetPage)) {
 						if (outTransition instanceof UserInteractionsTransition) {
 							transitionConverter.newInstance().handleUserInteractions(resultHolder,(UserInteractionsTransition) outTransition);
 						}
@@ -268,6 +268,22 @@ public class TreeTestWalker<T extends IResultHolder> {
 		}
 
 		return nodeFinished;
+	}
+
+
+
+	private boolean nodeShouldBeConverted(TransitionNode node,
+			ConnectionPoint targetExtensionPoint, Page targetPage) {
+		if (targetExtensionPoint == null && targetPage == null) {
+			return true;
+		}
+		if (targetPage == null) { 
+			return targetExtensionPoint == null || TestWalkerUtils.isOnPathToNode(node, targetExtensionPoint);
+		}
+		if (targetExtensionPoint == null) {
+			return targetPage == null || TestWalkerUtils.isOnPathToNode(node, targetPage);
+		}
+		return false;
 	}
 
 

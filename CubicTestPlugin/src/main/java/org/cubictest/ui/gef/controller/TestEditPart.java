@@ -11,11 +11,13 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.policies.TestContainerEditPolicy;
 import org.cubictest.ui.gef.policies.TestXYLayoutEditPolicy;
+import org.cubictest.ui.gef.view.CubicTestGroupFigure;
 import org.cubictest.ui.gef.view.TestFigure;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.ColorConstants;
@@ -58,6 +60,14 @@ public class TestEditPart extends PropertyChangePart{
 		} catch(Exception ignore) {
 		}
 
+	}
+	
+	@Override
+	public void setSelected(int value) {
+		super.setSelected(value);
+		if (value == EditPart.SELECTED_PRIMARY) {
+			UserInfo.clearStatusLine();
+		}
 	}
 
 	/* (non-Javadoc)

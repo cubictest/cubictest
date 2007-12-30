@@ -29,6 +29,7 @@ import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 public class AutoLayout {
+	private static final int HORIZONTAL_NODE_SPACING = 290;
 	private static final int TRANSITION_SPACE = 45;
 	private static final int USER_INPUT_HEIGHT = 18;
 	private final TestEditPart testEditPart;
@@ -47,16 +48,17 @@ public class AutoLayout {
 	public void layout(TransitionNode node) {
 		Point position = node.getPosition().getCopy();
 		
-		int num = node.getInTransition().getStart().getOutTransitions().size() - 1;
-		if (num < 0) num = 0;
+		int prevNodeOutgoing = node.getInTransition().getStart().getOutTransitions().size() - 1;
+		if (prevNodeOutgoing < 0) prevNodeOutgoing = 0;
 		
 		try {
 
 			if((node.getInTransition().getStart() instanceof IStartPoint)) {
-				position.x = ITestEditor.INITIAL_PAGE_POS_X + (290 * num);
+				position.x = ITestEditor.INITIAL_PAGE_POS_X + (HORIZONTAL_NODE_SPACING * prevNodeOutgoing);
 				position.y = ITestEditor.INITIAL_PAGE_POS_Y;
 			} else {				
 				position.x = node.getInTransition().getStart().getPosition().x + node.getInTransition().getStart().getDimension().width / 2;
+				position.x = position.x + (290 * prevNodeOutgoing);
 				int numOfActions = 0;
 				if (node.getInTransition() instanceof UserInteractionsTransition) {
 					numOfActions = ((UserInteractionsTransition) node.getInTransition()).getUserInteractions().size();
@@ -68,7 +70,7 @@ public class AutoLayout {
 		}
 		catch(NullPointerException e) {
 			Logger.warn("NullPointerException. Using default pos.");
-			position.x = ITestEditor.INITIAL_PAGE_POS_X + (290 * num);
+			position.x = ITestEditor.INITIAL_PAGE_POS_X + (290 * prevNodeOutgoing);
 		}
 		layout(node, position);
 	}

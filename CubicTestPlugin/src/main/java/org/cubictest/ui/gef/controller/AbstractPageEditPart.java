@@ -116,12 +116,11 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 	@Override
 	public void setSelected(int value) {
 		super.setSelected(value);
-		if (value != EditPart.SELECTED_NONE) {
-			UserInfo.clearStatusLine();
-			((CubicTestGroupFigure)getFigure()).setSelected(true);
+		if (value == EditPart.SELECTED_NONE) {
+			((CubicTestGroupFigure)getFigure()).setSelected(false);
 		}
 		else {
-			((CubicTestGroupFigure)getFigure()).setSelected(false);
+			((CubicTestGroupFigure)getFigure()).setSelected(true);
 		}
 		getFigure().repaint();
 		
