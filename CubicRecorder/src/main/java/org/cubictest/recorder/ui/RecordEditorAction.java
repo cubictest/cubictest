@@ -79,7 +79,7 @@ public class RecordEditorAction implements IObjectActionDelegate {
 			TransitionNode firstPage = test.getStartPoint().getFirstNodeFromOutTransitions();
 			if (firstPage != null) {
 				if (firstPage.getFirstNodeFromOutTransitions() != null && selectedPage == null) {
-					UserInfo.showWarnDialog("Test is not empty, please select a Page/State to record from.");
+					UserInfo.showWarnDialog("Please select a Page/State to record from (test is not empty).");
 					setRunning(false);
 					return;
 				}
@@ -113,7 +113,7 @@ public class RecordEditorAction implements IObjectActionDelegate {
 					}
 	 				RunSeleniumRunnerAction runner = new RunSeleniumRunnerAction();
 	 				runner.setActiveEditor(action, (IEditorPart) testEditor);
-	 				runner.setCustomCompletedMessage("Test browser forwarded. Result: $result. Recording can begin (test browser is open).");
+	 				runner.setCustomCompletedMessage("Recording can begin (test browser is forwarded). Result: $result.");
 	 				runner.setShowCompletedMessageInStatusLine(true);
 	 				runner.setStopSeleniumWhenFinished(false);
 	 				runner.setSelenium(seleniumRecorder.getSelenium());
