@@ -94,19 +94,8 @@ public class CubicRecorder implements IRecorder {
 		}
 		createElementCmd.setPageElement(element);
 		
-		boolean unique = true;
-		for (PageElement pe : createElementCmd.getContext().getRootElements()) {
-			pe.resetStatus();
-			createElementCmd.getPageElement().resetStatus();
-			if (pe.isEqualTo(createElementCmd.getPageElement())) {
-				unique = false;
-				break;
-			}
-		}
-		if (unique) {
-			this.commandStack.execute(createElementCmd);
-			this.autoLayout.layout(cursor);
-		}
+		this.commandStack.execute(createElementCmd);
+		this.autoLayout.layout(cursor);
 	}
 	
 	
@@ -120,13 +109,18 @@ public class CubicRecorder implements IRecorder {
 			createNewUserInteractionTransition(this.cursor);
 		}
 		
-		boolean elementExists = false;
-		for(PageElement element : cursor.getRootElements()) {
-			if(action.getElement() == element) {
-				elementExists = true;
+		IContext ctx = (parent instanceof IContext) ? (IContext) parent : cursor;
+		boolean unique = true;
+		for (PageElement pe : ctx.getRootElements()) {
+			pe.resetStatus();
+			((PageElement) action.getElement()).resetStatus();
+			if (pe.isEqualTo(action.getElement())) {
+				unique = false;
+				action.setElement(pe);
+				break;
 			}
 		}
-		if(!elementExists) {
+		if (unique) {
 			this.addPageElement((PageElement) action.getElement(), parent);
 		}
 
