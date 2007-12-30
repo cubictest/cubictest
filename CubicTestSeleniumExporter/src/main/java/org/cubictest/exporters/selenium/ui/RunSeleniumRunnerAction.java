@@ -4,10 +4,8 @@
  */
 package org.cubictest.exporters.selenium.ui;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
-import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ITestRunner;
 import org.cubictest.export.ui.BaseRunnerAction;
@@ -16,6 +14,7 @@ import org.cubictest.exporters.selenium.runner.TestRunner;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.Page;
 import org.cubictest.model.Test;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -37,10 +36,10 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 	public static final BrowserType DEFAULT_BROWSER = BrowserType.FIREFOX;
 	boolean stopSeleniumWhenFinished = true;
 	Selenium selenium;
-	private ExtensionPoint targetExPoint;
 	private String customCompletedMessage;
 	private boolean showCompletedMessageInStatusLine;
 	private Test preSelectedTest;
+	private Page targetPage;
 	public static final int DEFAULT_SELENIUM_PORT = 4444;
 
 
@@ -82,11 +81,13 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 				port = wizard.getPort();
 				browserType = wizard.getBrowserType();
 			}
-			runner = new TestRunner(test, targetExPoint, display, settings, port, browserType);
+			runner = new TestRunner(test, display, settings, port, browserType);
 			if (selenium != null) {
 				runner.setSelenium(selenium);
 			}
 		}
+		
+		runner.setTargetPage(targetPage);
 		return runner;
 	}
 
@@ -175,15 +176,16 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 		this.preSelectedTest = test;
 	}
 
-	public void setTargetExtensionPoint(ExtensionPoint targetExPoint) {
-		this.targetExPoint = targetExPoint;
-	}
-
 	public void setCustomCompletedMessage(String customCompletedMessage) {
 		this.customCompletedMessage = customCompletedMessage;
 	}
 	
 	public void setShowCompletedMessageInStatusLine(boolean b) {
 		this.showCompletedMessageInStatusLine = b;
+	}
+
+
+	public void setTargetPage(Page targetPage) {
+		this.targetPage = targetPage;
 	}
 }

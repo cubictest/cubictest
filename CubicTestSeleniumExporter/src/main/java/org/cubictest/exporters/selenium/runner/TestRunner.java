@@ -25,6 +25,7 @@ import org.cubictest.exporters.selenium.ui.SeleniumSettingsPage;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.Page;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
@@ -44,18 +45,17 @@ public class TestRunner extends BaseTestRunner {
 	SeleniumHolder seleniumHolder;
 	SeleniumWorkerThread workerThread;
 	Selenium selenium;
-	ExtensionPoint targetExPoint;
+	Page targetPage;
 	int port; 
 	BrowserType browserType = BrowserType.FIREFOX;
 
 	/**
 	 * Typically invoked by the CubicTest Selenium exporter Eclipse plugin.
 	 */
-	public TestRunner(Test test, ExtensionPoint targetExPoint, Display display, CubicTestProjectSettings settings,
+	public TestRunner(Test test, Display display, CubicTestProjectSettings settings,
 			int port, BrowserType browserType) {
 		super(display, settings, test);
 		this.test = test;
-		this.targetExPoint = targetExPoint;
 		this.port = port;
 		this.browserType = browserType;
 	}
@@ -113,7 +113,7 @@ public class TestRunner extends BaseTestRunner {
 				monitor.beginTask("Traversing the test model...", IProgressMonitor.UNKNOWN);
 			}
 			
-			testWalker.convertTest(test, targetExPoint, seleniumHolder);
+			testWalker.convertTest(test, seleniumHolder, targetPage);
 
 			if (monitor != null) {
 				monitor.done();
@@ -181,6 +181,11 @@ public class TestRunner extends BaseTestRunner {
 
 	public void setSelenium(Selenium selenium) {
 		this.selenium = selenium;
+	}
+
+
+	public void setTargetPage(Page targetPage) {
+		this.targetPage = targetPage;
 	}
 
 }
