@@ -41,14 +41,15 @@ Done	Add name attribute to contexts
 Done	"Remember browser" option in Selenium launcher. 
 Done	Upgrade to latest version of Selenium RC on runner
 Done	Upgrade to latest version of Selenium RC on Recorder
+Done	Convert URLs to absolute on the fly for Watir runner
 
 1.7.12:
-Convert URLs to absolute URLs for Selenium runner (to be compatible with watir (or change watir to use relative URLs)
 Document XPath checker
 Upgrade to Eclipse Public License
 Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 
 1.8.1:
+Make possible to record and "make additions while recording"
 Context must have a element name?
 Possible to record from any page/state
 Custom steps

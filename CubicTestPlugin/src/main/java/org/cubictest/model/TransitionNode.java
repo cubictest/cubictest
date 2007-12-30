@@ -113,6 +113,13 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		return list;
 	}
 	
+	public TransitionNode getFirstNodeFromOutTransitions() {
+		if (outTransitions != null && outTransitions.size() > 0) {
+			return outTransitions.get(0).getEnd();
+		}
+		return null;
+	}
+	
 	/**
 	 * @param outTransitions The outTransitions to set.
 	 */

@@ -81,7 +81,7 @@ public class TreeTestWalkerTest {
 		Test test = TestPersistance.loadFromFile(null, fileName);
 		
 		//only convert path to extension point:
-		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page297923971162115959945_2"));
+		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page297923971162115959945_2"), null);
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
 		assertionList.assertContainsInOrder("LinkToSecond");
@@ -107,7 +107,7 @@ public class TreeTestWalkerTest {
 		
 		try {
 			System.out.println("\n== Testing traversal to unknown extension point. Error(s) about unknown extension point should follow ==");
-			testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("Dummy, should not be present"));
+			testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("Dummy, should not be present"), null);
 			fail("Should throw UnknownExtensionPointException when invalid extension point");
 		}
 		catch (UnknownExtensionPointException e) {
@@ -177,7 +177,7 @@ public class TreeTestWalkerTest {
 		Test test = TestPersistance.loadFromFile(null, fileName);
 		
 		//only convert path to extension point:
-		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page299655571162117362723"));
+		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page299655571162117362723"), null);
 		
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
@@ -304,7 +304,7 @@ public class TreeTestWalkerTest {
 	public void testTraversesTreeWithExtensionPointAfterExtensionStartPoint() throws InstantiationException, IllegalAccessException {
 		String fileName = "src/test/resources/org/cubictest/common/converters/MediumTreeWithExtensionPointUsingExtensionStartPoint.aat";
 		Test test = TestPersistance.loadFromFile(null, fileName);
-		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page8469831163802373773"));
+		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("page8469831163802373773"), null);
 		
 		assertionList.assertContainsInOrder("www.test.org");
 		assertionList.assertContainsInOrder("First");
