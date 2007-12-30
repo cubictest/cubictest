@@ -3,9 +3,9 @@
 <plugin>
    <extension
          point="org.eclipse.ui.popupMenus">
-      <viewerContribution
-            id="CubicRecorder.viewerContribution1"
-            targetID="cubicTestPlugin.editor.contextmenu">
+      <objectContribution 
+	       id="CubicRecorder.objectContribution1"
+		   objectClass="org.cubictest.ui.gef.controller.TestEditPart">
          <action
                class="org.cubictest.recorder.ui.RecordEditorAction"
                id="CubicRecorder.record"
@@ -15,7 +15,20 @@
                icon="icons/record.gif"
                style="toggle"
                tooltip="Record test in web browser"/>
-      </viewerContribution>
+      </objectContribution>
+      <objectContribution 
+	       id="CubicRecorder.objectContribution2"
+		   objectClass="org.cubictest.ui.gef.controller.PageEditPart">
+         <action
+               class="org.cubictest.recorder.ui.RecordEditorAction"
+               id="CubicRecorder.recordFromSelectedPage"
+               label="Record from this Page/State"
+               menubarPath="additions"
+               state="false"
+               icon="icons/record.gif"
+               style="toggle"
+               tooltip="Record test in web browser"/>
+      </objectContribution>
    </extension>
 
 </plugin>

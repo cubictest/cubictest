@@ -45,7 +45,7 @@ public class CubicRecorder implements IRecorder {
 		this.autoLayout = autoLayout;
 		//reuse empty start page if present:
 		for(Transition t : test.getStartPoint().getOutTransitions()) {
-			if(t.getEnd() instanceof Page && ((Page)t.getEnd()).getRootElements().size() == 0) {
+			if(t.getEnd() instanceof Page) {
 				setCursor((Page) t.getEnd());
 			}
 		}

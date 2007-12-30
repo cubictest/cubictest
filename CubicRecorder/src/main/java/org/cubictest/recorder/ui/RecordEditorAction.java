@@ -4,18 +4,20 @@
  */
 package org.cubictest.recorder.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
+import org.cubictest.export.utils.exported.TestWalkerUtils;
 import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
-import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
-import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Page;
-import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
+import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.recorder.CubicRecorder;
 import org.cubictest.recorder.GUIAwareRecorder;
@@ -24,24 +26,28 @@ import org.cubictest.recorder.selenium.SeleniumRecorder;
 import org.cubictest.ui.gef.interfaces.exported.IDisposeListener;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
-import org.eclipse.core.resources.IResource;
+import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
-import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IObjectActionDelegate;
+import org.eclipse.ui.IWorkbenchPart;
 
 /**
  * Action for starting / stopping the CubicRecorder.
  * 
  */
-public class RecordEditorAction implements IEditorActionDelegate {
-	IResource currentFile;
-	private boolean running;
+public class RecordEditorAction implements IObjectActionDelegate {
+	private static Map<Test, Boolean> testsRecording;
 	private SeleniumRecorder seleniumRecorder;
 	private ITestEditor testEditor;
+	private Test test;
+	private Page selectedPage;
+	private IAction currentState;
 
 	public RecordEditorAction() {
 		super();
@@ -54,7 +60,6 @@ public class RecordEditorAction implements IEditorActionDelegate {
 	public void run(IAction action) {
 		
 		AutoLayout autoLayout = new AutoLayout(testEditor);
-		Test test = testEditor.getTest();
 		
 		if (!ExportUtils.testIsOkForRecord(test)) {
 			return;
@@ -62,14 +67,24 @@ public class RecordEditorAction implements IEditorActionDelegate {
 		
 		test.resetStatus();
 
-		if(!running) {
+		//action is toggle action:
+		if(isRecording()) {
+			//recorder running. stop it
+			UserInfo.setStatusLine(null);
+			stopSelenium(autoLayout);
+			setRunning(false);
+
+		} else {
 			setRunning(true);
-
-			if (test.getStartPoint().getOutTransitions().size() >= 1 && !firstPageIsEmpty(test)) {
-				UserInfo.showErrorDialog("The test must be empty to use the recorder.");
-				return;
+			TransitionNode firstPage = test.getStartPoint().getFirstNodeFromOutTransitions();
+			if (firstPage != null) {
+				if (firstPage.getFirstNodeFromOutTransitions() != null && selectedPage == null) {
+					UserInfo.showWarnDialog("Test is not empty, please select a Page/State to record from.");
+					setRunning(false);
+					return;
+				}
 			}
-
+			
 
 			IRecorder cubicRecorder = new CubicRecorder(test, testEditor.getCommandStack(), autoLayout);
 			IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder);
@@ -84,9 +99,9 @@ public class RecordEditorAction implements IEditorActionDelegate {
 			try {
 				new ProgressMonitorDialog(new Shell()).run(false, false, seleniumRecorder);
 
-				if (test.getStartPoint() instanceof ExtensionStartPoint) {
+				//check if the browser should be forwarded:
+				if (selectedPage != null || test.getStartPoint() instanceof ExtensionStartPoint) {
 					UserInfo.setStatusLine("Test browser will be forwarded to start point for test.");
-					//play forward to extension start point
 					long now = System.currentTimeMillis();
 					while (!seleniumRecorder.isSeleniumStarted()) {
 						if (System.currentTimeMillis() > now + (45 * 1000)) {
@@ -102,35 +117,35 @@ public class RecordEditorAction implements IEditorActionDelegate {
 	 				runner.setShowCompletedMessageInStatusLine(true);
 	 				runner.setStopSeleniumWhenFinished(false);
 	 				runner.setSelenium(seleniumRecorder.getSelenium());
-	 				runner.setPreSelectedTest(((SubTest) test.getStartPoint()).getTest(true));
-	 				if (test.getStartPoint().getOutTransitions().size() == 0) {
-	 					ErrorHandler.logAndShowErrorDialogAndThrow("To start recording, the test must have at least one page connected to the start point.");
+	 				if (selectedPage != null) {
+	 					if (!TestWalkerUtils.isOnPathToNode(test.getStartPoint(), selectedPage)) {
+	 						ErrorHandler.logAndShowErrorDialogAndThrow("Cannot find path from start point to selected page");
+	 					}
+	 					runner.setTargetPage(selectedPage);
 	 				}
-					ExtensionPoint targetExPoint = ((ExtensionTransition) test.getStartPoint().getOutTransitions().get(0)).getExtensionPoint();
-	 				runner.setTargetExtensionPoint(targetExPoint);
+	 				
+	 				runner.setPreSelectedTest(test);
 	 				runner.run(action);
 				}
  				cubicRecorder.setEnabled(true);
+ 				if (selectedPage != null) {
+ 					cubicRecorder.setCursor(selectedPage);
+ 				}
  				guiAwareRecorder.setEnabled(true);
 			}
 			catch (Exception e) {
 				ErrorHandler.logAndShowErrorDialog(e);
 				stopSelenium(autoLayout);
 				UserInfo.setStatusLine(null);
+				setRunning(false);
 				return;
 			}
-			
-
-		} else {
-			UserInfo.setStatusLine(null);
-			stopSelenium(autoLayout);
 		}
 	}
 
 
 	private void stopSelenium(AutoLayout autoLayout) {
 		try {
-			setRunning(false);
 			if (seleniumRecorder != null) {
 				seleniumRecorder.stop();
 			}
@@ -141,19 +156,14 @@ public class RecordEditorAction implements IEditorActionDelegate {
 		catch(Exception e) {
 			ErrorHandler.logAndRethrow(e);
 		}
+		finally {
+			setRunning(false);
+		}
 	}
 
-	/**
-	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
-	 */
-	public void selectionChanged(IAction action, ISelection selection) {}
-
-	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
-		this.testEditor = (ITestEditor) targetEditor;		
-	}
-	
-	private void setRunning(boolean run) {
-		running = run;
+	private void setRunning(boolean running) {
+		testsRecording.put(test, running);
+		currentState.setChecked(running);
 	}
 	
 	
@@ -177,5 +187,34 @@ public class RecordEditorAction implements IEditorActionDelegate {
 			}
 		}
 		return false;
+	}
+
+
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		this.testEditor = (ITestEditor) targetPart;	
+		this.test = testEditor.getTest();
+	}
+
+
+	public void selectionChanged(IAction action, ISelection selection) {
+		this.currentState = action;
+		currentState.setChecked(isRecording());
+		this.selectedPage = null;
+		Object selected = ((StructuredSelection) selection).getFirstElement();
+		if (selected instanceof AbstractEditPart) {
+			Object model = ((AbstractEditPart) selected).getModel();
+			if (model instanceof Page) {
+				this.selectedPage = (Page) model;
+			}
+		}
+	}
+
+
+	private Boolean isRecording() {
+		if (testsRecording == null) {
+			testsRecording = new HashMap<Test, Boolean>();
+		}
+		Boolean recording =  testsRecording.get(test);
+		return recording == null ? false : recording;
 	}
 }
