@@ -6,6 +6,8 @@ package org.cubictest.recorder;
 
 import static org.cubictest.model.ActionType.CLICK;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.ExtensionStartPoint;
@@ -92,8 +94,19 @@ public class CubicRecorder implements IRecorder {
 		}
 		createElementCmd.setPageElement(element);
 		
-		this.commandStack.execute(createElementCmd);
-		this.autoLayout.layout(cursor);
+		boolean unique = true;
+		for (PageElement pe : createElementCmd.getContext().getRootElements()) {
+			pe.resetStatus();
+			createElementCmd.getPageElement().resetStatus();
+			if (pe.isEqualTo(createElementCmd.getPageElement())) {
+				unique = false;
+				break;
+			}
+		}
+		if (unique) {
+			this.commandStack.execute(createElementCmd);
+			this.autoLayout.layout(cursor);
+		}
 	}
 	
 	
