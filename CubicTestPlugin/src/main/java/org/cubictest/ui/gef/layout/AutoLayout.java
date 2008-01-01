@@ -47,24 +47,24 @@ public class AutoLayout {
 	public void layout(TransitionNode node) {
 		Point position = node.getPosition().getCopy();
 		
-		int successorPos = 0;
+		int successorNodes = 0;
 		for (Transition trans : node.getInTransition().getStart().getOutTransitions()) {
 			if (trans.getEnd().equals(node)) {
 				break;
 			}
-			else {
-				successorPos++;
+			else if (!(trans.getEnd() instanceof ExtensionPoint)) {
+				successorNodes++;
 			}
 		}
 		
 		try {
 
 			if((node.getInTransition().getStart() instanceof IStartPoint)) {
-				position.x = ITestEditor.INITIAL_PAGE_POS_X + (ITestEditor.NEW_PATH_OFFSET * successorPos);
+				position.x = ITestEditor.INITIAL_PAGE_POS_X + (ITestEditor.NEW_PATH_OFFSET * successorNodes);
 				position.y = ITestEditor.INITIAL_PAGE_POS_Y;
 			} else {				
 				position.x = node.getInTransition().getStart().getPosition().x + node.getInTransition().getStart().getDimension().width / 2;
-				position.x = position.x + (ITestEditor.NEW_PATH_OFFSET * successorPos);
+				position.x = position.x + (ITestEditor.NEW_PATH_OFFSET * successorNodes);
 				int numOfActions = 0;
 				if (node.getInTransition() instanceof UserInteractionsTransition) {
 					numOfActions = ((UserInteractionsTransition) node.getInTransition()).getUserInteractions().size();
@@ -76,7 +76,7 @@ public class AutoLayout {
 		}
 		catch(NullPointerException e) {
 			Logger.warn("NullPointerException. Using default pos.");
-			position.x = ITestEditor.INITIAL_PAGE_POS_X + (ITestEditor.NEW_PATH_OFFSET * successorPos);
+			position.x = ITestEditor.INITIAL_PAGE_POS_X + (ITestEditor.NEW_PATH_OFFSET * successorNodes);
 		}
 		layout(node, position);
 	}
