@@ -28,6 +28,7 @@ import org.cubictest.ui.gef.actions.CutAction;
 import org.cubictest.ui.gef.actions.PasteAction;
 import org.cubictest.ui.gef.actions.PopulateCommonAction;
 import org.cubictest.ui.gef.actions.PresentAction;
+import org.cubictest.ui.gef.actions.RefactorToSubTestAction;
 import org.cubictest.ui.gef.actions.ResetTestAction;
 import org.cubictest.ui.gef.actions.TestContextMenuProvider;
 import org.cubictest.ui.gef.actions.UpdateTestStartPointAction;
@@ -416,6 +417,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		addEditPartAction(new AddUserInteractionTransitionAction((IWorkbenchPart) this));
 		addEditPartAction(new AddExtensionPointAction((IWorkbenchPart) this));
 		addEditPartAction(new UpdateTestStartPointAction((IWorkbenchPart) this));
+		addEditPartAction(new RefactorToSubTestAction((IWorkbenchPart) this));
 		
 		for (Class<? extends PageElement> elementClass : AddElementContextMenuList.getList()) {
 			addEditPartAction(new AddPageElementAction((IWorkbenchPart) this, elementClass));

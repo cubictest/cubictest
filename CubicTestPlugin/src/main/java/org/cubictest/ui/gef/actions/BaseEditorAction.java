@@ -18,8 +18,8 @@ import org.eclipse.ui.IWorkbenchPart;
  */
 public abstract class BaseEditorAction extends SelectionAction {
 
-	/** The editparts that are selected in the editor */
-	private List parts;
+	/** The edit parts that are selected in the editor */
+	private List<Object> parts;
 
 	public BaseEditorAction(IWorkbenchPart part) {
 		super(part);
@@ -40,12 +40,12 @@ public abstract class BaseEditorAction extends SelectionAction {
 	}
 
 
-	public void setParts(List parts) {
+	public void setParts(List<Object> parts) {
 		this.parts = parts;
 	}
 
 
-	public List getParts() {
+	public List<Object> getParts() {
 		return parts;
 	}
 }

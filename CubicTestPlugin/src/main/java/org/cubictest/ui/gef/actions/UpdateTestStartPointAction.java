@@ -74,10 +74,10 @@ public class UpdateTestStartPointAction extends BaseEditorAction  {
 			if(element instanceof AbstractNodeEditPart) {
 				AbstractNodeEditPart pageEditPart = (AbstractNodeEditPart) element;
 				TestEditPart testPart = (TestEditPart) pageEditPart.getParent();
-				launchNewTestWizard(testPart);
+				launchUpdateStartPointWizard(testPart);
 			}
 			else if(element instanceof TestEditPart) {
-				launchNewTestWizard((TestEditPart) element);
+				launchUpdateStartPointWizard((TestEditPart) element);
 			}
 			else {
 				throw new CubicException("Selected item was not a start point or a test.");
@@ -92,7 +92,7 @@ public class UpdateTestStartPointAction extends BaseEditorAction  {
 	}
 	
 	
-	public UpdateStartPointWizard launchNewTestWizard(TestEditPart testPart) {
+	public UpdateStartPointWizard launchUpdateStartPointWizard(TestEditPart testPart) {
 		Test test = (Test) testPart.getModel();
 
 		// Create the wizard

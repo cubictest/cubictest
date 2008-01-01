@@ -130,6 +130,10 @@ public abstract class AbstractPageEditPart extends AbstractNodeEditPart {
 			startDirectEdit();			
 		}
 	}
+	
+	public boolean isSelected() {
+		return getSelected() != SELECTED_NONE;
+	}
 
 	/*
 	 *  (non-Javadoc)

@@ -46,17 +46,26 @@ public class TestContextMenuProvider extends ContextMenuProvider{
 		
 		IAction action;
 
-		MenuManager submenu = new MenuManager("Add page element ", "cubicTestPlugin.action.addPageElement");
+		MenuManager addElementMenu = new MenuManager("Add page element", "cubicTestPlugin.action.addPageElement");
 		for (Class<? extends PageElement> elementClass : AddElementContextMenuList.getList()) {
 			action = actionRegistry.getAction(AddPageElementAction.getActionId(elementClass));
 			if(action.isEnabled()) {
-				submenu.add(action);
+				addElementMenu.add(action);
 			}
 		}
-		if (!submenu.isEmpty()) {
-			menu.insertBefore(GEFActionConstants.GROUP_UNDO, submenu);
+		if (!addElementMenu.isEmpty()) {
+			menu.insertBefore(GEFActionConstants.GROUP_UNDO, addElementMenu);
 		}
-
+		
+		MenuManager refactorMenu = new MenuManager("Refactor", "cubicTestPlugin.action.refactor");
+		action = actionRegistry.getAction(RefactorToSubTestAction.ACTION_ID);
+		if(action.isEnabled()) {
+			refactorMenu.add(action);
+		}
+		if (!refactorMenu.isEmpty()) {
+			menu.insertBefore(GEFActionConstants.GROUP_REST, refactorMenu);
+		}
+		
 		action = actionRegistry.getAction(AddUserInteractionTransitionAction.ACTION_ID);
 		if (action.isEnabled())
 			menu.insertBefore(GEFActionConstants.GROUP_UNDO,action); 

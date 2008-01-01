@@ -4,7 +4,10 @@
  */
 package org.cubictest.ui.utils;
 
+import java.util.List;
+
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.export.utils.exported.TestWalkerUtils;
 import org.cubictest.model.Common;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -104,7 +107,24 @@ public class ModelUtil {
 		return TRANSITION_EDIT_VALID;
 	}
 
-
+	public static TransitionNode getFirstNode(List<TransitionNode> nodes) {
+		if (nodes == null || nodes.size() == 0) {
+			throw new IllegalArgumentException("Node list is null or empty");
+		}
+		TransitionNode first = nodes.get(0);
+		for (TransitionNode nodeToCheck : nodes) {
+			for (TransitionNode other : nodes) {
+				if (nodeToCheck == other) {
+					continue;
+				}
+				if (TestWalkerUtils.isOnPathToNode(nodeToCheck, other) && TestWalkerUtils.isOnPathToNode(nodeToCheck, first)) {
+					first = nodeToCheck;
+				}
+			}
+		}
+		return first;
+	}
+	
 	public static boolean assertHasOnlyOnePathFrom(TransitionNode node) {
 		if (node == null) {
 			return true;

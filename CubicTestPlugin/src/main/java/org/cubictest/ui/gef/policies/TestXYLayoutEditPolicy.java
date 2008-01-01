@@ -12,6 +12,7 @@ import org.cubictest.ui.gef.command.MoveNodeCommand;
 import org.cubictest.ui.gef.command.PageResizeCommand;
 import org.cubictest.ui.gef.controller.AbstractNodeEditPart;
 import org.cubictest.ui.gef.controller.ExtensionStartPointEditPart;
+import org.cubictest.ui.gef.controller.SubTestStartPointEditPart;
 import org.cubictest.ui.gef.controller.UrlStartPointEditPart;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -50,6 +51,8 @@ public class TestXYLayoutEditPolicy extends XYLayoutEditPolicy {
 		if (child instanceof UrlStartPointEditPart)
 			return null;
 		if (child instanceof ExtensionStartPointEditPart)
+			return null;
+		if (child instanceof SubTestStartPointEditPart)
 			return null;
 		if (!(constraint instanceof Rectangle))
 			return null;

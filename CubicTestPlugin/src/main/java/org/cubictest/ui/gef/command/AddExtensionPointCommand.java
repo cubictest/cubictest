@@ -25,14 +25,13 @@ public class AddExtensionPointCommand extends Command {
 	public void execute() {
 		super.execute();
 		
-		Point position = new Point(0, 0);
 		if (page != null) {
-			position = page.getPosition().getCopy();
+			Point position = page.getPosition().getCopy();
 			position.x = position.x + this.page.getDimension().width + 50;
 			position.y = position.y + this.page.getDimension().height / 2;
 			extensionPoint.setName(page.getName() + " Extension Point");
+			extensionPoint.setPosition(position);
 		}
-		extensionPoint.setPosition(position);
 		test.addExtensionPoint(extensionPoint);
 	}
 
@@ -61,5 +60,6 @@ public class AddExtensionPointCommand extends Command {
 	
 	public void setExtensionPoint(ExtensionPoint extensionPoint) {
 		this.extensionPoint = extensionPoint;
-	}	
+	}
+
 }
