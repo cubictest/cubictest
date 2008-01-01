@@ -64,7 +64,7 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 	@Override
 	protected void init() {
 		super.init();
-		setText("Extract selected nodes into a subtest.");
+		setText("Extract sub test of selected nodes");
 		setId(ACTION_ID);
 	}
 	
