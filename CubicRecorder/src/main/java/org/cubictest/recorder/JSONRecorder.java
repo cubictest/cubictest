@@ -109,6 +109,7 @@ public class JSONRecorder {
 	}
 	
 	public void setStateTitle(String title) {
+		if (!recorder.isEnabled()) return;
 		recorder.setStateTitle(title);
 	}
 }
