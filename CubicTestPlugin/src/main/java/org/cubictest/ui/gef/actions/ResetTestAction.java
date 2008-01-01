@@ -7,7 +7,9 @@ package org.cubictest.ui.gef.actions;
 
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
+import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.eclipse.gef.ui.actions.EditorPartAction;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorPart;
 
 
@@ -35,6 +37,11 @@ public class ResetTestAction extends EditorPartAction {
 		GraphicalTestEditor testEditor = (GraphicalTestEditor)getEditorPart();
 		Test test = testEditor.getTest();
 		test.resetStatus();
+	}
+
+	@Override
+	public ImageDescriptor getImageDescriptor() {
+		return CubicTestImageRegistry.getDescriptor(CubicTestImageRegistry.RESET_TEST_IMAGE);
 	}
 
 }

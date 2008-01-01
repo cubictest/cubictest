@@ -86,6 +86,8 @@ public class CubicTestImageRegistry {
 	
 	public static final String NOT_IMAGE = "not";
 
+	public static final String RESET_TEST_IMAGE = "resetTest";
+
 
 	/**
 	 * Note: An image registry owns all of the image objects registered with it,
@@ -234,7 +236,11 @@ public class CubicTestImageRegistry {
 		URL rowUrl = FileLocator.find(pluginBundle, new Path(iconPath
 				+ ROW_IMAGE + ".gif"), null);
 		imageRegistry.put(ROW_IMAGE, ImageDescriptor.createFromURL(rowUrl));
-	}
+
+		URL resetTestUrl = FileLocator.find(pluginBundle, new Path(iconPath
+				+ RESET_TEST_IMAGE + ".gif"), null);
+		imageRegistry.put(RESET_TEST_IMAGE, ImageDescriptor.createFromURL(resetTestUrl));
+}
 
 	public static Image get(String key) {
 		return imageRegistry.get(key);
