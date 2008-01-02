@@ -50,7 +50,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	
 	
 	/**
-	 * Constructionr for the <code>UserInteractionsTransitionEditPart</code>.
+	 * Constructor for the <code>UserInteractionsTransitionEditPart</code>.
 	 * @param transition
 	 */	
 	public UserInteractionsTransitionEditPart(UserInteractionsTransition userInteractionsTransition){
@@ -197,6 +197,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 	/**
 	 * Sets the width of the line when selected
 	 */
+	@Override
 	public void setSelected(int value) {
 		super.setSelected(value);
 		if (value != EditPart.SELECTED_NONE)
