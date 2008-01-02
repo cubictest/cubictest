@@ -53,6 +53,7 @@ Export-Package: org.cubictest.common.resources,
  org.cubictest.persistence,
  org.cubictest.ui.customstep.section,
  org.cubictest.ui.gef.command,
+ org.cubictest.ui.gef.editors,
  org.cubictest.ui.gef.interfaces.exported,
  org.cubictest.ui.gef.layout
 Bundle-Vendor: cubictest.org
