@@ -4,11 +4,13 @@
  */
 package org.cubictest.exporters.selenium.selenese.converters;
 
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
 import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.customstep.data.CustomTestStepData;
+import org.eclipse.core.resources.IProject;
 
 /**
  * Selenium custom test step converter.

@@ -110,13 +110,11 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			
 			if (SeleniumUtils.hasSeleniumInputColumn(userInteraction)) {
 				//two parameters
-				Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class, String.class});
-				method.invoke(seleniumHolder.getSelenium(), new Object[] {locator, inputValue});
+				seleniumHolder.getSelenium().execute(commandName, locator, inputValue);
 			}
 			else {
 				//one parameter only
-				Method method = seleniumHolder.getSelenium().getClass().getMethod(commandName, new Class[] {String.class});
-				method.invoke(seleniumHolder.getSelenium(), new Object[] {locator});
+				seleniumHolder.getSelenium().execute(commandName, locator);
 			}
 			return commandName;
 		}

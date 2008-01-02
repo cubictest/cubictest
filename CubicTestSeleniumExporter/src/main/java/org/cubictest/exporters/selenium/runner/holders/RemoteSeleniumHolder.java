@@ -5,14 +5,10 @@
 package org.cubictest.exporters.selenium.runner.holders;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
-import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
-import org.cubictest.exporters.selenium.runner.ICubicTestRunner;
+import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.swt.widgets.Display;
-
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.Selenium;
 
 /**
  * Holder that has reference to the Selenium test system (for running Selenium commands).
@@ -21,28 +17,28 @@ import com.thoughtworks.selenium.Selenium;
  *  
  * @author Christian Schwarz
  */
-public class SeleniumHolder extends RunnerResultHolder {
+public class RemoteSeleniumHolder extends SeleniumHolder {
 
-	private ICubicTestRunner selenium;
+	private CubicTestRemoteRunnerClient selenium;
 	private boolean seleniumStarted;
 	private UrlStartPoint handledUrlStartPoint;
 	
 	
-	public SeleniumHolder(Selenium selenium, Display display, CubicTestProjectSettings settings) {
-		super(display, settings);
+	public RemoteSeleniumHolder(CubicTestProjectSettings settings) {
+		super(null, null, settings);
 		//use Selenium from client e.g. the CubicRecorder
-		this.selenium = new CubicTestLocalRunner(selenium);
+		this.selenium = selenium;
 	}
-	
+	/*
 	public SeleniumHolder(int port, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
 		super(display, settings);
 		if (port < 80) {
 			throw new ExporterException("Invalid port");
 		}
-		this.selenium = new CubicTestLocalRunner("localhost", port, browser, initialUrl);
-	}
+		selenium = new DefaultSelenium("localhost", port, browser, initialUrl);
+	}*/
 	
-	public ICubicTestRunner getSelenium() {
+	public CubicTestRemoteRunnerClient getSelenium() {
 		return selenium;
 	}
 
@@ -63,6 +59,10 @@ public class SeleniumHolder extends RunnerResultHolder {
 
 	public UrlStartPoint getHandledUrlStartPoint() {
 		return handledUrlStartPoint;
+	}
+
+	public void setSelenium( CubicTestRemoteRunnerClient cubicTestRemoteRunnerClient) {
+		this.selenium = cubicTestRemoteRunnerClient;
 	}
 	
 }

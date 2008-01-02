@@ -5,7 +5,6 @@
 package org.cubictest.exporters.selenium.selenese.holders;
 
 import org.cubictest.export.holders.ContextHolder;
-import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.exporters.selenium.utils.XmlUtils;
 import org.jdom.Document;
 import org.jdom.Element;

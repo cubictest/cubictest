@@ -9,14 +9,23 @@ Require-Bundle: org.eclipse.ui,
  org.cubictest,
  org.eclipse.core.resources,
  org.eclipse.ui.ide,
- org.junit4
+ org.junit4,
+ org.eclipse.jdt.launching,
+ org.eclipse.debug.core,
+ org.cubictest.exporter.selenium.server,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.debug.ui,
+ org.eclipse.jdt.debug,
+ org.eclipse.debug.ui,
+ org.eclipse.jdt.ui,
+ org.eclipse.ui.views.properties.tabbed
 Eclipse-LazyStart: true
 Bundle-ClassPath: .,
+ lib/commons-io-1.3.1.jar,
+ lib/commons-lang-2.3.jar,
  lib/jdom.jar,
  lib/selenium-java-client-driver.jar,
- lib/selenium-server.jar,
- lib/commons-lang-2.3.jar,
- lib/commons-io-1.3.1.jar
+ lib/selenium-server.jar
 Bundle-Vendor: cubictest.org
 Export-Package: com.thoughtworks.selenium,
  org.cubictest.exporters.selenium.ui

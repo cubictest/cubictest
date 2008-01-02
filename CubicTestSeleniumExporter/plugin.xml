@@ -45,7 +45,6 @@
                label="Run Test with Cubic Selenium Runner"
                menubarPath="additions"/>
       </viewerContribution>
-
    </extension>
    
    <extension point="org.eclipse.ui.preferencePages">
@@ -54,5 +53,63 @@
 	      	class="org.cubictest.exporters.selenium.ui.preferences.SeleniumExporterPreferencePage"
 		    category="CubicTestPreferencePage">
    	  </page>
-</extension>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="org.cubictest.exporters.selenium.launch.LaunchConfigurationDelegate"
+            delegateDescription="SeleniumRunner runs the CubicTests with Selenium"
+            delegateName="SeleniumRunner"
+            id="org.cubictest.exporters.selenium.ui.launchConfigurationType"
+            migrationDelegate="org.cubictest.exporters.selenium.launch.LaunchConfigurationMigrationDelegate"
+            modes="run"
+            name="Launch CubicTest Selenium Runner"
+            public="true">
+         <fileExtension
+               default="true"
+               extension=".att">
+         </fileExtension>
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.cubictest.exporters.selenium.launch.LaunchConfigurationTabGroup"
+            description="SeleniumRunner spesific tabs"
+            id="org.cubictest.exporters.selenium.ui.launchConfigurationTabGroup"
+            type="org.cubictest.exporters.selenium.ui.launchConfigurationType">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.cubictest.exporters.selenium.ui.launchConfigurationType"
+            icon="icons/selenium_run_icon.gif"
+            id="org.cubictest.exporters.selenium.ui.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.jdt.core.classpathContainerInitializer">
+      <classpathContainerInitializer
+            class="org.cubictest.exporters.selenium.runner.SeleniumClasspathContainerInitializer"
+            id="CUBICTEST_SELENIUM">
+      </classpathContainerInitializer>
+   </extension>
+   <extension
+         point="org.eclipse.jdt.core.classpathVariableInitializer">
+      <classpathVariableInitializer
+            class="org.cubictest.exporters.selenium.runner.SeleniumClasspathVariableInitializer"
+            readOnly="true"
+            variable="CUBICTEST_SELENIUM">
+      </classpathVariableInitializer>
+   </extension>
+   <extension
+         point="org.eclipse.jdt.ui.classpathContainerPage">
+      <classpathContainerPage
+            class="org.cubictest.exporters.selenium.runner.SeleniumCubicTestClasspathContainerPage"
+            id="org.cubictest.exporters.selenium.runner.classpathContainerPage"
+            name="CubicTest Selenium">
+      </classpathContainerPage>
+   </extension>
+      
 </plugin>
