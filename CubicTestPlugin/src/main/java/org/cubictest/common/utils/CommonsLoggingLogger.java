@@ -19,8 +19,8 @@ public class CommonsLoggingLogger {
 	
 	
 	public static void error(String message) {
-		message = StringUtils.isBlank(message) ? "An error has occurred" : message;
-		log.error(message);
+		String newMessage = StringUtils.isBlank(message) ? "An error has occurred" : message;
+		log.error(newMessage);
 	}
 	
 	public static void error(Throwable e) {
