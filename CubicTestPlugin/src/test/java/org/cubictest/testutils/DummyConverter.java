@@ -11,7 +11,6 @@ import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.converters.IUrlStartPointConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
-import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.UrlStartPoint;
