@@ -7,11 +7,11 @@
  */
 package org.cubictest.ui.gef.command;
 
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.Page;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
-import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.gef.commands.Command;
 
 

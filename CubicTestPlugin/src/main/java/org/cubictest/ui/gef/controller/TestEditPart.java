@@ -62,6 +62,10 @@ public class TestEditPart extends PropertyChangePart{
 
 	}
 	
+	public Test getTest() {
+		return (Test) getModel();
+	}
+	
 	@Override
 	public void setSelected(int value) {
 		super.setSelected(value);

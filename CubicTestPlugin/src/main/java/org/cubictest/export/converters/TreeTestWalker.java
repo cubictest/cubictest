@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.IResultHolder;
-import org.cubictest.export.utils.exported.TestWalkerUtils;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ExtensionPoint;
@@ -28,7 +28,6 @@ import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.ui.utils.ModelUtil;
 
 /**
  * Converts a Test using generic handlers and a generic result holder.
@@ -264,7 +263,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 		}
 		else {
 			// no target exPoint. Check that only one path in sub test (if one path, then ok)
-			if(!ModelUtil.assertHasOnlyOnePathFrom(subtestTest.getStartPoint())) {
+			if(!ModelUtil.hasOnlyOnePathFromNodeToEndOfTest(subtestTest.getStartPoint())) {
 				ErrorHandler.logAndShowErrorDialogAndThrow("Error traversing subtest: The \"" + subtest.getFileName() + "\" subtest " +
 						"is a tree (has more than one path in it) and an extension point is not used. The exporter does not know which path to execute.\n\n" +
 						"To fix, create an extension point in the test, and extend from it where the subtest is used.");
@@ -304,10 +303,10 @@ public class TreeTestWalker<T extends IResultHolder> {
 			return true;
 		}
 		if (targetPage == null) { 
-			return targetExtensionPoint == null || TestWalkerUtils.isOnPathToNode(node, targetExtensionPoint);
+			return targetExtensionPoint == null || ModelUtil.isOnPathToNode(node, targetExtensionPoint);
 		}
 		if (targetExtensionPoint == null) {
-			return targetPage == null || TestWalkerUtils.isOnPathToNode(node, targetPage);
+			return targetPage == null || ModelUtil.isOnPathToNode(node, targetPage);
 		}
 		return false;
 	}

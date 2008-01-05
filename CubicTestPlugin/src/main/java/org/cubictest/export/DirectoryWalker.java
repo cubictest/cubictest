@@ -9,13 +9,13 @@ import java.io.FileWriter;
 
 import org.cubictest.common.exception.ResourceNotCubicTestFileException;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.export.utils.FileExportUtils;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
-import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;

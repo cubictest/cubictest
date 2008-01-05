@@ -9,7 +9,7 @@ package org.cubictest.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cubictest.export.utils.exported.TestWalkerUtils;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.i18n.AllLanguages;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.resources.interfaces.IResourceMonitor;
@@ -333,7 +333,7 @@ public class Test extends PropertyAwareObject {
 		List<PropertyAwareObject> list = new ArrayList<PropertyAwareObject>();
 		for (AbstractPage page : getPages()) {
 			for (PageElement pe : page.getFlattenedElements()) {
-				if (targetConnectionPoint != null && !TestWalkerUtils.isOnPathToNode(page, targetConnectionPoint)) {
+				if (targetConnectionPoint != null && !ModelUtil.isOnPathToNode(page, targetConnectionPoint)) {
 					continue;
 				}
 				list.add(pe);

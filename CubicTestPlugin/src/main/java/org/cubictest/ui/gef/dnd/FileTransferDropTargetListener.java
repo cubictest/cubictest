@@ -1,7 +1,7 @@
 package org.cubictest.ui.gef.dnd;
 
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.ui.gef.factory.FileFactory;
-import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;

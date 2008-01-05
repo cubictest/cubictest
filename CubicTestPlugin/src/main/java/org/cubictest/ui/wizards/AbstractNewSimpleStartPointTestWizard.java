@@ -10,11 +10,11 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.CubicTestXStream;
 import org.cubictest.resources.interfaces.IResourceMonitor;
-import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -59,6 +59,7 @@ public abstract class AbstractNewSimpleStartPointTestWizard extends NewTestWizar
 	public boolean performFinish() {
 		final String containerName = testDetailsPage.getContainerName();
 		final String fileName = testDetailsPage.getFileName();
+		this.fileName = testDetailsPage.getFileName();
 		final String name = testDetailsPage.getName();
 		final String description = testDetailsPage.getDescription();
 		

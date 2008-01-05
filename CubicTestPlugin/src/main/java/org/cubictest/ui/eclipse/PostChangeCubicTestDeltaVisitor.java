@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.CubicTestPlugin;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
-import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;

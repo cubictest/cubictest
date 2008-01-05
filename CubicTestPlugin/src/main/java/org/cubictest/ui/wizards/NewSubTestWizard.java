@@ -7,13 +7,14 @@ package org.cubictest.ui.wizards;
 import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
+import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
-import org.cubictest.ui.utils.ModelUtil;
 import org.cubictest.ui.utils.ViewUtil;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.gef.commands.CommandStack;
@@ -44,13 +45,19 @@ public class NewSubTestWizard extends AbstractNewSimpleStartPointTestWizard impl
 	
 	public Test createEmptyTest(String name, String description) {
 		Test emptyTest = WizardUtils.createEmptyTestWithSubTestStartPoint("test" + System.currentTimeMillis(), name, description);
-		if (refactorInitOriginalNodes != null) {
+		if (refactorInitOriginalNodes == null) {
+			WizardUtils.addEmptyPage(emptyTest);
+			
+			SubTestStartPoint startpoint = WizardUtils.createSubTestStartPoint();
+			emptyTest.setStartPoint(startpoint);
+			
+			SimpleTransition startTransition = new SimpleTransition(startpoint, emptyTest.getPages().get(0));	
+			emptyTest.addTransition(startTransition);
+		}
+		else {
 			try {
-				emptyTest.getPages().clear();
-				emptyTest.getTransitions().clear();
-				emptyTest.getStartPoint().getOutTransitions().clear();
 				List<TransitionNode> newNodes = ViewUtil.cloneAndAddNodesToTest(emptyTest, refactorInitOriginalNodes, commandStack, false);
-				if (ModelUtil.getFirstNode(newNodes) instanceof Page) {
+				if (ModelUtil.getFirstNode(newNodes) instanceof TransitionNode) {
 					SimpleTransition startTransition = new SimpleTransition(emptyTest.getStartPoint(), 
 							ModelUtil.getFirstNode(newNodes));	
 					emptyTest.addTransition(startTransition);

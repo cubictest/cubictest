@@ -10,6 +10,7 @@ package org.cubictest.ui.gef.command;
 import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
@@ -34,7 +35,6 @@ import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.wizards.ExposeExtensionPointWizard;
 import org.cubictest.ui.gef.wizards.NewUserInteractionsWizard;
-import org.cubictest.ui.utils.ModelUtil;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
@@ -123,7 +123,7 @@ public class CreateTransitionCommand extends Command {
 				SubTest subTest = (SubTest) sourceNode;
 				List<ExtensionPoint> exPoints = subTest.getTest(true).getAllExtensionPoints();
 				if (exPoints == null || exPoints.size() == 0) {
-					if(!ModelUtil.assertHasOnlyOnePathFrom(test.getStartPoint())) {
+					if(!ModelUtil.hasOnlyOnePathFromNodeToEndOfTest(test.getStartPoint())) {
 						UserInfo.showErrorDialog("The \"" + subTest.getFileName() + "\" subtest has more than one path and " +
 								"does not contain any extension points.\n" +
 						"To continue, add an extension point to the subtest or remove the excessive paths and then retry this operation.");

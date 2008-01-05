@@ -2,12 +2,12 @@
  * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
  * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
  */
-package org.cubictest.ui.utils;
+package org.cubictest.common.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.cubictest.common.utils.UserInfo;
-import org.cubictest.export.utils.exported.TestWalkerUtils;
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.model.Common;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
@@ -117,7 +117,7 @@ public class ModelUtil {
 				if (nodeToCheck == other) {
 					continue;
 				}
-				if (TestWalkerUtils.isOnPathToNode(nodeToCheck, other) && TestWalkerUtils.isOnPathToNode(nodeToCheck, first)) {
+				if (ModelUtil.isOnPathToNode(nodeToCheck, other) && ModelUtil.isOnPathToNode(nodeToCheck, first)) {
 					first = nodeToCheck;
 				}
 			}
@@ -125,7 +125,7 @@ public class ModelUtil {
 		return first;
 	}
 	
-	public static boolean assertHasOnlyOnePathFrom(TransitionNode node) {
+	public static boolean hasOnlyOnePathFromNodeToEndOfTest(TransitionNode node) {
 		if (node == null) {
 			return true;
 		}
@@ -135,7 +135,7 @@ public class ModelUtil {
 			return true;
 		}
 		else if(numNext == 1) {
-			return assertHasOnlyOnePathFrom(node.getOutTransitions().get(0).getEnd());
+			return hasOnlyOnePathFromNodeToEndOfTest(node.getOutTransitions().get(0).getEnd());
 		}
 		else {
 			return false;
@@ -148,6 +148,60 @@ public class ModelUtil {
 		}
 		return false;
 	}
+	
+	public static boolean nodesContainsSingleContinuousPath(List<TransitionNode> nodes) {
+		List<TransitionNode> inputNodes = new ArrayList<TransitionNode>(nodes);
+		
+		TransitionNode node = ModelUtil.getFirstNode(nodes);
+		if (!ModelUtil.hasOnlyOnePathFromNodeToEndOfTest(node)) {
+			return false;
+		}
+		//we now know there is not a tree after node
+
+		inputNodes.remove(node);
+		while (node.getFirstSuccessor() != null) {
+			TransitionNode nextNode = node.getFirstSuccessor();
+			if (inputNodes.contains(nextNode)) {
+				inputNodes.remove(nextNode);
+			}
+			else {
+				return inputNodes.isEmpty();
+			}
+			node = nextNode;
+		}
+		return true;
+	}
+	
+	
+	public static TransitionNode getLastNodeInPath(List<TransitionNode> nodes) {
+		List<TransitionNode> inputNodes = new ArrayList<TransitionNode>(nodes);
+		
+		TransitionNode node = ModelUtil.getFirstNode(inputNodes);
+		if (!hasOnlyOnePathFromNodeToEndOfTest(node)) {
+			throw new CubicException("Node list has multiple paths (is a tree).");
+		}
+		if (!nodesContainsSingleContinuousPath(inputNodes)) {
+			throw new CubicException("Node list was not connected together in a contiuous path.");
+		}
+		inputNodes.remove(node);
+		while (node.getFirstSuccessor() != null) {
+			TransitionNode nextNode = node.getFirstSuccessor();
+			if (inputNodes.contains(nextNode)) {
+				inputNodes.remove(nextNode);
+			}
+			else {
+				if(inputNodes.isEmpty()) {
+					return node;
+				}
+				else {
+					throw new CubicException("List had unexpected nodes in it");
+				}
+			}
+			node = nextNode;
+		}
+		throw new CubicException("List had unexpected nodes in it");
+	}
+
 	
 	/**
 	 * Traverses the test model and finds the start point of the node in the test it belongs to.
@@ -165,4 +219,38 @@ public class ModelUtil {
 			return getStartPoint(node.getInTransition().getStart());
 		}
 	}
+
+	/**
+	 * Checks if there is a way to get from the node to check to the target node
+	 * @param nodeToCheck the node to check all routes from
+	 * @param targetNode the node we want to be able to reach
+	 */
+	public static boolean isOnPathToNode(TransitionNode nodeToCheck, TransitionNode targetNode) {
+
+		String targetNodeId = "";
+		
+		if (targetNode instanceof ExtensionStartPoint) {
+			targetNodeId = ((ExtensionStartPoint) targetNode).getSourceExtensionPointPageId();
+		} 
+		else if (targetNode instanceof ExtensionPoint) {
+			targetNodeId = ((ExtensionPoint) targetNode).getPageId();
+		}
+		else if (targetNode instanceof Page) {
+			targetNodeId = ((Page) targetNode).getId();
+		}
+
+		if (nodeToCheck.getId().equals(targetNodeId)) {
+			return true;
+		}
+		
+		//recursively check all end nodes and check if we can get to the target node:
+		for (Transition outTransition : nodeToCheck.getOutTransitions()) {
+			TransitionNode endNode = (TransitionNode) outTransition.getEnd();
+			if (isOnPathToNode(endNode, targetNode)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

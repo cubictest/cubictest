@@ -51,6 +51,17 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		return new Dimension(ITestEditor.INITIAL_PAGE_WIDTH, ITestEditor.INITIAL_PAGE_HEIGHT);
 	}
 	
+	public boolean hasPreviousNode() {
+		return inTransition != null && inTransition.getStart() != null;
+	}
+	
+	public TransitionNode getPreviousNode() {
+		if (hasPreviousNode()) {
+			return inTransition.getStart();
+		}
+		return null;
+	}
+	
 	/**
 	 * @return Returns the postition.
 	 */
@@ -204,5 +215,12 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		node.removeOutTransitions();
 		node.setId(getNewGeneratedId());
 		return node;
+	}
+	
+	public TransitionNode getFirstSuccessor() {
+		if (!getOutTransitions().isEmpty()) {
+			return getOutTransitions().get(0).getEnd();
+		}
+		return null;
 	}
 }

@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
-import org.cubictest.export.utils.exported.TestWalkerUtils;
 import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
@@ -118,7 +118,7 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 	 				runner.setStopSeleniumWhenFinished(false);
 	 				runner.setSelenium(seleniumRecorder.getSelenium());
 	 				if (selectedPage != null) {
-	 					if (!TestWalkerUtils.isOnPathToNode(test.getStartPoint(), selectedPage)) {
+	 					if (!ModelUtil.isOnPathToNode(test.getStartPoint(), selectedPage)) {
 	 						ErrorHandler.logAndShowErrorDialogAndThrow("Cannot find path from start point to selected page");
 	 					}
 	 					runner.setTargetPage(selectedPage);

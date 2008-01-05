@@ -7,7 +7,7 @@ package org.cubictest.export.utils;
 import java.io.File;
 
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.ui.utils.ModelUtil;
+import org.cubictest.common.utils.ModelUtil;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;

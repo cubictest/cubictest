@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.SubTestStartPoint;
@@ -22,7 +23,6 @@ import org.cubictest.persistence.CubicTestXStream;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.resources.ResourceMonitor;
 import org.cubictest.resources.interfaces.IResourceMonitor;
-import org.cubictest.ui.utils.ModelUtil;
 import org.cubictest.ui.utils.ResourceNavigatorGetter;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.IContainer;
@@ -70,6 +70,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	NewUrlStartPointPage newUrlStartPointPage;
 	Map<ExtensionPoint, IFile> extensionPointMap;
 	IProject project;
+	String fileName;
 
 	/**
 	 * Constructor for NewTestWizard.
@@ -103,6 +104,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	public boolean performFinish() {
 		final String containerName = testDetailsPage.getContainerName();
 		final String fileName = testDetailsPage.getFileName();
+		this.fileName = testDetailsPage.getFileName();
 		final String name = testDetailsPage.getName();
 		final String description = testDetailsPage.getDescription();
 		final String url = newUrlStartPointPage.getUrl();
@@ -302,6 +304,10 @@ public class NewTestWizard extends Wizard implements INewWizard {
 				}
 			}
 		}
+	}
+	
+	public String getFileName() {
+		return fileName;
 	}
 	
 }
