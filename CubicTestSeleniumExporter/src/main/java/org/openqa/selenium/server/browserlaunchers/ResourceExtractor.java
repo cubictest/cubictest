@@ -1,7 +1,13 @@
-/*
- * Created on Oct 17, 2006
- *
- */
+/*******************************************************************************
+ * Copyright (c) 2005, 2008 Christian Schwarz and Stein K. Skytteren
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Christian Schwarz and Stein K. Skytteren - initial API and implementation
+ *******************************************************************************/
 package org.openqa.selenium.server.browserlaunchers;
 
 import java.io.File;
