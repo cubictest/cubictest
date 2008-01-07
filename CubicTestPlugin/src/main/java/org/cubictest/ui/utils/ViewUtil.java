@@ -80,7 +80,7 @@ public class ViewUtil {
 
 	public static final String ADD = "add";
 	public static final String REMOVE = "remove";
-	public static final int LABEL_HEIGHT = 21;
+	public static final int LABEL_HEIGHT = 22;
 
 	
 	/**
