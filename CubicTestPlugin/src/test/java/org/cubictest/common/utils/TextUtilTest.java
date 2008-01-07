@@ -1,7 +1,13 @@
-/*
- * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
- * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
- */
+/*******************************************************************************
+ * Copyright (c) 2005, 2008 Stein K. Skytteren and Christian Schwarz
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Stein K. Skytteren and Christian Schwarz - initial API and implementation
+ *******************************************************************************/
 package org.cubictest.common.utils;
 import junit.framework.TestCase;
 
@@ -44,25 +50,25 @@ public class TextUtilTest extends TestCase {
 	}
 	
 	public void testNorwegianAlreadyPartlyCammeled() {
-		String text = "ÅseÆse";
+		String text = "ï¿½seï¿½se";
 		String expected = "aseAse";
 		assertEquals(expected, TextUtil.camel(text));
 	}
 	
 	public void testNorwegian() {
-		String text = "Åse Æse";
+		String text = "ï¿½se ï¿½se";
 		String expected = "aseAse";
 		assertEquals(expected, TextUtil.camel(text));
 	}
 
 	public void testNorwegianOneWord() {
-		String text = "Åse";
+		String text = "ï¿½se";
 		String expected = "ase";
 		assertEquals(expected, TextUtil.camel(text));
 	}
 
 	public void testNorwegianLong() {
-		String text = "Åse Æse dro til Østen";
+		String text = "ï¿½se ï¿½se dro til ï¿½sten";
 		String expected = "aseAseDroTilOsten";
 		assertEquals(expected, TextUtil.camel(text));
 	}}
