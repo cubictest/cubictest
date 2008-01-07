@@ -10,6 +10,7 @@ import java.util.List;
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.PageElement;
@@ -105,7 +106,7 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 	
 			if (dialog.open() == Window.OK) {
 				TransitionNode firstNodeInSelection = ModelUtil.getFirstNode(selectedNodes);
-				TransitionNode lastNodeInSelection = ModelUtil.getLastNodeInPath(selectedNodes);
+				TransitionNode lastNodeInSelection = ModelUtil.getLastNodeInList(selectedNodes);
 				
 
 				SubTest subTest = new SubTest(wiz.getFileName(), project);

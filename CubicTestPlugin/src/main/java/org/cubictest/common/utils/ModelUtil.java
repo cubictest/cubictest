@@ -150,7 +150,7 @@ public class ModelUtil {
 	}
 	
 	public static boolean nodesContainsSingleContinuousPath(List<TransitionNode> nodes) {
-		List<TransitionNode> inputNodes = new ArrayList<TransitionNode>(nodes);
+		nodes = new ArrayList<TransitionNode>(nodes); //clone
 		
 		TransitionNode node = ModelUtil.getFirstNode(nodes);
 		if (!ModelUtil.hasOnlyOnePathFromNodeToEndOfTest(node)) {
@@ -158,14 +158,14 @@ public class ModelUtil {
 		}
 		//we now know there is not a tree after node
 
-		inputNodes.remove(node);
+		nodes.remove(node);
 		while (node.getFirstSuccessor() != null) {
 			TransitionNode nextNode = node.getFirstSuccessor();
-			if (inputNodes.contains(nextNode)) {
-				inputNodes.remove(nextNode);
+			if (nodes.contains(nextNode)) {
+				nodes.remove(nextNode);
 			}
 			else {
-				return inputNodes.isEmpty();
+				return nodes.isEmpty();
 			}
 			node = nextNode;
 		}
@@ -173,31 +173,27 @@ public class ModelUtil {
 	}
 	
 	
-	public static TransitionNode getLastNodeInPath(List<TransitionNode> nodes) {
-		List<TransitionNode> inputNodes = new ArrayList<TransitionNode>(nodes);
+	public static TransitionNode getLastNodeInList(List<TransitionNode> list) {
+		list = new ArrayList<TransitionNode>(list); //clone
 		
-		TransitionNode node = ModelUtil.getFirstNode(inputNodes);
+		//initialize node to first node in path:
+		TransitionNode node = ModelUtil.getFirstNode(list);
+
 		if (!hasOnlyOnePathFromNodeToEndOfTest(node)) {
 			throw new CubicException("Node list has multiple paths (is a tree).");
 		}
-		if (!nodesContainsSingleContinuousPath(inputNodes)) {
+		if (!nodesContainsSingleContinuousPath(list)) {
 			throw new CubicException("Node list was not connected together in a contiuous path.");
 		}
-		inputNodes.remove(node);
-		while (node.getFirstSuccessor() != null) {
+		//walk down the path, removing nodes from node list as we go. When the list is empty, we are done
+		while (node != null) {
 			TransitionNode nextNode = node.getFirstSuccessor();
-			if (inputNodes.contains(nextNode)) {
-				inputNodes.remove(nextNode);
+			if (list.contains(nextNode)) {
+				node = nextNode;
 			}
 			else {
-				if(inputNodes.isEmpty()) {
-					return node;
-				}
-				else {
-					throw new CubicException("List had unexpected nodes in it");
-				}
+				return node;
 			}
-			node = nextNode;
 		}
 		throw new CubicException("List had unexpected nodes in it");
 	}
