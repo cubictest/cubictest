@@ -17,6 +17,10 @@ import static org.cubictest.model.IdentifierType.SRC;
 import static org.cubictest.model.IdentifierType.TITLE;
 import static org.cubictest.model.IdentifierType.VALUE;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.Identifier;
@@ -113,5 +117,18 @@ public class ExportUtils {
 			return "class";
 		}
 		return null;
+	}
+	
+	public static synchronized int findAvailablePort() {
+		try {
+			ServerSocket s = new ServerSocket();
+			s.bind(null);
+			int port = s.getLocalPort();
+			s.close();
+			return port;
+		}
+		catch (IOException e) {
+			throw new CubicException(e);
+		}
 	}
 }

@@ -133,7 +133,7 @@ public class PaletteRootCreator extends PaletteRoot {
 
 		tool = new CombinedTemplateCreationEntry(
 				"Extension Point",
-				"Add an extension point that other tests can start from or include",
+				"Add an extension point that other tests can start from or use to target a path in sub test.",
 				ExtensionPoint.class, new DataCreationFactory(
 						ExtensionPoint.class), CubicTestImageRegistry
 						.getDescriptor(EXTENSION_POINT_IMAGE),
@@ -151,7 +151,7 @@ public class PaletteRootCreator extends PaletteRoot {
 		// -- Creating User interactions --
 		tool = new CombinedTemplateCreationEntry(
 				"User Interaction",
-				"Add a new User Interaction to a page (for changing the state of the page, e.g. filling out a form)",
+				"Add a new User Interaction Transition to a page (for changing the state of the page, e.g. filling out a form)",
 				new DataCreationFactory(UserInteractionsTransition.class),
 				CubicTestImageRegistry.getDescriptor(USER_INTERACTION_IMAGE),
 				CubicTestImageRegistry.getDescriptor(USER_INTERACTION_IMAGE));
@@ -160,7 +160,7 @@ public class PaletteRootCreator extends PaletteRoot {
 		// -- Creating Connections --
 		tool = new ConnectionCreationToolEntry(
 				"Connection",
-				"Create a new Connection or User Interaction. Use \"drag and drop\" from source page to target page",
+				"Create a new Connection or User Interaction. Drag and drop from source page to target page",
 				new DataCreationFactory(Transition.class),
 				CubicTestImageRegistry.getDescriptor(CONNECTION_IMAGE),
 				CubicTestImageRegistry.getDescriptor(CONNECTION_IMAGE));

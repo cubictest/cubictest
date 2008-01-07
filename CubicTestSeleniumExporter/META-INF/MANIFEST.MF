@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CubicTestSeleniumExporter
 Bundle-SymbolicName: org.cubictest.exporters.selenium;singleton:=true
-Bundle-Version: 1.7.11
+Bundle-Version: 1.8.1
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -12,7 +12,6 @@ Require-Bundle: org.eclipse.ui,
  org.junit4,
  org.eclipse.jdt.launching,
  org.eclipse.debug.core,
- org.cubictest.exporter.selenium.server,
  org.eclipse.jdt.core,
  org.eclipse.jdt.debug.ui,
  org.eclipse.jdt.debug,

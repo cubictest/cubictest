@@ -4,13 +4,12 @@
  */
 package org.cubictest.recorder.selenium;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.ServerSocket;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.recorder.IRecorder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -29,7 +28,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 	private boolean seleniumStarted;
 	private Selenium selenium;
 	private SeleniumServer seleniumProxy;
-	private int port = 4444;
+	private int port = -1;
 	private final String url;
 	private Thread serverThread;
 	protected Shell shell;
@@ -41,7 +40,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 		// start server
 		
 		try {
-			port = findAvailablePort();
+			port = ExportUtils.findAvailablePort();
 			System.out.println("Port: " + port);
 			seleniumProxy = new SeleniumServer(port);
 			
@@ -58,8 +57,10 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 	
 	public void stop() {
 		try {
-			selenium.stop();
-			seleniumProxy.stop();
+			if (selenium != null)
+				selenium.stop();
+			if (seleniumProxy != null)
+				seleniumProxy.stop();
 		} catch(SeleniumException e) {
 			Logger.error(e.toString(), e);
 		}
@@ -103,13 +104,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 		serverThread.start();
 	}
 	
-	private int findAvailablePort() throws IOException {
-		ServerSocket s = new ServerSocket();
-		s.bind(null);
-		int port = s.getLocalPort();
-		s.close();
-		return port;
-	}
+
 
 	public Selenium getSelenium() {
 		return selenium;

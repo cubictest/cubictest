@@ -12,10 +12,12 @@ package org.cubictest.exporters.selenium.runner.util;
  */
 public enum BrowserType {
 
-	FIREFOX("*firefox", "Firefox (standard)"),
-	CHROME("*chrome", "Firefox - Chrome version (Possibly better HTTPS support)"),
-	INTERNET_EXPLORER("*iexplore", "Internet Explorer (standard)"),
-	INTERNET_EXPLORER_HTA("*iehta", "Internet Explorer - HTA version - (Possibly better HTTPS support)"),
+	FIREFOX("*firefox", "Firefox - standard"),
+	//FIREFOX_PI("*pifirefox", "Firefox - proxy injection mode (possibly better frames support)"),
+	CHROME("*chrome", "Firefox - chrome version (experimental, better HTTPS support)"),
+	INTERNET_EXPLORER("*iexplore", "Internet Explorer - standard"),
+	INTERNET_EXPLORER_HTA("*iehta", "Internet Explorer - HTA version (experimental, better HTTPS support)"),
+	//INTERNET_EXPLORER_PI("*piiexplore", "Internet Explorer - proxy injection mode"),
 	OPERA("*opera", "Opera"),
 	SAFARI("*safari", "Safari");
 	

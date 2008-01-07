@@ -43,10 +43,11 @@ Done	Upgrade to latest version of Selenium RC on runner
 Done	Upgrade to latest version of Selenium RC on Recorder
 Done	Convert URLs to absolute on the fly for Watir runner
 Done	Possible to record from any page/state
+Done	Problem with port collision when running after recording
 
 1.7.12:
-Document XPath checker
 Upgrade to Eclipse Public License
+Document XPath checker
 Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 
 1.8.1:

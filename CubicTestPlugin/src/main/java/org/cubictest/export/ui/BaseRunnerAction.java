@@ -30,7 +30,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ide.IDE;
 
 /**
- * Action for running a test using the Watir runner.
+ * Base action for running tests. Contains the common logic between runner actions.
  * 
  * @author Christian Schwarz
  */

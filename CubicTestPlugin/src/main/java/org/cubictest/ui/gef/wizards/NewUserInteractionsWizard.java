@@ -42,8 +42,7 @@ public class NewUserInteractionsWizard extends Wizard {
 		super.addPages();
 		userActionsPage = new WizardNewUserActionsCreationPage(transition,test);
 		userActionsPage.setTitle("New User Interaction");
-		userActionsPage.setDescription("Define user input to a page");
-			
+		userActionsPage.setDescription("Choose page element and interaction type.");
 		addPage(userActionsPage);
 	}
 	

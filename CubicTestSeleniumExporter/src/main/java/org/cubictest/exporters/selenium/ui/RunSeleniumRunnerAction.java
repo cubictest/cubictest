@@ -9,6 +9,7 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ITestRunner;
 import org.cubictest.export.ui.BaseRunnerAction;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.TestRunner;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
@@ -31,7 +32,6 @@ import com.thoughtworks.selenium.Selenium;
 public class RunSeleniumRunnerAction extends BaseRunnerAction {
 
 	public static final String SELENIUM_RUNNER_BROWSER_TYPE = "SeleniumRunnerBrowserType";
-	public static final String SELENIUM_RUNNER_PORT_NUMBER = "SeleniumRunnerPortNumber";
 	public static final String SELENIUM_RUNNER_REMEMBER_SETTINGS = "SeleniumRunnerRememberSettings";
 	public static final BrowserType DEFAULT_BROWSER = BrowserType.FIREFOX;
 	boolean stopSeleniumWhenFinished = true;
@@ -40,8 +40,6 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 	private boolean showCompletedMessageInStatusLine;
 	private Test preSelectedTest;
 	private Page targetPage;
-	public static final int DEFAULT_SELENIUM_PORT = 4444;
-
 
 
 	@Override
@@ -55,13 +53,13 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 		TestRunner runner = null;
 		Shell shell = SeleniumExporterPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 
-		int port = getSeleniumPort(settings);
+		int port = ExportUtils.findAvailablePort();
 		BrowserType browserType = getSeleniumBrowserType(settings);
 		
-		SeleniumRunnerWizard wizard = new SeleniumRunnerWizard(settings, port, browserType);
+		SeleniumRunnerWizard wizard = new SeleniumRunnerWizard(browserType);
 		WizardDialog wizDialog = new WizardDialog(shell, wizard);
 		
-		boolean ask = true;
+		boolean ask = !usePreCreatedSeleniumInstance();
 		try {
 			String remember = SeleniumExporterPlugin.getDefault().getDialogSettings().get(SELENIUM_RUNNER_REMEMBER_SETTINGS);
 			if ("true".equals(remember)) {
@@ -78,17 +76,23 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 		
 		if(returnCode != WizardDialog.CANCEL){
 			if (ask) {
-				port = wizard.getPort();
 				browserType = wizard.getBrowserType();
 			}
+			else {
+				browserType = BrowserType.FIREFOX; //recorder
+			}
 			runner = new TestRunner(test, display, settings, port, browserType);
-			if (selenium != null) {
+			if (usePreCreatedSeleniumInstance()) {
 				runner.setSelenium(selenium);
 			}
+			runner.setTargetPage(targetPage);
 		}
-		
-		runner.setTargetPage(targetPage);
 		return runner;
+	}
+
+
+	private boolean usePreCreatedSeleniumInstance() {
+		return selenium != null;
 	}
 
 
@@ -130,19 +134,6 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 	}
 
 
-	private int getSeleniumPort(CubicTestProjectSettings settings) {
-		int port = DEFAULT_SELENIUM_PORT;
-		try {
-			port = SeleniumExporterPlugin.getDefault().getDialogSettings().getInt(SELENIUM_RUNNER_PORT_NUMBER);
-		}
-		catch(NumberFormatException nfe){
-			try {
-				port = settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(), "defaultPortNumber", DEFAULT_SELENIUM_PORT);
-			} catch (Exception ignore) {
-			}
-		}
-		return port;
-	}
 	
 	public BrowserType getSeleniumBrowserType(CubicTestProjectSettings settings) {
 		BrowserType browserType = null;

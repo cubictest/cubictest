@@ -58,7 +58,7 @@ public class SeleniumExporterPreferencePage extends PreferencePage implements IW
 	
 	private void createRememberSettingsCheckbox(Composite composite) {
 		rememberSettingsLabel = new Label(composite, SWT.NONE);
-		rememberSettingsLabel.setText("Remember browser type and port number:");
+		rememberSettingsLabel.setText("Remember browser type: ");
 		rememberSettingsCheckbox = new Button(composite, SWT.CHECK);
 		rememberSettingsCheckbox.setSelection(getStoredSetting());
 		rememberSettingsCheckbox.addSelectionListener(new SelectionListener() {

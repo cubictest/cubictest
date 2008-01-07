@@ -12,6 +12,7 @@ import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.export.runner.RunnerWorkerThread.Operation;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
@@ -68,7 +69,7 @@ public class TestRunner extends BaseTestRunner {
 		super(null, settings, test);
 		this.test = test;
 		this.selenium = selenium;
-		this.port = settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(), "defaultPortNumber", RunSeleniumRunnerAction.DEFAULT_SELENIUM_PORT);
+		this.port = ExportUtils.findAvailablePort();
 		this.browserType = BrowserType.fromId(settings.getString(SeleniumUtils.getPluginPropertyPrefix(), "defaultBrowserType", 
 				RunSeleniumRunnerAction.DEFAULT_BROWSER.getId()));
 	}

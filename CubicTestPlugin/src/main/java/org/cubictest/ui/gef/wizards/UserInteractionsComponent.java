@@ -20,6 +20,7 @@ import org.cubictest.model.IActionElement;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
+import org.cubictest.model.Text;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.IContext;
@@ -171,12 +172,20 @@ public class UserInteractionsComponent {
 		
 		//populate viewer with initial user interactions:
 		List<UserInteraction> initialUserInteractions = transition.getUserInteractions();
+		int numInteractable = 0;
+		UserInteraction first = new UserInteraction();
 		if (initialUserInteractions == null || initialUserInteractions.size() == 0) {
-			UserInteraction first = new UserInteraction();
 			List<PageElement> elements = ((AbstractPage) transition.getStart()).getRootElements();
-			if (elements.size() == 1 && !(elements.get(0) instanceof IContext)) {
+			int index = -1;
+			for (PageElement pageElement : elements) {
+				index++;
+				if (!(pageElement instanceof Text)) {
+					numInteractable++;
+				}
+			}
+			if (numInteractable == 1) {
 				//sinle element on page. Can preselct it:
-				first.setElement(elements.get(0));
+				first.setElement(elements.get(index));
 			}
 			initialUserInteractions.add(first);
 		}
@@ -184,6 +193,12 @@ public class UserInteractionsComponent {
 		tableViewer.setInput(initialUserInteractions);
 		transition.setUserInteractions(initialUserInteractions);
 		
+		if (numInteractable == 1) {
+			tableViewer.editElement(first, 1);
+		}
+		else {
+			tableViewer.editElement(first, 0);
+		}
 		return content;
 	}
 	
@@ -358,6 +373,7 @@ public class UserInteractionsComponent {
 					}
 					//make the change immediately visible in the graphical test editor:
 					deactivate();
+					tableViewer.editElement(activeUserinteraction, 1);
 	            }
 
 				

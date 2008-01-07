@@ -54,7 +54,7 @@ public abstract class TransitionEditPart extends AbstractConnectionEditPart impl
 		PolylineConnection conn = (PolylineConnection) super.createFigure();
 		conn.setConnectionRouter(new BendpointConnectionRouter());
 		conn.setTargetDecoration(new PolygonDecoration());
-		conn.setToolTip(new Label("Connection that links two nodes together"));
+		conn.setToolTip(new Label("Connection that merges / connects two states (no user interaction, and thus no state change)"));
 		
 		return conn;
 	}
