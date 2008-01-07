@@ -1,7 +1,13 @@
-/*
- * This software is licensed under the terms of the GNU GENERAL PUBLIC LICENSE
- * Version 2, which can be found at http://www.gnu.org/copyleft/gpl.html
- */
+/*******************************************************************************
+ * Copyright (c) 2005, 2008 Christian Schwarz and Erlend S. Halvorsen
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *    Christian Schwarz and Erlend S. Halvorsen - initial API and implementation
+ *******************************************************************************/
 package org.cubictest.exporters.htmlPrototype.utils;
 
 import java.util.StringTokenizer;
@@ -48,19 +54,19 @@ public class TextUtil {
 	}
 
 	public static String convertToAscii(String s) {
-		s = StringUtils.replace(s, "æ", "a");
-		s = StringUtils.replace(s, "ø", "o");
-		s = StringUtils.replace(s, "å", "a");
-		s = StringUtils.replace(s, "Æ", "A");
-		s = StringUtils.replace(s, "Ø", "O");
-		s = StringUtils.replace(s, "Å", "A");
+		s = StringUtils.replace(s, "ï¿½", "a");
+		s = StringUtils.replace(s, "ï¿½", "o");
+		s = StringUtils.replace(s, "ï¿½", "a");
+		s = StringUtils.replace(s, "ï¿½", "A");
+		s = StringUtils.replace(s, "ï¿½", "O");
+		s = StringUtils.replace(s, "ï¿½", "A");
 
-		s = StringUtils.replace(s, "ä", "a");
-		s = StringUtils.replace(s, "ö", "o");
-		s = StringUtils.replace(s, "ü", "u");
-		s = StringUtils.replace(s, "Ä", "A");
-		s = StringUtils.replace(s, "Ö", "O");
-		s = StringUtils.replace(s, "Ü", "U");
+		s = StringUtils.replace(s, "ï¿½", "a");
+		s = StringUtils.replace(s, "ï¿½", "o");
+		s = StringUtils.replace(s, "ï¿½", "u");
+		s = StringUtils.replace(s, "ï¿½", "A");
+		s = StringUtils.replace(s, "ï¿½", "O");
+		s = StringUtils.replace(s, "ï¿½", "U");
 		return s;
 	}
 }
