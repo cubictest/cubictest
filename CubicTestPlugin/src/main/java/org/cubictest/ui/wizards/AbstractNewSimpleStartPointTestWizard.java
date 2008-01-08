@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.ExtensionPoint;
@@ -43,6 +44,8 @@ import org.eclipse.ui.INewWizard;
 
 public abstract class AbstractNewSimpleStartPointTestWizard extends NewTestWizard implements INewWizard {
 
+	private boolean done;
+
 	/**
 	 * Constructor for NewTestWizard.
 	 */
@@ -63,30 +66,39 @@ public abstract class AbstractNewSimpleStartPointTestWizard extends NewTestWizar
 	 */
 	@Override
 	public boolean performFinish() {
-		final String containerName = testDetailsPage.getContainerName();
-		final String fileName = testDetailsPage.getFileName();
-		this.fileName = testDetailsPage.getFileName();
-		final String name = testDetailsPage.getName();
-		final String description = testDetailsPage.getDescription();
-		
-		IRunnableWithProgress op = new IRunnableWithProgress() {
-			public void run(IProgressMonitor monitor) throws InvocationTargetException {
-				try {
-					doFinish(containerName, fileName, name, description, monitor);
-				} catch (CoreException e) {
-					throw new InvocationTargetException(e);
-				} finally {
-					monitor.done();
-				}
-			}
-		};
 		try {
-			getContainer().run(true, false, op);
-		} catch (InterruptedException e) {
-			return false;
-		} catch (InvocationTargetException e) {
-			ErrorHandler.logAndShowErrorDialog("Error creating test", e);
-			return false;
+			final String containerName = testDetailsPage.getContainerName();
+			final String fileName = testDetailsPage.getFileName();
+			this.fileName = testDetailsPage.getFileName();
+			final String name = testDetailsPage.getName();
+			final String description = testDetailsPage.getDescription();
+			
+			IRunnableWithProgress op = new IRunnableWithProgress() {
+				public void run(final IProgressMonitor monitor) throws InvocationTargetException {
+					getShell().getDisplay().syncExec(new Runnable() {
+						public void run() {
+							try {
+								doFinish(containerName, fileName, name, description, monitor);
+							} catch (CoreException e) {
+								throw new CubicException(e);
+							} finally {
+								monitor.done();
+							}
+						}
+					});
+				}
+			};
+			try {
+				getContainer().run(true, false, op);
+			} catch (InterruptedException e) {
+				return false;
+			} catch (InvocationTargetException e) {
+				ErrorHandler.logAndShowErrorDialog("Error creating test", e);
+				return false;
+			}
+		}
+		finally {
+			done = true;
 		}
 		return true;
 	}
@@ -147,6 +159,10 @@ public abstract class AbstractNewSimpleStartPointTestWizard extends NewTestWizar
 			IResourceMonitor monitor) throws CoreException {
 		//not needed here
 		return;
+	}
+	
+	public boolean isDone() {
+		return done;
 	}
 		
 }

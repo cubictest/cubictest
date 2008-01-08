@@ -59,7 +59,7 @@ public class CreateTransitionCommand extends Command {
 
 	private TransitionNode targetNode;
 
-	/** Transition cahced for redo, or initial transition to add */
+	/** Transition cached for redo, or initial transition to add */
 	private Transition transition;
 
 	private Test test;
@@ -70,6 +70,20 @@ public class CreateTransitionCommand extends Command {
 	
 	boolean executed = false;
 
+	/**
+	 * Constructor for case when transition is pre-created with source and target set.
+	 * @param test
+	 * @param transition
+	 */
+	public CreateTransitionCommand(Transition transition, Test test) {
+		this.transition = transition;
+		this.sourceNode = transition.getStart();
+		this.targetNode = transition.getEnd();
+		this.test = test;
+	}
+
+	public CreateTransitionCommand() {
+	}
 
 	/*
 	 * @see org.eclipse.gef.commands.Command#canExecute()

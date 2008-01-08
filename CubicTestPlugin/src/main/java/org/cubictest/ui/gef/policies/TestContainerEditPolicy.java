@@ -60,9 +60,7 @@ public class TestContainerEditPolicy extends ContainerEditPolicy {
 				return null;
 			}
 			subTest.setPosition(location);
-			AddSubTestCommand addSubTestCmd = new AddSubTestCommand();
-			addSubTestCmd.setTest(test);
-			addSubTestCmd.setSubTest(subTest);
+			AddSubTestCommand addSubTestCmd = new AddSubTestCommand(subTest, test);
 			if (test.getStartPoint() instanceof TestSuiteStartPoint) {
 				CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
 				createTransitionCmd.setSource(getLastNodeInGraph(test.getStartPoint()));

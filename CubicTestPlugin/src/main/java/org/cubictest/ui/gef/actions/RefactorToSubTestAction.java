@@ -16,7 +16,6 @@ import java.util.List;
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
-import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.PageElement;
@@ -25,17 +24,23 @@ import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.ui.gef.command.AddSubTestCommand;
+import org.cubictest.ui.gef.command.CreateTransitionCommand;
+import org.cubictest.ui.gef.command.DeleteTransitionCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.cubictest.ui.utils.ViewUtil;
 import org.cubictest.ui.wizards.NewSubTestWizard;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPart;
 
@@ -100,6 +105,8 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 			List<EditPart> selectedNodeParts = getSelectedNodeParts();
 			CommandStack commandStack = ViewUtil.getCommandStackFromActivePage();
 			IProject project = ViewUtil.getProjectFromActivePage();
+			Display display = ViewUtil.getDisplayFromActiveWindow();
+
 			
 			NewSubTestWizard wiz = new NewSubTestWizard();
 			wiz.setRefactorInitOriginalNodes(selectedNodes);
@@ -111,19 +118,25 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 			WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wiz);
 	
 			if (dialog.open() == Window.OK) {
+				while (!wiz.isDone()) {
+					//performFinish is working
+					Thread.sleep(100);
+				}
+				CompoundCommand compoundCmd = new CompoundCommand();
+				
 				TransitionNode firstNodeInSelection = ModelUtil.getFirstNode(selectedNodes);
 				TransitionNode lastNodeInSelection = ModelUtil.getLastNodeInList(selectedNodes);
 				
 
 				SubTest subTest = new SubTest(wiz.getFileName(), project);
 				subTest.setPosition(firstNodeInSelection.getPosition());
-				test.addSubTest(subTest);
+				compoundCmd.add(new AddSubTestCommand(subTest, test));
 
 				//create transitions to sub test:
 				if (firstNodeInSelection.hasPreviousNode()) {
 					SimpleTransition trans = new SimpleTransition(firstNodeInSelection.getPreviousNode(), subTest);
-					test.removeTransition(firstNodeInSelection.getInTransition());
-					test.addTransition(trans);
+					compoundCmd.add(new DeleteTransitionCommand(firstNodeInSelection.getInTransition(), test));
+					compoundCmd.add(new CreateTransitionCommand(trans, test));
 				}
 				List<Transition> toRemove = new ArrayList<Transition>();
 				List<Transition> toAdd = new ArrayList<Transition>();
@@ -135,13 +148,22 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 						toAdd.add(trans);
 					}
 				}
-				for (Transition transition : toRemove) {
-					test.removeTransition(transition);
-				}
 				for (Transition transition : toAdd) {
-					test.addTransition(transition);
+					compoundCmd.add(new CreateTransitionCommand(transition, test));
 				}
-				ViewUtil.deleteParts(selectedNodeParts, commandStack);
+				for (Transition transition : toRemove) {
+					compoundCmd.add(new DeleteTransitionCommand(transition, test));
+				}
+
+				compoundCmd.add(ViewUtil.deleteParts(selectedNodeParts, null));
+				
+				final Command compoundCmdFinal = compoundCmd;
+				final CommandStack commandStackFinal = commandStack;
+				display.syncExec(new Runnable() {
+					public void run() {
+						commandStackFinal.execute(compoundCmdFinal);
+					}
+				});
 			}
 		} catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow("Unable to extract selected items into a sub test.", e);

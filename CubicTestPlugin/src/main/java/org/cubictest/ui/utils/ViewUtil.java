@@ -69,6 +69,7 @@ import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.ui.actions.Clipboard;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -297,9 +298,7 @@ public class ViewUtil {
 				SubTest subtest = (SubTest) originalNode;
 
 				SubTest subtestClone = (SubTest) subtest.clone();
-				AddSubTestCommand addSubTestCmd = new AddSubTestCommand();
-				addSubTestCmd.setTest(test);
-				addSubTestCmd.setSubTest(subtestClone);
+				AddSubTestCommand addSubTestCmd = new AddSubTestCommand(subtestClone, test);
 				compoundCmd.add(addSubTestCmd);
 				clonedNodesForAddition.put(subtest, subtestClone);
 				
@@ -543,7 +542,11 @@ public class ViewUtil {
 	}
 	
 	
-	public static void deleteParts(List<EditPart> parts, CommandStack commandStack) {
+	/**
+	 * Deletes parts. If command stack is null, returns compound command. Else executes the command
+	 * using the passed in command stack.
+	 */
+	public static CompoundCommand deleteParts(List<EditPart> parts, CommandStack commandStack) {
 		
 		CompoundCommand compoundCmd = new CompoundCommand();
 
@@ -586,6 +589,16 @@ public class ViewUtil {
 				compoundCmd.add(deleteCmd);
 			}
 		}
-		commandStack.execute(compoundCmd);
+		if (commandStack == null) {
+			return compoundCmd;
+		}
+		else {
+			commandStack.execute(compoundCmd);
+			return null;
+		}
+	}
+
+	public static Display getDisplayFromActiveWindow() {
+		return CubicTestPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell().getDisplay();
 	}
 }

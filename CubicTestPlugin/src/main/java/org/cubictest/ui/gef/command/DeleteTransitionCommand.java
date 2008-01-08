@@ -16,7 +16,7 @@ import org.eclipse.gef.commands.Command;
 
 
 /**
- * @author Stein K�re Skytteren
+ * @author Stein K. Skytteren
  *
  * A command that deletes <code>Transition</code>.
  */

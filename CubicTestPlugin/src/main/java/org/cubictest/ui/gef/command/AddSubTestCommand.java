@@ -19,6 +19,11 @@ public class AddSubTestCommand extends Command {
 	private Test test;
 	private SubTest subTest;
 
+	public AddSubTestCommand(SubTest subTest, Test test) {
+		this.subTest = subTest;
+		this.test = test;
+	}
+
 	public void setTest(Test test) {
 		this.test = test;
 	}
