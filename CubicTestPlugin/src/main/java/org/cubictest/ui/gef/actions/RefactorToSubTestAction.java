@@ -132,14 +132,15 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 				subTest.setPosition(firstNodeInSelection.getPosition());
 				compoundCmd.add(new AddSubTestCommand(subTest, test));
 
+				List<Transition> toRemove = new ArrayList<Transition>();
+				List<Transition> toAdd = new ArrayList<Transition>();
+
 				//create transitions to sub test:
 				if (firstNodeInSelection.hasPreviousNode()) {
 					SimpleTransition trans = new SimpleTransition(firstNodeInSelection.getPreviousNode(), subTest);
-					compoundCmd.add(new DeleteTransitionCommand(firstNodeInSelection.getInTransition(), test));
-					compoundCmd.add(new CreateTransitionCommand(trans, test));
+					toRemove.add(firstNodeInSelection.getInTransition());
+					toAdd.add(trans);
 				}
-				List<Transition> toRemove = new ArrayList<Transition>();
-				List<Transition> toAdd = new ArrayList<Transition>();
 				for (Transition outTrans : lastNodeInSelection.getOutTransitions()) {
 					TransitionNode end = outTrans.getEnd();
 					toRemove.add(outTrans);
@@ -148,14 +149,15 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 						toAdd.add(trans);
 					}
 				}
-				for (Transition transition : toAdd) {
-					compoundCmd.add(new CreateTransitionCommand(transition, test));
-				}
+
+				compoundCmd.add(ViewUtil.deleteParts(selectedNodeParts, null));
+
 				for (Transition transition : toRemove) {
 					compoundCmd.add(new DeleteTransitionCommand(transition, test));
 				}
-
-				compoundCmd.add(ViewUtil.deleteParts(selectedNodeParts, null));
+				for (Transition transition : toAdd) {
+					compoundCmd.add(new CreateTransitionCommand(transition, test, true));
+				}
 				
 				final Command compoundCmdFinal = compoundCmd;
 				final CommandStack commandStackFinal = commandStack;

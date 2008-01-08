@@ -68,6 +68,8 @@ public class CreateTransitionCommand extends Command {
 	
 	private boolean autoCreateTargetPage = false;
 	
+	private boolean skipLegalTransitionCheck;
+	
 	boolean executed = false;
 
 	/**
@@ -75,8 +77,9 @@ public class CreateTransitionCommand extends Command {
 	 * @param test
 	 * @param transition
 	 */
-	public CreateTransitionCommand(Transition transition, Test test) {
+	public CreateTransitionCommand(Transition transition, Test test, boolean skipLegalTransitionCheck) {
 		this.transition = transition;
+		this.skipLegalTransitionCheck = skipLegalTransitionCheck;
 		this.sourceNode = transition.getStart();
 		this.targetNode = transition.getEnd();
 		this.test = test;
@@ -90,6 +93,9 @@ public class CreateTransitionCommand extends Command {
 	 */
 	@Override
 	public boolean canExecute() {
+		if (skipLegalTransitionCheck) {
+			return true;
+		}
 		if (autoCreateTargetPage) {
 			return true;
 		}
@@ -298,5 +304,9 @@ public class CreateTransitionCommand extends Command {
 	 */
 	public void setTransition(Transition transition) {
 		this.transition = transition;
+	}
+
+	public void setSkipLegalTransitionCheck(boolean skipLegalTransitionCheck) {
+		this.skipLegalTransitionCheck = skipLegalTransitionCheck;
 	}
 }
