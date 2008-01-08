@@ -54,7 +54,8 @@ public class TestRunner extends BaseTestRunner {
 	Selenium selenium;
 	Page targetPage;
 	int port; 
-	BrowserType browserType = BrowserType.FIREFOX;
+	public static final BrowserType DEFAULT_BROWSER = BrowserType.FIREFOX;
+	BrowserType browserType = DEFAULT_BROWSER;
 
 	/**
 	 * Typically invoked by the CubicTest Selenium exporter Eclipse plugin.
@@ -77,7 +78,7 @@ public class TestRunner extends BaseTestRunner {
 		this.selenium = selenium;
 		this.port = ExportUtils.findAvailablePort();
 		this.browserType = BrowserType.fromId(settings.getString(SeleniumUtils.getPluginPropertyPrefix(), "defaultBrowserType", 
-				RunSeleniumRunnerAction.DEFAULT_BROWSER.getId()));
+				DEFAULT_BROWSER.getId()));
 	}
 	
 	public void run(IProgressMonitor monitor) {

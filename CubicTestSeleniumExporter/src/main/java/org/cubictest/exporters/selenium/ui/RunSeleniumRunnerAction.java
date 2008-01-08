@@ -39,7 +39,6 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 
 	public static final String SELENIUM_RUNNER_BROWSER_TYPE = "SeleniumRunnerBrowserType";
 	public static final String SELENIUM_RUNNER_REMEMBER_SETTINGS = "SeleniumRunnerRememberSettings";
-	public static final BrowserType DEFAULT_BROWSER = BrowserType.FIREFOX;
 	boolean stopSeleniumWhenFinished = true;
 	Selenium selenium;
 	private String customCompletedMessage;
@@ -153,7 +152,7 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 		catch(NumberFormatException nfe) {
 			try {
 				browserType = BrowserType.fromId(settings.getString(SeleniumUtils.getPluginPropertyPrefix(), "defaultBrowserType",
-						DEFAULT_BROWSER.getId()));
+						TestRunner.DEFAULT_BROWSER.getId()));
 			} catch (Exception ignore) {
 			}
 		}

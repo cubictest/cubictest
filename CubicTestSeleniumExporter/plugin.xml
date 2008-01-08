@@ -54,6 +54,8 @@
 		    category="CubicTestPreferencePage">
    	  </page>
    </extension>
+   
+   <!--
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
@@ -111,5 +113,5 @@
             name="CubicTest Selenium">
       </classpathContainerPage>
    </extension>
-      
+      -->
 </plugin>

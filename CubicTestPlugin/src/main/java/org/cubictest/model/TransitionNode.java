@@ -59,6 +59,17 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		return inTransition != null && inTransition.getStart() != null;
 	}
 	
+	public boolean hasOutTransition() {
+		return outTransitions != null && !outTransitions.isEmpty();
+	}
+	
+	public int getNumberOfOutTransitions() {
+		if (outTransitions == null) {
+			return 0;
+		}
+		return outTransitions.size();
+	}
+	
 	public TransitionNode getPreviousNode() {
 		if (hasPreviousNode()) {
 			return inTransition.getStart();

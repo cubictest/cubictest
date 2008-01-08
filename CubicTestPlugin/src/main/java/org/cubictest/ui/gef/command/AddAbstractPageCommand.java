@@ -25,6 +25,14 @@ public class AddAbstractPageCommand extends Command {
 	private Test test;
 	private AbstractPage page;
 
+	public AddAbstractPageCommand(Test test, AbstractPage page) {
+		this.test = test;
+		this.page = page;
+	}
+	
+	public AddAbstractPageCommand() {
+	}
+	
 	/**
 	 * @param test
 	 */
