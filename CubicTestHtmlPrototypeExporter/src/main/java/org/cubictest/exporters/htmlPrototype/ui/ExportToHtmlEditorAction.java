@@ -11,13 +11,12 @@
 package org.cubictest.exporters.htmlPrototype.ui;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.CubicTestExport;
 import org.cubictest.exporters.htmlPrototype.ExporterSetup;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
@@ -32,7 +31,7 @@ import org.eclipse.ui.part.FileEditorInput;
  */
 public class ExportToHtmlEditorAction implements IEditorActionDelegate {
 	IResource currentFile;
-	
+
 	public ExportToHtmlEditorAction() {
 		super();
 	}
@@ -47,6 +46,7 @@ public class ExportToHtmlEditorAction implements IEditorActionDelegate {
 
 			//callback to CubicTest with the selected files
 			CubicTestExport.exportWithCustomDirectoryWalker(ExporterSetup.getRunnableExporter(currentFile));
+			UserInfo.showInfoDialog(ExportToHtmlAction.OK_MESSAGE);
 		} 
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow("Error creating HTML prototype", e);

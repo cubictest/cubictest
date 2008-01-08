@@ -25,7 +25,7 @@
     
          <action
                enablesFor="1"
-               label="Create Watir tests"
+               label="Export to Watir test script"
                icon="icons/watir_export_icon.gif"
                class="org.cubictest.exporters.watir.ui.ExportToWatirAction"
                menubarPath="cubictest.menu1/group1"
@@ -39,7 +39,7 @@
                class="org.cubictest.exporters.watir.ui.ExportToWatirEditorAction"
                icon="icons/watir_export_icon.gif"
                id="org.cubictest.exporters.watir.ui.ExportToWatirEditorAction"
-               label="Create Watir tests"
+               label="Export to Watir test script"
                menubarPath="additions"/>
          <action
                class="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"

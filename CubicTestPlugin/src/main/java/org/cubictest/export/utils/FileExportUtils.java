@@ -50,6 +50,8 @@ public class FileExportUtils {
 	
 	public static IFolder prepareOutputFolder(IProgressMonitor monitor, IProject project, IResource resource) throws CoreException {
 		IFolder destFolder = project.getFolder("generated");
+		destFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+		
 		if (!destFolder.exists()) {
 			destFolder.create(true, true, monitor);
 		}

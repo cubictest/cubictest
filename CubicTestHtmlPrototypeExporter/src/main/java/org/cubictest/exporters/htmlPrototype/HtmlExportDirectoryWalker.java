@@ -68,6 +68,8 @@ public class HtmlExportDirectoryWalker<T extends IResultHolder> extends Director
 		}
 
 		IFolder destinationFolder = outFolder;
+		destinationFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+		
 		if(!ExportUtils.isTestFile(outFolder.getName())) {
 			destinationFolder = outFolder.getFolder(file.getName());
 		}

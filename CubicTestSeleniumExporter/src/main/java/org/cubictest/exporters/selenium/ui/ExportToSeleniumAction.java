@@ -34,9 +34,7 @@ import org.eclipse.ui.IActionDelegate;
 public class ExportToSeleniumAction implements IActionDelegate {
 	ISelection selection;
 	
-	public static final String OK_MESSAGE = "Test exported OK to the \"generated\" directory.\n\n" +
-			"The exported test (.html file) can be run by copying it into the Selenium test folder of your web application " +
-			"and by adding it to a Selenium test suite.";
+	public static final String OK_MESSAGE = "Test exported OK to the \"generated\" directory.";
 
 	
 	/* 

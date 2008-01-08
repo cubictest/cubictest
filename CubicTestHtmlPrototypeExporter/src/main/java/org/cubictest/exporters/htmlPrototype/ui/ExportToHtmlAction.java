@@ -11,6 +11,7 @@
 package org.cubictest.exporters.htmlPrototype.ui;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.CubicTestExport;
 import org.cubictest.exporters.htmlPrototype.ExporterSetup;
 import org.eclipse.core.resources.IResource;
@@ -30,7 +31,9 @@ import org.eclipse.ui.ide.IDE;
  */
 public class ExportToHtmlAction implements IActionDelegate {
 	ISelection selection;
-	
+
+	public static final String OK_MESSAGE = "Test exported OK to the \"generated\" directory.";
+
 	public ExportToHtmlAction() {
 		super();
 	}
@@ -46,6 +49,7 @@ public class ExportToHtmlAction implements IActionDelegate {
 
 			//callback to CubicTest with the selected files
 			CubicTestExport.exportWithCustomDirectoryWalker(ExporterSetup.getRunnableExporter(res));
+			UserInfo.showInfoDialog(OK_MESSAGE);
 		} 
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow("Error creating HTML prototype", e);
