@@ -14,10 +14,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.runner.BaseTestRunner;
-import org.cubictest.export.runner.RunnerWorkerThread.Operation;
+import org.cubictest.export.runner.RunnerStarter.Operation;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.CustomTestStepConverter;
@@ -26,7 +27,7 @@ import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
-import org.cubictest.exporters.selenium.runner.util.SeleniumWorkerThread;
+import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
 import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.exporters.selenium.ui.SeleniumSettingsPage;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
@@ -50,12 +51,13 @@ import com.thoughtworks.selenium.Selenium;
 public class TestRunner extends BaseTestRunner {
 
 	SeleniumHolder seleniumHolder;
-	SeleniumWorkerThread workerThread;
+	SeleniumStarter seleniumStarter;
 	Selenium selenium;
 	Page targetPage;
 	static Integer port; 
 	public static final BrowserType DEFAULT_BROWSER = BrowserType.FIREFOX;
 	BrowserType browserType = DEFAULT_BROWSER;
+	private IProgressMonitor monitor;
 
 	/**
 	 * Typically invoked by the CubicTest Selenium exporter Eclipse plugin.
@@ -85,21 +87,25 @@ public class TestRunner extends BaseTestRunner {
 	}
 	
 	public void run(IProgressMonitor monitor) {
+		this.monitor = monitor;
 		
 		try {
-			workerThread = new SeleniumWorkerThread();
-			workerThread.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
-			workerThread.setBrowser(browserType);
-			workerThread.setDisplay(display);
-			workerThread.setSelenium(selenium);
-			workerThread.setSettings(settings);
-			workerThread.setPort(port);
+			seleniumStarter = new SeleniumStarter();
+			seleniumStarter.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
+			seleniumStarter.setBrowser(browserType);
+			seleniumStarter.setDisplay(display);
+			seleniumStarter.setSelenium(selenium);
+			seleniumStarter.setSettings(settings);
+			seleniumStarter.setPort(port);
+
+			CancelHandler cancelHandler = new CancelHandler(monitor, this);
+			cancelHandler.start();
 			
 			//start Selenium (browser and server), guard by timeout:
 			int timeout = SeleniumUtils.getTimeout(settings) + 10;
 			try {
-				workerThread.setOperation(Operation.START);
-				seleniumHolder = call(workerThread, timeout, TimeUnit.SECONDS);
+				seleniumStarter.setOperation(Operation.START);
+				seleniumHolder = call(seleniumStarter, timeout, TimeUnit.SECONDS);
 			}
 			catch (Exception e) {
 				ErrorHandler.rethrow("Unable to start " + browserType.getDisplayName() + 
@@ -111,6 +117,7 @@ public class TestRunner extends BaseTestRunner {
 			seleniumHolder.setMonitor(monitor);
 			seleniumHolder.setFailOnAssertionFailure(failOnAssertionFailure);
 			
+
 			while (!seleniumHolder.isSeleniumStarted()) {
 				//wait for selenium (server & test system) to start
 				Thread.sleep(100);
@@ -131,11 +138,13 @@ public class TestRunner extends BaseTestRunner {
 			}
 
 		}
-		catch (UserCancelledException e) {
-			//ok, user cancelled
-		}
 		catch (Exception e) {
-			ErrorHandler.logAndRethrow(e);
+			if (monitor != null && monitor.isCanceled()) {
+				throw new UserCancelledException("User cancelled");
+			}
+			else {
+				ErrorHandler.logAndRethrow(e);
+			}
 		}
 	}
 
@@ -146,12 +155,23 @@ public class TestRunner extends BaseTestRunner {
 	 */
 	public void stopSelenium() {
 		try {
-			if (workerThread != null) {
-				workerThread.setOperation(Operation.STOP);
-				call(workerThread, 20, TimeUnit.SECONDS);
+			if (seleniumStarter != null) {
+				seleniumStarter.setOperation(Operation.STOP);
+				call(seleniumStarter, 20, TimeUnit.SECONDS);
 			}
+			seleniumStarter = null;
 		} catch (Exception e) {
-			ErrorHandler.rethrow(e);
+			if (monitor != null && monitor.isCanceled()) {
+				Logger.warn("Exception when stopping selenium.", e);
+			}
+			else {
+				ErrorHandler.rethrow(e);
+			}
+		}
+		finally {
+			if (seleniumHolder != null) {
+				seleniumHolder.setSeleniumStarted(false);
+			}
 		}
 	}
 

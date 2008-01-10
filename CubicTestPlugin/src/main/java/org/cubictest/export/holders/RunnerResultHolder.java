@@ -15,9 +15,7 @@ import java.util.List;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.AssertionFailedException;
-import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
@@ -81,7 +79,6 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	}
 	
 	public void addResult(final PageElement element, TestPartStatus result) {
-		handleUserCancel();
 		elementsAsserted.add(element);
 		results.add(result);
 
@@ -97,12 +94,6 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		}
 		if (result.equals(TestPartStatus.FAIL)) {
 			handleAssertionFailure(element);
-		}
-	}
-	
-	public void handleUserCancel() {
-		if (monitor != null && monitor.isCanceled()) {
-			throw new UserCancelledException("Operation cancelled");
 		}
 	}
 	
@@ -122,7 +113,6 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	}
 	
 	public String getResults() {
-		handleUserCancel();
 		int pass = 0;
 		int failed = 0;
 		int i = 0;

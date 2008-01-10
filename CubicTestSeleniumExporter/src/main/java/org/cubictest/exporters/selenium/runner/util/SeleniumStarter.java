@@ -13,7 +13,7 @@ package org.cubictest.exporters.selenium.runner.util;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.export.runner.RunnerWorkerThread;
+import org.cubictest.export.runner.RunnerStarter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.UrlStartPoint;
@@ -26,7 +26,7 @@ import com.thoughtworks.selenium.Selenium;
  * 
  * @author Christian Schwarz
  */
-public class SeleniumWorkerThread extends RunnerWorkerThread<SeleniumHolder> {
+public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 
 	SeleniumProxyServer server;
 	SeleniumHolder seleniumHolder;

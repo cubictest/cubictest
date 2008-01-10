@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.cubictest.export.runner;
 
-import static org.cubictest.export.runner.RunnerWorkerThread.Operation.START;
-import static org.cubictest.export.runner.RunnerWorkerThread.Operation.STOP;
+import static org.cubictest.export.runner.RunnerStarter.Operation.START;
+import static org.cubictest.export.runner.RunnerStarter.Operation.STOP;
 
 import java.util.concurrent.Callable;
 
@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Display;
  * @author Christian Schwarz
  *
  */
-public abstract class RunnerWorkerThread<T extends IResultHolder> implements Callable<T>{
+public abstract class RunnerStarter<T extends IResultHolder> implements Callable<T>{
 
 	
 	public enum Operation {START, STOP};

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.export.ui;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ITestRunner;
+import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.SubTest;
@@ -104,7 +106,22 @@ public abstract class BaseRunnerAction implements IEditorActionDelegate {
 			test.updateAndGetStatus(null);
 			showCompletedMessage(shell, result);
 		}
+		catch (UserCancelledException ignore) {
+			//ok
+		}
+		catch (InvocationTargetException e) {
+			if (!(e.getCause() instanceof UserCancelledException)) {
+				handleException(shell, e);
+			}
+		}
 		catch (Exception e) {
+			handleException(shell, e);
+		}
+	}
+
+
+	private void handleException(Shell shell, Exception e) {
+		try {
 			if (testRunner != null) {
 				((ITestRunner) testRunner).getResultMessage();
 			}

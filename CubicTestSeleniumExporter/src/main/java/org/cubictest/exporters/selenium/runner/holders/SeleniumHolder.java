@@ -23,7 +23,6 @@ import com.thoughtworks.selenium.Selenium;
 /**
  * Holder that has reference to the Selenium test system (for running Selenium commands).
  * Also holds the results of the test and the current contexts (@see ContextHolder).
- * Handles user cancel of the test run.
  *  
  * @author Christian Schwarz
  */
