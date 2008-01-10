@@ -18,11 +18,14 @@ import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
+import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
 import org.cubictest.ui.utils.ViewUtil;
 import org.cubictest.ui.utils.WizardUtils;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.ui.INewWizard;
 
@@ -61,12 +64,34 @@ public class NewSubTestWizard extends AbstractNewSimpleStartPointTestWizard impl
 			emptyTest.addTransition(startTransition);
 		}
 		else {
+			//we shall prepopulate sub test with nodes
 			try {
 				List<TransitionNode> newNodes = ViewUtil.cloneAndAddNodesToTest(emptyTest, refactorInitOriginalNodes, commandStack, false);
+				
+				//create transition from start point:
 				if (ModelUtil.getFirstNode(newNodes) instanceof TransitionNode) {
 					SimpleTransition startTransition = new SimpleTransition(emptyTest.getStartPoint(), 
 							ModelUtil.getFirstNode(newNodes));	
 					emptyTest.addTransition(startTransition);
+				}
+				
+				//check if we need to create a temp state as target for the last user interaction 
+				TransitionNode lastOfOriginalNodes = ModelUtil.getLastNodeInList(refactorInitOriginalNodes);
+				if (lastOfOriginalNodes.hasOutTransition()) {
+					Transition transToOutside = lastOfOriginalNodes.getOutTransitions().get(0);
+					if (transToOutside instanceof UserInteractionsTransition) {
+						Page page = new Page();
+						page.setName("Next state");
+						emptyTest.addPage(page);
+						
+						UserInteractionsTransition trans = (UserInteractionsTransition) transToOutside.clone();
+						trans.setStart(ModelUtil.getLastNodeInList(newNodes));
+						trans.setEnd(page);
+						emptyTest.addTransition(trans);
+
+						page.setPosition(new Point(ModelUtil.getLastNodeInList(newNodes).getPosition().x, 
+								AutoLayout.getYPositionForNode(page)));
+					}
 				}
 			} catch (CloneNotSupportedException e) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow("Unable to create sub test.", e);
@@ -86,6 +111,11 @@ public class NewSubTestWizard extends AbstractNewSimpleStartPointTestWizard impl
 
 	public void setCommandStack(CommandStack commandStack) {
 		this.commandStack = commandStack;
+	}
+	
+	@Override
+	public boolean shouldPromptToSaveAllEditors() {
+		return false;
 	}
 
 }

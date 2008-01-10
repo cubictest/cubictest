@@ -58,7 +58,6 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 		TestRunner runner = null;
 		Shell shell = SeleniumExporterPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 
-		int port = ExportUtils.findAvailablePort();
 		BrowserType browserType = getSeleniumBrowserType(settings);
 		
 		SeleniumRunnerWizard wizard = new SeleniumRunnerWizard(browserType);
@@ -86,7 +85,7 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 			else {
 				browserType = BrowserType.FIREFOX; //recorder
 			}
-			runner = new TestRunner(test, display, settings, port, browserType);
+			runner = new TestRunner(test, display, settings, browserType);
 			if (usePreCreatedSeleniumInstance()) {
 				runner.setSelenium(selenium);
 			}

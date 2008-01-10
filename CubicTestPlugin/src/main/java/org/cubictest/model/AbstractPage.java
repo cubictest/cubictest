@@ -50,6 +50,10 @@ public abstract class AbstractPage extends TransitionNode implements Cloneable, 
 		return elements;
 	}
 	
+	public boolean hasElements() {
+		return (getRootElements() != null) && (getRootElements().size() > 0);
+	}
+	
 	/**
 	 * Gets all page elements of a page in flat structure (traverse contexts). 
 	 */

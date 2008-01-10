@@ -42,5 +42,10 @@ public class NewTestSuiteWizard extends AbstractNewSimpleStartPointTestWizard im
 	protected void getWizardTitle() {
 		setWindowTitle("New CubicTest test suite");
 	}
+	
+	@Override
+	public boolean shouldPromptToSaveAllEditors() {
+		return false;
+	}
 
 }

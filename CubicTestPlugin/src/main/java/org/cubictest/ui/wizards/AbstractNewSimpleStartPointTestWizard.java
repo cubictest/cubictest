@@ -69,7 +69,7 @@ public abstract class AbstractNewSimpleStartPointTestWizard extends NewTestWizar
 		try {
 			final String containerName = testDetailsPage.getContainerName();
 			final String fileName = testDetailsPage.getFileName();
-			this.fileName = testDetailsPage.getFileName();
+			this.filePath = containerName + "/" + fileName;
 			final String name = testDetailsPage.getName();
 			final String description = testDetailsPage.getDescription();
 			

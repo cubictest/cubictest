@@ -43,6 +43,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.internal.core.NameLookup.Answer;
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -76,7 +77,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	NewUrlStartPointPage newUrlStartPointPage;
 	Map<ExtensionPoint, IFile> extensionPointMap;
 	IProject project;
-	String fileName;
+	String filePath;
 
 	/**
 	 * Constructor for NewTestWizard.
@@ -110,7 +111,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	public boolean performFinish() {
 		final String containerName = testDetailsPage.getContainerName();
 		final String fileName = testDetailsPage.getFileName();
-		this.fileName = testDetailsPage.getFileName();
+		this.filePath = containerName + "/" + fileName;
 		final String name = testDetailsPage.getName();
 		final String description = testDetailsPage.getDescription();
 		final String url = newUrlStartPointPage.getUrl();
@@ -205,6 +206,10 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		throw new CoreException(status);
 	}
 
+	public boolean shouldPromptToSaveAllEditors() {
+		return true;
+	}
+	
 	/**
 	 * We will accept the selection in the workbench to see if
 	 * we can initialize from it.
@@ -220,7 +225,9 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		if (iss.getFirstElement() instanceof IResource) {
 			IResource res = (IResource) iss.getFirstElement();
 			project = res.getProject();
-			IDE.saveAllEditors(new IResource[] {project}, true);
+			if (shouldPromptToSaveAllEditors()) {
+				IDE.saveAllEditors(new IResource[] {project}, true);
+			}
 		}
 		else {
 			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
@@ -312,8 +319,8 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		}
 	}
 	
-	public String getFileName() {
-		return fileName;
+	public String getFilePath() {
+		return filePath;
 	}
 	
 }

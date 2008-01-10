@@ -21,6 +21,7 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
@@ -107,7 +108,7 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 				new ProgressMonitorDialog(new Shell()).run(false, false, seleniumRecorder);
 
 				//check if the browser should be forwarded:
-				if (selectedPage != null || test.getStartPoint() instanceof ExtensionStartPoint) {
+				if (selectedNodeNeedsToForwardBrowser() || test.getStartPoint() instanceof ExtensionStartPoint) {
 					UserInfo.setStatusLine("Test browser will be forwarded to start point for test.");
 					long now = System.currentTimeMillis();
 					while (!seleniumRecorder.isSeleniumStarted()) {
@@ -148,6 +149,21 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 				return;
 			}
 		}
+	}
+
+
+	private boolean selectedNodeNeedsToForwardBrowser() {
+		if (selectedPage == null) {
+			return false;
+		}
+		if (selectedPage.hasElements()) {
+			return true;
+		}
+		if (!(selectedPage.getPreviousNode() instanceof IStartPoint)) {
+			//previous node is a page/state
+			return true;
+		}
+		return false;
 	}
 
 

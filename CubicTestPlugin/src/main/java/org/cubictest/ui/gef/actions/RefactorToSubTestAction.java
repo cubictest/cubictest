@@ -18,12 +18,15 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.IStartPoint;
+import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.AddSubTestCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.command.DeleteTransitionCommand;
@@ -62,7 +65,7 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 
 	@Override
 	protected boolean calculateEnabled() {
-		List<TransitionNode> nodes = new ArrayList<TransitionNode>();
+		List<TransitionNode> selectedNodes = new ArrayList<TransitionNode>();
 		if(getParts() != null) {
 			for(Object element : getParts()) {
 				if(element instanceof EditPart){
@@ -71,7 +74,7 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 						return false;
 					}
 					if(model instanceof TransitionNode){
-						nodes.add((TransitionNode) model);
+						selectedNodes.add((TransitionNode) model);
 						test = ((TestEditPart) ((EditPart) element).getParent()).getTest();
 					}
 					if (model instanceof PageElement) {
@@ -82,10 +85,16 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 				}
 			}			
 		}
-		if (nodes.size() < 2) {
+		if (selectedNodes.size() < 2) {
 			return false;
 		}
-		return (nodes.size() > 0) && ModelUtil.nodesContainsSingleContinuousPath(nodes);
+		if (!ModelUtil.nodesContainsSingleContinuousPath(selectedNodes)) {
+			return false;
+		}
+		if (ModelUtil.getLastNodeInList(selectedNodes).getNumberOfOutTransitions() > 1) {
+			return false;
+		}
+		return true;
 	}
 
 
@@ -107,7 +116,6 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 			IProject project = ViewUtil.getProjectFromActivePage();
 			Display display = ViewUtil.getDisplayFromActiveWindow();
 
-			
 			NewSubTestWizard wiz = new NewSubTestWizard();
 			wiz.setRefactorInitOriginalNodes(selectedNodes);
 			wiz.setCommandStack(getCommandStack());
@@ -125,25 +133,30 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 				CompoundCommand compoundCmd = new CompoundCommand();
 				
 				TransitionNode firstNodeInSelection = ModelUtil.getFirstNode(selectedNodes);
-				TransitionNode lastNodeInSelection = ModelUtil.getLastNodeInList(selectedNodes);
 				
-
-				SubTest subTest = new SubTest(wiz.getFileName(), project);
+				//create subtest:
+				String filePath = wiz.getFilePath().replaceFirst("/" + project.getName(), "");
+				SubTest subTest = new SubTest(filePath, project);
 				subTest.setPosition(firstNodeInSelection.getPosition());
 				compoundCmd.add(new AddSubTestCommand(subTest, test));
-
+				
 				List<Transition> toRemove = new ArrayList<Transition>();
 				List<Transition> toAdd = new ArrayList<Transition>();
-
+				
 				//create transitions to sub test:
 				if (firstNodeInSelection.hasPreviousNode()) {
 					SimpleTransition trans = new SimpleTransition(firstNodeInSelection.getPreviousNode(), subTest);
 					toRemove.add(firstNodeInSelection.getInTransition());
 					toAdd.add(trans);
 				}
-				for (Transition outTrans : lastNodeInSelection.getOutTransitions()) {
-					TransitionNode end = outTrans.getEnd();
-					toRemove.add(outTrans);
+
+				//create transition from sub test:
+				TransitionNode lastNodeInSelection = ModelUtil.getLastNodeInList(selectedNodes);
+				if (lastNodeInSelection.hasOutTransition()) {
+					Transition transToOutside = lastNodeInSelection.getOutTransitions().get(0);
+					
+					TransitionNode end = transToOutside.getEnd();
+					toRemove.add(transToOutside);
 					if (end != null && !(end instanceof ExtensionPoint)) {
 						SimpleTransition trans = new SimpleTransition(subTest, end);
 						toAdd.add(trans);
@@ -152,11 +165,11 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 
 				compoundCmd.add(ViewUtil.deleteParts(selectedNodeParts, null));
 
-				for (Transition transition : toRemove) {
-					compoundCmd.add(new DeleteTransitionCommand(transition, test));
+				for (Transition trans : toRemove) {
+					compoundCmd.add(new DeleteTransitionCommand(trans, test));
 				}
-				for (Transition transition : toAdd) {
-					compoundCmd.add(new CreateTransitionCommand(transition, test, true));
+				for (Transition trans : toAdd) {
+					compoundCmd.add(new CreateTransitionCommand(trans, test, true));
 				}
 				
 				final Command compoundCmdFinal = compoundCmd;

@@ -159,7 +159,7 @@ public class ModelUtil {
 		nodes = new ArrayList<TransitionNode>(nodes); //clone
 		
 		TransitionNode node = ModelUtil.getFirstNode(nodes);
-		if (!ModelUtil.hasOnlyOnePathFromNodeToEndOfTest(node)) {
+ 		if (!ModelUtil.hasOnlyOnePathFromNodeToEndOfTest(node)) {
 			return false;
 		}
 		//we now know there is not a tree after node
@@ -229,7 +229,7 @@ public class ModelUtil {
 	 */
 	public static boolean isOnPathToNode(TransitionNode nodeToCheck, TransitionNode targetNode) {
 
-		String targetNodeId = "";
+		String targetNodeId = targetNode.getId();
 		
 		if (targetNode instanceof ExtensionStartPoint) {
 			targetNodeId = ((ExtensionStartPoint) targetNode).getSourceExtensionPointPageId();

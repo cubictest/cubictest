@@ -71,13 +71,7 @@ public class AutoLayout {
 			} else {				
 				position.x = node.getInTransition().getStart().getPosition().x + node.getInTransition().getStart().getDimension().width / 2;
 				position.x = position.x + (ITestEditor.NEW_PATH_OFFSET * successorNodes);
-				int numOfActions = 0;
-				if (node.getInTransition() instanceof UserInteractionsTransition) {
-					numOfActions = ((UserInteractionsTransition) node.getInTransition()).getUserInteractions().size();
-				}
-				int inputSpace = TRANSITION_SPACE + (numOfActions * USER_INPUT_HEIGHT);
-				position.y = node.getInTransition().getStart().getPosition().y + node.getInTransition().getStart().getDimension().height;
-				position.y = position.y + inputSpace;
+				position.y = getYPositionForNode(node);
 			}
 		}
 		catch(NullPointerException e) {
@@ -85,6 +79,16 @@ public class AutoLayout {
 			position.x = ITestEditor.INITIAL_PAGE_POS_X + (ITestEditor.NEW_PATH_OFFSET * successorNodes);
 		}
 		layout(node, position);
+	}
+
+	public static int getYPositionForNode(TransitionNode node) {
+		int numOfActions = 0;
+		if (node.getInTransition() instanceof UserInteractionsTransition) {
+			numOfActions = ((UserInteractionsTransition) node.getInTransition()).getUserInteractions().size();
+		}
+		int inputSpace = TRANSITION_SPACE + (numOfActions * USER_INPUT_HEIGHT);
+		int y = node.getInTransition().getStart().getPosition().y + node.getInTransition().getStart().getDimension().height;
+		return y + inputSpace;
 	}
 	
 	public void layout(TransitionNode node, Point topCenter) {

@@ -44,13 +44,18 @@ Done	Upgrade to latest version of Selenium RC on Recorder
 Done	Convert URLs to absolute on the fly for Watir runner
 Done	Possible to record from any page/state
 Done	Problem with port collision when running after recording
-
-1.7.12:
-Upgrade to Eclipse Public License
-Document XPath checker
-Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
+Done	Upgrade to Eclipse Public License
+Done	Refactoring must support User Interactions before and after.
+Done	Remove i18n from GUI
+Done 	Do not activate test editor when recording from "First page" (empty test). No need to forward browser.
 
 1.8.1:
+Document XPath checker
+EPL on cubictest.org
+Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
+
+1.8.2:
+Refactor - Create test with ExtensionStart point from selected nodes (cannot be any nodes after).
 Make possible to record and "make additions while recording"
 Context must have a element name?
 Custom steps

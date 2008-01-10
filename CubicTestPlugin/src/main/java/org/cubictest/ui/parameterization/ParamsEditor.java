@@ -248,7 +248,7 @@ public class ParamsEditor extends EditorPart {
 			@Override
 			public void widgetSelected(SelectionEvent e) {			
 				InputDialog dialog = new InputDialog(new Shell(),
-						"CubicTest Parameterisation", "Enter key name:","",new IInputValidator(){
+						"CubicTest Parameterisation", "Enter key name (column header):","",new IInputValidator(){
 							public String isValid(String newText) {
 								if (newText.length() < 3)
 									return "Minimum 3 letters";

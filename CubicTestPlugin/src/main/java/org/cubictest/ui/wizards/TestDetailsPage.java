@@ -44,7 +44,7 @@ import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
 public class TestDetailsPage extends WizardPage {
 	private String fileExt = ".aat";
-	private Text containerText;
+	private Text testFolderText;
 	private Text filenameText;
 	private boolean updatingTestName;
 	private boolean manualName;
@@ -109,10 +109,10 @@ public class TestDetailsPage extends WizardPage {
 		Label label = new Label(container, SWT.NULL);
 		label.setText("Location:");
 
-		containerText = new Text(container, SWT.BORDER | SWT.SINGLE | SWT.READ_ONLY);
+		testFolderText = new Text(container, SWT.BORDER | SWT.SINGLE | SWT.READ_ONLY);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		containerText.setLayoutData(gd);
-		containerText.addModifyListener(new ModifyListener() {
+		testFolderText.setLayoutData(gd);
+		testFolderText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}
@@ -184,7 +184,7 @@ public class TestDetailsPage extends WizardPage {
 					container = (IContainer)obj;
 				else
 					container = ((IResource)obj).getParent();
-				containerText.setText(container.getFullPath().toString());
+				testFolderText.setText(container.getFullPath().toString());
 			}
 		}
 	}
@@ -241,7 +241,7 @@ public class TestDetailsPage extends WizardPage {
 		if (dialog.open() == ContainerSelectionDialog.OK) {
 			Object[] result = dialog.getResult();
 			if (result.length == 1) {
-				containerText.setText(((Path)result[0]).toOSString());
+				testFolderText.setText(((Path)result[0]).toOSString());
 			}
 		}
 	}
@@ -309,7 +309,7 @@ public class TestDetailsPage extends WizardPage {
 	}
 
 	public String getContainerName() {
-		return containerText.getText();
+		return testFolderText.getText();
 	}
 	public String getFileName() {
 		return filenameText.getText();

@@ -102,16 +102,16 @@
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/fileicon_params.gif"
             id="org.cubictest.ui.wizards.NewParamWizard"
-            name="New CubicTest Test-parameter file"
+            name="New CubicTest Test Parameter File"
             preferredPerspectives="org.cubictest.CubicTestPerspective"/>
-      <wizard
+<!--      <wizard
             category="cubictest"
             class="org.cubictest.ui.wizards.NewPropertiesWizard"
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/fileicon_l18n.gif"
             id="org.cubictest.ui.wizards.NewPropertiesWizard"
             name="New CubicTest Internationalization file"
-            preferredPerspectives="org.cubictest.CubicTestPerspective"/>
+            preferredPerspectives="org.cubictest.CubicTestPerspective"/>-->
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
@@ -164,11 +164,11 @@
                category="CubicTest"
                id="org.cubictest.tab.param"
                label="Parameterisation"/>
-         <propertyTab
+<!--         <propertyTab
                afterTab="org.cubictest.tab.test"
                category="CubicTest"
                id="org.cubictest.tab.i18n"
-               label="Internationalisation"/>
+               label="Internationalisation"/> -->
          <propertyTab
                category="CubicTest"
                id="org.cubictest.tab.customTestStepInput"
@@ -196,7 +196,7 @@
          </propertySection>
          <propertySection
                class="org.cubictest.ui.sections.SubTestInfoSection"
-               id="org.cubictest.test.name"
+               id="org.cubictest.subtest.info"
                tab="org.cubictest.tab.test">
             <input type="org.cubictest.model.SubTest"/>
          </propertySection>
@@ -218,13 +218,13 @@
                tab="org.cubictest.tab.param">
             <input type="org.cubictest.model.Test"/>
          </propertySection>
-         <propertySection
+<!--         <propertySection
                afterSection="org.cubictest.test.param"
                class="org.cubictest.ui.sections.I18nSection"
                id="org.cubictest.test.i18n"
                tab="org.cubictest.tab.i18n">
             <input type="org.cubictest.model.Test"/>
-         </propertySection>
+         </propertySection>-->
          <propertySection
                afterSection="org.cubictest.test.name"
                class="org.cubictest.ui.sections.TestDescriptionSection"
