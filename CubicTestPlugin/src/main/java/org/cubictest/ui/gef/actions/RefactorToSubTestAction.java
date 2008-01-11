@@ -118,6 +118,7 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 			Display display = ViewUtil.getDisplayFromActiveWindow();
 
 			NewSubTestWizard wiz = new NewSubTestWizard();
+			wiz.setOpenCreatedTestOnFinish(false);
 			wiz.setRefactorInitOriginalNodes(selectedNodes);
 			wiz.setCommandStack(getCommandStack());
 			IWorkbench workbench = CubicTestPlugin.getDefault().getWorkbench();

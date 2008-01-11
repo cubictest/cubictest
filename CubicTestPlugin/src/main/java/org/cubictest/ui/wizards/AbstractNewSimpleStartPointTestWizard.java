@@ -45,6 +45,7 @@ import org.eclipse.ui.INewWizard;
 public abstract class AbstractNewSimpleStartPointTestWizard extends NewTestWizard implements INewWizard {
 
 	private boolean done;
+	private boolean openCreatedTestOnFinish;
 
 	/**
 	 * Constructor for NewTestWizard.
@@ -137,7 +138,9 @@ public abstract class AbstractNewSimpleStartPointTestWizard extends NewTestWizar
 		}
 		monitor.worked(1);
 		
-		openFileForEditing(monitor, file);
+		if (openCreatedTestOnFinish) {
+			openFileForEditing(monitor, file);
+		}
 	}
 	
 
@@ -163,6 +166,10 @@ public abstract class AbstractNewSimpleStartPointTestWizard extends NewTestWizar
 	
 	public boolean isDone() {
 		return done;
+	}
+
+	public void setOpenCreatedTestOnFinish(boolean openCreatedTestOnFinish) {
+		this.openCreatedTestOnFinish = openCreatedTestOnFinish;
 	}
 		
 }
