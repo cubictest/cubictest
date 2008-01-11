@@ -105,9 +105,10 @@ public abstract class BaseRunnerAction implements IEditorActionDelegate {
 			String result = testRunner.getResultMessage();
 			test.updateAndGetStatus(null);
 			showCompletedMessage(shell, result);
+			finalCleanUp();
 		}
 		catch (UserCancelledException ignore) {
-			//ok
+			//ok (cancel handler does clean up)
 		}
 		catch (InvocationTargetException e) {
 			if (!(e.getCause() instanceof UserCancelledException)) {
