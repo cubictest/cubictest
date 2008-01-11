@@ -17,6 +17,7 @@ import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
@@ -145,9 +146,12 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 				
 				//create transitions to sub test:
 				if (firstNodeInSelection.hasPreviousNode()) {
-					SimpleTransition trans = new SimpleTransition(firstNodeInSelection.getPreviousNode(), subTest);
-					toRemove.add(firstNodeInSelection.getInTransition());
-					toAdd.add(trans);
+					Transition transToSelection = firstNodeInSelection.getInTransition();
+					Transition newTrans = (Transition) transToSelection.clone();
+					newTrans.setStart(firstNodeInSelection.getPreviousNode());
+					newTrans.setEnd(subTest);
+					toRemove.add(transToSelection);
+					toAdd.add(newTrans);
 				}
 
 				//create transition from sub test:

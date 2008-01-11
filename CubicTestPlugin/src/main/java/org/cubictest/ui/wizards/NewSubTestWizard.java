@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
+import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.SubTestStartPoint;
@@ -79,12 +80,12 @@ public class NewSubTestWizard extends AbstractNewSimpleStartPointTestWizard impl
 				TransitionNode lastOfOriginalNodes = ModelUtil.getLastNodeInList(refactorInitOriginalNodes);
 				if (lastOfOriginalNodes.hasOutTransition()) {
 					Transition transToOutside = lastOfOriginalNodes.getOutTransitions().get(0);
-					if (transToOutside instanceof UserInteractionsTransition) {
+					if ((transToOutside instanceof UserInteractionsTransition) || transToOutside instanceof ExtensionTransition) {
 						Page page = new Page();
 						page.setName("Next state");
 						emptyTest.addPage(page);
 						
-						UserInteractionsTransition trans = (UserInteractionsTransition) transToOutside.clone();
+						Transition trans = (Transition) transToOutside.clone();
 						trans.setStart(ModelUtil.getLastNodeInList(newNodes));
 						trans.setEnd(page);
 						emptyTest.addTransition(trans);
