@@ -31,7 +31,6 @@ public class CubicTestLocalRunner implements ICubicTestRunner {
 		this.selenium = selenium;
 	}
 
-	@Override
 	public String execute(String commandName, String locator, String inputValue) {
 		try {
 			Method method = selenium.getClass().getMethod(commandName, new Class[]{String.class, String.class});
@@ -42,7 +41,6 @@ public class CubicTestLocalRunner implements ICubicTestRunner {
 		}
 	}
 
-	@Override
 	public String execute(String commandName, String locator) {
 		try {
 			Method method = selenium.getClass().getMethod(commandName, new Class[]{String.class});
@@ -53,47 +51,38 @@ public class CubicTestLocalRunner implements ICubicTestRunner {
 		}
 	}
 
-	@Override
 	public String getText(String locator) {
 		return selenium.getText(locator);
 	}
 
-	@Override
 	public String getTitle() {
 		return selenium.getTitle();
 	}
 
-	@Override
 	public String getValue(String locator) {
 		return selenium.getValue(locator);
 	}
 
-	@Override
 	public boolean isTextPresent(String text) {
 		return selenium.isTextPresent(text);
 	}
 
-	@Override
 	public void waitForPageToLoad(String string) {
 		selenium.waitForPageToLoad(string);
 	}
 
-	@Override
 	public void open(String beginAt) {
 		selenium.open(beginAt);
 	}
 
-	@Override
 	public void setTimeout(String string) {
 		selenium.setTimeout(string);
 	}
 
-	@Override
 	public void start() {
 		selenium.start();		
 	}
 
-	@Override
 	public void stop() {
 		selenium.stop();
 	}

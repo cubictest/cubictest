@@ -101,7 +101,6 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	
 	public final static String CUBIC_TEST_NAME= "CubicUnitTestName";
 
-	@Override
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		setControl(composite);
@@ -136,12 +135,10 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		
 	}
 
-	@Override
 	public String getName() {
 		return "CubicTest";
 	}
 
-	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
 			testName.setText(configuration.getAttribute(CUBIC_TEST_NAME, ""));
@@ -153,14 +150,12 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		}
 	}
 
-	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(CUBIC_TEST_NAME, testName.getText());
 		configuration.setAttribute(ATTR_PROJECT_NAME, projectName.getText());
 		mapResources(configuration);
 	}
 
-	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(CUBIC_TEST_NAME, testName != null ? testName.getText(): "");
 		configuration.setAttribute(ATTR_PROJECT_NAME, projectName != null ? projectName.getText(): "");

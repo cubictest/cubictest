@@ -45,23 +45,19 @@ public class SeleniumCubicTestClasspathContainerPage extends WizardPage
 		
 	}
 
-	@Override
 	public boolean finish() {
 		return true;
 	}
 
-	@Override
 	public IClasspathEntry getSelection() {
 		return containerEntryResult;
 	}
 
-	@Override
 	public void setSelection(IClasspathEntry containerEntry) {
 		if(containerEntry != null)
 			containerEntryResult = containerEntry;
 	}
 
-	@Override
 	public void createControl(Composite parent) {
 		
 		Composite composite= new Composite(parent, SWT.NONE);
@@ -76,7 +72,6 @@ public class SeleniumCubicTestClasspathContainerPage extends WizardPage
 		setControl(composite);
 	}
 
-	@Override
 	public void initialize(IJavaProject project,
 			IClasspathEntry[] currentEntries) {
 		this.project = project;

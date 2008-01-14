@@ -61,6 +61,7 @@ public class LaunchConfigurationDelegate extends AbstractJavaLaunchConfiguration
 	private static final String CUBIC_RUNNER_COULD_NOT_FIND_FREE_PORT = "CubicRunner could not find free port";
 	private static final String CUBIC_UNIT_PORT = "CUBIC_UNIT_PORT";
 	private int port;
+	
 	@Override
 	public String getMainTypeName(ILaunchConfiguration configuration)
 			throws CoreException {
@@ -68,7 +69,6 @@ public class LaunchConfigurationDelegate extends AbstractJavaLaunchConfiguration
 		return "org.cubictest.runner.selenium.server.internal.CubicTestRemoteRunnerServer";
 	}
 
-	@Override
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 

@@ -17,14 +17,12 @@ import org.eclipse.debug.core.ILaunchConfigurationMigrationDelegate;
 public class LaunchConfigurationMigrationDelegate implements
 		ILaunchConfigurationMigrationDelegate {
 
-	@Override
 	public boolean isCandidate(ILaunchConfiguration candidate)
 			throws CoreException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public void migrate(ILaunchConfiguration candidate) throws CoreException {
 		// TODO Auto-generated method stub
 

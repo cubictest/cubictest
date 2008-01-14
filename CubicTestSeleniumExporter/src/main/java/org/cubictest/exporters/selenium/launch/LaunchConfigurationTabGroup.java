@@ -22,7 +22,6 @@ import org.eclipse.jdt.debug.ui.launchConfigurations.JavaJRETab;
 
 public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup{
 
-	@Override
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
 		// TODO Auto-generated method stub
 		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] {

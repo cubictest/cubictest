@@ -104,12 +104,10 @@ public class CubicTestRemoteRunnerClient implements ICubicTestRunner{
 		execute("stop");
 	}
 
-	@Override
 	public String execute(String commandName, String locator, String inputValue) {
 		return execute(commandName, locator, inputValue);
 	}
 
-	@Override
 	public String execute(String commandName, String locator) {
 		return execute(commandName, locator);
 	}
