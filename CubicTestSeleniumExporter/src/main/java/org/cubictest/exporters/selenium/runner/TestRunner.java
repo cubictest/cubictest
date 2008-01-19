@@ -28,10 +28,7 @@ import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
-import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
-import org.cubictest.exporters.selenium.ui.SeleniumSettingsPage;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
-import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.SubTest;
@@ -145,7 +142,7 @@ public class TestRunner extends BaseTestRunner {
 				throw new UserCancelledException("User cancelled");
 			}
 			else {
-				ErrorHandler.logAndRethrow(e);
+				ErrorHandler.rethrow(e);
 			}
 		}
 	}
