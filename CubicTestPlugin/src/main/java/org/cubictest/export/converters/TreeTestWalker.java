@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.export.exceptions.ExporterException;
@@ -302,13 +303,17 @@ public class TreeTestWalker<T extends IResultHolder> {
 
 
 	private boolean nodeShouldBeConverted(TransitionNode node, ConnectionPoint targetExtensionPoint, Page targetPage) {
-		if (targetExtensionPoint == null && targetPage == null) {
+		if (node == null) {
+			Logger.warn("Encountered null node in traversal of test. Skipping it");
+			return false;
+		}
+		else if (targetExtensionPoint == null && targetPage == null) {
 			return true;
 		}
-		if (targetPage == null) { 
+		else if (targetPage == null) { 
 			return targetExtensionPoint == null || ModelUtil.isOnPathToNode(node, targetExtensionPoint);
 		}
-		if (targetExtensionPoint == null) {
+		else if (targetExtensionPoint == null) {
 			return targetPage == null || ModelUtil.isOnPathToNode(node, targetPage);
 		}
 		return false;

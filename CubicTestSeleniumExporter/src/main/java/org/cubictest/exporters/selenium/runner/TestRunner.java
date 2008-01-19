@@ -98,8 +98,10 @@ public class TestRunner extends BaseTestRunner {
 			seleniumStarter.setSettings(settings);
 			seleniumStarter.setPort(port);
 
-			CancelHandler cancelHandler = new CancelHandler(monitor, this);
-			cancelHandler.start();
+			if (monitor != null) {
+				CancelHandler cancelHandler = new CancelHandler(monitor, this);
+				cancelHandler.start();
+			}
 			
 			//start Selenium (browser and server), guard by timeout:
 			int timeout = SeleniumUtils.getTimeout(settings) + 10;

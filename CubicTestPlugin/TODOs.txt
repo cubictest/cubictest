@@ -51,10 +51,12 @@ Done 	Do not activate test editor when recording from "First page" (empty test).
 
 1.8.1:
 Document XPath checker
+Document uninstall feature before install feature
 EPL on cubictest.org
 Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 
 1.8.2:
+Remove stack trace on page element failure in m2 runner. Move catching of exception outside of TestRunner.
 Refactor - Create test with ExtensionStart point from selected nodes (cannot be any nodes after).
 Make possible to record and "make additions while recording"
 Context must have a element name?

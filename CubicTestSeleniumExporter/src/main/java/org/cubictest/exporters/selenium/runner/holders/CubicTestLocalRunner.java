@@ -22,8 +22,7 @@ public class CubicTestLocalRunner implements ICubicTestRunner {
 
 	private Selenium selenium;
 
-	public CubicTestLocalRunner(String string, int port, String browser,
-			String initialUrl) {
+	public CubicTestLocalRunner(int port, String browser, String initialUrl) {
 		selenium = new DefaultSelenium("localhost", port, browser, initialUrl);
 	}
 
@@ -34,7 +33,6 @@ public class CubicTestLocalRunner implements ICubicTestRunner {
 	public String execute(String commandName, String locator, String inputValue) {
 		try {
 			Method method = selenium.getClass().getMethod(commandName, new Class[]{String.class, String.class});
-			System.out.println("Invoking: " + method);
 			return method.invoke(selenium, new Object[]{locator, inputValue}) + "";
 		} catch (Exception e) {
 			throw new ExporterException(e);
@@ -44,7 +42,6 @@ public class CubicTestLocalRunner implements ICubicTestRunner {
 	public String execute(String commandName, String locator) {
 		try {
 			Method method = selenium.getClass().getMethod(commandName, new Class[]{String.class});
-			System.out.println("Invoking: " + method);
 			return method.invoke(selenium, new Object[]{locator}) + "";
 		} catch (Exception e) {
 			throw new ExporterException(e);

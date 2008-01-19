@@ -59,7 +59,7 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 		}
 
 		if (selenium == null) {
-			Logger.info("Opening test browser and connecting to Selenium Proxy... Port " + server.getPort() + ", URL: " + initialUrlStartPoint);
+			Logger.info("Opening " + browser.getId() + " browser and connecting to Selenium Proxy at port " + server.getPort() + ", URL: " + initialUrlStartPoint);
 			seleniumHolder = new SeleniumHolder(port, browser.getId(), initialUrlStartPoint.getBeginAt(), display, settings);
 			seleniumHolder.getSelenium().start();
 			int timeout = SeleniumUtils.getTimeout(settings) * 1000;

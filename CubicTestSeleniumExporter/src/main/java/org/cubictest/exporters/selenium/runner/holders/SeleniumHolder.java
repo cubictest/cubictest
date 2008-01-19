@@ -17,7 +17,6 @@ import org.cubictest.exporters.selenium.runner.ICubicTestRunner;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.swt.widgets.Display;
 
-import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
 /**
@@ -44,7 +43,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 		if (port < 80) {
 			throw new ExporterException("Invalid port");
 		}
-		this.selenium = new CubicTestLocalRunner("localhost", port, browser, initialUrl);
+		this.selenium = new CubicTestLocalRunner(port, browser, initialUrl);
 	}
 	
 	public ICubicTestRunner getSelenium() {

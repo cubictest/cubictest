@@ -35,7 +35,7 @@ public class CancelHandler extends Thread {
 				Thread.sleep(100);
 			}
 		} catch (Exception e) {
-			Logger.warn("Exception when stopping selenium.", e);
+			Logger.warn("Exception in CancelHandler.", e);
 		}
 	}
 }
