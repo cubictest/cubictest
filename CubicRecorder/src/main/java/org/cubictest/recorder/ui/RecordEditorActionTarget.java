@@ -109,7 +109,7 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 
 				//check if the browser should be forwarded:
 				if (selectedNodeNeedsToForwardBrowser() || test.getStartPoint() instanceof ExtensionStartPoint) {
-					UserInfo.setStatusLine("Test browser will be forwarded to start point for test.");
+					UserInfo.setStatusLine("Test browser is forwarded to the selected state. Please wait...");
 					long now = System.currentTimeMillis();
 					while (!seleniumRecorder.isSeleniumStarted()) {
 						if (System.currentTimeMillis() > now + (45 * 1000)) {
