@@ -97,7 +97,7 @@ public class Test extends PropertyAwareObject {
 		}
 		dummyPageForScrolling = new Page();
 		dummyPageForScrolling.setDimension(new Dimension(0, 0));
-		dummyPageForScrolling.setPosition(new Point(0, (maxYPage.getPosition().y + 200)));
+		dummyPageForScrolling.setPosition(new Point(0, (maxYPage.getPosition().y + 300)));
 		pages.add(dummyPageForScrolling);
 	}
 	
