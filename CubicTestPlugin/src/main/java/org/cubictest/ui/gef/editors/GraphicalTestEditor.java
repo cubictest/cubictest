@@ -35,6 +35,7 @@ import org.cubictest.ui.gef.actions.RefactorToSubTestAction;
 import org.cubictest.ui.gef.actions.ResetTestAction;
 import org.cubictest.ui.gef.actions.TestContextMenuProvider;
 import org.cubictest.ui.gef.actions.UpdateTestStartPointAction;
+import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.dnd.DataEditDropTargetListner;
 import org.cubictest.ui.gef.dnd.FileTransferDropTargetListener;
 import org.cubictest.ui.gef.factory.PaletteRootCreator;
@@ -346,8 +347,11 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		super.dispose();
 	}
 	
+	public TestEditPart getTestEditPart() {
+		return (TestEditPart) graphicalViewer.getContents();
+	}
+	
 	public Test getTest(){
-		//get test from viewer:
 		EditPart part = graphicalViewer.getContents();
 		return (Test)part.getModel();
 	}

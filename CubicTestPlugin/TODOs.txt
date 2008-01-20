@@ -50,6 +50,7 @@ Done	Remove i18n from GUI
 Done 	Do not activate test editor when recording from "First page" (empty test). No need to forward browser.
 Done	Remove stack trace on page element failure in m2 runner. Move catching of exception outside of TestRunner.
 Done	Default name for Commons: "Common"
+Done	Have an invisible page 500px down to force scrollbar
 
 1.8.1:
 Document XPath checker
@@ -60,7 +61,6 @@ Wiki documentation on parameterization. + best practice for e.g. login with diff
 1.8.2:
 Commons should refresh status when tested on multiple pages
 Do not close browser when user closes confirmation box (presses X instead of OK)
-Have an invisible page 500px down to force scrollbar
 Refactor - Create test with ExtensionStart point from selected nodes (cannot be any nodes after).
 Recorder recorded absolute URL when page had relative. Worked with watir/selenium IE runners, but not firefox
 Make possible to record and "make additions while recording"

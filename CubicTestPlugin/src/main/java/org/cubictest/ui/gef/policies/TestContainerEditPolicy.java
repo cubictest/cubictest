@@ -22,6 +22,7 @@ import org.cubictest.ui.gef.command.AddCustomTestStepCommand;
 import org.cubictest.ui.gef.command.AddSubTestCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
@@ -41,6 +42,7 @@ public class TestContainerEditPolicy extends ContainerEditPolicy {
 	protected Command getCreateCommand(CreateRequest request) {
 		Object newObject = request.getNewObject();
 		Point location = request.getLocation();
+		((TestEditPart) getHost()).getFigure().translateToRelative(location);
 		TestEditPart editPart = (TestEditPart) getHost();
 		Test test = (Test) editPart.getModel();
 
