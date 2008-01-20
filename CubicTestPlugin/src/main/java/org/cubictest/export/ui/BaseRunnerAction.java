@@ -17,24 +17,28 @@ import java.util.List;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ITestRunner;
 import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.Page;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
-import org.eclipse.ui.IEditorActionDelegate;
-import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IObjectActionDelegate;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.ide.IDE;
 
 /**
@@ -42,10 +46,11 @@ import org.eclipse.ui.ide.IDE;
  * 
  * @author Christian Schwarz
  */
-public abstract class BaseRunnerAction implements IEditorActionDelegate {
+public abstract class BaseRunnerAction implements IObjectActionDelegate {
 
 	protected ITestEditor testEditor;
 	protected ITestRunner testRunner;
+	private Page selectedPage;
 
 	public BaseRunnerAction() {
 		super();	
@@ -94,6 +99,12 @@ public abstract class BaseRunnerAction implements IEditorActionDelegate {
 			if (testRunner == null) {
 				Logger.info("Test runner was null");
 				return;
+			}
+			if (selectedPage != null) {
+				if (!ModelUtil.isOnPathToNode(test.getStartPoint(), selectedPage)) {
+					ErrorHandler.logAndShowErrorDialogAndThrow("Cannot find path from start point to selected page");
+				}
+				testRunner.setTargetPage(selectedPage);
 			}
 
 			shell = getShell();
@@ -160,17 +171,20 @@ public abstract class BaseRunnerAction implements IEditorActionDelegate {
 	}
 	
 
-	/**
-	 * Set active editor and get the Test.
-	 */
-	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
-		if (targetEditor != null && targetEditor instanceof ITestEditor) {
-			testEditor = ((ITestEditor) targetEditor);
-		}
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		this.testEditor = (ITestEditor) targetPart;	
 	}
 
 
 	public void selectionChanged(IAction action, ISelection selection) {
+		this.selectedPage = null;
+		Object selected = ((StructuredSelection) selection).getFirstElement();
+		if (selected instanceof AbstractEditPart) {
+			Object model = ((AbstractEditPart) selected).getModel();
+			if (model instanceof Page) {
+				this.selectedPage = (Page) model;
+			}
+		}
 	}
 	
 	

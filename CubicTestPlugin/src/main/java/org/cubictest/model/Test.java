@@ -13,12 +13,17 @@ package org.cubictest.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.plaf.ListUI;
+
+import org.apache.commons.lang.ArrayUtils;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.i18n.AllLanguages;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 
 
 /**
@@ -41,12 +46,12 @@ public class Test extends PropertyAwareObject {
 	private String description;
 	private String id;
 	protected String modelVersion = ModelInfo.getCurrentModelVersion();
+	private transient AbstractPage dummyPageForScrolling;
 	
 	private transient IFile filePath;
 	private transient IResourceMonitor resourceMonitor;
 	private String setUpAndTearDownClassName;
 
-	
 	/**
 	 * @return Returns the startPoint.
 	 */
@@ -69,13 +74,31 @@ public class Test extends PropertyAwareObject {
 			getPages().add(p);
 			firePropertyChange(CHILD,null,p);
 		}
+		updateDummyPageForScrolling();
 	}
 	
 	public List<AbstractPage> getPages() {
 		if(pages == null) {
 			pages = new ArrayList<AbstractPage>();
 		}
+		updateDummyPageForScrolling();
 		return pages;
+	}
+	
+	private void updateDummyPageForScrolling() {
+		pages.remove(dummyPageForScrolling);
+		AbstractPage maxYPage = null;
+		int maxY = 0;
+		for (AbstractPage page : pages) {
+			if (page.getPosition().y > maxY) {
+				maxY = page.getPosition().y;
+				maxYPage = page;
+			}
+		}
+		dummyPageForScrolling = new Page();
+		dummyPageForScrolling.setDimension(new Dimension(0, 0));
+		dummyPageForScrolling.setPosition(new Point(0, (maxYPage.getPosition().y + 200)));
+		pages.add(dummyPageForScrolling);
 	}
 	
 	public void setPages(List<AbstractPage> pages) {

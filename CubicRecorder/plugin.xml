@@ -14,7 +14,7 @@
                state="false"
                icon="icons/record.gif"
                style="toggle"
-               tooltip="Record test in web browser"/>
+               tooltip="Record test in a web browser"/>
       </objectContribution>
       <objectContribution 
 	       id="CubicRecorder.objectContribution2"
@@ -27,7 +27,7 @@
                state="false"
                icon="icons/record.gif"
                style="toggle"
-               tooltip="Record test in web browser"/>
+               tooltip="Record test in a web browser"/>
       </objectContribution>
    </extension>
 

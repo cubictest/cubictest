@@ -23,6 +23,7 @@ import org.cubictest.exporters.watir.converters.PageElementConverter;
 import org.cubictest.exporters.watir.converters.TransitionConverter;
 import org.cubictest.exporters.watir.converters.UrlStartPointConverter;
 import org.cubictest.exporters.watir.holders.WatirHolder;
+import org.cubictest.model.Page;
 import org.cubictest.model.Test;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
@@ -43,6 +44,7 @@ public class TestRunner extends BaseTestRunner {
 	WatirHolder watirHolder;
 	Process process;
 	TestDoneHandler testDoneHandler;
+	private Page targetPage;
 
 	
 	public TestRunner(Test test, Display display, CubicTestProjectSettings settings) {
@@ -68,7 +70,7 @@ public class TestRunner extends BaseTestRunner {
 						IProgressMonitor.UNKNOWN);
 			}
 
-			testWalker.convertTest(test, watirHolder);
+			testWalker.convertTest(test, watirHolder, targetPage);
 
 			//write exported watir script to temp file:
 			File generatedFolder = new File(settings.getProjectFolder().getAbsolutePath() + File.separator + "generated");
@@ -126,6 +128,11 @@ public class TestRunner extends BaseTestRunner {
 	public void closeBrowser() {
 		if(testDoneHandler != null)
 			testDoneHandler.setCloseBrowser(true);
+	}
+
+
+	public void setTargetPage(Page targetPage) {
+		this.targetPage = targetPage;
 	}
 
 }

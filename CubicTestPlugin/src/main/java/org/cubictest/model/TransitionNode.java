@@ -15,7 +15,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.CubicCloner;
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -230,6 +232,14 @@ public abstract class TransitionNode extends PropertyAwareObject{
 		node.removeOutTransitions();
 		node.setId(getNewGeneratedId());
 		return node;
+	}
+	
+	public TransitionNode cubicClone() {
+		try {
+			return this.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new CubicException("Unable to clone " + this);
+		}
 	}
 	
 	public TransitionNode getFirstSuccessor() {

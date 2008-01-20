@@ -11,7 +11,7 @@
 package org.cubictest.ui.gef.policies;
 
 import org.cubictest.model.AbstractPage;
-import org.cubictest.model.ConnectionPoint;
+import org.cubictest.model.Common;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
@@ -47,6 +47,9 @@ public class TestContainerEditPolicy extends ContainerEditPolicy {
 		if (newObject instanceof AbstractPage) {
 			AbstractPage page = (AbstractPage) newObject;
 			page.setPosition(location);
+			if (page instanceof Common) {
+				page.setName("Common");
+			}
 			AddAbstractPageCommand pageAddCommand = new AddAbstractPageCommand();
 			pageAddCommand.setTest(test);
 			pageAddCommand.setPage(page);

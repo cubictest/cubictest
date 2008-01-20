@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.export;
 
+import org.cubictest.model.Page;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 /**
@@ -20,6 +21,16 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
  */
 public interface ITestRunner extends IRunnableWithProgress {
 
+	/**
+	 * Get message for test completion.
+	 * @return
+	 */
 	public String getResultMessage();
+
+	/**
+	 * Set page where test run will be stopped.
+	 * @param selectedPage
+	 */
+	public void setTargetPage(Page selectedPage);
 	
 }
