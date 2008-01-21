@@ -85,19 +85,22 @@ public class Test extends PropertyAwareObject {
 		return pages;
 	}
 	
+	/** Adds an invisible page to force a scrollbar and a larger canvas */ 
 	private void updateDummyPageForScrolling() {
 		pages.remove(dummyPageForScrolling);
-		AbstractPage maxYPage = null;
 		int maxY = 0;
-		for (AbstractPage page : pages) {
-			if (page.getPosition().y > maxY) {
-				maxY = page.getPosition().y;
-				maxYPage = page;
+		List<TransitionNode> nodes = new ArrayList<TransitionNode>(pages);
+		nodes.addAll(subTests);
+		nodes.addAll(customTestSteps);
+		nodes.addAll(extensionPoints);
+		for (TransitionNode node : nodes) {
+			if (node.getPosition().y > maxY) {
+				maxY = node.getPosition().y;
 			}
 		}
 		dummyPageForScrolling = new Page();
 		dummyPageForScrolling.setDimension(new Dimension(0, 0));
-		dummyPageForScrolling.setPosition(new Point(0, (maxYPage.getPosition().y + 300)));
+		dummyPageForScrolling.setPosition(new Point(0, maxY + 300));
 		pages.add(dummyPageForScrolling);
 	}
 	
@@ -140,6 +143,7 @@ public class Test extends PropertyAwareObject {
 	public void addExtensionPoint(ExtensionPoint point) {
 		getExtensionPoints().add(point);
 		firePropertyChange(CHILD,null,point);
+		updateDummyPageForScrolling();
 	}
 
 	/**
@@ -287,6 +291,7 @@ public class Test extends PropertyAwareObject {
 		test.setResourceMonitor(resourceMonitor);
 		subTests.add(test);
 		firePropertyChange(CHILD, null, test);
+		updateDummyPageForScrolling();
 	}
 	
 	public List<CustomTestStepHolder> getCustomTestSteps() {
@@ -300,6 +305,7 @@ public class Test extends PropertyAwareObject {
 	public void addCustomTestStep(CustomTestStepHolder customTestStep) {
 		customTestSteps.add(customTestStep);
 		firePropertyChange(CHILD, null, customTestStep);
+		updateDummyPageForScrolling();
 	}
 	public void updateObservers() {
 		if(allLanguages != null){
