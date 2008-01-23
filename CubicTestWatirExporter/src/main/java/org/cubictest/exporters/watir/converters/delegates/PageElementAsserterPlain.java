@@ -29,10 +29,6 @@ import org.cubictest.model.formElement.Select;
 public class PageElementAsserterPlain {
 
 	public static void handle(WatirHolder watirHolder, PageElement pe) {
-		if (pe instanceof Select) {
-			//use context asserter instead
-			throw new ExporterException("Internal error. " + pe.getType() + " not supported by this asserter.");
-		}
 		
 		String idValue = "\"" + StringUtils.replace(pe.getMainIdentifierValue(),"\"", "\\\"") + "\"";
 		String idType = WatirUtils.getMainIdType(pe);

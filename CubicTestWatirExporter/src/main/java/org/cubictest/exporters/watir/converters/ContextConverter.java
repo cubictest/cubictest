@@ -18,6 +18,7 @@ import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
+import org.cubictest.model.formElement.Select;
 
 /**
  * Converter for contexts.
@@ -32,6 +33,10 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 
 	public PreContextHandle handlePreContext(WatirHolder watirHolder, IContext ctx) {
 		if (ctx instanceof AbstractPage) {
+			return PreContextHandle.CONTINUE;
+		}
+		else if (ctx instanceof Select) {
+			new PageElementConverter().handlePageElement(watirHolder, (Select) ctx);
 			return PreContextHandle.CONTINUE;
 		}
 		
