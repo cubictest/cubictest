@@ -60,13 +60,15 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 
 		if (selenium == null) {
 			Logger.info("Opening " + browser.getId() + " browser and connecting to Selenium Proxy at port " + server.getPort() + ", URL: " + initialUrlStartPoint);
-			seleniumHolder = new SeleniumHolder(port, browser.getId(), initialUrlStartPoint.getBeginAt(), display, settings);
+			String initUrl = initialUrlStartPoint.getBeginAt();
+			String baseUrl = initUrl.substring(0, initUrl.lastIndexOf("/") + 1);
+			seleniumHolder = new SeleniumHolder(port, browser.getId(), baseUrl, display, settings);
 			seleniumHolder.getSelenium().start();
 			int timeout = SeleniumUtils.getTimeout(settings) * 1000;
 			seleniumHolder.getSelenium().setTimeout(timeout + "");
 
 			//open start URL and check connection (that browser profiles has been set correctly):
-			seleniumHolder.getSelenium().open(initialUrlStartPoint.getBeginAt());
+			seleniumHolder.getSelenium().open(initUrl);
 		}
 		else {
 			//use custom Selenium, e.g. from the CubicRecorder.
