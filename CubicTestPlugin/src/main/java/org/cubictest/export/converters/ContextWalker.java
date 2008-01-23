@@ -36,21 +36,21 @@ public class ContextWalker<T extends IResultHolder> {
 		this.cc = cc;
 	}
 
-	public void handleContext(T t, IContext context) {
+	public void handleContext(T resultHolder, IContext context) {
 		try{
 			IContextConverter<T> cc = this.cc.newInstance();
-			cc.handlePreContext(t, context);
+			cc.handlePreContext(resultHolder, context);
 			for (PageElement pe : context.getRootElements()) {
 	
 				if (pe instanceof IContext) {
-					new ContextWalker<T>(pec, this.cc).handleContext(t,
+					new ContextWalker<T>(pec, this.cc).handleContext(resultHolder,
 							(IContext) pe);
 				} else {
-					pec.newInstance().handlePageElement(t, pe);
+					pec.newInstance().handlePageElement(resultHolder, pe);
 				}
 	
 			}
-			cc.handlePostContext(t, context);
+			cc.handlePostContext(resultHolder, context);
 		} catch (InstantiationException e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		} catch (IllegalAccessException e) {
