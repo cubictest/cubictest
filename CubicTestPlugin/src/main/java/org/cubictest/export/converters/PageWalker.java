@@ -33,11 +33,11 @@ public class PageWalker<T extends IResultHolder> extends ContextWalker<T> {
 		super(pec, cc);
 	}
 
-	public void handlePage(T t, Page page) {
-		super.handleContext(t, page);
+	public void handlePage(T resultHolder, Page page) {
+		super.handleContext(resultHolder, page);
 		for (CommonTransition at : page.getCommonTransitions()) {
 			Common common = (Common) at.getStart();
-			super.handleContext(t, common);
+			super.handleContext(resultHolder, common);
 		}
 	}
 }
