@@ -37,7 +37,8 @@ import org.cubictest.persistence.TestPersistance;
  */
 public class MavenSeleniumRunner extends AbstractMojo
 {
-    private static final String LOG_PREFIX = "[CubicTest Selenium Runner] ";
+    private static final String SMALL_SEPERATOR = "-----------------------------------------------";
+	private static final String LOG_PREFIX = "[CubicTest Selenium Runner] ";
 	/**
      * Location of the tests.
      * @parameter
@@ -75,9 +76,9 @@ public class MavenSeleniumRunner extends AbstractMojo
         }
         while (iter.hasNext()) {
         	File file = (File) iter.next();
-        	getLog().info("-----------------------------------------------");
+        	getLog().info(SMALL_SEPERATOR);
         	getLog().info(LOG_PREFIX + "Running test: " + file);
-        	getLog().info("-----------------------------------------------");
+        	getLog().info(SMALL_SEPERATOR);
         	Test test = TestPersistance.loadFromFile(file, null);
         	getLog().info(LOG_PREFIX + "Test loaded: " + test.getName());
 
@@ -93,7 +94,11 @@ public class MavenSeleniumRunner extends AbstractMojo
         			testRunner.setFailOnAssertionFailure(true);
         			testRunner.run(null);
         			passedTests.add(file.getName());
+                	getLog().info(SMALL_SEPERATOR);
+                	getLog().info("Test run finished: " + file.getName() + ": " + testRunner.getResultMessage());
+                	getLog().info(SMALL_SEPERATOR);
         			stopSelenium(testRunner);
+        			Thread.sleep(800); //do not reopen firefox immediately
     			}
     		}
     		catch (ExporterException e) {
@@ -118,7 +123,10 @@ public class MavenSeleniumRunner extends AbstractMojo
     			break;
 			}
         }
-        
+		if (reuseBrowser) {
+	    	getLog().info("------------------------------------------------------------------------");
+        	getLog().info("Test run finished: " + testRunner.getResultMessage());
+		}        
     	getLog().info("------------------------------------------------------------------------");
         getLog().info("Tests passed: " + passedTests.toString());
         getLog().info("Tests failed: " + failedTests.toString());
