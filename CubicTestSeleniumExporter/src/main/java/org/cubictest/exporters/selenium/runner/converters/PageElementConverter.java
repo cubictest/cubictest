@@ -85,9 +85,6 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 				}
 			}
 		}
-		catch (AssertionFailedException e) {
-			seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
-		}
 		catch (SeleniumException e) {
 			seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
 		}

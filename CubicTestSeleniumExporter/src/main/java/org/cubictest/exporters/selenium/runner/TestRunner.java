@@ -55,6 +55,7 @@ public class TestRunner extends BaseTestRunner {
 	public static final BrowserType DEFAULT_BROWSER = BrowserType.FIREFOX;
 	BrowserType browserType = DEFAULT_BROWSER;
 	private IProgressMonitor monitor;
+	boolean reuseSelenium = false;
 
 	/**
 	 * Typically invoked by the CubicTest Selenium exporter Eclipse plugin.
@@ -87,39 +88,8 @@ public class TestRunner extends BaseTestRunner {
 		this.monitor = monitor;
 		
 		try {
-			seleniumStarter = new SeleniumStarter();
-			seleniumStarter.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
-			seleniumStarter.setBrowser(browserType);
-			seleniumStarter.setDisplay(display);
-			seleniumStarter.setSelenium(selenium);
-			seleniumStarter.setSettings(settings);
-			seleniumStarter.setPort(port);
-
-			if (monitor != null) {
-				CancelHandler cancelHandler = new CancelHandler(monitor, this);
-				cancelHandler.start();
-			}
-			
-			//start Selenium (browser and server), guard by timeout:
-			int timeout = SeleniumUtils.getTimeout(settings) + 10;
-			try {
-				seleniumStarter.setOperation(Operation.START);
-				seleniumHolder = call(seleniumStarter, timeout, TimeUnit.SECONDS);
-			}
-			catch (Exception e) {
-				ErrorHandler.rethrow("Unable to start " + browserType.getDisplayName() + 
-						". Check that the browser is installed.\n\n" + 
-						"Error message: " + e.toString(), e);
-			}
-			
-			//monitor used to detect user cancel request:
-			seleniumHolder.setMonitor(monitor);
-			seleniumHolder.setFailOnAssertionFailure(failOnAssertionFailure);
-			
-
-			while (!seleniumHolder.isSeleniumStarted()) {
-				//wait for selenium (server & test system) to start
-				Thread.sleep(100);
+			if (seleniumHolder == null || !reuseSelenium) {
+				startSelenium(monitor);
 			}
 			
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(UrlStartPointConverter.class, 
@@ -144,6 +114,45 @@ public class TestRunner extends BaseTestRunner {
 			else {
 				ErrorHandler.rethrow(e);
 			}
+		}
+	}
+
+
+	private void startSelenium(IProgressMonitor monitor)
+			throws InterruptedException {
+		seleniumStarter = new SeleniumStarter();
+		seleniumStarter.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
+		seleniumStarter.setBrowser(browserType);
+		seleniumStarter.setDisplay(display);
+		seleniumStarter.setSelenium(selenium);
+		seleniumStarter.setSettings(settings);
+		seleniumStarter.setPort(port);
+
+		if (monitor != null) {
+			CancelHandler cancelHandler = new CancelHandler(monitor, this);
+			cancelHandler.start();
+		}
+		
+		//start Selenium (browser and server), guard by timeout:
+		int timeout = SeleniumUtils.getTimeout(settings) + 10;
+		try {
+			seleniumStarter.setOperation(Operation.START);
+			seleniumHolder = call(seleniumStarter, timeout, TimeUnit.SECONDS);
+		}
+		catch (Exception e) {
+			ErrorHandler.rethrow("Unable to start " + browserType.getDisplayName() + 
+					". Check that the browser is installed.\n\n" + 
+					"Error message: " + e.toString(), e);
+		}
+		
+		//monitor used to detect user cancel request:
+		seleniumHolder.setMonitor(monitor);
+		seleniumHolder.setFailOnAssertionFailure(failOnAssertionFailure);
+		
+
+		while (!seleniumHolder.isSeleniumStarted()) {
+			//wait for selenium (server & test system) to start
+			Thread.sleep(100);
 		}
 	}
 
@@ -185,6 +194,10 @@ public class TestRunner extends BaseTestRunner {
 		return "";
 	}
 	
+	public String getCurrentBreadcrumbs() {
+		return seleniumHolder.getCurrentBreadcrumbs();
+	}
+	
 	
 	/**
 	 * Get the initial URL start point of the test (expands subtests).
@@ -216,6 +229,11 @@ public class TestRunner extends BaseTestRunner {
 
 	public void setTargetPage(Page targetPage) {
 		this.targetPage = targetPage;
+	}
+
+
+	public void setReuseSelenium(boolean reuseSelenium) {
+		this.reuseSelenium = reuseSelenium;
 	}
 
 }
