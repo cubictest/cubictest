@@ -24,6 +24,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.runner.TestRunner;
+import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 
@@ -36,7 +37,8 @@ import org.cubictest.persistence.TestPersistance;
  */
 public class MavenSeleniumRunner extends AbstractMojo
 {
-    /**
+    private static final String LOG_PREFIX = "[CubicTest Selenium Runner] ";
+	/**
      * Location of the tests.
      * @parameter
      * @required
@@ -54,51 +56,87 @@ public class MavenSeleniumRunner extends AbstractMojo
         List<String> passedTests = new ArrayList<String>();
         List<String> failedTests = new ArrayList<String>();
         List<String> exceptionTests = new ArrayList<String>();
+        List<String> notRunTests = new ArrayList<String>();
+        for (Iterator fileIter = files.iterator(); fileIter.hasNext();) {
+			File file = (File) fileIter.next();
+			notRunTests.add(file.getName());
+		}
 
         boolean buildOk = true;
         
+        TestRunner testRunner = null;
+        boolean useFreshBrowser = settings.getBoolean(SeleniumUtils.getPluginPropertyPrefix(), "useNewBrowserInstanceForEachTestSuiteFile", false);
+        boolean reuseBrowser = !useFreshBrowser;
+        getLog().info(LOG_PREFIX + " Use new browser instance for each test suite file: " + reuseBrowser);
+        if (reuseBrowser) {
+			testRunner = new TestRunner(null, null, settings);
+			testRunner.setReuseSelenium(true);
+			testRunner.setFailOnAssertionFailure(true);
+        }
         while (iter.hasNext()) {
         	File file = (File) iter.next();
-        	getLog().info("---------------------------");
-        	getLog().info("Running test: " + file);
-        	getLog().info("---------------------------");
+        	getLog().info("-----------------------------------------------");
+        	getLog().info(LOG_PREFIX + "Running test: " + file);
+        	getLog().info("-----------------------------------------------");
         	Test test = TestPersistance.loadFromFile(file, null);
-        	getLog().info("Test loaded: " + test.getName());
+        	getLog().info(LOG_PREFIX + "Test loaded: " + test.getName());
 
-    		TestRunner testRunner = null;
     		try {
-    			testRunner = new TestRunner(test, null, settings);
-    			testRunner.setFailOnAssertionFailure(true);
-    			//RUN IT!
-    			testRunner.run(null);
-    			passedTests.add(file.getName());
+    			notRunTests.remove(file.getName());
+    			if (reuseBrowser) {
+    				testRunner.setTest(test);
+        			testRunner.run(null);
+        			passedTests.add(file.getName());
+    			}
+    			else {
+    				testRunner = new TestRunner(test, null, settings);
+        			testRunner.setFailOnAssertionFailure(true);
+        			testRunner.run(null);
+        			passedTests.add(file.getName());
+        			stopSelenium(testRunner);
+    			}
     		}
     		catch (ExporterException e) {
-            	getLog().error("==========================================================");
+    			getLog().error(LOG_PREFIX + "Test failure detected. Stopping Selenium.");
+    			stopSelenium(testRunner);
+            	getLog().error("------------------------------------------------------------------------");
     			getLog().error("Failure in test " + file.getName() + ": " + e.getMessage());
-            	getLog().error("==========================================================");
+            	getLog().info("------------------------------------------------------------------------");
+            	getLog().info("Failure path: " + file.getName() + " --> " + testRunner.getCurrentBreadcrumbs());
+            	getLog().info("-----------------------------------------------------------------------");
+            	getLog().info(file.getName() + ": " + testRunner.getResultMessage());
     			failedTests.add(file.getName());
     			buildOk = false;
     			break;
     		}
     		catch (Throwable e) {
+    			getLog().error(LOG_PREFIX + "Error detected during test run. Stopping Selenium.");
+    			stopSelenium(testRunner);
     			getLog().error(e);
     			exceptionTests.add(file.getName());
     			buildOk = false;
     			break;
 			}
-    		finally {
-				((TestRunner) testRunner).stopSelenium();
-    		}
         }
         
+    	getLog().info("------------------------------------------------------------------------");
         getLog().info("Tests passed: " + passedTests.toString());
         getLog().info("Tests failed: " + failedTests.toString());
         getLog().info("Threw exception: " + exceptionTests.toString());
+        getLog().info("Tests not run: " + notRunTests.toString());
 
         if (!buildOk) {
         	throw new MojoFailureException("[CubicTest] There were test failures.");
         }
 }
+
+	private void stopSelenium(TestRunner testRunner) {
+		try {
+			((TestRunner) testRunner).stopSelenium();
+		}
+		catch (Exception e) {
+			getLog().error("Error stopping selenium.", e);
+		}
+	}
  
 }
