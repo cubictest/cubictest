@@ -161,21 +161,31 @@ public class TreeTestWalker<T extends IResultHolder> {
 		}
 
 		if (nodeShouldBeConverted(node, targetExtensionPoint, targetPage)) {
-
+			
 			if (node instanceof UrlStartPoint) {
+				resultHolder.pushBreadcrumb(node);
 				urlStartPointConverter.newInstance().handleUrlStartPoint(resultHolder, (UrlStartPoint) node, targetExtensionPoint == null);
+				resultHolder.popBreadcrumb();
 			} 
 			else if (node instanceof ExtensionStartPoint) {
+				resultHolder.pushBreadcrumb(node);
 				handleExtensionStartPoint(resultHolder, node);
+				resultHolder.popBreadcrumb();
 			}
 			else if (node instanceof SubTest) {
+				resultHolder.pushBreadcrumb(node);
 				handleSubTest(resultHolder, node, targetExtensionPoint);
+				resultHolder.popBreadcrumb();
 			}
 			else if (node instanceof Page) {
+				resultHolder.pushBreadcrumb(node);
 				pageWalker.handlePage(resultHolder, (Page) node);
+				resultHolder.popBreadcrumb();
 			} 
 			else if (node instanceof CustomTestStepHolder) {
+				resultHolder.pushBreadcrumb(node);
 				handleCustomStep(resultHolder, node);
+				resultHolder.popBreadcrumb();
 			}
 
 			//OK, node converted, see if we should stop traversing the successor nodes:

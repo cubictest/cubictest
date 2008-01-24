@@ -11,6 +11,7 @@
 package org.cubictest.export.holders;
 
 import org.cubictest.model.ConnectionPoint;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
 
 /**
@@ -39,4 +40,17 @@ public interface IResultHolder {
 	 * @return
 	 */
 	public boolean shouldFailOnAssertionFailure();
+	
+	
+	/**
+	 * Add element to test walker breadcrumbs (trackbacks). 
+	 * @param element
+	 */
+	public void pushBreadcrumb(PropertyAwareObject element);
+
+	/**
+	 * Remove element from test walker breadcrumbs (trackbacks).
+	 */ 
+	public void popBreadcrumb();
+
 }

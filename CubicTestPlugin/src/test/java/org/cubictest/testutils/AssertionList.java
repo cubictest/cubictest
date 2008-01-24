@@ -17,6 +17,7 @@ import junit.framework.AssertionFailedError;
 
 import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.model.ConnectionPoint;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
 
 /**
@@ -77,21 +78,20 @@ public class AssertionList<T> extends ArrayList<T> implements IResultHolder {
 	}
 
 
-
 	public String toResultString() {
 		return toString();
 	}
-
-
 	
 	public void updateStatus(SubTest subTest, boolean hadException, ConnectionPoint targetConnectionPoint) {
-		// TODO Auto-generated method stub
 	}
 
-
-
 	public boolean shouldFailOnAssertionFailure() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void popBreadcrumb() {
+	}
+
+	public void pushBreadcrumb(PropertyAwareObject element) {
 	}
 }

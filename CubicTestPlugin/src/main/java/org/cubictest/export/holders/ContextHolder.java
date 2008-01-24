@@ -18,7 +18,9 @@ import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.utils.exported.XPathBuilder;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
+import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.IContext;
 
 /**
@@ -29,6 +31,7 @@ import org.cubictest.model.context.IContext;
 public class ContextHolder implements IResultHolder {
 
 
+	protected Stack<PropertyAwareObject> breadCrumbs = new Stack<PropertyAwareObject>(); 
 	private Stack<IContext> contextStack = new Stack<IContext>(); 
 	private Map<PageElement, PageElement> elementParentMap = new HashMap<PageElement, PageElement>();
 	private boolean shouldFailOnAssertionFailure;
@@ -141,5 +144,29 @@ public class ContextHolder implements IResultHolder {
 
 	public void setShouldFailOnAssertionFailure(boolean shouldFailOnAssertionFailure) {
 		this.shouldFailOnAssertionFailure = shouldFailOnAssertionFailure;
+	}
+	
+	public void popBreadcrumb() {
+		breadCrumbs.pop();
+	}
+
+	public void pushBreadcrumb(PropertyAwareObject element) {
+		breadCrumbs.push(element);
+	}
+
+	public String getCurrentBreadcrumbs() {
+		String res = "";
+		for (PropertyAwareObject obj : breadCrumbs) {
+			if (StringUtils.isNotBlank(res)) {
+				res += " --> ";
+			}
+			if (obj instanceof TransitionNode) {
+				res += ((TransitionNode) obj).getName();
+			}
+			else if (obj instanceof PageElement) {
+				res += ((PageElement) obj).getDirectEditIdentifier().getValue();
+			}
+		}
+		return res;
 	}
 }

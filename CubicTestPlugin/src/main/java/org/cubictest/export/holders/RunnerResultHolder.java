@@ -123,7 +123,8 @@ public abstract class RunnerResultHolder extends ContextHolder {
 			if (results.get(i).equals(TestPartStatus.PASS)) {
 				pass++;
 			}
-			else {
+			else if (results.get(i).equals(TestPartStatus.EXCEPTION) ||
+					results.get(i).equals(TestPartStatus.FAIL)) {
 				failed++;
 			}
 			i++;
