@@ -20,6 +20,7 @@ import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.exporters.cubicunit.ui.BrowserType;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UrlStartPoint;
@@ -179,8 +180,13 @@ public class Holder implements IResultHolder {
 	}
 
 	public boolean shouldFailOnAssertionFailure() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void popBreadcrumb() {
+	}
+
+	public void pushBreadcrumb(PropertyAwareObject element) {
 	}
 	
 	
