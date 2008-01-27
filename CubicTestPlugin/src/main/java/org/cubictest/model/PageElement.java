@@ -11,6 +11,7 @@
 package org.cubictest.model;
 
 import static org.cubictest.model.IdentifierType.LABEL;
+import static org.cubictest.model.Moderator.EQUAL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,11 +69,11 @@ public abstract class PageElement extends PropertyAwareObject
 				if (i > 0) {
 					buff.append(",");
 				}
-				String op = "=";
+				String op = " " + id.getModerator().getDisplayText();
 				if (id.getProbability() < 0) {
-					op = "!=";
+					op = " not " + op;
 				}
-				buff.append(" " + id.getType().toString().toLowerCase() + op + "'" + id.getValue() + "'");
+				buff.append(" " + id.getType().toString().toLowerCase() + op + " '" + id.getValue() + "'");
 			}
 			i++;
 		}

@@ -196,22 +196,22 @@ public class XPathBuilder {
 	 */
 	private static String getPageValueCheck(Identifier id, String pageValue) {
 		String result = "";
+		String comparisonOperator = getStringComparisonOperator(id);
 		if (id.getModerator().equals(Moderator.EQUAL)) {
 			//normal equal check
-			String comparisonOperator = getStringComparisonOperator(id);
 			result += pageValue + comparisonOperator + "'" + id.getValue() + "'";
 		}
 		else {
 			String prefixOperator = getPrefixComparisonOperator(id);
 			if (id.getModerator().equals(Moderator.BEGIN)) {
-				result += "substring(" + pageValue + ", 0, string-length('" + id.getValue() + "') + 1) = '" + id.getValue() + "'";
+				result += "substring(" + pageValue + ", 0, string-length('" + id.getValue() + "') + 1) " + comparisonOperator + " '" + id.getValue() + "'";
 			}
 			else if (id.getModerator().equals(Moderator.CONTAIN)) {
-				result += prefixOperator + "contains(" + pageValue + ", " + "'" + id.getValue() + "')";
+				result += prefixOperator + "(contains(" + pageValue + ", " + "'" + id.getValue() + "'))";
 			}
 			else if (id.getModerator().equals(Moderator.END)) {
 				result += "substring(" + pageValue + ", string-length(" + pageValue + ") - string-length(" + "'" + id.getValue() +"')" +
-						" + 1, string-length('" + id.getValue() + "')) = '" + id.getValue() + "'";
+						" + 1, string-length('" + id.getValue() + "')) " + comparisonOperator + " '" + id.getValue() + "'";
 			}
 		}
 		return result;
@@ -227,7 +227,7 @@ public class XPathBuilder {
 
 	private static String getPrefixComparisonOperator(Identifier id) {
 		if (id.getProbability() < 0) {
-			return "!";
+			return "not";
 		}
 		return "";
 	}
