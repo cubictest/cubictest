@@ -57,7 +57,7 @@ public class TestRunner extends BaseTestRunner {
 	public void run(IProgressMonitor monitor) {
 
 		try {
-			watirHolder = new WatirHolder(true, display, settings);
+			watirHolder = new WatirHolder(display, settings);
 			watirHolder.setMonitor(monitor);
 
 			TreeTestWalker<WatirHolder> testWalker = new TreeTestWalker<WatirHolder>(

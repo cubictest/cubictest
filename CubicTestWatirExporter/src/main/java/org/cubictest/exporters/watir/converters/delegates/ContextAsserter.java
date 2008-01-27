@@ -10,11 +10,9 @@
  *******************************************************************************/
 package org.cubictest.exporters.watir.converters.delegates;
 
-import org.cubictest.export.utils.exported.XPathBuilder;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.formElement.Select;
 
 /**
  * Asserts contexts present using XPath.
@@ -28,13 +26,7 @@ public class ContextAsserter {
 
 		watirHolder.add("pass = 0", 3);
 
-		if (pe instanceof Select) {
-			String xpath = "//" + XPathBuilder.getXPath(pe); //cannot assert all child elements, as watir does not support it for options
-			watirHolder.add(watirHolder.getVariableName(pe) + " = ie." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\")", 3);
-			String not = pe.isNot() ? "": "not "; 
-			watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".exists? do", 3);
-		}
-		else if (WatirUtils.getElementType(pe).equals("*")){
+		if (WatirUtils.getElementType(pe).equals("*")){
 			String xpath = watirHolder.getFullContextWithAllElements(pe);
 			watirHolder.add(watirHolder.getVariableName(pe) + " = ie.element_by_xpath(\"" + xpath + "\")", 3);
 			String not = pe.isNot() ? "" : "not "; 

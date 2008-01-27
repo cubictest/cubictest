@@ -34,7 +34,7 @@ public class PageElementAsserterXPath {
 
 	
 	public static void handle(WatirHolder watirHolder, PageElement pe) {
-		if (pe instanceof Title || pe instanceof Option || pe instanceof Select) {
+		if (pe instanceof Title || pe instanceof Option) {
 			throw new ExporterException("Internal error. " + pe.getType() + " not supported by this asserter.");
 		}
 		else {

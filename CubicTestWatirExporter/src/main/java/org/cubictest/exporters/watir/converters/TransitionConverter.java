@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.cubictest.exporters.watir.converters;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
@@ -37,12 +34,9 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 	 * @param transition The transition to convert.
 	 */
 	public void handleUserInteractions(WatirHolder watirHolder, UserInteractionsTransition transition) {
-		List actions = transition.getUserInteractions();
-		Iterator it = actions.iterator();
-		while(it.hasNext()) {
-			UserInteraction action = (UserInteraction) it.next();
+
+		for (UserInteraction action :  transition.getUserInteractions()) {
 			IActionElement actionElement = action.getElement();
-			
 			if (actionElement == null) {
 				Logger.warn("Action element was null. Skipping user interaction: " + transition);
 				continue;

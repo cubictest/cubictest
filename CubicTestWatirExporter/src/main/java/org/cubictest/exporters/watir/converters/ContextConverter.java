@@ -27,10 +27,6 @@ import org.cubictest.model.formElement.Select;
  */
 public class ContextConverter implements IContextConverter<WatirHolder> {
 
-	
-	public static final String ROOT_CONTEXT = "ie";
-
-
 	public PreContextHandle handlePreContext(WatirHolder watirHolder, IContext ctx) {
 		if (ctx instanceof AbstractPage) {
 			return PreContextHandle.CONTINUE;
@@ -67,7 +63,6 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 
 
 	public PostContextHandle handlePostContext(WatirHolder watirHolder, IContext a) {
-		watirHolder.setPrefix(ROOT_CONTEXT);
 		return PostContextHandle.DONE;
 	}
 }

@@ -55,25 +55,18 @@ public class WatirHolder extends RunnerResultHolder {
 	public static String FAIL = "[-FAIL-]>";
 	public static String EXCEPTION = "[-EXCEPTION-]>";
 	/** Initial prefix */
-	private boolean runnerMode;
 	public Map<PageElement, Boolean> pageElementInContextMap;
 	
-	/** Prefix for non-xpath contexts */
-	private String prefix = "ie";
-	private int counter;
-	
-	
 	public WatirHolder() {
-		this(false, null, null);
+		this(null, null);
 	}
 	
 	/**
 	 * Constructor that sets up the Watir script.
 	 * @param testName
 	 */
-	public WatirHolder(boolean runnerMode, Display display, CubicTestProjectSettings settings) {
+	public WatirHolder(Display display, CubicTestProjectSettings settings) {
 		super(display, settings);
-		this.runnerMode = runnerMode;
 		this.rubyBuffer = new RubyBuffer();
 		pageElementIdMap = new HashMap<String, PageElement>();
 		elementVariableMap = new LinkedHashMap<PageElement, String>();
@@ -206,15 +199,18 @@ public class WatirHolder extends RunnerResultHolder {
 			return true;
 		}
 		
-		for (Identifier id : pe.getIdentifiers()) {
-			if (id.isNotIndifferent() && !id.getModerator().equals(Moderator.EQUAL)) {
-				return true;
-			}
+		IdentifierType mainIdType = pe.getMainIdentifierType();
+		if (mainIdType != null
+				&& (mainIdType.equals(IdentifierType.SRC) || mainIdType.equals(IdentifierType.HREF))
+				&& (!pe.getMainIdentifierValue().startsWith("http"))
+				&& (!pe.getMainIdentifier().getModerator().equals(Moderator.EQUAL))) {
+			return true;
 		}
 		
 		if (pe instanceof Option) {
 			Option option = (Option) pe;
-			if (!hasMoreThanOneIdentifier(option) && (option.getMainIdentifierType().equals(IdentifierType.LABEL) || 
+			if (!hasMoreThanOneIdentifier(option) && 
+					(option.getMainIdentifierType().equals(IdentifierType.LABEL) || 
 					option.getMainIdentifierType().equals(IdentifierType.VALUE) ||
 					option.getMainIdentifierType().equals(IdentifierType.INDEX))) {
 				return false;
@@ -258,19 +254,4 @@ public class WatirHolder extends RunnerResultHolder {
 		return idMap.get(pe);
 	}
 	
-	/**
-	 * Set prefix to use (e.g. for contexts).
-	 * Default prefix is "ie" (internet explorer root).
-	 */
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
-
-	/**
-	 * Get prefix to use (e.g. for contexts).
-	 * Default prefix is "ie" (internet explorer root).
-	 */
-	public String getPrefix() {
-		return prefix;
-	}
 }

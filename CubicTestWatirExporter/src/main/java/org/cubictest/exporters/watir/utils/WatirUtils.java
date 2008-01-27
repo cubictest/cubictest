@@ -34,13 +34,17 @@ import static org.cubictest.model.IdentifierType.NAME;
 import static org.cubictest.model.IdentifierType.SRC;
 import static org.cubictest.model.IdentifierType.TITLE;
 import static org.cubictest.model.IdentifierType.VALUE;
+import static org.cubictest.model.Moderator.EQUAL;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.ActionType;
+import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
+import org.cubictest.model.Moderator;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.UserInteraction;
@@ -183,13 +187,19 @@ public class WatirUtils {
 	 * Gets the element ID that the label is for.
 	 */
 	public static String getLabelTargetId(PageElement pe, WatirHolder watirHolder) {
-		String label = pe.getIdentifier(IdentifierType.LABEL).getValue();
-
+		String label = getIdValue(pe.getIdentifier(LABEL));
+		Moderator moderator = pe.getIdentifier(LABEL).getModerator();
+		
 		RubyBuffer buff = new RubyBuffer();
 		buff.add("# getting element associated with label '" + label + "'", 3);
 		buff.add(watirHolder.getVariableName(pe) + " = nil", 3);
 		buff.add("ie.labels.each do |label|", 3);
-		buff.add("if (label.text == \"" + label + "\")", 4);
+		if (moderator.equals(EQUAL)) {
+			buff.add("if (label.text == " + label + ")", 4);
+		}
+		else {
+			buff.add("if ((label.text =~ " + label + ") != nil)", 4);
+		}
 		buff.add(watirHolder.getVariableName(pe) + " = label.for", 5);
 		buff.add("end", 4);
 		buff.add("end", 3);
@@ -206,4 +216,25 @@ public class WatirUtils {
 		return pe.getMainIdentifierType().equals(LABEL) && !(pe instanceof Link) && !(pe instanceof Text) && !(pe instanceof Button) && !(pe instanceof Option);
 	}
 	
+	
+	public static String getIdValue(Identifier id) {
+		String idValue = StringUtils.replace(id.getValue(), "\"", "\\\"");
+		switch (id.getModerator()) {
+		case CONTAIN:
+			idValue = "/" + idValue + "/";
+			break;
+		case BEGIN:
+			idValue = "/^" + idValue + "/";
+			break;
+		case END:
+			idValue = "/" + idValue + "$/";
+			break;
+		case EQUAL:
+			idValue = "\"" + idValue + "\"";
+			break;
+		}
+		return idValue;
+	}
+
+
 }

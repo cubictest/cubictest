@@ -112,9 +112,8 @@ public class WatirMonitor extends Thread {
     			public void run() {
     				UserInfo.showErrorDialog("Watir failed to parse a page/state probably due to malformed HTML. If the HTML page cannot be fixed, " +
     						"try the following to prevent the need for parsing the page and using XPath:\n\n" +
-    						"1. Avoid using Contexts and SelectLists\n" +
-    						"2. Have page elements use only one identifier.\n" +
-    						"3. Only use \"Be equal to\" in identifier properties\n");
+    						"1. Avoid using Contexts\n" +
+    						"2. Have page elements use only one identifier.\n");
     			}
     		});
 		}
