@@ -25,6 +25,7 @@ import static org.cubictest.model.ActionType.MOUSE_OVER;
 import static org.cubictest.model.ActionType.REFRESH;
 import static org.cubictest.model.ActionType.SELECT;
 import static org.cubictest.model.ActionType.UNCHECK;
+import static org.cubictest.model.Moderator.EQUAL;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
@@ -33,6 +34,8 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
+import org.cubictest.model.Moderator;
+import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.formElement.Option;
 
@@ -54,6 +57,10 @@ public class SeleniumUtils {
 	 */
 	public static String getOptionLocator(Option option) {
 		Identifier optionMainId = option.getMainIdentifier();
+		if (!optionMainId.getModerator().equals(EQUAL)) {
+			throw new ExporterException("\n" + option.getParent() + " --> " + option + 
+					":\nSelenium only supports \"be equal to\" identifiers for Options in SelectLists.");
+		}
 		String locator = "";
 		if (optionMainId == null) {
 			locator = "index=0";
