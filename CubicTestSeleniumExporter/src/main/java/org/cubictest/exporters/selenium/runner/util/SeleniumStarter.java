@@ -43,7 +43,7 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 	@Override
 	public SeleniumHolder doStart() {
 		if (selenium == null) {
-			server = new SeleniumProxyServer(settings, port);
+			server = new SeleniumProxyServer(browser.isProxyInjectionMode(), port);
 			server.start();
 			while (!server.isStarted()) {
 				//wait for server thread to start

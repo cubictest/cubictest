@@ -76,9 +76,7 @@ public class MavenSeleniumRunner extends AbstractMojo
         }
         while (iter.hasNext()) {
         	File file = (File) iter.next();
-        	getLog().info(SMALL_SEPERATOR);
         	getLog().info(LOG_PREFIX + "Running test: " + file);
-        	getLog().info(SMALL_SEPERATOR);
         	Test test = TestPersistance.loadFromFile(file, null);
         	getLog().info(LOG_PREFIX + "Test loaded: " + test.getName());
 
@@ -108,8 +106,11 @@ public class MavenSeleniumRunner extends AbstractMojo
     			getLog().error("Failure in test " + file.getName() + ": " + e.getMessage());
             	getLog().info("------------------------------------------------------------------------");
             	getLog().info("Failure path: " + file.getName() + " --> " + testRunner.getCurrentBreadcrumbs());
-            	getLog().info("-----------------------------------------------------------------------");
-            	getLog().info(file.getName() + ": " + testRunner.getResultMessage());
+            	if (!reuseBrowser) {
+            		//result message only valid on file basis when no browser reuse
+	            	getLog().info("-----------------------------------------------------------------------");
+	            	getLog().info(file.getName() + ": " + testRunner.getResultMessage());
+            	}
     			failedTests.add(file.getName());
     			buildOk = false;
     			break;
@@ -124,6 +125,9 @@ public class MavenSeleniumRunner extends AbstractMojo
 			}
         }
 		if (reuseBrowser) {
+			if (!files.isEmpty() && testRunner != null) {
+    			stopSelenium(testRunner);
+			}
 	    	getLog().info("------------------------------------------------------------------------");
         	getLog().info("Test run finished: " + testRunner.getResultMessage());
 		}        
