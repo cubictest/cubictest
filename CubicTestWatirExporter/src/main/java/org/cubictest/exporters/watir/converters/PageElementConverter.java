@@ -15,6 +15,7 @@ import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.watir.converters.delegates.PageElementAsserterPlain;
 import org.cubictest.exporters.watir.converters.delegates.PageElementAsserterXPath;
 import org.cubictest.exporters.watir.holders.WatirHolder;
+import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.PageElement;
 
 /**
@@ -43,6 +44,7 @@ public class PageElementConverter implements IPageElementConverter<WatirHolder> 
 			PageElementAsserterPlain.handle(watirHolder, pe);
 		}
 
+		watirHolder.add(watirHolder.getVariableName(pe) + ".flash(1)", 3);
 		watirHolder.add("puts \"" + WatirHolder.PASS + escape(watirHolder.getId(pe)) + "\"", 3);
 		watirHolder.add("passedSteps += 1 ", 3);
 	
