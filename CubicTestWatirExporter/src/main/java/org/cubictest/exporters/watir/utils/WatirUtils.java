@@ -26,6 +26,7 @@ import static org.cubictest.model.ActionType.MOUSE_OVER;
 import static org.cubictest.model.ActionType.NO_ACTION;
 import static org.cubictest.model.ActionType.SELECT;
 import static org.cubictest.model.ActionType.UNCHECK;
+import static org.cubictest.model.IdentifierType.ALT;
 import static org.cubictest.model.IdentifierType.HREF;
 import static org.cubictest.model.IdentifierType.ID;
 import static org.cubictest.model.IdentifierType.INDEX;
@@ -78,6 +79,8 @@ public class WatirUtils {
 			return ":index";
 		if (idType.equals(SRC))
 			return ":src";
+		if (idType.equals(ALT))
+			return ":alt";
 		if (idType.equals(HREF))
 			return ":url";
 		if (idType.equals(TITLE))
@@ -91,7 +94,7 @@ public class WatirUtils {
 			}
 		}
 		else {
-			throw new ExporterException("Identifier type \"" + idType + "\" not recognized. Page element: " + pe);
+			throw new ExporterException("Page element: " + pe + "\n\nIdentifier type \"" + idType + "\" not supported by Watir as primary ID for elements.");
 		}
 	}
 	

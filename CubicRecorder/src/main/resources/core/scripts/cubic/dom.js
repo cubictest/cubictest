@@ -60,7 +60,8 @@ Cubic.dom.serializeDomNode.properties = [
 	'src',
 	'tagName',
 	'type',
-	'value'
+	'value',
+	'alt'
 ];
 
 Cubic.dom.getSelectedText = function(w) {

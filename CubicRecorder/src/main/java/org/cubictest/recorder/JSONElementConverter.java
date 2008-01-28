@@ -137,112 +137,104 @@ public class JSONElementConverter {
 			
 			//looping over the created page element's ID types and setting all applicable values:
 			
-			idTypesLoop:
 			for(IdentifierType idType : pe.getIdentifierTypes()){
 				//override default "must" typically used for direct edit:
 				initializeEmptyIdentifier(pe, idType);
 			
 				String key = null;
-				String src = "";
+				String value;
 				
 				// Identifiers are in prioritized order! Only record one of them (more robust)
 				switch (idType){
 					case LABEL:
 						if(pe instanceof Button) {
 							key = "value";
-							if (handleIdentifier(properties, pe, idType, key))
-								break idTypesLoop;
-							else
-								continue idTypesLoop;
+							value = getString(properties, key);
+							checkAndSetIdentifier(pe, idType, value, true);
 						}
 						else if (pe instanceof Link || pe instanceof Title || pe instanceof Option) {
 							key = "innerHTML";
-							if (handleIdentifier(properties, pe, idType, key))
-								break idTypesLoop;
-							else
-								continue idTypesLoop;
+							value = getString(properties, key);
+							checkAndSetIdentifier(pe, idType, value, true);
 						}
 						else {
 							//TODO: Get html <label> tag 
-							continue idTypesLoop;
 						}
+						break;
 					case ID:
 						key = "id";
-						if (handleIdentifier(properties, pe, idType, key))
-							break idTypesLoop;
-						else
-							continue idTypesLoop;
+						value = getString(properties, key);
+						checkAndSetIdentifier(pe, idType, value, false);
+						break;
 					case SRC:
 						key = "src";
-						src = makeRelativeUrl(getString(properties, "src"));
-						if (handleIdentifier(properties, pe, idType, key))
-							break idTypesLoop;
-						else
-							continue idTypesLoop;
+						value = makeRelativeUrl(getString(properties, key));
+						checkAndSetIdentifier(pe, idType, value, false);
+						break;
 					case NAME:
 						key = "name";
-						if (handleIdentifier(properties, pe, idType, key))
-							break idTypesLoop;
-						else
-							continue idTypesLoop;
+						value = getString(properties, key);
+						checkAndSetIdentifier(pe, idType, value, false);
+						break;
 					case HREF:
-						//TODO: Handle relative/absolute URLs. Selenium always gets absolute, even if page uses relative URL.
-//						key = "href";
-						continue idTypesLoop;
+						key = "href";
+						value = makeRelativeUrl(getString(properties, key));
+						checkAndSetIdentifier(pe, idType, value, false);
+						break;
 					case TITLE:
 						key = "title";
-						if (handleIdentifier(properties, pe, idType, key))
-							break idTypesLoop;
-						else
-							continue idTypesLoop;
+						value = getString(properties, key);
+						checkAndSetIdentifier(pe, idType, value, true);
+						break;
+					case ALT:
+						key = "alt";
+						value = getString(properties, key);
+						checkAndSetIdentifier(pe, idType, value, true);
+						break;
 					case VALUE:
 						//TODO: Get value present when page loaded.
 //						if(pe instanceof AbstractTextInput)
 //							key = "value";
-						continue idTypesLoop;
-					case INDEX:
-						key = "index";
-						if (handleIdentifier(properties, pe, idType, key))
-							break idTypesLoop;
-						else
-							continue idTypesLoop;
+						break;
 					case CHECKED:
 						//TODO: Handle checked
 //						key = "checked";
-						continue idTypesLoop;
+						break;
 					case MULTISELECT:
 						//TODO: Handle Multiselect
 //						key = "multiple";
-						continue idTypesLoop;
-
+						break;
 				} //end switch (idType)
 
 			} //end for (idTypes)
 			
 			pageElements.put(getString(properties, "cubicId"), pe);
-			
 			return pe;
+			
 		} catch(NoSuchElementException e) {
 			return null;
 		}
 	}
 
 	/**
-	 * Sets the identifier if it has a value.
-	 * @return true if it has a value, else false.
+	 * Sets the identifier and returns true if it has a value.
+	 * @param isShowInEditor 
 	 */
-	private boolean handleIdentifier(JSONObject properties, PageElement pe, IdentifierType idType, String key) {
-		String value = getString(properties, key);
+	private void checkAndSetIdentifier(PageElement pe, IdentifierType idType, String value, boolean isShowInEditor) {
 		if (StringUtils.isNotBlank(value)) {
 			Identifier identifier = pe.getIdentifier(idType);
 			value = TextUtil.normalize(value);
 			value = StringEscapeUtils.unescapeHtml(value);
 			identifier.setValue(value);
-			identifier.setProbability(100);
-			pe.setDirectEditIdentifier(identifier);
-			return true;
+			if (pe.getMainIdentifier() == null) {
+				identifier.setProbability(100);
+				pe.setDirectEditIdentifier(identifier);
+			}
+			
+			if (isShowInEditor) {
+				pe.setDirectEditIdentifier(identifier);
+			}
 		}
-		return false;
 	}
 
 	private void initializeEmptyIdentifier(PageElement pe, IdentifierType idType) {

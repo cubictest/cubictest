@@ -259,6 +259,7 @@ public abstract class PageElement extends PropertyAwareObject
 	/**
 	 * Gets the Identifier with the highest probability (must be greater than "indifferent").
 	 * If more than one has the same probability, returns the one with DirectEdit or the first.
+	 * @return null if page element has no main identifier (no identifier with probability > 0)
 	 */
 	public Identifier getMainIdentifier() {
 		int highestProbability = 0;

@@ -66,8 +66,12 @@ public enum IdentifierType {
 	ELEMENT_NAME("Element name", "Check the HTML element name (e.g. \"table\")", false),
 
 	/** CSS class of the element */
-	CLASS("Class", "Check the CSS class of the element", false);
+	CLASS("Class", "Check the CSS class of the element", false),
 
+	/** Alternative text */
+	ALT("Alt. text", "Check the alternative text of the element", false);
+
+	
 	private String displayValue;
 	private String description;
 	private boolean isBoolean;

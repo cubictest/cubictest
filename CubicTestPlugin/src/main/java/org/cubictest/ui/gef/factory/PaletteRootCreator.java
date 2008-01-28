@@ -212,7 +212,7 @@ public class PaletteRootCreator extends PaletteRoot {
 		pageElements.add(tool);
 
 		tool = new CombinedTemplateCreationEntry("Button",
-				"Check for a button on the page (including \"image\" input/button).", Button.class,
+				"Check for a button on the page (also image input button).", Button.class,
 				new DataCreationFactory(Button.class), CubicTestImageRegistry
 						.getDescriptor(BUTTON_IMAGE), CubicTestImageRegistry
 						.getDescriptor(BUTTON_IMAGE));

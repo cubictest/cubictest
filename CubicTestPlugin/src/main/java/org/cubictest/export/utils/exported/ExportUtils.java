@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.export.utils.exported;
 
+import static org.cubictest.model.IdentifierType.ALT;
 import static org.cubictest.model.IdentifierType.CHECKED;
 import static org.cubictest.model.IdentifierType.CLASS;
 import static org.cubictest.model.IdentifierType.HREF;
@@ -30,6 +31,7 @@ import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.Identifier;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
@@ -121,6 +123,9 @@ public class ExportUtils {
 		}
 		else if (id.getType().equals(CLASS)) {
 			return "class";
+		}
+		else if (id.getType().equals(ALT)) {
+			return "alt";
 		}
 		return null;
 	}

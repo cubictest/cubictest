@@ -10,12 +10,6 @@
  *******************************************************************************/
 package org.cubictest.model.formElement;
 
-import static org.cubictest.model.IdentifierType.CLASS;
-import static org.cubictest.model.IdentifierType.ID;
-import static org.cubictest.model.IdentifierType.LABEL;
-import static org.cubictest.model.IdentifierType.TITLE;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.model.FormElement;
@@ -24,7 +18,7 @@ import org.cubictest.model.IdentifierType;
 
 
 /**
- * A button on the page. Can be any type of button.
+ * A button on the page. Can be any type of button, including image input button.
  * 
  * @author Christian Schwarz
  *
@@ -45,6 +39,7 @@ public class Button extends FormElement {
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = super.getIdentifierTypes();
 		list.add(IdentifierType.SRC);
+		list.add(IdentifierType.ALT);
 		return list;
 	}
 

@@ -58,6 +58,8 @@ public class PageElementConverter implements IPageElementConverter {
 		if(isPositive(image.getIdentifier(IdentifierType.SRC))) {
 			Element imageElement = new Element("img");
 			imageElement.setAttribute("src", image.getIdentifier(IdentifierType.SRC).getValue());
+			imageElement.setAttribute("alt", image.getIdentifier(IdentifierType.ALT).getValue());
+			imageElement.setAttribute("title", image.getIdentifier(IdentifierType.TITLE).getValue());
 			linkElement.addContent(imageElement);
 		} else {
 			linkElement.addContent("[IMG]" + image.toString());

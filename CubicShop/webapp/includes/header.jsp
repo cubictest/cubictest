@@ -26,7 +26,7 @@
 					<div id="header"><h1>CubicShop</h1></div>
 				  </td>
 				  <td align="center">
-				  	<img id="logoPic" alt="logo" onDblclick="document.getElementById('username').value='Test';document.loginForm.submit();" width="50" src="/cubicshop/images/cubicshop.gif" border="0" style="border: 0px ! important;"/>
+				  	<img id="logoPic" alt="logo" title="Our logo" onDblclick="document.getElementById('username').value='Test';document.loginForm.submit();" width="50" src="/cubicshop/images/cubicshop.gif" border="0" style="border: 0px ! important;"/>
 				  </td>
 				 </tr>
 				</table>
