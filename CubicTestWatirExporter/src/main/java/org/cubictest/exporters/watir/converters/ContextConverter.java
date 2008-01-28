@@ -48,7 +48,6 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 		ContextAsserter.handle(watirHolder, pe);
 
 		PageElement element = (PageElement) ctx;
-		watirHolder.add(watirHolder.getVariableName(pe) + ".flash(1)", 3);
 		watirHolder.add("puts \"" + WatirHolder.PASS + watirHolder.getId(element) + "\"", 3);
 		watirHolder.add("passedSteps += 1 ", 3);
 		watirHolder.add("rescue " + WatirHolder.TEST_STEP_FAILED, 2);
