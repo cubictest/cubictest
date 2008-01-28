@@ -71,7 +71,7 @@ public class JSONElementConverter {
 	 *   properties: {
 	 *     tagName: "INPUT",
 	 *     type: "text",
-	 *     value: "blablabla",
+	 *     value: "somevalue",
 	 *     class: "someclass",
 	 *     id: "someid"
 	 *   }
@@ -150,12 +150,12 @@ public class JSONElementConverter {
 						if(pe instanceof Button) {
 							key = "value";
 							value = getString(properties, key);
-							checkAndSetIdentifier(pe, idType, value, true);
+							checkAndSetIdentifier(pe, idType, value);
 						}
 						else if (pe instanceof Link || pe instanceof Title || pe instanceof Option) {
 							key = "innerHTML";
 							value = getString(properties, key);
-							checkAndSetIdentifier(pe, idType, value, true);
+							checkAndSetIdentifier(pe, idType, value);
 						}
 						else {
 							//TODO: Get html <label> tag 
@@ -164,32 +164,32 @@ public class JSONElementConverter {
 					case ID:
 						key = "id";
 						value = getString(properties, key);
-						checkAndSetIdentifier(pe, idType, value, false);
+						checkAndSetIdentifier(pe, idType, value);
 						break;
 					case SRC:
 						key = "src";
 						value = makeRelativeUrl(getString(properties, key));
-						checkAndSetIdentifier(pe, idType, value, false);
+						checkAndSetIdentifier(pe, idType, value);
 						break;
 					case NAME:
 						key = "name";
 						value = getString(properties, key);
-						checkAndSetIdentifier(pe, idType, value, false);
+						checkAndSetIdentifier(pe, idType, value);
 						break;
 					case HREF:
 						key = "href";
 						value = makeRelativeUrl(getString(properties, key));
-						checkAndSetIdentifier(pe, idType, value, false);
-						break;
-					case TITLE:
-						key = "title";
-						value = getString(properties, key);
-						checkAndSetIdentifier(pe, idType, value, true);
+						checkAndSetIdentifier(pe, idType, value);
 						break;
 					case ALT:
 						key = "alt";
 						value = getString(properties, key);
-						checkAndSetIdentifier(pe, idType, value, true);
+						checkAndSetIdentifier(pe, idType, value);
+						break;
+					case TITLE:
+						key = "title";
+						value = getString(properties, key);
+						checkAndSetIdentifier(pe, idType, value);
 						break;
 					case VALUE:
 						//TODO: Get value present when page loaded.
@@ -220,7 +220,7 @@ public class JSONElementConverter {
 	 * Sets the identifier and returns true if it has a value.
 	 * @param isShowInEditor 
 	 */
-	private void checkAndSetIdentifier(PageElement pe, IdentifierType idType, String value, boolean isShowInEditor) {
+	private void checkAndSetIdentifier(PageElement pe, IdentifierType idType, String value) {
 		if (StringUtils.isNotBlank(value)) {
 			Identifier identifier = pe.getIdentifier(idType);
 			value = TextUtil.normalize(value);
@@ -231,7 +231,7 @@ public class JSONElementConverter {
 				pe.setDirectEditIdentifier(identifier);
 			}
 			
-			if (isShowInEditor) {
+			if (idType.isPrettyType() && !(pe.getDirectEditIdentifier().getType().isPrettyType())) {
 				pe.setDirectEditIdentifier(identifier);
 			}
 		}

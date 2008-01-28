@@ -74,7 +74,8 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			seleniumHolder.getSelenium().waitForPageToLoad(millis + "");
 		}
 		catch (SeleniumException e) {
-			ErrorHandler.logAndThrow("Selenium error while waiting for page to load. Timeout used: " + seconds + " seconds");
+			ErrorHandler.logAndThrow("Selenium error while waiting for page to load. This may be due to an unsupported redirect. Timeout used: " + seconds + " seconds.\n\n" +
+					"You might want try one of the experimental browser launchers (e.g. Firefox chrome or proxy injection mode).");
 		}
 	}
 	
