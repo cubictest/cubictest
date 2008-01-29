@@ -37,7 +37,8 @@ import org.cubictest.persistence.TestPersistance;
  */
 public class MavenSeleniumRunner extends AbstractMojo
 {
-    private static final String SMALL_SEPERATOR = "-----------------------------------------------";
+    private static final String SEPERATOR = "------------------------------------------------------------------------";
+	private static final String SMALL_SEPERATOR = "-----------------------------------------------";
 	private static final String LOG_PREFIX = "[CubicTest Selenium Runner] ";
 	/**
      * Location of the tests.
@@ -102,13 +103,13 @@ public class MavenSeleniumRunner extends AbstractMojo
     		catch (ExporterException e) {
     			getLog().error(LOG_PREFIX + "Test failure detected. Stopping Selenium.");
     			stopSelenium(testRunner);
-            	getLog().error("------------------------------------------------------------------------");
+            	getLog().error(SEPERATOR);
     			getLog().error("Failure in test " + file.getName() + ": " + e.getMessage());
-            	getLog().info("------------------------------------------------------------------------");
+            	getLog().info(SEPERATOR);
             	getLog().info("Failure path: " + file.getName() + " --> " + testRunner.getCurrentBreadcrumbs());
             	if (!reuseBrowser) {
             		//result message only valid on file basis when no browser reuse
-	            	getLog().info("-----------------------------------------------------------------------");
+	            	getLog().info(SEPERATOR);
 	            	getLog().info(file.getName() + ": " + testRunner.getResultMessage());
             	}
     			failedTests.add(file.getName());
@@ -128,10 +129,10 @@ public class MavenSeleniumRunner extends AbstractMojo
 			if (!files.isEmpty() && testRunner != null) {
     			stopSelenium(testRunner);
 			}
-	    	getLog().info("------------------------------------------------------------------------");
+	    	getLog().info(SEPERATOR);
         	getLog().info("Test run finished: " + testRunner.getResultMessage());
 		}        
-    	getLog().info("------------------------------------------------------------------------");
+    	getLog().info(SEPERATOR);
         getLog().info("Tests passed: " + passedTests.toString());
         getLog().info("Tests failed: " + failedTests.toString());
         getLog().info("Threw exception: " + exceptionTests.toString());
