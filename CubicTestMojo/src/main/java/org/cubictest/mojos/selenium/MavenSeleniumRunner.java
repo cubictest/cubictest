@@ -68,8 +68,8 @@ public class MavenSeleniumRunner extends AbstractMojo
         
         TestRunner testRunner = null;
         boolean useFreshBrowser = settings.getBoolean(SeleniumUtils.getPluginPropertyPrefix(), "useNewBrowserInstanceForEachTestSuiteFile", false);
+        getLog().info(LOG_PREFIX + " Use new browser instance for each test suite file: " + useFreshBrowser);
         boolean reuseBrowser = !useFreshBrowser;
-        getLog().info(LOG_PREFIX + " Use new browser instance for each test suite file: " + reuseBrowser);
         if (reuseBrowser) {
 			testRunner = new TestRunner(null, null, settings);
 			testRunner.setReuseSelenium(true);
@@ -93,9 +93,9 @@ public class MavenSeleniumRunner extends AbstractMojo
         			testRunner.setFailOnAssertionFailure(true);
         			testRunner.run(null);
         			passedTests.add(file.getName());
-                	getLog().info(SMALL_SEPERATOR);
+                	smallLogSeperator();
                 	getLog().info("Test run finished: " + file.getName() + ": " + testRunner.getResultMessage());
-                	getLog().info(SMALL_SEPERATOR);
+                	smallLogSeperator();
         			stopSelenium(testRunner);
         			Thread.sleep(800); //do not reopen firefox immediately
     			}
@@ -103,13 +103,12 @@ public class MavenSeleniumRunner extends AbstractMojo
     		catch (ExporterException e) {
     			getLog().error(LOG_PREFIX + "Test failure detected. Stopping Selenium.");
     			stopSelenium(testRunner);
-            	getLog().error(SEPERATOR);
+            	logSeperator();
     			getLog().error("Failure in test " + file.getName() + ": " + e.getMessage());
-            	getLog().info(SEPERATOR);
+            	logSeperator();
             	getLog().info("Failure path: " + file.getName() + " --> " + testRunner.getCurrentBreadcrumbs());
             	if (!reuseBrowser) {
-            		//result message only valid on file basis when no browser reuse
-	            	getLog().info(SEPERATOR);
+            		logSeperator();
 	            	getLog().info(file.getName() + ": " + testRunner.getResultMessage());
             	}
     			failedTests.add(file.getName());
@@ -129,10 +128,10 @@ public class MavenSeleniumRunner extends AbstractMojo
 			if (!files.isEmpty() && testRunner != null) {
     			stopSelenium(testRunner);
 			}
-	    	getLog().info(SEPERATOR);
+	    	logSeperator();
         	getLog().info("Test run finished: " + testRunner.getResultMessage());
 		}        
-    	getLog().info(SEPERATOR);
+    	logSeperator();
         getLog().info("Tests passed: " + passedTests.toString());
         getLog().info("Tests failed: " + failedTests.toString());
         getLog().info("Threw exception: " + exceptionTests.toString());
@@ -141,7 +140,15 @@ public class MavenSeleniumRunner extends AbstractMojo
         if (!buildOk) {
         	throw new MojoFailureException("[CubicTest] There were test failures.");
         }
-}
+    }
+
+	private void logSeperator() {
+		getLog().info(SEPERATOR);
+	}
+
+	private void smallLogSeperator() {
+		getLog().info(SMALL_SEPERATOR);
+	}
 
 	private void stopSelenium(TestRunner testRunner) {
 		try {
