@@ -59,6 +59,7 @@ EPL on cubictest.org
 Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 
 1.8.2:
+Record click on images
 Commons should refresh status when tested on multiple pages
 Do not close browser when user closes confirmation box (presses X instead of OK)
 Refactor - Create test with ExtensionStart point from selected nodes (cannot be any nodes after).
