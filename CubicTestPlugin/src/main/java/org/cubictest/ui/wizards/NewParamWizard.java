@@ -49,6 +49,10 @@ public class NewParamWizard extends Wizard implements INewWizard{
 		this.project = project;
 	}
 	
+	public NewParamWizard(){
+		
+	}
+	
 	@Override
 	public boolean performFinish() {	
 		try {
@@ -70,7 +74,6 @@ public class NewParamWizard extends Wizard implements INewWizard{
 	
 	private IFile createParams(IProgressMonitor monitor, String fileName, String containerName) throws CoreException {
 		monitor.beginTask("Creating " + fileName, 2);
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IResource resource = project.findMember(new Path(containerName));
 		if (resource == null || !resource.exists() || !(resource instanceof IContainer)) {
 			Path path = new Path(project.getLocation().removeLastSegments(1) + containerName);
@@ -98,7 +101,8 @@ public class NewParamWizard extends Wizard implements INewWizard{
 	public void addPages() {
 		super.addPages();
 		namePage = new WizardNewParamCreationPage("newCubicTestParamNamepage");
-		namePage.setFileName(paramsName);
+		if(paramsName != null)
+			namePage.setFileName(paramsName);
 		namePage.setTitle("New CubicTest parameters");
 		namePage.setDescription("Choose name and location of parameter file");
 		namePage.setContainerName(defaultDestFolder);
@@ -111,10 +115,16 @@ public class NewParamWizard extends Wizard implements INewWizard{
 			if (iss.getFirstElement() instanceof IResource) {
 				IResource res = (IResource) iss.getFirstElement();
 				this.defaultDestFolder = res.getFullPath().toPortableString();
+				if(project == null ){
+					project = res.getProject();
+				}
 			}
 			else if (iss.getFirstElement() instanceof JavaProject) {
 				JavaProject res = (JavaProject) iss.getFirstElement();
 				this.defaultDestFolder = res.getPath().toPortableString();
+				if(project == null ){
+					project = res.getProject();
+				}
 			}
 		}
 	}
