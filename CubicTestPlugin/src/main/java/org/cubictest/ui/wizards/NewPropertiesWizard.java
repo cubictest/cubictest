@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
@@ -90,6 +91,10 @@ public class NewPropertiesWizard extends Wizard implements INewWizard {
 		if (iss.getFirstElement() instanceof IResource) {
 			IResource res = (IResource) iss.getFirstElement();
 			this.defaultDestFolder = res.getFullPath().toPortableString();
+		}
+		else if (iss.getFirstElement() instanceof JavaProject) {
+			JavaProject res = (JavaProject) iss.getFirstElement();
+			this.defaultDestFolder = res.getPath().toPortableString();
 		}
 				
 	}
