@@ -18,6 +18,7 @@ public class AddLanguageCommand extends Command {
 
 	private Language language;
 	private AllLanguages allLanguages;
+	private Language oldCurrentLanguage;
 
 	public void setLanguage(Language language) {
 		this.language = language;
@@ -31,11 +32,14 @@ public class AddLanguageCommand extends Command {
 	public void execute() {
 		super.execute();
 		allLanguages.addLanguage(language);
+		oldCurrentLanguage = allLanguages.getCurrentLanguage();
+		allLanguages.setCurrentLanguage(language);
 	}
 	
 	@Override
 	public void undo() {
 		super.undo();
+		allLanguages.setCurrentLanguage(oldCurrentLanguage);
 		allLanguages.removeLanguage(language);
 	}
 }
