@@ -18,11 +18,12 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tools.ant.util.regexp.Regexp;
+import org.cubictest.common.utils.TextUtil;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
+import org.cubictest.model.Moderator;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Title;
 import org.cubictest.model.context.SimpleContext;
@@ -34,7 +35,6 @@ import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.Select;
 import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
-import org.cubictest.recorder.utils.TextUtil;
 import org.json.JSONObject;
 
 public class JSONElementConverter {
@@ -223,8 +223,12 @@ public class JSONElementConverter {
 	private void checkAndSetIdentifier(PageElement pe, IdentifierType idType, String value) {
 		if (StringUtils.isNotBlank(value)) {
 			Identifier identifier = pe.getIdentifier(idType);
+			if (shouldHaveContainModerator(value)) {
+				identifier.setModerator(Moderator.CONTAIN);
+			}
 			value = TextUtil.normalize(value);
 			value = StringEscapeUtils.unescapeHtml(value);
+			value = TextUtil.stripHtmlTags(value);
 			identifier.setValue(value);
 			if (pe.getMainIdentifier() == null) {
 				identifier.setProbability(100);
@@ -235,6 +239,10 @@ public class JSONElementConverter {
 				pe.setDirectEditIdentifier(identifier);
 			}
 		}
+	}
+
+	private boolean shouldHaveContainModerator(String value) {
+		return !value.equals(TextUtil.stripHtmlTags(value));
 	}
 
 	private void initializeEmptyIdentifier(PageElement pe, IdentifierType idType) {
