@@ -69,4 +69,36 @@ public class TextUtil {
 		s = StringUtils.replace(s, "�", "U");
 		return s;
 	}
+	
+	/**
+	 * Normalizes space, i.e. trims and removes all excessive white space 
+	 * in string except single spaces.
+	 * @param s
+	 * @return
+	 */
+	public static String normalize(String s) {
+		String res = "";
+		char[] chars = s.toCharArray();
+		boolean hasWhite = true;
+		for (int i = 0; i < chars.length; i++) {
+			if (Character.isWhitespace(chars[i])) {
+				if (hasWhite) {
+					continue;
+				}
+				else {
+					res += chars[i];
+					hasWhite = true;
+				}
+			}
+			else {
+				res += chars[i];
+				hasWhite = false;
+			}
+		}
+		return res.trim();
+	}
+
+	public static String stripHtmlTags(String s) {
+		return s.replaceAll("<[^>]+>", ""); 
+	}
 }

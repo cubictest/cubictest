@@ -9,6 +9,8 @@
  *    Stein K. Skytteren and Christian Schwarz - initial API and implementation
  *******************************************************************************/
 package org.cubictest.common.utils;
+import org.junit.Test;
+
 import junit.framework.TestCase;
 
 /**
@@ -71,4 +73,60 @@ public class TextUtilTest extends TestCase {
 		String text = "�se �se dro til �sten";
 		String expected = "aseAseDroTilOsten";
 		assertEquals(expected, TextUtil.camel(text));
-	}}
+	}
+	
+	@Test
+	public void testSimple() {
+		String s = "abc";
+		assertEquals(s, TextUtil.normalize(s));
+	}
+	
+	@Test
+	public void testSimpleWithSpace() {
+		String s = " abc ";
+		String ex = "abc";
+		assertEquals(ex, TextUtil.normalize(s));
+	}
+	
+	@Test
+	public void testSimpleWithMultipleSpace() {
+		String s = " a     b  c    ";
+		String ex = "a b c";
+		assertEquals(ex, TextUtil.normalize(s));
+	}
+	
+	@Test
+	public void testSimpleWithLineBreakAndTab() {
+		String s = " \ta   \n  b  c  \t\t\n  ";
+		String ex = "a b c";
+		assertEquals(ex, TextUtil.normalize(s));
+	}
+
+	@Test
+	public void testStripNoHtmlTags() {
+		String s = "Test";
+		String expected = "Test";
+		assertEquals(expected, TextUtil.stripHtmlTags(s));
+	}
+	
+	@Test
+	public void testStripHtmlTags() {
+		String s = "<i>Test</i>";
+		String expected = "Test";
+		assertEquals(expected, TextUtil.stripHtmlTags(s));
+	}
+
+	@Test
+	public void testStripMultipleHtmlTags() {
+		String s = "<i><b>Test</b></i>";
+		String expected = "Test";
+		assertEquals(expected, TextUtil.stripHtmlTags(s));
+	}
+	
+	@Test
+	public void testStripMultipleHtmlTags2() {
+		String s = "<i><b>Test</b></i";
+		String expected = "Test</i";
+		assertEquals(expected, TextUtil.stripHtmlTags(s));
+	}
+}
