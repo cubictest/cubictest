@@ -9,33 +9,40 @@
         <jiraId></jiraId>
     </forums>
     <evaluating>
-        <!--item>
+        <item>
+            <name>Screenshots</name>
+            <url>screenshots.html</url>
+        </item>
+        <item>
             <name>Release Notes</name>
             <url>release-notes.html</url>
-        </item-->
+        </item>
     </evaluating>
+    
     <docs>
-        <!--url>tutorial.html</url>
+        <url>documentation.html</url>
         <items>
-            <item>
-                <name>Tutorial</name>
-                <url>tutorial.html</url>
-            </item>
-        </items-->
+        <item>
+            <name>Wiki</name>
+            <url>http://boss.bekk.no/display/BOSS/CubicTest</url>
+        </item>
+        </items>
     </docs>
+    
+    
     <owners>
         <person>
             <name>Christian Schwarz</name>
             <email>christian dot schwarz at bekk dot no</email>
         </person>
         <person>
-            <name>Stein Kåre Skytteren</name>
-            <email>skytteren at gmail dot no</email>
+            <name>Stein K&aring;re Skytteren</name>
+            <email>skytteren at gmail dot com</email>
         </person>
     </owners>
     <developers>
         <person>
-            <name>Erlend Halvordsen</name>
+            <name>Erlend Halvorsen</name>
             <email>erlendfh at gmail dot com</email>
         </person>
     </developers>
