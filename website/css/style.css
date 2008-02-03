@@ -188,3 +188,26 @@ body p {
 .troubleshooting h3{
 	margin-left: 20px;
 }
+
+
+.features{
+	float: left;
+	border: 1px solid red;	
+}
+
+.feature{
+	float: left;
+	width: 250px;
+	border: 1px solid blue;
+	margin: 10px;
+	text-align: center;
+}
+
+.feature img{
+	width: 210px;
+	margin-bottom: 10px;	
+}
+
+.feature .caption {
+	text-align: left;
+}
