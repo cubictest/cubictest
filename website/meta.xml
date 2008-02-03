@@ -9,19 +9,19 @@
         <jiraId></jiraId>
     </forums>
     <evaluating>
-        <item>
+        <!--item>
             <name>Release Notes</name>
             <url>release-notes.html</url>
-        </item>
+        </item-->
     </evaluating>
     <docs>
-        <url>tutorial.html</url>
+        <!--url>tutorial.html</url>
         <items>
             <item>
                 <name>Tutorial</name>
                 <url>tutorial.html</url>
             </item>
-        </items>
+        </items-->
     </docs>
     <owners>
         <person>
