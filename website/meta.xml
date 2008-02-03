@@ -1,0 +1,55 @@
+<project>
+    <name>CubicTest</name>
+    <jiraId></jiraId>
+    <jiraName></jiraName>
+    <confluenceName></confluenceName>
+    <forums>
+        <usersId></usersId>
+        <devId></devId>
+        <jiraId></jiraId>
+    </forums>
+    <evaluating>
+        <item>
+            <name>Release Notes</name>
+            <url>release-notes.html</url>
+        </item>
+    </evaluating>
+    <docs>
+        <url>tutorial.html</url>
+        <items>
+            <item>
+                <name>Tutorial</name>
+                <url>tutorial.html</url>
+            </item>
+        </items>
+    </docs>
+    <owners>
+        <person>
+            <name>Christian Schwarz</name>
+            <email>christian dot schwarz at bekk dot no</email>
+        </person>
+        <person>
+            <name>Stein Kåre Skytteren</name>
+            <email>skytteren at gmail dot no</email>
+        </person>
+    </owners>
+    <developers>
+        <person>
+            <name>Erlend Halvordsen</name>
+            <email>erlendfh at gmail dot com</email>
+        </person>
+    </developers>
+    <releases>
+        <release>
+            <version>1.8.2</version>
+            <date>2/3/2007</date>
+            <jiraId></jiraId>
+            <downloads>
+                <download>
+                    <url></url>
+                    <name>Major release</name>
+                </download>
+            </downloads>
+        </release>
+    </releases>
+</project>
