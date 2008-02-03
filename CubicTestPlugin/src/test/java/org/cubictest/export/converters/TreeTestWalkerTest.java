@@ -105,24 +105,17 @@ public class TreeTestWalkerTest {
 	
 	/**
 	 * Test exception is thrown on unknown extension point.
+	 * @throws Exception 
 	 */
 	@org.junit.Test
-	public void testThrowsExceptionWhenInvalidExtensionPoint() {
+	public void testDoesNotTraverseWhenInvalidExtensionPoint() throws Exception {
 		String fileName = "src/test/resources/org/cubictest/common/converters/SimpleTreeExtensionPoint.aat";
 		Test test = TestPersistance.loadFromFile(null, fileName);
 		
-		try {
-			System.out.println("\n== Testing traversal to unknown extension point. Error(s) about unknown extension point should follow ==");
-			testWalker.convertTransitionNode(assertionList, test.getStartPoint(), setUpTargetExtensionPoint("Dummy, should not be present"), null);
-			fail("Should throw UnknownExtensionPointException when invalid extension point");
-		}
-		catch (UnknownExtensionPointException e) {
-			assertTrue(true);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			fail("Should throw UnknownExtensionPointException, not exception " + e.toString());
-		}
+		//An invalid extension point. No traversal should take place:
+		ExtensionPoint invalidExPoint = setUpTargetExtensionPoint("Dummy, should not be present");
+		testWalker.convertTransitionNode(assertionList, test.getStartPoint(), invalidExPoint, null);
+		assertTrue(assertionList.isEmpty());
 	}
 
 	/**
