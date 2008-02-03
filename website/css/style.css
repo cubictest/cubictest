@@ -108,10 +108,6 @@ A:VISITED{
 	
 }
 #body{
-	position: absolute;
-	left:230px;
-	top:170px;
-	width: 680px;	
 }
 .introduction{
 	font-style: italic;	
