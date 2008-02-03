@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.cubictest.exporters.htmlPrototype.delegates;
 
+import org.cubictest.common.utils.TextUtil;
 import org.cubictest.exporters.htmlPrototype.interfaces.IPageElementConverter;
-import org.cubictest.exporters.htmlPrototype.utils.TextUtil;
 import org.cubictest.model.FormElement;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
