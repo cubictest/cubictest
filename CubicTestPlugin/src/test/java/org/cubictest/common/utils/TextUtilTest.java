@@ -9,6 +9,7 @@
  *    Stein K. Skytteren and Christian Schwarz - initial API and implementation
  *******************************************************************************/
 package org.cubictest.common.utils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.junit.Test;
 
 import junit.framework.TestCase;
@@ -52,25 +53,26 @@ public class TextUtilTest extends TestCase {
 	}
 	
 	public void testNorwegianAlreadyPartlyCammeled() {
-		String text = "�se�se";
+		//we can't save in svn the characters we want, so we get it from unescaping html entities
+		String text = StringEscapeUtils.unescapeHtml("&aring;se&Aring;se");
 		String expected = "aseAse";
 		assertEquals(expected, TextUtil.camel(text));
 	}
 	
 	public void testNorwegian() {
-		String text = "�se �se";
+		String text = StringEscapeUtils.unescapeHtml("&Aring;se &Aring;se");
 		String expected = "aseAse";
 		assertEquals(expected, TextUtil.camel(text));
 	}
 
 	public void testNorwegianOneWord() {
-		String text = "�se";
+		String text = StringEscapeUtils.unescapeHtml("&Aring;se");
 		String expected = "ase";
 		assertEquals(expected, TextUtil.camel(text));
 	}
 
 	public void testNorwegianLong() {
-		String text = "�se �se dro til �sten";
+		String text = StringEscapeUtils.unescapeHtml("&Aring;se &AElig;se dro til &oslash;sten");
 		String expected = "aseAseDroTilOsten";
 		assertEquals(expected, TextUtil.camel(text));
 	}

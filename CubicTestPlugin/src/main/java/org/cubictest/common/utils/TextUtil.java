@@ -12,6 +12,7 @@ package org.cubictest.common.utils;
 
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -54,19 +55,20 @@ public class TextUtil {
 	}
 
 	public static String convertToAscii(String s) {
-		s = StringUtils.replace(s, "�", "a");
-		s = StringUtils.replace(s, "�", "o");
-		s = StringUtils.replace(s, "�", "a");
-		s = StringUtils.replace(s, "�", "A");
-		s = StringUtils.replace(s, "�", "O");
-		s = StringUtils.replace(s, "�", "A");
+		//we can't save in svn the characters we want, so we get it from unescaping html entities
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&aring;"), "a");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&oslash;"), "o");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&aelig;"), "a");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&Aring;"), "A");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&Oslash;"), "O");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&AElig;"), "A");
 
-		s = StringUtils.replace(s, "�", "a");
-		s = StringUtils.replace(s, "�", "o");
-		s = StringUtils.replace(s, "�", "u");
-		s = StringUtils.replace(s, "�", "A");
-		s = StringUtils.replace(s, "�", "O");
-		s = StringUtils.replace(s, "�", "U");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&auml;"), "a");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&ouml;"), "o");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&uuml;"), "u");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&Auml;"), "A");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&Ouml;"), "O");
+		s = StringUtils.replace(s, StringEscapeUtils.unescapeHtml("&Uuml;"), "U");
 		return s;
 	}
 	
