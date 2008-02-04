@@ -1,3 +1,4 @@
+rm cubictest_m2_jars.zip
 rm -r cubictest_m2_jars
 mkdir cubictest_m2_jars
 cd cubictest_m2_jars
