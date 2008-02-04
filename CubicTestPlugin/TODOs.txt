@@ -51,15 +51,16 @@ Done 	Do not activate test editor when recording from "First page" (empty test).
 Done	Remove stack trace on page element failure in m2 runner. Move catching of exception outside of TestRunner.
 Done	Default name for Commons: "Common"
 Done	Have an invisible page 500px down to force scrollbar
+Done	Making error message more visible in M2 output, e.g. ----------------
+Done	Document uninstall feature before install feature
+Done	EPL on cubictest.org
+Done	Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
+Done	Recorder should detect <> characters and strip off and use CONTAINS modifier.
 
-1.8.1:
-Document XPath checker
-Document uninstall feature before install feature
-EPL on cubictest.org
-Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 
 1.8.2:
 M2 runner: Better error message on no tests in test suite
+Document XPath checker
 Record click on images
 Commons should refresh status when tested on multiple pages
 Do not close browser when user closes confirmation box (presses X instead of OK)
@@ -74,7 +75,6 @@ Do not close browser when M2 build fails - test project property
 Change order of logging parameters
 Better error message when element not found in context (search within it for elements).
 Better cancel of Selenium Runner. Especially when user interactions that does not lead to page load.
-Making error message more visible in M2 output, e.g. ----------------
 Fix set test name. Does not always get stored on model.
 Better error messages when elements are not found. Search context for elements, incremental. Check context stand alone.
 Capturing HTML of page that failed (and the previous one). Selenium: getBodyText()
@@ -89,6 +89,7 @@ Better test samples
 
 Later release:
 ---------------
+Create a test suite for exporters (i.e testing a site with all identifiers etc).
 User actions: Move up, move down: better buttons
 Problem with d'n'd' subtest from open editor
 - Remove link with editor
