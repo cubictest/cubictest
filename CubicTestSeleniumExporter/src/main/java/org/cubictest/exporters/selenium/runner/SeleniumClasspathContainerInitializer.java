@@ -29,16 +29,8 @@ public class SeleniumClasspathContainerInitializer extends
 			throws CoreException {
 		
 		final IPath libPath = JavaCore.getClasspathVariable(CUBICTEST_SELENIUM);
-		final IClasspathEntry seleniumServerEntry = JavaCore.newLibraryEntry(
-				libPath.append("/lib/selenium-server.jar"), null,null);
 		final IClasspathEntry seleniumClientEntry = JavaCore.newLibraryEntry(
 				libPath.append("/lib/selenium-java-client-driver.jar"), null,null);
-		final IClasspathEntry commonsIoEntry = JavaCore.newLibraryEntry(
-				libPath.append("/lib/commons-io-1.3.1.jar"), null,null);
-		final IClasspathEntry commonsLangEntry = JavaCore.newLibraryEntry(
-				libPath.append("/lib/commons-lang-2.3.jar"), null,null);
-		final IClasspathEntry jdoomEntry = JavaCore.newLibraryEntry(
-				libPath.append("/lib/jdom.jar"), null,null);
 		final IClasspathEntry cubicTestSeleniumEntry = JavaCore.newLibraryEntry(
 				libPath.append("/lib/CubicTestSelenium.jar"), null,null);
 		JavaCore.setClasspathContainer(
@@ -47,8 +39,8 @@ public class SeleniumClasspathContainerInitializer extends
 			new IClasspathContainer[] {
 				new IClasspathContainer() {
 					public IClasspathEntry[] getClasspathEntries() {
-						return new IClasspathEntry[]{seleniumServerEntry,seleniumClientEntry,
-								commonsIoEntry,commonsLangEntry,jdoomEntry,cubicTestSeleniumEntry};
+						return new IClasspathEntry[]{seleniumClientEntry,
+								cubicTestSeleniumEntry};
 					}
 					public String getDescription() { return "CubicTest Selenium Library"; }
 					public int getKind() { return IClasspathContainer.K_APPLICATION; }

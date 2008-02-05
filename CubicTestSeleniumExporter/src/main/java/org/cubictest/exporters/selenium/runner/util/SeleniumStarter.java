@@ -132,10 +132,7 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 		this.selenium = selenium;
 	}
 
-
-
 	public void setPort(int port) {
 		this.port = port;
-		
 	}
 }

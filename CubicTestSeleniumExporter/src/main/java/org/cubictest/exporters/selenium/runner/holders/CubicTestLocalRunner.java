@@ -13,12 +13,11 @@ package org.cubictest.exporters.selenium.runner.holders;
 import java.lang.reflect.Method;
 
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.selenium.runner.ICubicTestRunner;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
-public class CubicTestLocalRunner implements ICubicTestRunner {
+public class CubicTestLocalRunner {
 
 	private Selenium selenium;
 
@@ -39,6 +38,25 @@ public class CubicTestLocalRunner implements ICubicTestRunner {
 		}
 	}
 
+	public String[] execute(String commandName, String... vars){
+		Class<?>[] classes = new Class[vars.length];
+		
+		for(int i = 0; i < vars.length; i++){
+			classes[i] = vars[i].getClass();
+		}
+		
+		try {
+			Method method = selenium.getClass().getMethod(commandName, classes);
+			Object result = method.invoke(selenium, (Object[])vars);
+			if(result instanceof String[]){
+				return (String[]) result;
+			}
+			return new String[]{result + ""};
+		} catch (Exception e) {
+			throw new ExporterException(e);
+		}
+	}
+	
 	public String execute(String commandName, String locator) {
 		try {
 			Method method = selenium.getClass().getMethod(commandName, new Class[]{String.class});

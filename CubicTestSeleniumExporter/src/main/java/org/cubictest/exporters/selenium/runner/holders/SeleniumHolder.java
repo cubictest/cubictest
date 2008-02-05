@@ -13,7 +13,7 @@ package org.cubictest.exporters.selenium.runner.holders;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
-import org.cubictest.exporters.selenium.runner.ICubicTestRunner;
+import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.swt.widgets.Display;
 
@@ -27,9 +27,10 @@ import com.thoughtworks.selenium.Selenium;
  */
 public class SeleniumHolder extends RunnerResultHolder {
 
-	private ICubicTestRunner selenium;
+	private CubicTestLocalRunner selenium;
 	private boolean seleniumStarted;
 	private UrlStartPoint handledUrlStartPoint;
+	private CubicTestRemoteRunnerClient customStepRunner;
 	
 	
 	public SeleniumHolder(Selenium selenium, Display display, CubicTestProjectSettings settings) {
@@ -46,7 +47,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 		this.selenium = new CubicTestLocalRunner(port, browser, initialUrl);
 	}
 	
-	public ICubicTestRunner getSelenium() {
+	public CubicTestLocalRunner getSelenium() {
 		return selenium;
 	}
 
@@ -68,5 +69,13 @@ public class SeleniumHolder extends RunnerResultHolder {
 	public UrlStartPoint getHandledUrlStartPoint() {
 		return handledUrlStartPoint;
 	}
+
+	public void setCustomStepRunner(
+			CubicTestRemoteRunnerClient customStepRunner) {
+				this.customStepRunner = customStepRunner;
+	}
 	
+	public CubicTestRemoteRunnerClient getCustomStepRunner() {
+		return customStepRunner;
+	}
 }

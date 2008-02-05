@@ -2,8 +2,12 @@
 <?eclipse version="3.2"?>
 <plugin>
    <extension
+         id="org.cubictest.exporters.selenium"
          name="CubicTestSeleniumExporter"
          point="org.cubictest.exporters">
+      <CustomStepExtension
+            section="org.cubictest.exporters.selenium.ui.SeleniumCustomStepSection">
+      </CustomStepExtension>
    </extension>
   
    <extension
@@ -69,8 +73,6 @@
 		    category="CubicTestPreferencePage">
    	  </page>
    </extension>
-   
-   <!--
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
@@ -128,5 +130,5 @@
             name="CubicTest Selenium">
       </classpathContainerPage>
    </extension>
-      -->
+      
 </plugin>

@@ -25,7 +25,7 @@ import javax.net.SocketFactory;
 
 import org.cubictest.model.TestPartStatus;
 
-public class CubicTestRemoteRunnerClient implements ICubicTestRunner{
+public class CubicTestRemoteRunnerClient {
 
 	private Socket socket;
 	private int port;
@@ -41,7 +41,7 @@ public class CubicTestRemoteRunnerClient implements ICubicTestRunner{
 		socket = SocketFactory.getDefault().createSocket("localhost",port);
 	}
 	
-	public String execute(String command, String... values){
+	public String executeOnServer(String command, String... values){
 		String result = null;
 		try{
 			if(socket == null){
@@ -67,49 +67,5 @@ public class CubicTestRemoteRunnerClient implements ICubicTestRunner{
 		}
 		return result;
 	}
-
-	public String getText(String locator) {
-		return execute("getText", locator);
-	}
-
-	public String getValue(String locator) {
-		return execute("getValue", locator);
-	}
-
-	public boolean isTextPresent(String text) {
-		return Boolean.parseBoolean(execute("isTextPresent", text));
-	}
-
-	public String getTitle() {
-		return execute("getTitle");
-	}
-
-	public void waitForPageToLoad(String string) {
-		execute("waitForPageToLoad", string);
-	}
-
-	public void open(String beginAt) {
-		execute("open",beginAt);
-	}
-
-	public void start() {
-		execute("start");
-	}
-
-	public void setTimeout(String string) {
-		execute("setTimeout", string);
-	}
-
-	public void stop() {
-		execute("stop");
-	}
-
-	public String execute(String commandName, String locator, String inputValue) {
-		return execute(commandName, locator, inputValue);
-	}
-
-	public String execute(String commandName, String locator) {
-		return execute(commandName, locator);
-	}
-
+	
 }
