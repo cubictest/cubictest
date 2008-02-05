@@ -3,7 +3,8 @@ package org.cubictest.runner.selenium.server.internal;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.cubictest.runner.selenium.server.IElementContext;
+import org.cubictest.selenium.custom.IElementContext;
+
 
 public class ElementContext implements IElementContext {
 

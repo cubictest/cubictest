@@ -1,4 +1,4 @@
-package org.cubictest.runner.selenium.server;
+package org.cubictest.selenium.custom;
 
 public interface IElementContext{
 	public void put(String key, Object value);
