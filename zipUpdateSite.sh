@@ -9,7 +9,6 @@ cd ..
 cd plugins
 rm -rf .svn
 cd ..
-rm .project
 cd ..
 zip -r CubicTestLocalUpdateSite.zip CubicTestLocalUpdateSite
 
