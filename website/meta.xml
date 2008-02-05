@@ -53,7 +53,7 @@
             <jiraId></jiraId>
             <downloads>
                 <download>
-                    <url></url>
+                    <url>http://boss.bekk.no/cubictest/download.html</url>
                     <name>Major release</name>
                 </download>
             </downloads>
