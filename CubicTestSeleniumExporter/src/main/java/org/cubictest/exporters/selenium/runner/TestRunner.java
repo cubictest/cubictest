@@ -16,6 +16,7 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.TreeTestWalker;
+import org.cubictest.export.exceptions.EmptyTestSuiteException;
 import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.export.runner.RunnerStarter.Operation;
@@ -213,8 +214,7 @@ public class TestRunner extends BaseTestRunner {
 		else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
 			//Get url start point of first sub-test:
 			if (!(test.getFirstNodeAfterStartPoint() instanceof SubTest)) {
-				ErrorHandler.logAndShowErrorDialogAndThrow("Test suites must contain at least one sub test after the test suite start point.\n\n" + 
-						"To add a subtest, drag test from package explorer into the test suite editor.");
+				throw new EmptyTestSuiteException();
 			}
 			return getInitialUrlStartPoint(((SubTest) test.getFirstNodeAfterStartPoint()).getTest(true));
 		}

@@ -22,6 +22,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.cubictest.common.settings.CubicTestProjectSettings;
+import org.cubictest.export.exceptions.EmptyTestSuiteException;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.runner.TestRunner;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
@@ -99,6 +100,13 @@ public class MavenSeleniumRunner extends AbstractMojo
         			stopSelenium(testRunner);
         			Thread.sleep(800); //do not reopen firefox immediately
     			}
+    		}
+    		catch (EmptyTestSuiteException e) {
+    			getLog().info(SEPERATOR);
+    			getLog().warn("Test suite was empty: " + file.getName());
+    			getLog().warn("Test suites should contain at least one test. " + 
+						"To add a test, drag it from the package explorer into the test suite editor.");
+    			return;
     		}
     		catch (ExporterException e) {
     			getLog().error(LOG_PREFIX + "Test failure detected. Stopping Selenium.");

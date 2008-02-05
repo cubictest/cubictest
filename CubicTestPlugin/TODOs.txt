@@ -1,8 +1,6 @@
 Prioritized list, fall 2007:
 ============================
 
-1.7.9 Release:
---------------
 Done	Fix copy and paste of subtests
 Done	Put "create project" on top of list
 Done	Better Watir runner (XPath, Color GUI)
@@ -57,15 +55,15 @@ Done	EPL on cubictest.org
 Done	Wiki documentation on parameterization. + best practice for e.g. login with different usernames.
 Done	Recorder should detect <> characters and strip off and use CONTAINS modifier.
 Done	Fix TextUtil norwegian characters (use unescape &oslash; ?)
+Done	Recorder recorded absolute URL when page had relative. Worked with watir/selenium IE runners, but not firefox
+Done	M2 runner: Better error message on no tests in test suite (build successful, but nice message)
 
-1.8.2:
-M2 runner: Better error message on no tests in test suite (build successful, but nice message)
+1.8.3:
 Document XPath checker
 Record click on images
 Commons should refresh status when tested on multiple pages
 Do not close browser when user closes confirmation box (presses X instead of OK)
 Refactor - Create test with ExtensionStart point from selected nodes (cannot be any nodes after).
-Recorder recorded absolute URL when page had relative. Worked with watir/selenium IE runners, but not firefox
 Make possible to record and "make additions while recording"
 Context must have a element name?
 Custom steps
