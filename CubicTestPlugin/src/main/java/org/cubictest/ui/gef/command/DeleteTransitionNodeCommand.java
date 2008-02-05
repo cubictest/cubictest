@@ -13,10 +13,12 @@ package org.cubictest.ui.gef.command;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.utils.EclipseLogger;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.jdt.internal.compiler.tool.EclipseCompiler;
 
 
 /**
@@ -38,11 +40,12 @@ public abstract class DeleteTransitionNodeCommand extends Command {
 	 *  (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
+	@Override
 	public void execute(){
 		for (Transition t : getOutTransitions()) {
 			test.removeTransition(t);
 			if (t.getStart().getOutTransitions().contains(t))
-				System.out.println("Error in DeleteTransitionNodeCommand (duplicate transition)");
+				EclipseLogger.warn("Error in DeleteTransitionNodeCommand (duplicate transition)");
 		}
 
 		if (getInTransition() != null){

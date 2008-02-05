@@ -22,5 +22,7 @@ public interface ICustomTestStepHolder {
 	public CustomTestStepValue getValue(CustomTestStepParameter parameter);
 
 	public String getDisplayText();
+	
+	public void setStatus(TestPartStatus status);
 
 }

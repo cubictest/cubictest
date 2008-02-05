@@ -50,17 +50,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.cubictest.ui.customstep.CustomStepSection"/>
-               </appInfo>
-            </annotation>
-         </attribute>
-         <attribute name="buildpathSupporter" type="string">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appInfo>
-                  <meta.attribute kind="java" basedOn=":org.cubictest.ui.customstep.IBuildPathSupporter"/>
+                  <meta.attribute kind="java" basedOn="org.cubictest.ui.customstep.section.CustomStepSection:"/>
                </appInfo>
             </annotation>
          </attribute>

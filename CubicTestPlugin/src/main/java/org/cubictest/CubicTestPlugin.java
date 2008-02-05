@@ -38,8 +38,6 @@ public class CubicTestPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		System.out.println("Activating CubicTest ");
-		
 		super.start(context);
 	}
 
@@ -48,7 +46,6 @@ public class CubicTestPlugin extends AbstractUIPlugin {
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		System.out.println("Deactivating CubicTest ");
 		super.stop(context);
 	}
 

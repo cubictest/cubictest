@@ -105,6 +105,8 @@ public class ParameterTableComposite extends Composite implements PropertyChange
 		}
 
 		public void modify(Object element, String property, Object value) {
+			if(element == null)
+				return;
 			CustomTestStepParameter parameter = 
 				(CustomTestStepParameter)((TableItem)element).getData();
 			if(DESCRIPTION.equals(property) && !parameter.getDescription().equals(value)){
