@@ -192,14 +192,14 @@ body p {
 
 .features{
 	float: left;
-	border: 1px solid red;	
 }
 
 .feature{
 	float: left;
-	width: 250px;
+	width: 230px;
 	border: 1px solid blue;
-	margin: 10px;
+	margin: 8px;
+	padding: 7px;
 	text-align: center;
 }
 
@@ -210,4 +210,8 @@ body p {
 
 .feature .caption {
 	text-align: left;
+}
+
+.feature .header {
+	font-weight: bold;
 }
