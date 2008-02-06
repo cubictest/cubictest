@@ -103,10 +103,12 @@ public class CubicTestRemoteRunnerServer implements Runnable{
 					arguments.put(values[i], values[i+1]);
 				}
 				testStep.execute(arguments, context, selenium);
+				return "OK";
 			} catch (Exception e) {
+				e.printStackTrace();
 				return "Error: " + e;
 			}
 		}
-		return "OK";
+		return "Not Valid Command";
 	}
 }
