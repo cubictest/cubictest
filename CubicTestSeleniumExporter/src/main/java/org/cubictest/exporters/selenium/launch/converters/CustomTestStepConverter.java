@@ -39,16 +39,16 @@ public class CustomTestStepConverter implements ICustomTestStepConverter<Seleniu
 		CubicTestRemoteRunnerClient runner = t.getCustomStepRunner();
 		
 		List<String> attributes = new ArrayList<String>();
-		attributes.add(data.getPath());
+		attributes.add(data.getDisplayText());
 		
 		for(CustomTestStepParameter param : cts.getCustomTestStepParameters()){
 			attributes.add(param.getKey());
 			attributes.add(cts.getValue(param).getValue());
 		}
 		
-		String result = runner.executeOnServer("customTestStep",
+		String result = runner.executeOnServer("cubicTestCustomStep",
 				attributes.toArray(new String[attributes.size()]));
-		if(result.startsWith("ERROR")){
+		if(result.startsWith("Error")){
 			cts.setStatus(TestPartStatus.EXCEPTION);
 			throw new ExporterException(result.replaceFirst("Error: ", result));
 		}else 
