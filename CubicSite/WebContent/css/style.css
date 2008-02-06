@@ -56,7 +56,7 @@ UL{
 	width: 100%;
 	height: 30px;
 	padding-top: 5px;
-	padding-left: 230px;
+	padding-left: 225px;
 	padding-right: -230px;
 	padding-margin: -230px;
 }
@@ -111,10 +111,11 @@ A:VISITED{
 	position: absolute;
 	left:230px;
 	top:170px;
-	width: 680px;	
+	width: 780px;	
 }
 .introduction{
 	font-style: italic;	
+	width: 680px;	
 }
 
 .introduction em{
@@ -126,16 +127,23 @@ p:first-letter{
 }
 
 .news{
+	float: left;
+}
+
+.newsItem{
 	display: block;
 }
+
 .newsHeader{
 	font-size: large;
 	font-style: italic;
 }
+
 .newsDate{
 	font-style: italic;
 	color: graytext;
 }
+
 .newsBody{
 	
 }
@@ -193,3 +201,31 @@ body p {
 	margin-left: 20px;
 }
 
+.features{
+	margin-top: 50px;
+	margin-bottom: 50px;
+	float: left;
+	width: 1050px;	
+}
+
+.feature{
+	float: left;
+	width: 220px;
+	border: 1px solid blue;
+	margin: 8px;
+	padding: 7px;
+	text-align: center;
+}
+
+.feature img{
+	width: 200px;
+	margin-bottom: 10px;	
+}
+
+.feature .caption {
+	text-align: left;
+}
+
+.feature .header {
+	font-weight: bold;
+}
