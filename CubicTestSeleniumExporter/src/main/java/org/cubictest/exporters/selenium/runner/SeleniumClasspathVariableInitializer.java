@@ -68,7 +68,7 @@ public class SeleniumClasspathVariableInitializer extends
 				Bundle curr= bundles[i];
 				String version= (String) curr.getHeaders().get(Constants.BUNDLE_VERSION);
 				try {
-					if (new VersionRange("[0.0,1.1)").isIncluded(Version.parseVersion(version))) {
+					if (new VersionRange("[0.0,2.0.0)").isIncluded(Version.parseVersion(version))) {
 						return curr;
 					}
 				} catch (IllegalArgumentException e) {
