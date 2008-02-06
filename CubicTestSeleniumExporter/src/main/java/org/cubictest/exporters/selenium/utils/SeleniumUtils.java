@@ -253,6 +253,8 @@ public class SeleniumUtils {
 	 * @return
 	 */
 	public static int getTimeout(CubicTestProjectSettings settings) {
+		if(settings == null)
+			return 60;
 		return settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(), "timeout", 60);
 	}
 	
