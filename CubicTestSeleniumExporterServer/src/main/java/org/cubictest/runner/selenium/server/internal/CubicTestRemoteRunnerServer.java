@@ -108,6 +108,8 @@ public class CubicTestRemoteRunnerServer implements Runnable{
 				e.printStackTrace();
 				return "Error: " + e;
 			}
+		}else if("stop".equals(command)){
+			finished = true;
 		}
 		return "Not Valid Command";
 	}
