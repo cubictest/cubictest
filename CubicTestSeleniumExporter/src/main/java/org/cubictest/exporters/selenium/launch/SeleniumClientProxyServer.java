@@ -17,6 +17,7 @@ public class SeleniumClientProxyServer extends Thread {
 	private final SeleniumHolder seleniumHolder;
 	private final int port;
 	private boolean finished = false;
+	private Socket socket;
 
 	public SeleniumClientProxyServer(SeleniumHolder seleniumHolder, int port) {
 		this.seleniumHolder = seleniumHolder;
@@ -28,7 +29,7 @@ public class SeleniumClientProxyServer extends Thread {
 		try{
 			ServerSocket serverSocket = 
 				ServerSocketFactory.getDefault().createServerSocket(port);
-			Socket socket = serverSocket.accept();
+			socket = serverSocket.accept();
 			while (!finished ){
 				InputStreamReader isr = new InputStreamReader(socket.getInputStream());
 				BufferedReader br = new BufferedReader(isr);
@@ -61,5 +62,15 @@ public class SeleniumClientProxyServer extends Thread {
 	private String[] execute(String commando, String[] params) {
 		CubicTestLocalRunner selenium = seleniumHolder.getSelenium();
 		return selenium.execute(commando, params);
+	}
+
+	public void shutdown() {
+		finished = true;
+		if(socket != null){
+			try {
+				socket.close();
+			} catch (IOException e) {
+			}
+		}
 	}
 }

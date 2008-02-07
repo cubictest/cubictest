@@ -192,9 +192,12 @@ public class LaunchConfigurationDelegate extends
 			
 			TestRunner testRunner = new TestRunner(test, seleniumPort, serverPort, 
 					seleniumClientProxyPort,  BrowserType.fromId(browser));
-			
-			testRunner.run(monitor);
-		
+			try{
+				
+				testRunner.run(monitor);
+			}finally{
+				testRunner.cleanUp();
+			}
 		}catch(Exception e){
 			EclipseLogger.error(e, "Error launching test");
 		} finally {

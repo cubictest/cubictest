@@ -58,6 +58,8 @@ public class TestRunner {
 	private boolean failOnAssertionFailure;
 	private final int serverPort;
 	private final int seleniumClientProxyPort;
+	private CubicTestRemoteRunnerClient cubicTestRemoteRunnerClient;
+	private SeleniumClientProxyServer seleniumClientProxyServer;
 
 	public TestRunner(Test test, int seleniumPort, int serverPort,
 			int seleniumClientProxyPort, BrowserType browserType) {
@@ -86,9 +88,12 @@ public class TestRunner {
 						IProgressMonitor.UNKNOWN);
 			}
 			
-			seleniumHolder.setCustomStepRunner(new CubicTestRemoteRunnerClient(serverPort));
 			
-			new SeleniumClientProxyServer(seleniumHolder, seleniumClientProxyPort).start();
+			cubicTestRemoteRunnerClient = new CubicTestRemoteRunnerClient(serverPort);
+			seleniumHolder.setCustomStepRunner(cubicTestRemoteRunnerClient);
+			
+			seleniumClientProxyServer = new SeleniumClientProxyServer(seleniumHolder, seleniumClientProxyPort);
+			seleniumClientProxyServer.start();
 			
 			testWalker.convertTest(test, seleniumHolder, targetPage);
 
@@ -234,6 +239,16 @@ public class TestRunner {
 		FutureTask<T> t = new FutureTask<T>(c);
 		THREADPOOL.execute(t);
 		return t.get(timeout, timeUnit);
+	}
+
+	public void cleanUp() {
+		if(cubicTestRemoteRunnerClient != null){
+			cubicTestRemoteRunnerClient.executeOnServer("stop");
+		}
+		if(seleniumClientProxyServer != null){
+			seleniumClientProxyServer.shutdown();
+		}
+		
 	}
 
 }
