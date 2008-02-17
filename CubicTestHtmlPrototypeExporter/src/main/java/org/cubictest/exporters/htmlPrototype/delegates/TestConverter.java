@@ -145,7 +145,9 @@ public class TestConverter implements ITestConverter {
 			
 			rootPage = (HtmlPageCreator) subTestTransitions.values().toArray()[0];
 			transitions.put(node.getInTransition(), rootPage);
-			parentPage.convertTransitions(transitions);
+			if(parentPage != null) {
+				parentPage.convertTransitions(transitions);				
+			}
 		} else if(node instanceof ExtensionPoint) {
 			if(parentTransitions != null) {
 				for(Transition t : parentTransitions) {

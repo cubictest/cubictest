@@ -13,8 +13,6 @@ package org.cubictest.recorder;
 
 import static org.cubictest.model.ActionType.CLICK;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.ExtensionStartPoint;

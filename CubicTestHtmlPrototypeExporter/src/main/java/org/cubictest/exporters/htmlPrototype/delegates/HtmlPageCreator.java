@@ -36,6 +36,7 @@ import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.formElement.Button;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -154,8 +155,11 @@ public class HtmlPageCreator {
 			
 			if(pe instanceof FormElement) {
 				element = pageElementConverter.labelFormElement((FormElement) pe, element);
+			} else if(pe instanceof AbstractContext) {
+				for(PageElement subElement : ((AbstractContext) pe).getRootElements()) {
+					addPageElement(subElement, element);
+				}
 			}
-			
 			result.addContent(element);
 		} catch (UnknownPageElementException e) {}
 

@@ -20,7 +20,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>PASS</status>
+              <status>UNKNOWN</status>
             </text>
             <simpleContext>
               <elements>
@@ -33,6 +33,7 @@
                       <type reference="../../../../../../text/identifiers/identifier/type"/>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
+                      <moderator>EQUAL</moderator>
                     </identifier>
                     <identifier>
                       <value></value>
@@ -40,6 +41,7 @@
                       <type>ID</type>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
+                      <moderator reference="../../identifier/moderator"/>
                     </identifier>
                     <identifier>
                       <value></value>
@@ -47,6 +49,7 @@
                       <type>HREF</type>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
+                      <moderator reference="../../identifier/moderator"/>
                     </identifier>
                     <identifier>
                       <value></value>
@@ -54,6 +57,15 @@
                       <type>TITLE</type>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
+                      <moderator reference="../../identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value></value>
+                      <probability>0</probability>
+                      <type>CLASS</type>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../identifier/moderator"/>
                     </identifier>
                   </identifiers>
                   <directEditIdentifier reference="../identifiers/identifier"/>
@@ -69,6 +81,7 @@
                   <type reference="../../../../text/identifiers/identifier/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
+                  <moderator reference="../../../elements/link/identifiers/identifier/moderator"/>
                 </identifier>
                 <identifier>
                   <value>headerLinks</value>
@@ -76,6 +89,7 @@
                   <type reference="../../../elements/link/identifiers/identifier[2]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
+                  <moderator reference="../../../elements/link/identifiers/identifier/moderator"/>
                 </identifier>
                 <identifier>
                   <value></value>
@@ -83,6 +97,7 @@
                   <type>INDEX</type>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
+                  <moderator reference="../../../elements/link/identifiers/identifier/moderator"/>
                 </identifier>
                 <identifier>
                   <value>table</value>
@@ -90,11 +105,28 @@
                   <type>ELEMENT_NAME</type>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
+                  <moderator reference="../../../elements/link/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>NAME</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/link/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../elements/link/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/link/identifiers/identifier/moderator"/>
                 </identifier>
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>UNKNOWN</status>
+              <status reference="../../text/status"/>
             </simpleContext>
           </elements>
           <name>Frontpage</name>
@@ -170,7 +202,7 @@
                               <identifier>
                                 <value>buy3dShooterBox</value>
                                 <probability>0</probability>
-                                <type>NAME</type>
+                                <type reference="../../../../../../../../../../../../elements/simpleContext/identifiers/identifier[5]/type"/>
                                 <useI18n>false</useI18n>
                                 <useParam>false</useParam>
                               </identifier>
@@ -227,7 +259,7 @@
                             </identifiers>
                             <directEditIdentifier reference="../identifiers/identifier"/>
                             <not>false</not>
-                            <status>FAIL</status>
+                            <status reference="../../../../../../../../../../elements/text/status"/>
                           </link>
                         </elements>
                         <description></description>
@@ -263,7 +295,7 @@
                         </identifiers>
                         <directEditIdentifier reference="../identifiers/identifier"/>
                         <not>false</not>
-                        <status reference="../../../../../../../../elements/simpleContext/status"/>
+                        <status reference="../../../../../../../../elements/text/status"/>
                       </simpleContext>
                     </elements>
                     <description></description>
@@ -299,7 +331,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/simpleContext/status"/>
+                    <status reference="../../../../../../elements/text/status"/>
                   </simpleContext>
                 </elements>
                 <name>3D Shooter Box</name>
@@ -376,7 +408,7 @@
           </position>
           <dimension>
             <width>144</width>
-            <height>92</height>
+            <height>114</height>
           </dimension>
         </end>
       </simpleTransition>
@@ -395,6 +427,40 @@
     <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
     <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
     <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page104046311203257312941</id>
+      <position>
+        <x>0</x>
+        <y>742</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page160664221203257949692</id>
+      <position>
+        <x>0</x>
+        <y>1042</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -416,7 +482,7 @@
             </identifiers>
             <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/text/status"/>
+            <status>PASS</status>
           </element>
           <input></input>
           <action reference="../../../../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/userInteractions/userInteraction/action"/>
@@ -441,7 +507,7 @@
             </identifiers>
             <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/simpleContext/status"/>
+            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/text/status"/>
           </text>
           <button>
             <description></description>
@@ -456,7 +522,7 @@
               <identifier>
                 <value>buy3dShooterBox</value>
                 <probability>100</probability>
-                <type reference="../../../../../../../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/elements/simpleContext/elements/simpleContext/elements/button/identifiers/identifier[2]/type"/>
+                <type reference="../../../../../../../../startPoint/outTransitions/simpleTransition/end/elements/simpleContext/identifiers/identifier[5]/type"/>
                 <useI18n>false</useI18n>
                 <useParam>false</useParam>
               </identifier>
@@ -484,7 +550,7 @@
             </identifiers>
             <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/simpleContext/status"/>
+            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/text/status"/>
           </button>
         </elements>
         <name>Show tooltip</name>
@@ -514,5 +580,5 @@
   <name>Purchase</name>
   <description></description>
   <id>/CubicShopTest/tests/purchase.aat</id>
-  <modelVersion>7</modelVersion>
+  <modelVersion>9</modelVersion>
 </test>

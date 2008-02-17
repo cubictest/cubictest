@@ -21,6 +21,7 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.formElement.Button;
+import org.cubictest.model.formElement.Checkable;
 import org.jdom.Element;
 
 public class PageElementConverter implements IPageElementConverter {
@@ -74,17 +75,14 @@ public class PageElementConverter implements IPageElementConverter {
 		Element legend = new Element("legend");
 		legend.addContent(getPositiveValue(context.getIdentifier(IdentifierType.LABEL)));
 		result.addContent(legend);
-		for(PageElement element : context.getRootElements()) {
-			try {
-				result.addContent(convert(element));
-			} catch (UnknownPageElementException e) {}
-		}
-		return result;
-		
+		return result;		
 	}
 	
 	private Element fromFormElement(FormElement fe) {
 		String name = getPositiveValue(fe.getIdentifier(IdentifierType.NAME));
+		if(name.equals("")) { // Safari doesn't like unnamed form elements
+			name = "cubictest_unnamed";
+		}
 		String value = "";
 		if (fe instanceof Button) {
 			value = getPositiveValue(fe.getIdentifier(IdentifierType.LABEL));
@@ -94,6 +92,10 @@ public class PageElementConverter implements IPageElementConverter {
 		}
 		String id = getPositiveValue(fe.getIdentifier(IdentifierType.ID));
 		String type = fe.getClass().getSimpleName().toLowerCase();
+		if(type.equals("radiobutton")) {
+			type = "radio";
+		}
+		
 		Element input;
 		
 		if(type.equals("select")) {
@@ -113,24 +115,27 @@ public class PageElementConverter implements IPageElementConverter {
 	}
 	
 	public Element labelFormElement(FormElement fe, Element input) {
-		if (isPositive(fe.getIdentifier(IdentifierType.LABEL))) {
-			Element labeledElement = new Element("div");
-			String name = TextUtil.camel(fe.getIdentifier(IdentifierType.LABEL).getValue());
-			String type = fe.getClass().getSimpleName().toLowerCase();
-			
-			if(!type.equals("submit") && !type.equals("button")) {
-				Element label = new Element("label");
-				label.setText(fe.getDescription());
-				label.setAttribute("for", name);				
-				labeledElement.addContent(label);
+		Element labeledElement = new Element("div");
+		String name = TextUtil.camel(fe.getDirectEditIdentifier().getValue());
+		String type = fe.getClass().getSimpleName().toLowerCase();
+		
+		if(!type.equals("submit") && !type.equals("button")) {
+			Element label = new Element("label");
+			label.setAttribute("for", name);
+			String labelText = fe.getDirectEditIdentifier().getValue();
+			labeledElement.addContent(label);
+
+			if(fe instanceof Checkable) { // reverse order for checkable elements
+				label.addContent(input);
+				label.addContent(labelText);
+			} else {
+				label.addContent(labelText + ":");
+				labeledElement.addContent(input);
 			}
+		} else {
 			labeledElement.addContent(input);
-			return labeledElement;
 		}
-		else {
-			//do nothing
-			return input;
-		}
+		return labeledElement;
 	}
 
 	private Element fromText(Text text) {

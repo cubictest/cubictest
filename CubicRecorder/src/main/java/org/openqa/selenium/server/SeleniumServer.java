@@ -41,7 +41,6 @@ import org.mortbay.jetty.Server;
 import org.mortbay.log.LogFactory;
 import org.openqa.selenium.server.browserlaunchers.AsyncExecute;
 import org.openqa.selenium.server.browserlaunchers.BrowserLauncher;
-import org.openqa.selenium.server.browserlaunchers.UnixUtils;
 import org.openqa.selenium.server.htmlrunner.HTMLLauncher;
 import org.openqa.selenium.server.htmlrunner.HTMLResultsListener;
 import org.openqa.selenium.server.htmlrunner.SeleniumHTMLRunnerResultsHandler;
