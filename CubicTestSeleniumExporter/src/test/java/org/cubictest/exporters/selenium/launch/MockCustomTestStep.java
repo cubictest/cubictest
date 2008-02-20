@@ -9,7 +9,6 @@ import com.thoughtworks.selenium.Selenium;
 
 public class MockCustomTestStep implements ICustomTestStep {
 	
-	@Override
 	public void execute(Map<String, String> arguments, IElementContext context,
 			Selenium selenium) {
 		if(arguments.size() == 0)
