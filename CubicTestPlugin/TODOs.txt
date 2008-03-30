@@ -59,24 +59,24 @@ Done	Recorder recorded absolute URL when page had relative. Worked with watir/se
 Done	M2 runner: Better error message on no tests in test suite (build successful, but nice message)
 
 1.8.3:
-Document XPath checker
-Record click on images
-Commons should refresh status when tested on multiple pages
-Do not close browser when user closes confirmation box (presses X instead of OK)
-Refactor - Create test with ExtensionStart point from selected nodes (cannot be any nodes after).
-Make possible to record and "make additions while recording"
-Context must have a element name?
-Custom steps
-Write tests for multiple nested context assertions. Ensure that all available info is used. 
-setUp and tearDown with custom steps.
-Do not close browser when M2 build fails - test project property
-Change order of logging parameters
-Better error message when element not found in context (search within it for elements).
-Better cancel of Selenium Runner. Especially when user interactions that does not lead to page load.
-Fix set test name. Does not always get stored on model.
-Better error messages when elements are not found. Search context for elements, incremental. Check context stand alone.
-Capturing HTML of page that failed (and the previous one). Selenium: getBodyText()
-Capture image of failing test page (and the previous page). Selenium: http://binil.wordpress.com/2006/12/22/taking-screenshots-with-selenium/
+Jira	Document XPath checker
+Jira	Record click on images
+Jira	Commons should refresh status when tested on multiple pages
+Jira	Do not close browser when user closes confirmation box (presses X instead of OK)
+Jira	Refactor - Create test with ExtensionStart point from selected nodes (cannot be any nodes after).
+Jira	Make possible to record and "make additions while recording"
+Jira	Context must have a element name?
+Jira	Custom steps
+Jira	Write tests for multiple nested context assertions. Ensure that all available info is used. 
+Jira	setUp and tearDown with custom steps.
+Jira	Do not close browser when M2 build fails - test project property
+Jira	Change order of logging parameters
+Jira	Better error message when element not found in context (search within it for elements).
+Jira	Better cancel of Selenium Runner. Especially when user interactions that does not lead to page load.
+Jira	Fix set test name. Does not always get stored on model.
+Jira	Better error messages when elements are not found. Search context for elements, incremental. Check context stand alone.
+Jira	Capturing HTML of page that failed (and the previous one). Selenium: getBodyText()
+Jira	Capture image of failing test page (and the previous page). Selenium: http://binil.wordpress.com/2006/12/22/taking-screenshots-with-selenium/
 
 
 Before OpenQA release:
@@ -84,27 +84,24 @@ Before OpenQA release:
 Put CubicShop on BOSS
 Better test samples
 
-
 Later release:
 ---------------
-Create a test suite for exporters (i.e testing a site with all identifiers etc).
-User actions: Move up, move down: better buttons
-Problem with d'n'd' subtest from open editor
-- Remove link with editor
-- Correct coordinates
-Have a custom element (generic type and attributes)
-Check "new element went into second column of page/state", should expand first column properly.
-Some problems with saving of data to model. Test name and description.
-When dblclick on exPoint, show tests that extends, possible to open.
-Enable Run As -> CubicTest xyz (on file and in test editor) -> reuse Junit progress monitor. Keyboard shortcuts for starting tests.
-Setup-teardown of tests (custom steps with finally functionality)
-Possible to upgrade rich client version via update site.
+Jira	Create a test suite for exporters (i.e testing a site with all identifiers etc).
+Jira	User actions: Move up, move down: better buttons
+Jira	Problem with d'n'd' subtest from open editor
+Jira	- Remove link with editor
+Jira	- Correct coordinates
+Jira	Have a custom element (generic type and attributes)
+Jira	Check "new element went into second column of page/state", should expand first column properly.
+Jira	Some problems with saving of data to model. Test name and description.
+Jira	When dblclick on exPoint, show tests that extends, possible to open.
+Jira	Enable Run As -> CubicTest xyz (on file and in test editor) -> reuse Junit progress monitor. Keyboard shortcuts for starting tests.
+Jira	Setup-teardown of tests (custom steps with finally functionality)
+Jira	Possible to upgrade rich client version via update site.
 
 Documentation
 -------------
 More info about exStartPoints vs subtests
-
-
 
 ===========================================================
 
