@@ -20,7 +20,6 @@ import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.policies.TestContainerEditPolicy;
 import org.cubictest.ui.gef.policies.TestXYLayoutEditPolicy;
-import org.cubictest.ui.gef.view.CubicTestGroupFigure;
 import org.cubictest.ui.gef.view.TestFigure;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.ColorConstants;

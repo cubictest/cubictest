@@ -11,7 +11,6 @@
 package org.cubictest.ui.gef.controller;
 
 import java.beans.PropertyChangeEvent;
-import java.util.List;
 
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.TestNotFoundException;

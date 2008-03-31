@@ -12,7 +12,6 @@ package org.cubictest.ui.gef.controller;
 
 import java.util.List;
 
-import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TransitionNode;
