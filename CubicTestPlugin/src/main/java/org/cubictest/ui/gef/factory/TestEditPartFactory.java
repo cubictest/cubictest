@@ -54,7 +54,6 @@ import org.cubictest.ui.gef.controller.PageTitleEditPart;
 import org.cubictest.ui.gef.controller.SimpleTransitionEditPart;
 import org.cubictest.ui.gef.controller.SubTestEditPart;
 import org.cubictest.ui.gef.controller.SubTestStartPointEditPart;
-import org.cubictest.ui.gef.controller.TableRowEditPart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.controller.TestSuiteStartPointEditPart;
 import org.cubictest.ui.gef.controller.UrlStartPointEditPart;

@@ -87,6 +87,8 @@ public class CubicTestImageRegistry {
 
 	public static final String CONTEXT_IMAGE = "context";
 
+	public static final String FRAME_IMAGE = "frame";
+
 	public static final String ROW_IMAGE = "row";
 	
 	public static final String NOT_IMAGE = "not";
@@ -237,6 +239,11 @@ public class CubicTestImageRegistry {
 				+ CONTEXT_IMAGE + ".gif"), null);
 		imageRegistry.put(CONTEXT_IMAGE, ImageDescriptor
 				.createFromURL(contextUrl));
+
+		URL frameUrl = FileLocator.find(pluginBundle, new Path(iconPath
+				+ FRAME_IMAGE + ".gif"), null);
+		imageRegistry.put(FRAME_IMAGE, ImageDescriptor
+				.createFromURL(frameUrl));
 
 		URL rowUrl = FileLocator.find(pluginBundle, new Path(iconPath
 				+ ROW_IMAGE + ".gif"), null);

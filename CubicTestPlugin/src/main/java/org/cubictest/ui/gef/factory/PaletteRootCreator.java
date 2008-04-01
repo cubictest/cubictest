@@ -15,6 +15,7 @@ import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CHECKBOX_UNCHECKE
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.COMMON_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONNECTION_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONTEXT_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.FRAME_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.EXTENSION_POINT_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.IMAGE_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.LINK_IMAGE;
@@ -40,6 +41,7 @@ import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.Transition;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
@@ -180,6 +182,15 @@ public class PaletteRootCreator extends PaletteRoot {
 						SimpleContext.class), CubicTestImageRegistry
 						.getDescriptor(CONTEXT_IMAGE), CubicTestImageRegistry
 						.getDescriptor(CONTEXT_IMAGE));
+		pageElements.add(tool);
+
+		tool = new CombinedTemplateCreationEntry(
+				"Frame",
+				"Check for a frame / iframe of page. Other page elements can be put into the (i)frame",
+				Frame.class, new DataCreationFactory(
+						Frame.class), CubicTestImageRegistry
+						.getDescriptor(FRAME_IMAGE), CubicTestImageRegistry
+						.getDescriptor(FRAME_IMAGE));
 		pageElements.add(tool);
 
 		// tool = new CombinedTemplateCreationEntry("Row",

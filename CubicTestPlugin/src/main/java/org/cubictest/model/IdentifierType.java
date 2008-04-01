@@ -69,7 +69,9 @@ public enum IdentifierType {
 	CLASS("Class", "Check the CSS class of the element", false, false),
 
 	/** Alternative text */
-	ALT("Alt. text", "Check the alternative text of the element", false, true);
+	ALT("Alt. text", "Check the alternative text of the element", false, true), 
+	
+	FRAME_TYPE("Frame", "If cheked CubicTest will look for a frame instead of an iframe", true, false);
 
 	
 	private String displayValue;

@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.AbstractContext;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
 import org.cubictest.ui.gef.directEdit.CubicTestEditorLocator;
@@ -69,11 +70,16 @@ public class ContextEditPart extends PageElementEditPart {
 	@Override
 	protected CubicTestGroupFigure createFigure() {
 		CubicTestGroupFigure figure = 
-			new CubicTestGroupFigure(((AbstractContext)getModel()).getText(), false);
+			new CubicTestGroupFigure(getModel().getText(), false);
 		figure.setBackgroundColor(ColorConstants.listBackground);
 		figure.getHeader().setIcon(getImage(getModel().isNot()));
-		figure.setTooltipText("Check context present: $labelText"
+		if(getModel() instanceof Frame){
+			figure.setTooltipText("Check (i)frame present: $labelText"
+					+ "\nFrames are used for identyfying a part of the page or a single page element.");
+		}else{
+			figure.setTooltipText("Check context present: $labelText"
 				+ "\nContexts are used for identyfying a part of the page or a single page element.");
+		}
 		return figure;
 	}
 	@Override
@@ -107,6 +113,8 @@ public class ContextEditPart extends PageElementEditPart {
 
 	@Override
 	protected Image getImage(boolean isNot) {
+		if(getModel() instanceof Frame)
+			return CubicTestImageRegistry.get(CubicTestImageRegistry.FRAME_IMAGE, isNot);
 		return CubicTestImageRegistry.get(CubicTestImageRegistry.CONTEXT_IMAGE, isNot);
 	}
 }

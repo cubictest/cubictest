@@ -17,10 +17,12 @@ import java.beans.PropertyChangeListener;
 
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.Identifier;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Moderator;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.ChangeDirectEditIdentifierCommand;
+import org.cubictest.ui.gef.command.ChangeFrameTypeCommand;
 import org.cubictest.ui.gef.command.ChangeIdentiferModeratorCommand;
 import org.cubictest.ui.gef.command.ChangeIdentiferProbabilityCommand;
 import org.cubictest.ui.gef.command.ChangeIdentiferValueToActualCommand;
@@ -72,11 +74,15 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private static final String END = "end with";
 	private static final String CONTAIN = "contain";
 	
+	private static final String FRAME = "frame";
+	private static final String IFRAME = "iframe";
+	
 	private Text value;
 	private Label booleanLabel;
 	private CCombo probability;
 	private Identifier identifier;
 	private CCombo moderator;
+	private CCombo frameType;
 	private Label type;
 	private Composite firstRow;
 	private Button dirEdit;
@@ -147,6 +153,16 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		moderator.addSelectionListener(moderatorListener);
 		moderator.setBackground(ColorConstants.white);
 		moderator.setLayoutData(data);
+		
+		//Adding label: "frameType" used for frames
+		data = new FormData();
+		data.left = new FormAttachment(type, 0);
+		frameType = factory.createCCombo(firstRow, SWT.BORDER);
+		frameType.setItems(new String[]{IFRAME, FRAME});
+		frameType.setSize(140, ITabbedPropertyConstants.VSPACE);
+		frameType.addSelectionListener(frameListener);
+		frameType.setBackground(ColorConstants.white);
+		frameType.setLayoutData(data);
 
 		//Adding label for value ("true")
 		data = new FormData();
@@ -287,7 +303,19 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		
 		booleanLabel.setVisible(identifier.getType().isBoolean());
 		value.setVisible(!identifier.getType().isBoolean());
-
+		
+		if(IdentifierType.FRAME_TYPE.equals(identifier.getType())){
+			probability.setVisible(false);
+			booleanLabel.setVisible(false);
+			value.setVisible(false);
+			moderator.setVisible(false);
+			frameType.setVisible(true);
+		}else{
+			moderator.setVisible(true);
+			frameType.setVisible(false);
+			probability.setVisible(true);
+		}
+		
 		addListeners();
 		refresh();
 	}
@@ -296,6 +324,8 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		type.setText(identifier.getType() + ":");
 		type.setToolTipText(identifier.getType().getDescription());
 		value.setText(identifier.getValue());
+		
+		frameType.setText(identifier.getValue());
 		
 		probability.removeSelectionListener(probabilityListener);
 		setProbability(identifier.getProbability());
@@ -541,6 +571,30 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			command.setIdentifier(identifier);
 			command.setNewModerator(mod);
 			command.setOldModerator(identifier.getModerator());
+			executeCommand(command);
+			
+		}
+		public void widgetDefaultSelected(SelectionEvent e) {}
+	};
+
+	private SelectionListener frameListener = new SelectionListener(){
+		public void widgetSelected(SelectionEvent e) {
+			int index = frameType.getSelectionIndex();
+			String label = frameType.getItem(index);
+			String frame = "frame";
+			if (label.equals(FRAME))
+				frame = "frame";
+			else if (label.equals(IFRAME))
+				frame = "iframe";
+			else {
+				Logger.warn("Unknown frame type");
+			}
+			
+			ChangeFrameTypeCommand command = 
+				new ChangeFrameTypeCommand();
+			command.setIdentifier(identifier);
+			command.setFrame(frame);
+			command.setOldFrame(identifier.getValue());
 			executeCommand(command);
 			
 		}
