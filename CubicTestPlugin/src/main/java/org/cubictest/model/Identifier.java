@@ -72,7 +72,7 @@ public class Identifier implements Cloneable, SationObserver{
 	}
 
 	public void setProbability(int probability){
-		int oldProbability = probability;
+		int oldProbability = this.probability;
 		if(probability > MAX_PROBABILITY){
 			this.probability = MAX_PROBABILITY;
 		}else if(probability < -MAX_PROBABILITY){
