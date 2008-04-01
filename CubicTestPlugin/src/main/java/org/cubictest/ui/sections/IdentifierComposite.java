@@ -156,7 +156,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		
 		//Adding label: "frameType" used for frames
 		data = new FormData();
-		data.left = new FormAttachment(type, 0);
+		data.left = new FormAttachment(probability, 7);
 		frameType = factory.createCCombo(firstRow, SWT.BORDER);
 		frameType.setItems(new String[]{IFRAME, FRAME});
 		frameType.setSize(140, ITabbedPropertyConstants.VSPACE);
@@ -301,19 +301,18 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		this.pageElement = pageElement;
 		this.identifier = identifier;
 		
-		booleanLabel.setVisible(identifier.getType().isBoolean());
-		value.setVisible(!identifier.getType().isBoolean());
-		
 		if(IdentifierType.FRAME_TYPE.equals(identifier.getType())){
-			probability.setVisible(false);
-			booleanLabel.setVisible(false);
-			value.setVisible(false);
 			moderator.setVisible(false);
 			frameType.setVisible(true);
+
+			booleanLabel.setVisible(false);
+			value.setVisible(false);
 		}else{
 			moderator.setVisible(true);
 			frameType.setVisible(false);
-			probability.setVisible(true);
+
+			booleanLabel.setVisible(identifier.getType().isBoolean());
+			value.setVisible(!identifier.getType().isBoolean());
 		}
 		
 		addListeners();
