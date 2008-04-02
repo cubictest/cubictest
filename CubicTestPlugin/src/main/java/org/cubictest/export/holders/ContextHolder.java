@@ -21,6 +21,7 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.IContext;
 
 /**
@@ -33,6 +34,7 @@ public class ContextHolder implements IResultHolder {
 
 	protected Stack<PropertyAwareObject> breadCrumbs = new Stack<PropertyAwareObject>(); 
 	private Stack<IContext> contextStack = new Stack<IContext>(); 
+	private Stack<Stack<IContext>> frameStack = new Stack<Stack<IContext>>(); 
 	private Map<PageElement, PageElement> elementParentMap = new HashMap<PageElement, PageElement>();
 	private boolean shouldFailOnAssertionFailure;
 	
@@ -72,7 +74,27 @@ public class ContextHolder implements IResultHolder {
 		return contextStack.size() == 0;
 	}
 	
-	
+	public String getFullContextWithoutAllElements(PageElement pageElement){
+		return getSmartElement(pageElement,pageElement);
+	}
+
+	private String getSmartElement(PageElement pageElement, PageElement orgElement) {
+		String res = "";
+		if (pageElement == null) {
+			return "";
+		}
+		
+		String axis = "/descendant-or-self::";
+		if (isInRootContext()) {
+			axis = "//";
+		}
+		res += axis + XPathBuilder.getXPath(pageElement);
+		
+		PageElement parent = elementParentMap.get(pageElement);
+		return getSmartElement(parent, orgElement) + res;
+
+	}
+
 
 	/**
 	 * Gets "smart context": Asserts all elements in context present.
@@ -80,8 +102,6 @@ public class ContextHolder implements IResultHolder {
 	public String getFullContextWithAllElements(PageElement pageElement) {
 		return getSmartContext(pageElement, pageElement);
 	}
-	
-	
 	
 	/**
 	 * Recursive private utility method. Gets "smart context": Asserts all or previous elements in context present.
@@ -168,5 +188,14 @@ public class ContextHolder implements IResultHolder {
 			}
 		}
 		return res;
+	}
+	
+	public void pushFrame(Frame frame) {
+		frameStack.push(contextStack);
+		contextStack = new Stack<IContext>();
+	}
+
+	public void popFrame() {
+		contextStack = frameStack.pop();
 	}
 }
