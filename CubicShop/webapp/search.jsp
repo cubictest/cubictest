@@ -6,17 +6,36 @@
 <b>Enter a cubic item (e.g. "moving box").</b><br><br>
 
 <form name="searchForm" action="search.jsp">
-
-	<label for="search">Search</label>
-	<select name="search" id="search">
-		<option value="reviews" selected>
-			Reviews
-		</option>
-		<option value="cubics">Cubics</option>
-	</select>
-	for
- 	<input type="text" name="query" id="query" />
- 	<input type="submit" name="go" value="Go" />
+	<table>
+		<tr>
+			<td>	
+				<label for="search">Search</label>
+			</td>
+			<td>
+				<select name="search" id="search" onchange="updateForm(this);">
+					<option value="reviews" selected>
+						Reviews
+					</option>
+					<option value="cubics">Cubics</option>
+				</select>
+			</td>
+		</tr>
+		<tr>		 	
+			<td id="customCriteriaLabel">
+			</td>
+			<td id="customCriteria">
+			</td>
+		</tr>
+		<tr>		 	
+			<td>
+				For
+			</td>
+			<td>
+		 		<input type="text" name="query" id="query" />
+			 	<input type="submit" name="go" value="Go" />
+			</td>
+		</tr>
+	</table>
 </form>
 
 <% 

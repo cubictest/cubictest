@@ -7,7 +7,8 @@
 		<title>CubicShop</title>
 		<style type="text/css" media="all">
 			@import "/cubicshop/cubicshop.css";
-		</style>	
+		</style>
+		<script type="text/javascript" src="/cubicshop/js/cubicshop.js"></script>
 	</head>
 	<body>
  	 <div id="frontpage">
