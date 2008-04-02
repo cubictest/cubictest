@@ -3,6 +3,7 @@
     <sourceExtensionPointPageId>page215362701162367169184</sourceExtensionPointPageId>
     <sourceExtensionPointName>Search Extension Point</sourceExtensionPointName>
     <filePath>tests/frontpage.aat</filePath>
+    <parameterIndex>0</parameterIndex>
     <outTransitions>
       <extensionTransition>
         <id>page215362701162367169184</id>
@@ -10,6 +11,55 @@
         <end class="page">
           <commons/>
           <elements>
+            <checkbox>
+              <checked>false</checked>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Include unreleased cubes  	</value>
+                  <probability>0</probability>
+                  <type>LABEL</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator>EQUAL</moderator>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>NAME</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>CHECKED</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>TITLE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>true</not>
+              <status>PASS</status>
+            </checkbox>
             <select>
               <elements>
                 <option>
@@ -20,9 +70,10 @@
                     <identifier>
                       <value>Cubics</value>
                       <probability>100</probability>
-                      <type>LABEL</type>
+                      <type reference="../../../../../../checkbox/identifiers/identifier/type"/>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
+                      <moderator reference="../../../../../../checkbox/identifiers/identifier/moderator"/>
                     </identifier>
                     <identifier>
                       <value></value>
@@ -48,14 +99,14 @@
                     <identifier>
                       <value></value>
                       <probability>0</probability>
-                      <type>ID</type>
+                      <type reference="../../../../../../checkbox/identifiers/identifier[2]/type"/>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
                     </identifier>
                   </identifiers>
                   <directEditIdentifier reference="../identifiers/identifier"/>
                   <not>false</not>
-                  <status>PASS</status>
+                  <status reference="../../../../checkbox/status"/>
                 </option>
                 <option>
                   <parent reference="../../.."/>
@@ -65,9 +116,10 @@
                     <identifier>
                       <value>Reviews</value>
                       <probability>100</probability>
-                      <type reference="../../../../option/identifiers/identifier/type"/>
+                      <type reference="../../../../../../checkbox/identifiers/identifier/type"/>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
+                      <moderator reference="../../../../../../checkbox/identifiers/identifier/moderator"/>
                     </identifier>
                     <identifier>
                       <value></value>
@@ -93,14 +145,14 @@
                     <identifier>
                       <value></value>
                       <probability>0</probability>
-                      <type reference="../../../../option/identifiers/identifier[5]/type"/>
+                      <type reference="../../../../../../checkbox/identifiers/identifier[2]/type"/>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
                     </identifier>
                   </identifiers>
                   <directEditIdentifier reference="../identifiers/identifier"/>
                   <not>false</not>
-                  <status reference="../../option/status"/>
+                  <status reference="../../../../checkbox/status"/>
                 </option>
               </elements>
               <description></description>
@@ -108,21 +160,22 @@
                 <identifier>
                   <value>Search</value>
                   <probability>100</probability>
-                  <type reference="../../../elements/option/identifiers/identifier/type"/>
+                  <type reference="../../../../checkbox/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../checkbox/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../checkbox/identifiers/identifier[3]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type>NAME</type>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                </identifier>
-                <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type reference="../../../elements/option/identifiers/identifier[5]/type"/>
+                  <type reference="../../../../checkbox/identifiers/identifier[2]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
@@ -136,14 +189,14 @@
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type>TITLE</type>
+                  <type reference="../../../../checkbox/identifiers/identifier[5]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status reference="../elements/option/status"/>
+              <status reference="../../checkbox/status"/>
             </select>
             <textField>
               <description></description>
@@ -151,21 +204,21 @@
                 <identifier>
                   <value>Query</value>
                   <probability>0</probability>
-                  <type reference="../../../../select/elements/option/identifiers/identifier/type"/>
+                  <type reference="../../../../checkbox/identifiers/identifier/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type reference="../../../../select/elements/option/identifiers/identifier[5]/type"/>
+                  <type reference="../../../../checkbox/identifiers/identifier[2]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
                   <value>query</value>
                   <probability>0</probability>
-                  <type reference="../../../../select/identifiers/identifier[2]/type"/>
+                  <type reference="../../../../checkbox/identifiers/identifier[3]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
@@ -179,43 +232,44 @@
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type reference="../../../../select/identifiers/identifier[5]/type"/>
+                  <type reference="../../../../checkbox/identifiers/identifier[5]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status reference="../../select/elements/option/status"/>
+              <status reference="../../checkbox/status"/>
             </textField>
             <button>
               <identifiers>
                 <identifier>
                   <value>Go</value>
                   <probability>100</probability>
-                  <type reference="../../../../select/elements/option/identifiers/identifier/type"/>
+                  <type reference="../../../../checkbox/identifiers/identifier/type"/>
                   <paramKey></paramKey>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
+                  <moderator reference="../../../../checkbox/identifiers/identifier/moderator"/>
                 </identifier>
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type reference="../../../../select/identifiers/identifier[2]/type"/>
+                  <type reference="../../../../checkbox/identifiers/identifier[3]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type reference="../../../../select/elements/option/identifiers/identifier[5]/type"/>
+                  <type reference="../../../../checkbox/identifiers/identifier[2]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type reference="../../../../select/identifiers/identifier[5]/type"/>
+                  <type reference="../../../../checkbox/identifiers/identifier[5]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
@@ -226,10 +280,26 @@
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>SRC</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../checkbox/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ALT</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../checkbox/identifiers/identifier/moderator"/>
+                </identifier>
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status reference="../../select/elements/option/status"/>
+              <status reference="../../checkbox/status"/>
             </button>
           </elements>
           <name>First Page</name>
@@ -275,14 +345,15 @@
                       <identifier>
                         <value>Search result for cubics</value>
                         <probability>100</probability>
-                        <type reference="../../../../../../../../elements/select/elements/option/identifiers/identifier/type"/>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
                       </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/select/elements/option/status"/>
+                    <status reference="../../../../../../elements/checkbox/status"/>
                   </text>
                   <text>
                     <description></description>
@@ -290,27 +361,390 @@
                       <identifier>
                         <value>Rubik&apos;s cube</value>
                         <probability>100</probability>
-                        <type reference="../../../../../../../../elements/select/elements/option/identifiers/identifier/type"/>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
                       </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/select/elements/option/status"/>
+                    <status reference="../../../../../../elements/checkbox/status"/>
                   </text>
+                  <button>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Buy</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/button/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/button/identifiers/identifier[6]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/button/identifiers/identifier[7]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status reference="../../../../../../elements/checkbox/status"/>
+                  </button>
                 </elements>
                 <name>Search results</name>
                 <inTransition class="userInteractionsTransition" reference="../.."/>
-                <outTransitions/>
+                <outTransitions>
+                  <userInteractionsTransition>
+                    <userInteractions>
+                      <userInteraction>
+                        <element class="button" reference="../../../../../elements/button"/>
+                        <input></input>
+                        <action reference="../../../../../../userInteractions/userInteraction[3]/action"/>
+                        <i18nKey></i18nKey>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </userInteraction>
+                    </userInteractions>
+                    <page class="page" reference="../../.."/>
+                    <start class="page" reference="../../.."/>
+                    <end class="page">
+                      <commons/>
+                      <elements/>
+                      <name>Bought cube</name>
+                      <description></description>
+                      <inTransition class="userInteractionsTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>page50103521207124005781</id>
+                      <position>
+                        <x>111</x>
+                        <y>504</y>
+                      </position>
+                      <dimension>
+                        <width>125</width>
+                        <height>63</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                    </end>
+                  </userInteractionsTransition>
+                </outTransitions>
                 <id>page232692341162408385747</id>
                 <position>
-                  <x>97</x>
+                  <x>85</x>
                   <y>333</y>
                 </position>
                 <dimension>
-                  <width>146</width>
-                  <height>67</height>
+                  <width>171</width>
+                  <height>88</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userInteractionsTransition>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="option" reference="../../../../../elements/select/elements/option"/>
+                  <input></input>
+                  <action reference="../../../../userInteractionsTransition/userInteractions/userInteraction/action"/>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <checkbox>
+                    <checked>false</checked>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Include unreleased cubes  	</value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[4]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status>UNKNOWN</status>
+                  </checkbox>
+                  <button>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Go</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value>go</value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/button/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/button/identifiers/identifier[6]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/button/identifiers/identifier[7]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status reference="../../checkbox/status"/>
+                  </button>
+                  <textField>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value>query</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value>query</value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/select/elements/option/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/checkbox/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier[2]"/>
+                    <not>false</not>
+                    <status reference="../../checkbox/status"/>
+                  </textField>
+                </elements>
+                <name>New page</name>
+                <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions>
+                  <userInteractionsTransition>
+                    <userInteractions>
+                      <userInteraction>
+                        <element class="checkbox" reference="../../../../../elements/checkbox"/>
+                        <input></input>
+                        <action>CHECK</action>
+                        <i18nKey></i18nKey>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </userInteraction>
+                      <userInteraction>
+                        <element class="textField" reference="../../../../../elements/textField"/>
+                        <input>Crate</input>
+                        <action reference="../../../../../../../userInteractionsTransition/userInteractions/userInteraction[2]/action"/>
+                        <i18nKey></i18nKey>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </userInteraction>
+                      <userInteraction>
+                        <element class="button" reference="../../../../../elements/button"/>
+                        <input></input>
+                        <action reference="../../../../../../../userInteractionsTransition/userInteractions/userInteraction[3]/action"/>
+                        <i18nKey></i18nKey>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </userInteraction>
+                    </userInteractions>
+                    <page class="page" reference="../../.."/>
+                    <start class="page" reference="../../.."/>
+                    <end class="page">
+                      <commons/>
+                      <elements>
+                        <text>
+                          <description></description>
+                          <identifiers>
+                            <identifier>
+                              <value>Search result for cubics</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
+                          <not>false</not>
+                          <status reference="../../../../../../elements/checkbox/status"/>
+                        </text>
+                      </elements>
+                      <name>New page</name>
+                      <description></description>
+                      <inTransition class="userInteractionsTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>page96714811207123777976</id>
+                      <position>
+                        <x>335</x>
+                        <y>484</y>
+                      </position>
+                      <dimension>
+                        <width>171</width>
+                        <height>46</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                    </end>
+                  </userInteractionsTransition>
+                </outTransitions>
+                <id>page62671811207123740776</id>
+                <position>
+                  <x>330</x>
+                  <y>297</y>
+                </position>
+                <dimension>
+                  <width>180</width>
+                  <height>88</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
               </end>
@@ -323,7 +757,7 @@
           </position>
           <dimension>
             <width>115</width>
-            <height>134</height>
+            <height>156</height>
           </dimension>
           <name defined-in="transitionNode"></name>
         </end>
@@ -335,17 +769,57 @@
       <y>0</y>
     </position>
     <name></name>
-    <status reference="../outTransitions/extensionTransition/end/elements/select/elements/option/status"/>
+    <status reference="../outTransitions/extensionTransition/end/elements/checkbox/status"/>
   </startPoint>
   <extensionPoints/>
   <pages>
     <page reference="../../startPoint/outTransitions/extensionTransition/end"/>
     <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page106840431202197763461</id>
+      <position>
+        <x>0</x>
+        <y>932</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition[2]/end"/>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition[2]/end/outTransitions/userInteractionsTransition/end"/>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page302193951207124040764</id>
+      <position>
+        <x>0</x>
+        <y>1232</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
     <extensionTransition reference="../../startPoint/outTransitions/extensionTransition"/>
     <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition[2]/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition[2]"/>
   </transitions>
   <customTestSteps/>
   <allLanguages>
@@ -355,6 +829,6 @@
   <name>search</name>
   <description></description>
   <id>test1162408155135</id>
-  <modelVersion>8</modelVersion>
-  <status reference="../startPoint/outTransitions/extensionTransition/end/elements/select/elements/option/status"/>
+  <modelVersion>9</modelVersion>
+  <status>WARN</status>
 </test>
