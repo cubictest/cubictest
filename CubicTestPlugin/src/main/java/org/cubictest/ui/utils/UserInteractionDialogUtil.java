@@ -76,7 +76,7 @@ public class UserInteractionDialogUtil {
 		return flattenedElements;
 	}
 	
-	public static String getLabel(IActionElement element, List<PageElement> otherElements) {
+	public static String getLabel(IActionElement element, List<IActionElement> otherElements) {
 		String res = "";
 		if (element instanceof PageElement) {
 			PageElement pageElement = (PageElement) element;
@@ -85,17 +85,17 @@ public class UserInteractionDialogUtil {
 			String idInfo = "";
 			String contextInfo = "";
 			//check for similar elements, if found, add more info about identifiers
-			for (PageElement pe : otherElements) {
-				if (pe.equals(element)) {
+			for (IActionElement ae : otherElements) {
+				if (ae.equals(element)) {
 					continue;
 				}
-				if (pe instanceof IContext) {
-					if (((IContext) pe).contains(pageElement)) {
+				if (ae instanceof IContext && ae instanceof PageElement) {
+					if (((IContext) ae).contains(pageElement)) {
 						//we have found the parent context
-						contextInfo = ", context: '" + pe.getDirectEditIdentifier().getValue() + "'";
+						contextInfo = ", context: '" + ((PageElement)ae).getDirectEditIdentifier().getValue() + "'";
 					}
 				}
-				if (getDefaultLabel(pe).equals(getDefaultLabel(pageElement))) {
+				if (ae instanceof PageElement && getDefaultLabel((PageElement)ae).equals(getDefaultLabel(pageElement))) {
 					idInfo = ", " + pageElement.identifierListToString();
 				}
 			}

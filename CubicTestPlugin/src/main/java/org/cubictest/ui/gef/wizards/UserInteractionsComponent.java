@@ -26,7 +26,6 @@ import org.cubictest.model.Test;
 import org.cubictest.model.Text;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.model.context.IContext;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.ui.gef.command.AddUserInteractionCommand;
 import org.cubictest.ui.gef.command.DeleteUserInteractionCommand;
@@ -35,7 +34,6 @@ import org.cubictest.ui.gef.command.MoveUserInteractionCommand;
 import org.cubictest.ui.gef.command.MoveUserInteractionCommand.Direction;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
-import org.eclipse.jdt.internal.core.NameLookup.Answer;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
@@ -89,7 +87,7 @@ public class UserInteractionsComponent {
 	private String[] actionElements;
 	
 	private UserInteractionsTransition transition;
-	private List<PageElement> allActionElements = new ArrayList<PageElement>();
+	private List<IActionElement> allActionElements = new ArrayList<IActionElement>();
 	private Test test;
 	private TestEditPart testPart;
 	private boolean useCommandForActionChanges;

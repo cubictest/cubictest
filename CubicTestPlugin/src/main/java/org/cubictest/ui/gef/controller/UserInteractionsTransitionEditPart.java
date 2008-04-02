@@ -148,6 +148,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 						+ action.getTextualInput();
 				}
 				inputLabel = new Label(inputLabelText);
+				
 				if (element instanceof Link){
 					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.LINK_IMAGE));
 				}
@@ -191,6 +192,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 				else {
 					inputLabel = new Label(inputLabelText);
 				}
+				inputLabel.setToolTip(new Label(action.getActionType().getDescription()));
 				inputLabel.setLabelAlignment(PositionConstants.LEFT);
 				figure.add(inputLabel);
 			}

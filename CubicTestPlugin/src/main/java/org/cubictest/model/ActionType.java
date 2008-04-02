@@ -20,43 +20,41 @@ import java.util.HashMap;
  */
 public enum ActionType {
 
-	//params: text, acceptsTextInput
+	//params: text, description, acceptsTextInput
 	
-	CLICK("Click", false),
-	CHECK("Check", false),
-	UNCHECK("Uncheck", false),
-	ENTER_TEXT("Enter text", true),
-	KEY_PRESSED("Key pressed", false),
-	CLEAR_ALL_TEXT("Clear all text", false),
-	MOUSE_OVER("Mouse over", false),
-	MOUSE_OUT("Mouse out", false),
-	DBLCLICK("Double click", false),
-	FOCUS("Set focus", false),
-	BLUR("Remove focus", false),
-	DRAG_START("Drag n' Drop start", false),
-	DRAG_END("Drag n' Drop end", false), 
-	NO_ACTION("No action", false), 
-	GO_BACK("Go back", false),
-	GO_FORWARD("Go forward", false),
-	REFRESH("Refresh", false),
-	NEXT_WINDOW("Next window", false),
-	PREVIOUS_WINDOW("Previous window", false),
-	ENTER_PARAMETER_TEXT("Enter parameter text", true),
-	SELECT("Select", false),
-	//Added by Genesis Campos
-	SWITCH_BY_TITLE("Switch by Title", true),
-	SWITCH_BY_URL("Switch by URL", true),
-	CLOSE("Close Window", false)
-	//End;	
-	;
+	CLICK("Click", "Click on the element", false),
+	CHECK("Check", "Checks an checkbox", false),
+	UNCHECK("Uncheck", "Unchecks an checkbox", false),
+	ENTER_TEXT("Enter text", "Enter text into the field", true),
+	KEY_PRESSED("Key pressed", "Fire key pressed event", false),
+	CLEAR_ALL_TEXT("Clear all text", "Clears the text in the field", false),
+	MOUSE_OVER("Mouse over", "Fire mouse over event", false),
+	MOUSE_OUT("Mouse out", "Fire mouse out event", false),
+	DBLCLICK("Double click", "Double click on the element", false),
+	FOCUS("Set focus", "Set focus on the element", false),
+	BLUR("Remove focus", "Remove focus from the element(blur)", false),
+	DRAG_START("Drag n' Drop start", "Start a drag'n drop action", false),
+	DRAG_END("Drag n' Drop end", "End a drag'n drop action", false), 
+	NO_ACTION("No action", "Take no action", false), 
+	GO_BACK("Go back", "Go back on the browser", false),
+	GO_FORWARD("Go forward", "Go forward on the browser", false),
+	REFRESH("Refresh", "Refreshes the browser", false),
+	ENTER_PARAMETER_TEXT("Enter parameter text", "Enter a text from the parameter field specified", true),
+	SELECT("Select", "Select this element", false),
+	SWITCH_BY_NAME("Switch by name", "Switch to a another window by using its name", true),
+//	SWITCH_BY_TITLE("Switch by Title", "", true),
+//	SWITCH_BY_URL("Switch by URL", "", true),
+	CLOSE("Close Window", "Closes the window", false);
 	
 	private String text;
 	private boolean acceptsInput;
+	private String description;
 	
 	static HashMap<String, ActionType> actions;
 	
-	private ActionType(String text, boolean acceptsInput) {
+	private ActionType(String text, String description, boolean acceptsInput) {
 		this.text = text;
+		this.description = description;
 		this.acceptsInput = acceptsInput;
 		if(ActionType.actions == null) {
 			ActionType.actions = new HashMap<String, ActionType>();
@@ -70,6 +68,14 @@ public enum ActionType {
 	 */
 	public String getText(){
 		return text;
+	}
+	
+	/**
+	 * Get the description for this action type
+	 * @return
+	 */
+	public String getDescription() {
+		return description;
 	}
 	
 	public boolean acceptsInput() {

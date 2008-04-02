@@ -44,7 +44,9 @@ import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.AbstractContext;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Button;
@@ -116,8 +118,9 @@ public class CubicTestXStream extends XStream {
 		//contexts:
 		this.alias("abstractContext", AbstractContext.class);
 		this.alias("simpleContext", SimpleContext.class);
-		//Added by Genesis Campos
-		//End;
+		this.alias("frame", Frame.class);
+
+		this.alias("webBrowser", WebBrowser.class);
 		
 		//formElement:
 		this.alias("abstractTextInput", AbstractTextInput.class);
