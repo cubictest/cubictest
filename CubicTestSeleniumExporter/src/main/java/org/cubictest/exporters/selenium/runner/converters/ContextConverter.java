@@ -36,11 +36,11 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 	public PreContextHandle handlePreContext(SeleniumHolder seleniumHolder, IContext ctx) {
 		if(ctx instanceof Frame){
 			Frame frame = (Frame) ctx;
-			String locator = "xpath=" + seleniumHolder.getFullContextWithoutAllElements(frame);
+			String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(frame);
 			try{
 				seleniumHolder.getSelenium().execute("selectFrame", locator);
 				seleniumHolder.addResult(frame, TestPartStatus.PASS, frame.isNot());
-			}catch (SeleniumException e) {
+			}catch (Exception e) {
 				seleniumHolder.addResult(frame, TestPartStatus.FAIL, frame.isNot());
 			}
 			seleniumHolder.pushFrame(frame);

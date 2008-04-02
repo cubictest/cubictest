@@ -10,14 +10,12 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.converters;
 
-import java.lang.reflect.Method;
-
-import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.exceptions.UserInteractionException;
+import org.cubictest.exporters.selenium.runner.holders.CubicTestLocalRunner;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
@@ -26,6 +24,8 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.model.WebBrowser;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Select;
 
@@ -54,6 +54,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				Logger.warn("Action element was null. Skipping user interaction: " + action);
 				continue;
 			}
+			
 			String commandName = handleUserInteraction(seleniumHolder, action);
 			if (!commandName.equals(SeleniumUtils.FIREEVENT)) {
 				waitForPageToLoad = true;
@@ -88,7 +89,11 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 
 		IActionElement element = userInteraction.getElement();
 		ActionType actionType = userInteraction.getActionType();
-		
+		boolean withinFrame = false;
+		if(element instanceof PageElement && seleniumHolder.isPageElementWithinFrame((PageElement)element)){
+			withinFrame = true;
+			getToRightFrame(seleniumHolder, seleniumHolder.getParentFrame((PageElement) element));
+		}
 		//Getting selenium commands, locators and values:
 		String commandName = SeleniumUtils.getCommandName(actionType);
 
@@ -99,11 +104,13 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			Select select = ((Option) element).getParent();
 			locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(select);
 			inputValue = SeleniumUtils.getOptionLocator((Option) element);
-		}
-		else {
+		}else {
 			//all other elements
 			if (element instanceof PageElement) {
 				locator = "xpath=" + seleniumHolder.getFullContextWithAllElements((PageElement) element);
+			}
+			else if(element instanceof WebBrowser){
+				locator = userInteraction.getValue();
 			}
 			else {
 				throw new ExporterException("Unsupported action element type");
@@ -123,6 +130,8 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				//one parameter only
 				seleniumHolder.getSelenium().execute(commandName, locator);
 			}
+			if(withinFrame && commandName.equals(SeleniumUtils.FIREEVENT))
+				upToParentFrame(seleniumHolder);
 			return commandName;
 		}
 		catch (Exception e) {
@@ -137,5 +146,21 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			Logger.error(msg, e);
 			throw new UserInteractionException(msg);
 		}
+		
+	}
+
+	private void getToRightFrame(SeleniumHolder seleniumHolder,
+			PageElement element) {
+		Frame parent = seleniumHolder.getParentFrame(element);
+		if(parent != null){
+			getToRightFrame(seleniumHolder, parent);
+		}
+		String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(element);
+		seleniumHolder.getSelenium().execute("selectFrame", locator);
+	}
+
+	private void upToParentFrame(SeleniumHolder seleniumHolder) {
+		final CubicTestLocalRunner seleniumRunner = seleniumHolder.getSelenium();
+		seleniumRunner.execute("selectFrame", "relative=top");
 	}
 }
