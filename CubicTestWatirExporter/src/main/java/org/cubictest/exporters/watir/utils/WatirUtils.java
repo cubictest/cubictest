@@ -15,8 +15,7 @@ import static org.cubictest.model.ActionType.CHECK;
 import static org.cubictest.model.ActionType.CLEAR_ALL_TEXT;
 import static org.cubictest.model.ActionType.CLICK;
 import static org.cubictest.model.ActionType.DBLCLICK;
-import static org.cubictest.model.ActionType.DRAG_END;
-import static org.cubictest.model.ActionType.DRAG_START;
+import static org.cubictest.model.ActionType.DRAG_DROP;
 import static org.cubictest.model.ActionType.ENTER_PARAMETER_TEXT;
 import static org.cubictest.model.ActionType.ENTER_TEXT;
 import static org.cubictest.model.ActionType.FOCUS;
@@ -175,9 +174,7 @@ public class WatirUtils {
 			return "fireEvent(\"onfocus\")";
 		if (a.equals(BLUR))
 			return "fireEvent(\"onblur\")";
-		if (a.equals(DRAG_START))
-			throw new ExporterException(a.getText() + " is not a supported action type");
-		if (a.equals(DRAG_END))
+		if (a.equals(DRAG_DROP))
 			throw new ExporterException(a.getText() + " is not a supported action type");
 		if (a.equals(NO_ACTION))
 			throw new ExporterException(a.getText() + " is not a supported action type");
