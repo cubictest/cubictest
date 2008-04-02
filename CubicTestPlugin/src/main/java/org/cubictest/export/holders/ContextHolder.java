@@ -74,28 +74,6 @@ public class ContextHolder implements IResultHolder {
 		return contextStack.size() == 0;
 	}
 	
-	public String getFullContextWithoutAllElements(PageElement pageElement){
-		return getSmartElement(pageElement,pageElement);
-	}
-
-	private String getSmartElement(PageElement pageElement, PageElement orgElement) {
-		String res = "";
-		if (pageElement == null) {
-			return "";
-		}
-		
-		String axis = "/descendant-or-self::";
-		if (isInRootContext()) {
-			axis = "//";
-		}
-		res += axis + XPathBuilder.getXPath(pageElement);
-		
-		PageElement parent = elementParentMap.get(pageElement);
-		return getSmartElement(parent, orgElement) + res;
-
-	}
-
-
 	/**
 	 * Gets "smart context": Asserts all elements in context present.
 	 */
@@ -110,7 +88,7 @@ public class ContextHolder implements IResultHolder {
 	 */
 	private String getSmartContext(PageElement pageElement, PageElement orgElement) {
 		String res = "";
-		if (pageElement == null) {
+		if (pageElement == null || (pageElement instanceof Frame && !orgElement.equals(pageElement))) {
 			return "";
 		}
 		
@@ -120,7 +98,8 @@ public class ContextHolder implements IResultHolder {
 		}
 		res += axis + XPathBuilder.getXPath(pageElement);
 		
-		if (pageElement instanceof IContext && ((IContext) pageElement).getRootElements().size() > 1) {
+		if (pageElement instanceof IContext && !(pageElement instanceof Frame) 
+				&& ((IContext) pageElement).getRootElements().size() > 1) {
 			String assertion = getElementsInContextXPath((IContext) pageElement, orgElement);
 			if (StringUtils.isNotBlank(assertion)) {
 				res += "[" + assertion + "]";
@@ -193,9 +172,26 @@ public class ContextHolder implements IResultHolder {
 	public void pushFrame(Frame frame) {
 		frameStack.push(contextStack);
 		contextStack = new Stack<IContext>();
+		for (PageElement pe : frame.getRootElements()) {
+			//setting current context as parent of each page element within context
+			elementParentMap.put(pe, frame);
+		}
 	}
 
 	public void popFrame() {
 		contextStack = frameStack.pop();
+	}
+	
+	public boolean isPageElementWithinFrame(PageElement element){
+		return getParentFrame(element) != null;
+	}
+	
+	public Frame getParentFrame(PageElement element) {
+		PageElement parent = elementParentMap.get(element);
+		if(parent == null)
+			return null;
+		if(parent instanceof Frame)
+			return (Frame) parent;
+		return getParentFrame(parent);
 	}
 }

@@ -8,7 +8,7 @@ public class WebBrowser extends PropertyAwareObject implements IActionElement{
 	public List<ActionType> getActionTypes() {
 		List<ActionType> actions = new ArrayList<ActionType>();
 		actions.add(ActionType.GO_BACK);
-		actions.add(ActionType.GO_FORWARD);
+		//actions.add(ActionType.GO_FORWARD);
 		actions.add(ActionType.REFRESH);
 		actions.add(ActionType.SWITCH_BY_NAME);
 		actions.add(ActionType.NO_ACTION);

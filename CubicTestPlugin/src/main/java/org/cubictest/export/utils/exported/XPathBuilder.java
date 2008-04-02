@@ -12,6 +12,7 @@ package org.cubictest.export.utils.exported;
 
 import static org.cubictest.model.IdentifierType.CHECKED;
 import static org.cubictest.model.IdentifierType.ELEMENT_NAME;
+import static org.cubictest.model.IdentifierType.FRAME_TYPE;
 import static org.cubictest.model.IdentifierType.INDEX;
 import static org.cubictest.model.IdentifierType.LABEL;
 import static org.cubictest.model.IdentifierType.MULTISELECT;
@@ -21,12 +22,14 @@ import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.Moderator;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.context.AbstractContext;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Option;
@@ -145,7 +148,9 @@ public class XPathBuilder {
 		int i = 0;
 		
 		for (Identifier id : pe.getNonIndifferentIdentifierts()) {
-			if (id.getType().equals(LABEL) || id.getType().equals(INDEX) || id.getType().equals(ELEMENT_NAME)) {
+			IdentifierType type = id.getType();
+			if (type.equals(LABEL) || type.equals(INDEX) || 
+					type.equals(ELEMENT_NAME) || type.equals(FRAME_TYPE)) {
 				//label are not HTML attributes, index and element name are handled elsewhere
 				continue;
 			}
@@ -270,6 +275,20 @@ public class XPathBuilder {
 			return "*";
 		if (pe instanceof TextArea)
 			return "textarea";
+		if (pe instanceof Frame){
+			if(pe.getIdentifier(IdentifierType.FRAME_TYPE).getProbability() >0){
+				if ("iframe".equals(pe.getIdentifier(IdentifierType.FRAME_TYPE).getValue()))
+					return "iframe";
+				else 
+					return "frame";
+			}else if(pe.getIdentifier(IdentifierType.FRAME_TYPE).getProbability() < 0){
+				if ("iframe".equals(pe.getIdentifier(IdentifierType.FRAME_TYPE).getValue()))
+					return "frame";
+				else 
+					return "iframe";
+				}		
+			}else 
+				return "*";
 		if (pe instanceof AbstractContext) {
 			Identifier elementName = pe.getIdentifier(ELEMENT_NAME);
 			if (elementName != null && StringUtils.isNotBlank(elementName.getValue())) {

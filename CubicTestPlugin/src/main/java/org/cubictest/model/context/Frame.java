@@ -37,9 +37,9 @@ public class Frame extends AbstractContext {
 	@Override
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
-		list.add(IdentifierType.FRAME_TYPE);
-		list.add(ID);
 		list.add(IdentifierType.NAME);
+		list.add(ID);
+		list.add(IdentifierType.FRAME_TYPE);
 		list.add(IdentifierType.SRC);
 		list.add(INDEX);
 		list.add(CLASS);
