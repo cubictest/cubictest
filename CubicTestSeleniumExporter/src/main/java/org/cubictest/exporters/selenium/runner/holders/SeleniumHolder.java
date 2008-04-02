@@ -15,6 +15,7 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.model.UrlStartPoint;
+import org.cubictest.model.context.Frame;
 import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.Selenium;
@@ -78,4 +79,5 @@ public class SeleniumHolder extends RunnerResultHolder {
 	public CubicTestRemoteRunnerClient getCustomStepRunner() {
 		return customStepRunner;
 	}
+
 }
