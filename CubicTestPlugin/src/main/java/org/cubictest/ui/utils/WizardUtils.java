@@ -29,6 +29,7 @@ import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.model.UrlStartPoint;
+import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.geometry.Point;
@@ -172,6 +173,10 @@ public class WizardUtils {
 		OutputStream out = FileUtils.openOutputStream(destFile);
 		IOUtils.copy(in, out);
 		IOUtils.closeQuietly(out);
+	}
+
+	public static CustomTestStep createEmptyCustomTestStep() {
+		return new CustomTestStep();
 	}
 	
 }

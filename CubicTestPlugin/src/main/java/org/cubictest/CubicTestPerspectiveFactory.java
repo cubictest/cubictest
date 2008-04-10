@@ -31,6 +31,7 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 		layout.addNewWizardShortcut("org.cubictest.ui.wizards.NewCubicTestProjectWizard");
 		layout.addNewWizardShortcut("org.cubictest.ui.wizards.NewParamWizard");
 		layout.addNewWizardShortcut("org.cubictest.ui.wizards.NewPropertiesWizard");
+		layout.addNewWizardShortcut("org.cubictest.ui.wizards.NewCustomTestStepWizard");
 		layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.folder");
 		layout.addNewWizardShortcut("org.eclipse.jdt.ui.wizards.NewPackageCreationWizard");
 		layout.addNewWizardShortcut("org.eclipse.jdt.ui.wizards.NewClassCreationWizard"); 

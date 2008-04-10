@@ -112,6 +112,15 @@
             id="org.cubictest.ui.wizards.NewPropertiesWizard"
             name="New CubicTest Internationalization file"
             preferredPerspectives="org.cubictest.CubicTestPerspective"/>
+      <wizard
+            category="cubictest"
+            class="org.cubictest.ui.wizards.NewCustomTestStepWizard"
+            finalPerspective="org.cubictest.CubicTestPerspective"
+            icon="icons/customStep.gif"
+            id="org.cubictest.ui.wizards.NewCustomTestStepWizard"
+            name="New CubicTest Custom Test Step"
+            preferredPerspectives="org.cubictest.CubicTestPerspective">
+      </wizard>
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
