@@ -22,7 +22,6 @@ import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
 import org.cubictest.ui.utils.ViewUtil;
 import org.cubictest.ui.utils.WizardUtils;

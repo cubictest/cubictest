@@ -10,22 +10,17 @@
  *******************************************************************************/
 package org.cubictest.ui.wizards;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
-import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
-import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
-import org.cubictest.persistence.CubicTestXStream;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.resources.ResourceMonitor;
 import org.cubictest.resources.interfaces.IResourceMonitor;
@@ -43,7 +38,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jdt.internal.core.NameLookup.Answer;
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;

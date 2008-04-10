@@ -11,25 +11,14 @@
 package org.cubictest.ui.wizards;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
 
-import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.common.utils.ModelUtil;
-import org.cubictest.model.ExtensionPoint;
-import org.cubictest.model.SubTestStartPoint;
-import org.cubictest.model.Test;
-import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.persistence.CustomTestStepPersistance;
-import org.cubictest.persistence.TestPersistance;
-import org.cubictest.resources.ResourceMonitor;
-import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.cubictest.ui.utils.ResourceNavigatorGetter;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -41,12 +30,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
