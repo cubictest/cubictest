@@ -37,9 +37,13 @@ public class NewPropertiesWizard extends Wizard implements INewWizard {
 
 	private WizardNewPropertiesCreationPage namePage;
 	private String defaultDestFolder;
+	private String fileName;
+	private String containerName;
 	
 	@Override
 	public boolean performFinish() {	
+		fileName = namePage.getFileName();
+		containerName = namePage.getContainerName();
 		try {
 			getContainer().run(false, false, new WorkspaceModifyOperation(null) {
 				@Override
@@ -102,5 +106,13 @@ public class NewPropertiesWizard extends Wizard implements INewWizard {
 	private void throwCoreException(String message) throws CoreException {
 		IStatus status = new Status(IStatus.ERROR, "cubicTestPlugin", IStatus.OK, message, null);
 		throw new CoreException(status);
+	}
+	
+	public String getFileName(){
+		return fileName;
+	}
+
+	public String getContainerName() {
+		return containerName;
 	}
 }
