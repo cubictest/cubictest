@@ -79,7 +79,8 @@ public class WizardSelectLanuageInTestPage extends WizardPage {
 		this.test = test;
 		
 		setTitle("Add internationalisation file");
-		setDescription("Select an internationalisation file(*.properites) to add to this test");
+		setDescription("Select an internationalisation file (*.properites) to add to" +
+				" this test and set lanuage name");
 	}
 
 	public void createControl(Composite parent) {
@@ -111,7 +112,7 @@ public class WizardSelectLanuageInTestPage extends WizardPage {
 		browseButton.setLayoutData(buttonData);
 		 
 		languageLabel = new Label(container,SWT.NONE);
-		languageLabel.setText("Language:"); 
+		languageLabel.setText("Language name:"); 
 		languageLabel.setLayoutData(labelData);
 		 
 		languageText = new Text(container, SWT.BORDER);

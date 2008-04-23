@@ -11,6 +11,7 @@
 package org.cubictest.ui.wizards;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.wizard.WizardPage;
@@ -40,6 +41,8 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 		"File name has to end with ";
 	private static final String pathWarning = 
 		"Location for the file must be set";
+	private static final String fileAlreadyExists =
+		"File already exists";
 	
 	protected WizardNewFileCreationPage(String pageName) {
 		super(pageName);
@@ -144,6 +147,10 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 			setPageComplete(false);
 		}else if("".equals(containerName)){
 			setErrorMessage(pathWarning);
+			setPageComplete(false);
+		}else if(ResourcesPlugin.getWorkspace().getRoot().
+				getFile(new Path(containerName + "/" + fileName)).exists()){
+			setErrorMessage(fileAlreadyExists);
 			setPageComplete(false);
 		}else{
 			setErrorMessage(null);

@@ -159,40 +159,7 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 	 * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		this.selection = selection;
-		getWizardTitle();
-
-		setPackageExplorerLinkingEnabled(true);
 		
-		IStructuredSelection iss = (IStructuredSelection) selection;
-		if (iss.getFirstElement() instanceof IResource) {
-			IResource res = (IResource) iss.getFirstElement();
-			project = res.getProject();
-			if (shouldPromptToSaveAllEditors()) {
-				IDE.saveAllEditors(new IResource[] {project}, true);
-			}
-		}else if(iss.getFirstElement() instanceof IJavaProject) {
-			IJavaProject res = (IJavaProject) iss.getFirstElement();
-			project = res.getProject();
-			if (shouldPromptToSaveAllEditors()) {
-				IDE.saveAllEditors(new IResource[] {project}, true);
-			}
-		}else {
-			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-			project = root.getProject();
-			if (project == null) {
-				if (root.getProjects().length == 0) {
-					ErrorHandler.logAndShowErrorDialogAndThrow("A CubicTest Project has to be created " +
-							"before a Custom Test Step can be created.");
-				}
-			}
-		}
-
-		if (project == null) {
-			ErrorHandler.logAndShowErrorDialogAndThrow("Could not create new Custom Test Step (Unable to get reference " +
-					"to the CubicTest project). " +
-					"Please retry the operation, and make sure a CubicTest project is target for the new Custom Test Step.");
-		}
 		
 	}
 
@@ -214,12 +181,17 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 	
 	@Override
 	public boolean canFinish() {
-		if(wizardNewCustomTestStepPage.getFileName().length() > 7 &&
-				wizardNewCustomTestStepPage.getFileName().endsWith("custom") &&
-				wizardNewCustomTestStepPage.getContainerName().length() > 0) {
-			return false;
+		String fileName = wizardNewCustomTestStepPage.getFileName();
+		String containerName = wizardNewCustomTestStepPage.getContainerName();
+		if(fileName.length() > 7 &&
+				fileName.endsWith("custom") &&
+				containerName.length() > 0) {
+			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+			IResource resource = root.getFile(new Path(containerName + "/" + fileName));
+			if(!resource.exists())
+				return true;
 		}
-		return true;
+		return false;
 	}
 	
 }

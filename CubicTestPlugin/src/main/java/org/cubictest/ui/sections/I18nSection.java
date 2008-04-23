@@ -135,14 +135,14 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 		updateLanguageCombo();
 		languageCombo.setLayoutData(inputData);
 
-		languageButton = getWidgetFactory().createButton(composite,"Add...", SWT.PUSH);
+		languageButton = getWidgetFactory().createButton(composite,"Add language...", SWT.PUSH);
 		languageButton.addSelectionListener(addListener);
 		languageButton.setLayoutData(buttonData);
 		
 		getWidgetFactory().createLabel(composite,"");
 		getWidgetFactory().createLabel(composite,"");
 		
-        removeButton = getWidgetFactory().createButton(composite, "Remove", SWT.PUSH);
+        removeButton = getWidgetFactory().createButton(composite, "Remove language", SWT.PUSH);
         removeButton.setLayoutData(buttonData);
         removeButton.addSelectionListener(removeListener );
         

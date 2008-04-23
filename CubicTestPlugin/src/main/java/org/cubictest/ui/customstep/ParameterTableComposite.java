@@ -204,7 +204,7 @@ public class ParameterTableComposite extends Composite implements PropertyChange
 		addButton = new Button(buttons, SWT.PUSH);
 		addButton.setText("Add");
 		addButton.setToolTipText("Add another config parameter");
-		addButton.setSize(new Point(50, 23));
+		//addButton.setSize(new Point(50, 23));
 		addButton.addSelectionListener(addListener );
 		
 		gridData = new GridData();
@@ -213,7 +213,7 @@ public class ParameterTableComposite extends Composite implements PropertyChange
 		
 		deleteButton = new Button(buttons, SWT.PUSH);
 		deleteButton.setText("Delete");
-		deleteButton.setSize(new Point(50, 23));
+		//deleteButton.setSize(new Point(50, 23));
 		deleteButton.addSelectionListener(deleteListener);
 		
 		gridData = new GridData();
