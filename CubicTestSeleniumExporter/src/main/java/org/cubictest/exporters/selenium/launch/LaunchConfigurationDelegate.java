@@ -68,6 +68,7 @@ public class LaunchConfigurationDelegate extends
 	private SeleniumStarter seleniumStarter;
 	private int seleniumPort;
 	private int seleniumClientProxyPort;
+	private Test test;
 
 	@Override
 	public String getMainTypeName(ILaunchConfiguration configuration)
@@ -76,6 +77,10 @@ public class LaunchConfigurationDelegate extends
 		return "org.cubictest.runner.selenium.server.internal.CubicTestRemoteRunnerServer";
 	}
 
+	public void setTest(Test test){
+		this.test = test;
+	}
+	
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 
@@ -168,33 +173,41 @@ public class LaunchConfigurationDelegate extends
 			
 			IJavaProject project = getJavaProject(configuration);
 			String fileName = getTestFileName(configuration);
-			IFile testFile = project.getProject().getFile(fileName);
-			Test test = null;
-			try{
-				IWorkbench wb = PlatformUI.getWorkbench();
-				IWorkbenchWindow wbw = wb.getActiveWorkbenchWindow();
-				if(wbw == null)
-					wbw = wb.getWorkbenchWindows()[0];
-				IWorkbenchPage ap = wbw.getActivePage();
-				if(ap == null)
-					ap = wbw.getPages()[0];
-				GraphicalTestEditor part = (GraphicalTestEditor) 
-					IDE.openEditor(ap, testFile);
-				test = part.getTest();
-			}catch (Exception e) {
-				e.printStackTrace();
-				test = TestPersistance.loadFromFile(testFile);
-			}
+			final IFile testFile = project.getProject().getFile(fileName);
+		
+			IWorkbench wb = PlatformUI.getWorkbench();
+			IWorkbenchWindow wbw = wb.getActiveWorkbenchWindow();
+			if(wbw == null)
+				wbw = wb.getWorkbenchWindows()[0];
+			IWorkbenchPage ap = wbw.getActivePage();
+			if(ap == null)
+				ap = wbw.getPages()[0];
+			final IWorkbenchPage finalAp = ap;
+			wb.getDisplay().syncExec(new Runnable(){
+				public void run() {
+					try{
+						GraphicalTestEditor part = (GraphicalTestEditor) 
+							IDE.openEditor(finalAp, testFile);
+						setTest(part.getTest());
+					}catch (Exception e) {
+						e.printStackTrace();
+						setTest(TestPersistance.loadFromFile(testFile));
+					}
+						
+				}
+			});
 			
 			String browser = getBrowser(configuration);
 			
 			seleniumPort = evaluatePort();
 			
-			TestRunner testRunner = new TestRunner(test, seleniumPort, serverPort, 
+			final TestRunner testRunner = new TestRunner(test, wb.getDisplay(), seleniumPort, serverPort, 
 					seleniumClientProxyPort,  BrowserType.fromId(browser));
+			
 			try{
-				
 				testRunner.run(monitor);
+			}catch(Exception e ){
+				e.printStackTrace();
 			}finally{
 				testRunner.cleanUp();
 			}

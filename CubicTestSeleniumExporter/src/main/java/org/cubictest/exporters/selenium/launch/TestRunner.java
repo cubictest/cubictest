@@ -39,6 +39,7 @@ import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
 import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.Selenium;
 
@@ -60,10 +61,12 @@ public class TestRunner {
 	private final int seleniumClientProxyPort;
 	private CubicTestRemoteRunnerClient cubicTestRemoteRunnerClient;
 	private SeleniumClientProxyServer seleniumClientProxyServer;
+	private final Display display;
 
-	public TestRunner(Test test, int seleniumPort, int serverPort,
+	public TestRunner(Test test, Display display, int seleniumPort, int serverPort,
 			int seleniumClientProxyPort, BrowserType browserType) {
 		this.test = test;
+		this.display = display;
 		this.seleniumPort = seleniumPort;
 		this.serverPort = serverPort;
 		this.seleniumClientProxyPort = seleniumClientProxyPort;
@@ -115,6 +118,7 @@ public class TestRunner {
 		seleniumStarter = new SeleniumStarter();
 		seleniumStarter.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
 		seleniumStarter.setBrowser(browserType);
+		seleniumStarter.setDisplay(display);
 		seleniumStarter.setSelenium(selenium);
 		seleniumStarter.setPort(seleniumPort);
 
@@ -248,6 +252,7 @@ public class TestRunner {
 		if(seleniumClientProxyServer != null){
 			seleniumClientProxyServer.shutdown();
 		}
+		stopSelenium();
 		
 	}
 

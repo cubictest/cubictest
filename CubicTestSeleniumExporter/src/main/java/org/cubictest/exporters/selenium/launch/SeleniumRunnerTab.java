@@ -148,52 +148,67 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
-		setControl(composite);
-		composite.setLayout(new GridLayout(1, false));
+		composite.setLayout(new GridLayout(1, true));
 		composite.setFont(parent.getFont());
-
-		Group group = new Group(composite, SWT.NONE);
-		group.setText("Project name: ");
+		
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		group.setLayoutData(gd);
+		
 		GridLayout topLayout = new GridLayout();
-		group.setLayout(topLayout);
 		topLayout.numColumns = 2;
-		projectName = new Text(group, SWT.WRAP | SWT.BORDER);
-		projectName.setLayoutData(gd);
 		
-		projectBrowse = new Button(group, SWT.PUSH);
-		projectBrowse.setText("Browse...");
-		projectBrowse.addSelectionListener(projectBrowseListener );
-		
-		group = new Group(composite, SWT.NONE);
-		group.setText("Test: ");
-		group.setLayoutData(gd);
-		group.setLayout(topLayout);
-		testName = new Text(group, SWT.WRAP | SWT.BORDER);
-		testName.setLayoutData(gd);
-		testBrowse = new Button(group, SWT.PUSH);
-		testBrowse.setText("Browse...");
-		testBrowse.addSelectionListener(testBrowseListener);
-		
-		group = new Group(composite, SWT.NONE);
-		group.setText("Browser: ");
-		group.setLayoutData(gd);
-		group.setLayout(topLayout);
-		browserCombo = new Combo(group, SWT.NONE | SWT.READ_ONLY);
-		for (BrowserType browserType : BrowserType.values()) {
-			browserCombo.add(browserType.getDisplayName());
+		{
+			Group group = new Group(composite, SWT.NONE);
+			group.setText("Project name: ");
+			group.setLayout(topLayout);
+			group.setLayoutData(gd);
+			projectName = new Text(group, SWT.WRAP | SWT.BORDER);
+			projectName.setLayoutData(gd);
+			projectBrowse = new Button(group, SWT.PUSH);
+			projectBrowse.setText("Browse...");
+			projectBrowse.addSelectionListener(projectBrowseListener );
 		}
-	
-		browserCombo.addModifyListener(new ModifyListener(){
-			public void modifyText(ModifyEvent e) {
-				browserType = BrowserType.values()[browserCombo.getSelectionIndex()];
-				setDirty(true);
-				updateLaunchConfigurationDialog();
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		
+		topLayout = new GridLayout();
+		topLayout.numColumns = 2;
+		
+		{
+			Group group = new Group(composite, SWT.NONE);
+			group.setText("Test: ");
+			group.setLayoutData(gd);
+			group.setLayout(topLayout);
+			testName = new Text(group, SWT.WRAP | SWT.BORDER);
+			testName.setLayoutData(gd);
+			testBrowse = new Button(group, SWT.PUSH);
+			testBrowse.setText("Browse...");
+			testBrowse.addSelectionListener(testBrowseListener);
+		}
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		
+		topLayout = new GridLayout();
+		topLayout.numColumns = 2;
+		
+		{
+			Group group = new Group(composite, SWT.NONE);
+			group.setText("Browser: ");
+			group.setLayoutData(gd);
+			group.setLayout(topLayout);
+			browserCombo = new Combo(group, SWT.NONE | SWT.READ_ONLY);
+			for (BrowserType browserType : BrowserType.values()) {
+				browserCombo.add(browserType.getDisplayName());
 			}
-		});
-		int storedBrowserTypeIndex = ArrayUtils.indexOf(BrowserType.values(), browserType);
-		browserCombo.select(storedBrowserTypeIndex);
+		
+			browserCombo.addModifyListener(new ModifyListener(){
+				public void modifyText(ModifyEvent e) {
+					browserType = BrowserType.values()[browserCombo.getSelectionIndex()];
+					setDirty(true);
+					updateLaunchConfigurationDialog();
+				}
+			});
+			int storedBrowserTypeIndex = ArrayUtils.indexOf(BrowserType.values(), browserType);
+			browserCombo.select(storedBrowserTypeIndex);
+			setControl(composite);
+		}
 	}
 
 	public String getName() {
