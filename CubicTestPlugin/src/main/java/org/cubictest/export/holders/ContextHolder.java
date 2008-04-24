@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.utils.exported.XPathBuilder;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
+import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
@@ -140,7 +141,7 @@ public class ContextHolder implements IResultHolder {
 		//Empty. Can be overridden if exporters want to update sub test statuses.
 	}
 	
-	public void updateStatus(CustomTestStepHolder ctsh, TestPartStatus newStatus) {
+	public void updateStatus(ICustomTestStepHolder ctsh, TestPartStatus newStatus) {
 		//Empty. Can be overridden if exporters want to update sub test statuses.
 	}
 
