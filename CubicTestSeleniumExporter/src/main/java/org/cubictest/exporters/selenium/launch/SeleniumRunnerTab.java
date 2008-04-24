@@ -65,6 +65,9 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 
 	private Combo browserCombo;
 	private BrowserType browserType;
+	
+	private Group nameSpaceGroup;
+	private Button nameSpaceButton;
 
 	private Button testBrowse;
 	private SelectionListener projectBrowseListener = new SelectionAdapter(){
@@ -145,6 +148,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	
 	public static final String CUBIC_TEST_NAME= "CubicTestSeleniumName";
 	public static final String CUBIC_TEST_BROWSER = "CubicTestSeleniumBrowser";
+	public static final String CUBIC_TEST_NAMESPACE_XPATH = "CubicTestSeleniumNamespaceXpath";
 
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
@@ -209,6 +213,27 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			browserCombo.select(storedBrowserTypeIndex);
 			setControl(composite);
 		}
+		
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		
+		topLayout = new GridLayout();
+		topLayout.numColumns = 2;
+		
+		{
+			nameSpaceGroup = new Group(composite, SWT.NONE);
+			nameSpaceGroup.setText("Use namespace in xpath execution: ");
+			nameSpaceGroup.setLayoutData(gd);
+			nameSpaceGroup.setLayout(topLayout);
+			nameSpaceButton = new Button(nameSpaceGroup, SWT.CHECK);
+			nameSpaceButton.addSelectionListener(new SelectionAdapter(){
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					setDirty(true);
+					updateLaunchConfigurationDialog();
+				}
+			});
+			
+		}
 	}
 
 	public String getName() {
@@ -221,10 +246,13 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			projectName.setText(configuration.getAttribute(ATTR_PROJECT_NAME, ""));
 			browserType = BrowserType.fromId(configuration.getAttribute(CUBIC_TEST_BROWSER, 
 					BrowserType.FIREFOX.getId()));
+			nameSpaceButton.setSelection(configuration.getAttribute(
+					CUBIC_TEST_NAMESPACE_XPATH,	false));
 		} catch (CoreException e) {
 			testName.setText("");
 			projectName.setText("");
 			browserType = BrowserType.FIREFOX;
+			nameSpaceButton.setSelection(false);
 			e.printStackTrace();
 		}
 		int storedBrowserTypeIndex = ArrayUtils.indexOf(BrowserType.values(), browserType);
@@ -235,6 +263,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		configuration.setAttribute(CUBIC_TEST_NAME, testName.getText());
 		configuration.setAttribute(ATTR_PROJECT_NAME, projectName.getText());
 		configuration.setAttribute(CUBIC_TEST_BROWSER, browserType.getId());
+		configuration.setAttribute(CUBIC_TEST_NAMESPACE_XPATH, nameSpaceButton.getSelection());
 		mapResources(configuration);
 	}
 

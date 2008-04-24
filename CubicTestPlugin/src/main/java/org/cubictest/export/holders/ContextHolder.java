@@ -17,9 +17,11 @@ import java.util.Stack;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.utils.exported.XPathBuilder;
 import org.cubictest.model.ConnectionPoint;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
+import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.IContext;
@@ -37,6 +39,7 @@ public class ContextHolder implements IResultHolder {
 	private Stack<Stack<IContext>> frameStack = new Stack<Stack<IContext>>(); 
 	private Map<PageElement, PageElement> elementParentMap = new HashMap<PageElement, PageElement>();
 	private boolean shouldFailOnAssertionFailure;
+	private boolean useNamespace = false;
 	
 	/**
 	 * Set new context, i.e. XPath starting point (path) for lookup of elements.
@@ -96,7 +99,8 @@ public class ContextHolder implements IResultHolder {
 		if (isInRootContext()) {
 			axis = "//";
 		}
-		res += axis + XPathBuilder.getXPath(pageElement);
+		
+		res += axis + (useNamespace ? "x:" : "") + XPathBuilder.getXPath(pageElement);
 		
 		if (pageElement instanceof IContext && !(pageElement instanceof Frame) 
 				&& ((IContext) pageElement).getRootElements().size() > 1) {
@@ -125,7 +129,7 @@ public class ContextHolder implements IResultHolder {
 			if (i > 0) {
 				res += "][";
 			}
-			res += ".//" + XPathBuilder.getXPath(pe);
+			res += ".//" + (useNamespace ? "x:" : "") + XPathBuilder.getXPath(pe);
 			i++;
 		}
 		return res;
@@ -133,6 +137,10 @@ public class ContextHolder implements IResultHolder {
 
 
 	public void updateStatus(SubTest subTest, boolean hadException, ConnectionPoint targetConnectionPoint) {
+		//Empty. Can be overridden if exporters want to update sub test statuses.
+	}
+	
+	public void updateStatus(CustomTestStepHolder ctsh, TestPartStatus newStatus) {
 		//Empty. Can be overridden if exporters want to update sub test statuses.
 	}
 
@@ -193,5 +201,13 @@ public class ContextHolder implements IResultHolder {
 		if(parent instanceof Frame)
 			return (Frame) parent;
 		return getParentFrame(parent);
+	}
+	
+	public void setUseNamespace(boolean useNamespace) {
+		this.useNamespace = useNamespace;
+	}
+	
+	public boolean useNamespace() {
+		return useNamespace;
 	}
 }

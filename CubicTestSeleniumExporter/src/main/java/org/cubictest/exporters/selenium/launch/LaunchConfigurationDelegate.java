@@ -73,7 +73,6 @@ public class LaunchConfigurationDelegate extends
 	@Override
 	public String getMainTypeName(ILaunchConfiguration configuration)
 			throws CoreException {
-		// TODO Auto-generated method stub
 		return "org.cubictest.runner.selenium.server.internal.CubicTestRemoteRunnerServer";
 	}
 
@@ -198,11 +197,12 @@ public class LaunchConfigurationDelegate extends
 			});
 			
 			String browser = getBrowser(configuration);
+			boolean useNamespace = useNamespace(configuration);
 			
 			seleniumPort = evaluatePort();
 			
 			final TestRunner testRunner = new TestRunner(test, wb.getDisplay(), seleniumPort, serverPort, 
-					seleniumClientProxyPort,  BrowserType.fromId(browser));
+					seleniumClientProxyPort,  BrowserType.fromId(browser), useNamespace);
 			
 			try{
 				testRunner.run(monitor);
@@ -228,6 +228,16 @@ public class LaunchConfigurationDelegate extends
 			e.printStackTrace();
 		}
 		return BrowserType.FIREFOX.getId();
+	}
+	
+	public boolean useNamespace(ILaunchConfiguration configuration){
+		try {
+			return configuration.getAttribute(
+					SeleniumRunnerTab.CUBIC_TEST_NAMESPACE_XPATH, false);
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	private String getTestFileName(ILaunchConfiguration configuration) {

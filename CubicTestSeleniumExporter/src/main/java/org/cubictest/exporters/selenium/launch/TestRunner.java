@@ -62,15 +62,17 @@ public class TestRunner {
 	private CubicTestRemoteRunnerClient cubicTestRemoteRunnerClient;
 	private SeleniumClientProxyServer seleniumClientProxyServer;
 	private final Display display;
+	private final boolean useNamespace;
 
 	public TestRunner(Test test, Display display, int seleniumPort, int serverPort,
-			int seleniumClientProxyPort, BrowserType browserType) {
+			int seleniumClientProxyPort, BrowserType browserType, boolean useNamespace) {
 		this.test = test;
 		this.display = display;
 		this.seleniumPort = seleniumPort;
 		this.serverPort = serverPort;
 		this.seleniumClientProxyPort = seleniumClientProxyPort;
 		this.browserType = browserType;
+		this.useNamespace = useNamespace;
 	}
 
 	public void run(IProgressMonitor monitor) {
@@ -80,7 +82,9 @@ public class TestRunner {
 			if (seleniumHolder == null || !reuseSelenium) {
 				startSelenium(monitor);
 			}
-
+			
+			seleniumHolder.setUseNamespace(useNamespace);
+			
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(
 					UrlStartPointConverter.class, PageElementConverter.class,
 					ContextConverter.class, TransitionConverter.class,
@@ -217,7 +221,8 @@ public class TestRunner {
 			// Get url start point of first sub-test:
 			if (!(test.getFirstNodeAfterStartPoint() instanceof SubTest)) {
 				ErrorHandler
-						.logAndShowErrorDialogAndThrow("Test suites must contain at least one sub test after the test suite start point.\n\n"
+						.logAndShowErrorDialogAndThrow("Test suites must contain at least " +
+								"one sub test after the test suite start point.\n\n"
 								+ "To add a subtest, drag test from package explorer into the test suite editor.");
 			}
 			return getInitialUrlStartPoint(((SubTest) test

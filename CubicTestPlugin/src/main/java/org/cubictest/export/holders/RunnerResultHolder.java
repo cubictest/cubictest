@@ -16,6 +16,7 @@ import java.util.List;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.model.ConnectionPoint;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
@@ -36,7 +37,6 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	protected final Display display;
 	protected CubicTestProjectSettings settings;
 	private boolean failOnAssertionFailure;
-
 	
 	public RunnerResultHolder(Display display, CubicTestProjectSettings settings) {
 		this.display = display;
@@ -107,6 +107,18 @@ public abstract class RunnerResultHolder extends ContextHolder {
 				public void run() {
 					if(subtest != null)
 						subtest.updateStatus(hadEx, targetConPoint);
+				}
+			});
+		}
+	}
+
+	@Override
+	public void updateStatus(final CustomTestStepHolder ctsh, final TestPartStatus newStatus) {
+		if (display != null) {
+			display.asyncExec(new Runnable() {
+				public void run() {
+					if(ctsh != null)
+						ctsh.setStatus(newStatus);
 				}
 			});
 		}
