@@ -110,6 +110,7 @@ public class CubicTestRemoteRunnerServer implements Runnable{
 			}
 		}else if("stop".equals(command)){
 			finished = true;
+			return "Closed";
 		}
 		return "Not Valid Command";
 	}
