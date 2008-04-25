@@ -17,6 +17,7 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
+import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
@@ -113,7 +114,7 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	}
 
 	@Override
-	public void updateStatus(final CustomTestStepHolder ctsh, final TestPartStatus newStatus) {
+	public void updateStatus(final ICustomTestStepHolder ctsh, final TestPartStatus newStatus) {
 		if (display != null) {
 			display.asyncExec(new Runnable() {
 				public void run() {
