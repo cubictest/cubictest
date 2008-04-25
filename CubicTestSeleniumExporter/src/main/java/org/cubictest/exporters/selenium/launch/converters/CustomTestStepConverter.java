@@ -49,10 +49,10 @@ public class CustomTestStepConverter implements ICustomTestStepConverter<Seleniu
 		String result = runner.executeOnServer("cubicTestCustomStep",
 				attributes.toArray(new String[attributes.size()]));
 		if(result.startsWith("Error")){
-			cts.setStatus(TestPartStatus.EXCEPTION);
+			t.updateStatus(cts, TestPartStatus.EXCEPTION);
 			throw new ExporterException(result.replaceFirst("Error: ", result));
 		}else 
-			cts.setStatus(TestPartStatus.PASS);
+			t.updateStatus(cts,TestPartStatus.PASS);
 	}
 
 }
