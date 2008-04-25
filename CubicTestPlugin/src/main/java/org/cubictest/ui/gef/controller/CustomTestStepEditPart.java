@@ -10,10 +10,14 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.controller;
 
+import java.beans.PropertyChangeEvent;
+
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
+import org.cubictest.model.PropertyAwareObject;
+import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
@@ -125,4 +129,21 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart {
 		}
 		super.performRequest(request);
 	}
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if(PropertyAwareObject.STATUS.equals(evt.getPropertyName())){
+			if(TestPartStatus.PASS.equals(evt.getNewValue()))
+				getFigure().setBackgroundColor(ColorConstants.green);
+			else if(TestPartStatus.FAIL.equals(evt.getNewValue()))
+				getFigure().setBackgroundColor(ColorConstants.red);
+			else if(TestPartStatus.UNKNOWN.equals(evt.getNewValue()))
+				getFigure().setBackgroundColor(ColorConstants.cyan);
+			else if(TestPartStatus.EXCEPTION.equals(evt.getNewValue()))
+				getFigure().setBackgroundColor(ColorConstants.blue);
+		}
+		else
+			super.propertyChange(evt);
+	}
+	
 }
