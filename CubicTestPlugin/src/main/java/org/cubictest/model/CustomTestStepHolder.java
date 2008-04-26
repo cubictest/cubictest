@@ -79,4 +79,9 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 	public void reloadCustomTestStep(){
 		customTestStep = CustomTestStepPersistance.loadFromFile(getFile());
 	}
+	
+	@Override
+	public void resetStatus() {
+		setStatus(TestPartStatus.UNKNOWN);
+	}
 }

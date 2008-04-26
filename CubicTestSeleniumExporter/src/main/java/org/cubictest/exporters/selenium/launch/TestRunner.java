@@ -57,6 +57,7 @@ public class TestRunner {
 	private boolean reuseSelenium = false;
 	private Test test;
 	private boolean failOnAssertionFailure;
+	private final String seleniumHost;
 	private final int serverPort;
 	private final int seleniumClientProxyPort;
 	private CubicTestRemoteRunnerClient cubicTestRemoteRunnerClient;
@@ -64,11 +65,12 @@ public class TestRunner {
 	private final Display display;
 	private final boolean useNamespace;
 
-	public TestRunner(Test test, Display display, int seleniumPort, int serverPort,
+	public TestRunner(Test test, Display display, String seleniumHost, int seleniumPort, int serverPort,
 			int seleniumClientProxyPort, BrowserType browserType, boolean useNamespace) {
 		this.test = test;
 		this.display = display;
 		this.seleniumPort = seleniumPort;
+		this.seleniumHost = seleniumHost;
 		this.serverPort = serverPort;
 		this.seleniumClientProxyPort = seleniumClientProxyPort;
 		this.browserType = browserType;
@@ -124,6 +126,7 @@ public class TestRunner {
 		seleniumStarter.setBrowser(browserType);
 		seleniumStarter.setDisplay(display);
 		seleniumStarter.setSelenium(selenium);
+		seleniumStarter.setHost(seleniumHost);
 		seleniumStarter.setPort(seleniumPort);
 
 		if (monitor != null) {

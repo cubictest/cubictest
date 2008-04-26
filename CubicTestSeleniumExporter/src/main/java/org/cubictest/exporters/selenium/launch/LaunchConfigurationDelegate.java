@@ -66,6 +66,7 @@ public class LaunchConfigurationDelegate extends
 	private static final String SELENIUM_CLIENT_PROXY = "SELENIUM_CLIENT_PROXY";
 	private int serverPort;
 	private SeleniumStarter seleniumStarter;
+	private String seleniumHost;
 	private int seleniumPort;
 	private int seleniumClientProxyPort;
 	private Test test;
@@ -188,6 +189,7 @@ public class LaunchConfigurationDelegate extends
 						GraphicalTestEditor part = (GraphicalTestEditor) 
 							IDE.openEditor(finalAp, testFile);
 						setTest(part.getTest());
+						part.getTest().resetStatus();
 					}catch (Exception e) {
 						e.printStackTrace();
 						setTest(TestPersistance.loadFromFile(testFile));
@@ -199,9 +201,15 @@ public class LaunchConfigurationDelegate extends
 			String browser = getBrowser(configuration);
 			boolean useNamespace = useNamespace(configuration);
 			
-			seleniumPort = evaluatePort();
+			seleniumHost = getSeleniumHost(configuration);
 			
-			final TestRunner testRunner = new TestRunner(test, wb.getDisplay(), seleniumPort, serverPort, 
+			seleniumPort = getSeleniumPort(configuration);
+			if (seleniumPort < 0)
+				seleniumPort = evaluatePort();
+			
+			
+			final TestRunner testRunner = new TestRunner(test, wb.getDisplay(), 
+					seleniumHost, seleniumPort, serverPort, 
 					seleniumClientProxyPort,  BrowserType.fromId(browser), useNamespace);
 			
 			try{
@@ -248,6 +256,28 @@ public class LaunchConfigurationDelegate extends
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private String getSeleniumHost(ILaunchConfiguration configuration) {
+		try {
+			return configuration.getAttribute(
+					SeleniumRunnerTab.CUBIC_TEST_SELENIôM_SERVER_HOST, "");
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private int getSeleniumPort(ILaunchConfiguration configuration) {
+		try {
+			return Integer.parseInt(configuration.getAttribute(
+					SeleniumRunnerTab.CUBIC_TEST_SELENIôM_SERVER_PORT, ""));
+		} catch (CoreException e) {
+			e.printStackTrace();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 	/**

@@ -17,7 +17,6 @@ import java.util.Stack;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.utils.exported.XPathBuilder;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
@@ -101,7 +100,7 @@ public class ContextHolder implements IResultHolder {
 			axis = "//";
 		}
 		
-		res += axis + (useNamespace ? "x:" : "") + XPathBuilder.getXPath(pageElement);
+		res += axis + XPathBuilder.getXPath(pageElement,useNamespace);
 		
 		if (pageElement instanceof IContext && !(pageElement instanceof Frame) 
 				&& ((IContext) pageElement).getRootElements().size() > 1) {
@@ -130,7 +129,7 @@ public class ContextHolder implements IResultHolder {
 			if (i > 0) {
 				res += "][";
 			}
-			res += ".//" + (useNamespace ? "x:" : "") + XPathBuilder.getXPath(pe);
+			res += ".//" + XPathBuilder.getXPath(pe, useNamespace);
 			i++;
 		}
 		return res;

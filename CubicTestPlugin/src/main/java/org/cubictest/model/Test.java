@@ -226,6 +226,8 @@ public class Test extends PropertyAwareObject {
 			p.resetStatus();
 		for (SubTest st : subTests)
 			st.resetStatus();
+		for (CustomTestStepHolder ctsh : customTestSteps)
+			ctsh.resetStatus();
 	}
 	
 	public AllLanguages getAllLanguages() {

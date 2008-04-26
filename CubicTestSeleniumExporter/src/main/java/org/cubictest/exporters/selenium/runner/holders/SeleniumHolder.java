@@ -40,12 +40,18 @@ public class SeleniumHolder extends RunnerResultHolder {
 		this.selenium = new CubicTestLocalRunner(selenium);
 	}
 	
-	public SeleniumHolder(int port, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
+	public SeleniumHolder(String host, int port, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
 		super(display, settings);
 		if (port < 80) {
 			throw new ExporterException("Invalid port");
 		}
-		this.selenium = new CubicTestLocalRunner(port, browser, initialUrl);
+		if(host == null)
+			host = "localhost";
+		this.selenium = new CubicTestLocalRunner(host, port, browser, initialUrl);
+	}
+	
+	public SeleniumHolder(int port, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
+		this("localhost",port,browser, initialUrl, display, settings);
 	}
 	
 	public CubicTestLocalRunner getSelenium() {

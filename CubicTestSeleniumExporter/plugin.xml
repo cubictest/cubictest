@@ -81,7 +81,7 @@
             delegateName="SeleniumRunner"
             id="org.cubictest.exporters.selenium.ui.launchConfigurationType"
             migrationDelegate="org.cubictest.exporters.selenium.launch.LaunchConfigurationMigrationDelegate"
-            modes="run"
+            modes="run, debug"
             name="Launch CubicTest Selenium Runner"
             public="true">
          <fileExtension

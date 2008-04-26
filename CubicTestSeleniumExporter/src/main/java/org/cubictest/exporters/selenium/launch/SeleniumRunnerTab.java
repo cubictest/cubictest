@@ -57,11 +57,18 @@ import org.eclipse.ui.views.navigator.ResourcePatternFilter;
 
 public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 
+	public static final String CUBIC_TEST_NAME= "CubicTestSeleniumName";
+	public static final String CUBIC_TEST_BROWSER = "CubicTestSeleniumBrowser";
+	public static final String CUBIC_TEST_NAMESPACE_XPATH = "CubicTestSeleniumNamespaceXpath";
+	public static final String CUBIC_TEST_SELENIÙM_SERVER_HOST = "CubicTestSeleniumServerHost";
+	public static final String CUBIC_TEST_SELENIÙM_SERVER_PORT = "CubicTestSeleniumServerPort";
+
 	private Text projectName;
+	private Button projectBrowse;
 	//IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME
 	
 	private Text testName;
-	private Button projectBrowse;
+	private Button testBrowse;
 
 	private Combo browserCombo;
 	private BrowserType browserType;
@@ -69,7 +76,9 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	private Group nameSpaceGroup;
 	private Button nameSpaceButton;
 
-	private Button testBrowse;
+	private Text seleniumServerHost;
+	private Text seleniumServerPort;
+
 	private SelectionListener projectBrowseListener = new SelectionAdapter(){
 		@Override
 		public void widgetSelected(SelectionEvent event) {
@@ -137,6 +146,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		}
 	};
 
+
 	
 	private IJavaProject getJavaProject() {
 		String projectName = this.projectName.getText().trim();
@@ -146,9 +156,6 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		return JavaCore.create(ResourcesPlugin.getWorkspace().getRoot()).getJavaProject(projectName);		
 	}
 	
-	public static final String CUBIC_TEST_NAME= "CubicTestSeleniumName";
-	public static final String CUBIC_TEST_BROWSER = "CubicTestSeleniumBrowser";
-	public static final String CUBIC_TEST_NAMESPACE_XPATH = "CubicTestSeleniumNamespaceXpath";
 
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
@@ -190,7 +197,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		
 		topLayout = new GridLayout();
-		topLayout.numColumns = 2;
+		topLayout.numColumns = 1;
 		
 		{
 			Group group = new Group(composite, SWT.NONE);
@@ -234,6 +241,25 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			});
 			
 		}
+		
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		
+		topLayout = new GridLayout();
+		topLayout.numColumns = 2;
+		
+		{
+			Group group = new Group(composite, SWT.NONE);
+			group.setText("SeleniumRC Server: ");
+			group.setLayoutData(gd);
+			group.setLayout(topLayout);
+			
+			seleniumServerHost = new Text(group, SWT.WRAP | SWT.BORDER);
+			seleniumServerHost.setLayoutData(gd);
+			
+			seleniumServerPort = new Text(group, SWT.WRAP | SWT.BORDER);
+			seleniumServerPort.setLayoutData(gd);
+			
+		}
 	}
 
 	public String getName() {
@@ -248,6 +274,10 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 					BrowserType.FIREFOX.getId()));
 			nameSpaceButton.setSelection(configuration.getAttribute(
 					CUBIC_TEST_NAMESPACE_XPATH,	false));
+			seleniumServerHost.setText(configuration.getAttribute(
+					CUBIC_TEST_SELENIÙM_SERVER_HOST,""));
+			seleniumServerPort.setText(configuration.getAttribute(
+					CUBIC_TEST_SELENIÙM_SERVER_PORT,""));
 		} catch (CoreException e) {
 			testName.setText("");
 			projectName.setText("");
@@ -264,6 +294,8 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		configuration.setAttribute(ATTR_PROJECT_NAME, projectName.getText());
 		configuration.setAttribute(CUBIC_TEST_BROWSER, browserType.getId());
 		configuration.setAttribute(CUBIC_TEST_NAMESPACE_XPATH, nameSpaceButton.getSelection());
+		configuration.setAttribute(CUBIC_TEST_SELENIÙM_SERVER_HOST, seleniumServerHost.getText());
+		configuration.setAttribute(CUBIC_TEST_SELENIÙM_SERVER_PORT, seleniumServerPort.getText());
 		mapResources(configuration);
 	}
 

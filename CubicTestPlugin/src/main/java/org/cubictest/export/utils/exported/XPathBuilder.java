@@ -51,26 +51,29 @@ public class XPathBuilder {
 	
 	public static final String TEXTFIELD_ATTRIBUTES = "[@type='text' or not(@type)]";
 
-
+	public static String getXPath(IActionElement element) {
+		return getXPath(element, false);
+	}
 
 	/**
 	 * Get the string that represents the Selenium locator-string for the element.
 	 * @param element
+	 * @param useNamespace 
 	 * @return
 	 */
-	public static String getXPath(IActionElement element) {
+	public static String getXPath(IActionElement element, boolean useNamespace) {
 		PageElement pe = (PageElement) element;
 		PredicateSeperator predicateSeperator = new PredicateSeperator();
 
 		String predicates = 
 				getIndexAssertion(pe, predicateSeperator) + 
-				getLabelAssertion(pe, predicateSeperator) + 
+				getLabelAssertion(pe, predicateSeperator, useNamespace) + 
 				getAttributeAssertions(pe, predicateSeperator); 
 
 		if (StringUtils.isBlank(predicates)) {
 			return getElementType(pe);
 		}
-		return getElementType(pe) + "[" + predicates + "]";
+		return (useNamespace ? "x:" : "") + getElementType(pe) + "[" + predicates + "]";
 	}
 	
 	
@@ -109,7 +112,7 @@ public class XPathBuilder {
 	}
 	
 	
-	private static String getLabelAssertion(PageElement pe, PredicateSeperator predicateSeperator) {
+	private static String getLabelAssertion(PageElement pe, PredicateSeperator predicateSeperator, boolean useNamespace) {
 		String result = predicateSeperator.getStartString();
 		
 		Identifier id = pe.getIdentifier(LABEL);
@@ -126,7 +129,8 @@ public class XPathBuilder {
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
 				String labelCondition = getPageValueCheck(id, "normalize-space(text())");
-				result += "@id" + getStringComparisonOperator(id) + "(//label[" + labelCondition + "]/@for)";
+				result += "@id" + getStringComparisonOperator(id) + 
+					"(//" + (useNamespace ? "x:" : "") + "label[" + labelCondition + "]/@for)";
 			}
 		}
 

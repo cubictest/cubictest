@@ -34,6 +34,7 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 	BrowserType browser;
 	boolean seleniumStarted;
 	Selenium selenium;
+	private String host;
 	private int port;
 	
 	
@@ -42,7 +43,8 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 	 */
 	@Override
 	public SeleniumHolder doStart() {
-		if (selenium == null) {
+		if (selenium == null && (host == null || "localhost".equals(host) || 
+				"127.0.0.1".equals(host))) {
 			server = new SeleniumProxyServer(browser.isProxyInjectionMode(), port);
 			server.start();
 			while (!server.isStarted()) {
@@ -67,7 +69,7 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 			if (baseUrl.endsWith("://")) {
 				baseUrl = initUrl;
 			}
-			seleniumHolder = new SeleniumHolder(port, browser.getId(), baseUrl, display, settings);
+			seleniumHolder = new SeleniumHolder(host, port, browser.getId(), baseUrl, display, settings);
 			seleniumHolder.getSelenium().start();
 			int timeout = SeleniumUtils.getTimeout(settings) * 1000;
 			seleniumHolder.getSelenium().setTimeout(timeout + "");
@@ -130,6 +132,10 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 
 	public void setSelenium(Selenium selenium) {
 		this.selenium = selenium;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
 	}
 
 	public void setPort(int port) {
