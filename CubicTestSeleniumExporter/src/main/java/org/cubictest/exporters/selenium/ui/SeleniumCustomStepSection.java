@@ -8,6 +8,7 @@ import org.cubictest.model.customstep.data.CustomTestStepDataEvent;
 import org.cubictest.model.customstep.data.ICustomTestStepDataListener;
 import org.cubictest.ui.customstep.section.CustomStepSection;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -42,6 +43,7 @@ public class SeleniumCustomStepSection extends CustomStepSection
 	private Link newClassLink;
 	private Button browserClassButton;
 	private CustomTestStepData data;
+	private IProject project;
 	
 	@Override
 	public void createControl(Composite parent) {
@@ -73,6 +75,7 @@ public class SeleniumCustomStepSection extends CustomStepSection
 					}
 				}
 				CustomStepWizard customStepWizard = new CustomStepWizard();
+				customStepWizard.setProject(project);
 				WizardDialog dialog = new WizardDialog(new Shell(),customStepWizard);
 				if(dialog.open() == WizardDialog.OK){
 					String className = customStepWizard.getClassName();
@@ -148,6 +151,11 @@ public class SeleniumCustomStepSection extends CustomStepSection
 	@Override
 	public String getDataKey(){
 		return "org.cubictest.seleniumexporter";
+	}
+
+	@Override
+	public void setProject(IProject project) {
+		this.project = project;
 	}
 
 

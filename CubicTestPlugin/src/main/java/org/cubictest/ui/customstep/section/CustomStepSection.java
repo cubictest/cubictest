@@ -11,6 +11,7 @@
 package org.cubictest.ui.customstep.section;
 
 import org.cubictest.model.customstep.data.CustomTestStepData;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.widgets.Composite;
 
@@ -32,5 +33,7 @@ public abstract class CustomStepSection {
 	public abstract void setData(CustomTestStepData data);
 	
 	public abstract String getDataKey();
+	
+	public abstract void setProject(IProject project);
 	
 }

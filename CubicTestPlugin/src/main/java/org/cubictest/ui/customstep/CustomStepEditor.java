@@ -138,6 +138,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		for(String key : sections.keySet()){
 			String dataKey = sections.get(key).getDataKey();
 			sections.get(key).setData(customStep.getData(dataKey));
+			sections.get(key).setProject(input.getFile().getProject());
 		}
 	}
 
