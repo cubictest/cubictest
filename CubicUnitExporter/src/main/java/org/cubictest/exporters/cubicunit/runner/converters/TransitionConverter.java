@@ -69,9 +69,9 @@ public class TransitionConverter implements ITransitionConverter<Holder> {
 						case GO_BACK:
 							holder.getBrowser().goBack();
 							break;
-						case GO_FORWARD:
-							holder.getBrowser().goForward();
-							break;
+//						case GO_FORWARD:
+//							holder.getBrowser().goForward();
+//							break;
 						case REFRESH:
 							holder.getBrowser().refresh();
 							break;
@@ -81,18 +81,18 @@ public class TransitionConverter implements ITransitionConverter<Holder> {
 						case MOUSE_OUT:
 							element.moveMouseOut();
 							break;
-						case NEXT_WINDOW:
-							Browser b = holder.getBrowser().getLastNewWindow();
-							if(b != null){
-								holder.addBrowser(b);
-							}
-							break;
-						case PREVIOUS_WINDOW:
-							holder.getPreviousBrowser();
-							break;
-						case DRAG_END:
-						case DRAG_START:
-							throw new NotImplementedException();
+//						case NEXT_WINDOW:
+//							Browser b = holder.getBrowser().getLastNewWindow();
+//							if(b != null){
+//								holder.addBrowser(b);
+//							}
+//							break;
+//						case PREVIOUS_WINDOW:
+//							holder.getPreviousBrowser();
+//							break;
+//						case DRAG_END:
+//						case DRAG_START:
+//							throw new NotImplementedException();
 						case NO_ACTION:
 							break;
 						default:
