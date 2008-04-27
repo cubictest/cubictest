@@ -14,7 +14,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ReconnectRequest;
 
 /**
- * @author Stein K�re Skytteren
+ * @author Stein K. Skytteren
  *
  */
 public class StartPointNodeEditPolicy extends AbstractNodeEditPolicy {

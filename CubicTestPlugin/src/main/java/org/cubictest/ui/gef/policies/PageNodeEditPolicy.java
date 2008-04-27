@@ -19,7 +19,7 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 
 
 /**
- * @author Stein K�re Skytteren
+ * @author Stein K. Skytteren
  *
  */
 public class PageNodeEditPolicy extends AbstractNodeEditPolicy {

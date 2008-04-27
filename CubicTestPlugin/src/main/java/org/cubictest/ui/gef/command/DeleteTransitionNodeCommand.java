@@ -22,7 +22,7 @@ import org.eclipse.jdt.internal.compiler.tool.EclipseCompiler;
 
 
 /**
- * @author Stein K�re Skytteren
+ * @author Stein K. Skytteren
  *
  *
  * A command that deletes an <code>AbstractPage</code>.

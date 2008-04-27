@@ -32,7 +32,7 @@ import org.eclipse.gef.editpolicies.ComponentEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 
 /**
- * @author Stein K�re Skytteren EditPolicy for the <code>AbstractPage</code>s.
+ * @author Stein K. Skytteren EditPolicy for the <code>AbstractPage</code>s.
  */
 public class TestComponentEditPolicy extends ComponentEditPolicy {
 

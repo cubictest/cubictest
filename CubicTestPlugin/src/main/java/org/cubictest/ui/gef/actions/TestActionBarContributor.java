@@ -23,7 +23,7 @@ import org.eclipse.ui.actions.RetargetAction;
 
 /**
  * 
- * @author Stein K�re Skytteren
+ * @author Stein K. Skytteren
  *
  * Create action bar for the <code>org.cubictest.ui.gef.editors.GraphicalTestEditor</code>.
  */

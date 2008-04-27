@@ -15,7 +15,7 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
 /**
- * @author Stein K�re Skytteren
+ * @author Stein K. Skytteren
  *
  */
 public class CommonNodeEditPolicy extends AbstractNodeEditPolicy {

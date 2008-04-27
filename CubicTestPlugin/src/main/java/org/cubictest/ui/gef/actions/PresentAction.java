@@ -21,7 +21,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 
 /**
- * @author Stein K�re Skytteren
+ * @author Stein K. Skytteren
  *
  * An selection action that changes the "present"/"notPresent" feature 
  * of the <code>cubicTestPlugin.model.Link</code> and <code>cubicTestPlugin.model.Text</code>

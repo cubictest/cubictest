@@ -13,7 +13,7 @@ package org.cubictest.ui.gef.command;
 import org.cubictest.model.SubTest;
 
 /**
- * @author Stein K�re Skytteren
+ * @author Stein K. Skytteren
  * 
  * A command that deletes an <code>AbstractPage</code>.
  */
