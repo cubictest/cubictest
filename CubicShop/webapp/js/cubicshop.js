@@ -14,3 +14,10 @@ function updateForm(selectBox) {
 		document.getElementById("customCriteria").innerHTML = ''; 
 	} 
 }
+
+function showHelpfulGreet() {
+	document.getElementById("helpfulGreet").innerHTML = "Nice!";
+}
+function hideHelpfulGreet() {
+	document.getElementById("helpfulGreet").innerHTML = "";
+}
