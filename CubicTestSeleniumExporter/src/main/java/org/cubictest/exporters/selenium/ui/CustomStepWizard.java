@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -54,7 +55,7 @@ public class CustomStepWizard extends Wizard {
 					break;
 				}
 		} catch (JavaModelException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage(), e);
 		}
 		if(pageFragmentRoot != null)
 			classWizard.setPackageFragmentRoot(

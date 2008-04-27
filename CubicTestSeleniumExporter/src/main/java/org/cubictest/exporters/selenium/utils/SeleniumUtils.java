@@ -24,6 +24,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.ActionType;
@@ -266,7 +267,7 @@ public class SeleniumUtils {
 			writer.write(text);
 			writer.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error("Error writing text to file", e);
 		}
 	}
 	

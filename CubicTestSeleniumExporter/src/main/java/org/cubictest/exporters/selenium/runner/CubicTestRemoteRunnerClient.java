@@ -23,6 +23,7 @@ import java.net.UnknownHostException;
 
 import javax.net.SocketFactory;
 
+import org.cubictest.common.utils.Logger;
 import org.cubictest.model.TestPartStatus;
 
 public class CubicTestRemoteRunnerClient {
@@ -63,7 +64,7 @@ public class CubicTestRemoteRunnerClient {
 			BufferedReader br = new BufferedReader(isr);
 			result = br.readLine();
 		}catch (IOException e) {
-			e.printStackTrace();
+			Logger.error("Error invoking selenium server", e);
 		}
 		return result;
 	}

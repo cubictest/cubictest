@@ -182,7 +182,7 @@ public class LaunchConfigurationDelegate extends
 						setTest(part.getTest());
 						part.getTest().resetStatus();
 					}catch (Exception e) {
-						e.printStackTrace();
+						Logger.warn("Error opening test in editor", e);
 						setTest(TestPersistance.loadFromFile(testFile));
 					}
 						
@@ -206,7 +206,7 @@ public class LaunchConfigurationDelegate extends
 			try{
 				testRunner.run(monitor);
 			}catch(Exception e ){
-				e.printStackTrace();
+				Logger.error("Error when running test", e);
 			}finally{
 				testRunner.cleanUp();
 			}
@@ -224,7 +224,7 @@ public class LaunchConfigurationDelegate extends
 					SeleniumRunnerTab.CUBIC_TEST_BROWSER, BrowserType.FIREFOX
 							.getId());
 		} catch (CoreException e) {
-			e.printStackTrace();
+			Logger.error("Error getting property", e);
 		}
 		return BrowserType.FIREFOX.getId();
 	}
@@ -234,7 +234,7 @@ public class LaunchConfigurationDelegate extends
 			return configuration.getAttribute(
 					SeleniumRunnerTab.CUBIC_TEST_NAMESPACE_XPATH, false);
 		} catch (CoreException e) {
-			e.printStackTrace();
+			Logger.error("Error getting property", e);
 		}
 		return false;
 	}
@@ -244,7 +244,7 @@ public class LaunchConfigurationDelegate extends
 			return configuration.getAttribute(
 					SeleniumRunnerTab.CUBIC_TEST_NAME, "");
 		} catch (CoreException e) {
-			e.printStackTrace();
+			Logger.error("Error getting property", e);
 		}
 		return null;
 	}
@@ -254,7 +254,7 @@ public class LaunchConfigurationDelegate extends
 			return configuration.getAttribute(
 					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_HOST, "");
 		} catch (CoreException e) {
-			e.printStackTrace();
+			Logger.error("Error getting property", e);
 		}
 		return null;
 	}
@@ -264,9 +264,9 @@ public class LaunchConfigurationDelegate extends
 			return Integer.parseInt(configuration.getAttribute(
 					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_PORT, ""));
 		} catch (CoreException e) {
-			e.printStackTrace();
+			Logger.error("Error getting property", e);
 		} catch (Exception e){
-			e.printStackTrace();
+			Logger.error("Error getting property", e);
 		}
 		return -1;
 	}

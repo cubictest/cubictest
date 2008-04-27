@@ -9,6 +9,7 @@ import java.net.Socket;
 
 import javax.net.ServerSocketFactory;
 
+import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.runner.holders.CubicTestLocalRunner;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 
@@ -55,7 +56,7 @@ public class SeleniumClientProxyServer extends Thread {
 			}
 			socket.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error("IOException in server", e);
 		}
 	}
 	

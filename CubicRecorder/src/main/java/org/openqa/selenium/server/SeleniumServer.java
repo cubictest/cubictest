@@ -425,10 +425,7 @@ public class SeleniumServer {
                                 }
                             }
                         } catch (IOException e) {
-                            System.err.println(e.getMessage());
-                            if (SeleniumServer.isDebugMode()) {
-                                e.printStackTrace();
-                            }
+                			org.cubictest.common.utils.Logger.error(e.getMessage(), e);
                         }
                     }
                 });

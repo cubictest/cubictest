@@ -13,6 +13,7 @@ package org.cubictest.exporters.selenium.launch;
 import static org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -283,7 +284,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			projectName.setText("");
 			browserType = BrowserType.FIREFOX;
 			nameSpaceButton.setSelection(false);
-			e.printStackTrace();
+			Logger.warn(e.getMessage(), e);
 		}
 		int storedBrowserTypeIndex = ArrayUtils.indexOf(BrowserType.values(), browserType);
 		browserCombo.select(storedBrowserTypeIndex);
