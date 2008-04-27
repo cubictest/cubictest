@@ -20,6 +20,7 @@ import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
+import org.cubictest.model.OnOffAutoTriState;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UserInteraction;
@@ -45,7 +46,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 	 * @param transition The transition to convert.
 	 */
 	public void handleUserInteractions(SeleniumHolder seleniumHolder, UserInteractionsTransition transition) {
-		boolean waitForPageToLoad = false;
+		boolean needsPageReload = false;
 		
 		for (UserInteraction action : transition.getUserInteractions()) {
 			IActionElement actionElement = action.getElement();
@@ -57,14 +58,22 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			
 			String commandName = handleUserInteraction(seleniumHolder, action);
 			if (!commandName.equals(SeleniumUtils.FIREEVENT)) {
-				waitForPageToLoad = true;
+				needsPageReload = true;
 			}
 			seleniumHolder.addResult(null, TestPartStatus.PASS);
-
 		}
-		if (waitForPageToLoad) {
-			int timeout = SeleniumUtils.getTimeout(seleniumHolder.getSettings());
+		
+		if ((transition.getReloadsPage().equals(OnOffAutoTriState.AUTO) && needsPageReload) 
+				|| (transition.getReloadsPage().equals(OnOffAutoTriState.ON))){
+			int timeout = transition.getSecondsToWaitForResult();
 			waitForPageToLoad(seleniumHolder, timeout);
+		}
+		else if (transition.getReloadsPage().equals(OnOffAutoTriState.OFF)) {
+			try {
+				Thread.sleep(transition.getSecondsToWaitForResult() * 1000);
+			} catch (InterruptedException e) {
+				Logger.warn("Interrupted while sleepting after user interaction");
+			}
 		}
 	}
 

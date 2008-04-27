@@ -20,6 +20,7 @@ import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.IActionElement;
+import org.cubictest.model.OnOffAutoTriState;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
@@ -31,6 +32,7 @@ import org.cubictest.ui.gef.command.AddUserInteractionCommand;
 import org.cubictest.ui.gef.command.DeleteUserInteractionCommand;
 import org.cubictest.ui.gef.command.EditUserInteractionCommand;
 import org.cubictest.ui.gef.command.MoveUserInteractionCommand;
+import org.cubictest.ui.gef.command.NoOperationCommand;
 import org.cubictest.ui.gef.command.MoveUserInteractionCommand.Direction;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
@@ -45,6 +47,8 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
@@ -67,6 +71,7 @@ import org.eclipse.swt.widgets.TableItem;
  */
 public class UserInteractionsComponent {
 	
+	private static final int NUM_COLUMNS = 11;
 	private static final String CHOOSE = "--Choose--";
 	private static final String DELETE_ROW = "--Delete user interaction--";
 	private static final String MOVE_UP = "--Move up--";
@@ -94,6 +99,8 @@ public class UserInteractionsComponent {
 	
 	private String[] currentActions;
 	private UserInteraction activeUserinteraction;
+	private Label secsToWaitLabel;
+	private org.eclipse.swt.widgets.Text secsToWaitText;
 
 	public UserInteractionsComponent(UserInteractionsTransition transition, Test test, TestEditPart testPart, boolean useCommandForActionChanges) {
 		if (useCommandForActionChanges && testPart == null) {
@@ -130,7 +137,7 @@ public class UserInteractionsComponent {
 	public Composite createControl(Composite parent) {
 		Composite content = new Composite(parent, SWT.NULL);
 		
-		GridLayout layout = new GridLayout(2, false);
+		GridLayout layout = new GridLayout(NUM_COLUMNS, false);
 		layout.verticalSpacing = 4;
 		content.setLayout(layout);
 		
@@ -162,10 +169,68 @@ public class UserInteractionsComponent {
 			}
 		});
 		
+		Label label = new Label(content, SWT.NONE);
+		label.setText("Transition reloads page:");
+
+		label = new Label(content, SWT.NONE);
+		label.setText(" Auto:");
+		Button radio = new Button(content, SWT.RADIO);
+		radio.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.AUTO));
+		radio.addSelectionListener(new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				secsToWaitLabel.setVisible(false);
+				secsToWaitText.setVisible(false);
+				transition.setReloadsPage(OnOffAutoTriState.AUTO);
+				setEditorDirty();
+			}
+		});
+
+		label = new Label(content, SWT.NONE);
+		label.setText(" Yes:");
+		radio = new Button(content, SWT.RADIO);
+		radio.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.ON));
+		radio.addSelectionListener(new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				secsToWaitLabel.setVisible(false);
+				secsToWaitText.setVisible(false);
+				transition.setReloadsPage(OnOffAutoTriState.ON);
+				setEditorDirty();
+			}
+		});
+
+		label = new Label(content, SWT.NONE);
+		label.setText(" No:");
+		Button offButton = new Button(content, SWT.RADIO);
+		offButton.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.OFF));
+		offButton.addSelectionListener(new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				secsToWaitLabel.setVisible(true);
+				secsToWaitText.setVisible(true);
+				transition.setReloadsPage(OnOffAutoTriState.OFF);
+				setEditorDirty();
+			}
+		});
+		secsToWaitLabel = new Label(content, SWT.NONE);
+		secsToWaitLabel.setText(" Seconds to wait for result:");
+		secsToWaitLabel.setVisible(offButton.getSelection());
+		secsToWaitText = new org.eclipse.swt.widgets.Text(content, SWT.NONE);
+		secsToWaitText.setText(transition.getSecondsToWaitForResult() + "");
+		secsToWaitText.setVisible(offButton.getSelection());
+		secsToWaitText.setLayoutData(new GridData(30, SWT.DEFAULT));
+		secsToWaitText.addModifyListener(new ModifyListener(){
+			public void modifyText(ModifyEvent e) {
+				transition.setSecondsToWaitForResult(Integer.parseInt(secsToWaitText.getText()));
+				setEditorDirty();
+			}
+		});
+		
 		GridData gd = new GridData();
 		gd.grabExcessHorizontalSpace = true;
 		gd.grabExcessVerticalSpace = false;
-		gd.horizontalSpan = 2;
+		gd.horizontalSpan = NUM_COLUMNS;
 		gd.verticalIndent = 7;
 		
 		createTable(content);
@@ -213,7 +278,7 @@ public class UserInteractionsComponent {
 		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gd.grabExcessHorizontalSpace = true;
 		gd.grabExcessVerticalSpace = true;
-		gd.horizontalSpan = 2;
+		gd.horizontalSpan = NUM_COLUMNS;
 		
 		table.setLayoutData(gd);
 		table.setLinesVisible(true);
@@ -629,6 +694,13 @@ public class UserInteractionsComponent {
 		return tableViewer;
 	}
 	
+	private void setEditorDirty() {
+		if (useCommandForActionChanges) {
+			NoOperationCommand cmd = new NoOperationCommand();
+			testPart.getViewer().getEditDomain().getCommandStack().execute(cmd);
+		}
+	}
+
 
 }
 

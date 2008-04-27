@@ -26,6 +26,8 @@ public class UserInteractionsTransition extends Transition {
 
 	private List<UserInteraction> userInteractions = new ArrayList<UserInteraction>();
 	private AbstractPage page;
+	private OnOffAutoTriState reloadsPage;
+	private Integer secondsToWaitForResult;
 	
 	public UserInteractionsTransition() {}
 	
@@ -154,5 +156,21 @@ public class UserInteractionsTransition extends Transition {
 			}
 		}
 		this.userInteractions = realActions;
+	}
+
+	public OnOffAutoTriState getReloadsPage() {
+		return reloadsPage == null ? OnOffAutoTriState.AUTO : reloadsPage;
+	}
+
+	public void setReloadsPage(OnOffAutoTriState reloadsPage) {
+		this.reloadsPage = reloadsPage;
+	}
+
+	public Integer getSecondsToWaitForResult() {
+		return secondsToWaitForResult == null ? 5 : secondsToWaitForResult;
+	}
+
+	public void setSecondsToWaitForResult(int secondsToWaitForResult) {
+		this.secondsToWaitForResult = secondsToWaitForResult;
 	}
 }

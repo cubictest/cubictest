@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.selenese.converters;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.export.exceptions.ExporterException;
@@ -20,6 +17,7 @@ import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
+import org.cubictest.model.OnOffAutoTriState;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
@@ -35,22 +33,28 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 	
 	
 	/**
-	 * Converts a user interactions transition to a list of Watir doc.
-	 * 
-	 * @param transition The transition to convert.
+	 * Converts a user interactions transition to Selenium commands (Selenese steps).
 	 */
 	public void handleUserInteractions(SeleneseDocument doc, UserInteractionsTransition transition) {
-		List actions = transition.getUserInteractions();
-		Iterator it = actions.iterator();
-		while(it.hasNext()) {
-			UserInteraction action = (UserInteraction) it.next();
+		boolean needsPageReload = false;
+		
+		for (UserInteraction action : transition.getUserInteractions()) {
 			IActionElement actionElement = action.getElement();
 			
 			if (actionElement == null) {
 				Logger.warn("Action element was null. Skipping user interaction: " + action);
 				continue;
 			}
-			handleUserInteraction(doc, action);
+			String commandName = handleUserInteraction(doc, action);
+			if (!commandName.equals(SeleniumUtils.FIREEVENT)) {
+				needsPageReload = true;
+			}
+		}
+
+		if ((transition.getReloadsPage().equals(OnOffAutoTriState.AUTO) && needsPageReload) 
+				|| (transition.getReloadsPage().equals(OnOffAutoTriState.ON))){
+			int timeout = transition.getSecondsToWaitForResult();
+			waitForPageToLoad(doc, timeout);
 		}
 	}
 	
@@ -58,7 +62,7 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 	/**
 	 * Converts a single user interaction to a Selenium command (selenese row).
 	 */
-	private void handleUserInteraction(SeleneseDocument doc, UserInteraction userInteraction) {
+	private String handleUserInteraction(SeleneseDocument doc, UserInteraction userInteraction) {
 
 		IActionElement element = userInteraction.getElement();
 		ActionType actionType = userInteraction.getActionType();
@@ -87,8 +91,15 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 		}
 		
 		doc.addCommand(commandName, locator, inputValue).setDescription(commandDesc);
+		return commandName;
 	}
 
+
+	
+	private void waitForPageToLoad(SeleneseDocument doc, int seconds) {
+		long millis = seconds * 1000;
+		doc.addCommand("waitForPageToLoad", millis + "").setDescription("Waiting for page to load");
+	}
 	
 	
 }
