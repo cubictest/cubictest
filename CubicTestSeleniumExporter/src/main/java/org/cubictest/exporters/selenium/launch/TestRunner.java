@@ -134,8 +134,7 @@ public class TestRunner {
 				@Override
 				public void run() {
 					try {
-						while (seleniumStarter != null
-								|| seleniumHolder.isSeleniumStarted()) {
+						while (seleniumStarter != null || seleniumHolder.isSeleniumStarted()) {
 							if (monitor.isCanceled()) {
 								stopSelenium();
 							}

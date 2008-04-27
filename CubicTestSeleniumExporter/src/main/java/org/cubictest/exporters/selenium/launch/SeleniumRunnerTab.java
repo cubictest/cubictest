@@ -131,8 +131,8 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			ElementTreeSelectionDialog dialog =
 				new ElementTreeSelectionDialog(new Shell(), 
 							new WorkbenchLabelProvider(), new WorkbenchContentProvider());
-			dialog.setTitle("Select a .aat file");
-			filter.setPatterns(new String[]{"*.aat"});
+			dialog.setTitle("Select an .aat / .ats file");
+			filter.setPatterns(new String[]{"*.aat", "*.ats"});
 			
 			dialog.addFilter(filter);
 			dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
