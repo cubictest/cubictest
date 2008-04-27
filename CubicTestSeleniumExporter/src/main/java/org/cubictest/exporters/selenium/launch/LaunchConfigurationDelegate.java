@@ -261,7 +261,7 @@ public class LaunchConfigurationDelegate extends
 	private String getSeleniumHost(ILaunchConfiguration configuration) {
 		try {
 			return configuration.getAttribute(
-					SeleniumRunnerTab.CUBIC_TEST_SELENIÙM_SERVER_HOST, "");
+					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_HOST, "");
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
@@ -271,7 +271,7 @@ public class LaunchConfigurationDelegate extends
 	private int getSeleniumPort(ILaunchConfiguration configuration) {
 		try {
 			return Integer.parseInt(configuration.getAttribute(
-					SeleniumRunnerTab.CUBIC_TEST_SELENIÙM_SERVER_PORT, ""));
+					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_PORT, ""));
 		} catch (CoreException e) {
 			e.printStackTrace();
 		} catch (Exception e){

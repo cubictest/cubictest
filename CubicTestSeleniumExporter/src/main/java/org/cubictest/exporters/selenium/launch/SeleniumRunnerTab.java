@@ -60,8 +60,8 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	public static final String CUBIC_TEST_NAME= "CubicTestSeleniumName";
 	public static final String CUBIC_TEST_BROWSER = "CubicTestSeleniumBrowser";
 	public static final String CUBIC_TEST_NAMESPACE_XPATH = "CubicTestSeleniumNamespaceXpath";
-	public static final String CUBIC_TEST_SELENIÙM_SERVER_HOST = "CubicTestSeleniumServerHost";
-	public static final String CUBIC_TEST_SELENIÙM_SERVER_PORT = "CubicTestSeleniumServerPort";
+	public static final String CUBIC_TEST_SELENIUM_SERVER_HOST = "CubicTestSeleniumServerHost";
+	public static final String CUBIC_TEST_SELENIUM_SERVER_PORT = "CubicTestSeleniumServerPort";
 
 	private Text projectName;
 	private Button projectBrowse;
@@ -275,9 +275,9 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			nameSpaceButton.setSelection(configuration.getAttribute(
 					CUBIC_TEST_NAMESPACE_XPATH,	false));
 			seleniumServerHost.setText(configuration.getAttribute(
-					CUBIC_TEST_SELENIÙM_SERVER_HOST,""));
+					CUBIC_TEST_SELENIUM_SERVER_HOST,""));
 			seleniumServerPort.setText(configuration.getAttribute(
-					CUBIC_TEST_SELENIÙM_SERVER_PORT,""));
+					CUBIC_TEST_SELENIUM_SERVER_PORT,""));
 		} catch (CoreException e) {
 			testName.setText("");
 			projectName.setText("");
@@ -294,8 +294,8 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		configuration.setAttribute(ATTR_PROJECT_NAME, projectName.getText());
 		configuration.setAttribute(CUBIC_TEST_BROWSER, browserType.getId());
 		configuration.setAttribute(CUBIC_TEST_NAMESPACE_XPATH, nameSpaceButton.getSelection());
-		configuration.setAttribute(CUBIC_TEST_SELENIÙM_SERVER_HOST, seleniumServerHost.getText());
-		configuration.setAttribute(CUBIC_TEST_SELENIÙM_SERVER_PORT, seleniumServerPort.getText());
+		configuration.setAttribute(CUBIC_TEST_SELENIUM_SERVER_HOST, seleniumServerHost.getText());
+		configuration.setAttribute(CUBIC_TEST_SELENIUM_SERVER_PORT, seleniumServerPort.getText());
 		mapResources(configuration);
 	}
 
