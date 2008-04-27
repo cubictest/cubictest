@@ -17,18 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.cubictest.common.settings.CubicTestProjectSettings;
-import org.cubictest.common.utils.EclipseLogger;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.export.converters.TreeTestWalker;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
-import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
-import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
-import org.cubictest.exporters.selenium.runner.converters.CustomTestStepConverter;
-import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
-import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
-import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
-import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
 import org.cubictest.model.Test;
@@ -220,7 +211,7 @@ public class LaunchConfigurationDelegate extends
 				testRunner.cleanUp();
 			}
 		}catch(Exception e){
-			EclipseLogger.error(e, "Error launching test");
+			Logger.error("Error launching test", e);
 		} finally {
 			monitor.done();
 		}
