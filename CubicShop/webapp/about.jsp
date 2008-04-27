@@ -9,13 +9,16 @@ We sell cubics. <a href="http://www.wikipedia.org">Wikipedia >>></a>
 	<table>
 		<tr>
 			<td>
-				<input type="radio" name="helpfullness" id="helpful" value="Helpful"><label for="helpful">Helpful</label><br>
-				<input type="radio" name="helpfullness" id="notHelpful" value="Not helpful"><label for="notHelpful">Not helpful</label>
+				<input type="radio" name="helpfullness" id="helpful" value="Helpful" onClick="showHelpfulGreet()"><label for="helpful">Helpful</label><br>
+				<input type="radio" name="helpfullness" id="notHelpful" value="Not helpful" onClick="hideHelpfulGreet()"><label for="notHelpful">Not helpful</label>
 			</td>
 		</tr>
 	</table>
 	<input type="submit" value="Submit">
 </form>
+
+<div id="helpfulGreet">
+</div>
 <%
 	if(request.getParameter("helpfullness") != null) {
 		out.println("You voted: " + request.getParameter("helpfullness") + ".<br>");
