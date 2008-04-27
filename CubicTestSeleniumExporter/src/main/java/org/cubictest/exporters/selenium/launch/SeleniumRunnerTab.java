@@ -13,9 +13,7 @@ package org.cubictest.exporters.selenium.launch;
 import static org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
-import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -43,13 +41,12 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
-import org.eclipse.ui.dialogs.ResourceSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
@@ -75,8 +72,11 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	
 	private Group nameSpaceGroup;
 	private Button nameSpaceButton;
+	private Label nameSpaceButtonLabel;
 
+	private Label seleniumServerHostLabel;
 	private Text seleniumServerHost;
+	private Label seleniumServerPortLabel;
 	private Text seleniumServerPort;
 
 	private SelectionListener projectBrowseListener = new SelectionAdapter(){
@@ -162,48 +162,45 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		composite.setLayout(new GridLayout(1, true));
 		composite.setFont(parent.getFont());
 		
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		
-		GridLayout topLayout = new GridLayout();
-		topLayout.numColumns = 2;
-		
 		{
+			GridLayout groupLayout = new GridLayout();
+			groupLayout.numColumns = 2;
+
 			Group group = new Group(composite, SWT.NONE);
 			group.setText("Project name: ");
-			group.setLayout(topLayout);
-			group.setLayoutData(gd);
+			group.setLayout(groupLayout);
+			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			projectName = new Text(group, SWT.WRAP | SWT.BORDER);
-			projectName.setLayoutData(gd);
+			projectName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			projectBrowse = new Button(group, SWT.PUSH);
 			projectBrowse.setText("Browse...");
 			projectBrowse.addSelectionListener(projectBrowseListener );
 		}
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		
-		topLayout = new GridLayout();
-		topLayout.numColumns = 2;
 		
 		{
+			GridLayout groupLayout = new GridLayout();
+			groupLayout.numColumns = 2;
+
 			Group group = new Group(composite, SWT.NONE);
 			group.setText("Test: ");
-			group.setLayoutData(gd);
-			group.setLayout(topLayout);
+			group.setLayout(groupLayout);
+			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			testName = new Text(group, SWT.WRAP | SWT.BORDER);
-			testName.setLayoutData(gd);
+			testName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			testBrowse = new Button(group, SWT.PUSH);
 			testBrowse.setText("Browse...");
 			testBrowse.addSelectionListener(testBrowseListener);
 		}
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		
-		topLayout = new GridLayout();
-		topLayout.numColumns = 1;
 		
 		{
+			GridLayout groupLayout = new GridLayout();
+			groupLayout.numColumns = 1;
+			
 			Group group = new Group(composite, SWT.NONE);
 			group.setText("Browser: ");
-			group.setLayoutData(gd);
-			group.setLayout(topLayout);
+			group.setLayout(groupLayout);
+			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
 			browserCombo = new Combo(group, SWT.NONE | SWT.READ_ONLY);
 			for (BrowserType browserType : BrowserType.values()) {
 				browserCombo.add(browserType.getDisplayName());
@@ -220,17 +217,19 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			browserCombo.select(storedBrowserTypeIndex);
 			setControl(composite);
 		}
-		
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		
-		topLayout = new GridLayout();
-		topLayout.numColumns = 2;
-		
+				
 		{
+			GridLayout groupLayout = new GridLayout();
+			groupLayout.numColumns = 2;
+
 			nameSpaceGroup = new Group(composite, SWT.NONE);
-			nameSpaceGroup.setText("Use namespace in xpath execution: ");
-			nameSpaceGroup.setLayoutData(gd);
-			nameSpaceGroup.setLayout(topLayout);
+			nameSpaceGroup.setText("Support for namespaces in XHTML:");
+			nameSpaceGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			nameSpaceGroup.setLayout(groupLayout);
+			
+			nameSpaceButtonLabel = new Label(nameSpaceGroup, SWT.NONE);
+			nameSpaceButtonLabel.setText("Use namespace in XPath execution:");
+			
 			nameSpaceButton = new Button(nameSpaceGroup, SWT.CHECK);
 			nameSpaceButton.addSelectionListener(new SelectionAdapter(){
 				@Override
@@ -242,23 +241,24 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			
 		}
 		
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		
-		topLayout = new GridLayout();
-		topLayout.numColumns = 2;
-		
 		{
+			GridLayout groupLayout = new GridLayout();
+			groupLayout.numColumns = 2;
+
 			Group group = new Group(composite, SWT.NONE);
-			group.setText("SeleniumRC Server: ");
-			group.setLayoutData(gd);
-			group.setLayout(topLayout);
+			group.setText("Selenium RC Server: ");
+			group.setLayout(groupLayout);
+			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			
+			seleniumServerHostLabel = new Label(group, SWT.NONE);
+			seleniumServerHostLabel.setText("Host:");
 			seleniumServerHost = new Text(group, SWT.WRAP | SWT.BORDER);
-			seleniumServerHost.setLayoutData(gd);
+			seleniumServerHost.setLayoutData(new GridData(200, SWT.DEFAULT));
 			
+			seleniumServerPortLabel = new Label(group, SWT.NONE);
+			seleniumServerPortLabel.setText("Port:");
 			seleniumServerPort = new Text(group, SWT.WRAP | SWT.BORDER);
-			seleniumServerPort.setLayoutData(gd);
-			
+			seleniumServerPort.setLayoutData(new GridData(100, SWT.DEFAULT));
 		}
 	}
 
@@ -275,9 +275,9 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			nameSpaceButton.setSelection(configuration.getAttribute(
 					CUBIC_TEST_NAMESPACE_XPATH,	false));
 			seleniumServerHost.setText(configuration.getAttribute(
-					CUBIC_TEST_SELENIUM_SERVER_HOST,""));
+					CUBIC_TEST_SELENIUM_SERVER_HOST, "localhost"));
 			seleniumServerPort.setText(configuration.getAttribute(
-					CUBIC_TEST_SELENIUM_SERVER_PORT,""));
+					CUBIC_TEST_SELENIUM_SERVER_PORT, "4545"));
 		} catch (CoreException e) {
 			testName.setText("");
 			projectName.setText("");
