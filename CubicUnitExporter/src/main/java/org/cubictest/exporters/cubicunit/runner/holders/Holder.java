@@ -19,6 +19,7 @@ import org.cubictest.custom.IElementContext;
 import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.exporters.cubicunit.ui.BrowserType;
 import org.cubictest.model.ConnectionPoint;
+import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
@@ -187,6 +188,12 @@ public class Holder implements IResultHolder {
 	}
 
 	public void pushBreadcrumb(PropertyAwareObject element) {
+	}
+
+	public void updateStatus(ICustomTestStepHolder ctsh,
+			TestPartStatus newStatus) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
