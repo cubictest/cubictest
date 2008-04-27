@@ -184,7 +184,7 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 		String fileName = wizardNewCustomTestStepPage.getFileName();
 		String containerName = wizardNewCustomTestStepPage.getContainerName();
 		if(fileName.length() > 7 &&
-				fileName.endsWith("custom") &&
+				fileName.endsWith(".custom") &&
 				containerName.length() > 0) {
 			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 			IResource resource = root.getFile(new Path(containerName + "/" + fileName));

@@ -46,6 +46,8 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 	
 	protected WizardNewFileCreationPage(String pageName) {
 		super(pageName);
+		setTitle(pageName);
+
 	}
 
 	public void createControl(Composite parent) {

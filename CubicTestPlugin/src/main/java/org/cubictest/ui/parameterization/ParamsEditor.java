@@ -110,17 +110,15 @@ public class ParamsEditor extends EditorPart {
 		
 		setPartName(editorInput.getName());
 	}
+	
+	
 	/*
 	 *  (non-Javadoc)
 	 * @see org.eclipse.ui.IWorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
 	@Override
 	public void createPartControl(Composite parent) {
-		GridData gridData = new GridData (GridData.HORIZONTAL_ALIGN_FILL //| 
-				//GridData.VERTICAL_ALIGN_FILL | 
-				//GridData.GRAB_VERTICAL //| 
-				//GridData.FILL_BOTH
-				);
+		GridData gridData = new GridData (GridData.HORIZONTAL_ALIGN_FILL);
 		parent.setLayoutData (gridData);
 		
 		GridLayout layout = new GridLayout(1, false);
