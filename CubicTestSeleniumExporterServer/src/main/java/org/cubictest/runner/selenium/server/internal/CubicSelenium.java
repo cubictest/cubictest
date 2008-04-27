@@ -587,4 +587,72 @@ public class CubicSelenium implements Selenium {
 	public void windowMaximize(String arg0) {
 		execute("windowMaximize", arg0);
 	}
+
+	public void addLocationStrategy(String arg0, String arg1) {
+		execute("addLocationStrategy", arg0, arg1);
+	}
+
+	public void allowNativeXpath(String arg0) {
+		execute("allowNativeXpath", arg0);
+	}
+
+	public void assignId(String arg0, String arg1) {
+		execute("assignId", arg0, arg1);
+	}
+
+	public void captureScreenshot(String arg0) {
+		execute("captureScreenshot", arg0);
+	}
+
+	public void chooseOkOnNextConfirmation() {
+		execute("chooseOkOnNextConfirmation");
+	}
+
+	public Number getMouseSpeed() {
+		return Integer.parseInt(execute("getMouseSpeed")[0]);
+	}
+
+	public Number getXpathCount(String arg0) {
+		return Integer.parseInt(execute("getXpathCount", arg0)[0]);
+	}
+
+	public void highlight(String arg0) {
+		execute("highlight", arg0);
+	}
+
+	public void removeAllSelections(String arg0) {
+		execute("removeAllSelections", arg0);
+	}
+
+	public void runScript(String arg0) {
+		execute("runScript", arg0);
+	}
+
+	public void setBrowserLogLevel(String arg0) {
+		execute("setBrowserLogLevel", arg0);
+	}
+
+	public void setContext(String arg0) {
+		execute("setContext", arg0);
+	}
+
+	public void setMouseSpeed(String arg0) {
+		execute("setMouseSpeed", arg0);
+	}
+
+	public void typeKeys(String arg0, String arg1) {
+		execute("typeKeys", arg0, arg1);
+	}
+
+	public void waitForFrameToLoad(String arg0, String arg1) {
+		execute("waitForFrameToLoad", arg0, arg1);
+	}
+
+	public void windowFocus() {
+		execute("windowFocus");
+	}
+
+	public void windowMaximize() {
+		execute("windowMaximize");
+	}
 }

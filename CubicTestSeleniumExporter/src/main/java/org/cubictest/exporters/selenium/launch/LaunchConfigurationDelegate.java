@@ -211,7 +211,7 @@ public class LaunchConfigurationDelegate extends
 			final TestRunner testRunner = new TestRunner(test, wb.getDisplay(), 
 					seleniumHost, seleniumPort, serverPort, 
 					seleniumClientProxyPort,  BrowserType.fromId(browser), useNamespace);
-			
+			testRunner.setWorkingDirectory(workingDirName);
 			try{
 				testRunner.run(monitor);
 			}catch(Exception e ){

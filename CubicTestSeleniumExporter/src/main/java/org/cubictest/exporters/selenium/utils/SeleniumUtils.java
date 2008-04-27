@@ -12,6 +12,17 @@ package org.cubictest.exporters.selenium.utils;
 
 import static org.cubictest.model.Moderator.EQUAL;
 
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
@@ -245,4 +256,18 @@ public class SeleniumUtils {
 	public static String getPluginPropertyPrefix() {
 		return "SeleniumExporterPlugin";
 	}
+	
+	
+	public static void writeTextToFile(String directory, String fileName, String text){
+		File textFile = new File(directory + File.separator
+                + fileName + "_" + System.currentTimeMillis() + ".txt");
+		try {
+			FileWriter writer = new FileWriter(textFile);
+			writer.write(text);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

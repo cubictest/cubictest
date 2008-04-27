@@ -64,6 +64,7 @@ public class TestRunner {
 	private SeleniumClientProxyServer seleniumClientProxyServer;
 	private final Display display;
 	private final boolean useNamespace;
+	private String workingDirName;
 
 	public TestRunner(Test test, Display display, String seleniumHost, int seleniumPort, int serverPort,
 			int seleniumClientProxyPort, BrowserType browserType, boolean useNamespace) {
@@ -84,7 +85,7 @@ public class TestRunner {
 			if (seleniumHolder == null || !reuseSelenium) {
 				startSelenium(monitor);
 			}
-			
+			seleniumHolder.setWorkingDir(workingDirName);
 			seleniumHolder.setUseNamespace(useNamespace);
 			
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(
@@ -261,6 +262,10 @@ public class TestRunner {
 		}
 		stopSelenium();
 		
+	}
+
+	public void setWorkingDirectory(String workingDirName) {
+		this.workingDirName = workingDirName;
 	}
 
 }

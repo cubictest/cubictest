@@ -10,12 +10,17 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.holders;
 
+import java.io.File;
+
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
+import org.cubictest.exporters.selenium.utils.SeleniumUtils;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.context.Frame;
+import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.Selenium;
@@ -32,6 +37,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 	private boolean seleniumStarted;
 	private UrlStartPoint handledUrlStartPoint;
 	private CubicTestRemoteRunnerClient customStepRunner;
+	private String workingDirName;
 	
 	
 	public SeleniumHolder(Selenium selenium, Display display, CubicTestProjectSettings settings) {
@@ -55,10 +61,21 @@ public class SeleniumHolder extends RunnerResultHolder {
 	}
 	
 	public CubicTestLocalRunner getSelenium() {
+		
 		return selenium;
 	}
 
-
+	@Override
+	protected void handleAssertionFailure(PageElement element) {
+		
+		String bodyText = selenium.execute("getHtmlSource")[0];
+		SeleniumUtils.writeTextToFile(workingDirName, element.getText(), bodyText);
+		
+		selenium.execute("windowFocus");
+		selenium.execute("captureScreenshot",workingDirName + File.separator + element.getText() + "_" + System.currentTimeMillis() + ".png");
+		//SeleniumUtils.takeAScreenShotOfTheApp(workingDirName,element.getText());
+		super.handleAssertionFailure(element);
+	}
 	
 	public boolean isSeleniumStarted() {
 		return seleniumStarted;
@@ -84,6 +101,10 @@ public class SeleniumHolder extends RunnerResultHolder {
 	
 	public CubicTestRemoteRunnerClient getCustomStepRunner() {
 		return customStepRunner;
+	}
+
+	public void setWorkingDir(String workingDirName) {
+		this.workingDirName = workingDirName;
 	}
 
 }
