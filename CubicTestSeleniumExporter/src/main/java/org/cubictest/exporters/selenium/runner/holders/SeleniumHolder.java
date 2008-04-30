@@ -13,6 +13,7 @@ package org.cubictest.exporters.selenium.runner.holders;
 import java.io.File;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
@@ -68,12 +69,23 @@ public class SeleniumHolder extends RunnerResultHolder {
 	@Override
 	protected void handleAssertionFailure(PageElement element) {
 		
-		String bodyText = selenium.execute("getHtmlSource")[0];
-		SeleniumUtils.writeTextToFile(workingDirName, element.getText(), bodyText);
-		
-		selenium.execute("windowFocus");
-		selenium.execute("captureScreenshot",workingDirName + File.separator + element.getText() + "_" + System.currentTimeMillis() + ".png");
-		//SeleniumUtils.takeAScreenShotOfTheApp(workingDirName,element.getText());
+		try{
+			String bodyText = selenium.execute("getHtmlSource")[0];
+			SeleniumUtils.writeTextToFile(workingDirName, element.getText(), bodyText);
+		}
+		catch (Exception e) {
+			Logger.warn("Unable to capture HTML of failing test", e);
+		}
+
+		try {
+			selenium.execute("windowFocus");
+			selenium.execute("captureScreenshot",workingDirName + File.separator + element.getText() + "_" + System.currentTimeMillis() + ".png");
+			//SeleniumUtils.takeAScreenShotOfTheApp(workingDirName,element.getText());
+		}
+		catch (Exception e) {
+			Logger.warn("Unable to capture screenshot of failing test", e);
+		}
+
 		super.handleAssertionFailure(element);
 	}
 	
