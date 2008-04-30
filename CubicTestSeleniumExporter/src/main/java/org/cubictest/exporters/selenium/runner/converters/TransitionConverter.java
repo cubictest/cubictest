@@ -60,6 +60,8 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			if (!commandName.equals(SeleniumUtils.FIREEVENT)) {
 				needsPageReload = true;
 			}
+			
+			//increment the number of steps in test:
 			seleniumHolder.addResult(null, TestPartStatus.PASS);
 		}
 		
@@ -129,7 +131,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 		}
 		
 		try {
-			//invoke user interaction by reflection using command name from SeleniumUtil:
+			//invoke user interaction by reflection using command name from SeleniumUtil (legacy since Selenese exporter was written first):
 			
 			if (SeleniumUtils.hasSeleniumInputColumn(userInteraction)) {
 				//two parameters
