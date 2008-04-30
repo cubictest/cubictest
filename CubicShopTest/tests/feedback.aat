@@ -270,7 +270,7 @@
                     </userInteractions>
                     <page class="page" reference="../../.."/>
                     <reloadsPage>OFF</reloadsPage>
-                    <secondsToWaitForResult>10</secondsToWaitForResult>
+                    <secondsToWaitForResult>2</secondsToWaitForResult>
                     <start class="page" reference="../../.."/>
                     <end class="page">
                       <commons/>
@@ -372,6 +372,7 @@
                             </userInteraction>
                           </userInteractions>
                           <page class="page" reference="../../.."/>
+                          <reloadsPage>ON</reloadsPage>
                           <start class="page" reference="../../.."/>
                           <end class="page">
                             <commons/>
@@ -527,12 +528,28 @@
     <page>
       <commons/>
       <elements/>
+      <name></name>
       <description></description>
       <outTransitions/>
       <id>page110956251209332207535</id>
       <position>
         <x>0</x>
         <y>1349</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <description></description>
+      <outTransitions/>
+      <id>page301445801209534453549</id>
+      <position>
+        <x>0</x>
+        <y>1649</y>
       </position>
       <dimension>
         <width>0</width>
