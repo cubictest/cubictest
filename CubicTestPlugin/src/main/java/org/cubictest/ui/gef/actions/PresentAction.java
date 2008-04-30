@@ -49,7 +49,7 @@ public class PresentAction extends SelectionAction {
 		if (!(getSelection() instanceof StructuredSelection )) return false;
 		Object selection = ((StructuredSelection)getSelection()).getFirstElement();
 		if (selection instanceof PageElementEditPart){
-			setText((((PageElementEditPart)selection).getModel().isNot())?"should exist":"should NOT exist");
+			setText((((PageElementEditPart) selection).getModel().isNot()) ? "Should exist" : "Should NOT exist");
 			setImageDescriptor(getImageDescriptor());
 			return true;
 		}
