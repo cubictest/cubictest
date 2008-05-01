@@ -67,7 +67,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 		
 		if ((transition.getReloadsPage().equals(OnOffAutoTriState.AUTO) && needsPageReload) 
 				|| (transition.getReloadsPage().equals(OnOffAutoTriState.ON))){
-			int timeout = transition.getSecondsToWaitForResult();
+			int timeout = SeleniumUtils.getTimeout(seleniumHolder.getSettings());
 			waitForPageToLoad(seleniumHolder, timeout);
 		}
 		else if (transition.getReloadsPage().equals(OnOffAutoTriState.OFF)) {
