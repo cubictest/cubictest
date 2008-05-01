@@ -53,7 +53,7 @@
       </objectContribution>
       <objectContribution
            id="CubicTestWatirExporter.objectContribution2"
-		   objectClass="org.cubictest.ui.gef.controller.TestEditPart">
+		   objectClass="org.cubictest.ui.gef.controller.PropertyChangePart">
          <action
                class="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"
                icon="icons/watir_run_icon.gif"
