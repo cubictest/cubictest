@@ -36,6 +36,7 @@ public class RadioButton extends Checkable{
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
 		list.add(LABEL);
+		list.add(IdentifierType.VALUE);
 		list.add(ID);
 		list.add(IdentifierType.NAME);
 		list.add(CHECKED);
