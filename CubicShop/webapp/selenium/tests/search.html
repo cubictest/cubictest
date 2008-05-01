@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html>
+  <head>
+    <title>CubicTest exported test</title>
+    <style type="text/css">td {padding-right: 25px}
+.comment {color: blue; padding-top: 10px;}</style>
+  </head>
+  <body>
+    <table border="1" cellspacing="0">
+      <tr>
+        <td>setTimeout</td>
+        <td>30000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Opening URL: http://localhost:8080/cubicshop/index.jsp:</td>
+      </tr>
+      <tr>
+        <td>open</td>
+        <td>http://localhost:8080/cubicshop/index.jsp</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'CubicShop']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=/descendant-or-self::*[@id='header']/descendant-or-self::*[contains(normalize-space(.), 'CubicShop')]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'The CubicShop Inc']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=/descendant-or-self::*[@id='footer']/descendant-or-self::*[contains(normalize-space(.), 'The CubicShop Inc')]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Welcome']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='Welcome']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Webshop']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='Webshop']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Your cart']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='Your cart']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'About us']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='About us']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>5000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>waitForTextPresent</td>
+        <td>Search</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Checkbox: 'Include unreleased cubes'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForElementNotPresent</td>
+        <td>xpath=//input[@type='checkbox']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Option: 'Cubics'] label = 'Cubics':</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//option[normalize-space(text())='Cubics' and not(@selected)]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Option: 'Reviews'] label = 'Reviews':</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//option[normalize-space(text())='Reviews' and @selected='']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [TextField: 'Query']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//input[@type='text' or not(@type)]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Button: 'Go']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//input[@type='button' or @type='submit' or @type='image' or @type='reset'][@value='Go']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Selecting [Option: 'Cubics'] label = 'Cubics':</td>
+      </tr>
+      <tr>
+        <td>select</td>
+        <td>xpath=//select[@id=(//label[normalize-space(text())='Search']/@for)][.//option[normalize-space(text())='Cubics' and not(@selected)]][.//option[normalize-space(text())='Reviews' and @selected='']]</td>
+        <td>label=Cubics</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Checkbox: 'Include unreleased cubes']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//input[@type='checkbox']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Button: 'Go']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//input[@type='button' or @type='submit' or @type='image' or @type='reset'][@value='Go']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [TextField: 'Query']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//input[@type='text' or not(@type)]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Checking [Checkbox: 'Include unreleased cubes']:</td>
+      </tr>
+      <tr>
+        <td>check</td>
+        <td>xpath=//input[@type='checkbox']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Typing text [TextField: 'Query']:</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>xpath=//input[@type='text' or not(@type)]</td>
+        <td>The Cube</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Button: 'Go']:</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//input[@type='button' or @type='submit' or @type='image' or @type='reset'][@value='Go']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>2000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'Search result for cubics']:</td>
+      </tr>
+      <tr>
+        <td>waitForTextPresent</td>
+        <td>Search result for cubics</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'The Cube']:</td>
+      </tr>
+      <tr>
+        <td>waitForTextPresent</td>
+        <td>The Cube</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Button: 'Buy']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//input[@type='button' or @type='submit' or @type='image' or @type='reset'][@value='Buy']</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+  </body>
+</html>
+
