@@ -61,6 +61,9 @@ public class SeleniumSettingsPage extends WizardPage {
 		setPageComplete(true);
 		
 		setControl(content);
+		
+		getShell().getDefaultButton().setFocus();
+
 	}
 	
 	
