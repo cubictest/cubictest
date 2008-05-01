@@ -53,7 +53,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>PASS</status>
+              <status>UNKNOWN</status>
             </link>
           </elements>
           <name>Frontpage</name>
@@ -544,9 +544,10 @@
     <page>
       <commons/>
       <elements/>
+      <name></name>
       <description></description>
       <outTransitions/>
-      <id>page301445801209534453549</id>
+      <id>page153632251209534471570</id>
       <position>
         <x>0</x>
         <y>1649</y>
@@ -555,7 +556,40 @@
         <width>0</width>
         <height>0</height>
       </dimension>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
       <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page219825451209536017616</id>
+      <position>
+        <x>0</x>
+        <y>1949</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page203884391209644094421</id>
+      <position>
+        <x>0</x>
+        <y>2249</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
     </page>
   </pages>
   <subTests/>
@@ -574,5 +608,5 @@
   <description></description>
   <id>/CubicShopTest/tests/en liten test.aat</id>
   <modelVersion>9</modelVersion>
-  <status reference="../startPoint/outTransitions/simpleTransition/end/elements/link/status"/>
+  <status>WARN</status>
 </test>
