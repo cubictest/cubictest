@@ -45,9 +45,9 @@ public abstract class Checkable extends FormElement {
 	@Override
 	public List<ActionType> getActionTypes() {
 		List<ActionType> actions = new ArrayList<ActionType>();
-		actions.addAll(super.getActionTypes());
 		actions.add(ActionType.CHECK);
 		actions.add(ActionType.UNCHECK);
+		actions.addAll(super.getActionTypes());
 		return actions;
 	}
 }
