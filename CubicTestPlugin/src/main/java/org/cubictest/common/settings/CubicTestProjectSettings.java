@@ -19,6 +19,7 @@ import org.apache.commons.io.FileUtils;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IProject;
 
 /**
@@ -36,6 +37,16 @@ public class CubicTestProjectSettings {
 	Properties properties;
 	
 	File projectFolder;
+
+	/**
+	 * Constructor that gets project from active Eclipse page.
+	 */
+	public CubicTestProjectSettings() {
+		IProject project = ViewUtil.getProjectFromActivePage();
+		projectFolder = project.getLocation().toFile();
+		File propsFile = getPropsFile(projectFolder);
+		loadProperties(propsFile);
+	}
 
 	
 	public CubicTestProjectSettings(IProject project) {
