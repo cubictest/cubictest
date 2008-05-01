@@ -84,7 +84,7 @@ public class SeleneseDocument extends ContextHolder {
 		style.setAttribute("type", "text/css");
 		style.setText(
 				"td {padding-right: 25px}\n" + 
-				".comment {color: #AAF; padding-top: 10px;}\n");
+				".comment {color: blue; padding-top: 10px;}\n");
 		header.addContent(style);
 		
 		rootElement.addContent(header);

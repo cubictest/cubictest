@@ -39,12 +39,22 @@ public class PageElementConverter implements IPageElementConverter<SeleneseDocum
 		}
 		else if (doc.isInRootContext() && pe instanceof Text) {
 			//texts in root context have bug in firefox xpath, use selenium's own function:
-			doc.addCommand("waitForText", pe.getText()).setDescription("Check present: " + pe);
+			if (pe.isNot()) {
+				doc.addCommand("waitForTextNotPresent", pe.getText()).setDescription("Check NOT present: " + pe);
+			}
+			else {
+				doc.addCommand("waitForTextPresent", pe.getText()).setDescription("Check present: " + pe);
+			}
 		}
 		else {
 			//all other elements
 			String locator = "xpath=" + doc.getFullContextWithAllElements(pe);
-			doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
+			if (pe.isNot()) {
+				doc.addCommand("waitForElementNotPresent", locator).setDescription("Check NOT present: " + pe);
+			}
+			else {
+				doc.addCommand("waitForElementPresent", locator).setDescription("Check present: " + pe);
+			}
 		}
 	}
 }
