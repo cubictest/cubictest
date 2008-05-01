@@ -55,7 +55,7 @@
       </objectContribution>
       <objectContribution
             id="CubicTestSeleniumExporter.objectContribution2"
-		    objectClass="org.cubictest.ui.gef.controller.TestEditPart">
+		    objectClass="org.cubictest.ui.gef.controller.PropertyChangePart">
          <action
                class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
                icon="icons/selenium_run_icon.gif"
