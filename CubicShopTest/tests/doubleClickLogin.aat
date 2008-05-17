@@ -327,8 +327,56 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../userInteractionsTransition/end/elements/text/status"/>
+                    <status reference="../../../../../../elements/link/status"/>
                   </image>
+                  <link>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Logo link</value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value>logoLink</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status reference="../../../../../../elements/link/status"/>
+                  </link>
                   <text>
                     <description></description>
                     <identifiers>
@@ -343,7 +391,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>true</not>
-                    <status reference="../../../../../userInteractionsTransition/end/elements/text/status"/>
+                    <status>FAIL</status>
                   </text>
                 </elements>
                 <name>Search</name>
@@ -400,6 +448,56 @@
                       <name defined-in="transitionNode"></name>
                     </end>
                   </userInteractionsTransition>
+                  <userInteractionsTransition>
+                    <userInteractions>
+                      <userInteraction>
+                        <element class="link" reference="../../../../../elements/link"/>
+                        <input></input>
+                        <action reference="../../../../../../userInteractions/userInteraction/action"/>
+                        <i18nKey></i18nKey>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </userInteraction>
+                    </userInteractions>
+                    <page class="page" reference="../../.."/>
+                    <start class="page" reference="../../.."/>
+                    <end class="page">
+                      <commons/>
+                      <elements>
+                        <text>
+                          <description></description>
+                          <identifiers>
+                            <identifier>
+                              <value>Welcome to our webshop!</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
+                          <not>false</not>
+                          <status reference="../../../../../../../../../elements/link/status"/>
+                        </text>
+                      </elements>
+                      <name>Logo link</name>
+                      <description></description>
+                      <inTransition class="userInteractionsTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>page123332291211028771897</id>
+                      <position>
+                        <x>572</x>
+                        <y>472</y>
+                      </position>
+                      <dimension>
+                        <width>150</width>
+                        <height>95</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                    </end>
+                  </userInteractionsTransition>
                 </outTransitions>
                 <id>page332185271211020523466</id>
                 <position>
@@ -408,7 +506,7 @@
                 </position>
                 <dimension>
                   <width>196</width>
-                  <height>67</height>
+                  <height>89</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
               </end>
@@ -496,7 +594,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>true</not>
-                    <status reference="../../../../../../elements/link/status"/>
+                    <status reference="../../../../../userInteractionsTransition/end/elements/text/status"/>
                   </text>
                   <simpleContext>
                     <elements>
@@ -514,7 +612,7 @@
                         </identifiers>
                         <directEditIdentifier reference="../identifiers/identifier"/>
                         <not>false</not>
-                        <status reference="../../../../../../../../elements/link/status"/>
+                        <status reference="../../../../../../../userInteractionsTransition/end/elements/text/status"/>
                       </text>
                     </elements>
                     <description></description>
@@ -570,7 +668,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/link/status"/>
+                    <status reference="../../../../../userInteractionsTransition/end/elements/text/status"/>
                   </simpleContext>
                 </elements>
                 <name>Search</name>
@@ -608,7 +706,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../../elements/link/status"/>
+                          <status reference="../../../../../../../../userInteractionsTransition/end/elements/text/status"/>
                         </text>
                       </elements>
                       <name>New page</name>
@@ -887,12 +985,13 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[2]/end/outTransitions/userInteractionsTransition[2]/end"/>
     <page>
       <commons/>
       <elements/>
       <description></description>
       <outTransitions/>
-      <id>page293945411211028154329</id>
+      <id>page321776831211028796907</id>
       <position>
         <x>0</x>
         <y>4300</y>
@@ -913,6 +1012,7 @@
     <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[3]"/>
     <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[4]"/>
     <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[4]/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[2]/end/outTransitions/userInteractionsTransition[2]"/>
   </transitions>
   <customTestSteps/>
   <allLanguages>

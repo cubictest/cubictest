@@ -21,7 +21,7 @@
 				<table width="70%">
 				 <tr>
 				  <td align="center">
-				  	<a href="index.jsp"><img id="homeLogo" alt="To Front Page" width="50" src="/cubicshop/images/cubicshop.gif" border="0" style="border: 0px ! important;"/></a>
+				  	<a href="index.jsp" id="logoLink"><img id="homeLogo" alt="To Front Page" width="50" src="/cubicshop/images/cubicshop.gif" border="0" style="border: 0px ! important;"/></a>
 				  </td>
 				  <td align="center">
 					<div id="header" onClick="document.getElementById('infoBox').innerHTML='We sell cubes';"><h1>CubicShop</h1></div>
