@@ -25,6 +25,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
+import com.thoughtworks.xstream.converters.ConversionException;
+
 
 /**
  * Class responsible for writing a test to file and loading a test from file. 
@@ -80,7 +82,17 @@ public class TestPersistance {
 			ErrorHandler.logAndRethrow(e);
 		}
 		
-		Test test = (Test) new CubicTestXStream().fromXML(xml);
+		Test test = null;
+		try {
+			test = (Test) new CubicTestXStream().fromXML(xml);
+		} catch (Exception e) {
+			if (ErrorHandler.getCause(e) instanceof ConversionException) {
+				ErrorHandler.logAndShowErrorDialogAndRethrow("Could not load test (error creating Test from XML file \"" + file.getName() + "\"). If the test was created with a newer version of CubicTest, then you will have to upgrade this version too.\n", e);
+			}
+			else {
+				ErrorHandler.logAndShowErrorDialogAndRethrow("Exception occured. Could not load test.", e);
+			}
+		}
 		return test;
 	}
 
