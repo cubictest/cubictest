@@ -94,10 +94,10 @@ public abstract class AbstractContext extends PageElement implements IContext {
 	@Override
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
+		list.add(IdentifierType.LABEL);
 		list.add(ELEMENT_NAME);
 		list.add(ID);
 		list.add(IdentifierType.NAME);
-		list.add(IdentifierType.LABEL);
 		list.add(INDEX);
 		list.add(CLASS);
 		return list;
