@@ -36,17 +36,13 @@ public class Image extends PageElement {
 	@Override
 	public List<IdentifierType> getIdentifierTypes() {	
 		List<IdentifierType> list = new ArrayList<IdentifierType>();
-		list.add(LABEL);
+		list.add(ALT);
 		list.add(ID);
 		list.add(SRC);
+		list.add(LABEL);
 		list.add(TITLE);
-		list.add(ALT);
 		list.add(CLASS);
 		return list;
 	}
 	
-	@Override
-	protected void setDefaultIdentifierValues() {
-		//leave the ID's as the constructor made them
-	}
 }
