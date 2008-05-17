@@ -65,7 +65,6 @@ public class TestNameSection extends AbstractPropertySection implements Property
 		data.right = new FormAttachment(100, 0);
 		data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		labelText.setLayoutData(data);
-		labelText.addFocusListener(listener);
 
 		CLabel labelLabel = getWidgetFactory().createCLabel(composite, "Name:");
 		data = new FormData();
@@ -87,11 +86,13 @@ public class TestNameSection extends AbstractPropertySection implements Property
 	@Override
 	public void aboutToBeShown() {
 		test.addPropertyChangeListener(this);
+		labelText.addFocusListener(listener);
 	}
 	
 	@Override
 	public void aboutToBeHidden() {
 		test.removePropertyChangeListener(this);
+		labelText.removeFocusListener(listener);
 	}
 	
 	@Override
@@ -104,9 +105,7 @@ public class TestNameSection extends AbstractPropertySection implements Property
 	@Override
 	public void refresh() {
 		super.refresh();
-		labelText.removeFocusListener(listener);
 		labelText.setText(test.getName());
-		labelText.addFocusListener(listener);
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {

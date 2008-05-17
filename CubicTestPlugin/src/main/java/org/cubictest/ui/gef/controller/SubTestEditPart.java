@@ -36,6 +36,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -127,8 +128,9 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 					try {
 						IEditorPart part = IDE.openEditor(page, testFile, true);
 						if(part instanceof GraphicalTestEditor){
-							((GraphicalTestEditor)part).getGraphicalViewer().
-								setContents(getModel().getTest(false));
+							GraphicalViewer viewer = ((GraphicalTestEditor)part).getGraphicalViewer();
+							viewer.setContents(getModel().getTest(false));
+							viewer.select(viewer.getContents());
 						}
 					} catch (PartInitException e) {
 					}
