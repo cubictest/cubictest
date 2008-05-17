@@ -101,8 +101,11 @@ public class UserInteractionsComponent {
 	private UserInteraction activeUserinteraction;
 	private Label secsToWaitLabel;
 	private org.eclipse.swt.widgets.Text secsToWaitText;
+	private final PageElement preSelectedPageElement;
 
-	public UserInteractionsComponent(UserInteractionsTransition transition, Test test, TestEditPart testPart, boolean useCommandForActionChanges) {
+	public UserInteractionsComponent(UserInteractionsTransition transition, Test test, TestEditPart testPart, 
+			boolean useCommandForActionChanges, PageElement preSelectedPageElement) {
+		
 		if (useCommandForActionChanges && testPart == null) {
 			ErrorHandler.logAndThrow("Must supply a TestEditPart if command should be used for action changes");
 		}
@@ -111,6 +114,7 @@ public class UserInteractionsComponent {
 		this.testPart = testPart;
 		this.transition = transition;
 		this.useCommandForActionChanges = useCommandForActionChanges;
+		this.preSelectedPageElement = preSelectedPageElement;
 		
 		List<PageElement> elementsTree = new ArrayList<PageElement>();
 		AbstractPage start = (AbstractPage)transition.getStart();
@@ -253,6 +257,10 @@ public class UserInteractionsComponent {
 				//sinle element on page. Can preselct it:
 				first.setElement(elements.get(index));
 			}
+			else if (preSelectedPageElement != null) {
+				//we have multiple elements, but one was selected by the user. Preselct it:
+				first.setElement(preSelectedPageElement);
+			}
 			initialUserInteractions.add(first);
 		}
 		
@@ -260,6 +268,9 @@ public class UserInteractionsComponent {
 		transition.setUserInteractions(initialUserInteractions);
 		
 		if (numInteractable == 1) {
+			tableViewer.editElement(first, 1);
+		}
+		else if (preSelectedPageElement != null) {
 			tableViewer.editElement(first, 1);
 		}
 		else {

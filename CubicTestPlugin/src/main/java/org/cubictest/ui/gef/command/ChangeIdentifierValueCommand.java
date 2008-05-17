@@ -20,6 +20,8 @@ public class ChangeIdentifierValueCommand extends Command {
 	private Identifier identifier;
 	private boolean oldUseParam;
 	private boolean oldUseI18n;
+	private boolean setProbabilityToMax;
+	private int oldProbability;
 
 	public void setIdentifer(Identifier identifier) {
 		this.identifier = identifier;
@@ -41,6 +43,10 @@ public class ChangeIdentifierValueCommand extends Command {
 		identifier.setUseI18n(false);
 		oldUseParam = identifier.useParam();
 		identifier.setUseParam(false);
+		if (setProbabilityToMax) {
+			oldProbability = identifier.getProbability();
+			identifier.setProbability(Identifier.MAX_PROBABILITY);
+		}
 	}
 	@Override
 	public void undo() {
@@ -48,5 +54,10 @@ public class ChangeIdentifierValueCommand extends Command {
 		identifier.setValue(oldValue);
 		identifier.setUseI18n(oldUseI18n);
 		identifier.setUseParam(oldUseParam);
+		identifier.setProbability(oldProbability);
+	}
+
+	public void setProbabilityToMax(boolean setProbabilityToMax) {
+		this.setProbabilityToMax = setProbabilityToMax;
 	}
 }

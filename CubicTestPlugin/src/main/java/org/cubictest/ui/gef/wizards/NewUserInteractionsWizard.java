@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.wizards;
 
+import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.UserInteractionsTransition;
 import org.eclipse.jface.wizard.Wizard;
@@ -26,11 +27,14 @@ public class NewUserInteractionsWizard extends Wizard {
 	private WizardNewUserActionsCreationPage userActionsPage;
 	private UserInteractionsTransition transition;
 	private Test test;
+	private final PageElement selectedPageElement;
 
 	/**
 	 * @param transition
+	 * @param selectedPageElement 
 	 */
-	public NewUserInteractionsWizard(UserInteractionsTransition transition, Test test) {
+	public NewUserInteractionsWizard(UserInteractionsTransition transition, Test test, PageElement selectedPageElement) {
+		this.selectedPageElement = selectedPageElement;
 		setWindowTitle("CubicTest");
 		this.transition = transition;
 		this.test = test;
@@ -43,7 +47,7 @@ public class NewUserInteractionsWizard extends Wizard {
 	 */
 	public void addPages() {
 		super.addPages();
-		userActionsPage = new WizardNewUserActionsCreationPage(transition,test);
+		userActionsPage = new WizardNewUserActionsCreationPage(transition, test, selectedPageElement);
 		userActionsPage.setTitle("New User Interaction");
 		userActionsPage.setDescription("Choose page element and interaction type.");
 		addPage(userActionsPage);

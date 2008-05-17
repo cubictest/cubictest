@@ -72,6 +72,8 @@ public class CreateTransitionCommand extends Command {
 	
 	boolean executed = false;
 
+	private PageElement selectedPageElement;
+
 	/**
 	 * Constructor for case when transition is pre-created with source and target set.
 	 * @param test
@@ -182,7 +184,7 @@ public class CreateTransitionCommand extends Command {
 				test.addTransition(transition);
 				if (sourceNode instanceof Page && ((Page) sourceNode).getRootElements().size() > 0) {
 					NewUserInteractionsWizard userActionWizard = new NewUserInteractionsWizard(
-							(UserInteractionsTransition) transition, test);
+							(UserInteractionsTransition) transition, test, selectedPageElement);
 					WizardDialog dlg = new WizardDialog(new Shell(), userActionWizard);
 	
 					if (dlg.open() == WizardDialog.CANCEL) {
@@ -308,5 +310,9 @@ public class CreateTransitionCommand extends Command {
 
 	public void setSkipLegalTransitionCheck(boolean skipLegalTransitionCheck) {
 		this.skipLegalTransitionCheck = skipLegalTransitionCheck;
+	}
+
+	public void setSelectedPageElement(PageElement selectedPageElement) {
+		this.selectedPageElement = selectedPageElement;
 	}
 }

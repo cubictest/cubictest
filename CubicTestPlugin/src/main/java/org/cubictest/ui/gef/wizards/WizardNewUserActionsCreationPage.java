@@ -11,6 +11,7 @@
 package org.cubictest.ui.gef.wizards;
 
 import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
@@ -27,9 +28,9 @@ public class WizardNewUserActionsCreationPage extends WizardPage {
 
 	private UserInteractionsComponent component;
 
-	protected WizardNewUserActionsCreationPage(UserInteractionsTransition actions, Test test) {
+	protected WizardNewUserActionsCreationPage(UserInteractionsTransition actions, Test test, PageElement selectedPageElement) {
 		super("userActionsInputPage");
-		component = new UserInteractionsComponent(actions, test, null, false);
+		component = new UserInteractionsComponent(actions, test, null, false, selectedPageElement);
 	}
 
 	public void createControl(Composite parent) {

@@ -645,6 +645,9 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 					compundCommand.add(command);
 				}else{
 					ChangeIdentifierValueCommand command = new ChangeIdentifierValueCommand();
+					if (identifier.isIndifferent()) {
+						command.setProbabilityToMax(true);
+					}
 					command.setIdentifer(identifier);
 					command.setNewValue(value.getText());
 					command.setOldValue(identifier.getValue());

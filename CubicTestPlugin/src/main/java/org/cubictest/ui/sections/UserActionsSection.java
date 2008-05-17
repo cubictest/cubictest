@@ -54,7 +54,7 @@ public class UserActionsSection extends AbstractPropertySection {
 		TestEditPart testPart = (TestEditPart) ((GraphicalTestEditor) part).getGraphicalViewer().getContents();
 
 		if(actions != null && !created && parent != null){
-			component = new UserInteractionsComponent(actions, test, testPart, true);
+			component = new UserInteractionsComponent(actions, test, testPart, true, null);
 			component.createControl(parent);
 			this.parent.setSize(400, 300);
 			created  = true;

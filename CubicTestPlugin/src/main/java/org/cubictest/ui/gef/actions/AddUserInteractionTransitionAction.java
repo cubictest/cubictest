@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.Page;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
@@ -68,7 +69,9 @@ public class AddUserInteractionTransitionAction extends BaseEditorAction {
 		for (Iterator iter = this.getParts().iterator(); iter.hasNext();) {
 			Object element = iter.next();
 			PageEditPart pageEditPart = null;
+			PageElement selectedPageElement = null;
 			if (element instanceof PageElementEditPart) {
+				selectedPageElement = ((PageElementEditPart) element).getModel();
 				pageEditPart = (PageEditPart) ViewUtil.getSurroundingPagePart((EditPart) element);
 			}
 			if(element instanceof PageEditPart) {
@@ -85,6 +88,7 @@ public class AddUserInteractionTransitionAction extends BaseEditorAction {
 			cmd.setSource((TransitionNode) pageEditPart.getModel());
 			cmd.setPageEditPart(pageEditPart);
 			cmd.setAutoCreateTargetPage(true);
+			cmd.setSelectedPageElement(selectedPageElement);
 
 			getCommandStack().execute(cmd);
 		}
