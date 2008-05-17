@@ -281,18 +281,23 @@ public class XPathBuilder {
 			return "textarea";
 		if (pe instanceof Frame){
 			if(pe.getIdentifier(IdentifierType.FRAME_TYPE).getProbability() >0){
-				if ("iframe".equals(pe.getIdentifier(IdentifierType.FRAME_TYPE).getValue()))
+				if ("iframe".equals(pe.getIdentifier(IdentifierType.FRAME_TYPE).getValue())) {
 					return "iframe";
-				else 
+				} else {
 					return "frame";
-			}else if(pe.getIdentifier(IdentifierType.FRAME_TYPE).getProbability() < 0){
-				if ("iframe".equals(pe.getIdentifier(IdentifierType.FRAME_TYPE).getValue()))
+				}
+			}
+			else if(pe.getIdentifier(IdentifierType.FRAME_TYPE).getProbability() < 0){
+				if ("iframe".equals(pe.getIdentifier(IdentifierType.FRAME_TYPE).getValue())) {
 					return "frame";
-				else 
+				} else {
 					return "iframe";
-				}		
-			}else 
+				}
+			} 
+			else {
 				return "*";
+			}
+		}
 		if (pe instanceof AbstractContext) {
 			Identifier elementName = pe.getIdentifier(ELEMENT_NAME);
 			if (elementName != null && StringUtils.isNotBlank(elementName.getValue())) {
