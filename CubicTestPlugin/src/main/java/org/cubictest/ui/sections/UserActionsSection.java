@@ -53,11 +53,18 @@ public class UserActionsSection extends AbstractPropertySection {
 		test = ((GraphicalTestEditor)part).getTest();
 		TestEditPart testPart = (TestEditPart) ((GraphicalTestEditor) part).getGraphicalViewer().getContents();
 
-		if(actions != null && !created && parent != null){
-			component = new UserInteractionsComponent(actions, test, testPart, true, null);
-			component.createControl(parent);
-			this.parent.setSize(400, 300);
-			created  = true;
+		if(actions != null && parent != null){
+			if (created) {
+				component.setTransition(actions);
+				component.initializeModel(actions);
+				component.populateView();
+			}
+			else {
+				component = new UserInteractionsComponent(actions, test, testPart, true, null);
+				component.createControl(parent);
+				this.parent.setSize(400, 300);
+				created  = true;
+			}
 		}
 	}
 	

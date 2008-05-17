@@ -102,6 +102,9 @@ public class UserInteractionsComponent {
 	private Label secsToWaitLabel;
 	private org.eclipse.swt.widgets.Text secsToWaitText;
 	private final PageElement preSelectedPageElement;
+	private Button autoButton;
+	private Button onButton;
+	private Button offButton;
 
 	public UserInteractionsComponent(UserInteractionsTransition transition, Test test, TestEditPart testPart, 
 			boolean useCommandForActionChanges, PageElement preSelectedPageElement) {
@@ -116,6 +119,11 @@ public class UserInteractionsComponent {
 		this.useCommandForActionChanges = useCommandForActionChanges;
 		this.preSelectedPageElement = preSelectedPageElement;
 		
+		initializeModel(transition);
+	}
+
+
+	public void initializeModel(UserInteractionsTransition transition) {
 		List<PageElement> elementsTree = new ArrayList<PageElement>();
 		AbstractPage start = (AbstractPage)transition.getStart();
 		if(start instanceof Page) { // process commonTrasitions for pages
@@ -178,9 +186,8 @@ public class UserInteractionsComponent {
 
 		label = new Label(content, SWT.NONE);
 		label.setText(" Auto:");
-		Button radio = new Button(content, SWT.RADIO);
-		radio.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.AUTO));
-		radio.addSelectionListener(new SelectionAdapter(){
+		autoButton = new Button(content, SWT.RADIO);
+		autoButton.addSelectionListener(new SelectionAdapter(){
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				secsToWaitLabel.setVisible(false);
@@ -192,9 +199,8 @@ public class UserInteractionsComponent {
 
 		label = new Label(content, SWT.NONE);
 		label.setText(" Yes:");
-		radio = new Button(content, SWT.RADIO);
-		radio.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.ON));
-		radio.addSelectionListener(new SelectionAdapter(){
+		onButton = new Button(content, SWT.RADIO);
+		onButton.addSelectionListener(new SelectionAdapter(){
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				secsToWaitLabel.setVisible(false);
@@ -206,8 +212,7 @@ public class UserInteractionsComponent {
 
 		label = new Label(content, SWT.NONE);
 		label.setText(" No:");
-		Button offButton = new Button(content, SWT.RADIO);
-		offButton.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.OFF));
+		offButton = new Button(content, SWT.RADIO);
 		offButton.addSelectionListener(new SelectionAdapter(){
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -240,6 +245,12 @@ public class UserInteractionsComponent {
 		createTable(content);
 		createTableViewer();
 		
+		populateView();
+		return content;
+	}
+
+
+	public void populateView() {
 		//populate viewer with initial user interactions:
 		List<UserInteraction> initialUserInteractions = transition.getUserInteractions();
 		int numInteractable = 0;
@@ -263,6 +274,9 @@ public class UserInteractionsComponent {
 			}
 			initialUserInteractions.add(first);
 		}
+		autoButton.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.AUTO));
+		onButton.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.ON));
+		offButton.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.OFF));
 		
 		tableViewer.setInput(initialUserInteractions);
 		transition.setUserInteractions(initialUserInteractions);
@@ -276,7 +290,6 @@ public class UserInteractionsComponent {
 		else {
 			tableViewer.editElement(first, 0);
 		}
-		return content;
 	}
 	
 	
@@ -710,6 +723,11 @@ public class UserInteractionsComponent {
 			NoOperationCommand cmd = new NoOperationCommand();
 			testPart.getViewer().getEditDomain().getCommandStack().execute(cmd);
 		}
+	}
+
+
+	public void setTransition(UserInteractionsTransition transition) {
+		this.transition = transition;
 	}
 
 
