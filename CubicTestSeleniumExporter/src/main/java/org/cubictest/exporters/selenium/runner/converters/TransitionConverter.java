@@ -57,6 +57,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			}
 			
 			String commandName = handleUserInteraction(seleniumHolder, action);
+			
 			if (!commandName.equals(SeleniumUtils.FIREEVENT)) {
 				needsPageReload = true;
 			}

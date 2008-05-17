@@ -12,16 +12,9 @@ package org.cubictest.exporters.selenium.utils;
 
 import static org.cubictest.model.Moderator.EQUAL;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
@@ -98,13 +91,13 @@ public class SeleniumUtils {
 		case CLEAR_ALL_TEXT:
 			return "type";
 		case KEY_PRESSED:
-			return FIREEVENT;
+			return "keyPress";
 		case MOUSE_OVER:
-			return FIREEVENT;
+			return "mouseOver";
 		case MOUSE_OUT:
-			return FIREEVENT;
+			return "mouseOut";
 		case DBLCLICK:
-			return FIREEVENT;
+			return "doubleClick";
 		case FOCUS:
 			return FIREEVENT;
 		case BLUR:
@@ -193,28 +186,19 @@ public class SeleniumUtils {
 	public static String getValue(UserInteraction userInteraction) {
 		ActionType a = userInteraction.getActionType();
 		switch (a){
-		
-		case ENTER_TEXT: 
-		case ENTER_PARAMETER_TEXT:
-			return userInteraction.getTextualInput();
-		case SELECT:
-			throw new ExporterException("getValue not supported for Options.");
-		case KEY_PRESSED:
-			return "onkeypress";
-		case MOUSE_OVER:
-			return "onmouseover";
-		case MOUSE_OUT:
-			return "onmouseout";
-		case DBLCLICK:
-			return "ondblclick";
-		case FOCUS:
-			return "onfocus";
-		case BLUR:
-			return "onblur";
-		case DRAG_DROP:
-			return userInteraction.getValue();
-		default:
-			return "";
+			case ENTER_TEXT: 
+			case ENTER_PARAMETER_TEXT:
+				return userInteraction.getTextualInput();
+			case SELECT:
+				throw new ExporterException("getValue not supported for Options.");
+			case FOCUS:
+				return "focus";
+			case BLUR:
+				return "blur";
+			case DRAG_DROP:
+				return userInteraction.getValue();
+			default:
+				return "";
 		}
 	}
 	
@@ -226,19 +210,15 @@ public class SeleniumUtils {
 	public static boolean hasSeleniumInputColumn(UserInteraction userInteraction) {
 		ActionType a = userInteraction.getActionType();
 		switch (a){
-		case ENTER_TEXT:
-		case ENTER_PARAMETER_TEXT:
-		case SELECT:
-		case KEY_PRESSED:
-		case MOUSE_OVER:
-		case MOUSE_OUT:
-		case DBLCLICK:
-		case FOCUS:
-		case BLUR:
-		case DRAG_DROP:
-			return true;
-		default:
-			return false;
+			case ENTER_TEXT:
+			case ENTER_PARAMETER_TEXT:
+			case SELECT:
+			case FOCUS:
+			case BLUR:
+			case DRAG_DROP:
+				return true;
+			default:
+				return false;
 		}
 	}
 	
