@@ -10,15 +10,20 @@
  *******************************************************************************/
 package org.cubictest.ui.sections;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import org.cubictest.model.Test;
+import org.cubictest.ui.gef.command.ChangeTestDescriptionCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
@@ -29,16 +34,24 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 
-public class TestDescriptionSection extends AbstractPropertySection {
+public class TestDescriptionSection extends AbstractPropertySection implements PropertyChangeListener{
 
 	private Text labelText;
-
-	private ModifyListener listener = new ModifyListener() {
-		public void modifyText(ModifyEvent event) {
-			test.setDescription(labelText.getText());
-		}
-	};
 	private Test test;
+
+	private FocusListener listener = new FocusListener(){
+		public void focusLost(FocusEvent e) {
+			if (!test.getDescription().equals(labelText.getText())) {
+				ChangeTestDescriptionCommand cmd = new ChangeTestDescriptionCommand();
+				cmd.setTest(test);
+				cmd.setOldDescription(test.getDescription());
+				cmd.setNewDescription(labelText.getText());
+				ITestEditor editor = (ITestEditor) getPart();
+				editor.getCommandStack().execute(cmd);
+			}
+		}
+		public void focusGained(FocusEvent e) {}
+	};
 
 	@Override
 	public void createControls(Composite parent,
@@ -55,7 +68,6 @@ public class TestDescriptionSection extends AbstractPropertySection {
 		data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		data.height = 125;
 		labelText.setLayoutData(data);
-		labelText.addModifyListener(listener);
 
 		CLabel labelLabel = getWidgetFactory()
 				.createCLabel(composite, "Description:"); //$NON-NLS-1$
@@ -76,10 +88,33 @@ public class TestDescriptionSection extends AbstractPropertySection {
 	}
 
 	@Override
-	public void refresh() {
-		labelText.removeModifyListener(listener);
-		labelText.setText(test.getDescription());
-		labelText.addModifyListener(listener);
+	public void aboutToBeShown() {
+		test.addPropertyChangeListener(this);
+		labelText.addFocusListener(listener);
 	}
+	
+	@Override
+	public void aboutToBeHidden() {
+		test.removePropertyChangeListener(this);
+		labelText.removeFocusListener(listener);
+	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+		if(test != null)
+			test.removePropertyChangeListener(this);
+	}
+	
+	@Override
+	public void refresh() {
+		super.refresh();
+		labelText.setText(test.getDescription());
+	}
+
+	public void propertyChange(PropertyChangeEvent evt) {
+		refresh();
+	}
+
 
 }

@@ -197,7 +197,9 @@ public class Test extends PropertyAwareObject {
 	}
 
 	public void setDescription(String description) {
+		String oldDescription = this.description;
 		this.description = description;
+		firePropertyChange(NAME, oldDescription, description);
 	}
 
 	public String getId() {

@@ -100,6 +100,7 @@ public class TestNameSection extends AbstractPropertySection implements Property
 		super.dispose();
 		if(test != null)
 			test.removePropertyChangeListener(this);
+		labelText.removeFocusListener(listener);
 	}
 	
 	@Override
