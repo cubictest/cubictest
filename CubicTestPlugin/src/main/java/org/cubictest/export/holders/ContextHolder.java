@@ -31,7 +31,7 @@ import org.cubictest.model.context.IContext;
  * 
  * @author Christian Schwarz
  */
-public class ContextHolder implements IResultHolder {
+public abstract class ContextHolder implements IResultHolder {
 
 
 	protected Stack<PropertyAwareObject> breadCrumbs = new Stack<PropertyAwareObject>(); 

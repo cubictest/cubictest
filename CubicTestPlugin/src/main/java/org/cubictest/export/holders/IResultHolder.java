@@ -61,5 +61,10 @@ public interface IResultHolder {
 	 * Remove element from test walker breadcrumbs (trackbacks).
 	 */ 
 	public void popBreadcrumb();
+	
+	/**
+	 * Reset test run status for element.
+	 */
+	public void resetStatus(PropertyAwareObject object);
 
 }

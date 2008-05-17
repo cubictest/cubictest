@@ -100,4 +100,10 @@ public class AssertionList<T> extends ArrayList<T> implements IResultHolder {
 	public void pushBreadcrumb(PropertyAwareObject element) {
 	}
 
+
+
+	public void resetStatus(PropertyAwareObject object) {
+		// TODO Auto-generated method stub
+	}
+
 }

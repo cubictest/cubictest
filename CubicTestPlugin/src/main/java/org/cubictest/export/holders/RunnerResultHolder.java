@@ -19,6 +19,7 @@ import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.context.AbstractContext;
@@ -172,6 +173,17 @@ public abstract class RunnerResultHolder extends ContextHolder {
 
 	public Display getDisplay() {
 		return display;
+	}
+	
+	public void resetStatus(final PropertyAwareObject object) {
+		if (display != null) {
+			display.asyncExec(new Runnable() {
+				public void run() {
+					if(object != null)
+						object.resetStatus();
+				}
+			});
+		}
 	}
 
 }

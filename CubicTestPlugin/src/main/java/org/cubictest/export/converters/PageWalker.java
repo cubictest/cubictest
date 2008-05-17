@@ -37,6 +37,7 @@ public class PageWalker<T extends IResultHolder> extends ContextWalker<T> {
 		super.handleContext(resultHolder, page);
 		for (CommonTransition at : page.getCommonTransitions()) {
 			Common common = (Common) at.getStart();
+			resultHolder.resetStatus(common);
 			super.handleContext(resultHolder, common);
 		}
 	}

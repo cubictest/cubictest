@@ -17,6 +17,7 @@ import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.TextArea;
 import org.eclipse.core.runtime.CoreException;
@@ -41,7 +42,10 @@ public class ContextHolderTest {
 	
 	@Before
 	public void setUp() throws CoreException {
-		holder = new ContextHolder();
+		holder = new ContextHolder() {
+			public void resetStatus(PropertyAwareObject object) {
+			}
+		};
 
 		outerContext = new SimpleContext();
 		Identifier id = new Identifier();

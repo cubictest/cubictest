@@ -12,6 +12,7 @@ package org.cubictest.exporters.selenium.selenese.holders;
 
 import org.cubictest.export.holders.ContextHolder;
 import org.cubictest.exporters.selenium.utils.XmlUtils;
+import org.cubictest.model.PropertyAwareObject;
 import org.jdom.Document;
 import org.jdom.Element;
 
@@ -97,5 +98,11 @@ public class SeleneseDocument extends ContextHolder {
 		body.addContent(table);
 		
 		table.addContent(new Command("setTimeout", "30000"));
+	}
+
+
+
+	public void resetStatus(PropertyAwareObject object) {
+		//not applicable
 	}
 }
