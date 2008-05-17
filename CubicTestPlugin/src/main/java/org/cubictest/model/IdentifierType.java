@@ -63,7 +63,7 @@ public enum IdentifierType {
 	PATH("Path", "Check the Path to the element (XPath without attributes)", false, false),
 
 	/** HTML name of the element */
-	ELEMENT_NAME("Element name", "Check the HTML element name (e.g. \"table\")", false, false),
+	ELEMENT_NAME("Element type", "Check the HTML element type (e.g. \"div\" or \"table\")", false, false),
 
 	/** CSS class of the element */
 	CLASS("Class", "Check the CSS class of the element", false, false),
