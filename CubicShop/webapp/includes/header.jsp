@@ -27,7 +27,7 @@
 					<div id="header" onClick="document.getElementById('infoBox').innerHTML='We sell cubes';"><h1>CubicShop</h1></div>
 				  </td>
 				  <td align="center">
-				  	<img id="logo" alt="Logo" onDblclick="document.getElementById('username').value='Test';document.loginForm.submit();" width="50" src="/cubicshop/images/cubicshop.gif" border="0" style="border: 0px ! important;"/>
+				  	<img id="logo" alt="Logo" onDblclick="document.getElementById('username').value='Test';document.loginForm.submit();" onClick="window.location='index.jsp';" width="50" src="/cubicshop/images/cubicshop.gif" border="0" style="border: 0px ! important;"/>
 				  </td>
 				 </tr>
 				</table>
