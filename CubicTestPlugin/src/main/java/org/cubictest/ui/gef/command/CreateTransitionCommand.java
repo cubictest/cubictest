@@ -24,6 +24,7 @@ import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.IdentifierType;
+import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
@@ -45,6 +46,7 @@ import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import static org.cubictest.model.ActionType.CLICK;
+import static org.cubictest.model.IdentifierType.ALT;
 import static org.cubictest.model.IdentifierType.LABEL;
 
 /**
@@ -206,6 +208,12 @@ public class CreateTransitionCommand extends Command {
 					IActionElement element = actions.get(last).getElement();
 					if (element instanceof Link && actions.get(last).getActionType().equals(CLICK)) {
 						targetNode.setName(((Link) element).getIdentifier(LABEL).getValue());
+					}
+					else if (element instanceof Image && actions.get(last).getActionType().equals(CLICK)) {
+						Image image = (Image) element;
+						if (image.getIdentifier(ALT).getProbability() > 0) {
+							targetNode.setName(image.getIdentifier(ALT).getValue());
+						}
 					}
 					
 					//start direct edit:
