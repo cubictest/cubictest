@@ -42,6 +42,7 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -403,22 +404,32 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		moderator.setEnabled(true);
 		booleanLabel.setEnabled(true);
 		
-		if(newProbability > 66)
+		if(newProbability > 66) {
 			probability.select(probability.indexOf(MUST));
-		else if(newProbability > 33)
+			probability.setBackground(new Color(null, 221, 220, 255));
+		}
+		else if(newProbability > 33) {
 			probability.select(probability.indexOf(SHOULD));
-		else if(newProbability > 0)
+			probability.setBackground(new Color(null, 221, 220, 255));
+		} else if(newProbability > 0) {
 			probability.select(probability.indexOf(CAN));
-		else if(newProbability == 0) {
+			probability.setBackground(new Color(null, 221, 220, 255));
+		} else if(newProbability == 0) {
 			probability.select(probability.indexOf(INDIFFERENT));
 			moderator.setEnabled(false);
+			probability.setBackground(new Color(null, 255, 255, 255));
 		}
-		else if(newProbability > -34)
+		else if(newProbability > -34) {
 			probability.select(probability.indexOf(CANNOT));
-		else if(newProbability > -67)
+			probability.setBackground(new Color(null, 248, 240, 200));
+		} else if(newProbability > -67) {
 			probability.select(probability.indexOf(SHOULD_NOT));
-		else
+			probability.setBackground(new Color(null, 248, 240, 200));
+		} else {
 			probability.select(probability.indexOf(MUST_NOT));
+			probability.setBackground(new Color(null, 248, 240, 200));
+		}
+		probability.clearSelection();
 	}
 	
 	private void setModerator(Moderator mod) {
