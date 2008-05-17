@@ -21,13 +21,13 @@
 				<table width="70%">
 				 <tr>
 				  <td align="center">
-				  	<img id="logoPic" onDblclick="document.getElementById('username').value='Test';document.loginForm.submit();" width="50" src="/cubicshop/images/cubicshop.gif" border="0" style="border: 0px ! important;"/>
+				  	<a href="index.jsp"><img id="homeLogo" alt="To Front Page" width="50" src="/cubicshop/images/cubicshop.gif" border="0" style="border: 0px ! important;"/></a>
 				  </td>
 				  <td align="center">
-					<div id="header"><h1>CubicShop</h1></div>
+					<div id="header" onClick="document.getElementById('infoBox').innerHTML='We sell cubes';"><h1>CubicShop</h1></div>
 				  </td>
 				  <td align="center">
-				  	<img id="logoPic" alt="logo" title="Our logo" onDblclick="document.getElementById('username').value='Test';document.loginForm.submit();" width="50" src="/cubicshop/images/cubicshop.gif" border="0" style="border: 0px ! important;"/>
+				  	<img id="logo" alt="Logo" onDblclick="document.getElementById('username').value='Test';document.loginForm.submit();" width="50" src="/cubicshop/images/cubicshop.gif" border="0" style="border: 0px ! important;"/>
 				  </td>
 				 </tr>
 				</table>

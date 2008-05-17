@@ -35,7 +35,7 @@
 					<label for="username">Username</label>
 				</td>
 				<td>
-					<input type="text" name="username" id="username">
+					<input type="text" name="username" id="username" value="">
 				</td>
 			</tr>
 			<tr>
@@ -43,7 +43,7 @@
 					<label for="password">Password</label>
 				</td>
 				<td>
-					<input type="password" name="password" id="password">
+					<input type="password" name="password" id="password" value="">
 				</td>
 			</tr>
 			<tr>
@@ -55,5 +55,6 @@
 			</tr>
 		</table>
 	</form>
+	<div id="infoBox"></div>
 
 <%@ include file="includes/footer.jsp" %>
