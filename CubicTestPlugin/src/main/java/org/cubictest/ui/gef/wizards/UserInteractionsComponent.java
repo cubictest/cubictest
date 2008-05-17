@@ -95,7 +95,7 @@ public class UserInteractionsComponent {
 	private List<IActionElement> allActionElements = new ArrayList<IActionElement>();
 	private Test test;
 	private TestEditPart testPart;
-	private boolean useCommandForActionChanges;
+	private boolean isPropertiesViewMode;
 	
 	private String[] currentActions;
 	private UserInteraction activeUserinteraction;
@@ -107,16 +107,16 @@ public class UserInteractionsComponent {
 	private Button offButton;
 
 	public UserInteractionsComponent(UserInteractionsTransition transition, Test test, TestEditPart testPart, 
-			boolean useCommandForActionChanges, PageElement preSelectedPageElement) {
+			boolean isPropertiesViewMode, PageElement preSelectedPageElement) {
 		
-		if (useCommandForActionChanges && testPart == null) {
+		if (isPropertiesViewMode && testPart == null) {
 			ErrorHandler.logAndThrow("Must supply a TestEditPart if command should be used for action changes");
 		}
 		
 		this.test = test;
 		this.testPart = testPart;
 		this.transition = transition;
-		this.useCommandForActionChanges = useCommandForActionChanges;
+		this.isPropertiesViewMode = isPropertiesViewMode;
 		this.preSelectedPageElement = preSelectedPageElement;
 		
 		initializeModel(transition);
@@ -165,7 +165,7 @@ public class UserInteractionsComponent {
 				List<UserInteraction> currentUserInteractions = transition.getUserInteractions();
 				UserInteraction newUserInteraction = new UserInteraction();
 
-				if (useCommandForActionChanges) {
+				if (isPropertiesViewMode) {
 					AddUserInteractionCommand addActionCmd = new AddUserInteractionCommand();
 					addActionCmd.setUserInteractionsTransition(transition);
 					addActionCmd.setNewUserInteraction(newUserInteraction);
@@ -252,10 +252,11 @@ public class UserInteractionsComponent {
 
 	public void populateView() {
 		//populate viewer with initial user interactions:
-		List<UserInteraction> initialUserInteractions = transition.getUserInteractions();
+		List<UserInteraction> userInteractions = transition.getUserInteractions();
 		int numInteractable = 0;
 		UserInteraction first = new UserInteraction();
-		if (initialUserInteractions == null || initialUserInteractions.size() == 0) {
+		if (!isPropertiesViewMode && (userInteractions == null || userInteractions.size() == 0)) {
+			//lets preselect one in wizard mode:
 			List<PageElement> elements = ((AbstractPage) transition.getStart()).getRootElements();
 			int index = -1;
 			for (PageElement pageElement : elements) {
@@ -272,14 +273,25 @@ public class UserInteractionsComponent {
 				//we have multiple elements, but one was selected by the user. Preselct it:
 				first.setElement(preSelectedPageElement);
 			}
-			initialUserInteractions.add(first);
+			userInteractions.add(first);
 		}
-		autoButton.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.AUTO));
-		onButton.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.ON));
-		offButton.setSelection(transition.getReloadsPage().equals(OnOffAutoTriState.OFF));
 		
-		tableViewer.setInput(initialUserInteractions);
-		transition.setUserInteractions(initialUserInteractions);
+		OnOffAutoTriState transReloadsPage = transition.getReloadsPage();
+		autoButton.setSelection(transReloadsPage.equals(OnOffAutoTriState.AUTO));
+		onButton.setSelection(transReloadsPage.equals(OnOffAutoTriState.ON));
+		offButton.setSelection(transReloadsPage.equals(OnOffAutoTriState.OFF));
+		if (transReloadsPage.equals(OnOffAutoTriState.OFF)) {
+			secsToWaitLabel.setVisible(true);
+			secsToWaitText.setVisible(true);
+		}
+		else {
+			secsToWaitLabel.setVisible(false);
+			secsToWaitText.setVisible(false);
+		}
+
+		
+		tableViewer.setInput(userInteractions);
+		transition.setUserInteractions(userInteractions);
 		
 		if (numInteractable == 1) {
 			tableViewer.editElement(first, 1);
@@ -332,7 +344,7 @@ public class UserInteractionsComponent {
 		tableViewer.setColumnProperties(columnNames);
 		
 		cellEditors = new CellEditor[3];
-		if (useCommandForActionChanges) {
+		if (isPropertiesViewMode) {
 			//reserve space for move up and move down:
 			actionElements = new String[allActionElements.size() + 4];
 		}
@@ -347,7 +359,7 @@ public class UserInteractionsComponent {
 				actionElements[a++] = UserInteractionDialogUtil.getLabel(element, allActionElements);
 			}
 		}
-		if (useCommandForActionChanges) {
+		if (isPropertiesViewMode) {
 			actionElements[a++] = MOVE_UP;
 			actionElements[a++] = MOVE_DOWN;
 		}
@@ -409,7 +421,7 @@ public class UserInteractionsComponent {
 					}
 					if (delete) {
 						//delete the user interaction-row:
-						if (useCommandForActionChanges) {
+						if (isPropertiesViewMode) {
 							DeleteUserInteractionCommand deleteActionCmd = new DeleteUserInteractionCommand();
 							deleteActionCmd.setIndex(transition.getUserInteractions().indexOf(activeUserinteraction));
 							deleteActionCmd.setUserInteractionsTransition(transition);
@@ -440,7 +452,7 @@ public class UserInteractionsComponent {
 					}
 					else {
 						//edit the user interaction:
-						if (useCommandForActionChanges) {
+						if (isPropertiesViewMode) {
 							EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
 							editActionCmd.setUserInteraction(activeUserinteraction);
 							editActionCmd.setNewElement(selectedActionElement);
@@ -594,7 +606,7 @@ public class UserInteractionsComponent {
 						ActionType action = UserInteractionDialogUtil.getActionTypesForElement(userInteraction.getElement(), test).get(index);
 						
 						//edit model:
-						if (useCommandForActionChanges) {
+						if (isPropertiesViewMode) {
 							EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
 							editActionCmd.setUserInteraction(userInteraction);
 							editActionCmd.setNewActionType(action);
@@ -623,7 +635,7 @@ public class UserInteractionsComponent {
 								test.getParamList().removeObserverFromAllParams(userInteraction);
 							}
 							
-							if (useCommandForActionChanges) {
+							if (isPropertiesViewMode) {
 								EditUserInteractionCommand editActionCmd = new EditUserInteractionCommand();
 								editActionCmd.setUserInteraction(userInteraction);
 								editActionCmd.setNewTextInput((String)value);
@@ -719,7 +731,7 @@ public class UserInteractionsComponent {
 	}
 	
 	private void setEditorDirty() {
-		if (useCommandForActionChanges) {
+		if (isPropertiesViewMode) {
 			NoOperationCommand cmd = new NoOperationCommand();
 			testPart.getViewer().getEditDomain().getCommandStack().execute(cmd);
 		}
