@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html>
+  <head>
+    <title>CubicTest exported test</title>
+    <style type="text/css">td {padding-right: 25px}
+.comment {color: blue; padding-top: 10px;}</style>
+  </head>
+  <body>
+    <table border="1" cellspacing="0">
+      <tr>
+        <td>setTimeout</td>
+        <td>30000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Opening URL: http://localhost:8080/cubicshop/index.jsp:</td>
+      </tr>
+      <tr>
+        <td>open</td>
+        <td>http://localhost:8080/cubicshop/index.jsp</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Image: 'Logo']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//img[@alt='Logo']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'CubicShop']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=/descendant-or-self::div[@id='header']/descendant-or-self::*[contains(normalize-space(.), 'CubicShop')]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Text: 'We sell cubes'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForTextNotPresent</td>
+        <td>We sell cubes</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Doubleclicking on [Image: 'Logo']:</td>
+      </tr>
+      <tr>
+        <td>doubleClick</td>
+        <td>xpath=//img[@alt='Logo']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>5000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'Welcome Test!']:</td>
+      </tr>
+      <tr>
+        <td>waitForTextPresent</td>
+        <td>Welcome Test!</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Opening URL: http://localhost:8080/cubicshop/index.jsp:</td>
+      </tr>
+      <tr>
+        <td>open</td>
+        <td>http://localhost:8080/cubicshop/index.jsp</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Image: 'Logo']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//img[@alt='Logo']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'CubicShop']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=/descendant-or-self::div[@id='header']/descendant-or-self::*[contains(normalize-space(.), 'CubicShop')]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Text: 'We sell cubes'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForTextNotPresent</td>
+        <td>We sell cubes</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>5000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Image: 'To Front Page']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//img[@alt='To Front Page']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Logo link'] id = 'logoLink':</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[@id='logoLink']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Text: 'Welcome to our webshop!'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForTextNotPresent</td>
+        <td>Welcome to our webshop!</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Image: 'To Front Page']:</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//img[@alt='To Front Page']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>5000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'Welcome to our webshop!']:</td>
+      </tr>
+      <tr>
+        <td>waitForTextPresent</td>
+        <td>Welcome to our webshop!</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Opening URL: http://localhost:8080/cubicshop/index.jsp:</td>
+      </tr>
+      <tr>
+        <td>open</td>
+        <td>http://localhost:8080/cubicshop/index.jsp</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Image: 'Logo']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//img[@alt='Logo']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'CubicShop']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=/descendant-or-self::div[@id='header']/descendant-or-self::*[contains(normalize-space(.), 'CubicShop')]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Text: 'We sell cubes'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForTextNotPresent</td>
+        <td>We sell cubes</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>5000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Image: 'To Front Page']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//img[@alt='To Front Page']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Logo link'] id = 'logoLink':</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[@id='logoLink']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Text: 'Welcome to our webshop!'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForTextNotPresent</td>
+        <td>Welcome to our webshop!</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Link: 'Logo link'] id = 'logoLink':</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//a[@id='logoLink']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>5000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'Welcome to our webshop!']:</td>
+      </tr>
+      <tr>
+        <td>waitForTextPresent</td>
+        <td>Welcome to our webshop!</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Opening URL: http://localhost:8080/cubicshop/index.jsp:</td>
+      </tr>
+      <tr>
+        <td>open</td>
+        <td>http://localhost:8080/cubicshop/index.jsp</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Image: 'Logo']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//img[@alt='Logo']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'CubicShop']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=/descendant-or-self::div[@id='header']/descendant-or-self::*[contains(normalize-space(.), 'CubicShop')]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Text: 'We sell cubes'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForTextNotPresent</td>
+        <td>We sell cubes</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>5000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Image: 'To Front Page']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//img[@alt='To Front Page']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Logo link'] id = 'logoLink':</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[@id='logoLink']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Text: 'Welcome to our webshop!'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForTextNotPresent</td>
+        <td>Welcome to our webshop!</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Context: 'Logo link context'] id = 'logoLink':</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//*[@id='logoLink']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>5000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'Welcome to our webshop!']:</td>
+      </tr>
+      <tr>
+        <td>waitForTextPresent</td>
+        <td>Welcome to our webshop!</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Opening URL: http://localhost:8080/cubicshop/index.jsp:</td>
+      </tr>
+      <tr>
+        <td>open</td>
+        <td>http://localhost:8080/cubicshop/index.jsp</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Image: 'Logo']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//img[@alt='Logo']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'CubicShop']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=/descendant-or-self::div[@id='header']/descendant-or-self::*[contains(normalize-space(.), 'CubicShop')]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Text: 'We sell cubes'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForTextNotPresent</td>
+        <td>We sell cubes</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Context: 'Header'] element type = 'div', id = 'header':</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//div[@id='header']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'We sell cubes'], description = 'On same page
+':</td>
+      </tr>
+      <tr>
+        <td>waitForTextPresent</td>
+        <td>We sell cubes</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Opening URL: http://localhost:8080/cubicshop/index.jsp:</td>
+      </tr>
+      <tr>
+        <td>open</td>
+        <td>http://localhost:8080/cubicshop/index.jsp</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Image: 'Logo']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=//img[@alt='Logo']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'CubicShop']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=/descendant-or-self::div[@id='header']/descendant-or-self::*[contains(normalize-space(.), 'CubicShop')]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Text: 'We sell cubes'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForTextNotPresent</td>
+        <td>We sell cubes</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Link: 'Search']:</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//a[normalize-space(text())='Search']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>5000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check NOT present: [Text: 'Welcome to our webshop!'], not = true:</td>
+      </tr>
+      <tr>
+        <td>waitForTextNotPresent</td>
+        <td>Welcome to our webshop!</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: '(c) 2006 The CubicShop Inc.']:</td>
+      </tr>
+      <tr>
+        <td>waitForElementPresent</td>
+        <td>xpath=/descendant-or-self::div[@id='footer']/descendant-or-self::*[contains(normalize-space(.), '(c) 2006 The CubicShop Inc.')]</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Clicking [Context: 'Footer'] element type = 'div', id = 'footer':</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>xpath=//div[@id='footer']</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Waiting for page to load:</td>
+      </tr>
+      <tr>
+        <td>waitForPageToLoad</td>
+        <td>5000</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="comment" colspan="3">Check present: [Text: 'Welcome to our webshop!']:</td>
+      </tr>
+      <tr>
+        <td>waitForTextPresent</td>
+        <td>Welcome to our webshop!</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+  </body>
+</html>
+
