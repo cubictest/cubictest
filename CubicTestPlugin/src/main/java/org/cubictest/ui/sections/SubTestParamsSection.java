@@ -144,7 +144,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	private void createNoParamsLabel(Composite composite) {
 		GridData data = new GridData();
 		data.horizontalSpan = 3;
-		noParamsLabel = getWidgetFactory().createLabel(composite, "Test in subtest has no parameterization configured");
+		noParamsLabel = getWidgetFactory().createLabel(composite, "Test in subtest has no parameterisation configured");
 		noParamsLabel.setLayoutData(data);
 	}
 

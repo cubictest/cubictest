@@ -33,6 +33,11 @@ public class AllLanguages extends PropertyAwareObject{
 		return languages == null || languages.size() == 0;
 	}
 	
+	public boolean hasObservers() {
+		return observers != null && observers.size() > 0;
+	}
+
+	
 	public List<Language> getLanguages(){
 		return languages;
 	}

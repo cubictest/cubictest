@@ -7,7 +7,8 @@
  * 
  * Contributors:
  *    Stein K. Skytteren and Christian Schwarz - initial API and implementation
- *******************************************************************************/package org.cubictest.model.parameterization;
+ *******************************************************************************/
+package org.cubictest.model.parameterization;
 
 import java.util.ArrayList;
 import java.util.List;

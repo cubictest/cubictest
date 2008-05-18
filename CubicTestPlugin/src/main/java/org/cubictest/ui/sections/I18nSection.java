@@ -66,6 +66,8 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 	private CCombo languageCombo = null;
 	private Test test;
 	
+	private Label noI18nValuesLabel;
+	private Label noObserversLabel;
 	
 	private SelectionListener addListener = new SelectionAdapter(){
 		@Override
@@ -86,6 +88,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 				command.setLanguage(lang);
 				command.setAllLanguages(langs);
 				executeCommand(command);
+				refresh();
 			}
 		}
 	};
@@ -102,6 +105,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 					command.setLanguage(test.getAllLanguages().getLanguages().get(index));
 					executeCommand(command);
 					languageCombo.select(0);
+					refresh();
 				}
 			}
 		}
@@ -142,6 +146,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
         		command.setCurrentLanguage(lang);
         		command.setTest(test);
         		executeCommand(command);
+				refresh();
         	}
         });
 		updateLanguageCombo();
@@ -174,9 +179,10 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 			public void widgetSelected(SelectionEvent e) {
 				UpdateLangagesCommand command = new UpdateLangagesCommand();
 				command.addTest(test);
-				if (MessageDialog.openConfirm(new Shell(), "Confirm refreshing languages", 
-						"This action is irreversible. Do you want to continue?"))
+//				if (MessageDialog.openConfirm(new Shell(), "Confirm refreshing languages", 
+//						"\"Undo\" is not supported for this operation. Do you want to continue?"))
 					executeCommand(command);
+					refresh();
 			}
 		});
 		refreshButton.setLayoutData(buttonData);
@@ -184,6 +190,18 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
         removeButton = getWidgetFactory().createButton(composite, "Remove language", SWT.PUSH);
         removeButton.setLayoutData(buttonData);
         removeButton.addSelectionListener(removeListener );
+        
+        
+        GridData statusData = new GridData();
+		statusData.horizontalSpan = 3;
+		noI18nValuesLabel = getWidgetFactory().createLabel(composite, "Status: No text values in internationalisation file. Add content and press \"Refresh languages\"");
+		noI18nValuesLabel.setLayoutData(statusData);
+		noI18nValuesLabel.setVisible(false);
+		noObserversLabel = getWidgetFactory().createLabel(composite, "Status: No page elements has internationalisation enabled. " +
+				"To enable, check \"Use internationalisation\" on page element identifiers.");
+		noObserversLabel.setLayoutData(statusData);
+		noObserversLabel.setVisible(false);
+
 }
 	
 	private void executeCommand(Command command) {
@@ -224,7 +242,9 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 	public void refresh() {
 		super.refresh();
 		updateLanguageCombo();
-		if (test.getAllLanguages().isEmpty()) {
+		AllLanguages allLanguages = test.getAllLanguages();
+		
+		if (allLanguages.isEmpty()) {
 			removeButton.setVisible(false);
 			refreshButton.setVisible(false);
 			openI18nFileButton.setVisible(false);
@@ -238,6 +258,22 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 			openI18nFileButton.setVisible(true);
 			selectLabel.setVisible(true);
 			languageCombo.setVisible(true);
+		}
+		
+		Language currentLanguage = allLanguages.getCurrentLanguage();
+		if(currentLanguage != null) {
+			if (currentLanguage.isEmpty()) {
+				noI18nValuesLabel.setVisible(true);
+				noObserversLabel.setVisible(false);
+			}
+			else if (!allLanguages.hasObservers()) {
+				noI18nValuesLabel.setVisible(false);
+				noObserversLabel.setVisible(true);
+			}
+			else {
+				noI18nValuesLabel.setVisible(false);
+				noObserversLabel.setVisible(false);
+			}
 		}
 	}
 

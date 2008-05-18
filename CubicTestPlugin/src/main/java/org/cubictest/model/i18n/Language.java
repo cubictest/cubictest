@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -30,6 +31,11 @@ public class Language{
 	
 	private IFile getFile(){
 		return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(fileName));
+	}
+	
+	
+	public boolean isEmpty() {
+		return getProperties().isEmpty();
 	}
 	
 	public Language(){
@@ -53,7 +59,12 @@ public class Language{
 			key = keySet().iterator().next();
 		if(key == null)
 			return "";
-		return getProperties().getProperty(key);
+		
+		String value = getProperties().getProperty(key);
+		if (StringUtils.isBlank(value))
+			return "[Missing language value]";
+		else
+			return value;
 	}
 
 
@@ -93,6 +104,7 @@ public class Language{
 
 	public void updateLanguage() {
 		try {
+			properties = new Properties();
 			properties.load(getFile().getContents());
 		} catch (IOException e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);

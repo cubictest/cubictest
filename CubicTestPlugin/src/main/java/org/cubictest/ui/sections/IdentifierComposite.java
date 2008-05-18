@@ -239,7 +239,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		thirdRow.setBackground(ColorConstants.white);
 		
 		//Adding I18n
-		i18nLabel = factory.createLabel(thirdRow,"Internationalization:");
+		i18nLabel = factory.createLabel(thirdRow,"Internationalisation:");
 		data = new FormData();
 		data.left = new FormAttachment(thirdRow, labelWidth);
 		i18nLabel.setLayoutData(data);

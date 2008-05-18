@@ -91,7 +91,7 @@ public class WizardSelectLanuageInTestPage extends WizardPage {
 		layout.verticalSpacing = 9;
 		
 		GridData labelData = new GridData();
-        labelData.widthHint = 160;
+        labelData.widthHint = 120;
         
         GridData inputData = new GridData();
 		inputData.widthHint = 300;
@@ -100,7 +100,7 @@ public class WizardSelectLanuageInTestPage extends WizardPage {
 		buttonData.widthHint = 150;
 
 		fileLabel = new Label(container, SWT.NONE);
-		fileLabel.setText("Internationalisation file:");
+		fileLabel.setText("Use existing file:");
 		fileLabel.setLayoutData(labelData);
 
 		fileName = new Text(container, SWT.BORDER | SWT.READ_ONLY);

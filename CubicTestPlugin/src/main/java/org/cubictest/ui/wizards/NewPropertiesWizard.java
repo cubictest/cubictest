@@ -69,7 +69,11 @@ public class NewPropertiesWizard extends Wizard implements INewWizard {
 		IContainer container = (IContainer) resource;
 		final IFile file = container.getFile(new Path(fileName));
 		try {
-			InputStream stream = new ByteArrayInputStream("".getBytes());
+			String initialContent = "#Format for internationalisation file:\n" +
+					"#key=value\n" +
+					"#Example:\n" +
+					"#loginButton.label=Login\n";
+			InputStream stream = new ByteArrayInputStream(initialContent.getBytes());
 			if (file.exists()) {
 				//file.setContents(stream, true, true, monitor);
 			} else {
@@ -84,8 +88,8 @@ public class NewPropertiesWizard extends Wizard implements INewWizard {
 	public void addPages() {
 		super.addPages();
 		namePage = new WizardNewPropertiesCreationPage("newCubicTestPropertiesNamepage");
-		namePage.setTitle("New CubicTest internationalization file");
-		namePage.setDescription("Choose name and location of internationalization file");
+		namePage.setTitle("New CubicTest internationalisation file");
+		namePage.setDescription("Choose name and location of internationalisation file");
 		namePage.setContainerName(defaultDestFolder);
 		addPage(namePage);
 	}
