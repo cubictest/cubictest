@@ -377,6 +377,62 @@
                     <not>false</not>
                     <status reference="../../../../../../elements/link/status"/>
                   </link>
+                  <simpleContext>
+                    <elements/>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Logo link context</value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value>logoLink</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                  </simpleContext>
                   <text>
                     <description></description>
                     <identifiers>
@@ -438,8 +494,8 @@
                       <outTransitions/>
                       <id>page29061281211020760857</id>
                       <position>
-                        <x>205</x>
-                        <y>484</y>
+                        <x>118</x>
+                        <y>485</y>
                       </position>
                       <dimension>
                         <width>196</width>
@@ -488,8 +544,58 @@
                       <outTransitions/>
                       <id>page123332291211028771897</id>
                       <position>
-                        <x>465</x>
-                        <y>511</y>
+                        <x>358</x>
+                        <y>489</y>
+                      </position>
+                      <dimension>
+                        <width>150</width>
+                        <height>95</height>
+                      </dimension>
+                      <name defined-in="transitionNode"></name>
+                    </end>
+                  </userInteractionsTransition>
+                  <userInteractionsTransition>
+                    <userInteractions>
+                      <userInteraction>
+                        <element class="simpleContext" reference="../../../../../elements/simpleContext"/>
+                        <input></input>
+                        <action reference="../../../../../../userInteractions/userInteraction/action"/>
+                        <i18nKey></i18nKey>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </userInteraction>
+                    </userInteractions>
+                    <page class="page" reference="../../.."/>
+                    <start class="page" reference="../../.."/>
+                    <end class="page">
+                      <commons/>
+                      <elements>
+                        <text>
+                          <description></description>
+                          <identifiers>
+                            <identifier>
+                              <value>Welcome to our webshop!</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
+                          <not>false</not>
+                          <status reference="../../../../../../../../../elements/link/status"/>
+                        </text>
+                      </elements>
+                      <name>Front page</name>
+                      <description></description>
+                      <inTransition class="userInteractionsTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>page127143211211095686246</id>
+                      <position>
+                        <x>570</x>
+                        <y>482</y>
                       </position>
                       <dimension>
                         <width>150</width>
@@ -501,12 +607,12 @@
                 </outTransitions>
                 <id>page332185271211020523466</id>
                 <position>
-                  <x>284</x>
+                  <x>261</x>
                   <y>313</y>
                 </position>
                 <dimension>
                   <width>196</width>
-                  <height>89</height>
+                  <height>113</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
               </end>
@@ -1020,13 +1126,13 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[2]/end/outTransitions/userInteractionsTransition[3]/end"/>
     <page>
       <commons/>
       <elements/>
-      <name></name>
       <description></description>
       <outTransitions/>
-      <id>page74966561211094279367</id>
+      <id>page130251521211095695849</id>
       <position>
         <x>0</x>
         <y>4900</y>
@@ -1035,7 +1141,7 @@
         <width>0</width>
         <height>0</height>
       </dimension>
-      <name defined-in="transitionNode"></name>
+      <name></name>
     </page>
   </pages>
   <subTests/>
@@ -1048,6 +1154,7 @@
     <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[4]"/>
     <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[4]/end/outTransitions/userInteractionsTransition"/>
     <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[2]/end/outTransitions/userInteractionsTransition[2]"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[2]/end/outTransitions/userInteractionsTransition[3]"/>
   </transitions>
   <customTestSteps/>
   <allLanguages>
