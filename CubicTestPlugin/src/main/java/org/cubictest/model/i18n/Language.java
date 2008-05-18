@@ -102,15 +102,18 @@ public class Language{
 		return properties;
 	}
 
-	public void updateLanguage() {
+	public boolean updateLanguage() {
+		boolean success = false;
 		try {
 			properties = new Properties();
 			properties.load(getFile().getContents());
+			success = true;
 		} catch (IOException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+			ErrorHandler.logAndShowErrorDialog(e);
 		} catch (CoreException e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+			ErrorHandler.logAndShowErrorDialog(e);
 		}
+		return success;
 	}
 	
 	@Override

@@ -17,6 +17,8 @@ import java.util.Set;
 
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SationObserver;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
 
 
 public class AllLanguages extends PropertyAwareObject{
@@ -102,8 +104,19 @@ public class AllLanguages extends PropertyAwareObject{
 	}
 
 	public void updateAllLanguages() {
+		List<Language> toRemove = new ArrayList<Language>();
 		for(Language language : languages){
-			language.updateLanguage();
+			if (language.updateLanguage() == false) {
+				if (MessageDialog.openConfirm(new Shell(), "CubicTest", "Load of language file " + language.getFileName() + " failed.\n\n" +
+						"Do you want to remove the language from the test?")) {
+					toRemove.add(language);
+				}
+			}
+		}
+		if (!toRemove.isEmpty()) {
+			for (Language lang : toRemove) {
+				removeLanguage(lang);
+			}
 		}
 		updateObservers();
 		firePropertyChange(INPUT, null, languages);

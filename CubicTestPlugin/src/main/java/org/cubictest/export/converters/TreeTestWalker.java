@@ -289,6 +289,11 @@ public class TreeTestWalker<T extends IResultHolder> {
 			subtestTest.getParamList().setParameterIndex(subtest.getParameterIndex());
 			subtestTest.updateObservers();
 		}
+		// i18n: Set correct language in sub test:
+		if (subtest.hasOwnLanguage()) {
+			subtestTest.getAllLanguages().setCurrentLanguage(subtest.getLanguage());
+			subtestTest.updateObservers();
+		}
 		
 		// Convert sub test:
 		try {

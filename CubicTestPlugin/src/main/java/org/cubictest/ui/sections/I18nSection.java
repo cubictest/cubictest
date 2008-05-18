@@ -213,13 +213,19 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 	
 	private void updateLanguageCombo() {
 		if(test != null && test.getAllLanguages() != null){
-			AllLanguages langs = test.getAllLanguages();
+			AllLanguages allLanguages = test.getAllLanguages();
 			languageCombo.removeAll();
-			for(Language lang : langs.getLanguages()){
+			for(Language lang : allLanguages.getLanguages()){
 				languageCombo.add(lang.getName() + " - " + lang.getFileName());
 			}
-			int index = langs.getLanguages().indexOf(langs.getCurrentLanguage());
-			languageCombo.select(index);
+			int i = 0;
+			for (Language language : allLanguages.getLanguages()) {
+				if (language.relaxedEqual(allLanguages.getCurrentLanguage())) {
+					languageCombo.select(i);
+					return;
+				}
+				i++;
+			}
 		}
 	}
 
