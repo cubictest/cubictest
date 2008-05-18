@@ -29,6 +29,10 @@ public class AllLanguages extends PropertyAwareObject{
 		observers = new ArrayList<SationObserver>();
 	}
 	
+	public boolean isEmpty() {
+		return languages == null || languages.size() == 0;
+	}
+	
 	public List<Language> getLanguages(){
 		return languages;
 	}

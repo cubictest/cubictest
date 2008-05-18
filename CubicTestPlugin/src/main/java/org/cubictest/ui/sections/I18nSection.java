@@ -13,6 +13,7 @@ package org.cubictest.ui.sections;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.model.Test;
 import org.cubictest.model.i18n.AllLanguages;
 import org.cubictest.model.i18n.Language;
@@ -23,6 +24,8 @@ import org.cubictest.ui.gef.command.UpdateLangagesCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.wizards.SelectLanguageInTestWizard;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.Path;
@@ -42,20 +45,26 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.ide.ResourceUtil;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 
 public class I18nSection extends AbstractPropertySection implements PropertyChangeListener {
 
-	private Button languageButton = null;
-	
+	private Button addLanguageButton = null;
+	private Button removeButton = null;
+	private Button refreshButton;
+	private Button openI18nFileButton;
+
 	private Label selectLabel = null;
 	private CCombo languageCombo = null;
-	private Button removeButton = null;
 	private Test test;
-	private Button refreshButton;
 	
 	
 	private SelectionListener addListener = new SelectionAdapter(){
@@ -80,6 +89,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 			}
 		}
 	};
+	
 	private SelectionListener removeListener = new SelectionAdapter(){
 		@Override
 		public void widgetSelected(SelectionEvent e) {
@@ -91,6 +101,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 					command.setAllLanguages(test.getAllLanguages());
 					command.setLanguage(test.getAllLanguages().getLanguages().get(index));
 					executeCommand(command);
+					languageCombo.select(0);
 				}
 			}
 		}
@@ -107,10 +118,10 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
         composite.setLayout(gridLayout);
         
         GridData labelData = new GridData();
-        labelData.widthHint = STANDARD_LABEL_WIDTH + 70;
+        labelData.widthHint = STANDARD_LABEL_WIDTH + 30;
         
-        GridData inputData = new GridData();
-		inputData.widthHint = 300;
+        GridData languageSelectData = new GridData();
+		languageSelectData.widthHint = 400;
         
 		GridData buttonData = new GridData();
 		buttonData.widthHint = 150;
@@ -120,6 +131,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
         selectLabel.setLayoutData(labelData);
 
         languageCombo = getWidgetFactory().createCCombo(composite, SWT.READ_ONLY | SWT.BORDER);
+        languageCombo.setLayoutData(languageSelectData);
         languageCombo.addSelectionListener(new SelectionAdapter(){
         	@Override
         	public void widgetSelected(SelectionEvent e) {
@@ -133,21 +145,28 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
         	}
         });
 		updateLanguageCombo();
-		languageCombo.setLayoutData(inputData);
+		
+		
+		openI18nFileButton = getWidgetFactory().createButton(composite, "Open file", SWT.PUSH);
+		openI18nFileButton.setLayoutData(buttonData);
+		openI18nFileButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent se) {
+				IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+				IResource resource = root.findMember(new Path(test.getAllLanguages().getCurrentLanguage().getFileName()));
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				try {
+					IDE.openEditor(page, ResourceUtil.getFile(resource), true);
+				} catch (PartInitException e) {
+					ErrorHandler.logAndShowErrorDialogAndRethrow("Error opening internationalisation file", e);
+				}
+			}
+		});
 
-		languageButton = getWidgetFactory().createButton(composite,"Add language...", SWT.PUSH);
-		languageButton.addSelectionListener(addListener);
-		languageButton.setLayoutData(buttonData);
+		addLanguageButton = getWidgetFactory().createButton(composite,"Add language...", SWT.PUSH);
+		addLanguageButton.addSelectionListener(addListener);
+		addLanguageButton.setLayoutData(buttonData);
 		
-		getWidgetFactory().createLabel(composite,"");
-		getWidgetFactory().createLabel(composite,"");
-		
-        removeButton = getWidgetFactory().createButton(composite, "Remove language", SWT.PUSH);
-        removeButton.setLayoutData(buttonData);
-        removeButton.addSelectionListener(removeListener );
-        
-        getWidgetFactory().createLabel(composite,"");
-        getWidgetFactory().createLabel(composite,"");
 
         refreshButton = getWidgetFactory().createButton(composite, "Refresh languages", SWT.PUSH);
 		refreshButton.addSelectionListener(new SelectionAdapter() {
@@ -161,9 +180,11 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 			}
 		});
 		refreshButton.setLayoutData(buttonData);
-		
-        //composite.setSize(new Point(751, 305));
-	}
+
+        removeButton = getWidgetFactory().createButton(composite, "Remove language", SWT.PUSH);
+        removeButton.setLayoutData(buttonData);
+        removeButton.addSelectionListener(removeListener );
+}
 	
 	private void executeCommand(Command command) {
 		if (getPart() instanceof GraphicalTestEditor) {
@@ -203,6 +224,21 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 	public void refresh() {
 		super.refresh();
 		updateLanguageCombo();
+		if (test.getAllLanguages().isEmpty()) {
+			removeButton.setVisible(false);
+			refreshButton.setVisible(false);
+			openI18nFileButton.setVisible(false);
+			selectLabel.setVisible(false);
+			languageCombo.setVisible(false);
+
+		}
+		else {
+			removeButton.setVisible(true);
+			refreshButton.setVisible(true);
+			openI18nFileButton.setVisible(true);
+			selectLabel.setVisible(true);
+			languageCombo.setVisible(true);
+		}
 	}
 
 	public void propertyChange(PropertyChangeEvent event) {

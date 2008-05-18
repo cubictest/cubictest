@@ -78,9 +78,9 @@ public class WizardSelectLanuageInTestPage extends WizardPage {
 		super("selectLanguaePage");
 		this.test = test;
 		
-		setTitle("Add internationalisation file");
-		setDescription("Select an internationalisation file (*.properites) to add to" +
-				" this test and set lanuage name");
+		setTitle("Add/Create Internationalisation File");
+		setDescription("Select or create an internationalisation file (*.properites) to add to" +
+				" this test\n and set its lanuage name.");
 	}
 
 	public void createControl(Composite parent) {
@@ -110,21 +110,12 @@ public class WizardSelectLanuageInTestPage extends WizardPage {
 		browseButton.setText("Browse..."); 
 		browseButton.addSelectionListener(selectionListener);
 		browseButton.setLayoutData(buttonData);
-		 
-		languageLabel = new Label(container,SWT.NONE);
-		languageLabel.setText("Language name:"); 
-		languageLabel.setLayoutData(labelData);
-		 
-		languageText = new Text(container, SWT.BORDER);
-		languageText.setEnabled(false);
-		languageText.setLayoutData(inputData);
+
 		
-		new Label(container,SWT.NONE);
-		new Label(container,SWT.NONE);
-		new Label(container,SWT.NONE);
-		new Label(container,SWT.NONE);
-		
+		GridData largeButtonData = new GridData();
+		largeButtonData.horizontalSpan = 3;
 		Button newLanguageButton = new Button(container, SWT.PUSH);
+		newLanguageButton.setLayoutData(largeButtonData);
 		newLanguageButton.setText("Create new internationalisation file");
 		newLanguageButton.addSelectionListener(new SelectionAdapter(){
 			@Override
@@ -138,6 +129,21 @@ public class WizardSelectLanuageInTestPage extends WizardPage {
 				}
 			}
 		});
+
+		GridData spaceData = new GridData();
+		spaceData.horizontalSpan = 3;
+		new Label(container,SWT.NONE).setLayoutData(spaceData);
+
+		
+		languageLabel = new Label(container,SWT.NONE);
+		languageLabel.setText("Language name:"); 
+		languageLabel.setLayoutData(labelData);
+		 
+		languageText = new Text(container, SWT.BORDER);
+		languageText.setEnabled(false);
+		languageText.setLayoutData(inputData);
+		
+		
 		
 		
 		setControl(container);

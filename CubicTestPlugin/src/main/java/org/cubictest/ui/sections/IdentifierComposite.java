@@ -105,7 +105,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private Composite secondRow;
 	private Composite line;
 
-	public IdentifierComposite(Composite parent, TabbedPropertySheetWidgetFactory factory, int lableWidth) {
+	public IdentifierComposite(Composite parent, TabbedPropertySheetWidgetFactory factory, int labelWidth) {
 		super(parent, SWT.NONE);
 		
 		setBackground(ColorConstants.white);
@@ -115,7 +115,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		layout.verticalSpacing = 2;
 		this.setLayout(layout);
 		
-		//First Row (Directt edit, ID type, probability, value), always visible:
+		//First Row (Direct edit, ID type, probability, value), always visible:
 		firstRow = new Composite(this,SWT.NONE);
 		FormData data = null;
 		
@@ -130,7 +130,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		//Adding type
 		data = new FormData();
 		data.left = new FormAttachment(0, 0);
-		data.width = lableWidth;
+		data.width = labelWidth;
 		type = factory.createLabel(firstRow, "",SWT.BOLD);
 		type.setLayoutData(data);
 		
@@ -168,7 +168,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		//Adding label for value ("true")
 		data = new FormData();
 		data.left = new FormAttachment(moderator,ITabbedPropertyConstants.HSPACE);
-		data.width = lableWidth * 3;
+		data.width = labelWidth * 3;
 		booleanLabel = factory.createLabel(firstRow, "true");
 		booleanLabel.setLayoutData(data);
 		booleanLabel.setVisible(false);
@@ -176,7 +176,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		//Id has value (is not boolean). Adding value input:
 		data = new FormData();
 		data.left = new FormAttachment(moderator,ITabbedPropertyConstants.HSPACE);
-		data.width = lableWidth * 3;
+		data.width = labelWidth * 3;
 		value = factory.createText(firstRow, "", SWT.BORDER);
 		value.setLayoutData(data);
 		value.addSelectionListener(valueListener);
@@ -206,13 +206,12 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		
 		data = new FormData();
 		data.left = new FormAttachment(9,0);
-		//data.top = new FormAttachment(value);
 		actualLabel = factory.createLabel(secondRow, "actually found a different value ");
 		actualLabel.setLayoutData(data);
 		actualLabel.setVisible(false);
 		data = new FormData();
 		data.left = new FormAttachment(actualLabel,ITabbedPropertyConstants.HSPACE);
-		data.width = lableWidth * 3;
+		data.width = labelWidth * 3;
 		actualValue = factory.createText(secondRow, "", SWT.READ_ONLY);
 		actualValue.setLayoutData(data);
 		actualValue.setVisible(false);
@@ -242,7 +241,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		//Adding I18n
 		i18nLabel = factory.createLabel(thirdRow,"Internationalization:");
 		data = new FormData();
-		data.left = new FormAttachment(10,ITabbedPropertyConstants.HSPACE);
+		data.left = new FormAttachment(thirdRow, labelWidth);
 		i18nLabel.setLayoutData(data);
 		i18n = factory.createButton(thirdRow, "", SWT.CHECK);
 		i18n.addSelectionListener(i18nListener);
@@ -256,7 +255,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		i18nCombo.setLayoutData(data);
 		
 		//Adding parameterisation
-		paramLabel = factory.createLabel(thirdRow, "Use parameterisation: ");
+		paramLabel = factory.createLabel(thirdRow, "Parameterisation: ");
 		data = new FormData();
 		data.left = new FormAttachment(i18nCombo,ITabbedPropertyConstants.HSPACE + 20);
 		paramLabel.setLayoutData(data);
