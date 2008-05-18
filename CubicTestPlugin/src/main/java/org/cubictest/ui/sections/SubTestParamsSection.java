@@ -84,7 +84,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	private void createRefreshParamsButton(Composite composite) {
 		GridData data = new GridData();
 		data.horizontalSpan = 2;
-		refreshParamButton = getWidgetFactory().createButton(composite, "Refresh parameters", SWT.PUSH);
+		refreshParamButton = getWidgetFactory().createButton(composite, "Refresh", SWT.PUSH);
 		refreshParamButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
