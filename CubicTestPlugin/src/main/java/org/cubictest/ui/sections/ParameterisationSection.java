@@ -231,7 +231,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 
 		data = new GridData();
 		data.horizontalSpan = 3;
-		noParamsLabel = getWidgetFactory().createLabel(composite, "Status: No parameters in parameter file. Add content and press \"Refresh parameters\"");
+		noParamsLabel = getWidgetFactory().createLabel(composite, "Status: No parameters in parameter file. Add content, save file and press \"Refresh parameters\"");
 		noParamsLabel.setLayoutData(data);
 		noParamsLabel.setVisible(false);
 		noObserversLabel = getWidgetFactory().createLabel(composite, "Status: No page elements has parameterisation enabled. " +

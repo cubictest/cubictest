@@ -194,7 +194,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
         
         GridData statusData = new GridData();
 		statusData.horizontalSpan = 3;
-		noI18nValuesLabel = getWidgetFactory().createLabel(composite, "Status: No text values in internationalisation file. Add content and press \"Refresh languages\"");
+		noI18nValuesLabel = getWidgetFactory().createLabel(composite, "Status: No text values in internationalisation file. Add content, save file and press \"Refresh languages\"");
 		noI18nValuesLabel.setLayoutData(statusData);
 		noI18nValuesLabel.setVisible(false);
 		noObserversLabel = getWidgetFactory().createLabel(composite, "Status: No page elements has internationalisation enabled. " +
