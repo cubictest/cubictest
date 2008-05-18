@@ -237,7 +237,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status>UNKNOWN</status>
+                    <status reference="../../../../../../elements/link/status"/>
                   </text>
                 </elements>
                 <name>New page</name>
@@ -246,8 +246,8 @@
                 <outTransitions/>
                 <id>page187442911211014353097</id>
                 <position>
-                  <x>109</x>
-                  <y>297</y>
+                  <x>64</x>
+                  <y>310</y>
                 </position>
                 <dimension>
                   <width>123</width>
@@ -391,7 +391,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>true</not>
-                    <status>FAIL</status>
+                    <status reference="../../../../../../elements/link/status"/>
                   </text>
                 </elements>
                 <name>Search</name>
@@ -429,7 +429,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../userInteractionsTransition/end/elements/text/status"/>
+                          <status reference="../../../../../../../../../elements/link/status"/>
                         </text>
                       </elements>
                       <name>Front Page</name>
@@ -438,8 +438,8 @@
                       <outTransitions/>
                       <id>page29061281211020760857</id>
                       <position>
-                        <x>322</x>
-                        <y>427</y>
+                        <x>205</x>
+                        <y>484</y>
                       </position>
                       <dimension>
                         <width>196</width>
@@ -488,8 +488,8 @@
                       <outTransitions/>
                       <id>page123332291211028771897</id>
                       <position>
-                        <x>572</x>
-                        <y>472</y>
+                        <x>465</x>
+                        <y>511</y>
                       </position>
                       <dimension>
                         <width>150</width>
@@ -501,8 +501,8 @@
                 </outTransitions>
                 <id>page332185271211020523466</id>
                 <position>
-                  <x>322</x>
-                  <y>297</y>
+                  <x>284</x>
+                  <y>313</y>
                 </position>
                 <dimension>
                   <width>196</width>
@@ -531,7 +531,8 @@
                 <commons/>
                 <elements>
                   <text>
-                    <description></description>
+                    <description>On same page
+</description>
                     <identifiers>
                       <identifier>
                         <value>We sell cubes</value>
@@ -544,17 +545,17 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../userInteractionsTransition/end/elements/text/status"/>
+                    <status reference="../../../../../../elements/link/status"/>
                   </text>
                 </elements>
-                <name>New page</name>
+                <name>Same page</name>
                 <description></description>
                 <inTransition class="userInteractionsTransition" reference="../.."/>
                 <outTransitions/>
                 <id>page148173031211026883765</id>
                 <position>
-                  <x>611</x>
-                  <y>297</y>
+                  <x>564</x>
+                  <y>314</y>
                 </position>
                 <dimension>
                   <width>119</width>
@@ -594,7 +595,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>true</not>
-                    <status reference="../../../../../userInteractionsTransition/end/elements/text/status"/>
+                    <status reference="../../../../../../elements/link/status"/>
                   </text>
                   <simpleContext>
                     <elements>
@@ -612,7 +613,7 @@
                         </identifiers>
                         <directEditIdentifier reference="../identifiers/identifier"/>
                         <not>false</not>
-                        <status reference="../../../../../../../userInteractionsTransition/end/elements/text/status"/>
+                        <status reference="../../../../../../../../elements/link/status"/>
                       </text>
                     </elements>
                     <description></description>
@@ -668,7 +669,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../userInteractionsTransition/end/elements/text/status"/>
+                    <status reference="../../../../../../elements/link/status"/>
                   </simpleContext>
                 </elements>
                 <name>Search</name>
@@ -706,7 +707,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../userInteractionsTransition/end/elements/text/status"/>
+                          <status reference="../../../../../../../../../elements/link/status"/>
                         </text>
                       </elements>
                       <name>New page</name>
@@ -989,6 +990,7 @@
     <page>
       <commons/>
       <elements/>
+      <name></name>
       <description></description>
       <outTransitions/>
       <id>page321776831211028796907</id>
@@ -1000,7 +1002,40 @@
         <width>0</width>
         <height>0</height>
       </dimension>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
       <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page32799581211094052928</id>
+      <position>
+        <x>0</x>
+        <y>4600</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page74966561211094279367</id>
+      <position>
+        <x>0</x>
+        <y>4900</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
     </page>
   </pages>
   <subTests/>
@@ -1023,5 +1058,5 @@
   <description></description>
   <id>test1209975880381</id>
   <modelVersion>9</modelVersion>
-  <status>WARN</status>
+  <status reference="../startPoint/outTransitions/simpleTransition/end/elements/link/status"/>
 </test>
