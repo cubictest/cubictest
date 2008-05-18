@@ -86,7 +86,7 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 				}
 			}			
 		}
-		if (selectedNodes.size() < 2) {
+		if (selectedNodes.size() < 1) {
 			return false;
 		}
 		if (!ModelUtil.nodesContainsSingleContinuousPath(selectedNodes)) {
