@@ -287,6 +287,12 @@
                tab="org.cubictest.tab.param">
             <input type="org.cubictest.model.SubTest"/>
          </propertySection>
+         <propertySection
+               class="org.cubictest.ui.sections.SubTestI18nSection"
+               id="org.cubictest.subtest.i18n"
+               tab="org.cubictest.tab.i18n">
+            <input type="org.cubictest.model.SubTest"/>
+         </propertySection>
       </propertySections>
    </extension>
    <extension

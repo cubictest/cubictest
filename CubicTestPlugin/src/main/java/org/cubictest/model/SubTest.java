@@ -13,6 +13,7 @@ package org.cubictest.model;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.model.i18n.Language;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.eclipse.core.resources.IProject;
@@ -31,6 +32,7 @@ public class SubTest extends ConnectionPoint {
 	private transient IResourceMonitor resourceMonitor;
 	private transient boolean dangling;
 	private int parameterIndex = -1;
+	private Language language;
 
 	public SubTest(String filePath, IProject project) {
 		super();
@@ -53,6 +55,15 @@ public class SubTest extends ConnectionPoint {
 	public boolean hasOwnParams() {
 		return getTest(false).hasParamsConfigured() && parameterIndex >= 0;
 	}
+	
+	/**
+	 * Get whether this test has its own language configured, and target test has i18n enabled.
+	 * @return
+	 */
+	public boolean hasOwnLanguage() {
+		return getTest(false).hasI18nConfigured() && language != null;
+	}
+	
 	/**
 	 * @return Test	the sub test that this object represents
 	 */
@@ -166,6 +177,14 @@ public class SubTest extends ConnectionPoint {
 
 	public void setParameterIndex(int parameterIndex) {
 		this.parameterIndex = parameterIndex;
+	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
 	}
 
 }

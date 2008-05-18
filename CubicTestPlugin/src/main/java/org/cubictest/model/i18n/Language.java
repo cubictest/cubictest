@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 
 public class Language{
-	private Properties properties;
+	private transient Properties properties;
 	private String name = "";
 	private transient IFile file;
 	private String fileName = "";
@@ -111,5 +111,14 @@ public class Language{
 		} catch (CoreException e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return name + " - " + fileName;
+	}
+	
+	public boolean relaxedEqual(Language other) {
+		return name.equals(other.getName()) && fileName.equals(other.getFileName());
 	}
 }

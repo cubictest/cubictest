@@ -131,7 +131,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 		buttonData.widthHint = 150;
 		
 		
-        selectLabel = getWidgetFactory().createLabel(composite,"Set language");
+        selectLabel = getWidgetFactory().createLabel(composite,"Set language:  ");
         selectLabel.setLayoutData(labelData);
 
         languageCombo = getWidgetFactory().createCCombo(composite, SWT.READ_ONLY | SWT.BORDER);

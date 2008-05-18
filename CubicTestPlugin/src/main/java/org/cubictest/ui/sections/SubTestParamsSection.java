@@ -61,7 +61,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	private Label useParamIndexFromTestLabel;
 	private SubTest subtest;
 	private Button openParamsButton;
-	private Button refreshParamButton;
+	private Button refreshButton;
 	
 	@Override
 	public void createControls(Composite parent, TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -76,23 +76,23 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 		createIndexSpinner(composite);
 		createUseIndexDefinedInTestCheckbox(composite);
 		createOpenParamsButton(composite);
-		createRefreshParamsButton(composite);
+		createRefreshButton(composite);
 		
 		composite.setLayout(gridLayout);
 	}
 
-	private void createRefreshParamsButton(Composite composite) {
+	private void createRefreshButton(Composite composite) {
 		GridData data = new GridData();
 		data.horizontalSpan = 2;
-		refreshParamButton = getWidgetFactory().createButton(composite, "Refresh", SWT.PUSH);
-		refreshParamButton.addSelectionListener(new SelectionAdapter() {
+		refreshButton = getWidgetFactory().createButton(composite, "Refresh", SWT.PUSH);
+		refreshButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				refreshParamsFromDisk();
 			}
 
 		});
-		refreshParamButton.setLayoutData(data);
+		refreshButton.setLayoutData(data);
 	}
 
 	private void refreshParamsFromDisk() {
@@ -144,7 +144,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 	private void createNoParamsLabel(Composite composite) {
 		GridData data = new GridData();
 		data.horizontalSpan = 3;
-		noParamsLabel = getWidgetFactory().createLabel(composite, "Test in subtest has no parameterisation configured");
+		noParamsLabel = getWidgetFactory().createLabel(composite, "Test in subtest has no parameterisation configured. Enable it in the test and click \"Refresh\"");
 		noParamsLabel.setLayoutData(data);
 	}
 

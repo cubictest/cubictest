@@ -18,6 +18,7 @@ import javax.swing.plaf.ListUI;
 import org.apache.commons.lang.ArrayUtils;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.i18n.AllLanguages;
+import org.cubictest.model.i18n.Language;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.resources.interfaces.IResourceMonitor;
 import org.eclipse.core.resources.IFile;
@@ -349,6 +350,18 @@ public class Test extends PropertyAwareObject {
 	public boolean hasParamsConfigured() {
 		if (getParamList() != null) {
 			return paramList.hasParameters() && paramList.hasObservers();
+		}
+		return false;
+	}
+	
+	/**
+	 * Get whether test has i18n enabled.
+	 * @return
+	 */
+	public boolean hasI18nConfigured() {
+		if (getAllLanguages() != null && !getAllLanguages().isEmpty() && allLanguages.hasObservers()) {
+			Language currentLanguage = getAllLanguages().getCurrentLanguage();
+			return  currentLanguage != null && !currentLanguage.isEmpty();
 		}
 		return false;
 	}
