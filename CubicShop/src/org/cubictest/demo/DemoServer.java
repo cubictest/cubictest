@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.demo;
 
+import org.apache.log4j.BasicConfigurator;
 import org.mortbay.http.SocketListener;
 import org.mortbay.jetty.Server;
 
@@ -30,12 +31,14 @@ public class DemoServer {
      * Tools.jar from the JDK lib folder must be on the classpath.
      */
 	public static void main(String[] args) {
+		BasicConfigurator.configure();
         Server server = new Server();
         SocketListener listener = new SocketListener();
         listener.setPort(8080);
         server.addListener(listener);
         try {
             server.addWebApplication("cubicshop", "webapp/");
+            server.addWebApplication("bugtracker", "bugtracker/");
             server.start();
         } catch (Exception e) {
            e.printStackTrace();
