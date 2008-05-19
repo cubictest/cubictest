@@ -31,7 +31,6 @@ public class DemoServer {
      * Tools.jar from the JDK lib folder must be on the classpath.
      */
 	public static void main(String[] args) {
-		BasicConfigurator.configure();
         Server server = new Server();
         SocketListener listener = new SocketListener();
         listener.setPort(8080);
@@ -39,7 +38,9 @@ public class DemoServer {
         try {
             server.addWebApplication("cubicshop", "webapp/");
             server.addWebApplication("bugtracker", "bugtracker/");
+            System.out.println("Starting Jetty...");
             server.start();
+            System.out.println("Jetty started.");
         } catch (Exception e) {
            e.printStackTrace();
       }
