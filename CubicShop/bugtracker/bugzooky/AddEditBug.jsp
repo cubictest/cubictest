@@ -28,7 +28,7 @@
                 <tr>
                     <th><stripes:label for="bug.component.id"/>:</th>
                     <td>
-                        <stripes:select name="bug.component.id">
+                        <stripes:select id="bug.component.id" name="bug.component.id">
                             <stripes:options-collection collection="${componentManager.allComponents}"
                                                         label="name" value="id"/>
                         </stripes:select>
@@ -37,7 +37,7 @@
                 <tr>
                     <th><stripes:label for="bug.owner.id"/>:</th>
                     <td>
-                        <stripes:select name="bug.owner.id">
+                        <stripes:select id="bug.owner.id" name="bug.owner.id">
                             <stripes:options-collection collection="${personManager.allPeople}"
                                                         label="username" value="id" sort="label"/>
                         </stripes:select>
@@ -46,7 +46,7 @@
                 <tr>
                     <th><stripes:label for="bug.priority"/>:</th>
                     <td>
-                        <stripes:select name="bug.priority" value="Medium">
+                        <stripes:select id="bug.priority" name="bug.priority" value="Medium">
                             <stripes:options-enumeration enum="net.sourceforge.stripes.examples.bugzooky.biz.Priority"/>
                         </stripes:select>
                     </td>
@@ -66,19 +66,19 @@
                 </tr>
                 <tr>
                     <th><stripes:label for="bug.dueDate"/>:</th>
-                    <td><stripes:text name="bug.dueDate" formatPattern="medium"/></td>
+                    <td><stripes:text id="bug.dueDate" name="bug.dueDate" formatPattern="medium"/></td>
                 </tr>
                 <tr>
                     <th><stripes:label for="bug.percentComplete"/>:</th>
-                    <td><stripes:text name="bug.percentComplete" formatType="percentage"/></td>
+                    <td><stripes:text id="bug.percentComplete" name="bug.percentComplete" formatType="percentage"/></td>
                 </tr>
                 <tr>
                     <th><stripes:label for="bug.shortDescription"/>:</th>
-                    <td><stripes:text style="width: 500px;" name="bug.shortDescription"/></td>
+                    <td><stripes:text id="bug.shortDescription" style="width: 500px;" name="bug.shortDescription"/></td>
                 </tr>
                 <tr>
                     <th><stripes:label for="bug.longDescription"/>:</th>
-                    <td><stripes:textarea style="width:500px; height:3em;" name="bug.longDescription"/></td>
+                    <td><stripes:textarea id="bug.longDescription" style="width:500px; height:3em;" name="bug.longDescription"/></td>
                 </tr>
                 <tr>
                     <th>Attachments:</th>

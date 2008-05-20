@@ -13,21 +13,21 @@
                 <tr>
                     <th><stripes:label for="user.firstName"/>:</th>
                     <td>
-                        <stripes:text name="user.firstName"/>
+                        <stripes:text id="user.firstName" name="user.firstName" />
                         <stripes:errors field="user.firstName"/>
                     </td>
                 </tr>
                 <tr>
                     <th><stripes:label for="user.lastName"/>:</th>
                     <td>
-                        <stripes:text name="user.lastName"/>
+                        <stripes:text id="user.lastName" name="user.lastName"/>
                         <stripes:errors field="user.lastName"/>
                     </td>
                 </tr>
                 <tr>
                     <th><stripes:label for="user.username"/>:</th>
                     <td>
-                        <stripes:text name="user.username"/>
+                        <stripes:text id="user.username" name="user.username"/>
                         <stripes:errors field="user.username"/>
                     </td>
                 </tr>

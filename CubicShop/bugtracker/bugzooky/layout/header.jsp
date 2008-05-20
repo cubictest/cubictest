@@ -1,9 +1,9 @@
 <%@ include file="/bugzooky/taglibs.jsp" %>
 
-<div id="imageHeader">
+<div>
     <table style="padding: 5px; margin: 0px; width: 100%;">
         <tr>
-            <td id="pageHeader">bugzooky: stripes demo application</td>
+            <td id="pageHeader"><a href="/bugtracker/bugzooky/BugList.jsp">CubicShop Bug Tracker</a></td>
             <td id="loginInfo">
                 <c:if test="${not empty user}">
                     Welcome: ${user.firstName} ${user.lastName}

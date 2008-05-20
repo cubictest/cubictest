@@ -12,11 +12,11 @@
             <table class="leftRightForm">
                 <tr>
                     <th><stripes:label for="user.password"/>:</th>
-                    <td><stripes:password name="user.password"/></td>
+                    <td><stripes:password id="user.password" name="user.password"/></td>
                 </tr>
                 <tr>
                     <th><stripes:label for="confirmPassword"/>:</th>
-                    <td><stripes:password name="confirmPassword"/></td>
+                    <td><stripes:password id="confirmPassword" name="confirmPassword"/></td>
                 </tr>
             </table>
 
