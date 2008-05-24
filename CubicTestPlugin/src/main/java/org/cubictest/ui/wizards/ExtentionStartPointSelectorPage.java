@@ -21,6 +21,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -30,12 +32,12 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 
 
-public class ExtentionStartPointSelectorPage extends WizardPage implements Listener {
+public class ExtentionStartPointSelectorPage extends WizardPage implements SelectionListener {
 
 	public static final String NAME = "extensionStartPointSelector";
 	
 	private Map<ExtensionPoint, IFile> extensionPoints;
-	private boolean pageShown;
+	private boolean pageWasNext;
 	private Test test;
 	
 	List list;
@@ -43,7 +45,7 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 	private String[] extentionPointNames;
 
 	private IFile file;
-	
+
 	public ExtentionStartPointSelectorPage(Map<ExtensionPoint,IFile> extensionPoints, IProject project) {
 		super(NAME);
 		this.extensionPoints = extensionPoints;
@@ -79,7 +81,7 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 			extentionPointNames[i++] = getRowLabel(ep);
 		}
 		list.setItems(extentionPointNames);
-		list.addListener(SWT.Selection, this);
+		list.addSelectionListener(this);
 		
 		int size = list.getItemCount();
 		if (size > 0){
@@ -96,6 +98,8 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 			nameLabel.setLayoutData(gridData);			
 		}
 		setControl(container);
+		getShell().getDefaultButton().setFocus();
+
 	}
 	
 	private String getRowLabel(ExtensionPoint ep) {
@@ -106,15 +110,11 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 		return result;
 	}
 	
-	public void handleEvent(Event event) {
-		if(event.widget == list) {
-			int index = list.getSelectionIndex();
-			if(index == -1)
-				return;
-			
-			setSelectedStartpoint(index);
-		}
+	
+	public void setPageWasNext(boolean pageWasNext) {
+		this.pageWasNext = pageWasNext;
 	}
+	
 	private void setSelectedStartpoint(int index) {
 		String point = extentionPointNames[index];
 		for(ExtensionPoint ep : extensionPoints.keySet()) {
@@ -135,17 +135,33 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Liste
 	public IWizardPage getNextPage() {
 		return null;
 	}
+	
 	public IFile getExtentionPointFile() {
 		return file;
 	}
-	public boolean isPageShown() {
-		return pageShown;
-	}
-	public void setPageShown(boolean pageShown) {
-		this.pageShown = pageShown;
-	}
+	
 	public void setTest(Test test) {
 		this.test = test;
 	}
 	
+	public boolean pageWasNext() {
+		return pageWasNext;
+	}
+	
+	public void widgetDefaultSelected(SelectionEvent e) {
+		handleSelection(e);
+	}
+
+	public void widgetSelected(SelectionEvent e) {
+		handleSelection(e);
+	}
+	
+	private void handleSelection(SelectionEvent e) {
+		if(e.widget == list) {
+			int index = list.getSelectionIndex();
+			if(index == -1)
+				return;
+			setSelectedStartpoint(index);
+		}
+	}
 }

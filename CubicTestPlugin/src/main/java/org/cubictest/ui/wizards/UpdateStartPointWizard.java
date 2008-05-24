@@ -14,6 +14,7 @@ import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.SimpleTransition;
+import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
@@ -54,6 +55,11 @@ public class UpdateStartPointWizard extends NewTestWizard {
 		addPage(extentionStartPointSelectorPage);
 	}
 	
+	@Override
+	protected void getWizardTitle() {
+		setWindowTitle("Change start point of test");
+	}
+	
 	/**
 	 * This method is called when 'Finish' button is pressed in the wizard.
 	 */
@@ -65,21 +71,25 @@ public class UpdateStartPointWizard extends NewTestWizard {
 			test.removeTransition(inTrans);
 		}
 
-		url = newUrlStartPointPage.getUrl();
-		ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
-		IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
-		boolean useUrlStartPoint = startPointTypeSelectionPage.getNextPage().equals(newUrlStartPointPage);
-
-		ConnectionPoint startPoint = null;
-		if (useUrlStartPoint) {
-			startPoint = WizardUtils.createUrlStartPoint(url);
+		if (startPointTypeSelectionPage.isUrlStartPointSelected()) {
+			url = newUrlStartPointPage.getUrl();
+			ConnectionPoint startPoint = WizardUtils.createUrlStartPoint(url);
 			test.setStartPoint(null);
 			test.setStartPoint(startPoint);
 			SimpleTransition startTransition = new SimpleTransition(startPoint, firstPage);	
 			test.addTransition(startTransition);
 		}
+		else if (startPointTypeSelectionPage.isSubTestStartPointSelected()) {
+			test.setStartPoint(null);
+			SubTestStartPoint startPoint = WizardUtils.createSubTestStartPoint();
+			test.setStartPoint(startPoint);
+			SimpleTransition startTransition = new SimpleTransition(startPoint, firstPage);	
+			test.addTransition(startTransition);
+		}
 		else {
-			startPoint = WizardUtils.createExtensionStartPoint(file, extensionPoint, test);
+			IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
+			ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
+			ConnectionPoint startPoint = WizardUtils.createExtensionStartPoint(file, extensionPoint, test);
 			test.setStartPoint(null); //mandatory for listeners
 			test.setStartPoint(startPoint);
 			exTrans = new ExtensionTransition(startPoint, firstPage, extensionPoint);

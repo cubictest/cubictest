@@ -111,12 +111,12 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		final String url = newUrlStartPointPage.getUrl();
 		final ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
 		final IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
-		final boolean useUrlStartPoint = startPointTypeSelectionPage.getNextPage().equals(newUrlStartPointPage);
+		final boolean useUrlStartPoint = startPointTypeSelectionPage.isUrlStartPointSelected();
 		
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
-					doFinish(containerName, fileName, name, description, url, extensionPoint, file, useUrlStartPoint, monitor);
+					doFinish(containerName, fileName, name, description, url, extensionPoint, file, startPointTypeSelectionPage, monitor);
 				} catch (CoreException e) {
 					throw new InvocationTargetException(e);
 				} finally {
@@ -140,6 +140,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	 * The worker method. It will find the container, create the
 	 * file if missing or just replace its contents, and open
 	 * the editor on the newly created file.
+	 * @param useSubTestStartPoint 
 	 */
 	private void doFinish(
 		String containerName,
@@ -149,7 +150,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		String url,
 		ExtensionPoint extensionPoint,
 		IFile startTestFile,
-		boolean useUrlStartPoint,
+		StartPointTypeSelectionPage startPointTypeSelectionPage,
 		IProgressMonitor monitor)
 		throws CoreException {
 		
@@ -165,9 +166,12 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		
 		//create test:
 		Test emptyTest = null;
-		if (useUrlStartPoint)
+		if (startPointTypeSelectionPage.isUrlStartPointSelected()) {
 			emptyTest = WizardUtils.createEmptyTest(name, description, url);
-		else{
+		} else if (startPointTypeSelectionPage.isSubTestStartPointSelected()) {
+			emptyTest = WizardUtils.createEmptyTestWithSubTestStartPoint("test" + System.currentTimeMillis(),
+					name, description);
+		} else{
 			emptyTest = WizardUtils.createEmptyTest("test" + System.currentTimeMillis(), 
 					name, description, startTestFile, extensionPoint);
 		}
@@ -267,11 +271,14 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	
 	@Override
 	public boolean canFinish() {
-		if(newUrlStartPointPage.hasValidUrl() && startPointTypeSelectionPage.urlStartPointSelected == true) {
+		if(startPointTypeSelectionPage.isUrlStartPointSelected() && newUrlStartPointPage.hasValidUrl()) {
 			return true;
 		}
-		else if(extentionStartPointSelectorPage.getExtensionPoint() != null && extentionStartPointSelectorPage.isPageShown() && 
-				startPointTypeSelectionPage.extentionStartPointRadio.getSelection() == true) {
+		else if(startPointTypeSelectionPage.isSubTestStartPointSelected()) {
+			return true;
+		}
+		else if(extentionStartPointSelectorPage.getExtensionPoint() != null && extentionStartPointSelectorPage.pageWasNext() && 
+				startPointTypeSelectionPage.isExtensionStartPointSelected()) {
 			return true;
 		}
 		return false;

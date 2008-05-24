@@ -93,10 +93,13 @@ public class WizardUtils {
 	 */
 	public static Test createEmptyTestWithSubTestStartPoint(String id, String name, String description) {
 		Test test = createTest(id,name,description);
+		addEmptyPage(test);
 		
 		SubTestStartPoint startpoint = createSubTestStartPoint();
 		test.setStartPoint(startpoint);
 		
+		SimpleTransition startTransition = new SimpleTransition(startpoint, test.getPages().get(0));	
+		test.addTransition(startTransition);
 		return test;
 	}
 	
@@ -110,7 +113,7 @@ public class WizardUtils {
 		
 		TestSuiteStartPoint startpoint = createTestSuiteStartPoint();
 		test.setStartPoint(startpoint);
-				
+
 		return test;
 	}
 	

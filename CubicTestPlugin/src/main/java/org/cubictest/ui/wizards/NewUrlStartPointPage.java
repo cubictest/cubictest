@@ -77,7 +77,7 @@ public class NewUrlStartPointPage extends WizardPage implements ModifyListener, 
 	private void handleUrlInput() {
 		if (hasValidUrl()) {
 			updateStatus(null, STATUS_OK);
-			startPointTypeSelectionPage.urlStartPointSelected = true;
+			startPointTypeSelectionPage.setUrlStartPointSelected(true);
 		}
 		else {
 			updateStatus("URL must start with \"http://\" or \"https://\"", STATUS_ERROR);

@@ -29,24 +29,33 @@ public class StartPointTypeSelectionPage extends WizardPage implements Selection
 	private Label urlStartPointLabel = null;
 	public Button extentionStartPointRadio = null;
 	private Label extentionStartPointLabel = null;
-	public boolean urlStartPointSelected = false;
+	public Button subTestStartPointRadio = null;
+	private Label subTestStartPointLabel = null;
+	private boolean urlStartPointSelected = false;
+	private boolean subTestStartPointSelected = false;
 	
 	protected StartPointTypeSelectionPage() {
 		super(NAME);
 		setPageComplete(true);
 		
-		setTitle("Choose startpointtype for the new Test");
-		setDescription("Choose startpointtype for the new Test");
+		setTitle("Choose startpoint type for the new Test");
+		setDescription("Choose startpoint type for the new Test");
 	}
 
 	public IWizardPage getNextPage() {
+		ExtentionStartPointSelectorPage exStartPointPage = (ExtentionStartPointSelectorPage) getWizard().getPage(ExtentionStartPointSelectorPage.NAME);
+		
 		if(urlStartPointSelected) {
+			exStartPointPage.setPageWasNext(false);
 			return getWizard().getPage(NewUrlStartPointPage.NAME);
 		}
+		else if(subTestStartPointSelected) {
+			exStartPointPage.setPageWasNext(false);
+			return null;
+		}
 		else {
-			IWizardPage page = getWizard().getPage(ExtentionStartPointSelectorPage.NAME);
-			((ExtentionStartPointSelectorPage) page).setPageShown(true);
-			return page;
+			exStartPointPage.setPageWasNext(true);
+			return exStartPointPage;
 		}
 
 	}
@@ -65,6 +74,11 @@ public class StartPointTypeSelectionPage extends WizardPage implements Selection
 		urlStartPointLabel = new Label(container, SWT.LEFT);
 		urlStartPointLabel.setText("URL start point - Start from a specific URL");
 		urlStartPointLabel.addMouseListener(this);
+		subTestStartPointRadio = new Button(container, SWT.RADIO);
+		subTestStartPointRadio.addSelectionListener(this);
+		subTestStartPointLabel = new Label(container, SWT.LEFT);
+		subTestStartPointLabel.setText("Sub test start point - Test can only run as sub test in another test");
+		subTestStartPointLabel.addMouseListener(this);
 		setSelected();
 		container.setLayout(gridLayout);
 		setControl(container);
@@ -72,17 +86,21 @@ public class StartPointTypeSelectionPage extends WizardPage implements Selection
 
 	public void widgetDefaultSelected(SelectionEvent e) {
 		urlStartPointSelected = urlStartPointRadio.equals(e.getSource());
+		subTestStartPointSelected = subTestStartPointRadio.equals(e.getSource());
 		setSelected();
 	}
 
 	public void widgetSelected(SelectionEvent e) {
 		urlStartPointSelected = urlStartPointRadio.equals(e.getSource());
+		subTestStartPointSelected = subTestStartPointRadio.equals(e.getSource());
 		setSelected();
 	}	
 	
 	private void setSelected(){
 		urlStartPointRadio.setSelection(urlStartPointSelected);
-		extentionStartPointRadio.setSelection(!urlStartPointSelected);
+		subTestStartPointRadio.setSelection(subTestStartPointSelected);
+		extentionStartPointRadio.setSelection(!urlStartPointSelected && !subTestStartPointSelected);
+		setPageComplete(true);
 	}
 
 	public void mouseDoubleClick(MouseEvent e) {
@@ -91,9 +109,26 @@ public class StartPointTypeSelectionPage extends WizardPage implements Selection
 
 	public void mouseDown(MouseEvent e) {
 		urlStartPointSelected = urlStartPointLabel.equals(e.getSource());
+		subTestStartPointSelected = subTestStartPointLabel.equals(e.getSource());
 		setSelected();
 	}
 
 	public void mouseUp(MouseEvent e) {
+	}
+
+	public boolean isUrlStartPointSelected() {
+		return urlStartPointSelected;
+	}
+
+	public boolean isSubTestStartPointSelected() {
+		return subTestStartPointSelected;
+	}
+
+	public boolean isExtensionStartPointSelected() {
+		return !subTestStartPointSelected && !urlStartPointSelected;
+	}
+
+	public void setUrlStartPointSelected(boolean urlStartPointSelected) {
+		this.urlStartPointSelected = urlStartPointSelected;
 	}
 }
