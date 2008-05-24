@@ -77,7 +77,7 @@ public class StartPointTypeSelectionPage extends WizardPage implements Selection
 		subTestStartPointRadio = new Button(container, SWT.RADIO);
 		subTestStartPointRadio.addSelectionListener(this);
 		subTestStartPointLabel = new Label(container, SWT.LEFT);
-		subTestStartPointLabel.setText("Sub test start point - Test can only run as sub test in another test");
+		subTestStartPointLabel.setText("Sub test start point - Unspecified start. Test can only run as sub test of another test");
 		subTestStartPointLabel.addMouseListener(this);
 		setSelected();
 		container.setLayout(gridLayout);
