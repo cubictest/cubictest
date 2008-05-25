@@ -1,0 +1,405 @@
+<test>
+  <startPoint class="extensionStartPoint">
+    <sourceExtensionPointPageId>page129011931162367112723</sourceExtensionPointPageId>
+    <sourceExtensionPointName>Welcome Extension Point</sourceExtensionPointName>
+    <filePath>tests/frontpage.aat</filePath>
+    <parameterIndex>-1</parameterIndex>
+    <outTransitions>
+      <extensionTransition>
+        <id>page129011931162367112723</id>
+        <start class="extensionStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Page admin</value>
+                  <probability>100</probability>
+                  <type>LABEL</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator>EQUAL</moderator>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>HREF</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>TITLE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>CLASS</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status>PASS</status>
+            </link>
+          </elements>
+          <name>CubicShop</name>
+          <description></description>
+          <inTransition class="extensionTransition" reference="../.."/>
+          <outTransitions>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <frame>
+                    <elements>
+                      <link>
+                        <description></description>
+                        <identifiers>
+                          <identifier>
+                            <value>Show page history</value>
+                            <probability>100</probability>
+                            <type reference="../../../../../../../../../../elements/link/identifiers/identifier/type"/>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                          <identifier>
+                            <value></value>
+                            <probability>0</probability>
+                            <type reference="../../../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                          <identifier>
+                            <value></value>
+                            <probability>0</probability>
+                            <type reference="../../../../../../../../../../elements/link/identifiers/identifier[3]/type"/>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                          <identifier>
+                            <value></value>
+                            <probability>0</probability>
+                            <type reference="../../../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                          <identifier>
+                            <value></value>
+                            <probability>0</probability>
+                            <type reference="../../../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                        </identifiers>
+                        <directEditIdentifier reference="../identifiers/identifier"/>
+                        <not>false</not>
+                        <status>UNKNOWN</status>
+                      </link>
+                      <frame>
+                        <elements>
+                          <link>
+                            <description></description>
+                            <identifiers>
+                              <identifier>
+                                <value>Show page history</value>
+                                <probability>100</probability>
+                                <type reference="../../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                              </identifier>
+                              <identifier>
+                                <value></value>
+                                <probability>0</probability>
+                                <type reference="../../../../../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                              </identifier>
+                              <identifier>
+                                <value></value>
+                                <probability>0</probability>
+                                <type reference="../../../../../../../../../../../../elements/link/identifiers/identifier[3]/type"/>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                              </identifier>
+                              <identifier>
+                                <value></value>
+                                <probability>0</probability>
+                                <type reference="../../../../../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                              </identifier>
+                              <identifier>
+                                <value></value>
+                                <probability>0</probability>
+                                <type reference="../../../../../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                              </identifier>
+                            </identifiers>
+                            <directEditIdentifier reference="../identifiers/identifier"/>
+                            <not>false</not>
+                            <status reference="../../../../link/status"/>
+                          </link>
+                        </elements>
+                        <description></description>
+                        <identifiers>
+                          <identifier>
+                            <value>Admin frame</value>
+                            <probability>0</probability>
+                            <type>NAME</type>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                          <identifier>
+                            <value></value>
+                            <probability>0</probability>
+                            <type reference="../../../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                          <identifier>
+                            <value>iframe</value>
+                            <probability>100</probability>
+                            <type>FRAME_TYPE</type>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                          <identifier>
+                            <value>dfsd</value>
+                            <probability>0</probability>
+                            <type>SRC</type>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                          <identifier>
+                            <value></value>
+                            <probability>0</probability>
+                            <type>INDEX</type>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                          <identifier>
+                            <value></value>
+                            <probability>0</probability>
+                            <type reference="../../../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                        </identifiers>
+                        <directEditIdentifier reference="../identifiers/identifier[3]"/>
+                        <not>true</not>
+                        <status reference="../../link/status"/>
+                      </frame>
+                    </elements>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Admin frame</value>
+                        <probability>0</probability>
+                        <type reference="../../../elements/frame/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value>frame</value>
+                        <probability>100</probability>
+                        <type reference="../../../elements/frame/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value>dfsd</value>
+                        <probability>0</probability>
+                        <type reference="../../../elements/frame/identifiers/identifier[4]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../elements/frame/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier[3]"/>
+                    <not>false</not>
+                    <status reference="../elements/link/status"/>
+                  </frame>
+                </elements>
+                <name>CubicShop</name>
+                <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions/>
+                <id>page322297391211709506194</id>
+                <position>
+                  <x>170</x>
+                  <y>283</y>
+                </position>
+                <dimension>
+                  <width>150</width>
+                  <height>146</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userInteractionsTransition>
+          </outTransitions>
+          <id>page122727451211709490407</id>
+          <position>
+            <x>170</x>
+            <y>100</y>
+          </position>
+          <dimension>
+            <width>150</width>
+            <height>95</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </extensionTransition>
+    </outTransitions>
+    <id>extensionstartpoint258253791211710888209</id>
+    <position>
+      <x>4</x>
+      <y>4</y>
+    </position>
+    <name></name>
+    <status reference="../outTransitions/extensionTransition/end/elements/link/status"/>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page75933661211709490407</id>
+      <position>
+        <x>0</x>
+        <y>400</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+    </page>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page333587631211709576224</id>
+      <position>
+        <x>0</x>
+        <y>700</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page26838471211711869536</id>
+      <position>
+        <x>0</x>
+        <y>1000</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+  </pages>
+  <subTests/>
+  <transitions>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
+  <name>Frames</name>
+  <description></description>
+  <id>test1211709490404</id>
+  <modelVersion>9</modelVersion>
+  <status>WARN</status>
+</test>
