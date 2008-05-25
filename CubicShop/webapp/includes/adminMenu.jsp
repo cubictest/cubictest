@@ -17,7 +17,7 @@
 			<p><a href="#">Show page history</a></p>
 			
 			<br/>
-			<p><a target="_top" href="/cubicshop/index.jsp">Exit admin</a></p>
+			<p><a target="_parent" href="/cubicshop/index.jsp">Exit admin</a></p>
 		</div>
 
 	</body>
