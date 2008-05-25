@@ -400,6 +400,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	
 	private void setProbability(int newProbability){
 		value.setEnabled(true);
+		frameType.setEnabled(true);
 		moderator.setEnabled(true);
 		booleanLabel.setEnabled(true);
 		
@@ -416,6 +417,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		} else if(newProbability == 0) {
 			probability.select(probability.indexOf(INDIFFERENT));
 			moderator.setEnabled(false);
+			frameType.setEnabled(false);
 			probability.setBackground(new Color(null, 255, 255, 255));
 		}
 		else if(newProbability > -34) {
