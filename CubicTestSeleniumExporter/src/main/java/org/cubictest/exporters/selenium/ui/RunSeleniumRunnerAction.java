@@ -56,32 +56,35 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 		TestRunner runner = null;
 		Shell shell = SeleniumExporterPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 
-		BrowserType browserType = getSeleniumBrowserType(settings);
-		
+		//init wizard with last used browser type:
+		BrowserType browserType = getSeleniumBrowserType(settings); 
 		SeleniumRunnerWizard wizard = new SeleniumRunnerWizard(browserType);
 		WizardDialog wizDialog = new WizardDialog(shell, wizard);
 		
-		boolean ask = !usePreCreatedSeleniumInstance();
+		boolean rememberBrowser = false;
 		try {
 			String remember = SeleniumExporterPlugin.getDefault().getDialogSettings().get(SELENIUM_RUNNER_REMEMBER_SETTINGS);
 			if ("true".equals(remember)) {
-				ask = false;
+				rememberBrowser = true;
 			}
 		}
 		catch (Exception ignore) {
 		}
 
-		int returnCode = WizardDialog.OK;
-		if (ask) {
-			returnCode = wizDialog.open();
+		int wizReturnCode = WizardDialog.OK;
+		if (!rememberBrowser && !usePreCreatedSeleniumInstance()) {
+			wizReturnCode = wizDialog.open();
 		}
 		
-		if(returnCode != WizardDialog.CANCEL){
-			if (ask) {
-				browserType = wizard.getBrowserType();
+		if(wizReturnCode != WizardDialog.CANCEL){
+			if (usePreCreatedSeleniumInstance()) {
+				browserType = BrowserType.FIREFOX; //assuming recorder..
+			}
+			else if (rememberBrowser) {
+				browserType = getSeleniumBrowserType(settings);
 			}
 			else {
-				browserType = BrowserType.FIREFOX; //recorder
+				browserType = wizard.getBrowserType();
 			}
 			runner = new TestRunner(test, display, settings, browserType);
 			if (usePreCreatedSeleniumInstance()) {
