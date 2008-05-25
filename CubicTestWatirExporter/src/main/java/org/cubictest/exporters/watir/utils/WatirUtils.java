@@ -48,6 +48,7 @@ import org.cubictest.model.Moderator;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.UserInteraction;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
@@ -122,6 +123,8 @@ public class WatirUtils {
 			return "image";
 		if (pe instanceof Text)
 			return "text";
+		if (pe instanceof Frame)
+			return "frame";
 		if (pe instanceof SimpleContext) {
 			SimpleContext ctx = (SimpleContext) pe;
 			String elementName = ctx.getIdentifier(IdentifierType.ELEMENT_NAME).getValue().toLowerCase();
