@@ -90,12 +90,12 @@ public abstract class ContextHolder implements IResultHolder {
 	 * Recursive private utility method. Gets "smart context" for a page element.
 	 * Asserts all sibling elements in context present.
 	 * Recurses into parent contexts.
-	 * @param pageElement Current page element to get XPath for.
+	 * @param currentElement Current page element to get XPath for.
 	 * @param orgElement The original element for the query.
 	 */
-	private String getSmartContext(PageElement pageElement, PageElement orgElement) {
+	private String getSmartContext(PageElement currentElement, PageElement orgElement) {
 		String res = "";
-		if (pageElement == null || (pageElement instanceof Frame && !orgElement.equals(pageElement))) {
+		if (currentElement == null || (currentElement instanceof Frame && !orgElement.equals(currentElement))) {
 			return "";
 		}
 		
@@ -104,17 +104,18 @@ public abstract class ContextHolder implements IResultHolder {
 			axis = "//";
 		}
 		
-		res += axis + XPathBuilder.getXPathForSingleElement(pageElement, useNamespace);
+		res += axis + XPathBuilder.getXPathForSingleElement(currentElement, useNamespace);
 		
-		if (pageElement instanceof IContext && !(pageElement instanceof Frame) 
-				&& ((IContext) pageElement).getRootElements().size() > 1) {
-			String assertion = getSiblingElementsXPathAssertion(orgElement, (IContext) pageElement);
+		if (currentElement instanceof IContext && !(currentElement instanceof Frame) 
+				&& ((IContext) currentElement).getRootElements().size() > 1) {
+			String assertion = getSiblingElementsXPathAssertion(orgElement, (IContext) currentElement);
 			if (StringUtils.isNotBlank(assertion)) {
 				res += "[" + assertion + "]";
 			}
 		}
 		
-		PageElement parent = elementParentMap.get(pageElement);
+		//recurse into parent contexts, appending them to beginning of XPath:
+		PageElement parent = elementParentMap.get(currentElement);
 		return getSmartContext(parent, orgElement) + res;
 	}
 	
