@@ -62,11 +62,6 @@ public abstract class RunnerResultHolder extends ContextHolder {
 			}
 		}
 		addResult(element, result);
-
-		if (result.equals(TestPartStatus.FAIL)) {
-			handleAssertionFailure(element);
-		}
-		
 	}
 
 	protected void handleAssertionFailure(PageElement element) {

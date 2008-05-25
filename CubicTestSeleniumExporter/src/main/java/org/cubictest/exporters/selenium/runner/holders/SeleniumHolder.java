@@ -68,22 +68,23 @@ public class SeleniumHolder extends RunnerResultHolder {
 
 	@Override
 	protected void handleAssertionFailure(PageElement element) {
-		
-		try{
-			String bodyText = selenium.execute("getHtmlSource")[0];
-			SeleniumUtils.writeTextToFile(workingDirName, element.getText(), bodyText);
-		}
-		catch (Exception e) {
-			Logger.warn("Unable to capture HTML of failing test", e);
-		}
-
-		try {
-			selenium.execute("windowFocus");
-			selenium.execute("captureScreenshot",workingDirName + File.separator + element.getText() + "_" + System.currentTimeMillis() + ".png");
-			//SeleniumUtils.takeAScreenShotOfTheApp(workingDirName,element.getText());
-		}
-		catch (Exception e) {
-			Logger.warn("Unable to capture screenshot of failing test", e);
+		if (workingDirName != null) {
+			try{
+				String bodyText = selenium.execute("getHtmlSource")[0];
+				SeleniumUtils.writeTextToFile(workingDirName, element.getText(), bodyText);
+			}
+			catch (Exception e) {
+				Logger.warn("Unable to capture HTML of failing test", e);
+			}
+			
+			try {
+				selenium.execute("windowFocus");
+				selenium.execute("captureScreenshot",workingDirName + File.separator + element.getText() + "_" + System.currentTimeMillis() + ".png");
+				//SeleniumUtils.takeAScreenShotOfTheApp(workingDirName,element.getText());
+			}
+			catch (Exception e) {
+				Logger.warn("Unable to capture screenshot of failing test", e);
+			}
 		}
 
 		super.handleAssertionFailure(element);
