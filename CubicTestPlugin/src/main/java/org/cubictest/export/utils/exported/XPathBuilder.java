@@ -51,8 +51,8 @@ public class XPathBuilder {
 	
 	public static final String TEXTFIELD_ATTRIBUTES = "[@type='text' or not(@type)]";
 
-	public static String getXPath(IActionElement element) {
-		return getXPath(element, false);
+	public static String getXPathForSingleElement(IActionElement element) {
+		return getXPathForSingleElement(element, false);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class XPathBuilder {
 	 * @param useNamespace 
 	 * @return
 	 */
-	public static String getXPath(IActionElement element, boolean useNamespace) {
+	public static String getXPathForSingleElement(IActionElement element, boolean useNamespace) {
 		PageElement pe = (PageElement) element;
 		PredicateSeperator predicateSeperator = new PredicateSeperator();
 

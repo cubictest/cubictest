@@ -78,14 +78,18 @@ public abstract class ContextHolder implements IResultHolder {
 	}
 	
 	/**
-	 * Gets "smart context": Asserts all elements in context present.
+	 * Gets "smart context" assertion for a page element. 
+	 * Asserts all sibling elements in context present, and recurses into parent contexts to
+	 * give a precise XPath to identify the element.
 	 */
 	public String getFullContextWithAllElements(PageElement pageElement) {
 		return getSmartContext(pageElement, pageElement);
 	}
 	
 	/**
-	 * Recursive private utility method. Gets "smart context": Asserts all or previous elements in context present.
+	 * Recursive private utility method. Gets "smart context" for a page element.
+	 * Asserts all sibling elements in context present.
+	 * Recurses into parent contexts.
 	 * @param pageElement Current page element to get XPath for.
 	 * @param orgElement The original element for the query.
 	 */
@@ -100,11 +104,11 @@ public abstract class ContextHolder implements IResultHolder {
 			axis = "//";
 		}
 		
-		res += axis + XPathBuilder.getXPath(pageElement,useNamespace);
+		res += axis + XPathBuilder.getXPathForSingleElement(pageElement, useNamespace);
 		
 		if (pageElement instanceof IContext && !(pageElement instanceof Frame) 
 				&& ((IContext) pageElement).getRootElements().size() > 1) {
-			String assertion = getElementsInContextXPath((IContext) pageElement, orgElement);
+			String assertion = getSiblingElementsXPathAssertion(orgElement, (IContext) pageElement);
 			if (StringUtils.isNotBlank(assertion)) {
 				res += "[" + assertion + "]";
 			}
@@ -116,7 +120,7 @@ public abstract class ContextHolder implements IResultHolder {
 	
 
 
-	private String getElementsInContextXPath(IContext context, PageElement orgElement) {
+	private String getSiblingElementsXPathAssertion(PageElement orgElement, IContext context) {
 		String res = "";
 		int i = 0;
 		for (PageElement pe : context.getRootElements()) {
@@ -129,7 +133,7 @@ public abstract class ContextHolder implements IResultHolder {
 			if (i > 0) {
 				res += "][";
 			}
-			res += ".//" + XPathBuilder.getXPath(pe, useNamespace);
+			res += ".//" + XPathBuilder.getXPathForSingleElement(pe, useNamespace);
 			i++;
 		}
 		return res;
