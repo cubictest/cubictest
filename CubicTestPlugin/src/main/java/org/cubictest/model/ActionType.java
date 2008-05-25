@@ -41,7 +41,7 @@ public enum ActionType {
 	REFRESH("Refresh", "Refreshes the browser", false),
 	ENTER_PARAMETER_TEXT("Enter parameter text", "Enter a text from the parameter field specified", true),
 	SELECT("Select", "Select this element", false),
-	SWITCH_BY_NAME("Switch by name", "Switch to a another window by using its name", true),
+	SWITCH_WINDOW_BY_NAME("Switch by name", "Switch to a another window by using its name", true),
 //	SWITCH_BY_TITLE("Switch by Title", "", true),
 //	SWITCH_BY_URL("Switch by URL", "", true),
 	CLOSE("Close Window", "Closes the window", false);

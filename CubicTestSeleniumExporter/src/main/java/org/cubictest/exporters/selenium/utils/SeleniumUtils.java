@@ -108,7 +108,7 @@ public class SeleniumUtils {
 			return "reresh";
 		case CLOSE:
 			return "close";
-		case SWITCH_BY_NAME:
+		case SWITCH_WINDOW_BY_NAME:
 			return "selectWindow";
 		case DRAG_DROP:
 			return "dragdrop";
