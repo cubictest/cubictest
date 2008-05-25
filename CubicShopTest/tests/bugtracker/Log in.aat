@@ -1,0 +1,334 @@
+<test>
+  <startPoint class="extensionStartPoint">
+    <sourceExtensionPointPageId>page275187331211270563318</sourceExtensionPointPageId>
+    <sourceExtensionPointName>Forside Extension Point</sourceExtensionPointName>
+    <filePath>tests/bugtracker/Frontpage.aat</filePath>
+    <parameterIndex>-1</parameterIndex>
+    <outTransitions>
+      <extensionTransition>
+        <id>page275187331211270563318</id>
+        <start class="extensionStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <textField>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>LABEL</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator>EQUAL</moderator>
+                </identifier>
+                <identifier>
+                  <value>username</value>
+                  <probability>100</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>username</value>
+                  <probability>0</probability>
+                  <type>NAME</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>VALUE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>TITLE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier[2]"/>
+              <not>false</not>
+              <status>UNKNOWN</status>
+            </textField>
+            <password>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../textField/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>password</value>
+                  <probability>100</probability>
+                  <type reference="../../../../textField/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>password</value>
+                  <probability>0</probability>
+                  <type reference="../../../../textField/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../textField/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../textField/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier[2]"/>
+              <not>false</not>
+              <status reference="../../textField/status"/>
+            </password>
+            <button>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Login</value>
+                  <probability>100</probability>
+                  <type reference="../../../../textField/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>login</value>
+                  <probability>0</probability>
+                  <type reference="../../../../textField/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../textField/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../textField/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>CLASS</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>SRC</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ALT</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status reference="../../textField/status"/>
+            </button>
+          </elements>
+          <name>First Page</name>
+          <description></description>
+          <inTransition class="extensionTransition" reference="../.."/>
+          <outTransitions>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="textField" reference="../../../../../elements/textField"/>
+                  <input>christians</input>
+                  <action>ENTER_TEXT</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+                <userInteraction>
+                  <element class="password" reference="../../../../../elements/password"/>
+                  <input>qweqwe</input>
+                  <action reference="../../userInteraction/action"/>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+                <userInteraction>
+                  <element class="button" reference="../../../../../elements/button"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Welcome: Christian Schwarz</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/textField/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status reference="../../../../../../elements/textField/status"/>
+                  </text>
+                </elements>
+                <name>Logged in</name>
+                <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="page" reference="../../.."/>
+                    <end class="extensionPoint">
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>extensionpoint49971221211271131137</id>
+                      <position>
+                        <x>337</x>
+                        <y>308</y>
+                      </position>
+                      <name>Logged in Extension Point</name>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>page219719131211271106063</id>
+                <position>
+                  <x>67</x>
+                  <y>287</y>
+                </position>
+                <dimension>
+                  <width>206</width>
+                  <height>46</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userInteractionsTransition>
+          </outTransitions>
+          <id>page157277641211271066908</id>
+          <position>
+            <x>113</x>
+            <y>100</y>
+          </position>
+          <dimension>
+            <width>115</width>
+            <height>88</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </extensionTransition>
+    </outTransitions>
+    <id>extensionstartpoint282777351211271066908</id>
+    <position>
+      <x>4</x>
+      <y>4</y>
+    </position>
+    <name></name>
+    <status reference="../outTransitions/extensionTransition/end/elements/textField/status"/>
+  </startPoint>
+  <extensionPoints>
+    <extensionPoint reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end"/>
+  </extensionPoints>
+  <pages>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page324853431211271066908</id>
+      <position>
+        <x>0</x>
+        <y>400</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+    </page>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page2946831211271131142</id>
+      <position>
+        <x>0</x>
+        <y>700</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+  </pages>
+  <subTests/>
+  <transitions>
+    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <name>Log in</name>
+  <description></description>
+  <id>test1211271066908</id>
+  <modelVersion>9</modelVersion>
+  <status>PASS</status>
+</test>

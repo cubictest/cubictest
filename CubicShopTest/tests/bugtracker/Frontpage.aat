@@ -1,0 +1,536 @@
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>http://localhost:8080/bugtracker/bugzooky/BugList.jsp</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <text>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>CubicShop Bug Tracker</value>
+                  <probability>100</probability>
+                  <type>LABEL</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator>EQUAL</moderator>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status>UNKNOWN</status>
+            </text>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Bug List</value>
+                  <probability>100</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>HREF</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>TITLE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>CLASS</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status reference="../../text/status"/>
+            </link>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Add Bug</value>
+                  <probability>100</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>http://localhost:8080/bugtracker/bugzooky/AddEditBug.jsp</value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status reference="../../text/status"/>
+            </link>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Bulk Add</value>
+                  <probability>100</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>http://localhost:8080/bugtracker/bugzooky/BulkAddEditBugs.jsp</value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status reference="../../text/status"/>
+            </link>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Administer</value>
+                  <probability>100</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>http://localhost:8080/bugtracker/bugzooky/AdministerBugzooky.jsp</value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status reference="../../text/status"/>
+            </link>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Register user</value>
+                  <probability>100</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>http://localhost:8080/bugtracker/bugzooky/Register.jsp</value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status reference="../../text/status"/>
+            </link>
+            <textField>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>username</value>
+                  <probability>100</probability>
+                  <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>username</value>
+                  <probability>0</probability>
+                  <type>NAME</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>VALUE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier[2]"/>
+              <not>false</not>
+              <status reference="../../text/status"/>
+            </textField>
+            <password>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>password</value>
+                  <probability>100</probability>
+                  <type reference="../../../../textField/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../textField/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier[3]"/>
+              <not>false</not>
+              <status reference="../../text/status"/>
+            </password>
+            <button>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Login</value>
+                  <probability>100</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>login</value>
+                  <probability>0</probability>
+                  <type reference="../../../../textField/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../link/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>SRC</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ALT</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status reference="../../text/status"/>
+            </button>
+          </elements>
+          <name>Forside</name>
+          <description></description>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <simpleTransition>
+              <start class="page" reference="../../.."/>
+              <end class="extensionPoint">
+                <inTransition class="simpleTransition" reference="../.."/>
+                <outTransitions/>
+                <id>extensionpoint147981851211270853328</id>
+                <position>
+                  <x>331</x>
+                  <y>215</y>
+                </position>
+                <name>Bugzooky - Login Extension Point</name>
+              </end>
+            </simpleTransition>
+          </outTransitions>
+          <id>page275187331211270563318</id>
+          <position>
+            <x>82</x>
+            <y>100</y>
+          </position>
+          <dimension>
+            <width>177</width>
+            <height>214</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>urlstartpoint266126411211270563318</id>
+    <position>
+      <x>4</x>
+      <y>4</y>
+    </position>
+    <name>URL</name>
+  </startPoint>
+  <extensionPoints>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+  </extensionPoints>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page316446591211270563318</id>
+      <position>
+        <x>0</x>
+        <y>400</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page285924931211270853338</id>
+      <position>
+        <x>0</x>
+        <y>700</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page161229611211725632499</id>
+      <position>
+        <x>0</x>
+        <y>1000</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+  </pages>
+  <subTests/>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
+  <name>Frontpage</name>
+  <description></description>
+  <id>test1211270563318</id>
+  <modelVersion>9</modelVersion>
+  <status>PASS</status>
+</test>
