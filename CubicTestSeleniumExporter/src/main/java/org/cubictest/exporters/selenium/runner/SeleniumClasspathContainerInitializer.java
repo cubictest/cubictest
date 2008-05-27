@@ -22,7 +22,7 @@ import org.eclipse.jdt.core.JavaCore;
 public class SeleniumClasspathContainerInitializer extends
 		ClasspathContainerInitializer {
 
-	private static final String CUBICTEST_SELENIUM = "CUBICTEST_SELENIUM";
+	public static final String CUBICTEST_SELENIUM = "CUBICTEST_SELENIUM";
 
 	@Override
 	public void initialize(IPath containerPath, IJavaProject project)
