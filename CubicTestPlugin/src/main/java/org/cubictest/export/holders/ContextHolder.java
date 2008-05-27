@@ -208,10 +208,6 @@ public abstract class ContextHolder implements IResultHolder {
 		return getParentFrame(parent);
 	}
 	
-	public boolean isInAFrame(PageElement pe) {
-		return getParentFrame(pe) != null;
-	}
-	
 	public void setUseNamespace(boolean useNamespace) {
 		this.useNamespace = useNamespace;
 	}
