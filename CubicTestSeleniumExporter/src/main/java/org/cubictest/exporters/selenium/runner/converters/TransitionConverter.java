@@ -103,6 +103,12 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 		ActionType actionType = userInteraction.getActionType();
 		boolean withinFrame = false;
 		if(element instanceof PageElement && seleniumHolder.isPageElementWithinFrame((PageElement)element)){
+			//check if parent frame was found:
+			if (TestPartStatus.FAIL == seleniumHolder.getParentFrame((PageElement)element).getStatus()) {
+				ErrorHandler.logAndShowErrorDialogAndThrow("Cannot interact with element " + element + ":\n" + 
+						"Parent frame " + seleniumHolder.getParentFrame((PageElement)element) + 
+						" not found.");
+			}
 			withinFrame = true;
 			getToRightFrame(seleniumHolder, seleniumHolder.getParentFrame((PageElement) element));
 		}
