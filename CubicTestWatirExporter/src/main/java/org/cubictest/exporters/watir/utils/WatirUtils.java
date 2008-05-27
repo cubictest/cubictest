@@ -98,6 +98,16 @@ public class WatirUtils {
 		}
 	}
 	
+	/**
+	 * Get the method to assert element type present.
+	 */
+	public static String getPresentAssertionMethod(PageElement pe) {
+		//TODO: Not a complete list
+		if (pe instanceof Frame)
+			return "methods.member?(\"display\")";
+		else
+			return "exists?";
+	}
 	
 	/**
 	 * Get the Watir element type corresponding to the page element.

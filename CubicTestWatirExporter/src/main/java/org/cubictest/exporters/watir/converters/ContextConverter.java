@@ -14,9 +14,11 @@ import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
 import org.cubictest.exporters.watir.converters.delegates.ContextAsserter;
+import org.cubictest.exporters.watir.converters.delegates.PageElementAsserterPlain;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
 
@@ -45,7 +47,12 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 		watirHolder.add("# asserting " + context.toString() + " present", 2);
 		watirHolder.add("begin", 2);
 		
-		ContextAsserter.handle(watirHolder, pe);
+		if (pe instanceof Frame) {
+			PageElementAsserterPlain.handle(watirHolder, pe);
+		}
+		else {
+			ContextAsserter.handle(watirHolder, pe);
+		}
 
 		PageElement element = (PageElement) ctx;
 		watirHolder.add("puts \"" + WatirHolder.PASS + watirHolder.getId(element) + "\"", 3);

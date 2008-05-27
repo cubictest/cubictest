@@ -121,10 +121,16 @@ public class PageElementAsserterPlain {
 					}
 				}
 				//save variable
-				watirHolder.add(watirHolder.getVariableName(pe) + " = ie." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idValue + ")", 3);
+				String prefix = "ie";
+				if (watirHolder.isInAFrame(pe)) {
+					//set prefix to frame
+					prefix = watirHolder.getVariableName(watirHolder.getParentFrame(pe));
+				}
+
+				watirHolder.add(watirHolder.getVariableName(pe) + " = " + prefix + "." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idValue + ")", 3);
 				
 				//assert present
-				watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".exists? do", 3);
+				watirHolder.add("while " + not + watirHolder.getVariableName(pe) + "." + WatirUtils.getPresentAssertionMethod(pe) + " do", 3);
 			}
 			watirHolder.add("if (pass > 20)", 4);
 			watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 5);
