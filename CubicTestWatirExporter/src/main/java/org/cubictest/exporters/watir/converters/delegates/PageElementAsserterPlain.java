@@ -122,7 +122,7 @@ public class PageElementAsserterPlain {
 				}
 				//save variable
 				String prefix = "ie";
-				if (watirHolder.isInAFrame(pe)) {
+				if (watirHolder.isPageElementWithinFrame(pe)) {
 					//set prefix to frame
 					prefix = watirHolder.getVariableName(watirHolder.getParentFrame(pe));
 				}
