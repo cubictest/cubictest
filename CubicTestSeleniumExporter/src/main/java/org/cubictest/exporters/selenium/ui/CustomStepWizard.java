@@ -28,7 +28,9 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.wizards.NewClassWizardPage;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
 public class CustomStepWizard extends Wizard {
@@ -72,14 +74,17 @@ public class CustomStepWizard extends Wizard {
 			try {
 				IJavaProject javaProject = JavaCore.create(project);
 				if (javaProject.findType(TEST_SUPERCLASS_NAME) == null) {
-					IClasspathEntry newEntry = JavaCore.newContainerEntry(
-							new Path(SeleniumClasspathContainerInitializer.CUBICTEST_SELENIUM));
-					
-					String id= BUILD_PATH_PAGE_ID;
-					Map<String,Object> input= new HashMap<String,Object>();
-					input.put("add_classpath_entry", newEntry);
-					input.put("block_until_buildpath_applied", Boolean.TRUE);
-					PreferencesUtil.createPropertyDialogOn(getShell(), javaProject, id, new String[] { id }, input).open();
+					if(MessageDialog.openQuestion(new Shell(), "Add CubicTest Selenium to classpath", 
+							"Would you like to add CubicTest and Selenium libraries to the classpath?")){
+						IClasspathEntry newEntry = JavaCore.newContainerEntry(
+								new Path(SeleniumClasspathContainerInitializer.CUBICTEST_SELENIUM));
+						
+						String id= BUILD_PATH_PAGE_ID;
+						Map<String,Object> input= new HashMap<String,Object>();
+						input.put("add_classpath_entry", newEntry);
+						input.put("block_until_buildpath_applied", Boolean.TRUE);
+						PreferencesUtil.createPropertyDialogOn(getShell(), javaProject, id, new String[] { id }, input).open();
+					}
 				}
 				IProgressMonitor monitor = new NullProgressMonitor();
 				classWizard.createType(monitor);
