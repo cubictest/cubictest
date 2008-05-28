@@ -30,7 +30,8 @@ public class SeleniumClasspathContainerInitializer extends
 		
 		final IPath libPath = JavaCore.getClasspathVariable(CUBICTEST_SELENIUM);
 		final IClasspathEntry seleniumClientEntry = JavaCore.newLibraryEntry(
-				libPath.append("/lib/selenium-java-client-driver.jar"), null,null);
+				libPath.append("/lib/selenium-java-client-driver.jar"),
+				libPath.append("/lib/selenium-java-client-driver-sources.jar"),null);
 		final IClasspathEntry cubicTestSeleniumEntry = JavaCore.newLibraryEntry(
 				libPath.append("/lib/CubicTestSelenium.jar"), null,null);
 		JavaCore.setClasspathContainer(
