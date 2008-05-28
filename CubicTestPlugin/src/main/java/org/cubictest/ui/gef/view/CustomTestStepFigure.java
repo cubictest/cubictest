@@ -27,7 +27,9 @@ public class CustomTestStepFigure extends AbstractTransitionNodeFigure {
 	
 
 	public CustomTestStepFigure(String name){
- 		label = new CubicTestHeaderLabel(name, this, false);
+ 		label = new CubicTestLabel(name);
+ 		label.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.CUSTOM_STEP_IMAGE));
+
 		label.setTextPlacement(PositionConstants.MIDDLE);
 		add(label);
 		FlowLayout manager = ViewUtil.getFlowLayout();
