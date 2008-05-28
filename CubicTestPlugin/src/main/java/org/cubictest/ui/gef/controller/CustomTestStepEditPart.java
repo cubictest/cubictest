@@ -103,7 +103,7 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart {
 			final IFile file = ((CustomTestStepHolder)getModel()).getFile();
 			if (!file.exists() || !(file instanceof IFile)) {
 				MessageDialog.openError(new Shell(), UiText.APP_TITLE, 
-						"Container \"" + ((CustomTestStepHolder)getModel()).getFilePath() + "\" does not exist.");
+						"Container \"" + ((CustomTestStepHolder)getModel()).getFilePath() + "\" does not exist in this project.");
 				return;
 			}
 
