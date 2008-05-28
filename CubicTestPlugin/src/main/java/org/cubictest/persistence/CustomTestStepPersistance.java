@@ -27,7 +27,8 @@ public class CustomTestStepPersistance {
 	public static CustomTestStep loadFromFile(IFile file) {
 		String xml = "";
 		try {
-			xml = FileUtils.readFileToString(file.getLocation().toFile(), "ISO-8859-1");
+			String charset = TestPersistance.getCharset(file.getLocation().toFile());
+			xml = FileUtils.readFileToString(file.getLocation().toFile(), charset);
 		} catch (FileNotFoundException e) {
 			Logger.error("Error loading test.", e);
 			throw new TestNotFoundException(e.getMessage());
@@ -48,8 +49,11 @@ public class CustomTestStepPersistance {
 	public static void saveToFile(CustomTestStep customStep, IFile file) {
 		String xml = new CubicTestXStream().toXML(customStep);
 		try {
+			String charset = TestPersistance.getCharset(file.getLocation().toFile());
+			String charsetHeader = TestPersistance.getCharsetHeader(charset);
+			xml = charsetHeader + "\n" + xml;
 			FileUtils.writeStringToFile(file.getLocation().toFile(),
-					xml, "ISO-8859-1");
+					xml, charset);
 		} catch (IOException e) {
 			ErrorHandler.logAndRethrow(e);
 		}

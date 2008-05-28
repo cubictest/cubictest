@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.CharEncoding;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.exception.TestNotFoundException;
 import org.cubictest.common.utils.ErrorHandler;
@@ -22,6 +23,8 @@ import org.cubictest.common.utils.Logger;
 import org.cubictest.model.Test;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
@@ -57,13 +60,21 @@ public class TestPersistance {
 	public static void saveToFile(Test test, File file) {
 		String xml = new CubicTestXStream().toXML(test);
 		try {
-			FileUtils.writeStringToFile(file, xml, "ISO-8859-1");
+			String charset = getCharset(file);
+			String charsetHeader = getCharsetHeader(charset);
+			xml = charsetHeader + "\n" + xml;
+			FileUtils.writeStringToFile(file, xml, charset);
 		} catch (IOException e) {
 			ErrorHandler.logAndRethrow(e);
 		}
 	}
 
 	
+	public static String getCharsetHeader(String charset) {
+		return "<?xml version=\"1.0\" encoding=\"" + charset + "\"?>";
+	}
+
+
 	/**
 	 * Reads a test from File, upgrading legacy tests if necessary.
 	 * 
@@ -73,7 +84,8 @@ public class TestPersistance {
 	public static Test loadFromFile(File file, IProject project) {
 		String xml = "";
 		try {
-			xml = FileUtils.readFileToString(file, "ISO-8859-1");
+			String charset = getCharset(file);
+			xml = FileUtils.readFileToString(file, charset);
 			xml = LegacyUpgrade.upgradeIfNecessary(xml, project);
 		} catch (FileNotFoundException e) {
 			Logger.error("Test file not found.", e);
@@ -97,8 +109,40 @@ public class TestPersistance {
 	}
 
 	
+	public static String getCharset(File file) {
+		String charset = null;
+		try{
+			Path location = new Path(file.getAbsolutePath());
+			
+			try {
+				charset = ResourcesPlugin.getWorkspace().getRoot().
+					getFileForLocation(location).getCharset(true);
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+			if(charset == null)
+				charset = ResourcesPlugin.getEncoding();
+		}catch(Exception e){
+			try{
+				String test = FileUtils.readFileToString(file);
+				if(test.startsWith("<?xml")){
+					int start = test.indexOf("encoding=\"") + 10;
+					int end = test.indexOf("\"?>",start);
+					String encoding = test.substring(start, end);
+					if(CharEncoding.isSupported(encoding))
+						return encoding;
+				}
+			}catch(IOException e2){
+			}
+		}
+		if(charset == null)
+			charset = "ISO-8859-1";
+		return charset;
+	}
+
+
 	/**
-	 * Reads a test from IFile.
+	 * Reads a test from IFile. 
 	 * 
 	 * @param file The file containing the test.
 	 * @return The test.

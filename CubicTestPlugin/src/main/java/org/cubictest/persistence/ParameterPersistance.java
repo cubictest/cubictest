@@ -39,7 +39,10 @@ public class ParameterPersistance {
 	public static void saveToFile(ParameterList paramList, File file) {
 		String xml = new CubicTestXStream().toXML(paramList);
 		try {
-			FileUtils.writeStringToFile(file, xml, "ISO-8859-1");
+			String charset = TestPersistance.getCharset(file);
+			String charsetHeader = TestPersistance.getCharsetHeader(charset);
+			xml = charsetHeader + "\n" + xml;
+			FileUtils.writeStringToFile(file, xml, charset);
 		} catch (IOException e) {
 			ErrorHandler.logAndRethrow(e);
 		}
@@ -54,7 +57,8 @@ public class ParameterPersistance {
 	public static ParameterList loadFromFile(IFile iFile) {
 		String xml = "";
 		try {
-			xml = FileUtils.readFileToString(iFile.getLocation().toFile(), "ISO-8859-1");
+			String charset = TestPersistance.getCharset(iFile.getLocation().toFile());
+			xml = FileUtils.readFileToString(iFile.getLocation().toFile(), charset);
 		} catch (IOException e) {
 			ErrorHandler.logAndRethrow(e);
 		}
