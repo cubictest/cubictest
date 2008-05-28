@@ -18,6 +18,6 @@ public interface ICustomTestStep {
 	 * @param context The purpose of the context is to send messages from one custom step to another instead of using static variables. 
 	 * @param selenium The Selenium Rich Client.
 	 */
-	public void execute(Map<String,String> arguments, IElementContext context, Selenium selenium);
+	public void execute(Map<String,String> arguments, IElementContext context, Selenium selenium) throws Exception;
 }
 
