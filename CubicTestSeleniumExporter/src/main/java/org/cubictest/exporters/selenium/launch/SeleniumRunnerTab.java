@@ -166,22 +166,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		{
 			GridLayout groupLayout = new GridLayout();
 			groupLayout.numColumns = 2;
-
-			Group group = new Group(composite, SWT.NONE);
-			group.setText("Project name: ");
-			group.setLayout(groupLayout);
-			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			projectName = new Text(group, SWT.WRAP | SWT.BORDER);
-			projectName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			projectBrowse = new Button(group, SWT.PUSH);
-			projectBrowse.setText("Browse...");
-			projectBrowse.addSelectionListener(projectBrowseListener );
-		}
-		
-		{
-			GridLayout groupLayout = new GridLayout();
-			groupLayout.numColumns = 2;
-
+			
 			Group group = new Group(composite, SWT.NONE);
 			group.setText("Test: ");
 			group.setLayout(groupLayout);
@@ -192,6 +177,22 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			testBrowse.setText("Browse...");
 			testBrowse.addSelectionListener(testBrowseListener);
 		}
+
+		{
+			GridLayout groupLayout = new GridLayout();
+			groupLayout.numColumns = 2;
+
+			Group group = new Group(composite, SWT.NONE);
+			group.setText("Project: ");
+			group.setLayout(groupLayout);
+			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			projectName = new Text(group, SWT.WRAP | SWT.BORDER);
+			projectName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			projectBrowse = new Button(group, SWT.PUSH);
+			projectBrowse.setText("Browse...");
+			projectBrowse.addSelectionListener(projectBrowseListener );
+		}
+		
 		
 		{
 			GridLayout groupLayout = new GridLayout();

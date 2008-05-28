@@ -22,6 +22,7 @@ import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
+import org.cubictest.ui.gef.view.CustomTestStepFigure;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
@@ -62,16 +63,7 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart {
 	@Override
 	protected IFigure createFigure() {
 		String name = ((CustomTestStepHolder)getModel()).getDisplayText();
-		customTestStepFigure = new AbstractTransitionNodeFigure(){
-			@Override
-			public Dimension getMinimumSize(int wHint, int hHint) {
-				Dimension d = super.getMinimumSize(wHint, hHint).getCopy();
-				d.height = 18;
-				d.width = d.width + 12; 
-				return d;
-			}
-		};
-		customTestStepFigure.setBackgroundColor(ColorConstants.cyan);
+		customTestStepFigure = new CustomTestStepFigure(name);
 		Point p = ((TransitionNode)getModel()).getPosition();
 		customTestStepFigure.setLocation(p);
 		customTestStepFigure.setText(name);

@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -108,22 +109,11 @@ public class NewParamWizard extends Wizard implements INewWizard{
 	}
 	
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		IStructuredSelection iss = (IStructuredSelection) selection;
+		if (project == null) {
+			project = WizardUtils.getProjectFromSelectedResource(selection);
+		}
 		if (defaultDestFolder == null) {
-			if (iss.getFirstElement() instanceof IResource) {
-				IResource res = (IResource) iss.getFirstElement();
-				this.defaultDestFolder = res.getFullPath().toPortableString();
-				if(project == null ){
-					project = res.getProject();
-				}
-			}
-			else if (iss.getFirstElement() instanceof IJavaProject) {
-				IJavaProject res = (IJavaProject) iss.getFirstElement();
-				this.defaultDestFolder = res.getPath().toPortableString();
-				if(project == null ){
-					project = res.getProject();
-				}
-			}
+			defaultDestFolder = WizardUtils.getPathFromSelectedResource(selection);
 		}
 	}
 	

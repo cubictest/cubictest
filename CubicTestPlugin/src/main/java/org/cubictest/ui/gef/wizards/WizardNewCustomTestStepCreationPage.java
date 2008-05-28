@@ -27,7 +27,8 @@ import org.eclipse.swt.widgets.Text;
  */
 public class WizardNewCustomTestStepCreationPage extends WizardPage {
 
-	private Text text;	
+	private Text containerText;
+	private String defaultContainerName;	
 	
 	/**
 	 * 
@@ -37,6 +38,11 @@ public class WizardNewCustomTestStepCreationPage extends WizardPage {
 		super("New Custom Test Step");
 		setPageComplete(true);
 	}
+	
+	public void setContainerName(String name){
+		this.defaultContainerName = name;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
@@ -52,11 +58,14 @@ public class WizardNewCustomTestStepCreationPage extends WizardPage {
 		Label fill = new Label(content, SWT.NULL);
 		fill.setText("Set the Custom Test Step name:");
 		
-		text = new Text(content, SWT.BORDER | SWT.SINGLE);
-		text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		text.addModifyListener(new ModifyListener() {
+		containerText = new Text(content, SWT.BORDER | SWT.SINGLE);
+		if (defaultContainerName != null) {
+			containerText.setText(defaultContainerName);
+		}
+		containerText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		containerText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent arg0) {
-				setPageComplete(text.getText() != "");
+				setPageComplete(containerText.getText() != "");
 			}
 		});
 		
@@ -64,6 +73,6 @@ public class WizardNewCustomTestStepCreationPage extends WizardPage {
 	}
 	
 	public String getText(){
-		return text.getText();
+		return containerText.getText();
 	}
 }

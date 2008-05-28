@@ -28,7 +28,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
@@ -44,16 +43,12 @@ import org.eclipse.ui.ide.IDE;
 
 public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 
-	public NewCustomTestStepWizard() {
-	}
-
-	
-
 	WizardNewCustomTestStepPage wizardNewCustomTestStepPage;
 	ISelection selection;
 	IProject project;
 	String filePath;
-
+	private String defaultDestFolder;
+	
 	
 	/**
 	 * Adding the pages to the wizard.
@@ -61,6 +56,7 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 	@Override
 	public void addPages() {
 		wizardNewCustomTestStepPage = new WizardNewCustomTestStepPage();
+		wizardNewCustomTestStepPage.setContainerName(defaultDestFolder);
 		addPage(wizardNewCustomTestStepPage);
 	}
 	/**
@@ -159,8 +155,12 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 	 * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		
-		
+		if (project == null) {
+			project = WizardUtils.getProjectFromSelectedResource(selection);
+		}
+		if (defaultDestFolder == null) {
+			defaultDestFolder = WizardUtils.getPathFromSelectedResource(selection);
+		}
 	}
 
 	protected void getWizardTitle() {

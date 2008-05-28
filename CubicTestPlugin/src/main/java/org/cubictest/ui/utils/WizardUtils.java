@@ -32,7 +32,11 @@ import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jface.viewers.IStructuredSelection;
 
 
 /**
@@ -180,6 +184,33 @@ public class WizardUtils {
 
 	public static CustomTestStep createEmptyCustomTestStep() {
 		return new CustomTestStep();
+	}
+	
+	
+	public static IProject getProjectFromSelectedResource(IStructuredSelection selection) {
+		IStructuredSelection iss = (IStructuredSelection) selection;
+		if (iss.getFirstElement() instanceof IResource) {
+			IResource res = (IResource) iss.getFirstElement();
+			return res.getProject();
+		}
+		else if (iss.getFirstElement() instanceof IJavaProject) {
+			IJavaProject res = (IJavaProject) iss.getFirstElement();
+			return res.getProject();
+		}
+		return null;
+	}
+	
+	public static String getPathFromSelectedResource(IStructuredSelection selection) {
+		IStructuredSelection iss = (IStructuredSelection) selection;
+		if (iss.getFirstElement() instanceof IResource) {
+			IResource res = (IResource) iss.getFirstElement();
+			return res.getFullPath().toPortableString();
+		}
+		else if (iss.getFirstElement() instanceof IJavaProject) {
+			IJavaProject res = (IJavaProject) iss.getFirstElement();
+			return res.getPath().toPortableString();
+		}
+		return "";
 	}
 	
 }
