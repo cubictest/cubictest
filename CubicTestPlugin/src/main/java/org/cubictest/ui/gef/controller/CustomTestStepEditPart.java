@@ -47,7 +47,7 @@ import org.eclipse.ui.ide.IDE;
  */
 public class CustomTestStepEditPart extends AbstractNodeEditPart {
 
-	private AbstractTransitionNodeFigure customTestStepFigure;
+	private CustomTestStepFigure customTestStepFigure;
 
 	/**
 	 * Constructor for <code>ExtensionPointEditPart</code>.
@@ -125,14 +125,9 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(PropertyAwareObject.STATUS.equals(evt.getPropertyName())){
-			if(TestPartStatus.PASS.equals(evt.getNewValue()))
-				getFigure().setBackgroundColor(ColorConstants.green);
-			else if(TestPartStatus.FAIL.equals(evt.getNewValue()))
-				getFigure().setBackgroundColor(ColorConstants.red);
-			else if(TestPartStatus.UNKNOWN.equals(evt.getNewValue()))
-				getFigure().setBackgroundColor(ColorConstants.cyan);
-			else if(TestPartStatus.EXCEPTION.equals(evt.getNewValue()))
-				getFigure().setBackgroundColor(ColorConstants.blue);
+			if (evt.getNewValue() instanceof TestPartStatus) {
+				customTestStepFigure.setStatus((TestPartStatus) evt.getNewValue());
+			}
 		}
 		else
 			super.propertyChange(evt);

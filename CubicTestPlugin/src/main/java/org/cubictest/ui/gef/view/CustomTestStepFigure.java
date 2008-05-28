@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.view;
 
+import org.cubictest.model.TestPartStatus;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
@@ -26,6 +27,9 @@ import org.eclipse.swt.graphics.Color;
 public class CustomTestStepFigure extends AbstractTransitionNodeFigure {
 	
 
+	private static final Color BASE_COLOR = new Color(null, 237, 209, 166);
+
+
 	public CustomTestStepFigure(String name){
  		label = new CubicTestLabel(name);
  		label.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.CUSTOM_STEP_IMAGE));
@@ -37,7 +41,7 @@ public class CustomTestStepFigure extends AbstractTransitionNodeFigure {
 		manager.setMajorAlignment(FlowLayout.ALIGN_CENTER);
 		setLayoutManager(manager);	
 		
-		setBackgroundColor(new Color(null, 248, 240, 200));
+		setBackgroundColor(BASE_COLOR);
 		setForegroundColor(ColorConstants.black);
 		setBorder(new LineBorder(ColorConstants.black));
 		setOpaque(true);
@@ -49,6 +53,35 @@ public class CustomTestStepFigure extends AbstractTransitionNodeFigure {
 		d.height = 22;
 		d.width = d.width + 7; 
 		return d;
+	}
+	
+	
+	public void setStatus(TestPartStatus status){
+		if(status == null){
+			return;
+		}
+		switch (status){
+			case UNKNOWN:
+				setForegroundColor(ColorConstants.black);
+				setBackgroundColor(BASE_COLOR);
+				break;		
+			case PASS:
+				setForegroundColor(ColorConstants.black);
+				setBackgroundColor(ColorConstants.green);
+				break;
+			case WARN:
+				setForegroundColor(ColorConstants.black);
+				setBackgroundColor(ColorConstants.yellow);
+				break;
+			case FAIL:
+				setForegroundColor(ColorConstants.black);
+				setBackgroundColor(ColorConstants.red);
+				break;
+			case EXCEPTION:
+				setForegroundColor(ColorConstants.black);
+				setBackgroundColor(ColorConstants.orange);;
+				break;
+		}
 	}
 
 }
