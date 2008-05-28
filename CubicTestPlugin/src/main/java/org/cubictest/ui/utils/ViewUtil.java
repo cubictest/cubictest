@@ -531,6 +531,15 @@ public class ViewUtil {
 		return project;
 	}
 	
+	public static Test getTestFromActivePage() {
+		Test test = null;
+		IEditorPart editorPart = CubicTestPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		if (editorPart != null && editorPart instanceof ITestEditor) {
+			test = ((ITestEditor) editorPart).getTest();
+		}
+		return test;
+	}
+	
 	public static CommandStack getCommandStackFromActivePage() {
 		IEditorPart editorPart = CubicTestPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		if (editorPart != null && editorPart instanceof ITestEditor) {

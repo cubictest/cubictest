@@ -168,11 +168,18 @@ public class TestDetailsPage extends WizardPage {
 		testNameText.setFocus();
 	}
 	
+	public void setVisible(boolean visible) {
+	   super.setVisible(visible);
+	   // Set the initial field focus
+	   if (visible) {
+			testNameText.setFocus();
+	   }
+	}
+	
 	/**
 	 * Tests if the current workbench selection is a suitable
 	 * container to use.
 	 */
-	
 	private void initialize() {
 		if (selection!=null && selection.isEmpty()==false && selection instanceof IStructuredSelection) {
 			IStructuredSelection ssel = (IStructuredSelection)selection;

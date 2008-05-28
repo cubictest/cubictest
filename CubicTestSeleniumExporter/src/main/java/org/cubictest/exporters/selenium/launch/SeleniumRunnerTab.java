@@ -13,8 +13,12 @@ package org.cubictest.exporters.selenium.launch;
 import static org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.export.utils.exported.RunnerUtils;
+import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
+import org.cubictest.model.Test;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -61,12 +65,13 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	public static final String CUBIC_TEST_SELENIUM_SERVER_HOST = "CubicTestSeleniumServerHost";
 	public static final String CUBIC_TEST_SELENIUM_SERVER_PORT = "CubicTestSeleniumServerPort";
 
-	private Text projectName;
-	private Button projectBrowse;
-	//IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME
-	
 	private Text testName;
 	private Button testBrowse;
+
+	private Text projectName;
+	private Button projectBrowse;
+	
+	private Button useCurrentTest;
 
 	private Combo browserCombo;
 	private BrowserType browserType;
@@ -112,6 +117,24 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 				updateLaunchConfigurationDialog();
 			}			
 			
+		}
+	};
+	
+	
+	private SelectionListener useCurrentTestListener = new SelectionAdapter(){
+		@Override
+		public void widgetSelected(SelectionEvent event) {
+			IProject project = RunnerUtils.getProjectFromActiveEditorPage();
+			Test test = RunnerUtils.getTestFromActiveEditorPage();
+			
+			if (project != null) {
+				projectName.setText(project.getName());
+			}
+			if (test != null) {
+				testName.setText(test.getFile().getProjectRelativePath().toPortableString());
+			}				
+			setDirty(true);
+			updateLaunchConfigurationDialog();
 		}
 	};
 
@@ -165,32 +188,35 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		
 		{
 			GridLayout groupLayout = new GridLayout();
-			groupLayout.numColumns = 2;
+			groupLayout.numColumns = 3;
 			
 			Group group = new Group(composite, SWT.NONE);
-			group.setText("Test: ");
+			group.setText("Test to run: ");
 			group.setLayout(groupLayout);
 			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+			Label projectLabel = new Label(group, SWT.NONE);
+			projectLabel.setText("Project: ");
+			projectName = new Text(group, SWT.WRAP | SWT.BORDER);
+			projectName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			projectBrowse = new Button(group, SWT.PUSH);
+			projectBrowse.setText("Browse...");
+			projectBrowse.addSelectionListener(projectBrowseListener);
+			
+			Label testLabel = new Label(group, SWT.NONE);
+			testLabel.setText("Test: ");
 			testName = new Text(group, SWT.WRAP | SWT.BORDER);
 			testName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			testBrowse = new Button(group, SWT.PUSH);
 			testBrowse.setText("Browse...");
 			testBrowse.addSelectionListener(testBrowseListener);
-		}
 
-		{
-			GridLayout groupLayout = new GridLayout();
-			groupLayout.numColumns = 2;
-
-			Group group = new Group(composite, SWT.NONE);
-			group.setText("Project: ");
-			group.setLayout(groupLayout);
-			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			projectName = new Text(group, SWT.WRAP | SWT.BORDER);
-			projectName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			projectBrowse = new Button(group, SWT.PUSH);
-			projectBrowse.setText("Browse...");
-			projectBrowse.addSelectionListener(projectBrowseListener );
+			useCurrentTest = new Button(group, SWT.PUSH);
+			useCurrentTest.setText("Use test currently open in editor");
+			useCurrentTest.addSelectionListener(useCurrentTestListener);
+			GridData buttonData = new GridData();
+			buttonData.horizontalSpan = 3;
+			useCurrentTest.setLayoutData(buttonData);
 		}
 		
 		

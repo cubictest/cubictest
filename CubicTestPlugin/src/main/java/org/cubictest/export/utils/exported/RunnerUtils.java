@@ -11,6 +11,9 @@
 package org.cubictest.export.utils.exported;
 
 import org.cubictest.model.Moderator;
+import org.cubictest.model.Test;
+import org.cubictest.ui.utils.ViewUtil;
+import org.eclipse.core.resources.IProject;
 
 /**
  * Util class for test runners.
@@ -30,5 +33,13 @@ public class RunnerUtils {
 		if (moderator.equals(Moderator.EQUAL))
 			return fromActualPage.equals(fromTest);
 		throw new IllegalArgumentException("Unknown Moderator");
+	}
+	
+	public static IProject getProjectFromActiveEditorPage() {
+		return ViewUtil.getProjectFromActivePage();
+	}
+	
+	public static Test getTestFromActiveEditorPage() {
+		return ViewUtil.getTestFromActivePage();
 	}
 }
