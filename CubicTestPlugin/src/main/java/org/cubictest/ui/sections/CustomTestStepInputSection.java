@@ -18,6 +18,7 @@ import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
+import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelection;
@@ -30,6 +31,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
@@ -41,6 +43,7 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 	private List<CustomTestStepParameterComposite> composites = new ArrayList<CustomTestStepParameterComposite>();
 	private CustomTestStepHolder customTestStepHolder;
 	private Composite parent;
+	private Label noArgumentsLabel;
 
 	@Override
 	public void setInput(IWorkbenchPart part, ISelection selection) {
@@ -59,20 +62,29 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 		Iterator<CustomTestStepParameterComposite> idComIterator = composites.iterator();
 		CustomTestStep customTestStep = customTestStepHolder.getCustomTestStep();
 		List<CustomTestStepParameterComposite> newIdComs = new ArrayList<CustomTestStepParameterComposite>();
-		for(Object obj : customTestStep.getParameters().toArray()){
-			CustomTestStepParameterComposite parameterComposite;
-			if (idComIterator.hasNext())
-				parameterComposite = idComIterator.next();
-			else{
-				parameterComposite = new CustomTestStepParameterComposite(
-					composite, getWidgetFactory(),	75);
-				newIdComs.add(parameterComposite);
+		if (customTestStep.getParameters().isEmpty()) {
+			noArgumentsLabel.setVisible(true);
+		}
+		else {
+			noArgumentsLabel.setVisible(false);
+			for(Object obj : customTestStep.getParameters().toArray()){
+				CustomTestStepParameterComposite parameterComposite;
+				if (idComIterator.hasNext())
+					parameterComposite = idComIterator.next();
+				else{
+					parameterComposite = new CustomTestStepParameterComposite(
+							composite, getWidgetFactory(),	75);
+					newIdComs.add(parameterComposite);
+				}
+				if(part instanceof GraphicalTestEditor){
+					parameterComposite.setPart((GraphicalTestEditor) part);
+				}
+				parameterComposite.setValue(customTestStepHolder.getValue((CustomTestStepParameter) obj));
+				parameterComposite.setVisible(true);
+				GridData layoutData = new GridData();
+				layoutData.horizontalSpan = 3;
+				parameterComposite.setLayoutData(layoutData);
 			}
-			if(part instanceof GraphicalTestEditor){
-				parameterComposite.setPart((GraphicalTestEditor) part);
-			}
-			parameterComposite.setValue(customTestStepHolder.getValue((CustomTestStepParameter) obj));
-			parameterComposite.setVisible(true);
 		}
 		while(idComIterator.hasNext()){
 			CustomTestStepParameterComposite parameterComposite = idComIterator.next();
@@ -86,16 +98,18 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 	@Override
 	public void createControls(Composite parent,
 			TabbedPropertySheetPage aTabbedPropertySheetPage) {
+		
 		super.createControls(parent, aTabbedPropertySheetPage);
 		this.parent = parent;
 		if(composite == null)
 			composite = getWidgetFactory().createFlatFormComposite(parent);
 
 		GridLayout layout = new GridLayout();
-		layout.numColumns = 1;
+		layout.numColumns = 3;
 		layout.verticalSpacing = 2;
 		composite.setLayout(layout);
-			
+		
+		noArgumentsLabel = getWidgetFactory().createLabel(composite, "Custom Test Step has no input argument keys defined");
 		Button refreshButton = getWidgetFactory().createButton(composite, "Refresh", SWT.PUSH);
 		GridData data = new GridData();
 		data.horizontalAlignment = SWT.END;
@@ -108,6 +122,14 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 				updateInput(getPart());
 			}
 		});
+		Button openTestButton = getWidgetFactory().createButton(composite, "Open", SWT.PUSH);
+		openTestButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent se) {
+				ViewUtil.openFileForViewing(customTestStepHolder.getFile().getFullPath().toPortableString());
+			}
+		});
+
 	}
 
 	@Override

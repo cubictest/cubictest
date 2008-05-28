@@ -24,6 +24,10 @@ public class CustomTestStepParameterList {
 
 	private transient PropertyChangeSupport propertyChangeListeners = new PropertyChangeSupport(this);
 	
+	public boolean isEmpty() {
+		return parameters == null || parameters.isEmpty();
+	}
+	
 	public void remove(Object obj) {
 		parameters.remove(obj);
 		propertyChangeListeners.firePropertyChange(DELETE, obj, null);
