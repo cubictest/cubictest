@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -95,16 +96,9 @@ public class NewPropertiesWizard extends Wizard implements INewWizard {
 	}
 	
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		IStructuredSelection iss = (IStructuredSelection) selection;
-		if (iss.getFirstElement() instanceof IResource) {
-			IResource res = (IResource) iss.getFirstElement();
-			this.defaultDestFolder = res.getFullPath().toPortableString();
+		if (defaultDestFolder == null) {
+			defaultDestFolder = WizardUtils.getPathFromSelectedResource(selection);
 		}
-		else if (iss.getFirstElement() instanceof IJavaProject) {
-			IJavaProject res = (IJavaProject) iss.getFirstElement();
-			this.defaultDestFolder = res.getPath().toPortableString();
-		}
-				
 	}
 	
 	private void throwCoreException(String message) throws CoreException {

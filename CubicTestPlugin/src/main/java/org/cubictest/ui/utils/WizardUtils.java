@@ -203,7 +203,7 @@ public class WizardUtils {
 		return "";
 	}
 
-	private static IResource getFirstIResource(IStructuredSelection selection) {
+	public static IResource getFirstIResource(IStructuredSelection selection) {
 		IStructuredSelection iss = (IStructuredSelection) selection;
 		if (iss.getFirstElement() instanceof IAdaptable) {
 			IAdaptable adaptable = (IAdaptable) iss.getFirstElement();

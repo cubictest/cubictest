@@ -219,29 +219,14 @@ public class NewTestWizard extends Wizard implements INewWizard {
 
 		setPackageExplorerLinkingEnabled(true);
 		
-		IStructuredSelection iss = (IStructuredSelection) selection;
-		if (iss.getFirstElement() instanceof IResource) {
-			IResource res = (IResource) iss.getFirstElement();
-			project = res.getProject();
-			if (shouldPromptToSaveAllEditors()) {
-				IDE.saveAllEditors(new IResource[] {project}, true);
-			}
-		}
-		else {
-			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-			project = root.getProject();
-			if (project == null) {
-				if (root.getProjects().length == 0) {
-					ErrorHandler.logAndShowErrorDialogAndThrow("A CubicTest Project has to be created " +
-							"before a Test can be created.");
-				}
-			}
-		}
-
+		project = WizardUtils.getProjectFromSelectedResource(selection);
 		if (project == null) {
 			ErrorHandler.logAndShowErrorDialogAndThrow("Could not create new test (Unable to get reference " +
 					"to the CubicTest project). " +
-					"Please retry the operation, and make sure a CubicTest project is target for the new test.");
+			"Please retry the operation, and make sure a CubicTest project is target for the new test.");
+		}
+		if (shouldPromptToSaveAllEditors()) {
+			IDE.saveAllEditors(new IResource[] {project}, true);
 		}
 		
 		try {

@@ -12,6 +12,7 @@ package org.cubictest.ui.wizards;
 
 import java.io.File;
 
+import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -81,8 +82,7 @@ public class TestDetailsPage extends WizardPage {
 		setDescription("Select location to create " + getNewItemTypeNoCapitalized() + ", and give it a filename.");
 		this.selection = selection;
 
-		IStructuredSelection iss = (IStructuredSelection) selection;
-		IResource res = ((IResource) iss.getFirstElement());
+		IResource res = WizardUtils.getFirstIResource((IStructuredSelection) selection);
 
 		try {
 			this.selectedFile = res.getRawLocation().toFile();
@@ -161,8 +161,8 @@ public class TestDetailsPage extends WizardPage {
 		gd = new GridData(GridData.FILL_BOTH);
 		descriptionText.setLayoutData(gd);
 		
-		
-		initialize();
+		testFolderText.setText(WizardUtils.getPathFromSelectedResource((IStructuredSelection) selection));
+
 		dialogChanged();
 		setControl(container);
 		testNameText.setFocus();
@@ -176,25 +176,6 @@ public class TestDetailsPage extends WizardPage {
 	   }
 	}
 	
-	/**
-	 * Tests if the current workbench selection is a suitable
-	 * container to use.
-	 */
-	private void initialize() {
-		if (selection!=null && selection.isEmpty()==false && selection instanceof IStructuredSelection) {
-			IStructuredSelection ssel = (IStructuredSelection)selection;
-			if (ssel.size()>1) return;
-			Object obj = ssel.getFirstElement();
-			if (obj instanceof IResource) {
-				IContainer container;
-				if (obj instanceof IContainer)
-					container = (IContainer)obj;
-				else
-					container = ((IResource)obj).getParent();
-				testFolderText.setText(container.getFullPath().toString());
-			}
-		}
-	}
 	
 	private String getNextDefaultTestFilenameInDir(String baseName) {
 		int highestNumber = 0;
