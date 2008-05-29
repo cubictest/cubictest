@@ -35,7 +35,6 @@ import org.eclipse.gef.EditPolicy;
  */
 public class ExtensionPointEditPart extends AbstractNodeEditPart {
 
-	private boolean listenerAdded;
 	private ExtensionPoint point;
 
 	/**
@@ -47,10 +46,28 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 		setModel(point);
 		
 	}
+	
+	@Override
+	public void activate() {
+		super.activate();
+		if (point.getPage() != null) {
+			point.getPage().addPropertyChangeListener(this);
+		}
+	}
+
+	
+	@Override
+	public void deactivate() {
+		super.deactivate();
+		if (point.getPage() != null) {
+			point.getPage().removePropertyChangeListener(this);
+		}
+	}
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt){
 		String property = evt.getPropertyName();
-		if (evt.getSource() instanceof Page) {
+		if (evt.getSource().equals(point.getPage())) {
 			if (PropertyAwareObject.NAME.equals(property)) {
 				//refresh name of this extension point
 				refresh();
@@ -61,26 +78,6 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 			refresh();
 		}
 	}
-
-	
-	@Override
-	public void activate() {
-		super.activate();
-		if (!listenerAdded) {
-			addPageListener();
-		}
-	}
-
-	
-	@Override
-	public void deactivate() {
-		super.deactivate();
-		if (listenerAdded) {
-			removePageListener();
-		}
-	}
-	
-	
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
@@ -124,18 +121,4 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 		refreshVisuals();
 	}
 
-	
-	private void addPageListener() {
-		if (point.getPage() != null) {
-			point.getPage().addPropertyChangeListener(this);
-			listenerAdded = true;
-		}
-	}
-	
-	private void removePageListener() {
-		if (point.getPage() != null) {
-			point.getPage().removePropertyChangeListener(this);
-			listenerAdded = false;
-		}
-	}
 }
