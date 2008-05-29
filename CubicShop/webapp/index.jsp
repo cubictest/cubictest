@@ -27,7 +27,7 @@
 <%
 	}
 %>
-	
+
 	<form name="loginForm">
 		<table>
 			<tr>
@@ -58,3 +58,15 @@
 	<div id="infoBox"></div>
 
 <%@ include file="includes/footer.jsp" %>
+
+
+<%
+	if (request.getParameter("loginPrompt") != null) {
+%>
+	  <script type="text/javascript">
+		var username = prompt("Please enter username", "")
+		document.getElementById("username").value = username;
+	  </script>
+<%
+	}
+%>	
