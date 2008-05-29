@@ -27,7 +27,7 @@ import org.eclipse.swt.graphics.Color;
 public class CustomTestStepFigure extends AbstractTransitionNodeFigure {
 	
 
-	private static final Color BASE_COLOR = new Color(null, 237, 209, 166);
+	private static final Color BASE_COLOR = new Color(null, 207, 206, 255);
 
 
 	public CustomTestStepFigure(String name){

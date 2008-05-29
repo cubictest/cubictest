@@ -51,7 +51,12 @@ public class CustomTestStepConverter implements ICustomTestStepConverter<Seleniu
 		if(result.startsWith("Error")){
 			t.updateStatus(cts, TestPartStatus.EXCEPTION);
 			throw new ExporterException(result.replaceFirst("Error: ", result));
-		}else 
+		}
+		if(result.startsWith("Failure")){
+			t.updateStatus(cts, TestPartStatus.FAIL);
+			throw new ExporterException(result.replaceFirst("Failure: ", result));
+		}
+		else 
 			t.updateStatus(cts,TestPartStatus.PASS);
 	}
 

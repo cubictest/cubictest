@@ -104,9 +104,15 @@ public class CubicTestRemoteRunnerServer implements Runnable{
 				}
 				testStep.execute(arguments, context, selenium);
 				return "OK";
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
+				System.out.println("Exception in custom test step \"" + values[0] + "\":");
 				e.printStackTrace();
 				return "Error: " + e;
+			}
+			catch (AssertionError e) {
+				System.out.println(values[0] + ": " + e.toString());
+				return "Failure: " + e;
 			}
 		}else if("stop".equals(command)){
 			finished = true;
