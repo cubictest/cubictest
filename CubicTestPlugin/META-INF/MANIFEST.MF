@@ -31,7 +31,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.console,
  org.eclipse.ui.intro,
  org.eclipse.ui,
- org.eclipse.jface.text
+ org.eclipse.jface.text,
+ org.eclipse.debug.ui
 Bundle-RequiredExecutionEnvironment: J2SE-1.5,
  JavaSE-1.6
 Eclipse-LazyStart: true

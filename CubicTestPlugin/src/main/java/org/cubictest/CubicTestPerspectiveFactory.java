@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest;
 
+import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
@@ -41,9 +42,8 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
 		layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);
-		
-	
-		//layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
+
+		layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
   		layout.addActionSet(JavaUI.ID_ACTION_SET);
   		layout.addActionSet(JavaUI.ID_ELEMENT_CREATION_ACTION_SET);
   		layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
