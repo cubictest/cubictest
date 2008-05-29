@@ -128,7 +128,9 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		
 		IFileEditorInput input = (IFileEditorInput) editorInput;
 
-		customStep = CustomTestStepPersistance.loadFromFile(input.getFile());
+		if (customStep == null) {
+			customStep = CustomTestStepPersistance.loadFromFile(input.getFile());
+		}
 		customStep.addCustomStepListener(this);
 		
 		setSite(site);
@@ -227,7 +229,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		layoutData.width = CustomStepSection.STANDARD_LABEL_WIDTH * 2;
 		layoutData.height = 50;
 		descText.setLayoutData(layoutData);
-		descText.setText(customStep.getDescription());		
+		descText.setText(customStep.getDescription() == null ? "" : customStep.getDescription());		
 		
 		descText.addFocusListener(new FocusListener(){
 			public void focusGained(FocusEvent e) {}
@@ -265,7 +267,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		layoutData.left = new FormAttachment(nameLabel);
 		layoutData.width = CustomStepSection.STANDARD_LABEL_WIDTH * 2;
 		nameText.setLayoutData(layoutData);
-		nameText.setText(customStep.getName());		
+		nameText.setText(customStep.getName() == null ? "" : customStep.getName());		
 		
 		nameText.addFocusListener(new FocusListener(){
 			public void focusGained(FocusEvent e) {}
@@ -343,5 +345,9 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 				name = "";
 			this.nameText.setText(name);
 		}
+	}
+
+	public void setCustomStep(CustomTestStep customStep) {
+		this.customStep = customStep;
 	}
 }

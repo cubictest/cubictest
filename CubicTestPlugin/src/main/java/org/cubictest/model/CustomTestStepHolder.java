@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.model.customstep.CustomTestStepValue;
@@ -40,7 +41,13 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 	}
 	
 	public String getDisplayText() {
-		return file;
+		String stepName = getCustomTestStep().getName();
+		if (StringUtils.isNotBlank(stepName)) {
+			return stepName;
+		}
+		else {
+			return file;
+		}
 	}
 	
 	public CustomTestStep getCustomTestStep() {

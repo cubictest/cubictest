@@ -52,6 +52,12 @@ public class CustomTestStep {
 		listeners.add(listener);
 	}
 	
+	public void removeCustomStepListener(ICustomStepListener listener) {
+		if(listeners == null)
+			listeners = new ArrayList<ICustomStepListener>();
+		listeners.remove(listener);
+	}
+	
 	private void firePropertyChange(String key, Object oldValue, Object newValue) {
 		CustomTestStepEvent event = new CustomTestStepEvent(key,oldValue,newValue);
 		if(listeners == null)

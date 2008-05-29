@@ -19,10 +19,16 @@ import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.customstep.CustomTestStep;
+import org.cubictest.model.customstep.CustomTestStepEvent;
+import org.cubictest.model.customstep.ICustomStepListener;
+import org.cubictest.ui.customstep.CustomStepEditor;
+import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
 import org.cubictest.ui.gef.view.CustomTestStepFigure;
+import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
@@ -30,10 +36,12 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -45,7 +53,7 @@ import org.eclipse.ui.ide.IDE;
  * Contoller for the <code>ExtensionPoint</code> model.
  *
  */
-public class CustomTestStepEditPart extends AbstractNodeEditPart {
+public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICustomStepListener {
 
 	private CustomTestStepFigure customTestStepFigure;
 
@@ -57,6 +65,21 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart {
 		setModel(step);
 	}
 
+	
+	@Override
+	public void activate() {
+		super.activate();
+		((CustomTestStepHolder)getModel()).getCustomTestStep().addCustomStepListener(this);
+	}
+	
+	@Override
+	public void deactivate() {
+		super.deactivate();
+		((CustomTestStepHolder)getModel()).getCustomTestStep().removeCustomStepListener(this);
+	}
+
+	
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#createFigure()
 	 */
@@ -112,7 +135,11 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart {
 					IWorkbenchPage page =
 						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 					try {
-						IDE.openEditor(page, file, true);
+						IEditorPart part = IDE.openEditor(page, file, true);
+						if(part instanceof CustomStepEditor){
+							CustomTestStep customStep = ((CustomTestStepHolder)getModel()).getCustomTestStep();
+							((CustomStepEditor)part).setCustomStep(customStep);
+						}
 					} catch (PartInitException e) {
 						Logger.warn("Failed to open custom step", e);
 					}
@@ -131,6 +158,14 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart {
 		}
 		else
 			super.propertyChange(evt);
+	}
+
+
+	public void handleEvent(CustomTestStepEvent event) {
+		String key = event.getKey();
+		if (CustomTestStep.NAME_CHANGED.equals(key)) {
+			refreshVisuals();
+		}
 	}
 	
 }
