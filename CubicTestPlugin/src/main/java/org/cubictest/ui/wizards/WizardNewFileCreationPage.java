@@ -129,7 +129,7 @@ public abstract class WizardNewFileCreationPage extends WizardPage{
 				getShell(),
 				ResourcesPlugin.getWorkspace().getRoot(),
 				false,
-				"Select param location");
+				"Select location");
 		if (dialog.open() == ContainerSelectionDialog.OK) {
 			Object[] result = dialog.getResult();
 			if (result.length == 1) {
