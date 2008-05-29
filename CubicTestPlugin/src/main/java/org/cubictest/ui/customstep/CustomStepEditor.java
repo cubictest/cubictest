@@ -129,6 +129,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		IFileEditorInput input = (IFileEditorInput) editorInput;
 
 		if (customStep == null) {
+			//custom step was not set by reference by e.g. the GTE edit part's double click handler
 			customStep = CustomTestStepPersistance.loadFromFile(input.getFile());
 		}
 		customStep.addCustomStepListener(this);
@@ -201,6 +202,11 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		parameterTableComposite.setCustemTestStepParameters(customStep.getParameters());
 		parameterTableComposite.setCommandStack(commandStack);
 		
+		new Label(composite, SWT.NONE); //space
+		Label exporterInfo = new Label(composite, SWT.NONE);
+		exporterInfo.setBackground(ColorConstants.white);
+		exporterInfo.setText("Implementation(s) of the step -- click link for new/open:");
+		
 		for(String key : sections.keySet()){
 			sections.get(key).createControl(composite);
 		}
@@ -253,7 +259,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		name.setLayout(nameLayout);
 		
 		Label nameLabel = new Label(name,SWT.NONE);
-		nameLabel.setText("Name:");
+		nameLabel.setText("Custom Test Step Name:");
 		nameLabel.setBackground(ColorConstants.white);
 		
 		FormData layoutData = new FormData();

@@ -147,7 +147,7 @@ public class ParameterTableComposite extends Composite implements PropertyChange
 		setBackground(ColorConstants.white);
 		
 		Label paramLabel = new Label(this,SWT.NONE);
-		paramLabel.setText("Input arguments:\n\n(values for keys can be set\nin the graphical test editor's\nproperties page)");
+		paramLabel.setText("Input arguments:\n\nValues for the keys can be set\nin the graphical test editor's\nproperties page");
 		paramLabel.setBackground(ColorConstants.white);
 		
 		FormData layoutData = new FormData();
