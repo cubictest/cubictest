@@ -222,9 +222,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		
 		project = WizardUtils.getProjectFromSelectedResource(selection);
 		if (project == null) {
-			ErrorHandler.logAndShowErrorDialogAndThrow("Could not create new test (Unable to get reference " +
-					"to the CubicTest project). " +
-			"Please retry the operation, and make sure a CubicTest project is target for the new test.");
+			ErrorHandler.logAndShowErrorDialogAndThrow("New CubicTest tests must be put inside a CubicTest Project.");
 		}
 		if (shouldPromptToSaveAllEditors()) {
 			IDE.saveAllEditors(new IResource[] {project}, true);
