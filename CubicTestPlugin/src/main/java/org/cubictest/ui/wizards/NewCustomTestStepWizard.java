@@ -43,21 +43,22 @@ import org.eclipse.ui.ide.IDE;
 
 public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 
-	WizardNewCustomTestStepPage wizardNewCustomTestStepPage;
+	NewFileWithNameAndDescriptionPage wizardNewCustomTestStepPage;
 	ISelection selection;
 	IProject project;
 	String filePath;
 	private String defaultDestFolder;
-	
 	
 	/**
 	 * Adding the pages to the wizard.
 	 */
 	@Override
 	public void addPages() {
-		wizardNewCustomTestStepPage = new WizardNewCustomTestStepPage();
-		wizardNewCustomTestStepPage.setContainerName(defaultDestFolder);
+		wizardNewCustomTestStepPage = new NewFileWithNameAndDescriptionPage(selection, "custom step");
+		wizardNewCustomTestStepPage.setFileExt(".custom");
 		addPage(wizardNewCustomTestStepPage);
+		setWindowTitle("New CubicTest Custom Test Step");
+
 	}
 	/**
 	 * This method is called when 'Finish' button is pressed in
@@ -68,12 +69,14 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 	public boolean performFinish() {
 		final String containerName = wizardNewCustomTestStepPage.getContainerName();
 		final String fileName = wizardNewCustomTestStepPage.getFileName();
+		final String name = wizardNewCustomTestStepPage.getName();
+		final String description = wizardNewCustomTestStepPage.getDescription();
 		this.filePath = containerName + "/" + fileName;
 		
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
-					doFinish(containerName, fileName, monitor);
+					doFinish(containerName, fileName, name, description, monitor);
 				} catch (CoreException e) {
 					throw new InvocationTargetException(e);
 				} finally {
@@ -100,7 +103,7 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 	 */
 	private void doFinish(
 		String containerName,
-		String fileName,
+		String fileName, String name, String description,
 		IProgressMonitor monitor)
 		throws CoreException {
 		
@@ -115,6 +118,8 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 		final IFile customTestStepFile = container.getFile(new Path(fileName));
 		
 		CustomTestStep newCustomTestStep = WizardUtils.createEmptyCustomTestStep();
+		newCustomTestStep.setName(name);
+		newCustomTestStep.setDescription(description);
 
 		CustomTestStepPersistance.saveToFile(newCustomTestStep, customTestStepFile);
 		monitor.worked(1);
@@ -155,16 +160,14 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 	 * @see IWorkbenchWizard#init(IWorkbench, IStructuredSelection)
 	 */
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		this.selection = selection;
+		
 		if (project == null) {
 			project = WizardUtils.getProjectFromSelectedResource(selection);
 		}
 		if (defaultDestFolder == null) {
 			defaultDestFolder = WizardUtils.getPathFromSelectedResource(selection);
 		}
-	}
-
-	protected void getWizardTitle() {
-		setWindowTitle("New CubicTest Custom Test Step");
 	}
 
 	private void setPackageExplorerLinkingEnabled(boolean enabled) {

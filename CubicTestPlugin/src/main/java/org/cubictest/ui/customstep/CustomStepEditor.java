@@ -22,6 +22,7 @@ import org.cubictest.model.customstep.CustomTestStepEvent;
 import org.cubictest.model.customstep.ICustomStepListener;
 import org.cubictest.persistence.CustomTestStepPersistance;
 import org.cubictest.ui.customstep.command.ChangeCustomStepDescriptionCommand;
+import org.cubictest.ui.customstep.command.ChangeCustomStepNameCommand;
 import org.cubictest.ui.customstep.section.CustomStepSection;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -81,6 +82,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 
 	private ActionRegistry actionRegistry;
 
+	private Text nameText;
 	private Text descText;
 
 	private EditDomain editDomain;
@@ -190,6 +192,19 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		layout.numColumns = 1;
 		composite.setLayout(layout);
 		
+		createNameTextField(composite);
+		createDescriptionTextArea(composite);
+		
+		parameterTableComposite = new ParameterTableComposite(composite,SWT.NONE);
+		parameterTableComposite.setCustemTestStepParameters(customStep.getParameters());
+		parameterTableComposite.setCommandStack(commandStack);
+		
+		for(String key : sections.keySet()){
+			sections.get(key).createControl(composite);
+		}
+	}
+
+	private void createDescriptionTextArea(Composite composite) {
 		Composite description = new Composite(composite,SWT.NONE);
 		description.setBackground(ColorConstants.white);
 		
@@ -225,14 +240,44 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 				}
 			}			
 		});
+	}
+	
+	
+	private void createNameTextField(Composite composite) {
+		Composite name = new Composite(composite,SWT.NONE);
+		name.setBackground(ColorConstants.white);
 		
-		parameterTableComposite = new ParameterTableComposite(composite,SWT.NONE);
-		parameterTableComposite.setCustemTestStepParameters(customStep.getParameters());
-		parameterTableComposite.setCommandStack(commandStack);
+		FormLayout nameLayout = new FormLayout();
+		name.setLayout(nameLayout);
 		
-		for(String key : sections.keySet()){
-			sections.get(key).createControl(composite);
-		}
+		Label nameLabel = new Label(name,SWT.NONE);
+		nameLabel.setText("Name:");
+		nameLabel.setBackground(ColorConstants.white);
+		
+		FormData layoutData = new FormData();
+		layoutData.left = new FormAttachment(0,0);
+		layoutData.width = CustomStepSection.STANDARD_LABEL_WIDTH;
+		nameLabel.setLayoutData(layoutData);
+		
+		nameText = new Text(name,SWT.BORDER);
+		nameText.setBackground(ColorConstants.white);
+		layoutData = new FormData();
+		layoutData.left = new FormAttachment(nameLabel);
+		layoutData.width = CustomStepSection.STANDARD_LABEL_WIDTH * 2;
+		nameText.setLayoutData(layoutData);
+		nameText.setText(customStep.getName());		
+		
+		nameText.addFocusListener(new FocusListener(){
+			public void focusGained(FocusEvent e) {}
+			public void focusLost(FocusEvent e) {
+				if(!nameText.getText().equals(customStep.getName())){
+					ChangeCustomStepNameCommand command = new ChangeCustomStepNameCommand();
+					command.setName(nameText.getText());
+					command.setCustomStep(customStep);
+					commandStack.execute(command);
+				}
+			}			
+		});
 	}
 
 	@Override
@@ -285,9 +330,18 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 	}
 
 	public void handleEvent(CustomTestStepEvent event) {
-		String desc = customStep.getDescription();
-		if(desc == null)
-			desc = "";
-		this.descText.setText(desc);
+		String key = event.getKey();
+		if (CustomTestStep.DESCRIPTION_CHANGED.equals(key)) {
+			String desc = customStep.getDescription();
+			if(desc == null)
+				desc = "";
+			this.descText.setText(desc);
+		}
+		else if (CustomTestStep.NAME_CHANGED.equals(key)) {
+			String name = customStep.getName();
+			if(name == null)
+				name = "";
+			this.nameText.setText(name);
+		}
 	}
 }

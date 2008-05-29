@@ -93,6 +93,8 @@ public class NewPropertiesWizard extends Wizard implements INewWizard {
 		namePage.setDescription("Choose name and location of internationalisation file");
 		namePage.setContainerName(defaultDestFolder);
 		addPage(namePage);
+		setWindowTitle("CubicTest");
+
 	}
 	
 	public void init(IWorkbench workbench, IStructuredSelection selection) {

@@ -48,7 +48,8 @@ public class NewSubTestWizard extends AbstractNewSimpleStartPointTestWizard impl
 	 */
 	@Override
 	public void addPages() {
-		testDetailsPage = new TestDetailsPage(selection, !extensionPointMap.isEmpty(), "sub test");
+		testDetailsPage = new TestDetailsPage(selection, "sub test");
+		testDetailsPage.setProjectHasExtensionPoint(!extensionPointMap.isEmpty());
 		addPage(testDetailsPage);
 	}
 	

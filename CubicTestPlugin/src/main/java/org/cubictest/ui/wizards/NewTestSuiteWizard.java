@@ -29,7 +29,8 @@ public class NewTestSuiteWizard extends AbstractNewSimpleStartPointTestWizard im
 	 */
 	@Override
 	public void addPages() {
-		testDetailsPage = new TestDetailsPage(selection, !extensionPointMap.isEmpty(), "test suite");
+		testDetailsPage = new TestDetailsPage(selection, "test suite");
+		testDetailsPage.setProjectHasExtensionPoint(!extensionPointMap.isEmpty());
 		testDetailsPage.setFileExt(".ats");
 		addPage(testDetailsPage);
 	}

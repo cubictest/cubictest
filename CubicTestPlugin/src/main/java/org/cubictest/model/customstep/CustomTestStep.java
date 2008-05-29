@@ -20,10 +20,12 @@ import org.cubictest.model.customstep.data.CustomTestStepData;
 public class CustomTestStep {
 
 	private Map<String, CustomTestStepData> customSteps = new HashMap<String, CustomTestStepData>();
+	private String name = "";
 	private String description = "";
 	private transient List<ICustomStepListener> listeners = new ArrayList<ICustomStepListener>();
 	private CustomTestStepParameterList parameters;
-	private static final String DESCRIPTION_CHANGED = "DescriptionChanged";
+	public static final String DESCRIPTION_CHANGED = "DescriptionChanged";
+	public static final String NAME_CHANGED = "NameChanged";
 	
 	public CustomTestStepData getData(String key) {
 		CustomTestStepData customStep = customSteps.get(key);
@@ -62,5 +64,15 @@ public class CustomTestStep {
 		if(parameters == null)
 			parameters = new CustomTestStepParameterList();
 		return parameters;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		String oldName = this.name;
+		this.name = name;
+		firePropertyChange(NAME_CHANGED, oldName, name);
 	}
 }

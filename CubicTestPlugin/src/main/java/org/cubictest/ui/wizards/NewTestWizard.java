@@ -87,7 +87,8 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public void addPages() {
-		testDetailsPage = new TestDetailsPage(selection, !extensionPointMap.isEmpty(), "test");
+		testDetailsPage = new TestDetailsPage(selection, "test");
+		testDetailsPage.setProjectHasExtensionPoint(!extensionPointMap.isEmpty());
 		addPage(testDetailsPage);
 		startPointTypeSelectionPage = new StartPointTypeSelectionPage();
 		addPage(startPointTypeSelectionPage);

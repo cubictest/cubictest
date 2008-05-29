@@ -49,7 +49,7 @@ public class NewParamWizard extends Wizard implements INewWizard{
 	}
 	
 	public NewParamWizard(){
-		
+		setWindowTitle("CubicTest parameterisation file");
 	}
 	
 	@Override
