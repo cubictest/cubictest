@@ -75,24 +75,22 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 		}
 		super.activate();
 		ViewUtil.getSurroundingTest(this).addPropertyChangeListener(this);
-		getModel().addPropertyChangeListener(this);
+		getModel().getTest(false).addPropertyChangeListener(this);
 	}
 	
 	@Override
 	public void deactivate() {
 		super.deactivate();
 		ViewUtil.getSurroundingTest(this).removePropertyChangeListener(this);
-		getModel().removePropertyChangeListener(this);
+		getModel().getTest(false).removePropertyChangeListener(this);
 	}
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt){
 		String property = evt.getPropertyName();
-		if (evt.getSource() instanceof Test) {
-			if (PropertyAwareObject.CHILD.equals(property) && evt.getNewValue() instanceof ExtensionStartPoint) {
-				//refresh name of this extension start point
-				refresh();
-			}
+		if (evt.getSource() instanceof Test && evt.getPropertyName().equals(PropertyAwareObject.NAME)) {
+			//refresh name
+			refresh();
 		}
 		else if (PropertyAwareObject.STATUS.equals(property)) {
 			TestPartStatus newStatus = (TestPartStatus)evt.getNewValue();
