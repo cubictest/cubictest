@@ -49,9 +49,9 @@ public class CustomTestStepFigure extends AbstractTransitionNodeFigure {
 	
 	@Override
 	public Dimension getPreferredSize(int hint, int hint2) {
-		Dimension d = super.getPreferredSize(hint, hint2);
+		Dimension d = super.getPreferredSize(hint, hint2).getCopy();
 		d.height = 22;
-		d.width = d.width + 7; 
+		d.width = d.width + 14; 
 		return d;
 	}
 	
