@@ -97,6 +97,10 @@ public abstract class PropertyChangePart extends AbstractGraphicalEditPart imple
 		}
 	}
 
+	/**
+	 * Input connection (transition) has changed of part.
+	 * @param evt
+	 */
 	private void handleInputChange(PropertyChangeEvent evt){
 		Object newValue= evt.getNewValue();
 		Object oldValue = evt.getOldValue();
@@ -125,13 +129,17 @@ public abstract class PropertyChangePart extends AbstractGraphicalEditPart imple
 		getContentPane().revalidate();
 	}
 
+	/**
+	 * Output connection (transition) has changed of part.
+	 * @param evt
+	 */
 	private void handleOutputChange(PropertyChangeEvent evt){
 
 		Object newValue = evt.getNewValue();
 		Object oldValue = evt.getOldValue();
 
 		if (!((oldValue != null) ^ (newValue != null))){
-			throw new IllegalStateException("Only one of old or new values must be non-null for INPUT event");
+			throw new IllegalStateException("Only one of old or new values must be non-null for OUTPUT event");
 		}
 
 		if (newValue != null){
