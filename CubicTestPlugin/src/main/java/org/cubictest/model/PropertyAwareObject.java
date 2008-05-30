@@ -34,6 +34,7 @@ public abstract class PropertyAwareObject implements Cloneable {
 	public static final String STATUS = "STATUS";
 	public static final String PARAM = "PARAM";
 	public static final String NOT = "NOT";
+	public static final String CUSTOMSTEP = "CUSTOMSTEP";
 	
 	protected TestPartStatus status;
 	protected transient StandardToStringStyle toStringStyle;

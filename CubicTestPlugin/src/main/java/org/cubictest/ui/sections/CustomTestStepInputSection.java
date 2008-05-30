@@ -10,11 +10,14 @@
  *******************************************************************************/
 package org.cubictest.ui.sections;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.cubictest.model.CustomTestStepHolder;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
@@ -38,7 +41,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
-public class CustomTestStepInputSection extends AbstractPropertySection {	
+public class CustomTestStepInputSection extends AbstractPropertySection implements PropertyChangeListener {	
 	private Composite composite;
 	private List<CustomTestStepParameterComposite> composites = new ArrayList<CustomTestStepParameterComposite>();
 	private CustomTestStepHolder customTestStepHolder;
@@ -53,12 +56,38 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 		Assert.isTrue(input instanceof EditPart);
 		this.customTestStepHolder = (CustomTestStepHolder) ((EditPart) input).getModel();
 		
-		updateInput(part);
+		//listener handling should be done in aboutToBeShown / aboutToBeHidden, not here:
+		for (CustomTestStepParameterComposite composite : composites) {
+			composite.removeListeners();
+		}
+		updateInput(part, true);
 		
 	}
+	
+	@Override
+	public void aboutToBeShown() {
+		super.aboutToBeShown();
+		customTestStepHolder.addPropertyChangeListener(this);		
+	}
+	
+	@Override
+	public void aboutToBeHidden() {
+		super.aboutToBeHidden();
+		customTestStepHolder.removePropertyChangeListener(this);
+		customTestStepHolder.removePropertyChangeListener(this);
+		for (CustomTestStepParameterComposite composite : composites) {
+			composite.removeListeners();
+		}
+	}
+	
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getSource().equals(customTestStepHolder) && evt.getPropertyName().equals(PropertyAwareObject.CUSTOMSTEP)) {
+			updateInput(getPart(), false);
+		}
+	}
+	
 
-
-	private void updateInput(IWorkbenchPart part) {
+	private void updateInput(IWorkbenchPart part, boolean addListeners) {
 		Iterator<CustomTestStepParameterComposite> idComIterator = composites.iterator();
 		CustomTestStep customTestStep = customTestStepHolder.getCustomTestStep(false);
 		List<CustomTestStepParameterComposite> newIdComs = new ArrayList<CustomTestStepParameterComposite>();
@@ -79,7 +108,7 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 				if(part instanceof GraphicalTestEditor){
 					parameterComposite.setPart((GraphicalTestEditor) part);
 				}
-				parameterComposite.setValue(customTestStepHolder.getValue((CustomTestStepParameter) obj));
+				parameterComposite.setValue(customTestStepHolder.getValue((CustomTestStepParameter) obj), addListeners);
 				parameterComposite.setVisible(true);
 				GridData layoutData = new GridData();
 				layoutData.horizontalSpan = 3;
@@ -119,7 +148,7 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 			public void widgetSelected(SelectionEvent event) {
 				super.widgetDefaultSelected(event);
 				customTestStepHolder.reloadCustomTestStep();
-				updateInput(getPart());
+				updateInput(getPart(), false);
 			}
 		});
 		Button openTestButton = getWidgetFactory().createButton(composite, "Open", SWT.PUSH);
@@ -141,12 +170,6 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 		parent.update();
 		
 	}
-	
-	@Override
-	public void aboutToBeHidden() {
-		super.aboutToBeHidden();
-		for (CustomTestStepParameterComposite composite : composites) {
-			composite.removeListeners();
-		}
-	}
+
+
 }

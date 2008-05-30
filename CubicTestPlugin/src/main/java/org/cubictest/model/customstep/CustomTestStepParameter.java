@@ -13,6 +13,9 @@ package org.cubictest.model.customstep;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class CustomTestStepParameter {
 
 	private static final String DESCRIPTION = "DESCRIPRTION";
@@ -55,6 +58,26 @@ public class CustomTestStepParameter {
 
 	public void removeListener(PropertyChangeListener listener) {
 		listeners.removePropertyChangeListener(listener);
+	}
+	
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || !(other instanceof CustomTestStepParameter)) {
+			return false;
+		}
+		CustomTestStepParameter otherParam = (CustomTestStepParameter) other;
+		return (key + description).equals(otherParam.getKey() + otherParam.getDescription());
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 	
 }

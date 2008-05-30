@@ -13,12 +13,15 @@ package org.cubictest.model.customstep;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class CustomTestStepValue {
 	
 	private CustomTestStepParameter parameter;
 	private String value = "";
 	
-	private transient PropertyChangeSupport propertyChangeListeners = new PropertyChangeSupport(this);
+	private transient PropertyChangeSupport propertyChangeListeners;
 
 	public CustomTestStepValue(CustomTestStepParameter parameter) {
 		this.parameter = parameter;
@@ -31,17 +34,45 @@ public class CustomTestStepValue {
 	public void setValue(String value){
 		String oldValue = this.value;
 		this.value = value;
-		propertyChangeListeners.firePropertyChange("VALUE", oldValue, value);
+		getPropertyChangeListeners().firePropertyChange("VALUE", oldValue, value);
 	}
 	public String getValue(){
 		return value;
 	}
 
 	public void removeListener(PropertyChangeListener listener) {
-		propertyChangeListeners.removePropertyChangeListener(listener);
+		getPropertyChangeListeners().removePropertyChangeListener(listener);
 	}
 
 	public void addListener(PropertyChangeListener listener) {
-		propertyChangeListeners.addPropertyChangeListener(listener);
+		getPropertyChangeListeners().addPropertyChangeListener(listener);
 	}
+
+	private PropertyChangeSupport getPropertyChangeListeners() {
+		if (propertyChangeListeners == null) {
+			propertyChangeListeners = new PropertyChangeSupport(this);
+		}
+		return propertyChangeListeners;
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || !(other instanceof CustomTestStepValue)) {
+			return false;
+		}
+		CustomTestStepValue otherValue = (CustomTestStepValue) other;
+		return value.equals(otherValue.getValue());
+	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	
 }

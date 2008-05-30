@@ -48,6 +48,8 @@ import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.SimpleContext;
+import org.cubictest.model.customstep.CustomTestStepParameter;
+import org.cubictest.model.customstep.CustomTestStepValue;
 import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
@@ -109,7 +111,6 @@ public class CubicTestXStream extends XStream {
 		this.alias("transition", Transition.class);
 		this.alias("transitionNode", TransitionNode.class);
 		this.alias("userInteractionsTransition", UserInteractionsTransition.class);
-		this.alias("customTestStep", CustomTestStepHolder.class);
 		this.alias("identifier", Identifier.class);
 		this.alias("identifierType",IdentifierType.class);
 		
@@ -145,7 +146,10 @@ public class CubicTestXStream extends XStream {
 		//misc:
 		this.alias("userInteractions", List.class);
 		
-		//customstep
+		//customstep:
+		this.alias("customTestStep", CustomTestStepHolder.class);
+		this.alias("customTestStepParameter", CustomTestStepParameter.class);
+		this.alias("CustomTestStepValue", CustomTestStepValue.class);
 	}
 	
 }

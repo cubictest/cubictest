@@ -52,7 +52,7 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 	
 	public CustomTestStep getCustomTestStep(boolean forceRefreshFile) {
 		if(customTestStep == null || forceRefreshFile)
-			customTestStep = CustomTestStepPersistance.loadFromFile(getFile());
+			reloadCustomTestStep();
 		return customTestStep;
 	}
 
@@ -84,7 +84,9 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 	}
 	
 	public void reloadCustomTestStep(){
+		CustomTestStep oldStep = customTestStep;
 		customTestStep = CustomTestStepPersistance.loadFromFile(getFile());
+		firePropertyChange(CUSTOMSTEP, oldStep, customTestStep);
 	}
 	
 	@Override

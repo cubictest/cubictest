@@ -94,7 +94,7 @@ public class CustomTestStepParameterComposite extends Composite implements Prope
 		}
 	}
 	
-	public void setValue(CustomTestStepValue paramValue) {
+	public void setValue(CustomTestStepValue paramValue, boolean addListener) {
 		this.paramValue = paramValue;
 		String description = paramValue.getParameter().getDescription();
 		key.setText(paramValue.getParameter().getKey());
@@ -104,7 +104,9 @@ public class CustomTestStepParameterComposite extends Composite implements Prope
 		if (val == null)
 			val = "";
 		value.setText(val);
-		paramValue.addListener(this);
+		if (addListener) {
+			paramValue.addListener(this);
+		}
 	}
 
 	public void removeListeners() {
