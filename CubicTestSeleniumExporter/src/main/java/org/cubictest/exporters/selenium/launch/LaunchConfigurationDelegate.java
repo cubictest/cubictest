@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
@@ -207,17 +208,21 @@ public class LaunchConfigurationDelegate extends
 					seleniumClientProxyPort, seleniumMultiWindow, BrowserType.fromId(browser), useNamespace);
 			testRunner.setWorkingDirectory(workingDirName);
 			try{
+				//run!
 				testRunner.run(monitor);
+				
+				//show result message
+				wb.getDisplay().syncExec(new Runnable() {
+					public void run() {
+						if (StringUtils.isNotBlank(testRunner.getResultMessage())) {
+							final String msg = "Test run finished. " + testRunner.getResultMessage();
+							UserInfo.showInfoDialog(msg);
+						}
+					}
+				});
 			}catch(Exception e ){
 				Logger.error("Error when running test", e);
 			}finally{
-				
-				final String msg = "Test run finished. " + testRunner.getResultMessage();
-				wb.getDisplay().syncExec(new Runnable() {
-					public void run() {
-						UserInfo.showInfoDialog(msg);
-					}
-				});
 				testRunner.cleanUp();
 			}
 		}catch(Exception e){
