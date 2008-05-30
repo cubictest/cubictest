@@ -69,9 +69,12 @@ public class SeleniumHolder extends RunnerResultHolder {
 	@Override
 	protected void handleAssertionFailure(PageElement element) {
 		if (workingDirName != null) {
+			String targetSubfolder = "html and screenshots";
+			new File(workingDirName + File.separator + targetSubfolder).mkdir();
+
 			try{
 				String bodyText = selenium.execute("getHtmlSource")[0];
-				SeleniumUtils.writeTextToFile(workingDirName, element.getText(), bodyText);
+				SeleniumUtils.writeTextToFile(workingDirName +  File.separator + targetSubfolder, element.getText(), bodyText);
 			}
 			catch (Exception e) {
 				Logger.warn("Unable to capture HTML of failing test", e);
@@ -79,7 +82,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 			
 			try {
 				selenium.execute("windowFocus");
-				selenium.execute("captureScreenshot",workingDirName + File.separator + element.getText() + "_" + System.currentTimeMillis() + ".png");
+				selenium.execute("captureScreenshot",workingDirName + File.separator + targetSubfolder + File.separator + element.getText() + "_" + System.currentTimeMillis() + ".png");
 				//SeleniumUtils.takeAScreenShotOfTheApp(workingDirName,element.getText());
 			}
 			catch (Exception e) {
