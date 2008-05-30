@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
@@ -208,6 +209,13 @@ public class LaunchConfigurationDelegate extends
 			}catch(Exception e ){
 				Logger.error("Error when running test", e);
 			}finally{
+				
+				final String msg = "Test run finished. " + testRunner.getResultMessage();
+				wb.getDisplay().syncExec(new Runnable() {
+					public void run() {
+						UserInfo.showInfoDialog(msg);
+					}
+				});
 				testRunner.cleanUp();
 			}
 		}catch(Exception e){
