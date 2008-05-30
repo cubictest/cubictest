@@ -355,5 +355,10 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 
 	public void setCustomStep(CustomTestStep customStep) {
 		this.customStep = customStep;
+		parameterTableComposite.setCustemTestStepParameters(customStep.getParameters());
+		for(String key : sections.keySet()){
+			String dataKey = sections.get(key).getDataKey();
+			sections.get(key).setData(customStep.getData(dataKey));
+		}
 	}
 }

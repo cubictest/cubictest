@@ -260,7 +260,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 		CustomTestStepHolder ctsh = (CustomTestStepHolder) node;
 		ICustomTestStepConverter<T> ctsc = customTestStepConverter.newInstance();
 		ctsc.handleCustomStep(resultHolder,
-				ctsh, ctsc.getDataKey() == null ? null : ctsh.getCustomTestStep().getData( ctsc.getDataKey()));
+				ctsh, ctsc.getDataKey() == null ? null : ctsh.getCustomTestStep(false).getData( ctsc.getDataKey()));
 	}
 
 

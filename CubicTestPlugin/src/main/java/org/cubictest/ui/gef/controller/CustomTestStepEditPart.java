@@ -69,13 +69,13 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 	@Override
 	public void activate() {
 		super.activate();
-		((CustomTestStepHolder)getModel()).getCustomTestStep().addCustomStepListener(this);
+		((CustomTestStepHolder)getModel()).getCustomTestStep(false).addCustomStepListener(this);
 	}
 	
 	@Override
 	public void deactivate() {
 		super.deactivate();
-		((CustomTestStepHolder)getModel()).getCustomTestStep().removeCustomStepListener(this);
+		((CustomTestStepHolder)getModel()).getCustomTestStep(false).removeCustomStepListener(this);
 	}
 
 	
@@ -130,6 +130,11 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 						"Container \"" + ((CustomTestStepHolder)getModel()).getFilePath() + "\" does not exist in this project.");
 				return;
 			}
+			
+			//refresh before open:
+			((CustomTestStepHolder)getModel()).getCustomTestStep(false).removeCustomStepListener(this);
+			final CustomTestStep refreshed = ((CustomTestStepHolder)getModel()).getCustomTestStep(true);
+			refreshed.addCustomStepListener(this);
 
 			(new Shell()).getDisplay().asyncExec(new Runnable() {
 				public void run() {
@@ -138,8 +143,7 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 					try {
 						IEditorPart part = IDE.openEditor(page, file, true);
 						if(part instanceof CustomStepEditor){
-							CustomTestStep customStep = ((CustomTestStepHolder)getModel()).getCustomTestStep();
-							((CustomStepEditor)part).setCustomStep(customStep);
+							((CustomStepEditor)part).setCustomStep(refreshed);
 						}
 					} catch (PartInitException e) {
 						Logger.warn("Failed to open custom step", e);

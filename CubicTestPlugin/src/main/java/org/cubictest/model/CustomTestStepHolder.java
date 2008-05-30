@@ -41,7 +41,7 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 	}
 	
 	public String getDisplayText() {
-		String stepName = getCustomTestStep().getName();
+		String stepName = getCustomTestStep(false).getName();
 		if (StringUtils.isNotBlank(stepName)) {
 			return stepName;
 		}
@@ -50,8 +50,8 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 		}
 	}
 	
-	public CustomTestStep getCustomTestStep() {
-		if(customTestStep == null)
+	public CustomTestStep getCustomTestStep(boolean forceRefreshFile) {
+		if(customTestStep == null || forceRefreshFile)
 			customTestStep = CustomTestStepPersistance.loadFromFile(getFile());
 		return customTestStep;
 	}
@@ -80,7 +80,7 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 	}
 	
 	public List<CustomTestStepParameter> getCustomTestStepParameters(){
-		return Arrays.asList(getCustomTestStep().getParameters().toArray());
+		return Arrays.asList(getCustomTestStep(false).getParameters().toArray());
 	}
 	
 	public void reloadCustomTestStep(){

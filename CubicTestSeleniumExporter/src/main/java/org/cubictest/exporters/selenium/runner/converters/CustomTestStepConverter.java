@@ -37,7 +37,7 @@ public class CustomTestStepConverter implements ICustomTestStepConverter<Seleniu
 
 	public void handleCustomStep(SeleniumHolder t, ICustomTestStepHolder cts,
 			CustomTestStepData data) {
-		CustomTestStep ts = ((CustomTestStepHolder)cts).getCustomTestStep();
+		CustomTestStep ts = ((CustomTestStepHolder)cts).getCustomTestStep(false);
 		
 		throw new ExporterException("Custom test step not supported in Selenium runner yet");
 	}

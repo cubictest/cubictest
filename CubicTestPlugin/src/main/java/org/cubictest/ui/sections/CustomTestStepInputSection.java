@@ -60,7 +60,7 @@ public class CustomTestStepInputSection extends AbstractPropertySection {
 
 	private void updateInput(IWorkbenchPart part) {
 		Iterator<CustomTestStepParameterComposite> idComIterator = composites.iterator();
-		CustomTestStep customTestStep = customTestStepHolder.getCustomTestStep();
+		CustomTestStep customTestStep = customTestStepHolder.getCustomTestStep(false);
 		List<CustomTestStepParameterComposite> newIdComs = new ArrayList<CustomTestStepParameterComposite>();
 		if (customTestStep.getParameters().isEmpty()) {
 			noArgumentsLabel.setVisible(true);
