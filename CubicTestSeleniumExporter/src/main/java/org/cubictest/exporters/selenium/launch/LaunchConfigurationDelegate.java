@@ -60,6 +60,7 @@ public class LaunchConfigurationDelegate extends
 	private SeleniumStarter seleniumStarter;
 	private String seleniumHost;
 	private int seleniumPort;
+	private boolean seleniumMultiWindow;
 	private int seleniumClientProxyPort;
 	private Test test;
 
@@ -199,10 +200,11 @@ public class LaunchConfigurationDelegate extends
 			if (seleniumPort < 0)
 				seleniumPort = evaluatePort();
 			
+			seleniumMultiWindow = getSeleniumMultiWindow(configuration);
 			
 			final TestRunner testRunner = new TestRunner(test, wb.getDisplay(), 
 					seleniumHost, seleniumPort, serverPort, 
-					seleniumClientProxyPort,  BrowserType.fromId(browser), useNamespace);
+					seleniumClientProxyPort, seleniumMultiWindow, BrowserType.fromId(browser), useNamespace);
 			testRunner.setWorkingDirectory(workingDirName);
 			try{
 				testRunner.run(monitor);
@@ -278,6 +280,19 @@ public class LaunchConfigurationDelegate extends
 		}
 		return -1;
 	}
+
+	private boolean getSeleniumMultiWindow(ILaunchConfiguration configuration) {
+		try {
+			return configuration.getAttribute(
+					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, false);
+		} catch (CoreException e) {
+			Logger.error("Error getting property", e);
+		} catch (Exception e){
+			Logger.error("Error getting property", e);
+		}
+		return false;
+	}
+	
 
 	/**
 	 * Performs a check on the launch configuration's attributes. If an

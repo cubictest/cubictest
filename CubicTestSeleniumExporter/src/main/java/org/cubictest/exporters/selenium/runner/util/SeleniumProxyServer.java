@@ -10,10 +10,8 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.util;
 
-import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
-import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.openqa.selenium.server.SeleniumServer;
 
 /**
@@ -30,10 +28,10 @@ public class SeleniumProxyServer {
 	boolean started;
 	
 	
-	public SeleniumProxyServer(boolean proxyInjectionMode, int port) {
+	public SeleniumProxyServer(boolean proxyInjectionMode, int port, boolean seleniumMultiWindow) {
 		try {
 			this.port = port;
-			seleniumServer = new SeleniumServer(port);
+			seleniumServer = new SeleniumServer(port,false,seleniumMultiWindow);
 			seleniumServer.setProxyInjectionMode(proxyInjectionMode);
 			
 			final int portInfo = port;

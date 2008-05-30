@@ -65,15 +65,17 @@ public class TestRunner {
 	private final Display display;
 	private final boolean useNamespace;
 	private String workingDirName;
+	private final boolean seleniumMultiWindow;
 
 	public TestRunner(Test test, Display display, String seleniumHost, int seleniumPort, int serverPort,
-			int seleniumClientProxyPort, BrowserType browserType, boolean useNamespace) {
+			int seleniumClientProxyPort, boolean seleniumMultiWindow, BrowserType browserType, boolean useNamespace) {
 		this.test = test;
 		this.display = display;
 		this.seleniumPort = seleniumPort;
 		this.seleniumHost = seleniumHost;
 		this.serverPort = serverPort;
 		this.seleniumClientProxyPort = seleniumClientProxyPort;
+		this.seleniumMultiWindow = seleniumMultiWindow;
 		this.browserType = browserType;
 		this.useNamespace = useNamespace;
 	}
@@ -129,6 +131,7 @@ public class TestRunner {
 		seleniumStarter.setSelenium(selenium);
 		seleniumStarter.setHost(seleniumHost);
 		seleniumStarter.setPort(seleniumPort);
+		seleniumStarter.setMultiWindow(seleniumMultiWindow);
 
 		if (monitor != null) {
 			Thread cancelHandler = new Thread() {

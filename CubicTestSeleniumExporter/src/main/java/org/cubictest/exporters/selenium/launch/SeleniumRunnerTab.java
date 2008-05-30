@@ -36,6 +36,8 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -62,6 +64,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	public static final String CUBIC_TEST_NAME= "CubicTestSeleniumName";
 	public static final String CUBIC_TEST_BROWSER = "CubicTestSeleniumBrowser";
 	public static final String CUBIC_TEST_NAMESPACE_XPATH = "CubicTestSeleniumNamespaceXpath";
+	public static final String CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW = "CubicTestSeleniumServerMultiWindow";
 	public static final String CUBIC_TEST_SELENIUM_SERVER_HOST = "CubicTestSeleniumServerHost";
 	public static final String CUBIC_TEST_SELENIUM_SERVER_PORT = "CubicTestSeleniumServerPort";
 
@@ -84,6 +87,9 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	private Text seleniumServerHost;
 	private Label seleniumServerPortLabel;
 	private Text seleniumServerPort;
+
+	private Label seleniumServerMultiWindowLabel;
+	private Button seleniumServerMultiWindowButton;
 
 	private SelectionListener projectBrowseListener = new SelectionAdapter(){
 		@Override
@@ -167,6 +173,14 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 				setDirty(true);
 				updateLaunchConfigurationDialog();
 			}
+		}
+	};
+	
+	private SelectionListener selectionListener = new SelectionAdapter(){
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			setDirty(true);
+			updateLaunchConfigurationDialog();
 		}
 	};
 
@@ -259,13 +273,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			nameSpaceButtonLabel.setText("Use namespace in XPath execution:");
 			
 			nameSpaceButton = new Button(nameSpaceGroup, SWT.CHECK);
-			nameSpaceButton.addSelectionListener(new SelectionAdapter(){
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					setDirty(true);
-					updateLaunchConfigurationDialog();
-				}
-			});
+			nameSpaceButton.addSelectionListener(selectionListener);
 			
 		}
 		
@@ -282,11 +290,31 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			seleniumServerHostLabel.setText("Host:");
 			seleniumServerHost = new Text(group, SWT.WRAP | SWT.BORDER);
 			seleniumServerHost.setLayoutData(new GridData(200, SWT.DEFAULT));
+			seleniumServerHost.addFocusListener(new FocusAdapter(){
+				@Override
+				public void focusLost(FocusEvent e) {
+					setDirty(true);
+					updateLaunchConfigurationDialog();
+				}
+			});
 			
 			seleniumServerPortLabel = new Label(group, SWT.NONE);
 			seleniumServerPortLabel.setText("Port:");
 			seleniumServerPort = new Text(group, SWT.WRAP | SWT.BORDER);
 			seleniumServerPort.setLayoutData(new GridData(100, SWT.DEFAULT));
+			seleniumServerPort.addFocusListener(new FocusAdapter(){
+				@Override
+				public void focusLost(FocusEvent e) {
+					setDirty(true);
+					updateLaunchConfigurationDialog();
+				}
+			});
+			
+			seleniumServerMultiWindowLabel = new Label(group, SWT.NONE);
+			seleniumServerMultiWindowLabel.setText("Multiwindow:");
+			seleniumServerMultiWindowButton = new Button(group, SWT.CHECK);
+			seleniumServerMultiWindowButton.setLayoutData(new GridData(100, SWT.DEFAULT));
+			seleniumServerMultiWindowButton.addSelectionListener(selectionListener);
 		}
 	}
 
@@ -306,6 +334,8 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 					CUBIC_TEST_SELENIUM_SERVER_HOST, "localhost"));
 			seleniumServerPort.setText(configuration.getAttribute(
 					CUBIC_TEST_SELENIUM_SERVER_PORT, "4545"));
+			seleniumServerMultiWindowButton.setSelection(configuration.getAttribute(
+					CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, false));
 		} catch (CoreException e) {
 			testName.setText("");
 			projectName.setText("");
@@ -324,6 +354,8 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		configuration.setAttribute(CUBIC_TEST_NAMESPACE_XPATH, nameSpaceButton.getSelection());
 		configuration.setAttribute(CUBIC_TEST_SELENIUM_SERVER_HOST, seleniumServerHost.getText());
 		configuration.setAttribute(CUBIC_TEST_SELENIUM_SERVER_PORT, seleniumServerPort.getText());
+		configuration.setAttribute(CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, 
+				seleniumServerMultiWindowButton.getSelection());
 		mapResources(configuration);
 	}
 
