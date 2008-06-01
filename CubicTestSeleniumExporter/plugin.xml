@@ -130,5 +130,50 @@
             name="CubicTest Selenium">
       </classpathContainerPage>
    </extension>
-      
+   <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            class="org.cubictest.exporters.selenium.launch.CubicTestSeleniumLaunchShortcut"
+            icon="icons/selenium_run_icon.gif"
+            id="org.cubictest.exporters.selenium.ui.launchShortcut"
+            label="SeleniumRunner"
+            modes="run, debug">
+         <contextualLaunch>
+            <contextLabel
+                  label="Run CubicTest with Selenium"
+                  mode="run">
+            </contextLabel>
+            <contextLabel
+                  label="Debug CubicTest with Selenium"
+                  mode="debug">
+            </contextLabel>
+            <enablement>
+               <with variable="selection">
+                  <count value="1"/>
+               	  <iterate>
+               	  	<or>
+               	  		<and>
+		                     <instanceof value="org.eclipse.core.resources.IFile"/>
+		                     <or>
+		                     	<test
+		                           value="*.aat"
+		                           property="org.eclipse.debug.ui.matchesPattern"/>
+		                     </or>
+               	  		</and>
+                    <adapt
+                          type="org.eclipse.core.resources.IFile">
+                          <test
+	                           value="*.aat"
+	                           property="org.eclipse.debug.ui.matchesPattern"/>
+                    </adapt>
+               	  	</or>
+		          </iterate>
+               </with>
+            </enablement>
+         </contextualLaunch>
+         <configurationType
+               id="org.cubictest.exporters.selenium.ui.launchConfigurationType">
+         </configurationType>
+      </shortcut>
+   </extension>
 </plugin>
