@@ -176,4 +176,32 @@
          </configurationType>
       </shortcut>
    </extension>
+   
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            name="Run CubicTest Selenium"
+            description="Run the CubicTest with Selenium"
+            categoryId="org.eclipse.debug.ui.category.run"
+            id="org.cubictest.exporters.selenium.ui.launchShortcut.run">
+      </command>
+      <command
+            name="Debug CubicTest Selenium"
+            description="Debug the CubicTest with Selenium"
+            categoryId="org.eclipse.debug.ui.category.run"
+            id="org.cubictest.exporters.selenium.ui.launchShortcut.debug">
+      </command>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            sequence="M3+M2+D S"
+            commandId="org.cubictest.exporters.selenium.ui.launchShortcut.debug"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+      <key
+            sequence="M3+M2+X S"
+            commandId="org.cubictest.exporters.selenium.ui.launchShortcut.run"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+   </extension>
 </plugin>
