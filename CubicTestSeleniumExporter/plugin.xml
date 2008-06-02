@@ -158,13 +158,21 @@
 		                     	<test
 		                           value="*.aat"
 		                           property="org.eclipse.debug.ui.matchesPattern"/>
+		                     	<test
+		                           value="*.ats"
+		                           property="org.eclipse.debug.ui.matchesPattern"/>
 		                     </or>
                	  		</and>
                     <adapt
                           type="org.eclipse.core.resources.IFile">
-                          <test
-	                           value="*.aat"
-	                           property="org.eclipse.debug.ui.matchesPattern"/>
+	                      <or>
+	                          <test
+		                           value="*.aat"
+		                           property="org.eclipse.debug.ui.matchesPattern"/>
+	                     	  <test
+	                               value="*.ats"
+	                               property="org.eclipse.debug.ui.matchesPattern"/>
+	                      </or>
                     </adapt>
                	  	</or>
 		          </iterate>
