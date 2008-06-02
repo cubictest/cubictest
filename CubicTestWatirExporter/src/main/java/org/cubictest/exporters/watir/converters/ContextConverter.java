@@ -13,7 +13,7 @@ package org.cubictest.exporters.watir.converters;
 import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
-import org.cubictest.exporters.watir.converters.delegates.ContextAsserter;
+import org.cubictest.exporters.watir.converters.delegates.ContextAsserterXPath;
 import org.cubictest.exporters.watir.converters.delegates.PageElementAsserterPlain;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.AbstractPage;
@@ -51,7 +51,7 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 			PageElementAsserterPlain.handle(watirHolder, pe);
 		}
 		else {
-			ContextAsserter.handle(watirHolder, pe);
+			ContextAsserterXPath.handle(watirHolder, pe);
 		}
 
 		PageElement element = (PageElement) ctx;
@@ -60,8 +60,20 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 		watirHolder.add("rescue " + WatirHolder.TEST_STEP_FAILED, 2);
 		watirHolder.add("puts \"" + WatirHolder.FAIL + watirHolder.getId(element) + "\"", 3);
 		watirHolder.add("failedSteps += 1 ", 3);
-
 		watirHolder.add("puts \"Step failed: Check " + element.toString() + " present\"", 3);
+		if (ctx instanceof Frame) {
+			//frames fail hard when not found. Catch all exceptions:
+			watirHolder.add("rescue", 2);
+			if (((PageElement) ctx).isNot()) {
+				//we actually have a passed asserton
+				watirHolder.add("puts \"" + WatirHolder.PASS + watirHolder.getId(element) + "\"", 3);
+				watirHolder.add("passedSteps += 1 ", 3);
+			} else {
+				watirHolder.add("puts \"" + WatirHolder.FAIL + watirHolder.getId(element) + "\"", 3);
+				watirHolder.add("failedSteps += 1 ", 3);
+				watirHolder.add("puts \"Step failed: Check " + element.toString() + " present\"", 3);
+			}
+		}
 		watirHolder.add("end", 2);
 		watirHolder.add("STDOUT.flush", 2);
 		

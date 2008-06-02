@@ -19,7 +19,7 @@ import org.cubictest.model.PageElement;
  * 
  * @author Christian Schwarz
  */
-public class ContextAsserter {
+public class ContextAsserterXPath {
 
 	
 	public static void handle(WatirHolder watirHolder, PageElement pe) {
