@@ -69,6 +69,9 @@ public class WatirUtils {
 	
 	public static String getMainIdType(PageElement pe) {
 		IdentifierType idType = pe.getMainIdentifierType();
+		if (idType == null) {
+			throw new ExporterException("Page element " + pe.toString() + " must have at least one identifier.");
+		}
 		if (idType.equals(ID))
 			return ":id";
 		if (idType.equals(NAME))
