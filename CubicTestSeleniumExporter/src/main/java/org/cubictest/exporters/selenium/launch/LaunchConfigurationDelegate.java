@@ -24,6 +24,8 @@ import org.cubictest.common.utils.UserInfo;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
+import org.cubictest.exporters.selenium.ui.CustomStepWizard;
+import org.cubictest.exporters.selenium.ui.SeleniumCustomStepSection;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
@@ -43,6 +45,7 @@ import org.eclipse.jdt.launching.ExecutionArguments;
 import org.eclipse.jdt.launching.IVMRunner;
 import org.eclipse.jdt.launching.SocketUtil;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -52,8 +55,10 @@ import org.eclipse.ui.ide.IDE;
 public class LaunchConfigurationDelegate extends
 		AbstractJavaLaunchConfigurationDelegate {
 
+	private static final String CUBICTEST_SELENIUM_RUNNER_CLASS = "org.cubictest.runner.selenium.server.internal.CubicTestRemoteRunnerServer";
 	private static final String ERROR_INVALID_PROJECT_GOT_TO_BE_A_JAVA_PROJEDT = "Error invalid project, got to be a java project";
-	private static final String REMOTE_CUBIC_RUNNER_IS_NOT_ON_THE_CLASSPATH = "RemoteCubicRunner is not on the classpath";
+	private static final String REMOTE_CUBIC_RUNNER_IS_NOT_ON_THE_CLASSPATH = "RemoteCubicRunner is not on the classpath, " +
+			"please add the CubicTest Selenium Library to the path";
 	private static final String CUBIC_RUNNER_COULD_NOT_FIND_FREE_PORT = "CubicRunner could not find free port";
 	private static final String CUBIC_UNIT_PORT = "CUBIC_UNIT_PORT";
 	private static final String SELENIUM_CLIENT_PROXY = "SELENIUM_CLIENT_PROXY";
@@ -68,7 +73,7 @@ public class LaunchConfigurationDelegate extends
 	@Override
 	public String getMainTypeName(ILaunchConfiguration configuration)
 			throws CoreException {
-		return "org.cubictest.runner.selenium.server.internal.CubicTestRemoteRunnerServer";
+		return CUBICTEST_SELENIUM_RUNNER_CLASS;
 	}
 
 	public void setTest(Test test){
@@ -313,10 +318,10 @@ public class LaunchConfigurationDelegate extends
 	 * @throws CoreException
 	 *             an exception is thrown when the verification fails
 	 */
-	protected void preLaunchCheck(ILaunchConfiguration configuration,
+	private void preLaunchCheck(ILaunchConfiguration configuration,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 		try {
-			IJavaProject javaProject = getJavaProject(configuration);
+			final IJavaProject javaProject = getJavaProject(configuration);
 			if ((javaProject == null) || !javaProject.exists()) {
 				ErrorHandler
 						.logAndShowErrorDialog(ERROR_INVALID_PROJECT_GOT_TO_BE_A_JAVA_PROJEDT);
@@ -325,13 +330,26 @@ public class LaunchConfigurationDelegate extends
 						ERROR_INVALID_PROJECT_GOT_TO_BE_A_JAVA_PROJEDT));
 			}
 
-			if (javaProject != null
-					&& javaProject.getProject().getFile(
-							new Path("tests/log_in.aat")) != null) {
+			if (javaProject.findType(CUBICTEST_SELENIUM_RUNNER_CLASS) != null) {
 				return;
 			}
-			ErrorHandler
-					.logAndShowErrorDialog(REMOTE_CUBIC_RUNNER_IS_NOT_ON_THE_CLASSPATH);
+			
+			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+				public void run() {
+					CustomStepWizard.addLibToClasspath(javaProject, new Shell());
+				}
+			});
+			if (javaProject.findType(CUBICTEST_SELENIUM_RUNNER_CLASS) != null) {
+				return;
+			}else{
+
+				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+					public void run() {
+						ErrorHandler.logAndShowErrorDialog(
+								REMOTE_CUBIC_RUNNER_IS_NOT_ON_THE_CLASSPATH);
+					}
+				});
+			}
 			throw new CoreException(new Status(IStatus.ERROR,
 					SeleniumExporterPlugin.PLUGIN_ID,
 					REMOTE_CUBIC_RUNNER_IS_NOT_ON_THE_CLASSPATH));

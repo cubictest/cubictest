@@ -29,6 +29,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.wizards.NewClassWizardPage;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.PreferencesUtil;
@@ -74,17 +75,7 @@ public class CustomStepWizard extends Wizard {
 			try {
 				IJavaProject javaProject = JavaCore.create(project);
 				if (javaProject.findType(TEST_SUPERCLASS_NAME) == null) {
-					if(MessageDialog.openQuestion(new Shell(), "Add CubicTest Selenium to classpath", 
-							"Would you like to add CubicTest and Selenium libraries to the classpath?")){
-						IClasspathEntry newEntry = JavaCore.newContainerEntry(
-								new Path(SeleniumClasspathContainerInitializer.CUBICTEST_SELENIUM));
-						
-						String id= BUILD_PATH_PAGE_ID;
-						Map<String,Object> input= new HashMap<String,Object>();
-						input.put("add_classpath_entry", newEntry);
-						input.put("block_until_buildpath_applied", Boolean.TRUE);
-						PreferencesUtil.createPropertyDialogOn(getShell(), javaProject, id, new String[] { id }, input).open();
-					}
+					addLibToClasspath(javaProject, getShell());
 				}
 				IProgressMonitor monitor = new NullProgressMonitor();
 				classWizard.createType(monitor);
@@ -94,6 +85,21 @@ public class CustomStepWizard extends Wizard {
 			} catch (InterruptedException e) {
 				ErrorHandler.logAndShowErrorDialog(e);
 			}
+		}
+		return false;
+	}
+
+	public static boolean addLibToClasspath(IJavaProject javaProject, Shell shell) {
+		if(MessageDialog.openQuestion(new Shell(), "Add CubicTest Selenium to classpath", 
+				"You need to have CubicTest and Selenium libraries on the classpath.\n\nWould you like ot add them?")){
+			IClasspathEntry newEntry = JavaCore.newContainerEntry(
+					new Path(SeleniumClasspathContainerInitializer.CUBICTEST_SELENIUM));
+			
+			String id= BUILD_PATH_PAGE_ID;
+			Map<String,Object> input= new HashMap<String,Object>();
+			input.put("add_classpath_entry", newEntry);
+			input.put("block_until_buildpath_applied", Boolean.TRUE);
+			return PreferencesUtil.createPropertyDialogOn(shell, javaProject, id, new String[] { id }, input).open() == Window.OK;
 		}
 		return false;
 	}
