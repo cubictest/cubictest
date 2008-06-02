@@ -48,6 +48,7 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 		watirHolder.add("begin", 2);
 		
 		if (pe instanceof Frame) {
+			//Watir does not support XPath locator for frames. Use plain asserter:
 			PageElementAsserterPlain.handle(watirHolder, pe);
 		}
 		else {
