@@ -22,6 +22,8 @@ import org.eclipse.ui.IPerspectiveFactory;
  */
 public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 
+	private static final String LOG_VIEW_ID = "org.eclipse.pde.runtime.LogView";
+
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
 	 */
@@ -41,7 +43,9 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 		
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
-		layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);
+		layout.addShowViewShortcut(JavaUI.ID_PACKAGES); //package explorer
+		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
+		layout.addShowViewShortcut(LOG_VIEW_ID);
 
 		layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
   		layout.addActionSet(JavaUI.ID_ACTION_SET);
@@ -49,19 +53,21 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
   		layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
 		
 		String editorArea = layout.getEditorArea();
-		// Top left: Resource Navigator view and Bookmarks view placeholder
-		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, 0.20f,
-			editorArea);
-		topLeft.addView("org.eclipse.jdt.ui.PackageExplorer");
+		
+		// Top left: Package explorer view and Bookmarks view placeholder
+		String topLeftId = "topLeft";
+		IFolderLayout topLeft = layout.createFolder(topLeftId, IPageLayout.LEFT, 0.20f, editorArea);
+		topLeft.addView(JavaUI.ID_PACKAGES);
 		topLeft.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 		
 		// Bottom left: Outline view 
-		IFolderLayout bottomLeft = layout.createFolder("bottomLeft", IPageLayout.BOTTOM, 0.50f,
-			"topLeft");
+		IFolderLayout bottomLeft = layout.createFolder("bottomLeft", IPageLayout.BOTTOM, 0.50f, topLeftId);
 		bottomLeft.addView(IPageLayout.ID_OUTLINE);
 		
-		// Bottom right: Property Sheet view
-		layout.addView(IPageLayout.ID_PROP_SHEET, IPageLayout.BOTTOM, 0.66f, editorArea);
+		// Bottom right: Property Sheet view and Log view
+		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, 0.66f, editorArea);
+		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
+		bottomRight.addView(LOG_VIEW_ID);
 		
 		layout.addPerspectiveShortcut("cubicTestPlugin.CubicTest");
 		
