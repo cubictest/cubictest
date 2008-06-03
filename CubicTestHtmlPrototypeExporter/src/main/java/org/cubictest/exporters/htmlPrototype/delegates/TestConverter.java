@@ -110,7 +110,7 @@ public class TestConverter implements ITestConverter {
 
 	private HtmlPageCreator convertPage(TransitionNode node, HtmlPageCreator rootPage) throws PageAllreadyProcessedException {
 		if (node instanceof CustomTestStepHolder) {
-			throw new ExporterException("The HTML exporter does not yet support custom steps");
+			throw new ExporterException("The HTML exporter does not yet support custom steps.");
 		}
 		
 		boolean newPage = false;
