@@ -85,7 +85,7 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 	 */
 	@Override
 	protected IFigure createFigure() {
-		String name = ((CustomTestStepHolder)getModel()).getDisplayText();
+		String name = ((CustomTestStepHolder)getModel()).getName();
 		String filePath = ((CustomTestStepHolder)getModel()).getFilePath();
 		customTestStepFigure = new CustomTestStepFigure(name);
 		Point p = ((TransitionNode)getModel()).getPosition();
@@ -113,7 +113,7 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 		AbstractTransitionNodeFigure figure = (AbstractTransitionNodeFigure) getFigure();
 		Point position = connectionPoint.getPosition();
 		Rectangle r = new Rectangle(position.x,position.y,-1,-1);
-		customTestStepFigure.setText(((CustomTestStepHolder)getModel()).getDisplayText());
+		customTestStepFigure.setText(((CustomTestStepHolder)getModel()).getName());
 		((TestEditPart)getParent()).setLayoutConstraint(this,figure,r);
 	}
 	

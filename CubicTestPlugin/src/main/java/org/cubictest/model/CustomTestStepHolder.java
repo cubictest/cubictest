@@ -40,7 +40,7 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 		this.project = project;
 	}
 	
-	public String getDisplayText() {
+	public String getName() {
 		String stepName = getCustomTestStep(false).getName();
 		if (StringUtils.isNotBlank(stepName)) {
 			return stepName;

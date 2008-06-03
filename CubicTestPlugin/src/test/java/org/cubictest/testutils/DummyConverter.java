@@ -47,7 +47,7 @@ public class DummyConverter implements
 	}
 
 	public void handleCustomStep(AssertionList<String> AssertionList, ICustomTestStepHolder cts, CustomTestStepData data) {
-		AssertionList.add(cts.getDisplayText());
+		AssertionList.add(cts.getName());
 	}
 
 	public void handlePageElement(AssertionList<String> AssertionList, PageElement e) {
