@@ -82,8 +82,8 @@ public class SeleniumHolder extends RunnerResultHolder {
 			
 			try {
 				selenium.execute("windowFocus");
+				Thread.sleep(100);
 				selenium.execute("captureScreenshot",workingDirName + File.separator + targetSubfolder + File.separator + element.getText() + "_" + System.currentTimeMillis() + ".png");
-				//SeleniumUtils.takeAScreenShotOfTheApp(workingDirName,element.getText());
 			}
 			catch (Exception e) {
 				Logger.warn("Unable to capture screenshot of failing test", e);
