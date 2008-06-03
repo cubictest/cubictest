@@ -29,7 +29,7 @@ public class CustomTestStepConverter implements ICustomTestStepConverter<WatirHo
 
 	public void handleCustomStep(WatirHolder t, ICustomTestStepHolder cts,
 			CustomTestStepData data) {
-		throw new ExporterException("Custom test step not supported in Watir exporter");
+		throw new ExporterException("Custom test steps are not supported by the Watir exporter yet");
 	}
 
 }

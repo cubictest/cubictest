@@ -31,7 +31,7 @@ public class CustomTestStepConverter implements ICustomTestStepConverter<Selenes
 
 	public void handleCustomStep(SeleneseDocument t, ICustomTestStepHolder cts,
 			CustomTestStepData data) {
-		throw new ExporterException("Custom test step not supported in Selenium exporter yet");
+		throw new ExporterException("Custom test step not supported in Selenium Core exporter yet");
 	}
 
 }
