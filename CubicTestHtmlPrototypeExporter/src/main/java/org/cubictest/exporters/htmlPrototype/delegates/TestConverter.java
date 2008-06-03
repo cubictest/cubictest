@@ -17,8 +17,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.htmlPrototype.interfaces.IPageConverter;
 import org.cubictest.exporters.htmlPrototype.interfaces.ITestConverter;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Page;
@@ -107,6 +109,10 @@ public class TestConverter implements ITestConverter {
 	}
 
 	private HtmlPageCreator convertPage(TransitionNode node, HtmlPageCreator rootPage) throws PageAllreadyProcessedException {
+		if (node instanceof CustomTestStepHolder) {
+			throw new ExporterException("The HTML exporter does not yet support custom steps");
+		}
+		
 		boolean newPage = false;
 
 		if (usedPages.contains(node)) {
