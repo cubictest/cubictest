@@ -240,8 +240,7 @@ public class SeleniumUtils {
 	
 	
 	public static void writeTextToFile(String directory, String fileName, String text){
-		File textFile = new File(directory + File.separator
-                + fileName + "_" + System.currentTimeMillis() + ".txt");
+		File textFile = new File(directory + fileName  + ".txt");
 		try {
 			FileWriter writer = new FileWriter(textFile);
 			writer.write(text);

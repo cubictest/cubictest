@@ -30,6 +30,7 @@ import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -225,7 +226,10 @@ public class LaunchConfigurationDelegate extends
 						}
 					}
 				});
-			}catch(Exception e ){
+				
+				project.getResource().refreshLocal(IResource.DEPTH_INFINITE, monitor);
+			}
+			catch(Exception e ){
 				Logger.error("Error when running test", e);
 			}finally{
 				testRunner.cleanUp();

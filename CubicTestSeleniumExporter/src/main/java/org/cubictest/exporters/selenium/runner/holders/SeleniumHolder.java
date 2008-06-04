@@ -11,6 +11,8 @@
 package org.cubictest.exporters.selenium.runner.holders;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
@@ -39,6 +41,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 	private UrlStartPoint handledUrlStartPoint;
 	private CubicTestRemoteRunnerClient customStepRunner;
 	private String workingDirName;
+	private String timestampFolder = new SimpleDateFormat("yyyy-MM-dd HHmm").format(new Date());
 	
 	
 	public SeleniumHolder(Selenium selenium, Display display, CubicTestProjectSettings settings) {
@@ -68,13 +71,17 @@ public class SeleniumHolder extends RunnerResultHolder {
 
 	@Override
 	protected void handleAssertionFailure(PageElement element) {
+		
 		if (workingDirName != null) {
-			String targetSubfolder = "html and screenshots";
-			new File(workingDirName + File.separator + targetSubfolder).mkdir();
+			String baseTargetFolder = workingDirName +  File.separator + "html and screenshots";
+			new File(baseTargetFolder).mkdir();
+			String innerFolder = baseTargetFolder + File.separator + timestampFolder;
+			new File(innerFolder).mkdir();
+			innerFolder = innerFolder + File.separator;
 
 			try{
 				String bodyText = selenium.execute("getHtmlSource")[0];
-				SeleniumUtils.writeTextToFile(workingDirName +  File.separator + targetSubfolder, element.getText(), bodyText);
+				SeleniumUtils.writeTextToFile(innerFolder, element.getText(), bodyText);
 			}
 			catch (Exception e) {
 				Logger.warn("Unable to capture HTML of failing test", e);
@@ -83,7 +90,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 			try {
 				selenium.execute("windowFocus");
 				Thread.sleep(100);
-				selenium.execute("captureScreenshot",workingDirName + File.separator + targetSubfolder + File.separator + element.getText() + "_" + System.currentTimeMillis() + ".png");
+				selenium.execute("captureScreenshot", innerFolder + element.getText() + ".png");
 			}
 			catch (Exception e) {
 				Logger.warn("Unable to capture screenshot of failing test", e);
