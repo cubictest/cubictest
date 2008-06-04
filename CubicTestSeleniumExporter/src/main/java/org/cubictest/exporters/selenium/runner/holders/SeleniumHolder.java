@@ -36,6 +36,7 @@ import com.thoughtworks.selenium.Selenium;
  */
 public class SeleniumHolder extends RunnerResultHolder {
 
+	public static final String HTML_AND_SCREENSHOTS_FOLDER_NAME = "html and screenshots";
 	private CubicTestLocalRunner selenium;
 	private boolean seleniumStarted;
 	private UrlStartPoint handledUrlStartPoint;
@@ -75,7 +76,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 	protected void handleAssertionFailure(PageElement element) {
 		
 		if (workingDirName != null && (takeScreenshots || captureHtml)) {
-			String baseTargetFolder = workingDirName +  File.separator + "html and screenshots";
+			String baseTargetFolder = workingDirName +  File.separator + HTML_AND_SCREENSHOTS_FOLDER_NAME;
 			new File(baseTargetFolder).mkdir();
 			String innerFolder = baseTargetFolder + File.separator + timestampFolder;
 			new File(innerFolder).mkdir();

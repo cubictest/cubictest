@@ -91,7 +91,7 @@ public class CustomStepWizard extends Wizard {
 
 	public static boolean addLibToClasspath(IJavaProject javaProject, Shell shell) {
 		if(MessageDialog.openQuestion(new Shell(), "Add CubicTest Selenium to classpath", 
-				"You need to have CubicTest and Selenium libraries on the classpath.\n\nWould you like ot add them?")){
+				"You need to have CubicTest and Selenium libraries on the classpath.\n\nWould you like to add them?")){
 			IClasspathEntry newEntry = JavaCore.newContainerEntry(
 					new Path(SeleniumClasspathContainerInitializer.CUBICTEST_SELENIUM));
 			
