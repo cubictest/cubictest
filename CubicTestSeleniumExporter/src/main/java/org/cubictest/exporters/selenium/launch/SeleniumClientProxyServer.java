@@ -28,6 +28,7 @@ public class SeleniumClientProxyServer extends Thread {
 	@Override
 	public void run() {
 		try{
+			System.out.println("SeleniumClientProxyServer will run at port " + port);
 			ServerSocket serverSocket = 
 				ServerSocketFactory.getDefault().createServerSocket(port);
 			socket = serverSocket.accept();

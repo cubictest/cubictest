@@ -109,7 +109,7 @@
             finalPerspective="org.cubictest.CubicTestPerspective"
             icon="icons/customStep.gif"
             id="org.cubictest.ui.wizards.NewCustomTestStepWizard"
-            name="New CubicTest Custom Test Step"
+            name="New CubicTest Custom Test Step (Beta)"
             preferredPerspectives="org.cubictest.CubicTestPerspective">
       </wizard>
    </extension>

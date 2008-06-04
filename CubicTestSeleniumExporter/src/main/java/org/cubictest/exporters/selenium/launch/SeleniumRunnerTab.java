@@ -65,8 +65,11 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	public static final String CUBIC_TEST_BROWSER = "CubicTestSeleniumBrowser";
 	public static final String CUBIC_TEST_NAMESPACE_XPATH = "CubicTestSeleniumNamespaceXpath";
 	public static final String CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW = "CubicTestSeleniumServerMultiWindow";
+	public static final String CUBIC_TEST_SELENIUM_TAKE_SCREENSHOTS = "CubicTestSeleniumTakeScreenshots";
+	public static final String CUBIC_TEST_SELENIUM_CAPTURE_HTML = "CubicTestSeleniumCaptureHtml";
 	public static final String CUBIC_TEST_SELENIUM_SERVER_HOST = "CubicTestSeleniumServerHost";
 	public static final String CUBIC_TEST_SELENIUM_SERVER_PORT = "CubicTestSeleniumServerPort";
+	public static final String CUBIC_TEST_SELENIUM_SERVER_AUTO_HOST_AND_PORT = "CubicTestSeleniumServerAuto";
 
 	private Text testName;
 	private Button testBrowse;
@@ -79,7 +82,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	private Combo browserCombo;
 	private BrowserType browserType;
 	
-	private Group nameSpaceGroup;
+	private Group miscSettingsGroup;
 	private Button nameSpaceButton;
 	private Label nameSpaceButtonLabel;
 
@@ -87,9 +90,18 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 	private Text seleniumServerHost;
 	private Label seleniumServerPortLabel;
 	private Text seleniumServerPort;
+	
+	private Label seleniumAutoHostAndPortLabel;
+	private Button seleniumAutoHostAndPortButton;
 
 	private Label seleniumServerMultiWindowLabel;
 	private Button seleniumServerMultiWindowButton;
+
+	private Label seleniumTakeScreenshotsLabel;
+	private Button seleniumTakeScreenshotsButton;
+
+	private Label seleniumCaptureHtmlLabel;
+	private Button seleniumCaptureHtmlButton;
 
 	private SelectionListener projectBrowseListener = new SelectionAdapter(){
 		@Override
@@ -262,34 +274,75 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 				
 		{
 			GridLayout groupLayout = new GridLayout();
-			groupLayout.numColumns = 2;
+			groupLayout.numColumns = 4;
 
-			nameSpaceGroup = new Group(composite, SWT.NONE);
-			nameSpaceGroup.setText("Support for namespaces in XHTML:");
-			nameSpaceGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-			nameSpaceGroup.setLayout(groupLayout);
+			miscSettingsGroup = new Group(composite, SWT.NONE);
+			miscSettingsGroup.setText("Selenium Runner:");
+			miscSettingsGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+			miscSettingsGroup.setLayout(groupLayout);
+
+			seleniumTakeScreenshotsLabel = new Label(miscSettingsGroup, SWT.NONE);
+			seleniumTakeScreenshotsLabel.setText("Take screenshot of test failures:");
+			seleniumTakeScreenshotsButton = new Button(miscSettingsGroup, SWT.CHECK);
+			seleniumTakeScreenshotsButton.addSelectionListener(selectionListener);
 			
-			nameSpaceButtonLabel = new Label(nameSpaceGroup, SWT.NONE);
-			nameSpaceButtonLabel.setText("Use namespace in XPath execution:");
+			seleniumCaptureHtmlLabel = new Label(miscSettingsGroup, SWT.NONE);
+			seleniumCaptureHtmlLabel.setText("Capture HTML of test failures:");
+			seleniumCaptureHtmlButton = new Button(miscSettingsGroup, SWT.CHECK);
+			seleniumCaptureHtmlButton.addSelectionListener(selectionListener);
 			
-			nameSpaceButton = new Button(nameSpaceGroup, SWT.CHECK);
+			nameSpaceButtonLabel = new Label(miscSettingsGroup, SWT.NONE);
+			nameSpaceButtonLabel.setText("Support namespaces in XHTML:");
+			nameSpaceButton = new Button(miscSettingsGroup, SWT.CHECK);
 			nameSpaceButton.addSelectionListener(selectionListener);
+			GridData buttonData = new GridData();
+			buttonData.horizontalSpan = 3;
+			nameSpaceButton.setLayoutData(buttonData);
 			
+			seleniumServerMultiWindowLabel = new Label(miscSettingsGroup, SWT.NONE);
+			seleniumServerMultiWindowLabel.setText("Multiwindow:");
+			seleniumServerMultiWindowButton = new Button(miscSettingsGroup, SWT.CHECK);
+			seleniumServerMultiWindowButton.setLayoutData(new GridData(100, SWT.DEFAULT));
+			seleniumServerMultiWindowButton.addSelectionListener(selectionListener);
+
 		}
 		
 		{
 			GridLayout groupLayout = new GridLayout();
-			groupLayout.numColumns = 2;
+			groupLayout.numColumns = 5;
 
 			Group group = new Group(composite, SWT.NONE);
-			group.setText("Selenium RC Server: ");
+			group.setText("Selenium RC Server - Host and port: ");
 			group.setLayout(groupLayout);
 			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			
+			GridData layoutData;
+			
+			seleniumAutoHostAndPortLabel = new Label(group, SWT.NONE);
+			seleniumAutoHostAndPortLabel.setText("Auto (localhost):");
+			layoutData = new GridData();
+			layoutData.horizontalSpan = 2;
+			seleniumAutoHostAndPortLabel.setLayoutData(layoutData);
+			seleniumAutoHostAndPortButton = new Button(group, SWT.CHECK);
+			seleniumAutoHostAndPortButton.addSelectionListener(selectionListener);
+			seleniumAutoHostAndPortButton.addSelectionListener(new SelectionListener() {
+				public void widgetDefaultSelected(SelectionEvent e) {
+				}
+				public void widgetSelected(SelectionEvent e) {
+					updateHostAndPortControls();
+				}
+			});
+			layoutData = new GridData();
+			layoutData.horizontalSpan = 3;
+			seleniumAutoHostAndPortButton.setLayoutData(layoutData);
+
 			seleniumServerHostLabel = new Label(group, SWT.NONE);
 			seleniumServerHostLabel.setText("Host:");
 			seleniumServerHost = new Text(group, SWT.WRAP | SWT.BORDER);
-			seleniumServerHost.setLayoutData(new GridData(200, SWT.DEFAULT));
+			layoutData = new GridData();
+			layoutData.horizontalSpan = 2;
+			layoutData.widthHint = 200;
+			seleniumServerHost.setLayoutData(layoutData);
 			seleniumServerHost.addFocusListener(new FocusAdapter(){
 				@Override
 				public void focusLost(FocusEvent e) {
@@ -301,7 +354,9 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			seleniumServerPortLabel = new Label(group, SWT.NONE);
 			seleniumServerPortLabel.setText("Port:");
 			seleniumServerPort = new Text(group, SWT.WRAP | SWT.BORDER);
-			seleniumServerPort.setLayoutData(new GridData(100, SWT.DEFAULT));
+			layoutData = new GridData();
+			layoutData.widthHint = 100;
+			seleniumServerPort.setLayoutData(layoutData);
 			seleniumServerPort.addFocusListener(new FocusAdapter(){
 				@Override
 				public void focusLost(FocusEvent e) {
@@ -309,12 +364,6 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 					updateLaunchConfigurationDialog();
 				}
 			});
-			
-			seleniumServerMultiWindowLabel = new Label(group, SWT.NONE);
-			seleniumServerMultiWindowLabel.setText("Multiwindow:");
-			seleniumServerMultiWindowButton = new Button(group, SWT.CHECK);
-			seleniumServerMultiWindowButton.setLayoutData(new GridData(100, SWT.DEFAULT));
-			seleniumServerMultiWindowButton.addSelectionListener(selectionListener);
 		}
 	}
 
@@ -336,6 +385,15 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 					CUBIC_TEST_SELENIUM_SERVER_PORT, "4545"));
 			seleniumServerMultiWindowButton.setSelection(configuration.getAttribute(
 					CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, false));
+			seleniumTakeScreenshotsButton.setSelection(configuration.getAttribute(
+					CUBIC_TEST_SELENIUM_TAKE_SCREENSHOTS, false));
+			seleniumCaptureHtmlButton.setSelection(configuration.getAttribute(
+					CUBIC_TEST_SELENIUM_CAPTURE_HTML, false));
+			seleniumAutoHostAndPortButton.setSelection(configuration.getAttribute(
+					CUBIC_TEST_SELENIUM_SERVER_AUTO_HOST_AND_PORT, true));
+
+			updateHostAndPortControls();
+
 		} catch (CoreException e) {
 			testName.setText("");
 			projectName.setText("");
@@ -347,6 +405,22 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		browserCombo.select(storedBrowserTypeIndex);
 	}
 
+
+	private void updateHostAndPortControls() {
+		if (seleniumAutoHostAndPortButton.getSelection()) {
+			seleniumServerHost.setVisible(false);
+			seleniumServerHostLabel.setVisible(false);
+			seleniumServerPort.setVisible(false);
+			seleniumServerPortLabel.setVisible(false);
+		}
+		else {
+			seleniumServerHost.setVisible(true);
+			seleniumServerHostLabel.setVisible(true);
+			seleniumServerPort.setVisible(true);
+			seleniumServerPortLabel.setVisible(true);
+		}
+	}
+
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(CUBIC_TEST_NAME, testName.getText());
 		configuration.setAttribute(ATTR_PROJECT_NAME, projectName.getText());
@@ -354,8 +428,10 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		configuration.setAttribute(CUBIC_TEST_NAMESPACE_XPATH, nameSpaceButton.getSelection());
 		configuration.setAttribute(CUBIC_TEST_SELENIUM_SERVER_HOST, seleniumServerHost.getText());
 		configuration.setAttribute(CUBIC_TEST_SELENIUM_SERVER_PORT, seleniumServerPort.getText());
-		configuration.setAttribute(CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, 
-				seleniumServerMultiWindowButton.getSelection());
+		configuration.setAttribute(CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW,  seleniumServerMultiWindowButton.getSelection());
+		configuration.setAttribute(CUBIC_TEST_SELENIUM_TAKE_SCREENSHOTS,  seleniumTakeScreenshotsButton.getSelection());
+		configuration.setAttribute(CUBIC_TEST_SELENIUM_CAPTURE_HTML,  seleniumCaptureHtmlButton.getSelection());
+		configuration.setAttribute(CUBIC_TEST_SELENIUM_SERVER_AUTO_HOST_AND_PORT,  seleniumAutoHostAndPortButton.getSelection());
 		mapResources(configuration);
 	}
 

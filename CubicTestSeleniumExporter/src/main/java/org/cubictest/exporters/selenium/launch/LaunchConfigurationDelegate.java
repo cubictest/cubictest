@@ -209,10 +209,24 @@ public class LaunchConfigurationDelegate extends
 			
 			seleniumMultiWindow = getSeleniumMultiWindow(configuration);
 			
-			final TestRunner testRunner = new TestRunner(test, wb.getDisplay(), 
-					seleniumHost, seleniumPort, serverPort, 
-					seleniumClientProxyPort, seleniumMultiWindow, BrowserType.fromId(browser), useNamespace);
-			testRunner.setWorkingDirectory(workingDirName);
+			
+			//create the parameters:
+			TestRunner.RunnerParameters parameters = new TestRunner.RunnerParameters();
+			parameters.test = test;
+			parameters.display = wb.getDisplay();
+			parameters.seleniumHost = seleniumHost;
+			parameters.seleniumPort = seleniumPort;
+			parameters.serverPort = serverPort;
+			parameters.seleniumClientProxyPort = seleniumClientProxyPort;
+			parameters.seleniumMultiWindow = seleniumMultiWindow;
+			parameters.browserType = BrowserType.fromId(browser);
+			parameters.useNamespace = useNamespace;
+			parameters.workingDirName = workingDirName;
+			parameters.takeScreenshots = getSeleniumTakeScreenshots(configuration);
+			parameters.captureHtml = getSeleniumCaptureHtml(configuration);
+			parameters.serverAutoHostAndPort = getSeleniumServerAutoHostAndPort(configuration);
+			
+			final TestRunner testRunner = new TestRunner(parameters);
 			try{
 				//run!
 				testRunner.run(monitor);
@@ -297,16 +311,40 @@ public class LaunchConfigurationDelegate extends
 
 	private boolean getSeleniumMultiWindow(ILaunchConfiguration configuration) {
 		try {
-			return configuration.getAttribute(
-					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, false);
-		} catch (CoreException e) {
-			Logger.error("Error getting property", e);
+			return configuration.getAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, false);
 		} catch (Exception e){
 			Logger.error("Error getting property", e);
+			return false;
 		}
-		return false;
 	}
 	
+	private boolean getSeleniumTakeScreenshots(ILaunchConfiguration configuration) {
+		try {
+			return configuration.getAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_TAKE_SCREENSHOTS, false);
+		} catch (Exception e){
+			Logger.error("Error getting property", e);
+			return false;
+		}
+	}
+
+	private boolean getSeleniumCaptureHtml(ILaunchConfiguration configuration) {
+		try {
+			return configuration.getAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_CAPTURE_HTML, false);
+		} catch (Exception e){
+			Logger.error("Error getting property", e);
+			return false;
+		}
+	}
+
+	private boolean getSeleniumServerAutoHostAndPort(ILaunchConfiguration configuration) {
+		try {
+			return configuration.getAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_AUTO_HOST_AND_PORT, true);
+		} catch (Exception e){
+			Logger.error("Error getting property", e);
+			return false;
+		}
+	}
+
 
 	/**
 	 * Performs a check on the launch configuration's attributes. If an

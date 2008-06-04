@@ -42,6 +42,8 @@ public class SeleniumHolder extends RunnerResultHolder {
 	private CubicTestRemoteRunnerClient customStepRunner;
 	private String workingDirName;
 	private String timestampFolder = new SimpleDateFormat("yyyy-MM-dd HHmm").format(new Date());
+	private boolean takeScreenshots;
+	private boolean captureHtml;
 	
 	
 	public SeleniumHolder(Selenium selenium, Display display, CubicTestProjectSettings settings) {
@@ -72,28 +74,32 @@ public class SeleniumHolder extends RunnerResultHolder {
 	@Override
 	protected void handleAssertionFailure(PageElement element) {
 		
-		if (workingDirName != null) {
+		if (workingDirName != null && (takeScreenshots || captureHtml)) {
 			String baseTargetFolder = workingDirName +  File.separator + "html and screenshots";
 			new File(baseTargetFolder).mkdir();
 			String innerFolder = baseTargetFolder + File.separator + timestampFolder;
 			new File(innerFolder).mkdir();
 			innerFolder = innerFolder + File.separator;
 
-			try{
-				String bodyText = selenium.execute("getHtmlSource")[0];
-				SeleniumUtils.writeTextToFile(innerFolder, element.getText(), bodyText);
-			}
-			catch (Exception e) {
-				Logger.warn("Unable to capture HTML of failing test", e);
+			if (captureHtml) {
+				try{
+					String bodyText = selenium.execute("getHtmlSource")[0];
+					SeleniumUtils.writeTextToFile(innerFolder, element.getText(), bodyText, "html");
+				}
+				catch (Exception e) {
+					Logger.warn("Unable to capture HTML of failing test", e);
+				}
 			}
 			
-			try {
-				selenium.execute("windowFocus");
-				Thread.sleep(100);
-				selenium.execute("captureScreenshot", innerFolder + element.getText() + ".png");
-			}
-			catch (Exception e) {
-				Logger.warn("Unable to capture screenshot of failing test", e);
+			if (takeScreenshots) {
+				try {
+					selenium.execute("windowFocus");
+					Thread.sleep(100);
+					selenium.execute("captureScreenshot", innerFolder + element.getText() + ".png");
+				}
+				catch (Exception e) {
+					Logger.warn("Unable to capture screenshot of failing test", e);
+				}
 			}
 		}
 
@@ -128,6 +134,14 @@ public class SeleniumHolder extends RunnerResultHolder {
 
 	public void setWorkingDir(String workingDirName) {
 		this.workingDirName = workingDirName;
+	}
+
+	public void setTakeScreenshots(boolean takeScreenshots) {
+		this.takeScreenshots = takeScreenshots;
+	}
+
+	public void setCaptureHtml(boolean captureHtml) {
+		this.captureHtml = captureHtml;
 	}
 
 }

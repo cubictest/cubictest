@@ -23,6 +23,7 @@ import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.runner.RunnerStarter.Operation;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.launch.converters.CustomTestStepConverter;
@@ -50,34 +51,37 @@ public class TestRunner {
 	private SeleniumStarter seleniumStarter;
 	private Selenium selenium;
 	private Page targetPage;
-	private int seleniumPort;
 	public static final BrowserType DEFAULT_BROWSER = BrowserType.FIREFOX;
-	private BrowserType browserType = DEFAULT_BROWSER;
 	private IProgressMonitor monitor;
 	private boolean reuseSelenium = false;
-	private Test test;
 	private boolean failOnAssertionFailure;
-	private final String seleniumHost;
-	private final int serverPort;
-	private final int seleniumClientProxyPort;
 	private CubicTestRemoteRunnerClient cubicTestRemoteRunnerClient;
 	private SeleniumClientProxyServer seleniumClientProxyServer;
-	private final Display display;
-	private final boolean useNamespace;
-	private String workingDirName;
-	private final boolean seleniumMultiWindow;
+	private final RunnerParameters runnerParameters;
+	
+	public static class RunnerParameters {
+		public Test test;
+		public Display display;
+		public String seleniumHost;
+		public int seleniumPort;
+		public int serverPort;
+		public int seleniumClientProxyPort;
+		public boolean seleniumMultiWindow;
+		public BrowserType browserType = DEFAULT_BROWSER;
+		public boolean useNamespace;		
+		public String workingDirName;
+		public boolean takeScreenshots;
+		public boolean captureHtml;
+		public boolean serverAutoHostAndPort;
+	}
 
-	public TestRunner(Test test, Display display, String seleniumHost, int seleniumPort, int serverPort,
-			int seleniumClientProxyPort, boolean seleniumMultiWindow, BrowserType browserType, boolean useNamespace) {
-		this.test = test;
-		this.display = display;
-		this.seleniumPort = seleniumPort;
-		this.seleniumHost = seleniumHost;
-		this.serverPort = serverPort;
-		this.seleniumClientProxyPort = seleniumClientProxyPort;
-		this.seleniumMultiWindow = seleniumMultiWindow;
-		this.browserType = browserType;
-		this.useNamespace = useNamespace;
+
+	public TestRunner(RunnerParameters runnerParameters) {
+		this.runnerParameters = runnerParameters;
+		if (runnerParameters.serverAutoHostAndPort) {
+			runnerParameters.seleniumHost = "localhost";
+			runnerParameters.seleniumPort = ExportUtils.findAvailablePort();
+		}
 	}
 
 	public void run(IProgressMonitor monitor) {
@@ -87,8 +91,10 @@ public class TestRunner {
 			if (seleniumHolder == null || !reuseSelenium) {
 				startSelenium(monitor);
 			}
-			seleniumHolder.setWorkingDir(workingDirName);
-			seleniumHolder.setUseNamespace(useNamespace);
+			seleniumHolder.setWorkingDir(runnerParameters.workingDirName);
+			seleniumHolder.setUseNamespace(runnerParameters.useNamespace);
+			seleniumHolder.setTakeScreenshots(runnerParameters.takeScreenshots);
+			seleniumHolder.setCaptureHtml(runnerParameters.captureHtml);
 			
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(
 					UrlStartPointConverter.class, PageElementConverter.class,
@@ -101,13 +107,13 @@ public class TestRunner {
 			}
 			
 			
-			cubicTestRemoteRunnerClient = new CubicTestRemoteRunnerClient(serverPort);
+			cubicTestRemoteRunnerClient = new CubicTestRemoteRunnerClient(runnerParameters.serverPort);
 			seleniumHolder.setCustomStepRunner(cubicTestRemoteRunnerClient);
 			
-			seleniumClientProxyServer = new SeleniumClientProxyServer(seleniumHolder, seleniumClientProxyPort);
+			seleniumClientProxyServer = new SeleniumClientProxyServer(seleniumHolder, runnerParameters.seleniumClientProxyPort);
 			seleniumClientProxyServer.start();
 			
-			testWalker.convertTest(test, seleniumHolder, targetPage);
+			testWalker.convertTest(runnerParameters.test, seleniumHolder, targetPage);
 
 			if (monitor != null) {
 				monitor.done();
@@ -125,13 +131,13 @@ public class TestRunner {
 	private void startSelenium(final IProgressMonitor monitor)
 			throws InterruptedException {
 		seleniumStarter = new SeleniumStarter();
-		seleniumStarter.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
-		seleniumStarter.setBrowser(browserType);
-		seleniumStarter.setDisplay(display);
+		seleniumStarter.setInitialUrlStartPoint(getInitialUrlStartPoint(runnerParameters.test));
+		seleniumStarter.setBrowser(runnerParameters.browserType);
+		seleniumStarter.setDisplay(runnerParameters.display);
 		seleniumStarter.setSelenium(selenium);
-		seleniumStarter.setHost(seleniumHost);
-		seleniumStarter.setPort(seleniumPort);
-		seleniumStarter.setMultiWindow(seleniumMultiWindow);
+		seleniumStarter.setHost(runnerParameters.seleniumHost);
+		seleniumStarter.setPort(runnerParameters.seleniumPort);
+		seleniumStarter.setMultiWindow(runnerParameters.seleniumMultiWindow);
 
 		if (monitor != null) {
 			Thread cancelHandler = new Thread() {
@@ -159,7 +165,7 @@ public class TestRunner {
 			seleniumHolder = call(seleniumStarter, timeout, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			ErrorHandler.rethrow("Unable to start "
-					+ browserType.getDisplayName()
+					+ runnerParameters.browserType.getDisplayName()
 					+ ". Check that the browser is installed.\n\n"
 					+ "Error message: " + e.toString(), e);
 		}
@@ -265,10 +271,6 @@ public class TestRunner {
 		}
 		stopSelenium();
 		
-	}
-
-	public void setWorkingDirectory(String workingDirName) {
-		this.workingDirName = workingDirName;
 	}
 
 }

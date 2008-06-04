@@ -74,6 +74,9 @@ public class CubicTestSeleniumLaunchShortcut implements ILaunchShortcut {
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_HOST, "localhost");
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_PORT, "4545");
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, false);
+		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_TAKE_SCREENSHOTS, false);
+		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_CAPTURE_HTML, false);
+		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_AUTO_HOST_AND_PORT, true);
 		LaunchConfigurationMigrationDelegate.mapResources(wc);
 		return wc;
 	}

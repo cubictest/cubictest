@@ -239,8 +239,8 @@ public class SeleniumUtils {
 	}
 	
 	
-	public static void writeTextToFile(String directory, String fileName, String text){
-		File textFile = new File(directory + fileName  + ".txt");
+	public static void writeTextToFile(String directory, String fileName, String text, String fileExt){
+		File textFile = new File(directory + fileName  + "." + fileExt);
 		try {
 			FileWriter writer = new FileWriter(textFile);
 			writer.write(text);
