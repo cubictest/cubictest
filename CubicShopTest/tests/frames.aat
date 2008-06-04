@@ -58,7 +58,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>UNKNOWN</status>
+              <status>PASS</status>
             </link>
           </elements>
           <name>CubicShop</name>
@@ -126,7 +126,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/link/status"/>
+                    <status>UNKNOWN</status>
                   </link>
                 </elements>
                 <name>CubicShop</name>
@@ -147,7 +147,7 @@
                       <y>4</y>
                     </position>
                     <name></name>
-                    <status reference="../../../../../../elements/link/status"/>
+                    <status reference="../../../elements/link/status"/>
                   </start>
                   <end class="page" reference="../.."/>
                 </inTransition>
@@ -391,7 +391,7 @@
                               </identifiers>
                               <directEditIdentifier reference="../identifiers/identifier"/>
                               <not>false</not>
-                              <status reference="../../../../../../../../../../../elements/link/status"/>
+                              <status reference="../../../../../../../../../page/elements/link/status"/>
                             </link>
                             <link>
                               <description></description>
@@ -439,7 +439,7 @@
                               </identifiers>
                               <directEditIdentifier reference="../identifiers/identifier"/>
                               <not>false</not>
-                              <status reference="../../../../../../../../../../../elements/link/status"/>
+                              <status reference="../../../../../../../../../page/elements/link/status"/>
                             </link>
                           </elements>
                           <description></description>
@@ -495,7 +495,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier[3]"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../../elements/link/status"/>
+                          <status reference="../../../../../../../page/elements/link/status"/>
                         </frame>
                       </elements>
                       <name>CubicShop</name>
@@ -549,7 +549,7 @@
                               </identifiers>
                               <directEditIdentifier reference="../identifiers/identifier"/>
                               <not>false</not>
-                              <status reference="../../../../../../../../../../../elements/link/status"/>
+                              <status reference="../../../../../../../../../page/elements/link/status"/>
                             </element>
                             <input></input>
                             <action reference="../../../../../../../../userInteractions/userInteraction/action"/>
@@ -582,7 +582,7 @@
                                 <y>4</y>
                               </position>
                               <name></name>
-                              <status reference="../../../../../../../../../../../elements/link/status"/>
+                              <status reference="../../../../../../../../../page/elements/link/status"/>
                             </start>
                             <end class="page" reference="../.."/>
                           </inTransition>
@@ -775,6 +775,54 @@
                           <not>true</not>
                           <status reference="../../../../../../../../../elements/link/status"/>
                         </frame>
+                        <link>
+                          <description></description>
+                          <identifiers>
+                            <identifier>
+                              <value>Page admin</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../../../../elements/link/identifiers/identifier[2]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../../../../elements/link/identifiers/identifier[3]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../../../../elements/link/identifiers/identifier[5]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
+                          <not>false</not>
+                          <status reference="../../../../../../../../../elements/link/status"/>
+                        </link>
                       </elements>
                       <name>Exit page admin</name>
                       <description></description>
@@ -787,7 +835,7 @@
                       </position>
                       <dimension>
                         <width>115</width>
-                        <height>97</height>
+                        <height>119</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
                     </end>
@@ -1051,6 +1099,23 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page84118921212611531022</id>
+      <position>
+        <x>0</x>
+        <y>3400</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -1067,5 +1132,5 @@
   <description></description>
   <id>test1211709490404</id>
   <modelVersion>9</modelVersion>
-  <status>PASS</status>
+  <status reference="../startPoint/outTransitions/extensionTransition/end/elements/link/status"/>
 </test>
