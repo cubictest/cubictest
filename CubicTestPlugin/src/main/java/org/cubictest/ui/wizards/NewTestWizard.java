@@ -133,7 +133,6 @@ public class NewTestWizard extends Wizard implements INewWizard {
 			ErrorHandler.logAndShowErrorDialog("Error creating test", e);
 			return false;
 		}
-		setPackageExplorerLinkingEnabled(false);
 		return true;
 	}
 	
@@ -218,8 +217,6 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		this.selection = selection;
 		getWizardTitle();
 
-		setPackageExplorerLinkingEnabled(true);
-		
 		project = WizardUtils.getProjectFromSelectedResource(selection);
 		if (project == null) {
 			ErrorHandler.logAndShowErrorDialogAndThrow("New CubicTest tests must be put inside a CubicTest Project.");
@@ -241,17 +238,6 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		setWindowTitle("New CubicTest test");
 	}
 
-	private void setPackageExplorerLinkingEnabled(boolean enabled) {
-		// Set "Link with editor" preference to see the test to be created
-		// If the desired part isn't available, getFromActivePerspective() returns null
-		try {
-			PackageExplorerPart.getFromActivePerspective().setLinkingEnabled(enabled);	
-		} catch(NullPointerException e) {
-			try {
-				ResourceNavigatorGetter.getFromActivePerspective().setLinkingEnabled(enabled);			
-			} catch(NullPointerException e1) {} 
-		}
-	}
 	
 	@Override
 	public boolean canFinish() {

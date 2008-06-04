@@ -92,7 +92,6 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 			ErrorHandler.logAndShowErrorDialog("Error creating custom test step", e);
 			return false;
 		}
-		setPackageExplorerLinkingEnabled(false);
 		return true;
 	}
 	
@@ -170,18 +169,6 @@ public class NewCustomTestStepWizard extends Wizard implements INewWizard {
 		}
 	}
 
-	private void setPackageExplorerLinkingEnabled(boolean enabled) {
-		// Set "Link with editor" preference to see the test to be created
-		// If the desired part isn't available, getFromActivePerspective() returns null
-		try {
-			PackageExplorerPart.getFromActivePerspective().setLinkingEnabled(enabled);	
-		} catch(NullPointerException e) {
-			try {
-				ResourceNavigatorGetter.getFromActivePerspective().setLinkingEnabled(enabled);			
-			} catch(NullPointerException e1) {} 
-		}
-	}
-	
 	@Override
 	public boolean canFinish() {
 		String fileName = wizardNewCustomTestStepPage.getFileName();
