@@ -10,8 +10,11 @@
  *******************************************************************************/
 package org.cubictest;
 
+import org.eclipse.core.runtime.Preferences;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.pde.internal.runtime.PDERuntimePlugin;
+import org.eclipse.pde.internal.runtime.logview.LogView;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
@@ -64,6 +67,15 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 		IFolderLayout bottomLeft = layout.createFolder("bottomLeft", IPageLayout.BOTTOM, 0.50f, topLeftId);
 		bottomLeft.addView(IPageLayout.ID_OUTLINE);
 		
+		try {
+			// Set "activate on errors" property to false on logview (only works if it's hidden)
+			Preferences preferences = PDERuntimePlugin.getDefault().getPluginPreferences();
+			preferences.setValue(LogView.P_ACTIVATE, false);
+			PDERuntimePlugin.getDefault().savePluginPreferences();
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}
+
 		// Bottom right: Property Sheet view and Log view
 		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, 0.66f, editorArea);
 		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
