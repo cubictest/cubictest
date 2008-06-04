@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.util;
 
+import java.lang.reflect.Method;
+
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.openqa.selenium.server.SeleniumServer;
@@ -33,6 +35,17 @@ public class SeleniumProxyServer {
 			this.port = port;
 			seleniumServer = new SeleniumServer(port,false,seleniumMultiWindow);
 			seleniumServer.setProxyInjectionMode(proxyInjectionMode);
+
+			//hack: update the port drivers should contact (is a static in Selenium....)
+			for(Method method : SeleniumServer.class.getDeclaredMethods()){
+	            if(method.getName().equals("setPortDriversShouldContact")){
+	            	boolean oldAccessible = method.isAccessible();
+	                method.setAccessible(true);
+	                method.invoke(seleniumServer, port);
+	                method.setAccessible(oldAccessible);
+	            }
+	        }
+
 			
 			final int portInfo = port;
 	        serverThread = new Thread(new Runnable() {

@@ -12,6 +12,7 @@
 package org.cubictest.recorder.selenium;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
@@ -50,6 +51,15 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 			port = ExportUtils.findAvailablePort();
 			System.out.println("Port: " + port);
 			seleniumProxy = new SeleniumServer(port);
+			//hack: update the port drivers should contact (is a static in Selenium....)
+			for(Method method : SeleniumServer.class.getDeclaredMethods()){
+	            if(method.getName().equals("setPortDriversShouldContact")){
+	            	boolean origAccessible = method.isAccessible();
+	                method.setAccessible(true);
+	                method.invoke(seleniumProxy, port);
+	                method.setAccessible(origAccessible);
+	            }
+	        }
 			
 			Server server = seleniumProxy.getServer();
 			HttpContext cubicRecorder = server.getContext("/selenium-server/cubic-recorder/");
