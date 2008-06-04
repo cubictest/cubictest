@@ -50,6 +50,7 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 		if (pe instanceof Frame) {
 			//Watir does not support XPath locator for frames. Use plain asserter:
 			PageElementAsserterPlain.handle(watirHolder, pe);
+			watirHolder.pushContainer(watirHolder.getVariableName(pe));
 		}
 		else {
 			ContextAsserterXPath.handle(watirHolder, pe);
@@ -82,7 +83,10 @@ public class ContextConverter implements IContextConverter<WatirHolder> {
 	}
 
 
-	public PostContextHandle handlePostContext(WatirHolder watirHolder, IContext a) {
+	public PostContextHandle handlePostContext(WatirHolder watirHolder, IContext ctx) {
+		if (ctx instanceof Frame) {
+			watirHolder.popContainer();
+		}
 		return PostContextHandle.DONE;
 	}
 }

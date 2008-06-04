@@ -209,7 +209,7 @@ public class WatirUtils {
 		RubyBuffer buff = new RubyBuffer();
 		buff.add("# getting element associated with label '" + label + "'", 3);
 		buff.add(watirHolder.getVariableName(pe) + " = nil", 3);
-		buff.add("ie.labels.each do |label|", 3);
+		buff.add(watirHolder.getActiveContainer() + ".labels.each do |label|", 3);
 		if (moderator.equals(EQUAL)) {
 			buff.add("if (label.text == " + label + ")", 4);
 		}

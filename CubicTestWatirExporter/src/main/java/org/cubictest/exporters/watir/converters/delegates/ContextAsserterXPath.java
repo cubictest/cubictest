@@ -28,14 +28,14 @@ public class ContextAsserterXPath {
 
 		if (WatirUtils.getElementType(pe).equals("*")){
 			String xpath = watirHolder.getFullContextWithAllElements(pe);
-			watirHolder.add(watirHolder.getVariableName(pe) + " = ie.element_by_xpath(\"" + xpath + "\")", 3);
+			watirHolder.add(watirHolder.getVariableName(pe) + " = " + watirHolder.getActiveContainer() + ".element_by_xpath(\"" + xpath + "\")", 3);
 			String not = pe.isNot() ? "" : "not "; 
 			watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".methods.member?(\"ole_get_methods\")", 3);
 		}
 		else {
 			//context elements that have class in watir
 			String xpath = watirHolder.getFullContextWithAllElements(pe);
-			watirHolder.add(watirHolder.getVariableName(pe) + " = ie." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\")", 3);
+			watirHolder.add(watirHolder.getVariableName(pe) + " =  " + watirHolder.getActiveContainer() + "." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\")", 3);
 			String not = pe.isNot() ? "" : "not "; 
 			watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".methods.member?(\"display\")", 3);
 		}

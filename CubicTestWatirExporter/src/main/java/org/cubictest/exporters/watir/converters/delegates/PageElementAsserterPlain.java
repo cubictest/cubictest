@@ -32,6 +32,7 @@ public class PageElementAsserterPlain {
 
 	public static void handle(WatirHolder watirHolder, PageElement pe) {
 		
+		String container = watirHolder.getActiveContainer();
 		String idType = WatirUtils.getMainIdType(pe);
 		String idValue = WatirUtils.getIdValue(pe.getMainIdentifier());
 		Moderator moderator = pe.getMainIdentifier().getModerator();
@@ -100,7 +101,7 @@ public class PageElementAsserterPlain {
 			watirHolder.add("pass = 0", 3);
 			if (pe instanceof Text) {
 				String compare = pe.isNot() ? "!=" : "=="; 
-				watirHolder.add("while ie.text.index(" + idValue + ") " + compare + " nil do", 3);
+				watirHolder.add("while " + container + ".text.index(" + idValue + ") " + compare + " nil do", 3);
 			}
 			else {
 				//all other page elements:			
@@ -113,21 +114,16 @@ public class PageElementAsserterPlain {
 					//SRC or HREF is relative and must be made absolute (add hostname and protocol):
 					if (pe.getMainIdentifierValue().startsWith("/")) {
 						//we want to extract protocol and hostname for IE current page, and append our value
-						idValue = "ie.url[0, ie.url.split('//')[1].index('/') + ie.url.split('//')[0].length + 2] + \"" + pe.getMainIdentifierValue() + "\"";
+						idValue = container + ".url[0, " + container + ".url.split('//')[1].index('/') + " + container + ".url.split('//')[0].length + 2] + \"" + pe.getMainIdentifierValue() + "\"";
 					}
 					else {
 						//we want to extract the whole path except last file, and append our value
-						idValue = "ie.url[0, ie.url.rindex('/')] + \"/" + pe.getMainIdentifierValue() + "\"";
+						idValue = container + ".url[0, " + container + ".url.rindex('/')] + \"/" + pe.getMainIdentifierValue() + "\"";
 					}
 				}
+				
 				//save variable
-				String prefix = "ie";
-				if (watirHolder.isPageElementWithinFrame(pe)) {
-					//set prefix to frame
-					prefix = watirHolder.getVariableName(watirHolder.getParentFrame(pe));
-				}
-
-				watirHolder.add(watirHolder.getVariableName(pe) + " = " + prefix + "." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idValue + ")", 3);
+				watirHolder.add(watirHolder.getVariableName(pe) + " = " + container + "." + WatirUtils.getElementType(pe) + "(" + idType + ", " + idValue + ")", 3);
 				
 				//assert present
 				watirHolder.add("while " + not + watirHolder.getVariableName(pe) + "." + WatirUtils.getPresentAssertionMethod(pe) + " do", 3);

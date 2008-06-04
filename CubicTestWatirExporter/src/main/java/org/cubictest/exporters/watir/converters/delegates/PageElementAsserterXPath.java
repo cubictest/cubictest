@@ -41,6 +41,7 @@ public class PageElementAsserterXPath {
 			//handle all page elements:			
 			watirHolder.add("pass = 0", 3);
 			String xpath = escape(watirHolder.getFullContextWithAllElements(pe));
+			String container = watirHolder.getActiveContainer();
 	
 			if (pe instanceof TextField || pe instanceof TextArea) {
 				//watir does not like "type" attribute in their XPaths
@@ -49,13 +50,13 @@ public class PageElementAsserterXPath {
 			
 			if (pe instanceof Text) {
 				//use element_by_xpath
-				watirHolder.add(watirHolder.getVariableName(pe) + " = ie.element_by_xpath(\"" + xpath + "\")", 3);
+				watirHolder.add(watirHolder.getVariableName(pe) + " = " + container + ".element_by_xpath(\"" + xpath + "\")", 3);
 				String not = pe.isNot() ? "" : "not "; 
 				watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".methods.member?(\"ole_get_methods\") do", 3);
 			}
 			else {
 				//others: use :xpath locator type in specific element class
-				watirHolder.add(watirHolder.getVariableName(pe) + " = ie." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\")", 3);
+				watirHolder.add(watirHolder.getVariableName(pe) + " = " + container + "." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\")", 3);
 				String not = pe.isNot() ? "": "not "; 
 				watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".exists? do", 3);
 			}

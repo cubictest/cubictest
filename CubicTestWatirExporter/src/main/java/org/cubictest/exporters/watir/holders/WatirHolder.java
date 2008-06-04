@@ -13,6 +13,7 @@ package org.cubictest.exporters.watir.holders;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Stack;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
@@ -54,7 +55,10 @@ public class WatirHolder extends RunnerResultHolder {
 	public static String PASS = "[-PASS-]>";
 	public static String FAIL = "[-FAIL-]>";
 	public static String EXCEPTION = "[-EXCEPTION-]>";
-	/** Initial prefix */
+	
+	/** Container to get elements from. Initial value is "ie" (watir root object), can be set to frame objects */
+	private Stack<String> containers = new Stack<String>();
+	
 	public Map<PageElement, Boolean> pageElementInContextMap;
 	
 	public WatirHolder() {
@@ -67,6 +71,7 @@ public class WatirHolder extends RunnerResultHolder {
 	 */
 	public WatirHolder(Display display, CubicTestProjectSettings settings) {
 		super(display, settings);
+		this.containers.push("ie");
 		this.rubyBuffer = new RubyBuffer();
 		pageElementIdMap = new HashMap<String, PageElement>();
 		elementVariableMap = new LinkedHashMap<PageElement, String>();
@@ -252,6 +257,19 @@ public class WatirHolder extends RunnerResultHolder {
 
 	public String getId(PageElement pe) {
 		return idMap.get(pe);
+	}
+
+	/** Set active Watir::Container object, e.g. a Watir::Frame */
+	public void pushContainer(String container) {
+		containers.push(container);
+	}
+
+	public void popContainer() {
+		containers.pop();
+	}
+	
+	public String getActiveContainer() {
+		return containers.peek();
 	}
 	
 }
