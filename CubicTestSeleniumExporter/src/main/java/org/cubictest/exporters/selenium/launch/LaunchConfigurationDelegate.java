@@ -22,6 +22,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
+import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
 import org.cubictest.exporters.selenium.ui.CustomStepWizard;
@@ -241,7 +242,12 @@ public class LaunchConfigurationDelegate extends
 					}
 				});
 				
-				project.getResource().refreshLocal(IResource.DEPTH_INFINITE, monitor);
+				project.getResource().refreshLocal(IResource.DEPTH_ONE, monitor);
+				IResource outputFolder = project.getProject().findMember(
+						SeleniumHolder.HTML_AND_SCREENSHOTS_FOLDER_NAME);
+				if (outputFolder != null) {
+					outputFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+				}
 			}
 			catch(Exception e ){
 				Logger.error("Error when running test", e);
