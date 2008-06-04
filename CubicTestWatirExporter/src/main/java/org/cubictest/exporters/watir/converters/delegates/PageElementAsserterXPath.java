@@ -43,11 +43,6 @@ public class PageElementAsserterXPath {
 			String xpath = escape(watirHolder.getFullContextWithAllElements(pe));
 			String container = watirHolder.getActiveContainer();
 	
-			if (pe instanceof TextField || pe instanceof TextArea) {
-				//watir does not like "type" attribute in their XPaths
-				xpath = StringUtils.replace(xpath, XPathBuilder.TEXTFIELD_ATTRIBUTES, "");
-			}
-			
 			if (pe instanceof Text) {
 				//use element_by_xpath
 				watirHolder.add(watirHolder.getVariableName(pe) + " = " + container + ".element_by_xpath(\"" + xpath + "\")", 3);
