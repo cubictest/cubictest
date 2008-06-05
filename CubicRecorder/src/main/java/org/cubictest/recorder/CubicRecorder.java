@@ -58,7 +58,7 @@ public class CubicRecorder implements IRecorder {
 		}
 		
 		//if no empty start page, create new
-		if(this.cursor == null) {
+		if(this.cursor == null && test.getStartPoint().getFirstNodeFromOutTransitions() == null) {
 			setCursor(this.createNewUserInteractionTransition(test.getStartPoint()));
 		}
 		//reset active transition to force creation of a new one for the user inputs
