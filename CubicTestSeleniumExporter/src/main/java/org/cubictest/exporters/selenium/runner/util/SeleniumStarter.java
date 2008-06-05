@@ -87,7 +87,6 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 		//using two started variables, as one of them has sanity check of invoking start URL built into it.
 		seleniumHolder.setSeleniumStarted(true);
 		
-		Logger.info("Connected to Selenium Proxy.");
 		seleniumHolder.setHandledUrlStartPoint(initialUrlStartPoint);
 		return seleniumHolder;
 	}
@@ -99,7 +98,6 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 		try {
 			if (seleniumHolder != null && seleniumStarted) {
 				seleniumHolder.getSelenium().stop();
-				Logger.info("Closed test browser");
 				seleniumHolder.setSeleniumStarted(false);
 				//two started variables, as one of them has sanity check of invoking start URL built into it.
 				seleniumStarted = false;

@@ -54,7 +54,6 @@ public class SeleniumProxyServer {
 	        			Logger.info("Starting selenium server at port " + portInfo);
 	                    seleniumServer.start();
 	                    started = true;
-	                    Logger.info("Server started");
 	                }
 	                catch (Exception e) {
 	                    ErrorHandler.logAndShowErrorDialogAndRethrow("Error starting selenium server.", e);
