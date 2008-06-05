@@ -1,23 +1,15 @@
 package org.cubictest.exporters.selenium.launch;
 
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
-
-import java.util.Map;
+import static org.junit.Assert.assertTrue;
 
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.runner.selenium.server.internal.CubicTestRemoteRunnerServer;
-import org.cubictest.selenium.custom.ICustomTestStep;
-import org.cubictest.selenium.custom.IElementContext;
 import org.eclipse.jdt.launching.SocketUtil;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.Selenium;
 
 public class CustomTestRunnerTest {
 
