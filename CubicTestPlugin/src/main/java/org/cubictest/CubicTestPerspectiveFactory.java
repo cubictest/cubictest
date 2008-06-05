@@ -18,6 +18,7 @@ import org.eclipse.pde.internal.runtime.logview.LogView;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
+import org.eclipse.ui.console.IConsoleConstants;
 
 /**
  * @author Stein K. Skytteren
@@ -44,6 +45,7 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
   		layout.addNewWizardShortcut("org.eclipse.jdt.ui.wizards.NewInterfaceCreationWizard"); 
   		layout.addNewWizardShortcut("org.eclipse.jdt.ui.wizards.NewEnumCreationWizard");
 		
+  		layout.addShowViewShortcut(IConsoleConstants.ID_CONSOLE_VIEW);
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
 		layout.addShowViewShortcut(JavaUI.ID_PACKAGES); //package explorer
