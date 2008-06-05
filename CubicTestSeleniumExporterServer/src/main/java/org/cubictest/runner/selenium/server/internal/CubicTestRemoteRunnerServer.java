@@ -33,6 +33,7 @@ public class CubicTestRemoteRunnerServer implements Runnable{
 		try {
 			selenium = new CubicSelenium(seleniumClientProxyPort);
 		} catch (Exception e) {
+			System.err.println("Could not connect to Selenium through CubicTest");
 			e.printStackTrace();
 		}
 	}
@@ -59,6 +60,8 @@ public class CubicTestRemoteRunnerServer implements Runnable{
 				new CubicTestRemoteRunnerServer(port, seleniumClientProxyPort);
 			new Thread(server).start();
 		} catch (Exception e) {
+			System.err.println("Error setting up the launcher");
+			e.printStackTrace();
 		}
 	}
 
@@ -88,6 +91,8 @@ public class CubicTestRemoteRunnerServer implements Runnable{
 			}
 			socket.close();
 		} catch (IOException e) {
+			System.err.println("Error communicating with CubicTest");
+			e.printStackTrace();
 		}
 	}
 	
@@ -106,12 +111,13 @@ public class CubicTestRemoteRunnerServer implements Runnable{
 				return "OK";
 			}
 			catch (Exception e) {
-				System.out.println("Exception in custom test step \"" + values[0] + "\":");
+				System.err.println("Exception in custom test step \"" + values[0] + "\":");
 				e.printStackTrace();
 				return "Error: " + e;
 			}
 			catch (AssertionError e) {
-				System.out.println(values[0] + ": " + e.toString());
+				System.err.println(values[0] + ": " + e.toString());
+				e.printStackTrace();
 				return "Failure: " + e;
 			}
 		}else if("stop".equals(command)){

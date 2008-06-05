@@ -51,7 +51,7 @@ public class CubicSelenium implements Selenium {
 			for(int i = 0; i < numberOfResults; i++)
 				results[i] = br.readLine();
 		}catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw new RuntimeException("Could not execute Selenium command: " + command + " " + args, e);
 		}
 		return results;
