@@ -71,6 +71,8 @@ public class ExportToWatirEditorAction implements IEditorActionDelegate {
 	}
 
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
-		selection = new StructuredSelection(((FileEditorInput)targetEditor.getEditorInput()).getFile());
+		if (targetEditor != null) {
+			selection = new StructuredSelection(((FileEditorInput)targetEditor.getEditorInput()).getFile());
+		}
 	}
 }
