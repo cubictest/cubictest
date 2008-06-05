@@ -39,9 +39,9 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 			String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(frame);
 			try{
 				seleniumHolder.getSelenium().execute("selectFrame", locator);
-				seleniumHolder.addResult(frame, TestPartStatus.PASS, frame.isNot());
+				seleniumHolder.addResultByIsNot(frame, TestPartStatus.PASS, frame.isNot());
 			}catch (Exception e) {
-				seleniumHolder.addResult(frame, TestPartStatus.FAIL, frame.isNot());
+				seleniumHolder.addResultByIsNot(frame, TestPartStatus.FAIL, frame.isNot());
 			}
 			seleniumHolder.pushFrame(frame);
 		}else if (ctx instanceof AbstractContext || ctx instanceof Select ) {
@@ -53,14 +53,14 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 				String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(pe);
 				String text = seleniumHolder.getSelenium().getText(locator);
 				if (text == null) {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+					seleniumHolder.addResultByIsNot(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 				else {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
+					seleniumHolder.addResultByIsNot(pe, TestPartStatus.PASS, pe.isNot());
 				}
 			}
 			catch (SeleniumException e) {
-				seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+				seleniumHolder.addResultByIsNot(pe, TestPartStatus.FAIL, pe.isNot());
 			}
 			//save the context:
 			seleniumHolder.pushContext(ctx);

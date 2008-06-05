@@ -16,7 +16,6 @@ import java.util.List;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
@@ -27,7 +26,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * Default base class for runner result holders.
+ * Keeps track of test part statuses and shows result in the display (colors elements).
  * 
  * @author Christian Schwarz
  */
@@ -45,13 +44,11 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		this.settings = settings;
 	}
 
+	
 	/**
-	 * Registers result and shows feedback in GUI. 
-	 * @param element
-	 * @param result
-	 * @param isNot
+	 * Registers result and shows feedback in GUI. If isNot parameter is true, the result is negated. 
 	 */
-	public void addResult(PageElement element, TestPartStatus result, boolean isNot) {
+	public void addResultByIsNot(PageElement element, TestPartStatus result, boolean isNot) {
 		if (isNot) {
 			//negate result
 			if (result.equals(TestPartStatus.PASS)) {
@@ -64,16 +61,6 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		addResult(element, result);
 	}
 
-	protected void handleAssertionFailure(PageElement element) {
-		String childs = "";
-		if (element instanceof AbstractContext) {
-			AbstractContext context = (AbstractContext) element;
-			childs = "\n\nRequired child elements of context (all must be present):\n" + context.getRootElements().toString();
-		}
-		if (failOnAssertionFailure) {
-			throw new AssertionFailedException("Page element assertion failed: " + element.toString() + childs);
-		}
-	}
 	
 	public void addResult(final PageElement element, TestPartStatus result) {
 		elementsAsserted.add(element);
@@ -94,6 +81,19 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		}
 	}
 	
+	
+	protected void handleAssertionFailure(PageElement element) {
+		String childs = "";
+		if (element instanceof AbstractContext) {
+			AbstractContext context = (AbstractContext) element;
+			childs = "\n\nRequired child elements of context (all must be present):\n" + context.getRootElements().toString();
+		}
+		if (failOnAssertionFailure) {
+			throw new AssertionFailedException("Page element assertion failed: " + element.toString() + childs);
+		}
+	}
+	
+	
 	@Override
 	public void updateStatus(SubTest st, boolean hadException, ConnectionPoint targetConnectionPoint) {
 		final boolean hadEx = hadException;
@@ -109,6 +109,7 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		}
 	}
 
+	
 	@Override
 	public void updateStatus(final ICustomTestStepHolder ctsh, final TestPartStatus newStatus) {
 		if (display != null) {
@@ -121,6 +122,10 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		}
 	}
 	
+	
+	/**
+	 * Colors elements and gets result info string.
+	 */
 	public String getResults() {
 		int pass = 0;
 		int failed = 0;
@@ -145,11 +150,25 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		return res;
 	}
 
+	public void resetStatus(final PropertyAwareObject object) {
+		if (display != null) {
+			display.asyncExec(new Runnable() {
+				public void run() {
+					if(object != null)
+						object.resetStatus();
+				}
+			});
+		}
+	}
+	
 	protected String getTestRunOkInfoAdditions() {
 		return "\n\nPress OK to close test browser.";
 	}
 	
 	
+	
+	
+	/** Set the progress monitor. Not used when invoked from maven */
 	public void setMonitor(IProgressMonitor monitor) {
 		this.monitor = monitor;
 	}
@@ -170,15 +189,6 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		return display;
 	}
 	
-	public void resetStatus(final PropertyAwareObject object) {
-		if (display != null) {
-			display.asyncExec(new Runnable() {
-				public void run() {
-					if(object != null)
-						object.resetStatus();
-				}
-			});
-		}
-	}
+
 
 }

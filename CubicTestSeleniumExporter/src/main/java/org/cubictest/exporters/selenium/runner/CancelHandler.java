@@ -28,14 +28,18 @@ public class CancelHandler extends Thread {
 	
 	public void run() {
 		try {
-			while (runner.seleniumStarter != null || runner.seleniumHolder.isSeleniumStarted()) {
+			while (seleniumIsRunningOrStarting()) {
 				if (monitor.isCanceled()) {
-					runner.stopSelenium();
+					runner.stopSeleniumWithTimeoutGuard(20);
 				}
 				Thread.sleep(100);
 			}
 		} catch (Exception e) {
 			Logger.warn("Exception in CancelHandler.", e);
 		}
+	}
+
+	private boolean seleniumIsRunningOrStarting() {
+		return runner.seleniumStarter != null || (runner.seleniumHolder != null && runner.seleniumHolder.isSeleniumStarted());
 	}
 }

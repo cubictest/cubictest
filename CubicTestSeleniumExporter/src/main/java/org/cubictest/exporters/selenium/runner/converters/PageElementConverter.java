@@ -46,10 +46,10 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 				String expected = identifier.getValue();
 	
 				if (RunnerUtils.pass(expected, actual, identifier.getModerator())) {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
+					seleniumHolder.addResultByIsNot(pe, TestPartStatus.PASS, pe.isNot());
 				}
 				else {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+					seleniumHolder.addResultByIsNot(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 			}
 			else if (pe instanceof FormElement && !(pe instanceof Option)){
@@ -57,20 +57,20 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 				String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(pe);
 				String value = seleniumHolder.getSelenium().getValue(locator);
 				if (value == null) {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+					seleniumHolder.addResultByIsNot(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 				else {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
+					seleniumHolder.addResultByIsNot(pe, TestPartStatus.PASS, pe.isNot());
 				}
 			}
 			else if (seleniumHolder.isInRootContext() && pe instanceof Text) {
 				//texts in root context have bug in firefox xpath, use selenium's own function:
 				boolean present = seleniumHolder.getSelenium().isTextPresent(pe.getText());
 				if (present) {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
+					seleniumHolder.addResultByIsNot(pe, TestPartStatus.PASS, pe.isNot());
 				}
 				else {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+					seleniumHolder.addResultByIsNot(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 			}
 			else {
@@ -78,15 +78,15 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 				String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(pe);
 				String text = seleniumHolder.getSelenium().getText(locator);
 				if (text == null) {
-					seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+					seleniumHolder.addResultByIsNot(pe, TestPartStatus.FAIL, pe.isNot());
 				}
 				else {
-					seleniumHolder.addResult(pe, TestPartStatus.PASS, pe.isNot());
+					seleniumHolder.addResultByIsNot(pe, TestPartStatus.PASS, pe.isNot());
 				}
 			}
 		}
 		catch (SeleniumException e) {
-			seleniumHolder.addResult(pe, TestPartStatus.FAIL, pe.isNot());
+			seleniumHolder.addResultByIsNot(pe, TestPartStatus.FAIL, pe.isNot());
 		}
 	}
 }

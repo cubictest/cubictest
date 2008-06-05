@@ -16,7 +16,6 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.TreeTestWalker;
-import org.cubictest.export.exceptions.EmptyTestSuiteException;
 import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.export.runner.RunnerStarter.Operation;
@@ -30,12 +29,8 @@ import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.BrowserType;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
-import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
-import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
-import org.cubictest.model.TestSuiteStartPoint;
-import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 
@@ -90,7 +85,7 @@ public class TestRunner extends BaseTestRunner {
 		
 		try {
 			if (seleniumHolder == null || !reuseSelenium) {
-				startSelenium(monitor);
+				startSeleniumAndOpenInitialUrlWithTimeoutGuard(monitor, 40);
 			}
 			
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(UrlStartPointConverter.class, 
@@ -101,6 +96,7 @@ public class TestRunner extends BaseTestRunner {
 				monitor.beginTask("Traversing the test model...", IProgressMonitor.UNKNOWN);
 			}
 			
+			//run the test!
 			testWalker.convertTest(test, seleniumHolder, targetPage);
 
 			if (monitor != null) {
@@ -119,10 +115,13 @@ public class TestRunner extends BaseTestRunner {
 	}
 
 
-	private void startSelenium(IProgressMonitor monitor)
+	/**
+	 * Start selenium and opens initial URL, all guarded by a timeout.
+	 */
+	private void startSeleniumAndOpenInitialUrlWithTimeoutGuard(final IProgressMonitor monitor, int timeoutSeconds)
 			throws InterruptedException {
 		seleniumStarter = new SeleniumStarter();
-		seleniumStarter.setInitialUrlStartPoint(getInitialUrlStartPoint(test));
+		seleniumStarter.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(test));
 		seleniumStarter.setBrowser(browserType);
 		seleniumStarter.setDisplay(display);
 		seleniumStarter.setSelenium(selenium);
@@ -135,10 +134,9 @@ public class TestRunner extends BaseTestRunner {
 		}
 		
 		//start Selenium (browser and server), guard by timeout:
-		int timeout = SeleniumUtils.getTimeout(settings) + 10;
 		try {
 			seleniumStarter.setOperation(Operation.START);
-			seleniumHolder = call(seleniumStarter, timeout, TimeUnit.SECONDS);
+			seleniumHolder = call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
 		}
 		catch (Exception e) {
 			ErrorHandler.rethrow("Unable to start " + browserType.getDisplayName() + 
@@ -160,13 +158,13 @@ public class TestRunner extends BaseTestRunner {
 	
 
 	/**
-	 * Method for stopping Selenium. Can be invoked by a client class.
+	 * Stop selenium, guarded by a timeout.
 	 */
-	public void stopSelenium() {
+	public void stopSeleniumWithTimeoutGuard(int timeoutSeconds) {
 		try {
 			if (seleniumStarter != null) {
 				seleniumStarter.setOperation(Operation.STOP);
-				call(seleniumStarter, 20, TimeUnit.SECONDS);
+				call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
 			}
 			seleniumStarter = null;
 		} catch (Exception e) {
@@ -199,27 +197,6 @@ public class TestRunner extends BaseTestRunner {
 		return seleniumHolder.getCurrentBreadcrumbs();
 	}
 	
-	
-	/**
-	 * Get the initial URL start point of the test (expands subtests).
-	 */
-	private UrlStartPoint getInitialUrlStartPoint(Test test) {
-		if (test.getStartPoint() instanceof UrlStartPoint) {
-			return (UrlStartPoint) test.getStartPoint();
-		}
-		else if (test.getStartPoint() instanceof ExtensionStartPoint) {
-			//Get url start point recursively:
-			return getInitialUrlStartPoint(((ExtensionStartPoint) test.getStartPoint()).getTest(true));
-		}
-		else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
-			//Get url start point of first sub-test:
-			if (!(test.getFirstNodeAfterStartPoint() instanceof SubTest)) {
-				throw new EmptyTestSuiteException();
-			}
-			return getInitialUrlStartPoint(((SubTest) test.getFirstNodeAfterStartPoint()).getTest(true));
-		}
-		return null;
-	}
 
 
 	public void setSelenium(Selenium selenium) {

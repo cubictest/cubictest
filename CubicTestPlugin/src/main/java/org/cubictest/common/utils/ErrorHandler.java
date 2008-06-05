@@ -101,9 +101,13 @@ public class ErrorHandler {
 
 	
 	public static void logAndShowErrorDialogAndRethrow(String message, Throwable e) {
+		logAndShowErrorDialogAndRethrow(message, e, new Shell());
+	}
+	
+	public static void logAndShowErrorDialogAndRethrow(String message, Throwable e, Shell shell) {
 		Logger.error(message, e);
 		if (EnvironmentInfo.isRunningInEclipse()) {
-			UserInfo.showErrorDialog(e, message);
+			UserInfo.showErrorDialog(e, message, shell);
 		}
 		rethrow(message, e);
 	}

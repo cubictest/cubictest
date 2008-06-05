@@ -30,11 +30,14 @@ import java.net.ServerSocket;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
+import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
+import org.cubictest.model.SubTest;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
+import org.cubictest.model.UrlStartPoint;
 
 
 /**
@@ -141,5 +144,30 @@ public class ExportUtils {
 		catch (IOException e) {
 			throw new CubicException(e);
 		}
+	}
+	
+	
+	/**
+	 * Get the initial URL start point of the test (expands subtests).
+	 */
+	public static UrlStartPoint getInitialUrlStartPoint(Test test) {
+		if (test.getStartPoint() instanceof UrlStartPoint) {
+			return (UrlStartPoint) test.getStartPoint();
+		} else if (test.getStartPoint() instanceof ExtensionStartPoint) {
+			// Get url start point recursively:
+			return getInitialUrlStartPoint(((ExtensionStartPoint) test
+					.getStartPoint()).getTest(true));
+		} else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
+			// Get url start point of first sub-test:
+			if (!(test.getFirstNodeAfterStartPoint() instanceof SubTest)) {
+				ErrorHandler
+						.logAndShowErrorDialogAndThrow("Test suites must contain at least " +
+								"one sub test after the test suite start point.\n\n"
+								+ "To add a subtest, drag test from package explorer into the test suite editor.");
+			}
+			return getInitialUrlStartPoint(((SubTest) test
+					.getFirstNodeAfterStartPoint()).getTest(true));
+		}
+		return null;
 	}
 }

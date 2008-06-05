@@ -84,12 +84,13 @@ public class TestRunner {
 		}
 	}
 
+
 	public void run(IProgressMonitor monitor) {
 		this.monitor = monitor;
 
 		try {
 			if (seleniumHolder == null || !reuseSelenium) {
-				startSelenium(monitor);
+				startSeleniumAndOpenInitialUrlWithTimeoutGuard(monitor, 40);
 			}
 			seleniumHolder.setWorkingDir(runnerParameters.workingDirName);
 			seleniumHolder.setUseNamespace(runnerParameters.useNamespace);
@@ -106,13 +107,13 @@ public class TestRunner {
 						IProgressMonitor.UNKNOWN);
 			}
 			
-			
 			cubicTestRemoteRunnerClient = new CubicTestRemoteRunnerClient(runnerParameters.serverPort);
 			seleniumHolder.setCustomStepRunner(cubicTestRemoteRunnerClient);
 			
 			seleniumClientProxyServer = new SeleniumClientProxyServer(seleniumHolder, runnerParameters.seleniumClientProxyPort);
 			seleniumClientProxyServer.start();
 			
+			//run the test!
 			testWalker.convertTest(runnerParameters.test, seleniumHolder, targetPage);
 
 			if (monitor != null) {
@@ -121,17 +122,21 @@ public class TestRunner {
 
 		} catch (Exception e) {
 			if (monitor != null && monitor.isCanceled()) {
-				throw new UserCancelledException("User cancelled");
+				Logger.warn("User cancelled", e);
 			} else {
-				ErrorHandler.rethrow(e);
+				ErrorHandler.rethrow("Exception when running test", e);
 			}
 		}
 	}
 
-	private void startSelenium(final IProgressMonitor monitor)
+	
+	/**
+	 * Start selenium and opens initial URL, all guarded by a timeout.
+	 */
+	private void startSeleniumAndOpenInitialUrlWithTimeoutGuard(final IProgressMonitor monitor, int timeoutSeconds)
 			throws InterruptedException {
 		seleniumStarter = new SeleniumStarter();
-		seleniumStarter.setInitialUrlStartPoint(getInitialUrlStartPoint(runnerParameters.test));
+		seleniumStarter.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(runnerParameters.test));
 		seleniumStarter.setBrowser(runnerParameters.browserType);
 		seleniumStarter.setDisplay(runnerParameters.display);
 		seleniumStarter.setSelenium(selenium);
@@ -139,14 +144,15 @@ public class TestRunner {
 		seleniumStarter.setPort(runnerParameters.seleniumPort);
 		seleniumStarter.setMultiWindow(runnerParameters.seleniumMultiWindow);
 
+		//start cancel handler, in case we want to cancel the Selenium startup or test run:
 		if (monitor != null) {
 			Thread cancelHandler = new Thread() {
 				@Override
 				public void run() {
 					try {
-						while (seleniumStarter != null || seleniumHolder.isSeleniumStarted()) {
+						while (seleniumIsRunnningOrStarting()) {
 							if (monitor.isCanceled()) {
-								stopSelenium();
+								stopSeleniumWithTimeoutGuard(20);
 							}
 							Thread.sleep(100);
 						}
@@ -154,19 +160,22 @@ public class TestRunner {
 						Logger.warn("Exception in CancelHandler.", e);
 					}
 				}
+
+				private boolean seleniumIsRunnningOrStarting() {
+					return seleniumStarter != null || (seleniumHolder != null && seleniumHolder.isSeleniumStarted());
+				}
 			};
 			cancelHandler.start();
 		}
 
 		// start Selenium (browser and server), guard by timeout:
-		int timeout = 1000;
 		try {
 			seleniumStarter.setOperation(Operation.START);
-			seleniumHolder = call(seleniumStarter, timeout, TimeUnit.SECONDS);
+			seleniumHolder = call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			ErrorHandler.rethrow("Unable to start "
 					+ runnerParameters.browserType.getDisplayName()
-					+ ". Check that the browser is installed.\n\n"
+					+ "and open initial URL. Check that the browser is installed and initial URL is correct.\n\n"
 					+ "Error message: " + e.toString(), e);
 		}
 
@@ -180,29 +189,34 @@ public class TestRunner {
 		}
 	}
 
+	
+	
 	/**
-	 * Method for stopping Selenium. Can be invoked by a client class.
+	 * Stop selenium, guarded by a timeout.
 	 */
-	public void stopSelenium() {
+	public void stopSeleniumWithTimeoutGuard(int timeoutSeconds) {
 		try {
 			if (seleniumStarter != null) {
 				seleniumStarter.setOperation(Operation.STOP);
-				call(seleniumStarter, 20, TimeUnit.SECONDS);
+				call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
 			}
-			seleniumStarter = null;
 		} catch (Exception e) {
 			if (monitor != null && monitor.isCanceled()) {
+				//user has cancelled. fail more silently than other situations:
 				Logger.warn("Exception when stopping selenium.", e);
 			} else {
 				ErrorHandler.rethrow(e);
 			}
 		} finally {
+			seleniumStarter = null;
 			if (seleniumHolder != null) {
 				seleniumHolder.setSeleniumStarted(false);
 			}
 		}
 	}
 
+	
+	
 	/**
 	 * Show the results of the test in the GUI.
 	 * 
@@ -219,29 +233,7 @@ public class TestRunner {
 		return seleniumHolder.getCurrentBreadcrumbs();
 	}
 
-	/**
-	 * Get the initial URL start point of the test (expands subtests).
-	 */
-	private UrlStartPoint getInitialUrlStartPoint(Test test) {
-		if (test.getStartPoint() instanceof UrlStartPoint) {
-			return (UrlStartPoint) test.getStartPoint();
-		} else if (test.getStartPoint() instanceof ExtensionStartPoint) {
-			// Get url start point recursively:
-			return getInitialUrlStartPoint(((ExtensionStartPoint) test
-					.getStartPoint()).getTest(true));
-		} else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
-			// Get url start point of first sub-test:
-			if (!(test.getFirstNodeAfterStartPoint() instanceof SubTest)) {
-				ErrorHandler
-						.logAndShowErrorDialogAndThrow("Test suites must contain at least " +
-								"one sub test after the test suite start point.\n\n"
-								+ "To add a subtest, drag test from package explorer into the test suite editor.");
-			}
-			return getInitialUrlStartPoint(((SubTest) test
-					.getFirstNodeAfterStartPoint()).getTest(true));
-		}
-		return null;
-	}
+
 
 	public void setSelenium(Selenium selenium) {
 		this.selenium = selenium;
@@ -262,14 +254,32 @@ public class TestRunner {
 		return t.get(timeout, timeUnit);
 	}
 
+	
 	public void cleanUp() {
-		if(cubicTestRemoteRunnerClient != null){
-			cubicTestRemoteRunnerClient.executeOnServer("stop");
+		try {
+			if(cubicTestRemoteRunnerClient != null){
+				cubicTestRemoteRunnerClient.executeOnServer("stop");
+			}
 		}
-		if(seleniumClientProxyServer != null){
-			seleniumClientProxyServer.shutdown();
+		catch (Exception e) {
+			Logger.warn("Error when stopping Selenium", e);
 		}
-		stopSelenium();
+	
+		try {
+			if(seleniumClientProxyServer != null){
+				seleniumClientProxyServer.shutdown();
+			}
+		}
+		catch (Exception e) {
+			Logger.warn("Error when stopping the Selenium Client Proxy Server", e);
+		}
+		
+		try {
+			stopSeleniumWithTimeoutGuard(20);
+		}
+		catch (Exception e) {
+			Logger.warn("Error when stopping the Selenium Server", e);
+		}
 		
 	}
 

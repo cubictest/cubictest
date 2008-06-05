@@ -44,8 +44,7 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 	 */
 	@Override
 	public SeleniumHolder doStart() {
-		if (selenium == null && (host == null || "localhost".equals(host) || 
-				"127.0.0.1".equals(host))) {
+		if (selenium == null && (host == null || "localhost".equals(host) || "127.0.0.1".equals(host))) {
 			server = new SeleniumProxyServer(browser.isProxyInjectionMode(), port, seleniumMultiWindow);
 			server.start();
 			while (!server.isStarted()) {

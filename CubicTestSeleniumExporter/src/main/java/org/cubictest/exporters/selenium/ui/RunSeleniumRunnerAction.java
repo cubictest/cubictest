@@ -104,7 +104,7 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 	@Override
 	protected void finalCleanUp() {
 		if (stopSeleniumWhenFinished && testRunner != null) {
-			((TestRunner) testRunner).stopSelenium();
+			((TestRunner) testRunner).stopSeleniumWithTimeoutGuard(20);
 		}
 	}
 

@@ -59,8 +59,8 @@ public class LaunchConfigurationDelegate extends
 
 	private static final String CUBICTEST_SELENIUM_RUNNER_CLASS = "org.cubictest.runner.selenium.server.internal.CubicTestRemoteRunnerServer";
 	private static final String ERROR_INVALID_PROJECT_GOT_TO_BE_A_JAVA_PROJEDT = "Error invalid project, got to be a java project";
-	private static final String REMOTE_CUBIC_RUNNER_IS_NOT_ON_THE_CLASSPATH = "RemoteCubicRunner is not on the classpath, " +
-			"please add the CubicTest Selenium Library to the path";
+	private static final String REMOTE_CUBIC_RUNNER_IS_NOT_ON_THE_CLASSPATH = "RemoteCubicRunner is not on the classpath, "
+			+ "please add the CubicTest Selenium Library to the path";
 	private static final String CUBIC_RUNNER_COULD_NOT_FIND_FREE_PORT = "CubicRunner could not find free port";
 	private static final String CUBIC_UNIT_PORT = "CUBIC_UNIT_PORT";
 	private static final String SELENIUM_CLIENT_PROXY = "SELENIUM_CLIENT_PROXY";
@@ -78,10 +78,10 @@ public class LaunchConfigurationDelegate extends
 		return CUBICTEST_SELENIUM_RUNNER_CLASS;
 	}
 
-	public void setTest(Test test){
+	public void setTest(Test test) {
 		this.test = test;
 	}
-	
+
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 
@@ -211,7 +211,7 @@ public class LaunchConfigurationDelegate extends
 			seleniumMultiWindow = getSeleniumMultiWindow(configuration);
 			
 			
-			//create the parameters:
+			// create the parameters:
 			TestRunner.RunnerParameters parameters = new TestRunner.RunnerParameters();
 			parameters.test = test;
 			parameters.display = wb.getDisplay();
@@ -229,10 +229,10 @@ public class LaunchConfigurationDelegate extends
 			
 			final TestRunner testRunner = new TestRunner(parameters);
 			try{
-				//run!
+				// run!
 				testRunner.run(monitor);
 				
-				//show result message
+				// show result message
 				wb.getDisplay().syncExec(new Runnable() {
 					public void run() {
 						if (StringUtils.isNotBlank(testRunner.getResultMessage())) {
@@ -242,15 +242,19 @@ public class LaunchConfigurationDelegate extends
 					}
 				});
 				
-				project.getResource().refreshLocal(IResource.DEPTH_ONE, monitor);
+				project.getResource().refreshLocal(IResource.DEPTH_ONE, null);
 				IResource outputFolder = project.getProject().findMember(
 						SeleniumHolder.HTML_AND_SCREENSHOTS_FOLDER_NAME);
 				if (outputFolder != null) {
-					outputFolder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+					outputFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
 				}
 			}
-			catch(Exception e ){
-				Logger.error("Error when running test", e);
+			catch(final Exception e ){
+				wb.getDisplay().syncExec(new Runnable() {
+					public void run() {
+						ErrorHandler.logAndShowErrorDialog("Error when running test", e);
+					}
+				});
 			}finally{
 				testRunner.cleanUp();
 			}
@@ -260,7 +264,6 @@ public class LaunchConfigurationDelegate extends
 			monitor.done();
 		}
 	}
-
 
 	private String getBrowser(ILaunchConfiguration configuration) {
 		try {
@@ -272,8 +275,8 @@ public class LaunchConfigurationDelegate extends
 		}
 		return BrowserType.FIREFOX.getId();
 	}
-	
-	public boolean useNamespace(ILaunchConfiguration configuration){
+
+	public boolean useNamespace(ILaunchConfiguration configuration) {
 		try {
 			return configuration.getAttribute(
 					SeleniumRunnerTab.CUBIC_TEST_NAMESPACE_XPATH, false);
@@ -292,7 +295,7 @@ public class LaunchConfigurationDelegate extends
 		}
 		return null;
 	}
-	
+
 	private String getSeleniumHost(ILaunchConfiguration configuration) {
 		try {
 			return configuration.getAttribute(
@@ -302,14 +305,14 @@ public class LaunchConfigurationDelegate extends
 		}
 		return null;
 	}
-	
+
 	private int getSeleniumPort(ILaunchConfiguration configuration) {
 		try {
 			return Integer.parseInt(configuration.getAttribute(
 					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_PORT, ""));
 		} catch (CoreException e) {
 			Logger.error("Error getting property", e);
-		} catch (Exception e){
+		} catch (Exception e) {
 			Logger.error("Error getting property", e);
 		}
 		return -1;
@@ -317,17 +320,22 @@ public class LaunchConfigurationDelegate extends
 
 	private boolean getSeleniumMultiWindow(ILaunchConfiguration configuration) {
 		try {
-			return configuration.getAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, false);
-		} catch (Exception e){
+			return configuration.getAttribute(
+					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW,
+					false);
+		} catch (Exception e) {
 			Logger.error("Error getting property", e);
 			return false;
 		}
 	}
-	
-	private boolean getSeleniumTakeScreenshots(ILaunchConfiguration configuration) {
+
+	private boolean getSeleniumTakeScreenshots(
+			ILaunchConfiguration configuration) {
 		try {
-			return configuration.getAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_TAKE_SCREENSHOTS, false);
-		} catch (Exception e){
+			return configuration.getAttribute(
+					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_TAKE_SCREENSHOTS,
+					false);
+		} catch (Exception e) {
 			Logger.error("Error getting property", e);
 			return false;
 		}
@@ -335,22 +343,26 @@ public class LaunchConfigurationDelegate extends
 
 	private boolean getSeleniumCaptureHtml(ILaunchConfiguration configuration) {
 		try {
-			return configuration.getAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_CAPTURE_HTML, false);
-		} catch (Exception e){
+			return configuration.getAttribute(
+					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_CAPTURE_HTML, false);
+		} catch (Exception e) {
 			Logger.error("Error getting property", e);
 			return false;
 		}
 	}
 
-	private boolean getSeleniumServerAutoHostAndPort(ILaunchConfiguration configuration) {
+	private boolean getSeleniumServerAutoHostAndPort(
+			ILaunchConfiguration configuration) {
 		try {
-			return configuration.getAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_AUTO_HOST_AND_PORT, true);
-		} catch (Exception e){
+			return configuration
+					.getAttribute(
+							SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_AUTO_HOST_AND_PORT,
+							true);
+		} catch (Exception e) {
 			Logger.error("Error getting property", e);
 			return false;
 		}
 	}
-
 
 	/**
 	 * Performs a check on the launch configuration's attributes. If an
@@ -381,20 +393,21 @@ public class LaunchConfigurationDelegate extends
 			if (javaProject.findType(CUBICTEST_SELENIUM_RUNNER_CLASS) != null) {
 				return;
 			}
-			
+
 			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 				public void run() {
-					CustomStepWizard.addLibToClasspath(javaProject, new Shell());
+					CustomStepWizard
+							.addLibToClasspath(javaProject, new Shell());
 				}
 			});
 			if (javaProject.findType(CUBICTEST_SELENIUM_RUNNER_CLASS) != null) {
 				return;
-			}else{
+			} else {
 
 				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 					public void run() {
-						ErrorHandler.logAndShowErrorDialog(
-								REMOTE_CUBIC_RUNNER_IS_NOT_ON_THE_CLASSPATH);
+						ErrorHandler
+								.logAndShowErrorDialog(REMOTE_CUBIC_RUNNER_IS_NOT_ON_THE_CLASSPATH);
 					}
 				});
 			}
@@ -435,7 +448,8 @@ public class LaunchConfigurationDelegate extends
 	 *                if unable to collect the execution arguments
 	 */
 	protected void collectExecutionArguments(
-			ILaunchConfiguration configuration, List<Object>/* String */vmArguments,
+			ILaunchConfiguration configuration,
+			List<Object>/* String */vmArguments,
 			List<Object>/* String */programArguments) throws CoreException {
 
 		// add program & VM arguments provided by getProgramArguments and
@@ -447,7 +461,8 @@ public class LaunchConfigurationDelegate extends
 		programArguments.addAll(Arrays.asList(execArgs
 				.getProgramArgumentsArray()));
 
-		programArguments.add("-port:" + String.valueOf(serverPort)); 
-		programArguments.add("-seleniumClientProxyPort:" + String.valueOf(seleniumClientProxyPort));
+		programArguments.add("-port:" + String.valueOf(serverPort));
+		programArguments.add("-seleniumClientProxyPort:"
+				+ String.valueOf(seleniumClientProxyPort));
 	}
 }

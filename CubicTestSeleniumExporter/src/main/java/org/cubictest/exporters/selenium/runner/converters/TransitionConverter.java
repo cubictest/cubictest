@@ -87,7 +87,8 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			seleniumHolder.getSelenium().waitForPageToLoad(millis + "");
 		}
 		catch (SeleniumException e) {
-			ErrorHandler.logAndThrow("Selenium error while waiting for page to load. This may be due to an unsupported redirect. Timeout used: " + seconds + " seconds.\n\n" +
+			Logger.error("Error from Selenium", e);
+			throw new ExporterException("Selenium error while waiting for page to load: " + e.toString() + ". Timeout used: " + seconds + " seconds.\n\nThis may be due to an unsupported redirect.\n\n" +
 					"You might want try one of the experimental browser launchers (e.g. Firefox chrome or proxy injection mode).");
 		}
 	}
@@ -159,7 +160,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				if (pe.getStatus().equals(TestPartStatus.FAIL)) {
 					msg += "\n\nPage element " + pe.toString() + " not found.";
 				}
-				seleniumHolder.addResult(pe, TestPartStatus.EXCEPTION, pe.isNot());
+				seleniumHolder.addResultByIsNot(pe, TestPartStatus.EXCEPTION, pe.isNot());
 			}
 			Logger.error(msg, e);
 			throw new UserInteractionException(msg);
