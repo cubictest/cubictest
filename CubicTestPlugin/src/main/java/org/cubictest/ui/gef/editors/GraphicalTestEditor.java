@@ -472,11 +472,15 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 			firePropertyChange(IEditorPart.PROP_DIRTY);
 		}
 	}
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.part.WorkbenchPart#setFocus()
 	 */
 	@Override
 	public void setFocus() {
+		if (getGraphicalViewer() != null && getGraphicalViewer().getControl() != null) {
+			getGraphicalViewer().getControl().setFocus();
+		}
 	}
 	
 	private void checkPerspective(){
