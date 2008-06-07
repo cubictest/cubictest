@@ -172,15 +172,16 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 			if (seleniumRecorder != null) {
 				seleniumRecorder.stop();
 			}
-			if (autoLayout != null) {
-				autoLayout.setPageSelected(null);
-			}
 		}
 		catch(Exception e) {
 			ErrorHandler.logAndRethrow(e);
 		}
 		finally {
 			setRunning(false);
+		}
+
+		if (autoLayout != null) {
+			autoLayout.setPageSelected(null);
 		}
 	}
 

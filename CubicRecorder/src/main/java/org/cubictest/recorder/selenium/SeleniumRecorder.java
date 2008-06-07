@@ -76,10 +76,14 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 		try {
 			if (selenium != null)
 				selenium.stop();
+		} catch(SeleniumException e) {
+			Logger.error(e.getMessage(), e);
+		}
+		try {
 			if (seleniumProxy != null)
 				seleniumProxy.stop();
 		} catch(SeleniumException e) {
-			Logger.error(e.toString(), e);
+			Logger.error(e.getMessage(), e);
 		}
 	}
 

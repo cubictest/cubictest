@@ -160,7 +160,7 @@ public class MavenSeleniumRunner extends AbstractMojo
 
 	private void stopSelenium(TestRunner testRunner) {
 		try {
-			((TestRunner) testRunner).stopSelenium();
+			((TestRunner) testRunner).stopSeleniumWithTimeoutGuard(20);
 		}
 		catch (Exception e) {
 			getLog().error("Error stopping selenium.", e);

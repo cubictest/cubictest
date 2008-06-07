@@ -96,7 +96,9 @@ public class TestDescriptionSection extends AbstractPropertySection implements P
 	@Override
 	public void aboutToBeHidden() {
 		test.removePropertyChangeListener(this);
-		labelText.removeFocusListener(listener);
+		if (!labelText.isDisposed()) {
+			labelText.removeFocusListener(listener);
+		}
 	}
 	
 	@Override

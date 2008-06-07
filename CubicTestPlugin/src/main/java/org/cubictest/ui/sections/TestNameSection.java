@@ -92,7 +92,9 @@ public class TestNameSection extends AbstractPropertySection implements Property
 	@Override
 	public void aboutToBeHidden() {
 		test.removePropertyChangeListener(this);
-		labelText.removeFocusListener(listener);
+		if (!labelText.isDisposed()) {
+			labelText.removeFocusListener(listener);
+		}
 	}
 	
 	@Override
@@ -100,7 +102,6 @@ public class TestNameSection extends AbstractPropertySection implements Property
 		super.dispose();
 		if(test != null)
 			test.removePropertyChangeListener(this);
-		labelText.removeFocusListener(listener);
 	}
 	
 	@Override
