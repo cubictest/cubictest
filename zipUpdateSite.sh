@@ -1,4 +1,15 @@
-rm -r CubicTestLocalUpdateSite
+#!/bin/bash
+
+if [ -d CubicTestLocalUpdateSite ]
+then 
+	rm -r CubicTestLocalUpdateSite
+fi
+
+if [ -e CubicTestLocalUpdateSite.zip ]
+then 
+	rm CubicTestLocalUpdateSite.zip
+fi
+
 mkdir CubicTestLocalUpdateSite
 cp -r CubicTestUpdateSite/* CubicTestLocalUpdateSite/
 cd CubicTestLocalUpdateSite

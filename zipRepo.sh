@@ -1,16 +1,59 @@
-rm cubictest_m2_jars.zip
-rm -r cubictest_m2_jars
+#!/bin/bash
+
+BASE_DIR=`pwd`
+
+if [ ! $1 ]
+then
+        echo "Please provide a version number, e.g. 1.8.5"
+        exit -1
+fi
+
+
+if [ -e cubictest_m2_jars.zip ]
+then 
+	rm cubictest_m2_jars.zip
+fi
+
+if [ -d cubictest_m2_jars ]
+then 
+	rm -r cubictest_m2_jars
+fi
+
+
 mkdir cubictest_m2_jars
 cd cubictest_m2_jars
+
 mkdir org
 cd org
+
 mkdir cubictest
-cd ..
-cd ..
-cp -r ~/.m2/repository/org/cubictest/* ./cubictest_m2_jars/org/cubictest/
+cd cubictest
+MOD_BASE_DIR=`pwd`
+
+mkdir cubictest
+cd cubictest
+mkdir $1
+
+cd $MOD_BASE_DIR
+mkdir cubictest-selenium-runner-maven-plugin
+cd cubictest-selenium-runner-maven-plugin
+mkdir $1
+
+cd $MOD_BASE_DIR
+mkdir selenium-exporter
+cd selenium-exporter
+mkdir $1
+
+cd $BASE_DIR
+
+cp -r ~/.m2/repository/org/cubictest/cubictest/$1/* ./cubictest_m2_jars/org/cubictest/cubictest/$1/
+cp -r ~/.m2/repository/org/cubictest/cubictest-selenium-runner-maven-plugin/$1/* ./cubictest_m2_jars/org/cubictest/cubictest-selenium-runner-maven-plugin/$1/
+cp -r ~/.m2/repository/org/cubictest/selenium-exporter/$1/* ./cubictest_m2_jars/org/cubictest/selenium-exporter/$1/
+
+
 cd cubictest_m2_jars
 zip -r ../cubictest_m2_jars.zip *
-cd ..
 
+cd $BASE_DIR
 
 
