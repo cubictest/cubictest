@@ -427,6 +427,16 @@ public class Test extends PropertyAwareObject {
 		return status;
 	}
 	
+	public void refreshSubFiles() {
+		for (CustomTestStepHolder holder : getCustomTestSteps()) {
+			holder.reloadCustomTestStep();
+		}
+		
+		for (SubTest subTest : getSubTests()) {
+			subTest.reloadTest();
+		}
+	}
+	
 	@Override
 	public String toString() {
 		String s = "\"" + getName() + "\"";

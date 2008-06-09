@@ -191,6 +191,7 @@ public class LaunchConfigurationDelegate extends
 							IDE.openEditor(finalAp, testFile);
 						setTest(part.getTest());
 						part.getTest().resetStatus();
+						part.getTest().refreshSubFiles();
 					}catch (Exception e) {
 						Logger.warn("Error opening test in editor", e);
 						setTest(TestPersistance.loadFromFile(testFile));

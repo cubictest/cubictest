@@ -68,17 +68,21 @@ public class SubTest extends ConnectionPoint {
 	 * @return Test	the sub test that this object represents
 	 */
 	public Test getTest(boolean forceRefreshFile) {
+		if(test == null || forceRefreshFile) {
+			reloadTest();
+		}
+		return test;
+	}
+
+	public void reloadTest() {
 		try {
-			if(test == null || forceRefreshFile) {
-				if (project == null && test != null) {
-					project = test.getProject();
-				}
-				test = TestPersistance.loadFromFile(project, getFilePath());
-				test.setResourceMonitor(resourceMonitor);
-				test.resetStatus();
-				dangling = false;
+			if (project == null && test != null) {
+				project = test.getProject();
 			}
-			
+			test = TestPersistance.loadFromFile(project, getFilePath());
+			test.setResourceMonitor(resourceMonitor);
+			test.resetStatus();
+			dangling = false;
 		} catch (Exception e) {
 			String message = "Failed to load test from file path " + getFilePath();
 			Logger.error(message, e);
@@ -86,7 +90,6 @@ public class SubTest extends ConnectionPoint {
 			test = new Test();
 			test.setName(message);
 		}
-		return test;
 	}
 	
 	@Override

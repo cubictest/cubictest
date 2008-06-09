@@ -81,6 +81,7 @@ public abstract class BaseRunnerAction implements IObjectActionDelegate {
 			if (!IDE.saveAllEditors(testResources, true)) {
 				return;
 			}
+			test.refreshSubFiles();
 			
 			if( test == null ) {
 				UserInfo.showErrorDialog("Could not get test. Close editor and retry");
