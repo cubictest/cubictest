@@ -2,5 +2,5 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.cubictest</groupId>
   <artifactId>selenium-exporter</artifactId>
-  <version>1.8.5</version>
+  <version>1.8.6</version>
 </project>
