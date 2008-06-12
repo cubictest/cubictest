@@ -28,61 +28,28 @@
 
 		<div class="download">
 			<h1>
-				Update Site
+				Upgrading the Update Site version of CubicTest
 			</h1>
 			<div class="description">
-				CubicTest Eclipse Plug-in (platform independent).
-				Requires minimum <b>Eclise 3.3</b> with <b>Java 5 JRE</b>. 
-				<br/><br/>
-				<b>Update site URLs (can be installed at the same time)</b>
-				<ol>
-					<li>Eclipse GEF (required by CubicTest):<br/>
-					Update Manager URL: &nbsp;<b>http://download.eclipse.org/tools/gef/update-site/releases</b></li>
-					<li>CubicTest:<br/>
-					Update Manager URL: &nbsp;<b>http://www.cubictest.org/update</b></li>
-				</ol>
-				<a href="installDetails.html">Detailed installation instructions</a>
-				<br/>
-				<a href="upgrade.html">How to upgrade from a previous version</a>
+				If you are <b>upgrading from a previous version</b>, use the standard Eclipse plugin upgrade mechanism:
+				<ul>
+					<li>
+						In Eclipse select Help -> Software Updates -> Manage Configuration. Locate CubicTest (expand Eclipse), right click on it and select "Find Updates...". Complete the standard Eclipse plugin upgrade process.
+					</li>
+					<li>
+						When Eclipse is restarted, you need to Reset the Perspective to get shortcuts to the new features . In Eclipse, select Window -> Reset Perspective.
+					</li>
+					<li>
+						You should also edit your projects pom.xml file and upgrade to the 1.8.6 of the cubictest maven 2 plugin referenced there.
+					</li>
+				</ul>
 			</div>
-			<br/>
 			<br/>
 			<div class="description">
 				If you encounter problems, see the <a href="http://boss.bekk.no/display/BOSS/CubicTest+-+Troubleshooting">troubleshooting page</a>
 			</div>
 		</div>
 					
-		<div class="download">
-			<h1>
-				Rich client download
-			</h1>
-			<div class="description">
-				A rich client version of CubicTest with <b>bundled Java 5 JRE and Eclipse</b> can be downloaded here:
-				<br/>
-				<a href="download_step2.html">CubicTest Rich Client downloads (win32 only)</a>
-				<br/><br/>
-				It is recommended for users without Eclipse and Java, and requires no installation except downloading
-				and extracting a zip file.
-				<br/><br/>
-				Users of other OS'es than Windows must use the Update Site version.
-			</div>
-			
-			
-		</div>
-
-
-
-		<div class="download">
-			<h1>
-				Svn
-			</h1>
-			<div class="description">
-				It is possible to get CubicTest source code from the SVN-repository at <b>OpenQA.org</b><br/>
-				https://svn.openqa.org/svn/cubictest
-			</div>
-		</div>
-		
-		
 
 	</div>
 	<div id="footer"></div>
