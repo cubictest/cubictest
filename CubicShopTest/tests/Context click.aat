@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="Cp1252"?>
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>http://localhost:8080/cubicshop/misc.jsp</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <simpleContext>
+              <elements>
+                <text>
+                  <description></description>
+                  <identifiers>
+                    <identifier>
+                      <value>About</value>
+                      <probability>100</probability>
+                      <type>LABEL</type>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator>EQUAL</moderator>
+                    </identifier>
+                  </identifiers>
+                  <directEditIdentifier reference="../identifiers/identifier"/>
+                  <not>false</not>
+                  <status>FAIL</status>
+                </text>
+              </elements>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>AboutLink</value>
+                  <probability>0</probability>
+                  <type reference="../../../elements/text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ELEMENT_NAME</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>NAME</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>1</value>
+                  <probability>100</probability>
+                  <type>INDEX</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>subMenuMainItem</value>
+                  <probability>100</probability>
+                  <type>CLASS</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status>EXCEPTION</status>
+            </simpleContext>
+            <simpleContext>
+              <elements>
+                <text>
+                  <description></description>
+                  <identifiers>
+                    <identifier>
+                      <value>Webshop</value>
+                      <probability>100</probability>
+                      <type reference="../../../../../../simpleContext/elements/text/identifiers/identifier/type"/>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                  </identifiers>
+                  <directEditIdentifier reference="../identifiers/identifier"/>
+                  <not>false</not>
+                  <status>UNKNOWN</status>
+                </text>
+              </elements>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>WebshopLink</value>
+                  <probability>0</probability>
+                  <type reference="../../../../simpleContext/elements/text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../simpleContext/identifiers/identifier[2]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../simpleContext/identifiers/identifier[3]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../simpleContext/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>2</value>
+                  <probability>100</probability>
+                  <type reference="../../../../simpleContext/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>subMenuMainItem</value>
+                  <probability>100</probability>
+                  <type reference="../../../../simpleContext/identifiers/identifier[6]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status reference="../elements/text/status"/>
+            </simpleContext>
+          </elements>
+          <name>Misc</name>
+          <description></description>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="simpleContext" reference="../../../../../elements/simpleContext"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>We sell cubics</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/elements/text/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status reference="../../../../../../elements/simpleContext[2]/elements/text/status"/>
+                  </text>
+                </elements>
+                <name>New page</name>
+                <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions/>
+                <id>page76917631213558010950</id>
+                <position>
+                  <x>113</x>
+                  <y>280</y>
+                </position>
+                <dimension>
+                  <width>115</width>
+                  <height>46</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userInteractionsTransition>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="simpleContext" reference="../../../../../elements/simpleContext[2]"/>
+                  <input></input>
+                  <action reference="../../../../userInteractionsTransition/userInteractions/userInteraction/action"/>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <page class="page" reference="../../.."/>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
+                <elements>
+                  <text>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>Large boxes</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/elements/text/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status reference="../../../../../../elements/simpleContext[2]/elements/text/status"/>
+                  </text>
+                </elements>
+                <name>New page</name>
+                <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions/>
+                <id>page223751481213558077205</id>
+                <position>
+                  <x>363</x>
+                  <y>280</y>
+                </position>
+                <dimension>
+                  <width>115</width>
+                  <height>46</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userInteractionsTransition>
+          </outTransitions>
+          <id>page27341641213557843289</id>
+          <position>
+            <x>113</x>
+            <y>100</y>
+          </position>
+          <dimension>
+            <width>115</width>
+            <height>117</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>urlstartpoint80967431213305673146</id>
+    <position>
+      <x>4</x>
+      <y>4</y>
+    </position>
+    <name>URL</name>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[2]/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page73756151213558356587</id>
+      <position>
+        <x>0</x>
+        <y>626</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page1570741213558737544</id>
+      <position>
+        <x>0</x>
+        <y>926</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+  </pages>
+  <subTests/>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition[2]"/>
+  </transitions>
+  <customTestSteps/>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
+  <name>Ttrsdtset</name>
+  <description></description>
+  <id>test1213305673116</id>
+  <modelVersion>9</modelVersion>
+  <status>WARN</status>
+</test>
