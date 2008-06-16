@@ -28,21 +28,39 @@
 
 		<div class="download">
 			<h1>
-				Upgrading the Update Site version of CubicTest
+				Upgrading the Eclipse Plug-in / Update Site version
 			</h1>
 			<div class="description">
-				If you are <b>upgrading from a previous version</b>, use the standard Eclipse plugin upgrade mechanism:
+				Use the standard Eclipse plug-in upgrade mechanism to upgrade CubicTest:
 				<ul>
 					<li>
-						In Eclipse select Help -> Software Updates -> Manage Configuration. Locate CubicTest (expand Eclipse), right click on it and select "Find Updates...". Complete the standard Eclipse plugin upgrade process.
+						In Eclipse select Help -> Software Updates -> <b>Manage Configuration</b>. 
+					</li>
+					<li>	
+						Locate CubicTest (expand Eclipse), right click on it and select <b>"Find Updates..."</b>. Complete the standard Eclipse plugin upgrade process.
 					</li>
 					<li>
-						When Eclipse is restarted, you need to Reset the Perspective to get shortcuts to the new features . In Eclipse, select Window -> Reset Perspective.
+						When Eclipse is restarted, you need to <b>Reset the Perspective</b> to get shortcuts to the new features . In Eclipse, select Window -> Reset Perspective.
 					</li>
 					<li>
-						You should also edit your projects pom.xml file and upgrade to the 1.8.6 of the cubictest maven 2 plugin referenced there.
+						You should also edit your test project's <b>pom.xml</b> file and upgrade to version 1.8.6 of the cubictest maven 2 plugin referenced there.
 					</li>
 				</ul>
+			</div>
+			<h1>
+				Upgrading the Rich Client version
+			</h1>
+			<div class="description">
+				To upgrade the Rich Client version, 
+				<ul>
+					<li>
+						Download and extract the new CubicTest version as normal. 
+					</li>
+					<li>
+						Copy the CubicTest / Eclipse "workspace" directory to the new version of CubicTest.
+					</li>
+					<li>
+						When CubicTest is started, you need to <b>Reset the Perspective</b> to get shortcuts to the new features . In CubicTest, select Window -> Reset Perspective.
 			</div>
 		</div>
 					
