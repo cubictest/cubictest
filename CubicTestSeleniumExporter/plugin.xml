@@ -77,7 +77,7 @@
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
             delegate="org.cubictest.exporters.selenium.launch.LaunchConfigurationDelegate"
-            delegateDescription="SeleniumRunner runs the CubicTests with Selenium"
+            delegateDescription="SeleniumRunner - Runs the CubicTest tests with Selenium"
             delegateName="SeleniumRunner"
             id="org.cubictest.exporters.selenium.ui.launchConfigurationType"
             migrationDelegate="org.cubictest.exporters.selenium.launch.LaunchConfigurationMigrationDelegate"
