@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.cubictest.model.customstep.CustomTestStep>
+  <customSteps>
+    <entry>
+      <string>org.cubictest.seleniumexporter</string>
+      <org.cubictest.model.customstep.data.CustomTestStepData>
+        <displayText>org.cubicshop.customSteps.SelectWindow</displayText>
+        <path>/CubicShopTest/src/org/cubicshop/customSteps/SelectWindow.java</path>
+      </org.cubictest.model.customstep.data.CustomTestStepData>
+    </entry>
+  </customSteps>
+  <name>Select window</name>
+  <description></description>
+  <parameters>
+    <parameters>
+      <customTestStepParameter>
+        <description>The name of the window to select</description>
+        <key>windowName</key>
+      </customTestStepParameter>
+    </parameters>
+  </parameters>
+</org.cubictest.model.customstep.CustomTestStep>

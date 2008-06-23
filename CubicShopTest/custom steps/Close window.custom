@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.cubictest.model.customstep.CustomTestStep>
+  <customSteps>
+    <entry>
+      <string>org.cubictest.seleniumexporter</string>
+      <org.cubictest.model.customstep.data.CustomTestStepData>
+        <displayText>org.cubicshop.customSteps.CloseWindow</displayText>
+        <path>/CubicShopTest/src/org/cubicshop/customSteps/CloseWindow.java</path>
+      </org.cubictest.model.customstep.data.CustomTestStepData>
+    </entry>
+  </customSteps>
+  <name>Close window</name>
+  <description></description>
+  <parameters>
+    <parameters/>
+  </parameters>
+</org.cubictest.model.customstep.CustomTestStep>

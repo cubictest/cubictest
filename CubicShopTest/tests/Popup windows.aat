@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test>
+  <startPoint class="extensionStartPoint">
+    <sourceExtensionPointPageId>page129011931162367112723</sourceExtensionPointPageId>
+    <sourceExtensionPointName>Welcome Extension Point</sourceExtensionPointName>
+    <filePath>tests/frontpage.aat</filePath>
+    <parameterIndex>-1</parameterIndex>
+    <outTransitions>
+      <extensionTransition>
+        <id>page129011931162367112723</id>
+        <start class="extensionStartPoint" reference="../../.."/>
+        <end class="page">
+          <commons/>
+          <elements>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>Popup</value>
+                  <probability>100</probability>
+                  <type>LABEL</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator>EQUAL</moderator>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>HREF</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>TITLE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>CLASS</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status>UNKNOWN</status>
+            </link>
+          </elements>
+          <name>First Page</name>
+          <description></description>
+          <inTransition class="extensionTransition" reference="../.."/>
+          <outTransitions>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <page class="page" reference="../../.."/>
+              <reloadsPage>OFF</reloadsPage>
+              <secondsToWaitForResult>2</secondsToWaitForResult>
+              <start class="page" reference="../../.."/>
+              <end class="customTestStep">
+                <file>custom steps/Select window.custom</file>
+                <values>
+                  <entry>
+                    <customTestStepParameter>
+                      <description>The name of the window to select</description>
+                      <key>windowName</key>
+                    </customTestStepParameter>
+                    <CustomTestStepValue>
+                      <parameter reference="../../customTestStepParameter"/>
+                      <value>CubicShopPopup</value>
+                    </CustomTestStepValue>
+                  </entry>
+                </values>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="customTestStep" reference="../../.."/>
+                    <end class="subTest">
+                      <filePath>tests/subtests/Open webshop.aat</filePath>
+                      <parameterIndex>-1</parameterIndex>
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions>
+                        <simpleTransition>
+                          <start class="subTest" reference="../../.."/>
+                          <end class="page">
+                            <commons/>
+                            <elements>
+                              <text>
+                                <description></description>
+                                <identifiers>
+                                  <identifier>
+                                    <value>Large boxes</value>
+                                    <probability>100</probability>
+                                    <type reference="../../../../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                                  </identifier>
+                                </identifiers>
+                                <directEditIdentifier reference="../identifiers/identifier"/>
+                                <not>false</not>
+                                <status reference="../../../../../../../../../../../../elements/link/status"/>
+                              </text>
+                            </elements>
+                            <name>Webshop</name>
+                            <description></description>
+                            <inTransition class="simpleTransition" reference="../.."/>
+                            <outTransitions>
+                              <userInteractionsTransition>
+                                <userInteractions>
+                                  <userInteraction>
+                                    <input></input>
+                                    <action>NO_ACTION</action>
+                                    <i18nKey></i18nKey>
+                                    <paramKey></paramKey>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                  </userInteraction>
+                                </userInteractions>
+                                <page class="page" reference="../../.."/>
+                                <start class="page" reference="../../.."/>
+                                <end class="customTestStep">
+                                  <file>custom steps/Close window.custom</file>
+                                  <inTransition class="userInteractionsTransition" reference="../.."/>
+                                  <outTransitions>
+                                    <simpleTransition>
+                                      <start class="customTestStep" reference="../../.."/>
+                                      <end class="customTestStep">
+                                        <file>custom steps/Select window.custom</file>
+                                        <values>
+                                          <entry>
+                                            <customTestStepParameter>
+                                              <description>The name of the window to select</description>
+                                              <key>windowName</key>
+                                            </customTestStepParameter>
+                                            <CustomTestStepValue>
+                                              <parameter reference="../../customTestStepParameter"/>
+                                              <value>null</value>
+                                            </CustomTestStepValue>
+                                          </entry>
+                                        </values>
+                                        <inTransition class="simpleTransition" reference="../.."/>
+                                        <outTransitions>
+                                          <simpleTransition>
+                                            <start class="customTestStep" reference="../../.."/>
+                                            <end class="page">
+                                              <commons/>
+                                              <elements>
+                                                <text>
+                                                  <description></description>
+                                                  <identifiers>
+                                                    <identifier>
+                                                      <value>Welcome to our webshop!</value>
+                                                      <probability>100</probability>
+                                                      <type reference="../../../../../../../../../../../../../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
+                                                      <useI18n>false</useI18n>
+                                                      <useParam>false</useParam>
+                                                      <moderator reference="../../../../../../../../../../../../../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                                                    </identifier>
+                                                  </identifiers>
+                                                  <directEditIdentifier reference="../identifiers/identifier"/>
+                                                  <not>false</not>
+                                                  <status reference="../../../../../../../../../../../../../../../../../../../../../elements/link/status"/>
+                                                </text>
+                                              </elements>
+                                              <name>Front page</name>
+                                              <description></description>
+                                              <inTransition class="simpleTransition" reference="../.."/>
+                                              <outTransitions>
+                                                <userInteractionsTransition>
+                                                  <userInteractions>
+                                                    <userInteraction>
+                                                      <input></input>
+                                                      <action reference="../../../../../../../../../../../../userInteractions/userInteraction/action"/>
+                                                      <i18nKey></i18nKey>
+                                                      <paramKey></paramKey>
+                                                      <useI18n>false</useI18n>
+                                                      <useParam>false</useParam>
+                                                    </userInteraction>
+                                                  </userInteractions>
+                                                  <page class="page" reference="../../.."/>
+                                                  <start class="page" reference="../../.."/>
+                                                  <end class="subTest">
+                                                    <filePath>tests/subtests/Open webshop.aat</filePath>
+                                                    <parameterIndex>-1</parameterIndex>
+                                                    <inTransition class="userInteractionsTransition" reference="../.."/>
+                                                    <outTransitions>
+                                                      <extensionTransition>
+                                                        <id>page193026321179672064199</id>
+                                                        <start class="subTest" reference="../../.."/>
+                                                        <end class="page">
+                                                          <commons/>
+                                                          <elements>
+                                                            <text>
+                                                              <description></description>
+                                                              <identifiers>
+                                                                <identifier>
+                                                                  <value>Large boxes</value>
+                                                                  <probability>100</probability>
+                                                                  <type reference="../../../../../../../../../../../../../../../../../../../../../../../../../../../../../elements/link/identifiers/identifier/type"/>
+                                                                  <useI18n>false</useI18n>
+                                                                  <useParam>false</useParam>
+                                                                  <moderator reference="../../../../../../../../../../../../../../../../../../../../../../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                                                                </identifier>
+                                                              </identifiers>
+                                                              <directEditIdentifier reference="../identifiers/identifier"/>
+                                                              <not>false</not>
+                                                              <status reference="../../../../../../../../../../../../../../../../../../../../../../../../../../../elements/link/status"/>
+                                                            </text>
+                                                          </elements>
+                                                          <name>Webshop</name>
+                                                          <description></description>
+                                                          <inTransition class="extensionTransition" reference="../.."/>
+                                                          <outTransitions/>
+                                                          <id>page330465361214209582936</id>
+                                                          <position>
+                                                            <x>113</x>
+                                                            <y>802</y>
+                                                          </position>
+                                                          <dimension>
+                                                            <width>115</width>
+                                                            <height>46</height>
+                                                          </dimension>
+                                                          <name defined-in="transitionNode"></name>
+                                                        </end>
+                                                      </extensionTransition>
+                                                    </outTransitions>
+                                                    <id>subtest169183361214209558151</id>
+                                                    <position>
+                                                      <x>50</x>
+                                                      <y>727</y>
+                                                    </position>
+                                                    <dimension>
+                                                      <width>150</width>
+                                                      <height>95</height>
+                                                    </dimension>
+                                                    <name></name>
+                                                    <status reference="../../../../../../../../../../../../../../../../../../../../../../elements/link/status"/>
+                                                  </end>
+                                                </userInteractionsTransition>
+                                              </outTransitions>
+                                              <id>page56902721214209501169</id>
+                                              <position>
+                                                <x>72</x>
+                                                <y>618</y>
+                                              </position>
+                                              <dimension>
+                                                <width>196</width>
+                                                <height>46</height>
+                                              </dimension>
+                                              <name defined-in="transitionNode"></name>
+                                            </end>
+                                          </simpleTransition>
+                                        </outTransitions>
+                                        <id>customteststepholder176024571214210212628</id>
+                                        <position>
+                                          <x>117</x>
+                                          <y>543</y>
+                                        </position>
+                                        <dimension>
+                                          <width>150</width>
+                                          <height>95</height>
+                                        </dimension>
+                                        <name></name>
+                                        <status reference="../../../../../../../../../../../../../../../../elements/link/status"/>
+                                      </end>
+                                    </simpleTransition>
+                                  </outTransitions>
+                                  <id>customteststepholder54075181214209777593</id>
+                                  <position>
+                                    <x>119</x>
+                                    <y>468</y>
+                                  </position>
+                                  <dimension>
+                                    <width>150</width>
+                                    <height>95</height>
+                                  </dimension>
+                                  <name></name>
+                                  <status reference="../../../../../../../../../../../../../elements/link/status"/>
+                                </end>
+                              </userInteractionsTransition>
+                            </outTransitions>
+                            <id>page330465361214209446862</id>
+                            <position>
+                              <x>113</x>
+                              <y>359</y>
+                            </position>
+                            <dimension>
+                              <width>115</width>
+                              <height>46</height>
+                            </dimension>
+                            <name defined-in="transitionNode"></name>
+                          </end>
+                        </simpleTransition>
+                      </outTransitions>
+                      <id>subtest169183361214209256092</id>
+                      <position>
+                        <x>50</x>
+                        <y>284</y>
+                      </position>
+                      <dimension>
+                        <width>150</width>
+                        <height>95</height>
+                      </dimension>
+                      <name></name>
+                      <status reference="../../../../../../../elements/link/status"/>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>customteststepholder124922651214207991791</id>
+                <position>
+                  <x>117</x>
+                  <y>209</y>
+                </position>
+                <dimension>
+                  <width>150</width>
+                  <height>95</height>
+                </dimension>
+                <name></name>
+                <status reference="../../../../elements/link/status"/>
+              </end>
+            </userInteractionsTransition>
+          </outTransitions>
+          <id>page325656191214207780484</id>
+          <position>
+            <x>113</x>
+            <y>100</y>
+          </position>
+          <dimension>
+            <width>115</width>
+            <height>46</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </extensionTransition>
+    </outTransitions>
+    <id>extensionstartpoint58097251214208569859</id>
+    <position>
+      <x>4</x>
+      <y>4</y>
+    </position>
+    <name></name>
+    <status reference="../outTransitions/extensionTransition/end/elements/link/status"/>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page47412081214207780485</id>
+      <position>
+        <x>0</x>
+        <y>400</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page190095471214207991827</id>
+      <position>
+        <x>0</x>
+        <y>700</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+    </page>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page25355121214210222509</id>
+      <position>
+        <x>0</x>
+        <y>1027</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+  </pages>
+  <subTests>
+    <subTest reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
+  </subTests>
+  <transitions>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+    <extensionTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
+  </transitions>
+  <customTestSteps>
+    <customTestStep reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <customTestStep reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <customTestStep reference="../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end"/>
+  </customTestSteps>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
+  <name>Popup windows</name>
+  <description></description>
+  <id>test1214207780484</id>
+  <modelVersion>9</modelVersion>
+</test>
