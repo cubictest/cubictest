@@ -63,7 +63,7 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 		if (selenium == null) {
 			String browserName = browser.getId();
 			browserName = browserName.startsWith("*") ? browserName.substring(1) : browserName;
-			Logger.info("Opening " + browserName + " and connecting to Selenium Proxy at port " + server.getPort() + ", " + initialUrlStartPoint);
+			Logger.info("Opening " + browserName + " and connecting to Selenium Proxy at port " + port + ", " + initialUrlStartPoint);
 			String initUrl = initialUrlStartPoint.getBeginAt();
 			String baseUrl = initUrl.substring(0, initUrl.lastIndexOf("/") + 1);
 			if (baseUrl.endsWith("://")) {
