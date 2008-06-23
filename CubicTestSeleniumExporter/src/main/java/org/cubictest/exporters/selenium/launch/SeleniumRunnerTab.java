@@ -382,7 +382,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			seleniumServerHost.setText(configuration.getAttribute(
 					CUBIC_TEST_SELENIUM_SERVER_HOST, "localhost"));
 			seleniumServerPort.setText(configuration.getAttribute(
-					CUBIC_TEST_SELENIUM_SERVER_PORT, "4545"));
+					CUBIC_TEST_SELENIUM_SERVER_PORT, "4444"));
 			seleniumServerMultiWindowButton.setSelection(configuration.getAttribute(
 					CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, false));
 			seleniumTakeScreenshotsButton.setSelection(configuration.getAttribute(
