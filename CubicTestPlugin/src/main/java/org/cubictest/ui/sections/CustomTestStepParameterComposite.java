@@ -69,17 +69,15 @@ public class CustomTestStepParameterComposite extends Composite implements Prope
         formLayout.spacing = 0;
         setLayout(formLayout);
         
-		//Adding type
 		FormData data = new FormData();
 		data.left = new FormAttachment(0, 0);
 		data.width = labelWidth;
 		key = factory.createLabel(this, "",SWT.BOLD);
 		key.setLayoutData(data);
 
-		//Adding label for value ("true")
 		data = new FormData();
 		data.left = new FormAttachment(key,0);
-		data.width = labelWidth * 3;
+		data.width = 281;
 		value = factory.createText(this, "", SWT.BORDER);
 		value.setLayoutData(data);
 		value.addSelectionListener(selectionListener);

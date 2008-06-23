@@ -102,7 +102,7 @@ public class CustomTestStepInputSection extends AbstractPropertySection implemen
 					parameterComposite = idComIterator.next();
 				else{
 					parameterComposite = new CustomTestStepParameterComposite(
-							composite, getWidgetFactory(),	75);
+							composite, getWidgetFactory(),	156);
 					newIdComs.add(parameterComposite);
 				}
 				if(part instanceof GraphicalTestEditor){
