@@ -52,6 +52,9 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
 		layout.addShowViewShortcut(LOG_VIEW_ID);
 		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
+		
+		layout.addPerspectiveShortcut(JavaUI.ID_PERSPECTIVE);
+		layout.addPerspectiveShortcut(IDebugUIConstants.ID_DEBUG_PERSPECTIVE);
 
 		layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
   		layout.addActionSet(JavaUI.ID_ACTION_SET);
