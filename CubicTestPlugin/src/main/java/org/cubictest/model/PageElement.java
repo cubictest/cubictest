@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.common.utils.TextUtil;
 
 /**
  * Base class for elements on a page.
@@ -56,7 +57,7 @@ public abstract class PageElement extends PropertyAwareObject
 			buff.append(", not = " + this.not);
 		}
 		if (StringUtils.isNotBlank(description)) {
-			buff.append(", description = '" + this.description + "'");
+			buff.append(", description = '" + TextUtil.normalize(this.description) + "'");
 		}
 		return buff.toString();
 	}
