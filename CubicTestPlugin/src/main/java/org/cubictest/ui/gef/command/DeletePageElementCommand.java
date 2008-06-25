@@ -28,9 +28,8 @@ import org.eclipse.gef.commands.Command;
 
 
 /**
- * A command deletes a page element from a page and from its user interactions.
- * If delete element from Common, checks whether the elements is used in user interaction 
- * in one of the Common's target pages. 
+ * Deletes a page element from an abstract page and from its user interactions.
+ * Handles Commons and checks the user interactions of all connected pages. 
  * 
  * @author Christian Schwarz 
  */
@@ -186,7 +185,7 @@ public class DeletePageElementCommand extends Command {
 			for (UserInteraction interaction : oldActions) {
 				//fix for delete of common page with many elements participating in user interaction
 				if (!trans.getUserInteractions().contains(interaction)) {
-					trans.addUserInteraction(interaction);
+					trans.addUserInteraction(oldActions.indexOf(interaction), interaction);
 				}
 			}
 		}
