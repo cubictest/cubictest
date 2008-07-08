@@ -96,9 +96,9 @@ Cubic.dom.getParentCubicId = function (element){
 	if(typeof element.cubicId != "undefined"){
 		return element.cubicId + "";
 	}
-	if(element.parentElement != null || typeof element.parentElement != "undefined"){
-		return Cubic.dom.getParentCubicId(element.parentElement);
-	}else{
+	if(element.parentElement == null || typeof element.parentElement == "undefined"){
 		return null;
+	}else{
+		return Cubic.dom.getParentCubicId(element.parentElement);
 	}
 }
