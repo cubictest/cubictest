@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.converters;
 
+import static org.cubictest.model.ActionType.CLICK;
+
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
@@ -46,7 +48,6 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 	 * @param transition The transition to convert.
 	 */
 	public void handleUserInteractions(SeleniumHolder seleniumHolder, UserInteractionsTransition transition) {
-		boolean needsPageReload = false;
 		
 		for (UserInteraction action : transition.getUserInteractions()) {
 			IActionElement actionElement = action.getElement();
@@ -56,17 +57,23 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				continue;
 			}
 			
-			String commandName = handleUserInteraction(seleniumHolder, action);
-			
-			if (!commandName.equals(SeleniumUtils.FIREEVENT)) {
-				needsPageReload = true;
-			}
+			handleUserInteraction(seleniumHolder, action);
 			
 			//increment the number of steps in test:
 			seleniumHolder.addResult(null, TestPartStatus.PASS);
 		}
 		
-		if ((transition.getReloadsPage().equals(OnOffAutoTriState.AUTO) && needsPageReload) 
+		boolean defaultWaitForPageReload = false;
+		
+		int numActions = transition.getUserInteractions().size();
+		if (numActions > 0) {
+			UserInteraction lastAction = transition.getUserInteractions().get(numActions - 1);
+			if (lastAction.getActionType().equals(CLICK)) {
+				defaultWaitForPageReload = true;
+			}
+		}
+		
+		if ((transition.getReloadsPage().equals(OnOffAutoTriState.AUTO) && defaultWaitForPageReload) 
 				|| (transition.getReloadsPage().equals(OnOffAutoTriState.ON))){
 			int timeout = SeleniumUtils.getTimeout(seleniumHolder.getSettings());
 			waitForPageToLoad(seleniumHolder, timeout);
