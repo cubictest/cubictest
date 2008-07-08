@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <beginAt>http://cubictest.openqa.org/cubicshop/index.jsp</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
@@ -53,7 +54,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>UNKNOWN</status>
+              <status>PASS</status>
             </link>
           </elements>
           <name>Frontpage</name>
@@ -119,6 +120,14 @@
                         <useParam>false</useParam>
                         <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
                       </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type>VALUE</type>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
@@ -164,6 +173,14 @@
                         <value></value>
                         <probability>0</probability>
                         <type reference="../../../../../../../../elements/link/identifiers/identifier[4]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../radioButton/identifiers/identifier[6]/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
                         <moderator reference="../../../../../../../../elements/link/identifiers/identifier/moderator"/>
@@ -591,6 +608,23 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page178590251215550293485</id>
+      <position>
+        <x>0</x>
+        <y>2549</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -608,5 +642,5 @@
   <description></description>
   <id>/CubicShopTest/tests/en liten test.aat</id>
   <modelVersion>9</modelVersion>
-  <status>WARN</status>
+  <status reference="../startPoint/outTransitions/simpleTransition/end/elements/link/status"/>
 </test>
