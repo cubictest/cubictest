@@ -14,7 +14,6 @@ import org.eclipse.core.runtime.Preferences;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.pde.internal.runtime.PDERuntimePlugin;
-import org.eclipse.pde.internal.runtime.logview.LogView;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
@@ -76,7 +75,7 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 		try {
 			// Set "activate on errors" property to false on logview (only works if it's hidden)
 			Preferences preferences = PDERuntimePlugin.getDefault().getPluginPreferences();
-			preferences.setValue(LogView.P_ACTIVATE, false);
+			preferences.setValue("activate", false);
 			PDERuntimePlugin.getDefault().savePluginPreferences();
 		} catch (Throwable t) {
 			t.printStackTrace();
