@@ -36,7 +36,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 
@@ -198,6 +197,9 @@ public class WizardUtils {
 	public static String getPathFromSelectedResource(IStructuredSelection selection) {
 		IResource res = getFirstIResource(selection);
 		if (res != null) {
+			if (res.getType() == IResource.FILE) {
+				res = res.getParent();
+			}
 			return res.getFullPath().toPortableString();
 		}
 		return "";
