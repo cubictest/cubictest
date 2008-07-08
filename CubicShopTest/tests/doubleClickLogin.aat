@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <beginAt>http://cubictest.openqa.org/cubicshop/index.jsp</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
@@ -219,6 +220,7 @@
                 </userInteraction>
               </userInteractions>
               <page class="page" reference="../../.."/>
+              <reloadsPage>ON</reloadsPage>
               <start class="page" reference="../../.."/>
               <end class="page">
                 <commons/>
@@ -237,7 +239,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/link/status"/>
+                    <status>FAIL</status>
                   </text>
                 </elements>
                 <name>New page</name>
@@ -432,6 +434,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
+                    <status reference="../../../../../../elements/link/status"/>
                   </simpleContext>
                   <text>
                     <description></description>
@@ -1130,6 +1133,7 @@
     <page>
       <commons/>
       <elements/>
+      <name></name>
       <description></description>
       <outTransitions/>
       <id>page130251521211095695849</id>
@@ -1141,7 +1145,23 @@
         <width>0</width>
         <height>0</height>
       </dimension>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
       <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page32900281215549924557</id>
+      <position>
+        <x>0</x>
+        <y>5200</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
     </page>
   </pages>
   <subTests/>
@@ -1165,5 +1185,5 @@
   <description></description>
   <id>test1209975880381</id>
   <modelVersion>9</modelVersion>
-  <status reference="../startPoint/outTransitions/simpleTransition/end/elements/link/status"/>
+  <status>WARN</status>
 </test>
