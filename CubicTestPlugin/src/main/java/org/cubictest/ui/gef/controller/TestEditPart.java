@@ -87,7 +87,7 @@ public class TestEditPart extends PropertyChangePart{
 			name += ": \n    " + ((Test)getModel()).getDescription();
 		}
 		Label nameLabel = new Label(name);
-		nameLabel.setLocation(new Point(170,15));
+		nameLabel.setLocation(new Point(170,25));
 		nameLabel.setTextAlignment(Label.TOP);
 		nameLabel.setLabelAlignment(Label.LEFT);
 		nameLabel.setSize(600, 50);
