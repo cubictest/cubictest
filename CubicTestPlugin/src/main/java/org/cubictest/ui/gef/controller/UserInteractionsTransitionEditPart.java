@@ -137,16 +137,10 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 				}
 				String inputLabelText = text + action.getActionType().getText();
 				
-				if (ActionType.ENTER_TEXT.equals(action.getActionType()) 
-						&& element instanceof AbstractTextInput) {
-					inputLabelText =  inputLabelText + ": "
-						+ action.getTextualInput();
+				if (action.getActionType().acceptsInput()) { 
+					inputLabelText =  inputLabelText + ": " + action.getTextualInput();
 				}
-				if (ActionType.ENTER_PARAMETER_TEXT.equals(action.getActionType())
-						&& element instanceof AbstractTextInput) {
-					inputLabelText =  inputLabelText + ": "
-						+ action.getTextualInput();
-				}
+				
 				inputLabel = new Label(inputLabelText);
 				
 				if (element instanceof Link){

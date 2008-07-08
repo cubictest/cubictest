@@ -71,8 +71,8 @@ public enum IdentifierType {
 	/** Alternative text */
 	ALT("Alt. text", "Check the alternative text of the element", false, true), 
 	
+	/** The frame type, e.g. frame or iframe */ 
 	FRAME_TYPE("Frame type", "The frame type", false, false);
-
 	
 	private String displayValue;
 	private String description;

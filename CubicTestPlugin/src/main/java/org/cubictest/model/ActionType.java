@@ -26,7 +26,7 @@ public enum ActionType {
 	CHECK("Check", "Checks an checkbox", false),
 	UNCHECK("Uncheck", "Unchecks an checkbox", false),
 	ENTER_TEXT("Enter text", "Enter text into the field", true),
-	KEY_PRESSED("Key pressed", "Fire key pressed event", false),
+	KEY_PRESSED("Key press", "Press and release a single key on the keyboard. For special characters, prefix with \\ and provide the ASCII/key code", true),
 	CLEAR_ALL_TEXT("Clear all text", "Clears the text in the field", false),
 	MOUSE_OVER("Mouse over", "Fire mouse over event", false),
 	MOUSE_OUT("Mouse out", "Fire mouse out event", false),

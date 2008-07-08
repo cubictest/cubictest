@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.model;
 
+import static org.cubictest.model.ActionType.KEY_PRESSED;
+
 /**
  * Class representing a single action from a user, on a single element (IActionElement).
  * 
@@ -85,6 +87,12 @@ public class UserInteraction extends PropertyAwareObject
 	 * @param input the user textual input (only applicable to certain actions, like the "enter text"-action).
 	 */
 	public void setTextualInput(String input){
+		if(KEY_PRESSED.equals(getActionType()) && input.length() > 1){
+			String firstLetter = input.substring(0, 1);
+			if (!firstLetter.startsWith("\\")) {
+				input = firstLetter;
+			}
+		}
 		String oldInput = this.input;
 		this.input = input;
 		firePropertyChange(PropertyAwareObject.NAME, oldInput, input);
