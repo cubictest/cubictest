@@ -337,7 +337,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			seleniumAutoHostAndPortButton.setLayoutData(layoutData);
 
 			seleniumServerHostLabel = new Label(group, SWT.NONE);
-			seleniumServerHostLabel.setText("Host:");
+			seleniumServerHostLabel.setText("Use existing server at host:");
 			seleniumServerHost = new Text(group, SWT.WRAP | SWT.BORDER);
 			layoutData = new GridData();
 			layoutData.horizontalSpan = 2;
@@ -352,7 +352,7 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			});
 			
 			seleniumServerPortLabel = new Label(group, SWT.NONE);
-			seleniumServerPortLabel.setText("Port:");
+			seleniumServerPortLabel.setText("port:");
 			seleniumServerPort = new Text(group, SWT.WRAP | SWT.BORDER);
 			layoutData = new GridData();
 			layoutData.widthHint = 100;

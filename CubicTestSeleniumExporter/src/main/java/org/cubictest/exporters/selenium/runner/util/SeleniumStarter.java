@@ -37,6 +37,7 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 	private String host;
 	private int port;
 	private boolean seleniumMultiWindow;
+	private boolean startNewSeleniumServer = true;
 	
 	
 	/**
@@ -44,7 +45,7 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 	 */
 	@Override
 	public SeleniumHolder doStart() {
-		if (selenium == null && (host == null || "localhost".equals(host) || "127.0.0.1".equals(host))) {
+		if (selenium == null && startNewSeleniumServer) {
 			server = new SeleniumProxyServer(browser.isProxyInjectionMode(), port, seleniumMultiWindow);
 			server.start();
 			while (!server.isStarted()) {
@@ -143,4 +144,10 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 	public void setMultiWindow(boolean seleniumMultiWindow) {
 		this.seleniumMultiWindow = seleniumMultiWindow;
  	}
+
+
+
+	public void setStartNewSeleniumServer(boolean startNewSeleniumServer) {
+		this.startNewSeleniumServer = startNewSeleniumServer;
+	}
 }

@@ -143,6 +143,7 @@ public class TestRunner {
 		seleniumStarter.setHost(runnerParameters.seleniumHost);
 		seleniumStarter.setPort(runnerParameters.seleniumPort);
 		seleniumStarter.setMultiWindow(runnerParameters.seleniumMultiWindow);
+		seleniumStarter.setStartNewSeleniumServer(runnerParameters.serverAutoHostAndPort);
 
 		//start cancel handler, in case we want to cancel the Selenium startup or test run:
 		if (monitor != null) {
