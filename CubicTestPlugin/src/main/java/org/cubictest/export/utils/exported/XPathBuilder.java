@@ -19,6 +19,7 @@ import static org.cubictest.model.IdentifierType.MULTISELECT;
 import static org.cubictest.model.IdentifierType.SELECTED;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
@@ -98,8 +99,13 @@ public class XPathBuilder {
 				operator = value.substring(0, 1);
 				value = value.substring(1);
 			}
-			int index = Integer.parseInt(value);
-			result += "position()" + operator + index;
+			try {
+				int index = Integer.parseInt(value);
+				result += "position()" + operator + index;
+			}
+			catch (NumberFormatException e) {
+				throw new CubicException("\"Index\" identifier of page element [" + pe.toString() + "] is not a number!");
+			}
 		}
 		
 		if (result.equals(predicateSeperator.getStartString())) {
