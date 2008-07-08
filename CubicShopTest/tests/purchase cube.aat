@@ -1,11 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <beginAt>http://cubictest.openqa.org/cubicshop/index.jsp</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
         <end class="subTest">
           <filePath>tests/log_in.aat</filePath>
+          <parameterIndex>-1</parameterIndex>
           <inTransition class="simpleTransition" reference="../.."/>
           <outTransitions>
             <extensionTransition>
@@ -13,6 +15,7 @@
               <start class="subTest" reference="../../.."/>
               <end class="subTest">
                 <filePath>tests/subtests/Open webshop.aat</filePath>
+                <parameterIndex>-1</parameterIndex>
                 <inTransition class="extensionTransition" reference="../.."/>
                 <outTransitions>
                   <extensionTransition>
@@ -20,6 +23,7 @@
                     <start class="subTest" reference="../../.."/>
                     <end class="subTest">
                       <filePath>tests/subtests/Buy box.aat</filePath>
+                      <parameterIndex>-1</parameterIndex>
                       <inTransition class="extensionTransition" reference="../.."/>
                       <outTransitions>
                         <extensionTransition>
@@ -27,6 +31,7 @@
                           <start class="subTest" reference="../../.."/>
                           <end class="subTest">
                             <filePath>tests/subtests/Log out.aat</filePath>
+                            <parameterIndex>-1</parameterIndex>
                             <inTransition class="extensionTransition" reference="../.."/>
                             <outTransitions/>
                             <id>subtest325597791179682688932</id>
@@ -39,6 +44,7 @@
                               <height>95</height>
                             </dimension>
                             <name></name>
+                            <status>UNKNOWN</status>
                           </end>
                         </extensionTransition>
                       </outTransitions>
@@ -52,6 +58,7 @@
                         <height>95</height>
                       </dimension>
                       <name></name>
+                      <status reference="../outTransitions/extensionTransition/end/status"/>
                     </end>
                   </extensionTransition>
                 </outTransitions>
@@ -65,6 +72,7 @@
                   <height>95</height>
                 </dimension>
                 <name></name>
+                <status reference="../outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/status"/>
               </end>
             </extensionTransition>
           </outTransitions>
@@ -78,6 +86,7 @@
             <height>70</height>
           </dimension>
           <name></name>
+          <status reference="../outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end/status"/>
         </end>
       </simpleTransition>
     </outTransitions>
@@ -89,7 +98,25 @@
     <name>URL</name>
   </startPoint>
   <extensionPoints/>
-  <pages/>
+  <pages>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page306284631215550021518</id>
+      <position>
+        <x>0</x>
+        <y>774</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+  </pages>
   <subTests>
     <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/extensionTransition/end"/>
     <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/extensionTransition/end/outTransitions/extensionTransition/end"/>
@@ -106,5 +133,5 @@
   <name>purchase cube</name>
   <description></description>
   <id>test1179672651273</id>
-  <modelVersion>8</modelVersion>
+  <modelVersion>9</modelVersion>
 </test>
