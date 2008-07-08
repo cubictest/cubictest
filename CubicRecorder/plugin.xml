@@ -4,8 +4,21 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution 
-	       id="CubicRecorder.objectContribution1"
+	       id="CubicRecorder.objectContribution0"
 		   objectClass="org.cubictest.ui.gef.controller.TestEditPart">
+         <action
+               class="org.cubictest.recorder.ui.RecordEditorAction"
+               id="CubicRecorder.record"
+               label="Record"
+               menubarPath="additions"
+               state="false"
+               icon="icons/record.gif"
+               style="toggle"
+               tooltip="Record test in a web browser"/>
+      </objectContribution>
+      <objectContribution 
+	       id="CubicRecorder.objectContribution1"
+		   objectClass="org.cubictest.ui.gef.controller.PageElementEditPart">
          <action
                class="org.cubictest.recorder.ui.RecordEditorAction"
                id="CubicRecorder.record"
