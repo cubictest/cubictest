@@ -11,6 +11,10 @@
  *******************************************************************************/
 package org.cubictest.recorder;
 
+import static org.cubictest.model.IdentifierType.SRC;
+import static org.cubictest.model.Moderator.CONTAIN;
+import static org.cubictest.model.Moderator.END;
+
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
@@ -224,7 +228,10 @@ public class JSONElementConverter {
 		if (StringUtils.isNotBlank(value)) {
 			Identifier identifier = pe.getIdentifier(idType);
 			if (shouldHaveContainModerator(value)) {
-				identifier.setModerator(Moderator.CONTAIN);
+				identifier.setModerator(CONTAIN);
+			}
+			else if (idType.equals(SRC)) {
+				identifier.setModerator(END);
 			}
 			value = TextUtil.normalize(value);
 			value = StringEscapeUtils.unescapeHtml(value);
