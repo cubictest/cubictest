@@ -5,6 +5,9 @@
    <extension
          point="org.cubictest.exporters"
          name="CubicTestWatirExporter">
+      <!--CustomStepExtension
+            section="org.cubictest.exporters.watir.ui.WatirCustomStepSection">
+      </CustomStepExtension-->
    </extension>
    
    <extension
