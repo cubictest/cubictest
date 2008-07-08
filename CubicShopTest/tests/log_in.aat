@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://localhost:8080/cubicshop/</beginAt>
+    <beginAt>http://cubictest.openqa.org/cubicshop/</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
@@ -20,7 +21,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>PASS</status>
+              <status>UNKNOWN</status>
             </text>
             <textField>
               <description></description>
@@ -204,7 +205,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status>FAIL</status>
+                    <status reference="../../../../../../elements/text/status"/>
                   </text>
                 </elements>
                 <name>Logged in</name>
@@ -218,20 +219,24 @@
                       <outTransitions/>
                       <id>extensionpoint299655571183409409192</id>
                       <position>
-                        <x>329</x>
-                        <y>331</y>
+                        <x>88</x>
+                        <y>399</y>
                       </position>
+                      <dimension>
+                        <width>150</width>
+                        <height>95</height>
+                      </dimension>
                       <name>Logged in Extension Point</name>
                     </end>
                   </simpleTransition>
                 </outTransitions>
                 <id>page124927371177885602720</id>
                 <position>
-                  <x>61</x>
+                  <x>35</x>
                   <y>308</y>
                 </position>
                 <dimension>
-                  <width>218</width>
+                  <width>270</width>
                   <height>46</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
@@ -240,11 +245,11 @@
           </outTransitions>
           <id>page17536991177885511999</id>
           <position>
-            <x>91</x>
+            <x>72</x>
             <y>100</y>
           </position>
           <dimension>
-            <width>159</width>
+            <width>196</width>
             <height>109</height>
           </dimension>
           <name defined-in="transitionNode"></name>
@@ -264,6 +269,40 @@
   <pages>
     <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
     <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page24067231215545362135</id>
+      <position>
+        <x>0</x>
+        <y>631</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page88777361215550016977</id>
+      <position>
+        <x>0</x>
+        <y>931</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -279,5 +318,5 @@
   <name>log_in</name>
   <description></description>
   <id>test1177885511999</id>
-  <modelVersion>8</modelVersion>
+  <modelVersion>9</modelVersion>
 </test>
