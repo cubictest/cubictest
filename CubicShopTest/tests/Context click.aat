@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="Cp1252"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://localhost:8080/cubicshop/misc.jsp</beginAt>
+    <beginAt>http://cubictest.openqa.org/cubicshop/misc.jsp</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
@@ -24,7 +24,7 @@
                   </identifiers>
                   <directEditIdentifier reference="../identifiers/identifier"/>
                   <not>false</not>
-                  <status>FAIL</status>
+                  <status>UNKNOWN</status>
                 </text>
               </elements>
               <description></description>
@@ -80,7 +80,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>EXCEPTION</status>
+              <status reference="../elements/text/status"/>
             </simpleContext>
             <simpleContext>
               <elements>
@@ -98,7 +98,7 @@
                   </identifiers>
                   <directEditIdentifier reference="../identifiers/identifier"/>
                   <not>false</not>
-                  <status>UNKNOWN</status>
+                  <status reference="../../../../simpleContext/elements/text/status"/>
                 </text>
               </elements>
               <description></description>
@@ -154,7 +154,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status reference="../elements/text/status"/>
+              <status reference="../../simpleContext/elements/text/status"/>
             </simpleContext>
           </elements>
           <name>Misc</name>
@@ -192,7 +192,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/simpleContext[2]/elements/text/status"/>
+                    <status reference="../../../../../../elements/simpleContext/elements/text/status"/>
                   </text>
                 </elements>
                 <name>New page</name>
@@ -242,7 +242,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/simpleContext[2]/elements/text/status"/>
+                    <status reference="../../../../../../elements/simpleContext/elements/text/status"/>
                   </text>
                 </elements>
                 <name>New page</name>
@@ -320,6 +320,40 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page75388941215548742600</id>
+      <position>
+        <x>0</x>
+        <y>1226</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page60773611215548891976</id>
+      <position>
+        <x>0</x>
+        <y>1526</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -332,7 +366,7 @@
     <languages/>
     <observers/>
   </allLanguages>
-  <name>Ttrsdtset</name>
+  <name>This test does not work. See Jira CT-57.</name>
   <description></description>
   <id>test1213305673116</id>
   <modelVersion>9</modelVersion>
