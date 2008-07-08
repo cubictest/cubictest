@@ -50,16 +50,10 @@ public enum ActionType {
 	private boolean acceptsInput;
 	private String description;
 	
-	static HashMap<String, ActionType> actions;
-	
 	private ActionType(String text, String description, boolean acceptsInput) {
 		this.text = text;
 		this.description = description;
 		this.acceptsInput = acceptsInput;
-		if(ActionType.actions == null) {
-			ActionType.actions = new HashMap<String, ActionType>();
-		}
-		ActionType.actions.put(text, this);
 	}
 	
 	/**
@@ -83,6 +77,9 @@ public enum ActionType {
 	}
 	
 	public static ActionType getActionType(String action) {
-		return ActionType.actions.get(action);
+		for(ActionType type : values())
+			if(type.text.equals(action))
+				return type;
+		return null;
 	}
 }
