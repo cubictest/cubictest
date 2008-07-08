@@ -188,6 +188,7 @@ public class SeleniumUtils {
 		switch (a){
 			case ENTER_TEXT: 
 			case ENTER_PARAMETER_TEXT:
+			case KEY_PRESSED: 
 				return userInteraction.getTextualInput();
 			case SELECT:
 				throw new ExporterException("getValue not supported for Options.");
@@ -212,6 +213,8 @@ public class SeleniumUtils {
 		switch (a){
 			case ENTER_TEXT:
 			case ENTER_PARAMETER_TEXT:
+			case KEY_PRESSED:
+			case CLEAR_ALL_TEXT:
 			case SELECT:
 			case FOCUS:
 			case BLUR:
