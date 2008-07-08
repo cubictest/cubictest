@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <beginAt>http://cubictest.openqa.org/cubicshop/index.jsp</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
@@ -499,6 +500,23 @@
       <position>
         <x>0</x>
         <y>785</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page98035811215550066271</id>
+      <position>
+        <x>0</x>
+        <y>1085</y>
       </position>
       <dimension>
         <width>0</width>
