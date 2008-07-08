@@ -14,6 +14,7 @@ import java.lang.reflect.Method;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.openqa.selenium.server.RemoteControlConfiguration;
 import org.openqa.selenium.server.SeleniumServer;
 
 /**
@@ -33,7 +34,10 @@ public class SeleniumProxyServer {
 	public SeleniumProxyServer(boolean proxyInjectionMode, int port, boolean seleniumMultiWindow) {
 		try {
 			this.port = port;
-			seleniumServer = new SeleniumServer(port,false,seleniumMultiWindow);
+			RemoteControlConfiguration config = new RemoteControlConfiguration();
+			config.setPort(port);
+			config.setMultiWindow(seleniumMultiWindow);
+			seleniumServer = new SeleniumServer(false, config);
 			seleniumServer.setProxyInjectionMode(proxyInjectionMode);
 
 			//hack: update the port drivers should contact (is a static in Selenium....)

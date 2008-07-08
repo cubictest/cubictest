@@ -318,8 +318,8 @@ public class CubicSelenium implements Selenium {
 	}
 
 	
-	public void getSpeed() {
-		execute("getSpeed");
+	public String getSpeed() {
+		return execute("getSpeed")[0];
 	}
 
 	
@@ -655,5 +655,85 @@ public class CubicSelenium implements Selenium {
 
 	public void windowMaximize() {
 		execute("windowMaximize");
+	}
+
+	public void attachFile(String arg0, String arg1) {
+		execute("attachFile", arg0, arg1);
+	}
+
+	public void captureEntirePageScreenshot(String arg0, String arg1) {
+		execute("captureEntirePageScreenshot", arg0, arg1);
+	}
+
+	public String captureScreenshotToString() {
+		return execute("captureScreenshotToString")[0];
+	}
+
+	public void contextMenu(String arg0) {
+		execute("contextMenu", arg0);
+	}
+
+	public void contextMenuAt(String arg0, String arg1) {
+		execute("contextMenuAt", arg0, arg1);
+	}
+
+	public void deleteAllVisibleCookies() {
+		execute("deleteAllVisibleCookies");
+	}
+
+	public void focus(String arg0) {
+		execute("focus", arg0);
+	}
+
+	public String getCookieByName(String arg0) {
+		return execute("getCookieByName", arg0)[0];
+	}
+
+	public void ignoreAttributesWithoutValue(String arg0) {
+		execute("ignoreAttributesWithoutValue", arg0);
+	}
+
+	public boolean isCookiePresent(String arg0) {
+		return Boolean.parseBoolean(execute("isCookiePresent", arg0)[0]);
+	}
+
+	public void keyDownNative(String arg0) {
+		execute("keyDownNative", arg0);
+	}
+
+	public void keyPressNative(String arg0) {
+		execute("keyPressNative", arg0);
+	}
+
+	public void keyUpNative(String arg0) {
+		execute("keyUpNative", arg0);
+	}
+
+	public void mouseDownRight(String arg0) {
+		execute("mouseDownRight", arg0);
+	}
+
+	public void mouseDownRightAt(String arg0, String arg1) {
+		execute("mouseDownRightAt", arg0, arg1);
+	}
+
+	public void mouseUpRight(String arg0) {
+		execute("mouseUpRight", arg0);
+	}
+
+	public void mouseUpRightAt(String arg0, String arg1) {
+		execute("mouseUpRightAt", arg0, arg1);
+	}
+
+	public void setExtensionJs(String arg0) {
+		execute("setExtensionJs", arg0);
+	}
+
+	public void showContextualBanner() {
+		execute("showContextualBanner");
+	}
+
+	public void shutDownSeleniumServer() {
+		execute("shutDownSeleniumServer");
 	}
 }

@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.mortbay.http.HttpContext;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.ServletHandler;
+import org.openqa.selenium.server.RemoteControlConfiguration;
 import org.openqa.selenium.server.SeleniumServer;
 
 import com.metaparadigm.jsonrpc.JSONRPCServlet;
@@ -50,7 +51,10 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 		try {
 			port = ExportUtils.findAvailablePort();
 			System.out.println("Port: " + port);
-			seleniumProxy = new SeleniumServer(port);
+			RemoteControlConfiguration config = new RemoteControlConfiguration();
+			config.setPort(port);
+			seleniumProxy = new SeleniumServer(false, config);
+			
 			//hack: update the port drivers should contact (is a static in Selenium....)
 			for(Method method : SeleniumServer.class.getDeclaredMethods()){
 	            if(method.getName().equals("setPortDriversShouldContact")){
