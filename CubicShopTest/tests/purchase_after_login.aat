@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <beginAt>http://cubictest.openqa.org/cubicshop/index.jsp</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
@@ -28,7 +29,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status>UNKNOWN</status>
+                    <status>PASS</status>
                   </text>
                   <link>
                     <description></description>
@@ -39,6 +40,7 @@
                         <type reference="../../../../text/identifiers/identifier/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
+                        <moderator>EQUAL</moderator>
                       </identifier>
                       <identifier>
                         <value></value>
@@ -60,6 +62,14 @@
                         <type>TITLE</type>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type>CLASS</type>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../identifier/moderator"/>
                       </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
@@ -128,8 +138,8 @@
                                         <outTransitions/>
                                         <id></id>
                                         <position>
-                                          <x>281</x>
-                                          <y>584</y>
+                                          <x>83</x>
+                                          <y>546</y>
                                         </position>
                                         <dimension>
                                           <width>150</width>
@@ -141,11 +151,11 @@
                                   </outTransitions>
                                   <id>1157465786120</id>
                                   <position>
-                                    <x>113</x>
-                                    <y>564</y>
+                                    <x>110</x>
+                                    <y>455</y>
                                   </position>
                                   <dimension>
-                                    <width>115</width>
+                                    <width>120</width>
                                     <height>46</height>
                                   </dimension>
                                   <name defined-in="transitionNode"></name>
@@ -154,8 +164,8 @@
                             </outTransitions>
                             <id>1157465774794</id>
                             <position>
-                              <x>104</x>
-                              <y>489</y>
+                              <x>85</x>
+                              <y>380</y>
                             </position>
                             <dimension>
                               <width>150</width>
@@ -168,8 +178,8 @@
                       </outTransitions>
                       <id>1157465588656</id>
                       <position>
-                        <x>120</x>
-                        <y>414</y>
+                        <x>108</x>
+                        <y>305</y>
                       </position>
                       <dimension>
                         <width>150</width>
@@ -182,11 +192,11 @@
                 </outTransitions>
                 <id>1157465552374</id>
                 <position>
-                  <x>54</x>
-                  <y>284</y>
+                  <x>24</x>
+                  <y>175</y>
                 </position>
                 <dimension>
-                  <width>233</width>
+                  <width>293</width>
                   <height>67</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
@@ -195,8 +205,8 @@
           </outTransitions>
           <id>1157465536862</id>
           <position>
-            <x>104</x>
-            <y>209</y>
+            <x>85</x>
+            <y>100</y>
           </position>
           <dimension>
             <width>150</width>
@@ -230,6 +240,23 @@
       <position>
         <x>0</x>
         <y>884</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page304003411215549182165</id>
+      <position>
+        <x>0</x>
+        <y>1184</y>
       </position>
       <dimension>
         <width>0</width>

@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <beginAt>http://cubictest.openqa.org/cubicshop/index.jsp</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
@@ -20,7 +21,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>UNKNOWN</status>
+              <status>PASS</status>
             </text>
           </elements>
           <name>Frontpage</name>
@@ -40,6 +41,7 @@
               <start class="page" reference="../../.."/>
               <end class="subTest">
                 <filePath>tests/purchase_after_login.aat</filePath>
+                <parameterIndex>-1</parameterIndex>
                 <inTransition class="userInteractionsTransition" reference="../.."/>
                 <outTransitions>
                   <extensionTransition>
@@ -61,7 +63,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../../elements/text/status"/>
+                          <status>UNKNOWN</status>
                         </text>
                         <text>
                           <identifiers>
@@ -76,7 +78,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../../elements/text/status"/>
+                          <status reference="../../text/status"/>
                         </text>
                         <text>
                           <identifiers>
@@ -91,7 +93,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../../elements/text/status"/>
+                          <status reference="../../text/status"/>
                         </text>
                         <checkbox>
                           <checked>false</checked>
@@ -107,7 +109,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../../elements/text/status"/>
+                          <status reference="../../text/status"/>
                         </checkbox>
                         <button>
                           <identifiers>
@@ -122,7 +124,7 @@
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier"/>
                           <not>false</not>
-                          <status reference="../../../../../../../../../elements/text/status"/>
+                          <status reference="../../text/status"/>
                         </button>
                       </elements>
                       <name>Added to card</name>
@@ -165,7 +167,7 @@
                                 </identifiers>
                                 <directEditIdentifier reference="../identifiers/identifier"/>
                                 <not>false</not>
-                                <status reference="../../../../../../../../../../../../elements/text/status"/>
+                                <status reference="../../../../../../elements/text/status"/>
                               </text>
                               <text>
                                 <identifiers>
@@ -180,7 +182,7 @@
                                 </identifiers>
                                 <directEditIdentifier reference="../identifiers/identifier"/>
                                 <not>false</not>
-                                <status reference="../../../../../../../../../../../../elements/text/status"/>
+                                <status reference="../../../../../../elements/text/status"/>
                               </text>
                               <text>
                                 <identifiers>
@@ -195,7 +197,7 @@
                                 </identifiers>
                                 <directEditIdentifier reference="../identifiers/identifier"/>
                                 <not>true</not>
-                                <status reference="../../../../../../../../../../../../elements/text/status"/>
+                                <status reference="../../../../../../elements/text/status"/>
                               </text>
                             </elements>
                             <name>Removed</name>
@@ -203,11 +205,11 @@
                             <outTransitions/>
                             <id>1157481707477</id>
                             <position>
-                              <x>113</x>
+                              <x>105</x>
                               <y>495</y>
                             </position>
                             <dimension>
-                              <width>115</width>
+                              <width>131</width>
                               <height>88</height>
                             </dimension>
                             <name defined-in="transitionNode"></name>
@@ -216,11 +218,11 @@
                       </outTransitions>
                       <id>1157479939345</id>
                       <position>
-                        <x>101</x>
+                        <x>86</x>
                         <y>284</y>
                       </position>
                       <dimension>
-                        <width>138</width>
+                        <width>168</width>
                         <height>130</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
@@ -229,7 +231,7 @@
                 </outTransitions>
                 <id>1157479926096</id>
                 <position>
-                  <x>49</x>
+                  <x>15</x>
                   <y>209</y>
                 </position>
                 <dimension>
@@ -237,17 +239,17 @@
                   <height>70</height>
                 </dimension>
                 <name></name>
-                <status reference="../../../../elements/text/status"/>
+                <status>EXCEPTION</status>
               </end>
             </userInteractionsTransition>
           </outTransitions>
           <id>page168021581157479022156</id>
           <position>
-            <x>91</x>
+            <x>72</x>
             <y>100</y>
           </position>
           <dimension>
-            <width>159</width>
+            <width>196</width>
             <height>46</height>
           </dimension>
           <name defined-in="transitionNode"></name>
@@ -266,6 +268,23 @@
     <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
     <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end"/>
     <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page9735051215549073551</id>
+      <position>
+        <x>0</x>
+        <y>795</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests>
     <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
@@ -280,5 +299,5 @@
   <name>Delete after purchase</name>
   <description></description>
   <id>/CubicShopTest/tests/new_test.aat</id>
-  <modelVersion>8</modelVersion>
+  <modelVersion>9</modelVersion>
 </test>

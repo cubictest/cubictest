@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://localhost:8080/cubicshop/index.jsp</beginAt>
+    <beginAt>http://cubictest.openqa.org/cubicshop/index.jsp</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
@@ -20,7 +21,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status>UNKNOWN</status>
+              <status>PASS</status>
             </text>
             <simpleContext>
               <elements>
@@ -158,6 +159,7 @@
                         <type reference="../../../../../../../../elements/text/identifiers/identifier/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
                       </identifier>
                       <identifier>
                         <value></value>
@@ -180,6 +182,14 @@
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
                       </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
@@ -198,6 +208,7 @@
                                 <type reference="../../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
                                 <useI18n>false</useI18n>
                                 <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
                               </identifier>
                               <identifier>
                                 <value>buy3dShooterBox</value>
@@ -220,6 +231,30 @@
                                 <useI18n>false</useI18n>
                                 <useParam>false</useParam>
                               </identifier>
+                              <identifier>
+                                <value></value>
+                                <probability>0</probability>
+                                <type reference="../../../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier[5]/type"/>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
+                              </identifier>
+                              <identifier>
+                                <value></value>
+                                <probability>0</probability>
+                                <type>SRC</type>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
+                              </identifier>
+                              <identifier>
+                                <value></value>
+                                <probability>0</probability>
+                                <type>ALT</type>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
+                              </identifier>
                             </identifiers>
                             <directEditIdentifier reference="../identifiers/identifier"/>
                             <not>false</not>
@@ -234,6 +269,7 @@
                                 <type reference="../../../../../../../../../../../../elements/text/identifiers/identifier/type"/>
                                 <useI18n>false</useI18n>
                                 <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
                               </identifier>
                               <identifier>
                                 <value></value>
@@ -255,6 +291,14 @@
                                 <type reference="../../../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier[4]/type"/>
                                 <useI18n>false</useI18n>
                                 <useParam>false</useParam>
+                              </identifier>
+                              <identifier>
+                                <value></value>
+                                <probability>0</probability>
+                                <type reference="../../../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier[5]/type"/>
+                                <useI18n>false</useI18n>
+                                <useParam>false</useParam>
+                                <moderator reference="../../../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
                               </identifier>
                             </identifiers>
                             <directEditIdentifier reference="../identifiers/identifier"/>
@@ -292,6 +336,22 @@
                             <useI18n>false</useI18n>
                             <useParam>false</useParam>
                           </identifier>
+                          <identifier>
+                            <value></value>
+                            <probability>0</probability>
+                            <type reference="../../../../../../../../../../elements/simpleContext/identifiers/identifier[5]/type"/>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
+                          <identifier>
+                            <value></value>
+                            <probability>0</probability>
+                            <type reference="../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier[5]/type"/>
+                            <useI18n>false</useI18n>
+                            <useParam>false</useParam>
+                            <moderator reference="../../../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
+                          </identifier>
                         </identifiers>
                         <directEditIdentifier reference="../identifiers/identifier"/>
                         <not>false</not>
@@ -313,6 +373,7 @@
                         <type reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier[2]/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
                       </identifier>
                       <identifier>
                         <value>4</value>
@@ -327,6 +388,22 @@
                         <type reference="../../../../../../../../elements/simpleContext/identifiers/identifier[4]/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/simpleContext/elements/link/identifiers/identifier/moderator"/>
                       </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
@@ -364,8 +441,8 @@
                             <outTransitions/>
                             <id></id>
                             <position>
-                              <x>285</x>
-                              <y>442</y>
+                              <x>84</x>
+                              <y>526</y>
                             </position>
                             <dimension>
                               <width>93</width>
@@ -377,11 +454,11 @@
                       </outTransitions>
                       <id>1157464849674</id>
                       <position>
-                        <x>112</x>
-                        <y>437</y>
+                        <x>113</x>
+                        <y>456</y>
                       </position>
                       <dimension>
-                        <width>100</width>
+                        <width>115</width>
                         <height>25</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
@@ -390,11 +467,11 @@
                 </outTransitions>
                 <id>1157465103719</id>
                 <position>
-                  <x>97</x>
-                  <y>245</y>
+                  <x>79</x>
+                  <y>255</y>
                 </position>
                 <dimension>
-                  <width>131</width>
+                  <width>183</width>
                   <height>138</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
@@ -403,12 +480,12 @@
           </outTransitions>
           <id>page279867781157299895549</id>
           <position>
-            <x>90</x>
-            <y>78</y>
+            <x>72</x>
+            <y>100</y>
           </position>
           <dimension>
-            <width>144</width>
-            <height>114</height>
+            <width>196</width>
+            <height>92</height>
           </dimension>
         </end>
       </simpleTransition>
@@ -461,6 +538,23 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page253647961215549206334</id>
+      <position>
+        <x>0</x>
+        <y>1342</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -482,7 +576,7 @@
             </identifiers>
             <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <status>PASS</status>
+            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/text/status"/>
           </element>
           <input></input>
           <action reference="../../../../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/userInteractions/userInteraction/action"/>
@@ -507,7 +601,7 @@
             </identifiers>
             <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/text/status"/>
+            <status>UNKNOWN</status>
           </text>
           <button>
             <description></description>
@@ -550,7 +644,7 @@
             </identifiers>
             <directEditIdentifier reference="../identifiers/identifier"/>
             <not>false</not>
-            <status reference="../../../../../../startPoint/outTransitions/simpleTransition/end/elements/text/status"/>
+            <status reference="../../text/status"/>
           </button>
         </elements>
         <name>Show tooltip</name>
