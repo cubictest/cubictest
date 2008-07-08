@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.cubictest.model.customstep.CustomTestStep>
+  <customSteps>
+    <entry>
+      <string>org.cubictest.seleniumexporter</string>
+      <org.cubictest.model.customstep.data.CustomTestStepData>
+        <displayText>org.cubicshop.customSteps.PressDownArrowAndSubmit</displayText>
+        <path>/CubicShopTest/src/org/cubicshop/customSteps/PressDownArrowAndSubmit.java</path>
+      </org.cubictest.model.customstep.data.CustomTestStepData>
+    </entry>
+  </customSteps>
+  <name>Press down arrow and submit</name>
+  <description></description>
+  <parameters>
+    <parameters/>
+  </parameters>
+</org.cubictest.model.customstep.CustomTestStep>
