@@ -8,11 +8,11 @@
  * Contributors:
  *    Christian Schwarz and Stein K. Skytteren - initial API and implementation
  *******************************************************************************/
-package org.cubictest.exporters.selenium.ui;
+package org.cubictest.exporters.selenium.common;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
-import org.cubictest.exporters.selenium.runner.util.BrowserType;
+import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -38,10 +38,12 @@ public class SeleniumSettingsPage extends WizardPage {
 	private Button rememberSettingsCheckbox;
 	private Label rememberSettingsInfoLabel;
 	private BrowserType browserType;
+	private String preferredBrowserTypeKey;
 	
-	protected SeleniumSettingsPage(BrowserType browserType) {
+	protected SeleniumSettingsPage(BrowserType browserType, String preferredBrowserTypeKey) {
 		super("Set CubicSeleniumServerPort");
 		this.browserType = browserType;
+		this.preferredBrowserTypeKey = preferredBrowserTypeKey;
 	}
 
 	public void createControl(Composite parent) {
@@ -108,13 +110,16 @@ public class SeleniumSettingsPage extends WizardPage {
 		}
 	
 		browserCombo.addModifyListener(new ModifyListener(){
+
 			public void modifyText(ModifyEvent e) {
 				browserType = BrowserType.values()[browserCombo.getSelectionIndex()];
-				SeleniumExporterPlugin.getDefault().getDialogSettings().put(
-						RunSeleniumRunnerAction.SELENIUM_RUNNER_BROWSER_TYPE, browserCombo.getSelectionIndex());
 			}
 		});
 		int storedBrowserTypeIndex = ArrayUtils.indexOf(BrowserType.values(), browserType);
 		browserCombo.select(storedBrowserTypeIndex);
+	}
+
+	public int getSelectedBrowserIndex() {
+		return browserCombo.getSelectionIndex();
 	}
 }

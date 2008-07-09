@@ -17,7 +17,9 @@ import org.cubictest.export.ITestRunner;
 import org.cubictest.export.ui.BaseRunnerAction;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.TestRunner;
-import org.cubictest.exporters.selenium.runner.util.BrowserType;
+import org.cubictest.exporters.selenium.common.BrowserType;
+import org.cubictest.exporters.selenium.common.BrowserTypeUtils;
+import org.cubictest.exporters.selenium.common.SeleniumSettingsWizard;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.Page;
 import org.cubictest.model.Test;
@@ -39,6 +41,7 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 	public static final String SELENIUM_RUNNER_REMEMBER_SETTINGS = "SeleniumRunnerRememberSettings";
 	boolean stopSeleniumWhenFinished = true;
 	Selenium selenium;
+	private BrowserType preSelectedBrowserType;
 	private String customCompletedMessage;
 	private boolean showCompletedMessageInStatusLine;
 	private Test preSelectedTest;
@@ -58,7 +61,8 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 
 		//init wizard with last used browser type:
 		BrowserType browserType = getSeleniumBrowserType(settings); 
-		SeleniumRunnerWizard wizard = new SeleniumRunnerWizard(browserType);
+		SeleniumSettingsWizard wizard = new SeleniumSettingsWizard(
+				browserType, SELENIUM_RUNNER_REMEMBER_SETTINGS, SELENIUM_RUNNER_BROWSER_TYPE, SeleniumExporterPlugin.getDefault());
 		WizardDialog wizDialog = new WizardDialog(shell, wizard);
 		
 		boolean rememberBrowser = false;
@@ -78,7 +82,7 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 		
 		if(wizReturnCode != WizardDialog.CANCEL){
 			if (usePreCreatedSeleniumInstance()) {
-				browserType = BrowserType.FIREFOX; //assuming recorder..
+				browserType = preSelectedBrowserType;
 			}
 			else if (rememberBrowser) {
 				browserType = getSeleniumBrowserType(settings);
@@ -141,15 +145,8 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 
 	
 	public BrowserType getSeleniumBrowserType(CubicTestProjectSettings settings) {
-		BrowserType browserType = null;
-		try {
-			int storedBrowserTypeIndex = SeleniumExporterPlugin.getDefault().getDialogSettings().getInt(SELENIUM_RUNNER_BROWSER_TYPE);
-			if (storedBrowserTypeIndex < 0 || storedBrowserTypeIndex > BrowserType.values().length - 1) {
-				storedBrowserTypeIndex = 0;
-			}
-			browserType = BrowserType.values()[storedBrowserTypeIndex];
-		} 
-		catch(NumberFormatException nfe) {
+		BrowserType browserType = BrowserTypeUtils.getPreferredBrowserType(SeleniumExporterPlugin.getDefault(), SELENIUM_RUNNER_BROWSER_TYPE);
+		if (browserType == null) {
 			try {
 				browserType = BrowserType.fromId(settings.getString(SeleniumUtils.getPluginPropertyPrefix(), "defaultBrowserType",
 						TestRunner.DEFAULT_BROWSER.getId()));
@@ -183,5 +180,10 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 
 	public void setTargetPage(Page targetPage) {
 		this.targetPage = targetPage;
+	}
+
+
+	public void setPreSelectedBrowserType(BrowserType preSelectedBrowserType) {
+		this.preSelectedBrowserType = preSelectedBrowserType;
 	}
 }

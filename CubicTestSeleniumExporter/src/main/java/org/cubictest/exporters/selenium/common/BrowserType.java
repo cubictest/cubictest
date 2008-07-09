@@ -8,7 +8,7 @@
  * Contributors:
  *    Christian Schwarz and Stein K. Skytteren - initial API and implementation
  *******************************************************************************/
-package org.cubictest.exporters.selenium.runner.util;
+package org.cubictest.exporters.selenium.common;
 
 
 /**

@@ -14,6 +14,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.runner.RunnerStarter;
+import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.UrlStartPoint;

@@ -18,6 +18,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.utils.exported.ExportUtils;
+import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.recorder.IRecorder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -36,15 +37,17 @@ import com.thoughtworks.selenium.SeleniumException;
 public class SeleniumRecorder implements IRunnableWithProgress {
 	private boolean seleniumStarted;
 	private Selenium selenium;
+	BrowserType browser;
 	private SeleniumServer seleniumProxy;
 	private int port = -1;
 	private final String url;
 	private Thread serverThread;
 	protected Shell shell;
 
-	public SeleniumRecorder(IRecorder recorder, String url, Shell shell) {
+	public SeleniumRecorder(IRecorder recorder, String url, Shell shell, BrowserType browser) {
 		this.url = url;
 		this.shell = shell;
+		this.browser = browser;
 		
 		// start server
 		
@@ -107,7 +110,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 			public void run() {
 		        try {
 					seleniumProxy.start();
-					selenium = new DefaultSelenium("localhost", seleniumProxy.getPort(), "*firefox", url);
+					selenium = new DefaultSelenium("localhost", seleniumProxy.getPort(), browser.getId(), url);
 					selenium.start();
 					selenium.open(url);
 					try {

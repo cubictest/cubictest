@@ -19,6 +19,9 @@ import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
+import org.cubictest.exporters.selenium.common.BrowserType;
+import org.cubictest.exporters.selenium.common.BrowserTypeUtils;
+import org.cubictest.exporters.selenium.common.SeleniumSettingsWizard;
 import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.IStartPoint;
@@ -30,6 +33,7 @@ import org.cubictest.model.UrlStartPoint;
 import org.cubictest.recorder.CubicRecorder;
 import org.cubictest.recorder.GUIAwareRecorder;
 import org.cubictest.recorder.IRecorder;
+import org.cubictest.recorder.RecorderPlugin;
 import org.cubictest.recorder.selenium.SeleniumRecorder;
 import org.cubictest.ui.gef.interfaces.exported.IDisposeListener;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
@@ -39,6 +43,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorPart;
@@ -50,6 +55,8 @@ import org.eclipse.ui.IWorkbenchPart;
  * @author Christian Schwarz
  */
 public class RecordEditorActionTarget implements IObjectActionDelegate {
+	public static final String RECORDER_BROWSER_TYPE = "RecorderBrowserType";
+	public static final String RECORDER_REMEMBER_SETTINGS = "RecorderRememberSettings";
 	private static Map<Test, Boolean> testsRecording;
 	private SeleniumRecorder seleniumRecorder;
 	private ITestEditor testEditor;
@@ -75,7 +82,7 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 		
 		test.resetStatus();
 
-		//action is toggle action:
+		//Handle action toggle:
 		if(isRecording()) {
 			//recorder running. stop it
 			UserInfo.setStatusLine(null);
@@ -93,10 +100,41 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 				}
 			}
 			
+			
+			//Getting the user preferred browser:
+			BrowserType browserType = BrowserTypeUtils.getPreferredBrowserType(RecorderPlugin.getDefault(), RECORDER_BROWSER_TYPE);
+			if (browserType == null) {
+				browserType = BrowserType.FIREFOX; //default
+			}
+			SeleniumSettingsWizard wizard = new SeleniumSettingsWizard(browserType, 
+					RECORDER_REMEMBER_SETTINGS, RECORDER_BROWSER_TYPE, RecorderPlugin.getDefault());
+			WizardDialog wizDialog = new WizardDialog(new Shell(), wizard);
+			boolean rememberBrowser = false;
+			try {
+				String remember = RecorderPlugin.getDefault().getDialogSettings().get(RECORDER_REMEMBER_SETTINGS);
+				if ("true".equals(remember)) {
+					rememberBrowser = true;
+				}
+			}
+			catch (Exception ignore) {
+			}
+			int wizReturnCode = WizardDialog.OK;
+			if (!rememberBrowser) {
+				wizReturnCode = wizDialog.open();
+			}
+			if(wizReturnCode == WizardDialog.CANCEL){
+				setRunning(false);
+				return;
+			}
+			else {
+				browserType = wizard.getBrowserType();
+			}
 
+			
+			//Starting the recorder:
 			IRecorder cubicRecorder = new CubicRecorder(test, testEditor.getCommandStack(), autoLayout);
 			IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder);
-			seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, getInitialUrlStartPoint(test).getBeginAt(), new Shell());
+			seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, getInitialUrlStartPoint(test).getBeginAt(), new Shell(), browserType);
 
 			testEditor.addDisposeListener(new IDisposeListener() {
 				public void disposed() {
@@ -125,6 +163,7 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 	 				runner.setShowCompletedMessageInStatusLine(true);
 	 				runner.setStopSeleniumWhenFinished(false);
 	 				runner.setSelenium(seleniumRecorder.getSelenium());
+	 				runner.setPreSelectedBrowserType(browserType);
 	 				if (selectedPage != null) {
 	 					if (!ModelUtil.isOnPathToNode(test.getStartPoint(), selectedPage)) {
 	 						ErrorHandler.logAndShowErrorDialogAndThrow("Cannot find path from start point to selected page");

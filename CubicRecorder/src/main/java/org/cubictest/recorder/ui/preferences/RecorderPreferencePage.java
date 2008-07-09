@@ -8,11 +8,11 @@
  * Contributors:
  *    Christian Schwarz and Stein K. Skytteren - initial API and implementation
  *******************************************************************************/
-package org.cubictest.exporters.selenium.ui.preferences;
+package org.cubictest.recorder.ui.preferences;
 
-import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.common.SeleniumPreferencePage;
-import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
+import org.cubictest.recorder.RecorderPlugin;
+import org.cubictest.recorder.ui.RecordEditorActionTarget;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
@@ -21,17 +21,17 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  *
  * @author Christian Schwarz
  */
-public class SeleniumExporterPreferencePage extends SeleniumPreferencePage implements IWorkbenchPreferencePage {
+public class RecorderPreferencePage extends SeleniumPreferencePage implements IWorkbenchPreferencePage {
 
 
 	@Override
 	public String getRememberSettingsKey() {
-		return RunSeleniumRunnerAction.SELENIUM_RUNNER_REMEMBER_SETTINGS;
+		return RecordEditorActionTarget.RECORDER_REMEMBER_SETTINGS;
 	}
 
 	@Override
 	public AbstractUIPlugin getPlugin() {
-		return SeleniumExporterPlugin.getDefault();
+		return RecorderPlugin.getDefault();
 	}
 	
 }

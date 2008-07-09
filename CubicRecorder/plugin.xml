@@ -43,5 +43,12 @@
                tooltip="Record test in a web browser"/>
       </objectContribution>
    </extension>
+   <extension point="org.eclipse.ui.preferencePages">
+ 	  <page id="CubicTestRecorderPreferencePage"
+  	      	name="Recorder"
+	      	class="org.cubictest.recorder.ui.preferences.RecorderPreferencePage"
+		    category="CubicTestPreferencePage">
+   	  </page>
+   </extension>
 
 </plugin>

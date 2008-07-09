@@ -17,7 +17,7 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.utils.exported.RunnerUtils;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
-import org.cubictest.exporters.selenium.runner.util.BrowserType;
+import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.model.Test;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
