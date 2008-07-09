@@ -21,9 +21,11 @@ public class SeleniumSettingsWizard extends Wizard {
 	private String rememberSettingsKey;
 	private String preferredBrowserTypeKey;
 	private AbstractUIPlugin plugin;
+	private final boolean recorderMode;
 
-	public SeleniumSettingsWizard(BrowserType preselectedBrowserType, String rememberSettingsKey, String preferredBrowserTypeKey, AbstractUIPlugin plugin) {
+	public SeleniumSettingsWizard(BrowserType preselectedBrowserType, String rememberSettingsKey, String preferredBrowserTypeKey, AbstractUIPlugin plugin, boolean recorderMode) {
 		super();
+		this.recorderMode = recorderMode;
 		if (preselectedBrowserType == null) {
 			preselectedBrowserType = BrowserType.FIREFOX;
 		}
@@ -37,7 +39,7 @@ public class SeleniumSettingsWizard extends Wizard {
 	
 	@Override
 	public void addPages() {
-		page = new SeleniumSettingsPage(preselectedBrowserType, preferredBrowserTypeKey);
+		page = new SeleniumSettingsPage(preselectedBrowserType, recorderMode);
 		addPage(page);
 	}
 	

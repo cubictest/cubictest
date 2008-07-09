@@ -107,7 +107,7 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 				browserType = BrowserType.FIREFOX; //default
 			}
 			SeleniumSettingsWizard wizard = new SeleniumSettingsWizard(browserType, 
-					RECORDER_REMEMBER_SETTINGS, RECORDER_BROWSER_TYPE, RecorderPlugin.getDefault());
+					RECORDER_REMEMBER_SETTINGS, RECORDER_BROWSER_TYPE, RecorderPlugin.getDefault(), true);
 			WizardDialog wizDialog = new WizardDialog(new Shell(), wizard);
 			boolean rememberBrowser = false;
 			try {

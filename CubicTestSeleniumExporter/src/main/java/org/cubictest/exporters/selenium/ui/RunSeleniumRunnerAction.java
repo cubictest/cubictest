@@ -62,7 +62,7 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 		//init wizard with last used browser type:
 		BrowserType browserType = getSeleniumBrowserType(settings); 
 		SeleniumSettingsWizard wizard = new SeleniumSettingsWizard(
-				browserType, SELENIUM_RUNNER_REMEMBER_SETTINGS, SELENIUM_RUNNER_BROWSER_TYPE, SeleniumExporterPlugin.getDefault());
+				browserType, SELENIUM_RUNNER_REMEMBER_SETTINGS, SELENIUM_RUNNER_BROWSER_TYPE, SeleniumExporterPlugin.getDefault(), false);
 		WizardDialog wizDialog = new WizardDialog(shell, wizard);
 		
 		boolean rememberBrowser = false;

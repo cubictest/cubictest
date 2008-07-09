@@ -11,8 +11,6 @@
 package org.cubictest.exporters.selenium.common;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
-import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -35,15 +33,16 @@ public class SeleniumSettingsPage extends WizardPage {
 	private Label browserLabel;
 	private Combo browserCombo;
 	private Label rememberSettingsLabel;
+	private Label recorderInfoLabel;;
 	private Button rememberSettingsCheckbox;
 	private Label rememberSettingsInfoLabel;
 	private BrowserType browserType;
-	private String preferredBrowserTypeKey;
+	private final boolean recorderMode;
 	
-	protected SeleniumSettingsPage(BrowserType browserType, String preferredBrowserTypeKey) {
+	protected SeleniumSettingsPage(BrowserType browserType, boolean recorderMode) {
 		super("Set CubicSeleniumServerPort");
 		this.browserType = browserType;
-		this.preferredBrowserTypeKey = preferredBrowserTypeKey;
+		this.recorderMode = recorderMode;
 	}
 
 	public void createControl(Composite parent) {
@@ -86,7 +85,14 @@ public class SeleniumSettingsPage extends WizardPage {
 		rememberSettingsInfoLabel.setText("Setting can be reset in Window -> Preferences -> CubicTest");
 		rememberSettingsInfoLabel.setVisible(false);
 		rememberSettingsInfoLabel.setLayoutData(data);
-	}
+
+		data = new GridData();
+		data.horizontalSpan = 2;
+		recorderInfoLabel = new Label(composite, SWT.NONE);
+		recorderInfoLabel.setText("Minimum Opera 9.5 is required.\nHold CTRL key and press mouse button on web page for recorder context menu.");
+		recorderInfoLabel.setVisible(browserType == BrowserType.OPERA);
+		recorderInfoLabel.setLayoutData(data);
+}
 	
 
 	public BrowserType getBrowserType(){
@@ -110,9 +116,14 @@ public class SeleniumSettingsPage extends WizardPage {
 		}
 	
 		browserCombo.addModifyListener(new ModifyListener(){
-
 			public void modifyText(ModifyEvent e) {
 				browserType = BrowserType.values()[browserCombo.getSelectionIndex()];
+				if (browserType == BrowserType.OPERA && recorderMode) {
+					recorderInfoLabel.setVisible(true);
+				}
+				else {
+					recorderInfoLabel.setVisible(false);
+				}
 			}
 		});
 		int storedBrowserTypeIndex = ArrayUtils.indexOf(BrowserType.values(), browserType);
