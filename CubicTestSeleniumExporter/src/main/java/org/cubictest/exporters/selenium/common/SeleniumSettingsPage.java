@@ -56,6 +56,7 @@ public class SeleniumSettingsPage extends WizardPage {
 		createBrowserCombo(content);
 		
 		createRememberSettingsCheckbox(content);
+		createRecorderInfo(content);
 		
 		content.setLayout(gridLayout);
 		setMessage("Choose browser to use for " + (recorderMode ? "recording" : "test runner"));
@@ -85,14 +86,16 @@ public class SeleniumSettingsPage extends WizardPage {
 		rememberSettingsInfoLabel.setText("Setting can be reset in Window -> Preferences -> CubicTest");
 		rememberSettingsInfoLabel.setVisible(false);
 		rememberSettingsInfoLabel.setLayoutData(data);
+	}
 
-		data = new GridData();
+	private void createRecorderInfo(Composite composite) {
+		GridData data = new GridData();
 		data.horizontalSpan = 2;
 		recorderInfoLabel = new Label(composite, SWT.NONE);
 		recorderInfoLabel.setText("Minimum Opera 9.5 is required.\nHold CTRL key and press mouse button on web page for recorder context menu.");
 		recorderInfoLabel.setVisible(recorderMode && (browserType == BrowserType.OPERA));
 		recorderInfoLabel.setLayoutData(data);
-}
+	}
 	
 
 	public BrowserType getBrowserType(){
@@ -118,11 +121,13 @@ public class SeleniumSettingsPage extends WizardPage {
 		browserCombo.addModifyListener(new ModifyListener(){
 			public void modifyText(ModifyEvent e) {
 				browserType = BrowserType.values()[browserCombo.getSelectionIndex()];
-				if (browserType == BrowserType.OPERA && recorderMode) {
-					recorderInfoLabel.setVisible(true);
-				}
-				else {
-					recorderInfoLabel.setVisible(false);
+				if (recorderInfoLabel != null) {
+					if (browserType == BrowserType.OPERA && recorderMode) {
+						recorderInfoLabel.setVisible(true);
+					}
+					else {
+						recorderInfoLabel.setVisible(false);
+					}
 				}
 			}
 		});
