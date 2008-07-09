@@ -40,7 +40,7 @@ public class SeleniumSettingsPage extends WizardPage {
 	private final boolean recorderMode;
 	
 	protected SeleniumSettingsPage(BrowserType browserType, boolean recorderMode) {
-		super("Set CubicSeleniumServerPort");
+		super("Choose browser");
 		this.browserType = browserType;
 		this.recorderMode = recorderMode;
 	}
@@ -52,13 +52,13 @@ public class SeleniumSettingsPage extends WizardPage {
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 2;
 		browserLabel = new Label(content, SWT.NONE);
-		browserLabel.setText("Label");
+		browserLabel.setText("Browser");
 		createBrowserCombo(content);
 		
 		createRememberSettingsCheckbox(content);
 		
 		content.setLayout(gridLayout);
-		setMessage("Choose Browser.");
+		setMessage("Choose browser to use for " + (recorderMode ? "recording" : "test runner"));
 		setPageComplete(true);
 		
 		setControl(content);
@@ -70,7 +70,7 @@ public class SeleniumSettingsPage extends WizardPage {
 	
 	private void createRememberSettingsCheckbox(Composite composite) {
 		rememberSettingsLabel = new Label(composite, SWT.NONE);
-		rememberSettingsLabel.setText("Remember browser:");
+		rememberSettingsLabel.setText("Remember browser");
 		rememberSettingsCheckbox = new Button(composite, SWT.CHECK);
 		rememberSettingsCheckbox.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent e) {}
@@ -90,7 +90,7 @@ public class SeleniumSettingsPage extends WizardPage {
 		data.horizontalSpan = 2;
 		recorderInfoLabel = new Label(composite, SWT.NONE);
 		recorderInfoLabel.setText("Minimum Opera 9.5 is required.\nHold CTRL key and press mouse button on web page for recorder context menu.");
-		recorderInfoLabel.setVisible(browserType == BrowserType.OPERA);
+		recorderInfoLabel.setVisible(recorderMode && (browserType == BrowserType.OPERA));
 		recorderInfoLabel.setLayoutData(data);
 }
 	

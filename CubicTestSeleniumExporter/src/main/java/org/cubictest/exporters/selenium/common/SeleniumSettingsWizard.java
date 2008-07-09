@@ -29,7 +29,7 @@ public class SeleniumSettingsWizard extends Wizard {
 		if (preselectedBrowserType == null) {
 			preselectedBrowserType = BrowserType.FIREFOX;
 		}
-		setWindowTitle("CubicTest Selenium Runner");
+		setWindowTitle("CubicTest");
 		setNeedsProgressMonitor(true);
 		this.preselectedBrowserType = preselectedBrowserType;
 		this.rememberSettingsKey = rememberSettingsKey;
