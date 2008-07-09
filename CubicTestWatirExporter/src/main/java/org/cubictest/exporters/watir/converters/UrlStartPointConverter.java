@@ -25,6 +25,7 @@ public class UrlStartPointConverter implements IUrlStartPointConverter<WatirHold
 	public void handleUrlStartPoint(WatirHolder watirHolder, UrlStartPoint sp, boolean firstUrl) {
 		if (!watirHolder.isBrowserStarted()) {
 			watirHolder.add("ie = Watir::IE.new");
+			watirHolder.add("ie.speed = :fast");
 			watirHolder.setBrowserStarted(true);
 		}
 
