@@ -145,4 +145,8 @@ public class SeleniumHolder extends RunnerResultHolder {
 		this.captureHtml = captureHtml;
 	}
 
+	public void setTestName(String testName) {
+		//not in use
+	}
+
 }

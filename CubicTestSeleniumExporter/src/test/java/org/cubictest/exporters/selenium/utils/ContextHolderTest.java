@@ -45,6 +45,8 @@ public class ContextHolderTest {
 		holder = new ContextHolder() {
 			public void resetStatus(PropertyAwareObject object) {
 			}
+			public void setTestName(String testName) {
+			}
 		};
 
 		outerContext = new SimpleContext();

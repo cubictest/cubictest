@@ -28,6 +28,8 @@ public class SeleneseDocument extends ContextHolder {
 	
 	/** The table to add commands (rows) to */
 	private Element table;
+
+	private Element htmlPageTitle;
 	
 	
 	/**
@@ -77,9 +79,8 @@ public class SeleneseDocument extends ContextHolder {
 		rootElement = new Element("html");
 		
 		Element header = new Element("head");
-		Element title = new Element("title");
-		title.setText("CubicTest exported test");
-		header.addContent(title);
+		htmlPageTitle = new Element("title");
+		header.addContent(htmlPageTitle);
 		
 		Element style = new Element("style");
 		style.setAttribute("type", "text/css");
@@ -104,5 +105,10 @@ public class SeleneseDocument extends ContextHolder {
 
 	public void resetStatus(PropertyAwareObject object) {
 		//not applicable
+	}
+
+
+	public void setTestName(String testName) {
+		htmlPageTitle.setText(testName);
 	}
 }

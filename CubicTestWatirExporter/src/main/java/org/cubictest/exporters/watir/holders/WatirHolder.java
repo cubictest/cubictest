@@ -271,5 +271,9 @@ public class WatirHolder extends RunnerResultHolder {
 	public String getActiveContainer() {
 		return containers.peek();
 	}
+
+	public void setTestName(String testName) {
+		// not in use
+	}
 	
 }

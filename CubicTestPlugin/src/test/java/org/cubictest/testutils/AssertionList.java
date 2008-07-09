@@ -106,4 +106,11 @@ public class AssertionList<T> extends ArrayList<T> implements IResultHolder {
 		// TODO Auto-generated method stub
 	}
 
+
+
+	public void setTestName(String testName) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

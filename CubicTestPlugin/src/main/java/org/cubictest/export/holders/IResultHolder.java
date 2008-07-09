@@ -67,4 +67,5 @@ public interface IResultHolder {
 	 */
 	public void resetStatus(PropertyAwareObject object);
 
+	public void setTestName(String testName);
 }
