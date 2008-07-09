@@ -99,7 +99,11 @@ public class ExtentionStartPointSelectorPage extends WizardPage implements Selec
 		}
 		setControl(container);
 		getShell().getDefaultButton().setFocus();
-
+		
+		setMessage("");
+		if (extensionPoints.size() == 0) {
+			setErrorMessage("No extension points are defined in test project");
+		}
 	}
 	
 	private String getRowLabel(ExtensionPoint ep) {

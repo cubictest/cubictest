@@ -64,24 +64,38 @@ public class StartPointTypeSelectionPage extends WizardPage implements Selection
 		
 		Composite container = new Composite(parent, SWT.NULL);
 		GridLayout gridLayout = new GridLayout(2,false);
-		extentionStartPointRadio = new Button(container, SWT.RADIO);
-		extentionStartPointRadio.addSelectionListener(this);
-		extentionStartPointLabel = new Label(container, SWT.LEFT);
-		extentionStartPointLabel.setText("Extension start point - Start from an extension point in another test");
-		extentionStartPointLabel.addMouseListener(this);
-		urlStartPointRadio = new Button(container, SWT.RADIO);
-		urlStartPointRadio.addSelectionListener(this);
-		urlStartPointLabel = new Label(container, SWT.LEFT);
-		urlStartPointLabel.setText("URL start point - Start from a specific URL");
-		urlStartPointLabel.addMouseListener(this);
+
+		createExtensionStartPointOption(container);
+		createUrlStartPointOption(container);
+		createSubTestStartPointOption(container);
+		
+		setSelected();
+		container.setLayout(gridLayout);
+		setControl(container);
+	}
+
+	private void createSubTestStartPointOption(Composite container) {
 		subTestStartPointRadio = new Button(container, SWT.RADIO);
 		subTestStartPointRadio.addSelectionListener(this);
 		subTestStartPointLabel = new Label(container, SWT.LEFT);
 		subTestStartPointLabel.setText("Sub test start point - Unspecified start. Test can only run as sub test of another test");
 		subTestStartPointLabel.addMouseListener(this);
-		setSelected();
-		container.setLayout(gridLayout);
-		setControl(container);
+	}
+
+	private void createUrlStartPointOption(Composite container) {
+		urlStartPointRadio = new Button(container, SWT.RADIO);
+		urlStartPointRadio.addSelectionListener(this);
+		urlStartPointLabel = new Label(container, SWT.LEFT);
+		urlStartPointLabel.setText("URL start point - Start from a specific URL");
+		urlStartPointLabel.addMouseListener(this);
+	}
+
+	private void createExtensionStartPointOption(Composite container) {
+		extentionStartPointRadio = new Button(container, SWT.RADIO);
+		extentionStartPointRadio.addSelectionListener(this);
+		extentionStartPointLabel = new Label(container, SWT.LEFT);
+		extentionStartPointLabel.setText("Extension start point - Start from an extension point in another test");
+		extentionStartPointLabel.addMouseListener(this);
 	}
 
 	public void widgetDefaultSelected(SelectionEvent e) {

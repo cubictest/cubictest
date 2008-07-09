@@ -22,22 +22,13 @@ import org.eclipse.jface.wizard.IWizardPage;
 
 public class TestDetailsPage extends NewFileWithNameAndDescriptionPage {
 	
-	private boolean projectHasExtensionPoint;
-	
 	public TestDetailsPage(ISelection selection, String newItemType) {
 		super(selection, newItemType);
 	}
 	
 	@Override
 	public IWizardPage getNextPage() {
-		if(projectHasExtensionPoint)
-			return getWizard().getPage(StartPointTypeSelectionPage.NAME);
-		return getWizard().getPage(NewUrlStartPointPage.NAME);
+		return getWizard().getPage(StartPointTypeSelectionPage.NAME);
 	}
-
-	public void setProjectHasExtensionPoint(boolean projectHasExtensionPoint) {
-		this.projectHasExtensionPoint = projectHasExtensionPoint;
-	}
-
 
 }
