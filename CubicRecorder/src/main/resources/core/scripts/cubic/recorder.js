@@ -201,6 +201,7 @@ Cubic.recorder.ActionRecorder.prototype = {
 		Event.observe($(domNode), 'click', this.mouseClick.bindAsEventListener(this), true);
 		Event.observe($(domNode), 'keydown', this.keyDown.bindAsEventListener(this), true);
 		Event.observe($(domNode), 'change', this.onChange.bindAsEventListener(this), true);
+		Event.observe($(domNode), 'blur', this.onBlur.bindAsEventListener(this), true);
 	},
 	
 	ignore: function(element) {
@@ -264,6 +265,23 @@ Cubic.recorder.ActionRecorder.prototype = {
 		if(e.keyCode == Event.KEY_RETURN) {
 			return this.inputOnBlur(e);
 		}
+	
+		if(!element.cubic_inputOnBlur) {
+			element.cubic_oldInputValue = element.value;
+			Event.observe(element, 'blur', this.inputOnBlur.bindAsEventListener(this), true);
+			element.cubic_inputOnBlur=true;
+		}
+	},
+
+	onBlur: function(e) {
+		var element = Event.element(e);
+		if(this.isIgnored(element) || !this.isTextInput(element)) {
+			return;
+		}
+		
+		YAHOO.log("onBlur: " + element.tagName);
+		
+		this.inputOnBlur(e);
 	
 		if(!element.cubic_inputOnBlur) {
 			element.cubic_oldInputValue = element.value;
