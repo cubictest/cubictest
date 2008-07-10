@@ -115,7 +115,13 @@ public class SeleniumSettingsPage extends WizardPage {
 	private void createBrowserCombo(Composite content) {
 		browserCombo = new Combo(content, SWT.NONE | SWT.READ_ONLY);
 		for (BrowserType browserType : BrowserType.values()) {
-			browserCombo.add(browserType.getDisplayName());
+			if (recorderMode && (browserType == BrowserType.INTERNET_EXPLORER
+							|| browserType == BrowserType.INTERNET_EXPLORER_HTA || browserType == BrowserType.INTERNET_EXPLORER_PI)) {
+				// do not add
+			}
+			else {
+				browserCombo.add(browserType.getDisplayName());
+			}
 		}
 	
 		browserCombo.addModifyListener(new ModifyListener(){
