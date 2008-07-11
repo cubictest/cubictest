@@ -3,6 +3,7 @@ package org.cubictest.exporters.selenium.launch;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.utils.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
@@ -48,13 +49,10 @@ public class CubicTestSeleniumLaunchShortcut implements ILaunchShortcut {
 			}
 			DebugUITools.launch(config, mode);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e);
 		}
-		
 	}
 	
 
