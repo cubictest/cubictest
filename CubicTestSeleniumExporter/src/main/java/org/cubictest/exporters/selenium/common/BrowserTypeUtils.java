@@ -29,7 +29,6 @@ public class BrowserTypeUtils {
 			browserType = BrowserType.values()[storedBrowserTypeIndex];
 		} 
 		catch(Exception ignore) {
-			ignore.printStackTrace(); //no logging in eclipse
 		}
 		return browserType;
 	}

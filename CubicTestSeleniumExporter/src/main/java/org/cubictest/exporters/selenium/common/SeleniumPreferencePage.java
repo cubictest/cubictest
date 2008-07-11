@@ -56,7 +56,6 @@ public abstract class SeleniumPreferencePage extends PreferencePage implements I
 			}
 		}
 		catch (Exception ignore) {
-			ignore.printStackTrace(); //no logging in eclipse
 		}
 		return remember;
 	}
