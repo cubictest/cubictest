@@ -18,6 +18,7 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.console.IConsoleConstants;
+import org.eclipse.ui.progress.IProgressConstants;
 
 /**
  * @author Stein K. Skytteren
@@ -51,6 +52,7 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
 		layout.addShowViewShortcut(LOG_VIEW_ID);
 		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
+		layout.addShowViewShortcut(IProgressConstants.PROGRESS_VIEW_ID);
 		
 		layout.addPerspectiveShortcut(JavaUI.ID_PERSPECTIVE);
 		layout.addPerspectiveShortcut(IDebugUIConstants.ID_DEBUG_PERSPECTIVE);
@@ -72,6 +74,15 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 		IFolderLayout bottomLeft = layout.createFolder("bottomLeft", IPageLayout.BOTTOM, 0.50f, topLeftId);
 		bottomLeft.addView(IPageLayout.ID_OUTLINE);
 		
+
+		// Bottom right: Property Sheet view and Log view
+		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, 0.66f, editorArea);
+		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
+		bottomRight.addView(LOG_VIEW_ID);
+		bottomRight.addView(IProgressConstants.PROGRESS_VIEW_ID);
+		
+		layout.addPerspectiveShortcut("cubicTestPlugin.CubicTest");
+		
 		try {
 			// Set "activate on errors" property to false on logview (only works if it's hidden)
 			Preferences preferences = PDERuntimePlugin.getDefault().getPluginPreferences();
@@ -80,14 +91,6 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
-
-		// Bottom right: Property Sheet view and Log view
-		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, 0.66f, editorArea);
-		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
-		bottomRight.addView(LOG_VIEW_ID);
-		
-		layout.addPerspectiveShortcut("cubicTestPlugin.CubicTest");
-		
 	}
 
 }
