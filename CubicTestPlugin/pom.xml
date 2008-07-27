@@ -2,6 +2,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.cubictest</groupId>
   <artifactId>CubicTestPlugin</artifactId>
-  <version>1.8.6</version>
+  <version>1.8.7</version>
   <description>CubicTest Eclipse Plugin</description>
 </project>
