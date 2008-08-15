@@ -50,6 +50,16 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 		}
 	}
 	
+	public String getDescription() {
+		String desc = getCustomTestStep(false).getDescription();
+		if (desc == null) {
+			return "";
+		}
+		return desc;
+	}
+	
+	
+	
 	public CustomTestStep getCustomTestStep(boolean forceRefreshFile) {
 		if(customTestStep == null || forceRefreshFile)
 			reloadCustomTestStep();

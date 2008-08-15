@@ -12,6 +12,7 @@ package org.cubictest.ui.gef.controller;
 
 import java.beans.PropertyChangeEvent;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.ConnectionPoint;
@@ -91,8 +92,16 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 		Point p = ((TransitionNode)getModel()).getPosition();
 		customTestStepFigure.setLocation(p);
 		customTestStepFigure.setText(name);
-		customTestStepFigure.setToolTipText("Custom test step: $labelText.\nFile: " + filePath);
+		customTestStepFigure.setToolTipText(getTooltipText());
 		return customTestStepFigure;
+	}
+
+	
+	private String getTooltipText() {
+		String filePath = ((CustomTestStepHolder)getModel()).getFilePath();
+		String description = ((CustomTestStepHolder)getModel()).getDescription();
+		return "Custom test step: $labelText\nFile: " + filePath + 
+				((StringUtils.isBlank(description)) ? "" : ("\n\n" + description));
 	}
 
 	/* (non-Javadoc)
@@ -114,6 +123,7 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 		Point position = connectionPoint.getPosition();
 		Rectangle r = new Rectangle(position.x,position.y,-1,-1);
 		customTestStepFigure.setText(((CustomTestStepHolder)getModel()).getName());
+		customTestStepFigure.setToolTipText(getTooltipText());
 		((TestEditPart)getParent()).setLayoutConstraint(this,figure,r);
 	}
 	
