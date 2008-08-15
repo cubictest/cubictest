@@ -140,8 +140,13 @@ public class TestRunner extends BaseTestRunner {
 		}
 		catch (Exception e) {
 			ErrorHandler.rethrow("Unable to start " + browserType.getDisplayName() + 
-					". Check that the browser is installed.\n\n" + 
-					"Error message: " + e.toString(), e);
+					" and open initial URL.\n\n" +
+							"Check that\n" +
+							"- The browser is installed (if in non-default dir, set it in PATH)\n" +
+							"- The initial URL is correct\n" +
+							"- There are no background (non-visible) browser processes hanging" +
+							"\n\n"
+					+ "Error message: " + e.toString(), e);
 		}
 		
 		//monitor used to detect user cancel request:

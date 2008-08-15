@@ -174,9 +174,13 @@ public class TestRunner {
 			seleniumStarter.setOperation(Operation.START);
 			seleniumHolder = call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
 		} catch (Exception e) {
-			ErrorHandler.rethrow("Unable to start "
-					+ runnerParameters.browserType.getDisplayName()
-					+ "and open initial URL. Check that the browser is installed and initial URL is correct.\n\n"
+			ErrorHandler.rethrow("Unable to start " + runnerParameters.browserType.getDisplayName() + 
+					" and open initial URL.\n\n" +
+							"Check that\n" +
+							"- The browser is installed (if in non-default dir, set it in PATH)\n" +
+							"- The initial URL is correct\n" +
+							"- There are no background (non-visible) browser processes hanging" +
+							"\n\n"
 					+ "Error message: " + e.toString(), e);
 		}
 
