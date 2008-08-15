@@ -11,6 +11,10 @@ import java.net.UnknownHostException;
 
 import javax.net.SocketFactory;
 
+import org.openqa.selenium.server.BrowserConfigurationOptions;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import com.thoughtworks.selenium.Selenium;
 
 public class CubicSelenium implements Selenium {
@@ -735,5 +739,13 @@ public class CubicSelenium implements Selenium {
 
 	public void shutDownSeleniumServer() {
 		execute("shutDownSeleniumServer");
+	}
+
+	public void rollup(String arg0, String arg1) {
+		execute("rollup", arg0, arg1);
+	}
+
+	public void start(BrowserConfigurationOptions arg0) {
+		throw new NotImplementedException();
 	}
 }
