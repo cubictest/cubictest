@@ -380,26 +380,32 @@ public class Test extends PropertyAwareObject {
 		int exception = 0;
 		int warn = 0;
 		int unknown = 0;
-		List<PropertyAwareObject> list = new ArrayList<PropertyAwareObject>();
+		List<PropertyAwareObject> testItems = new ArrayList<PropertyAwareObject>();
 		for (AbstractPage page : getPages()) {
 			for (PageElement pe : page.getFlattenedElements()) {
 				if (targetConnectionPoint != null && !ModelUtil.isOnPathToNode(page, targetConnectionPoint)) {
 					continue;
 				}
-				list.add(pe);
+				testItems.add(pe);
 			}
+		}
+		for (CustomTestStepHolder customStep : getCustomTestSteps()) {
+			if (targetConnectionPoint != null && !ModelUtil.isOnPathToNode(customStep, targetConnectionPoint)) {
+				continue;
+			}
+			testItems.add(customStep);
 		}
 		for (SubTest subTest : getSubTests()) {
 			subTest.updateStatus(false, targetConnectionPoint);
-			list.add(subTest);
+			testItems.add(subTest);
 		}
 		if (getStartPoint() instanceof ExtensionStartPoint) {
 			ExtensionStartPoint exStartPoint = (ExtensionStartPoint) getStartPoint();
 			exStartPoint.updateStatus(false, exStartPoint);
-			list.add(exStartPoint);
+			testItems.add(exStartPoint);
 		}
 		
-		for (PropertyAwareObject object : list) {
+		for (PropertyAwareObject object : testItems) {
 			if (object.getStatus().equals(TestPartStatus.PASS))
 				passed++;
 			else if (object.getStatus().equals(TestPartStatus.FAIL))
@@ -412,13 +418,13 @@ public class Test extends PropertyAwareObject {
 				unknown++;
 		}
 		
-		if (passed == list.size())
+		if (passed == testItems.size())
 			status = TestPartStatus.PASS;
-		else if (failed == list.size())
+		else if (failed == testItems.size())
 			status = TestPartStatus.FAIL;
 		else if (exception > 0)
 			status = TestPartStatus.EXCEPTION;
-		else if (unknown == list.size())
+		else if (unknown == testItems.size())
 			status = TestPartStatus.UNKNOWN;
 		else
 			status = TestPartStatus.WARN;

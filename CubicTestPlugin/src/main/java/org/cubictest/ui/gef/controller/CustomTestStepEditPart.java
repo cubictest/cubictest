@@ -119,12 +119,19 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 	@Override
 	protected void refreshVisuals() {
 		ConnectionPoint connectionPoint = (ConnectionPoint)getModel();
-		AbstractTransitionNodeFigure figure = (AbstractTransitionNodeFigure) getFigure();
+		CustomTestStepFigure figure = (CustomTestStepFigure) getFigure();
 		Point position = connectionPoint.getPosition();
 		Rectangle r = new Rectangle(position.x,position.y,-1,-1);
 		customTestStepFigure.setText(((CustomTestStepHolder)getModel()).getName());
 		customTestStepFigure.setToolTipText(getTooltipText());
 		((TestEditPart)getParent()).setLayoutConstraint(this,figure,r);
+		figure.setStatus(getModel().getStatus());
+
+	}
+	
+	@Override
+	public CustomTestStepHolder getModel() {
+		return (CustomTestStepHolder) super.getModel();
 	}
 	
 	/* (non-Javadoc)
