@@ -84,12 +84,12 @@ public abstract class PropertyAwareObject implements Cloneable {
 		return (PropertyAwareObject) CubicCloner.deepCopy(this);
 	}
 	
-	public boolean isEqualTo(Object pe) {
+	public boolean isEqualTo(Object other) {
 		if (toStringStyle == null) {
 			toStringStyle = new StandardToStringStyle();
 		}
 		toStringStyle.setUseIdentityHashCode(false);
-		return ToStringBuilder.reflectionToString(pe, toStringStyle).equals(ToStringBuilder.reflectionToString(this, toStringStyle));
+		return ToStringBuilder.reflectionToString(other, toStringStyle).equals(ToStringBuilder.reflectionToString(this, toStringStyle));
 	}
 
 }
