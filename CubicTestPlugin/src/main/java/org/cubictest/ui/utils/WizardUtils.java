@@ -97,13 +97,10 @@ public class WizardUtils {
 	 */
 	public static Test createEmptyTestWithSubTestStartPoint(String id, String name, String description) {
 		Test test = createTest(id,name,description);
-		addEmptyPage(test);
 		
 		SubTestStartPoint startpoint = createSubTestStartPoint();
 		test.setStartPoint(startpoint);
 		
-		SimpleTransition startTransition = new SimpleTransition(startpoint, test.getPages().get(0));	
-		test.addTransition(startTransition);
 		return test;
 	}
 	
@@ -152,7 +149,7 @@ public class WizardUtils {
 		return test;
 	}
 
-	public static void addEmptyPage(Test test) {
+	public static Page addEmptyPage(Test test) {
 		Page page = new Page();
 		page.setPosition(new Point(ITestEditor.INITIAL_PAGE_POS_X, ITestEditor.INITIAL_PAGE_POS_Y));
 		page.setDimension(page.getDefaultDimension());
@@ -161,6 +158,7 @@ public class WizardUtils {
 		List<AbstractPage> pages = new ArrayList<AbstractPage>();
 		pages.add(page);
 		test.setPages(pages);
+		return page;
 	}
 	
 	

@@ -38,6 +38,7 @@ import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
+import org.cubictest.ui.gef.command.AddCustomTestStepCommand;
 import org.cubictest.ui.gef.command.AddExtensionPointCommand;
 import org.cubictest.ui.gef.command.AddSubTestCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
@@ -280,7 +281,6 @@ public class ViewUtil {
 						
 			}
 			else if (originalNode instanceof ExtensionPoint){
-				//ExtensionPoint
 				ExtensionPoint exPoint = (ExtensionPoint) originalNode;
 
 				ExtensionPoint exPointClone = (ExtensionPoint) exPoint.clone();
@@ -294,7 +294,6 @@ public class ViewUtil {
 					addMoveNodeCommand(compoundCmd, exPoint, exPointClone);
 			}
 			else if (originalNode instanceof SubTest){
-				//SubTest
 				SubTest subtest = (SubTest) originalNode;
 
 				SubTest subtestClone = (SubTest) subtest.clone();
@@ -304,6 +303,18 @@ public class ViewUtil {
 				
 				if (moveClonesToRight)
 					addMoveNodeCommand(compoundCmd, subtest, subtestClone);
+			}
+			else if (originalNode instanceof CustomTestStepHolder){
+				CustomTestStepHolder holder = (CustomTestStepHolder) originalNode;
+
+				CustomTestStepHolder holderClone = (CustomTestStepHolder) holder.clone();
+				holderClone.setProject(ViewUtil.getProjectFromActivePage());
+				AddCustomTestStepCommand addCustomStepCmd = new AddCustomTestStepCommand(test, holderClone);
+				compoundCmd.add(addCustomStepCmd);
+				clonedNodesForAddition.put(holder, holderClone);
+				
+				if (moveClonesToRight)
+					addMoveNodeCommand(compoundCmd, holder, holderClone);
 			}
 		} //end foreach
 

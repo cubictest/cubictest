@@ -53,26 +53,22 @@ public class NewSubTestWizard extends AbstractNewSimpleStartPointTestWizard impl
 	}
 	
 	public Test createEmptyTest(String name, String description) {
-		Test emptyTest = WizardUtils.createEmptyTestWithSubTestStartPoint("test" + System.currentTimeMillis(), name, description);
+		Test test = WizardUtils.createEmptyTestWithSubTestStartPoint("test" + System.currentTimeMillis(), name, description);
 		if (refactorInitOriginalNodes == null) {
-			WizardUtils.addEmptyPage(emptyTest);
-			
-			SubTestStartPoint startpoint = WizardUtils.createSubTestStartPoint();
-			emptyTest.setStartPoint(startpoint);
-			
-			SimpleTransition startTransition = new SimpleTransition(startpoint, emptyTest.getPages().get(0));	
-			emptyTest.addTransition(startTransition);
+			Page page = WizardUtils.addEmptyPage(test);
+			SimpleTransition startTransition = new SimpleTransition(test.getStartPoint(), page);	
+			test.addTransition(startTransition);
 		}
 		else {
 			//we shall prepopulate sub test with nodes
 			try {
-				List<TransitionNode> newNodes = ViewUtil.cloneAndAddNodesToTest(emptyTest, refactorInitOriginalNodes, commandStack, false);
+				List<TransitionNode> newNodes = ViewUtil.cloneAndAddNodesToTest(test, refactorInitOriginalNodes, commandStack, false);
 				
 				//create transition from start point:
 				if (ModelUtil.getFirstNode(newNodes) instanceof TransitionNode) {
-					SimpleTransition startTransition = new SimpleTransition(emptyTest.getStartPoint(), 
+					SimpleTransition startTransition = new SimpleTransition(test.getStartPoint(), 
 							ModelUtil.getFirstNode(newNodes));	
-					emptyTest.addTransition(startTransition);
+					test.addTransition(startTransition);
 				}
 				
 				//check if we need to create a temp state as target for the last user interaction 
@@ -82,12 +78,12 @@ public class NewSubTestWizard extends AbstractNewSimpleStartPointTestWizard impl
 					if ((transToOutside instanceof UserInteractionsTransition) || transToOutside instanceof ExtensionTransition) {
 						Page page = new Page();
 						page.setName("Next state");
-						emptyTest.addPage(page);
+						test.addPage(page);
 						
 						Transition trans = (Transition) transToOutside.clone();
 						trans.setStart(ModelUtil.getLastNodeInList(newNodes));
 						trans.setEnd(page);
-						emptyTest.addTransition(trans);
+						test.addTransition(trans);
 
 						page.setPosition(new Point(ModelUtil.getLastNodeInList(newNodes).getPosition().x, 
 								AutoLayout.getYPositionForNode(page)));
@@ -97,7 +93,7 @@ public class NewSubTestWizard extends AbstractNewSimpleStartPointTestWizard impl
 				ErrorHandler.logAndShowErrorDialogAndRethrow("Unable to create sub test.", e);
 			}
 		}
-		return emptyTest;
+		return test;
 	}
 
 	protected void getWizardTitle() {

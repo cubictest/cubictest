@@ -96,6 +96,9 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 			TestPartStatus newStatus = (TestPartStatus)evt.getNewValue();
 			((SubTestFigure)getFigure()).setStatus(newStatus);
 		}
+		else if (evt.getOldValue() instanceof SubTest && ((SubTest)evt.getOldValue()).isEqualTo(this.getModel()) && evt.getNewValue() == null) {
+			//this subtest is removed. Do not refresh
+		}
 		else {
 			//source is self, refresh on all changes
 			refresh();

@@ -18,6 +18,8 @@ import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.ExtensionPoint;
+import org.cubictest.model.Page;
+import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.TestSuiteStartPoint;
@@ -170,6 +172,9 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		} else if (startPointTypeSelectionPage.isSubTestStartPointSelected()) {
 			emptyTest = WizardUtils.createEmptyTestWithSubTestStartPoint("test" + System.currentTimeMillis(),
 					name, description);
+			Page page = WizardUtils.addEmptyPage(emptyTest);
+			SimpleTransition startTransition = new SimpleTransition(emptyTest.getStartPoint(), page);	
+			emptyTest.addTransition(startTransition);
 		} else{
 			emptyTest = WizardUtils.createEmptyTest("test" + System.currentTimeMillis(), 
 					name, description, startTestFile, extensionPoint);

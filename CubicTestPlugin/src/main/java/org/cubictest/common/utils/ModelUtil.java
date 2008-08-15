@@ -156,6 +156,9 @@ public class ModelUtil {
 	}
 	
 	public static boolean nodesContainsSingleContinuousPath(List<TransitionNode> nodes) {
+		if (nodes.size() <= 1) {
+			return true;
+		}
 		nodes = new ArrayList<TransitionNode>(nodes); //clone
 		
 		TransitionNode node = ModelUtil.getFirstNode(nodes);
@@ -180,6 +183,9 @@ public class ModelUtil {
 	
 	
 	public static TransitionNode getLastNodeInList(List<TransitionNode> list) {
+		if (list.size() == 1) {
+			return list.get(0);
+		}
 		list = new ArrayList<TransitionNode>(list); //clone
 		
 		//initialize node to first node in path:
