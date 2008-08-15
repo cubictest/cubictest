@@ -56,17 +56,8 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 			System.out.println("Port: " + port);
 			RemoteControlConfiguration config = new RemoteControlConfiguration();
 			config.setPort(port);
+			config.setPortDriversShouldContact(port);
 			seleniumProxy = new SeleniumServer(false, config);
-			
-			//hack: update the port drivers should contact (is a static in Selenium....)
-			for(Method method : SeleniumServer.class.getDeclaredMethods()){
-	            if(method.getName().equals("setPortDriversShouldContact")){
-	            	boolean origAccessible = method.isAccessible();
-	                method.setAccessible(true);
-	                method.invoke(seleniumProxy, port);
-	                method.setAccessible(origAccessible);
-	            }
-	        }
 			
 			Server server = seleniumProxy.getServer();
 			HttpContext cubicRecorder = server.getContext("/selenium-server/cubic-recorder/");

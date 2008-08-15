@@ -36,21 +36,11 @@ public class SeleniumProxyServer {
 			this.port = port;
 			RemoteControlConfiguration config = new RemoteControlConfiguration();
 			config.setPort(port);
+			config.setPortDriversShouldContact(port);
 			config.setMultiWindow(seleniumMultiWindow);
 			seleniumServer = new SeleniumServer(false, config);
 			seleniumServer.setProxyInjectionMode(proxyInjectionMode);
 
-			//hack: update the port drivers should contact (is a static in Selenium....)
-			for(Method method : SeleniumServer.class.getDeclaredMethods()){
-	            if(method.getName().equals("setPortDriversShouldContact")){
-	            	boolean oldAccessible = method.isAccessible();
-	                method.setAccessible(true);
-	                method.invoke(seleniumServer, port);
-	                method.setAccessible(oldAccessible);
-	            }
-	        }
-
-			
 			final int portInfo = port;
 	        serverThread = new Thread(new Runnable() {
 	            public void run() {
