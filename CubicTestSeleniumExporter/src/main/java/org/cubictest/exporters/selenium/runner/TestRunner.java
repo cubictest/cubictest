@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.runner.BaseTestRunner;
@@ -22,7 +23,8 @@ import org.cubictest.export.runner.RunnerStarter.Operation;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
-import org.cubictest.exporters.selenium.runner.converters.CustomTestStepConverter;
+import org.cubictest.exporters.selenium.runner.converters.SameVMCustomTestStepConverter;
+import org.cubictest.exporters.selenium.runner.converters.UnsupportedCustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
 import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
@@ -52,6 +54,8 @@ public class TestRunner extends BaseTestRunner {
 	BrowserType browserType = DEFAULT_BROWSER;
 	private IProgressMonitor monitor;
 	boolean reuseSelenium = false;
+	private boolean runingInSameVMAsCustomFiles = false;
+	
 
 	/**
 	 * Typically invoked by the CubicTest Selenium exporter Eclipse plugin.
@@ -69,10 +73,11 @@ public class TestRunner extends BaseTestRunner {
 	/**
 	 * Typically invoked by the Maven plugin.
 	 */
-	public TestRunner(Test test, Selenium selenium, CubicTestProjectSettings settings) {
+	public TestRunner(Test test, Selenium selenium, CubicTestProjectSettings settings, boolean runingInSameVMAsCustomFiles) {
 		super(null, settings, test);
 		this.test = test;
 		this.selenium = selenium;
+		this.runingInSameVMAsCustomFiles  = runingInSameVMAsCustomFiles;
 		if (port == null) {
 			port = ExportUtils.findAvailablePort();
 		}
@@ -87,10 +92,15 @@ public class TestRunner extends BaseTestRunner {
 			if (seleniumHolder == null || !reuseSelenium) {
 				startSeleniumAndOpenInitialUrlWithTimeoutGuard(monitor, 40);
 			}
-			
+			Class<? extends ICustomTestStepConverter<SeleniumHolder>> ctsc = null;
+			if(runingInSameVMAsCustomFiles)
+				ctsc = SameVMCustomTestStepConverter.class;
+			else 
+				ctsc = UnsupportedCustomTestStepConverter.class;
+				
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(UrlStartPointConverter.class, 
 					PageElementConverter.class, ContextConverter.class, 
-					TransitionConverter.class, CustomTestStepConverter.class);
+					TransitionConverter.class, ctsc);
 			
 			if (monitor != null) {
 				monitor.beginTask("Traversing the test model...", IProgressMonitor.UNKNOWN);

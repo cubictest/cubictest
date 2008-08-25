@@ -27,7 +27,7 @@ import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.common.BrowserType;
-import org.cubictest.exporters.selenium.launch.converters.CustomTestStepConverter;
+import org.cubictest.exporters.selenium.launch.converters.LaunchCustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
 import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
@@ -100,7 +100,7 @@ public class TestRunner {
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(
 					UrlStartPointConverter.class, PageElementConverter.class,
 					ContextConverter.class, TransitionConverter.class,
-					CustomTestStepConverter.class);
+					LaunchCustomTestStepConverter.class);
 
 			if (monitor != null) {
 				monitor.beginTask("Traversing the test model...",

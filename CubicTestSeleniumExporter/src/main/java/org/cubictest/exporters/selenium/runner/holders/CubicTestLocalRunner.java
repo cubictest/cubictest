@@ -101,4 +101,8 @@ public class CubicTestLocalRunner {
 	public void stop() {
 		selenium.stop();
 	}
+
+	public Selenium getSelenium() {
+		return selenium;
+	}
 }

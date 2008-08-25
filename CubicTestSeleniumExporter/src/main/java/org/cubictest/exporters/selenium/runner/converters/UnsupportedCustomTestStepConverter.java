@@ -10,18 +10,12 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.converters;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
+import org.cubictest.exporters.selenium.common.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ICustomTestStepHolder;
-import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.customstep.CustomTestStep;
-import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.model.customstep.data.CustomTestStepData;
 
 /**
@@ -29,12 +23,8 @@ import org.cubictest.model.customstep.data.CustomTestStepData;
  * 
  * @author chr_schwarz
  */
-public class CustomTestStepConverter implements ICustomTestStepConverter<SeleniumHolder> {
+public class UnsupportedCustomTestStepConverter extends CustomTestStepConverter {
 	
-	public String getDataKey() {
-		return "org.cubictest.seleniumexporter";
-	}
-
 	public void handleCustomStep(SeleniumHolder t, ICustomTestStepHolder cts,
 			CustomTestStepData data) {
 		CustomTestStep ts = ((CustomTestStepHolder)cts).getCustomTestStep(false);

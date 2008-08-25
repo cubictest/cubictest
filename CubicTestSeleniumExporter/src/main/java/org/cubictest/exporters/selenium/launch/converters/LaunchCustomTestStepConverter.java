@@ -13,8 +13,8 @@ package org.cubictest.exporters.selenium.launch.converters;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.selenium.common.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.ICustomTestStepHolder;
@@ -27,12 +27,8 @@ import org.cubictest.model.customstep.data.CustomTestStepData;
  * 
  * @author chr_schwarz
  */
-public class CustomTestStepConverter implements ICustomTestStepConverter<SeleniumHolder> {
+public class LaunchCustomTestStepConverter extends CustomTestStepConverter {
 	
-	public String getDataKey() {
-		return "org.cubictest.seleniumexporter";
-	}
-
 	public void handleCustomStep(SeleniumHolder t, ICustomTestStepHolder cts,
 			CustomTestStepData data) {
 		//throw new ExporterException("Custom test step not supported in Selenium runner yet");

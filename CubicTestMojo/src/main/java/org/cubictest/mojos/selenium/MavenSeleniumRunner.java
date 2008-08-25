@@ -72,7 +72,7 @@ public class MavenSeleniumRunner extends AbstractMojo
         getLog().info(LOG_PREFIX + " Use new browser instance for each test suite file: " + useFreshBrowser);
         boolean reuseBrowser = !useFreshBrowser;
         if (reuseBrowser) {
-			testRunner = new TestRunner(null, null, settings);
+			testRunner = new TestRunner(null, null, settings, true);
 			testRunner.setReuseSelenium(true);
 			testRunner.setFailOnAssertionFailure(true);
         }
@@ -90,7 +90,7 @@ public class MavenSeleniumRunner extends AbstractMojo
         			passedTests.add(file.getName());
     			}
     			else {
-    				testRunner = new TestRunner(test, null, settings);
+    				testRunner = new TestRunner(test, null, settings,true);
         			testRunner.setFailOnAssertionFailure(true);
         			testRunner.run(null);
         			passedTests.add(file.getName());
