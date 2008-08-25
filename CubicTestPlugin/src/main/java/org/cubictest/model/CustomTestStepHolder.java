@@ -58,8 +58,6 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 		return desc;
 	}
 	
-	
-	
 	public CustomTestStep getCustomTestStep(boolean forceRefreshFile) {
 		if(customTestStep == null || forceRefreshFile)
 			reloadCustomTestStep();
