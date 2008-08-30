@@ -101,12 +101,15 @@ public class ErrorHandler {
 
 	
 	public static void logAndShowErrorDialogAndRethrow(String message, Throwable e) {
-		logAndShowErrorDialogAndRethrow(message, e, new Shell());
+		logAndShowErrorDialogAndRethrow(message, e, null);
 	}
 	
 	public static void logAndShowErrorDialogAndRethrow(String message, Throwable e, Shell shell) {
 		Logger.error(message, e);
 		if (EnvironmentInfo.isRunningInEclipse()) {
+			if (shell == null) {
+				shell = new Shell();
+			}
 			UserInfo.showErrorDialog(e, message, shell);
 		}
 		rethrow(message, e);
