@@ -31,19 +31,21 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 			context = new ElementContext();
 		}
 		
+		String ctsName = null;
+		if (cts != null) {
+			ctsName = cts.getName();
+		}
+
 		try{
 			ICustomTestStep testStep = (ICustomTestStep) Class.forName(data.getDisplayText()).newInstance();
 			testStep.execute(arguments, context, t.getSelenium().getSelenium());
 			t.addResult(cts,TestPartStatus.PASS);
 		}catch (Exception e) {
-			String name = null;
-			if (cts != null) {
-				name = cts.getName();
-			}
-			Logger.error("Error handling custom step " + name);
+			Logger.error("Error handling custom step " + ctsName, e);
 			t.addResult(cts, TestPartStatus.EXCEPTION);
 			throw new ExporterException(e);
 		}catch (AssertionError e) {
+			Logger.error("AssertionError in custom step " + ctsName + ": " + e.getMessage());
 			t.addResult(cts, TestPartStatus.FAIL);
 		}
 	}
