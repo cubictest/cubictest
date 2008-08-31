@@ -25,6 +25,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.swt.graphics.Color;
 
 
 /**
@@ -86,7 +87,7 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 	protected IFigure createFigure() {
 		String name = ((ExtensionPoint)getModel()).getName();
 		AbstractTransitionNodeFigure extensionPointFigure = new AbstractTransitionNodeFigure();
-		extensionPointFigure.setBackgroundColor(ColorConstants.orange);
+		extensionPointFigure.setBackgroundColor(new Color(null, 255, 238, 180));
 		Point p = ((TransitionNode)getModel()).getPosition();
 		extensionPointFigure.setLocation(p);
 		extensionPointFigure.setText(name);
