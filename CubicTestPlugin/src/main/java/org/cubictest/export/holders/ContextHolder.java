@@ -166,10 +166,12 @@ public abstract class ContextHolder implements IResultHolder {
 				res += " --> ";
 			}
 			if (obj instanceof TransitionNode) {
-				res += ((TransitionNode) obj).getName();
+				TransitionNode node = (TransitionNode) obj;
+				res += node.getClass().getSimpleName() + ": " + node.getName();
 			}
 			else if (obj instanceof PageElement) {
-				res += ((PageElement) obj).getDirectEditIdentifier().getValue();
+				PageElement pe = (PageElement) obj;
+				res += pe.getClass().getSimpleName() + ": " + pe.getDirectEditIdentifier().getValue();
 			}
 		}
 		return res;
