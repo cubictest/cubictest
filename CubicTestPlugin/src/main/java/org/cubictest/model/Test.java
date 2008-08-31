@@ -382,10 +382,10 @@ public class Test extends PropertyAwareObject {
 		int unknown = 0;
 		List<PropertyAwareObject> testItems = new ArrayList<PropertyAwareObject>();
 		for (AbstractPage page : getPages()) {
+			if (targetConnectionPoint != null && !ModelUtil.isOnPathToNode(page, targetConnectionPoint)) {
+				continue;
+			}
 			for (PageElement pe : page.getFlattenedElements()) {
-				if (targetConnectionPoint != null && !ModelUtil.isOnPathToNode(page, targetConnectionPoint)) {
-					continue;
-				}
 				testItems.add(pe);
 			}
 		}
@@ -396,6 +396,9 @@ public class Test extends PropertyAwareObject {
 			testItems.add(customStep);
 		}
 		for (SubTest subTest : getSubTests()) {
+			if (targetConnectionPoint != null && !ModelUtil.isOnPathToNode(subTest, targetConnectionPoint)) {
+				continue;
+			}
 			subTest.updateStatus(false, targetConnectionPoint);
 			testItems.add(subTest);
 		}

@@ -269,11 +269,11 @@ public class TreeTestWalker<T extends IResultHolder> {
 		
 		SubTest subtest = (SubTest) node;
 		Test subtestTest = subtest.getTest(true);
-		List<Transition> outTransitions = node.getOutTransitions();
-		ExtensionPoint targetExPoint = null;
+		List<Transition> outTransitions = subtest.getOutTransitions();
+		ExtensionPoint subTestTargetExPoint = null;
 		if (outTransitions != null && outTransitions.size() > 0 && outTransitions.get(0) instanceof ExtensionTransition) {
 			// we have a target
-			targetExPoint = ((ExtensionTransition) outTransitions.get(0)).getExtensionPoint();
+			subTestTargetExPoint = ((ExtensionTransition) outTransitions.get(0)).getExtensionPoint();
 		}
 		else {
 			// no target exPoint. Check that only one path in sub test (if one path, then ok)
@@ -297,11 +297,11 @@ public class TreeTestWalker<T extends IResultHolder> {
 		
 		// Convert sub test:
 		try {
-			convertTransitionNode(resultHolder, subtestTest.getStartPoint(), targetExPoint, null);
-			resultHolder.updateStatus(subtest, false, targetExtensionPoint);
+			convertTransitionNode(resultHolder, subtestTest.getStartPoint(), subTestTargetExPoint, null);
+			resultHolder.updateStatus(subtest, false, subTestTargetExPoint);
 		}
 		catch (Exception e) {
-			handleSubTestException(resultHolder, subtest, targetExtensionPoint, e);
+			handleSubTestException(resultHolder, subtest, subTestTargetExPoint, e);
 		}
 	}
 
