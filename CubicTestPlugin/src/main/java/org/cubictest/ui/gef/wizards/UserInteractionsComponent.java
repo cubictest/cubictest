@@ -475,7 +475,7 @@ public class UserInteractionsComponent {
 					}
 					//make the change immediately visible in the graphical test editor:
 					deactivate();
-					if (delete && !transition.getUserInteractions().isEmpty()) {
+					if (activeUserinteraction == null && !transition.getUserInteractions().isEmpty()) {
 						activeUserinteraction = transition.getUserInteractions().get(0);
 					}
 					if (activeUserinteraction != null) {
