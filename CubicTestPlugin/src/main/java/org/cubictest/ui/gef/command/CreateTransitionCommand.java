@@ -145,7 +145,8 @@ public class CreateTransitionCommand extends Command {
 		else {
 			//transition not pre-populated: 
 			
-			if (sourceNode instanceof SubTest && (targetNode instanceof Page || targetNode instanceof SubTest)) {
+			if (sourceNode instanceof SubTest && (targetNode instanceof Page
+					|| targetNode instanceof SubTest || targetNode instanceof CustomTestStepHolder)) {
 				//ExtensionTransition from SubTest
 				SubTest subTest = (SubTest) sourceNode;
 				List<ExtensionPoint> exPoints = subTest.getTest(true).getAllExtensionPoints();

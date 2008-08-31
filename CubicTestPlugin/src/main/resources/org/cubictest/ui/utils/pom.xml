@@ -5,6 +5,7 @@
   <version>1</version>
   
   <build>
+  	<sourceDirectory>${project.basedir}/src</sourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.cubictest</groupId>

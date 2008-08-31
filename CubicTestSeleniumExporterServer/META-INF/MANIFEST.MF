@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-ClassPath: .,
  lib/CubicTestSelenium.jar,
  lib/selenium-java-client-driver.jar,
- lib/selenium-java-client-driver-sources.jar
+ lib/selenium-java-client-driver-sources.jar,
+ lib/selenium-server-dummy.jar
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: com.thoughtworks.selenium,
  org.cubictest.runner.selenium.server.internal;uses:="com.thoughtworks.selenium,org.cubictest.selenium.custom",

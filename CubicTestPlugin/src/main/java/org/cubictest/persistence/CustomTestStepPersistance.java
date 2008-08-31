@@ -10,25 +10,49 @@
  *******************************************************************************/
 package org.cubictest.persistence;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.exception.TestNotFoundException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.customstep.CustomTestStep;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.Path;
 
 import com.thoughtworks.xstream.io.StreamException;
 
 public class CustomTestStepPersistance {
+	
+	
+	public static CustomTestStep loadFromFile(IProject project, String fileName) {
+		if (project == null) {
+			//try to get file without project
+			return loadFromFile(new File(fileName));
+		}
+		try {
+			IFile ifile = project.getFile(new Path(fileName));
+			return loadFromFile(ifile.getLocation().toFile());
+		}
+		catch (IllegalStateException e) {
+			if (e.getMessage().indexOf("Workspace is closed") >= 0) {
+				//Probably junit testing
+				return loadFromFile(new File(fileName));
+			}
+		}
+		throw new CubicException("Could not load custom step with file name = " + fileName);
+	}
 
-	public static CustomTestStep loadFromFile(IFile file) {
+	
+	public static CustomTestStep loadFromFile(File file) {
 		String xml = "";
 		try {
-			String charset = TestPersistance.getCharset(file.getLocation().toFile());
-			xml = FileUtils.readFileToString(file.getLocation().toFile(), charset);
+			String charset = TestPersistance.getCharset(file);
+			xml = FileUtils.readFileToString(file, charset);
 		} catch (FileNotFoundException e) {
 			Logger.error("Error loading test.", e);
 			throw new TestNotFoundException(e.getMessage());

@@ -130,7 +130,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 
 		if (customStep == null) {
 			//custom step was not set by reference by e.g. the GTE edit part's double click handler
-			customStep = CustomTestStepPersistance.loadFromFile(input.getFile());
+			customStep = CustomTestStepPersistance.loadFromFile(input.getFile().getLocation().toFile());
 		}
 		customStep.addCustomStepListener(this);
 		

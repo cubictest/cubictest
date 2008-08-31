@@ -748,4 +748,8 @@ public class CubicSelenium implements Selenium {
 	public void start(BrowserConfigurationOptions arg0) {
 		throw new NotImplementedException();
 	}
+
+	public String retrieveLastRemoteControlLogs() {
+		throw new NotImplementedException();
+	}
 }

@@ -7,4 +7,7 @@ package org.openqa.selenium.server;
  */
 public class BrowserConfigurationOptions {
 
+	public BrowserConfigurationOptions() {
+		throw new IllegalStateException("This dummy class should not be used");
+	}
 }

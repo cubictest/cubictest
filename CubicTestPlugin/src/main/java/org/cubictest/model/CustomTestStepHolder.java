@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.model;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -93,7 +94,7 @@ public class CustomTestStepHolder extends ConnectionPoint implements ICustomTest
 	
 	public void reloadCustomTestStep(){
 		CustomTestStep oldStep = customTestStep;
-		customTestStep = CustomTestStepPersistance.loadFromFile(getFile());
+		customTestStep = CustomTestStepPersistance.loadFromFile(project, getFilePath());
 		firePropertyChange(CUSTOMSTEP, oldStep, customTestStep);
 	}
 	
