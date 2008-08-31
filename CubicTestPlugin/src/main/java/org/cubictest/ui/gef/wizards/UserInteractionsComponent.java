@@ -475,7 +475,12 @@ public class UserInteractionsComponent {
 					}
 					//make the change immediately visible in the graphical test editor:
 					deactivate();
-					tableViewer.editElement(activeUserinteraction, 1);
+					if (delete && !transition.getUserInteractions().isEmpty()) {
+						activeUserinteraction = transition.getUserInteractions().get(0);
+					}
+					if (activeUserinteraction != null) {
+						tableViewer.editElement(activeUserinteraction, 1);
+					}
 	            }
 
 				
