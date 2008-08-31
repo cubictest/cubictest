@@ -11,7 +11,6 @@
 package org.cubictest.model;
 
 import static org.cubictest.model.IdentifierType.LABEL;
-import static org.cubictest.model.Moderator.EQUAL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -339,5 +338,10 @@ public abstract class PageElement extends PropertyAwareObject
 		return null;
 	}
 
+	
+	@Override
+	public String getName() {
+		return getText();
+	}
 	
 }

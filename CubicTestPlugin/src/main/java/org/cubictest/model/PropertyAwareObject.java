@@ -91,5 +91,14 @@ public abstract class PropertyAwareObject implements Cloneable {
 		toStringStyle.setUseIdentityHashCode(false);
 		return ToStringBuilder.reflectionToString(other, toStringStyle).equals(ToStringBuilder.reflectionToString(this, toStringStyle));
 	}
+	
+	/** 
+	 * Get the name of the element used for visual identification.
+	 * Does not have to be unique.
+	 * Should be overridden by subclasses
+	 */
+	public String getName() {
+		return getClass().getSimpleName();
+	}
 
 }

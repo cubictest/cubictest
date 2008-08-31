@@ -17,7 +17,7 @@ import junit.framework.AssertionFailedError;
 
 import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.ICustomTestStepHolder;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.TestPartStatus;
@@ -87,7 +87,7 @@ public class AssertionList<T> extends ArrayList<T> implements IResultHolder {
 	public void updateStatus(SubTest subTest, boolean hadException, ConnectionPoint targetConnectionPoint) {
 	}
 
-	public void updateStatus(ICustomTestStepHolder ctsh, TestPartStatus newStatus) {
+	public void updateStatus(CustomTestStepHolder ctsh, TestPartStatus newStatus) {
 	}
 
 	public boolean shouldFailOnAssertionFailure() {

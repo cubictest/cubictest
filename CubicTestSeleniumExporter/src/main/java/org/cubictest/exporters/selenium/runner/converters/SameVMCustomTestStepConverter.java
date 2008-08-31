@@ -7,7 +7,7 @@ import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.common.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
-import org.cubictest.model.ICustomTestStepHolder;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.model.customstep.data.CustomTestStepData;
@@ -18,7 +18,7 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 
 	private ElementContext context;
 	
-	public void handleCustomStep(SeleniumHolder t, ICustomTestStepHolder cts,
+	public void handleCustomStep(SeleniumHolder t, CustomTestStepHolder cts,
 			CustomTestStepData data) {
 		
 		Map<String, String> arguments = new HashMap<String, String>();
@@ -34,17 +34,17 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 		try{
 			ICustomTestStep testStep = (ICustomTestStep) Class.forName(data.getDisplayText()).newInstance();
 			testStep.execute(arguments, context, t.getSelenium().getSelenium());
-			t.updateStatus(cts,TestPartStatus.PASS);
+			t.addResult(cts,TestPartStatus.PASS);
 		}catch (Exception e) {
 			String name = null;
 			if (cts != null) {
 				name = cts.getName();
 			}
 			Logger.error("Error handling custom step " + name);
-			t.updateStatus(cts, TestPartStatus.EXCEPTION);
+			t.addResult(cts, TestPartStatus.EXCEPTION);
 			throw new ExporterException(e);
 		}catch (AssertionError e) {
-			t.updateStatus(cts, TestPartStatus.FAIL);
+			t.addResult(cts, TestPartStatus.FAIL);
 		}
 	}
 

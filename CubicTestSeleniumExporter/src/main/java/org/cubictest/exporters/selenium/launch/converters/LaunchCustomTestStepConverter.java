@@ -17,7 +17,7 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.common.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
-import org.cubictest.model.ICustomTestStepHolder;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.model.customstep.data.CustomTestStepData;
@@ -29,7 +29,7 @@ import org.cubictest.model.customstep.data.CustomTestStepData;
  */
 public class LaunchCustomTestStepConverter extends CustomTestStepConverter {
 	
-	public void handleCustomStep(SeleniumHolder t, ICustomTestStepHolder cts,
+	public void handleCustomStep(SeleniumHolder t, CustomTestStepHolder cts,
 			CustomTestStepData data) {
 		//throw new ExporterException("Custom test step not supported in Selenium runner yet");
 		CubicTestRemoteRunnerClient runner = t.getCustomStepRunner();
@@ -45,15 +45,15 @@ public class LaunchCustomTestStepConverter extends CustomTestStepConverter {
 		String result = runner.executeOnServer("cubicTestCustomStep",
 				attributes.toArray(new String[attributes.size()]));
 		if(result.startsWith("Error")){
-			t.updateStatus(cts, TestPartStatus.EXCEPTION);
+			t.addResult(cts, TestPartStatus.EXCEPTION);
 			throw new ExporterException(result.replaceFirst("Error: ", result));
 		}
 		if(result.startsWith("Failure")){
-			t.updateStatus(cts, TestPartStatus.FAIL);
+			t.addResult(cts, TestPartStatus.FAIL);
 			throw new ExporterException(result.replaceFirst("Failure: ", result));
 		}
 		else 
-			t.updateStatus(cts,TestPartStatus.PASS);
+			t.addResult(cts,TestPartStatus.PASS);
 	}
 
 }

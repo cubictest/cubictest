@@ -17,11 +17,9 @@ import java.util.Stack;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.utils.exported.XPathBuilder;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
-import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.IContext;
@@ -145,11 +143,6 @@ public abstract class ContextHolder implements IResultHolder {
 		//Empty. Can be overridden if exporters want to update sub test statuses.
 	}
 	
-	public void updateStatus(ICustomTestStepHolder ctsh, TestPartStatus newStatus) {
-		//Empty. Can be overridden if exporters want to update sub test statuses.
-	}
-
-
 	public boolean shouldFailOnAssertionFailure() {
 		return shouldFailOnAssertionFailure;
 	}

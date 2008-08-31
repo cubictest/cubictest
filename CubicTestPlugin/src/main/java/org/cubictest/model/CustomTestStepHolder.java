@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.cubictest.model;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +23,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 
-public class CustomTestStepHolder extends ConnectionPoint implements ICustomTestStepHolder{
+public class CustomTestStepHolder extends ConnectionPoint {
 
 	private transient CustomTestStep customTestStep;
 	private String file;

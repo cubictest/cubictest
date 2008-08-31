@@ -10,13 +10,11 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.selenese.converters;
 
-import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
-import org.cubictest.model.ICustomTestStepHolder;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.customstep.data.CustomTestStepData;
-import org.eclipse.core.resources.IProject;
 
 /**
  * Selenium custom test step converter.
@@ -29,7 +27,7 @@ public class CustomTestStepConverter implements ICustomTestStepConverter<Selenes
 		return null;
 	}
 
-	public void handleCustomStep(SeleneseDocument t, ICustomTestStepHolder cts,
+	public void handleCustomStep(SeleneseDocument t, CustomTestStepHolder cts,
 			CustomTestStepData data) {
 		throw new ExporterException("Custom test step not supported in Selenium Core exporter yet");
 	}

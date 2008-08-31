@@ -21,6 +21,7 @@ import org.cubictest.export.holders.RunnerResultHolder;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.UrlStartPoint;
 import org.cubictest.model.context.Frame;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
@@ -73,7 +74,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 	}
 
 	@Override
-	protected void handleAssertionFailure(PageElement element) {
+	protected void handleAssertionFailure(PropertyAwareObject element) {
 		
 		if (workingDirName != null && (takeScreenshots || captureHtml)) {
 			String baseTargetFolder = workingDirName +  File.separator + HTML_AND_SCREENSHOTS_FOLDER_NAME;
@@ -85,7 +86,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 			if (captureHtml) {
 				try{
 					String bodyText = selenium.execute("getHtmlSource")[0];
-					SeleniumUtils.writeTextToFile(innerFolder, element.getText(), bodyText, "html");
+					SeleniumUtils.writeTextToFile(innerFolder, element.getName(), bodyText, "html");
 				}
 				catch (Exception e) {
 					Logger.warn("Unable to capture HTML of failing test", e);
@@ -96,7 +97,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 				try {
 					selenium.execute("windowFocus");
 					Thread.sleep(100);
-					selenium.execute("captureScreenshot", innerFolder + element.getText() + ".png");
+					selenium.execute("captureScreenshot", innerFolder + element.getName() + ".png");
 				}
 				catch (Exception e) {
 					Logger.warn("Unable to capture screenshot of failing test", e);

@@ -16,7 +16,7 @@ import java.util.List;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.ICustomTestStepHolder;
+import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Display;
 public abstract class RunnerResultHolder extends ContextHolder {
 
 	protected IProgressMonitor monitor;
-	protected List<PageElement> elementsAsserted = new ArrayList<PageElement>();
+	protected List<PropertyAwareObject> elementsAsserted = new ArrayList<PropertyAwareObject>();
 	protected List<TestPartStatus> results = new ArrayList<TestPartStatus>();
 	protected final Display display;
 	protected CubicTestProjectSettings settings;
@@ -62,7 +62,7 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	}
 
 	
-	public void addResult(final PageElement element, TestPartStatus result) {
+	public void addResult(final PropertyAwareObject element, TestPartStatus result) {
 		elementsAsserted.add(element);
 		results.add(result);
 
@@ -82,7 +82,7 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	}
 	
 	
-	protected void handleAssertionFailure(PageElement element) {
+	protected void handleAssertionFailure(PropertyAwareObject element) {
 		String childs = "";
 		if (element instanceof AbstractContext) {
 			AbstractContext context = (AbstractContext) element;
@@ -110,8 +110,7 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	}
 
 	
-	@Override
-	public void updateStatus(final ICustomTestStepHolder ctsh, final TestPartStatus newStatus) {
+	private void updateStatus(final CustomTestStepHolder ctsh, final TestPartStatus newStatus) {
 		if (display != null) {
 			display.asyncExec(new Runnable() {
 				public void run() {
@@ -130,7 +129,7 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		int pass = 0;
 		int failed = 0;
 		int i = 0;
-		for (PageElement element : elementsAsserted) {
+		for (PropertyAwareObject element : elementsAsserted) {
 			if (element != null) {
 				element.setStatus(results.get(i));
 			}

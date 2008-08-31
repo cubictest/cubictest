@@ -14,7 +14,6 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.common.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.CustomTestStepHolder;
-import org.cubictest.model.ICustomTestStepHolder;
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.data.CustomTestStepData;
 
@@ -25,7 +24,7 @@ import org.cubictest.model.customstep.data.CustomTestStepData;
  */
 public class UnsupportedCustomTestStepConverter extends CustomTestStepConverter {
 	
-	public void handleCustomStep(SeleniumHolder t, ICustomTestStepHolder cts,
+	public void handleCustomStep(SeleniumHolder t, CustomTestStepHolder cts,
 			CustomTestStepData data) {
 		CustomTestStep ts = ((CustomTestStepHolder)cts).getCustomTestStep(false);
 		
