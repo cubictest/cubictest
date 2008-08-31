@@ -62,7 +62,7 @@ public abstract class AbstractStartPointEditPart extends AbstractNodeEditPart {
 	protected void refreshVisuals() {
 		ConnectionPoint connectionPoint = (ConnectionPoint)getModel();
 		AbstractTransitionNodeFigure figure = (AbstractTransitionNodeFigure) getFigure();
-		figure.setText(getName());
+		figure.setText(" " + getName() + " ");
 		Point position = connectionPoint.getPosition();
 		Rectangle r = new Rectangle(position.x,position.y,-1,-1);
 		((TestEditPart)getParent()).setLayoutConstraint(this, figure, r);
