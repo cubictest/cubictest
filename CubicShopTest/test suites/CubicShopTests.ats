@@ -1,27 +1,52 @@
+<?xml version="1.0" encoding="Cp1252"?>
 <test>
   <startPoint class="testSuiteStartPoint">
     <outTransitions>
       <simpleTransition>
         <start class="testSuiteStartPoint" reference="../../.."/>
         <end class="subTest">
-          <filePath>tests/search.aat</filePath>
+          <filePath>tests/Popup windows.aat</filePath>
+          <parameterIndex>-1</parameterIndex>
           <inTransition class="simpleTransition" reference="../.."/>
           <outTransitions>
             <simpleTransition>
               <start class="subTest" reference="../../.."/>
               <end class="subTest">
-                <filePath>tests/purchase cube.aat</filePath>
+                <filePath>tests/search.aat</filePath>
+                <parameterIndex>-1</parameterIndex>
                 <inTransition class="simpleTransition" reference="../.."/>
                 <outTransitions>
                   <simpleTransition>
                     <start class="subTest" reference="../../.."/>
                     <end class="subTest">
-                      <filePath>tests/feedback.aat</filePath>
+                      <filePath>tests/purchase cube.aat</filePath>
+                      <parameterIndex>-1</parameterIndex>
                       <inTransition class="simpleTransition" reference="../.."/>
-                      <outTransitions/>
-                      <id>subtest142978431182082259135</id>
+                      <outTransitions>
+                        <simpleTransition>
+                          <start class="subTest" reference="../../.."/>
+                          <end class="subTest">
+                            <filePath>tests/feedback.aat</filePath>
+                            <parameterIndex>-1</parameterIndex>
+                            <inTransition class="simpleTransition" reference="../.."/>
+                            <outTransitions/>
+                            <id>subtest142978431182082259135</id>
+                            <position>
+                              <x>77</x>
+                              <y>325</y>
+                            </position>
+                            <dimension>
+                              <width>150</width>
+                              <height>95</height>
+                            </dimension>
+                            <name></name>
+                            <status>UNKNOWN</status>
+                          </end>
+                        </simpleTransition>
+                      </outTransitions>
+                      <id>subtest210530181182082269870</id>
                       <position>
-                        <x>77</x>
+                        <x>78</x>
                         <y>250</y>
                       </position>
                       <dimension>
@@ -29,13 +54,13 @@
                         <height>95</height>
                       </dimension>
                       <name></name>
-                      <status>UNKNOWN</status>
+                      <status reference="../outTransitions/simpleTransition/end/status"/>
                     </end>
                   </simpleTransition>
                 </outTransitions>
-                <id>subtest210530181182082269870</id>
+                <id>subtest240072291182082253136</id>
                 <position>
-                  <x>78</x>
+                  <x>116</x>
                   <y>175</y>
                 </position>
                 <dimension>
@@ -43,13 +68,13 @@
                   <height>95</height>
                 </dimension>
                 <name></name>
-                <status reference="../outTransitions/simpleTransition/end/status"/>
+                <status reference="../outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/status"/>
               </end>
             </simpleTransition>
           </outTransitions>
-          <id>subtest240072291182082253136</id>
+          <id>subtest249920591220206988515</id>
           <position>
-            <x>116</x>
+            <x>74</x>
             <y>100</y>
           </position>
           <dimension>
@@ -57,7 +82,6 @@
             <height>95</height>
           </dimension>
           <name></name>
-          <status reference="../outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/status"/>
         </end>
       </simpleTransition>
     </outTransitions>
@@ -69,20 +93,40 @@
     <name>Test Suite start point</name>
   </startPoint>
   <extensionPoints/>
-  <pages/>
+  <pages>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page269906171220206999468</id>
+      <position>
+        <x>0</x>
+        <y>673</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+  </pages>
   <subTests>
-    <subTest reference="../../startPoint/outTransitions/simpleTransition/end"/>
-    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
     <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+    <subTest reference="../../startPoint/outTransitions/simpleTransition/end"/>
   </subTests>
   <transitions>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
-    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
   </transitions>
   <customTestSteps/>
   <name>CubicShopTests</name>
   <description></description>
   <id>test1182082249651</id>
-  <modelVersion>8</modelVersion>
+  <modelVersion>9</modelVersion>
 </test>
