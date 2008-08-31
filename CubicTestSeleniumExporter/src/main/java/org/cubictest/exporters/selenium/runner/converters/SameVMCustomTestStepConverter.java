@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.cubictest.common.utils.Logger;
+import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.common.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.ICustomTestStepHolder;
@@ -39,8 +40,9 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 			if (cts != null) {
 				name = cts.getName();
 			}
-			Logger.error("Error handling custom step " + name, e);
+			Logger.error("Error handling custom step " + name);
 			t.updateStatus(cts, TestPartStatus.EXCEPTION);
+			throw new ExporterException(e);
 		}catch (AssertionError e) {
 			t.updateStatus(cts, TestPartStatus.FAIL);
 		}
