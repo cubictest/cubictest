@@ -193,26 +193,10 @@
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
                 </userInteraction>
-                <userInteraction>
-                  <element class="textField" reference="../../../../../elements/textField"/>
-                  <input>cubictest</input>
-                  <action>ENTER_TEXT</action>
-                  <i18nKey></i18nKey>
-                  <paramKey></paramKey>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                </userInteraction>
-                <userInteraction>
-                  <element class="button" reference="../../../../../elements/button"/>
-                  <input></input>
-                  <action reference="../../userInteraction/action"/>
-                  <i18nKey></i18nKey>
-                  <paramKey></paramKey>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                </userInteraction>
               </userInteractions>
               <page class="page" reference="../../.."/>
+              <reloadsPage>OFF</reloadsPage>
+              <secondsToWaitForResult>1</secondsToWaitForResult>
               <start class="page" reference="../../.."/>
               <end class="page">
                 <commons/>
@@ -272,7 +256,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier[3]"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/textField/status"/>
+                    <status>UNKNOWN</status>
                   </radioButton>
                 </elements>
                 <name>cubictest - Google Search</name>
@@ -359,6 +343,23 @@
       <position>
         <x>0</x>
         <y>1000</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page316844661220248794156</id>
+      <position>
+        <x>0</x>
+        <y>1300</y>
       </position>
       <dimension>
         <width>0</width>
