@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
@@ -124,23 +125,10 @@ public class UserInteractionsComponent {
 
 
 	public void initializeModel(UserInteractionsTransition transition) {
-		List<PageElement> elementsTree = new ArrayList<PageElement>();
-		AbstractPage start = (AbstractPage)transition.getStart();
-		if(start instanceof Page) { // process commonTrasitions for pages
-			elementsTree.addAll(start.getRootElements());
-			List<CommonTransition> commonTransitions = ((Page)start).getCommonTransitions();
-			for (CommonTransition at : commonTransitions)
-				elementsTree.addAll(((Common)(at).getStart()).getRootElements());			
-		}
-		
-		List<PageElement> flatList = UserInteractionDialogUtil.getFlattenedPageElements(elementsTree);
-		for (PageElement pe : flatList) {
-			if (!((PageElement) pe).isNot()){
-				allActionElements.add(pe);
-			}
-		}
+		allActionElements = ModelUtil.getActionElements((AbstractPage) transition.getStart());
 		transition.setPage((AbstractPage)transition.getStart());
 	}
+
 	
 
 	/* (non-Javadoc)
@@ -257,9 +245,8 @@ public class UserInteractionsComponent {
 		UserInteraction first = new UserInteraction();
 		if (!isPropertiesViewMode && (userInteractions == null || userInteractions.size() == 0)) {
 			//lets preselect one in wizard mode:
-			List<PageElement> elements = ((AbstractPage) transition.getStart()).getRootElements();
 			int index = -1;
-			for (PageElement pageElement : elements) {
+			for (IActionElement pageElement : allActionElements) {
 				index++;
 				if (!(pageElement instanceof Text)) {
 					numInteractable++;
@@ -267,7 +254,7 @@ public class UserInteractionsComponent {
 			}
 			if (numInteractable == 1) {
 				//sinle element on page. Can preselct it:
-				first.setElement(elements.get(index));
+				first.setElement(allActionElements.get(index));
 			}
 			else if (preSelectedPageElement != null) {
 				//we have multiple elements, but one was selected by the user. Preselct it:

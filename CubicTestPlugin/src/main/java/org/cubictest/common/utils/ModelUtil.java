@@ -14,15 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.common.exception.CubicException;
+import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
+import org.cubictest.model.CommonTransition;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionStartPoint;
+import org.cubictest.model.IActionElement;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Page;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
+import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.ui.utils.UserInteractionDialogUtil;
 
 
 /**
@@ -261,4 +267,27 @@ public class ModelUtil {
 		return false;
 	}
 
+	
+	/**
+	 * Gets action elements from Abstract page, including those from the connected commons.
+	 */
+	public static List<IActionElement> getActionElements(AbstractPage page) {
+		List<IActionElement> allActionElements = new ArrayList<IActionElement>();
+		List<PageElement> elementsTree = new ArrayList<PageElement>();
+		if(page instanceof Page) { // process commonTrasitions for pages
+			elementsTree.addAll(page.getRootElements());
+			List<CommonTransition> commonTransitions = ((Page)page).getCommonTransitions();
+			for (CommonTransition at : commonTransitions)
+				elementsTree.addAll(((Common)(at).getStart()).getRootElements());			
+		}
+		
+		//get children from root elements
+		List<PageElement> flatList = UserInteractionDialogUtil.getFlattenedPageElements(elementsTree);
+		for (PageElement pe : flatList) {
+			if (!((PageElement) pe).isNot()){
+				allActionElements.add(pe);
+			}
+		}
+		return allActionElements;
+	}
 }
