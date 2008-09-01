@@ -4,7 +4,15 @@
   <artifactId>FunctionalTests</artifactId>
   <version>1</version>
   
+  <repositories>
+  	<repository>
+	    <id>CubicTest</id>
+	    <url>http://boss.bekk.no/cubictest/m2repo/</url>
+    </repository>
+  </repositories>
+  
   <build>
+  
   	<sourceDirectory>${project.basedir}/src</sourceDirectory>
     <plugins>
       <plugin>
@@ -23,6 +31,7 @@
 		  <testDir>test suites</testDir>
 	    </configuration>
       </plugin>
+      
       <plugin>
       	<groupId>org.apache.maven.plugins</groupId>
       	<artifactId>maven-compiler-plugin</artifactId>
@@ -32,6 +41,7 @@
       	</configuration>
       </plugin>
     </plugins>
+    
   </build>
   
   <pluginRepositories>
@@ -47,11 +57,7 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
     </dependency>
-    <dependency>
-      <groupId>org.cubictest</groupId>
-      <artifactId>cubictest</artifactId>
-      <version>1.8.7</version>
-    </dependency>
+
     <dependency>
       <groupId>org.cubictest</groupId>
       <artifactId>selenium-exporter</artifactId>
