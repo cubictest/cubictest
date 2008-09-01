@@ -187,7 +187,7 @@ public class XPathBuilder {
 		if (id.getType().equals(CHECKED) || id.getType().equals(SELECTED) || id.getType().equals(MULTISELECT)) {
 			//idType with no value
 			if (id.getProbability() > 0) {
-				result += "@" + ExportUtils.getHtmlIdType(id)+ "=''";
+				result += "@" + ExportUtils.getHtmlIdType(id);
 			}
 			else {
 				result += "not(@" + ExportUtils.getHtmlIdType(id) + ")";
