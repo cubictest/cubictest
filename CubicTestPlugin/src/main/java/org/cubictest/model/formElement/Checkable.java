@@ -10,11 +10,14 @@
  *******************************************************************************/
 package org.cubictest.model.formElement;
 
+import static org.cubictest.model.IdentifierType.CHECKED;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.model.ActionType;
 import org.cubictest.model.FormElement;
+import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PropertyAwareObject;
 
 /**
@@ -23,25 +26,22 @@ import org.cubictest.model.PropertyAwareObject;
  */
 public abstract class Checkable extends FormElement {
 
+	//TODO: Old attribute. Not in use. Remove.
+	private boolean checked;
 	
-	/**
-	 * Default state is unchecked
-	 */
-	private boolean checked = false;
-
 	/**
 	 * @return Returns the checked.
 	 */
 	public boolean isChecked() {
-		return checked;
+		return getIdentifier(CHECKED).getProbability() > 0;
 	}
-	/**
-	 * @param not The checked to set.
-	 */
+	
+	
 	public void setChecked(boolean checked) {
-		this.checked = checked;
+		getIdentifier(CHECKED).setProbability(100);
 		firePropertyChange(PropertyAwareObject.NAME, null, checked);
 	}
+	
 	@Override
 	public List<ActionType> getActionTypes() {
 		List<ActionType> actions = new ArrayList<ActionType>();

@@ -15,6 +15,7 @@ import static org.cubictest.model.IdentifierType.LABEL;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
@@ -157,9 +158,9 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		
 		//Adding label: "frameType" used for frames
 		data = new FormData();
-		data.left = new FormAttachment(probability, 7);
+		data.left = new FormAttachment(moderator, 7);
 		frameType = factory.createCCombo(firstRow, SWT.BORDER);
-		frameType.setItems(new String[]{IFRAME, FRAME});
+		frameType.setItems(new String[]{FRAME, IFRAME});
 		frameType.setSize(140, ITabbedPropertyConstants.VSPACE);
 		frameType.addSelectionListener(frameListener);
 		frameType.setBackground(ColorConstants.white);
@@ -301,18 +302,18 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		this.pageElement = pageElement;
 		this.identifier = identifier;
 		
+		value.setVisible(true);
+		frameType.setVisible(false);
+		booleanLabel.setVisible(identifier.getType().isBoolean());
+		value.setVisible(!identifier.getType().isBoolean());
+		moderator.setEnabled(identifier.getType().acceptsModerator());
+
 		if(IdentifierType.FRAME_TYPE.equals(identifier.getType())){
-			moderator.setVisible(false);
-			frameType.setVisible(true);
-
-			booleanLabel.setVisible(false);
+			if (StringUtils.isBlank(identifier.getValue())) {
+				identifier.setValue(FRAME);
+			}
 			value.setVisible(false);
-		}else{
-			moderator.setVisible(true);
-			frameType.setVisible(false);
-
-			booleanLabel.setVisible(identifier.getType().isBoolean());
-			value.setVisible(!identifier.getType().isBoolean());
+			frameType.setVisible(true);
 		}
 		
 		addListeners();
@@ -401,7 +402,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private void setProbability(int newProbability){
 		value.setEnabled(true);
 		frameType.setEnabled(true);
-		moderator.setEnabled(true);
+		moderator.setEnabled(identifier.getType().acceptsModerator());
 		booleanLabel.setEnabled(true);
 		
 		if(newProbability > 66) {
@@ -512,7 +513,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 			String label = probability.getItem(index);
 			int prob;
 			value.setEnabled(true);
-			moderator.setEnabled(true);
+			moderator.setEnabled(identifier.getType().acceptsModerator());
 			booleanLabel.setEnabled(true);
 			
 			if (label.equals(MUST))
@@ -592,13 +593,14 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		public void widgetSelected(SelectionEvent e) {
 			int index = frameType.getSelectionIndex();
 			String label = frameType.getItem(index);
-			String frame = "frame";
+			String frame = FRAME;
 			if (label.equals(FRAME))
-				frame = "frame";
+				frame = FRAME;
 			else if (label.equals(IFRAME))
-				frame = "iframe";
+				frame = IFRAME;
 			else {
-				Logger.warn("Unknown frame type");
+				frame = FRAME;
+				Logger.warn("Unknown frame type: " + label);
 			}
 			
 			ChangeFrameTypeCommand command = 

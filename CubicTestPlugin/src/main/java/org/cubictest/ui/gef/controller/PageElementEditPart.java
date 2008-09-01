@@ -53,18 +53,25 @@ public abstract class PageElementEditPart extends PropertyChangePart {
 				newId.addPropertyChangeListener(this);
 			}
 		}
+		else if (Identifier.PROBABILITY.equals(evt.getPropertyName())) {
+			refreshVisuals();
+		}
 	}
 		
 	@Override
 	public void activate() {
 		super.activate();
-		getModel().getDirectEditIdentifier().addPropertyChangeListener(this);
+		for (Identifier id : getModel().getIdentifiers()) {
+			id.addPropertyChangeListener(this);
+		}
 	}
 	
 	@Override
 	public void deactivate() {
 		super.deactivate();
-		getModel().getDirectEditIdentifier().removePropertyChangeListener(this);
+		for (Identifier id : getModel().getIdentifiers()) {
+			id.removePropertyChangeListener(this);
+		}
 	}
 	
 	/* (non-Javadoc)
