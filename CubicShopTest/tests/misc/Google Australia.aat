@@ -6,284 +6,341 @@
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
         <end class="page">
-          <commons>
-            <commonTransition>
-              <start class="common">
+          <commons/>
+          <elements>
+            <radioButton>
+              <checked>false</checked>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>LABEL</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator>EQUAL</moderator>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>VALUE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>cty</value>
+                  <probability>100</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value>meta</value>
+                  <probability>0</probability>
+                  <type>NAME</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>-100</probability>
+                  <type>CHECKED</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>TITLE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier[3]"/>
+              <not>false</not>
+              <status>PASS</status>
+            </radioButton>
+          </elements>
+          <name>Google</name>
+          <description></description>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="radioButton" reference="../../../../../elements/radioButton"/>
+                  <input></input>
+                  <action>CHECK</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <page class="page" reference="../../.."/>
+              <reloadsPage>OFF</reloadsPage>
+              <secondsToWaitForResult>5</secondsToWaitForResult>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <commons/>
                 <elements>
+                  <radioButton>
+                    <checked>false</checked>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier[2]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value>cty</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier[3]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value>meta</value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier[4]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier[5]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                      </identifier>
+                      <identifier>
+                        <value></value>
+                        <probability>0</probability>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier[6]/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier[3]"/>
+                    <not>false</not>
+                    <status>FAIL</status>
+                  </radioButton>
                   <textField>
                     <description></description>
                     <identifiers>
                       <identifier>
                         <value></value>
                         <probability>0</probability>
-                        <type>LABEL</type>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
-                        <moderator>EQUAL</moderator>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                       </identifier>
                       <identifier>
                         <value></value>
                         <probability>0</probability>
-                        <type>ID</type>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier[3]/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
-                        <moderator reference="../../identifier/moderator"/>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                       </identifier>
                       <identifier>
                         <value>q</value>
                         <probability>100</probability>
-                        <type>NAME</type>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier[4]/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
-                        <moderator reference="../../identifier/moderator"/>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                       </identifier>
                       <identifier>
                         <value></value>
                         <probability>0</probability>
-                        <type>VALUE</type>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier[2]/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
-                        <moderator reference="../../identifier/moderator"/>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                       </identifier>
                       <identifier>
                         <value></value>
                         <probability>0</probability>
-                        <type>TITLE</type>
+                        <type reference="../../../../../../../../elements/radioButton/identifiers/identifier[6]/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
-                        <moderator reference="../../identifier/moderator"/>
+                        <moderator reference="../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                       </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier[3]"/>
                     <not>false</not>
-                    <status>PASS</status>
+                    <status reference="../../../../../../elements/radioButton/status"/>
                   </textField>
-                  <button>
-                    <description></description>
-                    <identifiers>
-                      <identifier>
-                        <value>btnG</value>
-                        <probability>0</probability>
-                        <type reference="../../../../textField/identifiers/identifier/type"/>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                        <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
-                      </identifier>
-                      <identifier>
-                        <value>btnG</value>
-                        <probability>100</probability>
-                        <type reference="../../../../textField/identifiers/identifier[3]/type"/>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                        <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
-                      </identifier>
-                      <identifier>
-                        <value></value>
-                        <probability>0</probability>
-                        <type reference="../../../../textField/identifiers/identifier[2]/type"/>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                        <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
-                      </identifier>
-                      <identifier>
-                        <value></value>
-                        <probability>0</probability>
-                        <type reference="../../../../textField/identifiers/identifier[5]/type"/>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                        <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
-                      </identifier>
-                      <identifier>
-                        <value></value>
-                        <probability>0</probability>
-                        <type>CLASS</type>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                        <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
-                      </identifier>
-                      <identifier>
-                        <value></value>
-                        <probability>0</probability>
-                        <type>SRC</type>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                        <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
-                      </identifier>
-                      <identifier>
-                        <value></value>
-                        <probability>0</probability>
-                        <type>ALT</type>
-                        <useI18n>false</useI18n>
-                        <useParam>false</useParam>
-                        <moderator reference="../../../../textField/identifiers/identifier/moderator"/>
-                      </identifier>
-                    </identifiers>
-                    <directEditIdentifier reference="../identifiers/identifier"/>
-                    <not>false</not>
-                    <status>EXCEPTION</status>
-                  </button>
                 </elements>
-                <name>Common</name>
+                <name>cubictest - Google Search</name>
                 <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
                 <outTransitions>
-                  <commonTransition reference="../../.."/>
-                  <commonTransition>
-                    <start class="common" reference="../../.."/>
+                  <userInteractionsTransition>
+                    <userInteractions>
+                      <userInteraction>
+                        <element class="textField" reference="../../../../../elements/textField"/>
+                        <input>test</input>
+                        <action>ENTER_TEXT</action>
+                        <i18nKey></i18nKey>
+                        <paramKey></paramKey>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                      </userInteraction>
+                    </userInteractions>
+                    <page class="page" reference="../../.."/>
+                    <reloadsPage reference="../../../../reloadsPage"/>
+                    <secondsToWaitForResult>5</secondsToWaitForResult>
+                    <start class="page" reference="../../.."/>
                     <end class="page">
-                      <commons>
-                        <commonTransition reference="../../.."/>
-                      </commons>
+                      <commons/>
                       <elements>
-                        <radioButton>
-                          <checked>false</checked>
+                        <textField>
                           <description></description>
                           <identifiers>
                             <identifier>
                               <value></value>
                               <probability>0</probability>
-                              <type reference="../../../../../../../../elements/textField/identifiers/identifier/type"/>
+                              <type reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/type"/>
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
-                              <moderator reference="../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                             </identifier>
                             <identifier>
                               <value></value>
                               <probability>0</probability>
-                              <type reference="../../../../../../../../elements/textField/identifiers/identifier[4]/type"/>
+                              <type reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier[3]/type"/>
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
-                              <moderator reference="../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                             </identifier>
                             <identifier>
-                              <value>cty</value>
+                              <value>q</value>
                               <probability>100</probability>
-                              <type reference="../../../../../../../../elements/textField/identifiers/identifier[2]/type"/>
+                              <type reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier[4]/type"/>
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
-                              <moderator reference="../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                             </identifier>
                             <identifier>
-                              <value>meta</value>
-                              <probability>0</probability>
-                              <type reference="../../../../../../../../elements/textField/identifiers/identifier[3]/type"/>
-                              <useI18n>false</useI18n>
-                              <useParam>false</useParam>
-                              <moderator reference="../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
-                            </identifier>
-                            <identifier>
-                              <value></value>
+                              <value>test</value>
                               <probability>100</probability>
-                              <type>CHECKED</type>
+                              <type reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier[2]/type"/>
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
-                              <moderator reference="../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                             </identifier>
                             <identifier>
                               <value></value>
                               <probability>0</probability>
-                              <type reference="../../../../../../../../elements/textField/identifiers/identifier[5]/type"/>
+                              <type reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier[6]/type"/>
                               <useI18n>false</useI18n>
                               <useParam>false</useParam>
-                              <moderator reference="../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                             </identifier>
                           </identifiers>
                           <directEditIdentifier reference="../identifiers/identifier[3]"/>
                           <not>false</not>
-                          <status>FAIL</status>
-                        </radioButton>
+                          <status reference="../../../../../../elements/radioButton/status"/>
+                        </textField>
+                        <button>
+                          <description></description>
+                          <identifiers>
+                            <identifier>
+                              <value>btnG</value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                            </identifier>
+                            <identifier>
+                              <value>btnG</value>
+                              <probability>100</probability>
+                              <type reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier[4]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier[3]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier[6]/type"/>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type>CLASS</type>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type>SRC</type>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                            </identifier>
+                            <identifier>
+                              <value></value>
+                              <probability>0</probability>
+                              <type>ALT</type>
+                              <useI18n>false</useI18n>
+                              <useParam>false</useParam>
+                              <moderator reference="../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                            </identifier>
+                          </identifiers>
+                          <directEditIdentifier reference="../identifiers/identifier"/>
+                          <not>false</not>
+                          <status reference="../../../../../../../../../elements/radioButton/status"/>
+                        </button>
                       </elements>
-                      <name>cubictest - Google Search</name>
+                      <name>New page</name>
                       <description></description>
-                      <inTransition class="userInteractionsTransition">
-                        <userInteractions>
-                          <userInteraction>
-                            <element class="radioButton">
-                              <checked>false</checked>
-                              <description></description>
-                              <identifiers>
-                                <identifier>
-                                  <value></value>
-                                  <probability>0</probability>
-                                  <type reference="../../../../../../../../../../elements/textField/identifiers/identifier/type"/>
-                                  <useI18n>false</useI18n>
-                                  <useParam>false</useParam>
-                                  <moderator reference="../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
-                                </identifier>
-                                <identifier>
-                                  <value></value>
-                                  <probability>0</probability>
-                                  <type reference="../../../../../../../../../../elements/textField/identifiers/identifier[4]/type"/>
-                                  <useI18n>false</useI18n>
-                                  <useParam>false</useParam>
-                                  <moderator reference="../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
-                                </identifier>
-                                <identifier>
-                                  <value>cty</value>
-                                  <probability>100</probability>
-                                  <type reference="../../../../../../../../../../elements/textField/identifiers/identifier[2]/type"/>
-                                  <useI18n>false</useI18n>
-                                  <useParam>false</useParam>
-                                  <moderator reference="../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
-                                </identifier>
-                                <identifier>
-                                  <value>meta</value>
-                                  <probability>0</probability>
-                                  <type reference="../../../../../../../../../../elements/textField/identifiers/identifier[3]/type"/>
-                                  <useI18n>false</useI18n>
-                                  <useParam>false</useParam>
-                                  <moderator reference="../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
-                                </identifier>
-                                <identifier>
-                                  <value></value>
-                                  <probability>-100</probability>
-                                  <type reference="../../../../../../../elements/radioButton/identifiers/identifier[5]/type"/>
-                                  <useI18n>false</useI18n>
-                                  <useParam>false</useParam>
-                                  <moderator reference="../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
-                                </identifier>
-                                <identifier>
-                                  <value></value>
-                                  <probability>0</probability>
-                                  <type reference="../../../../../../../../../../elements/textField/identifiers/identifier[5]/type"/>
-                                  <useI18n>false</useI18n>
-                                  <useParam>false</useParam>
-                                  <moderator reference="../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
-                                </identifier>
-                              </identifiers>
-                              <directEditIdentifier reference="../identifiers/identifier[3]"/>
-                              <not>false</not>
-                              <status reference="../../../../../../../../elements/textField/status"/>
-                            </element>
-                            <input></input>
-                            <action>CLICK</action>
-                            <i18nKey></i18nKey>
-                            <paramKey></paramKey>
-                            <useI18n>false</useI18n>
-                            <useParam>false</useParam>
-                          </userInteraction>
-                        </userInteractions>
-                        <page class="page" reference="../../../../../../../.."/>
-                        <reloadsPage>OFF</reloadsPage>
-                        <secondsToWaitForResult>1</secondsToWaitForResult>
-                        <start class="page" reference="../../../../../../../.."/>
-                        <end class="page" reference="../.."/>
-                      </inTransition>
+                      <inTransition class="userInteractionsTransition" reference="../.."/>
                       <outTransitions>
                         <userInteractionsTransition>
                           <userInteractions>
                             <userInteraction>
-                              <element class="textField" reference="../../../../../../../../elements/textField"/>
-                              <input>test</input>
-                              <action>ENTER_TEXT</action>
-                              <i18nKey></i18nKey>
-                              <paramKey></paramKey>
-                              <useI18n>false</useI18n>
-                              <useParam>false</useParam>
-                            </userInteraction>
-                            <userInteraction>
-                              <element class="button" reference="../../../../../../../../elements/button"/>
+                              <element class="button" reference="../../../../../elements/button"/>
                               <input></input>
-                              <action reference="../../../../../inTransition/userInteractions/userInteraction/action"/>
+                              <action>CLICK</action>
                               <i18nKey></i18nKey>
                               <paramKey></paramKey>
                               <useI18n>false</useI18n>
@@ -295,6 +352,54 @@
                           <end class="page">
                             <commons/>
                             <elements>
+                              <textField>
+                                <description></description>
+                                <identifiers>
+                                  <identifier>
+                                    <value></value>
+                                    <probability>0</probability>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                                  </identifier>
+                                  <identifier>
+                                    <value></value>
+                                    <probability>0</probability>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier[3]/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                                  </identifier>
+                                  <identifier>
+                                    <value>q</value>
+                                    <probability>100</probability>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier[4]/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                                  </identifier>
+                                  <identifier>
+                                    <value>test</value>
+                                    <probability>100</probability>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier[2]/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                                  </identifier>
+                                  <identifier>
+                                    <value></value>
+                                    <probability>0</probability>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier[6]/type"/>
+                                    <useI18n>false</useI18n>
+                                    <useParam>false</useParam>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
+                                  </identifier>
+                                </identifiers>
+                                <directEditIdentifier reference="../identifiers/identifier[3]"/>
+                                <not>false</not>
+                                <status reference="../../../../../../../../../../../../elements/radioButton/status"/>
+                              </textField>
                               <radioButton>
                                 <checked>false</checked>
                                 <description></description>
@@ -302,182 +407,108 @@
                                   <identifier>
                                     <value></value>
                                     <probability>0</probability>
-                                    <type reference="../../../../../../../../../../../elements/textField/identifiers/identifier/type"/>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/type"/>
                                     <useI18n>false</useI18n>
                                     <useParam>false</useParam>
-                                    <moderator reference="../../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                                   </identifier>
                                   <identifier>
                                     <value></value>
                                     <probability>0</probability>
-                                    <type reference="../../../../../../../../../../../elements/textField/identifiers/identifier[4]/type"/>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier[2]/type"/>
                                     <useI18n>false</useI18n>
                                     <useParam>false</useParam>
-                                    <moderator reference="../../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                                   </identifier>
                                   <identifier>
                                     <value>cty</value>
                                     <probability>100</probability>
-                                    <type reference="../../../../../../../../../../../elements/textField/identifiers/identifier[2]/type"/>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier[3]/type"/>
                                     <useI18n>false</useI18n>
                                     <useParam>false</useParam>
-                                    <moderator reference="../../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                                   </identifier>
                                   <identifier>
                                     <value>meta</value>
                                     <probability>0</probability>
-                                    <type reference="../../../../../../../../../../../elements/textField/identifiers/identifier[3]/type"/>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier[4]/type"/>
                                     <useI18n>false</useI18n>
                                     <useParam>false</useParam>
-                                    <moderator reference="../../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                                   </identifier>
                                   <identifier>
                                     <value></value>
                                     <probability>100</probability>
-                                    <type reference="../../../../../../../../elements/radioButton/identifiers/identifier[5]/type"/>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier[5]/type"/>
                                     <useI18n>false</useI18n>
                                     <useParam>false</useParam>
-                                    <moderator reference="../../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                                   </identifier>
                                   <identifier>
                                     <value></value>
                                     <probability>0</probability>
-                                    <type reference="../../../../../../../../../../../elements/textField/identifiers/identifier[5]/type"/>
+                                    <type reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier[6]/type"/>
                                     <useI18n>false</useI18n>
                                     <useParam>false</useParam>
-                                    <moderator reference="../../../../../../../../../../../elements/textField/identifiers/identifier/moderator"/>
+                                    <moderator reference="../../../../../../../../../../../../../../elements/radioButton/identifiers/identifier/moderator"/>
                                   </identifier>
                                 </identifiers>
                                 <directEditIdentifier reference="../identifiers/identifier[3]"/>
                                 <not>false</not>
-                                <status>UNKNOWN</status>
+                                <status reference="../../../../../../../../../../../../elements/radioButton/status"/>
                               </radioButton>
                             </elements>
                             <name>New page</name>
                             <description></description>
                             <inTransition class="userInteractionsTransition" reference="../.."/>
                             <outTransitions/>
-                            <id>page270349611220300292806</id>
+                            <id>page86934401220340718134</id>
                             <position>
                               <x>113</x>
-                              <y>339</y>
+                              <y>469</y>
                             </position>
                             <dimension>
                               <width>115</width>
-                              <height>46</height>
+                              <height>67</height>
                             </dimension>
                             <name defined-in="transitionNode"></name>
                           </end>
                         </userInteractionsTransition>
                       </outTransitions>
-                      <id>page33415931220207540265</id>
+                      <id>page270349611220300292806</id>
                       <position>
-                        <x>79</x>
-                        <y>230</y>
+                        <x>113</x>
+                        <y>339</y>
                       </position>
                       <dimension>
-                        <width>183</width>
-                        <height>46</height>
+                        <width>115</width>
+                        <height>67</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
                     </end>
-                  </commonTransition>
+                  </userInteractionsTransition>
                 </outTransitions>
-                <id>common218186061220299448316</id>
+                <id>page33415931220207540265</id>
                 <position>
-                  <x>414</x>
-                  <y>216</y>
+                  <x>79</x>
+                  <y>209</y>
                 </position>
                 <dimension>
-                  <width>150</width>
-                  <height>95</height>
+                  <width>183</width>
+                  <height>67</height>
                 </dimension>
                 <name defined-in="transitionNode"></name>
-              </start>
-              <end class="page" reference="../../.."/>
-            </commonTransition>
-          </commons>
-          <elements>
-            <radioButton reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition/userInteractions/userInteraction/element"/>
-            <button>
-              <description></description>
-              <identifiers>
-                <identifier>
-                  <value>Google Search</value>
-                  <probability>100</probability>
-                  <type reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier/type"/>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value>btnG</value>
-                  <probability>0</probability>
-                  <type reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier[3]/type"/>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier[2]/type"/>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier[5]/type"/>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type reference="../../../../../commons/commonTransition/start/elements/button/identifiers/identifier[5]/type"/>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type reference="../../../../../commons/commonTransition/start/elements/button/identifiers/identifier[6]/type"/>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type reference="../../../../../commons/commonTransition/start/elements/button/identifiers/identifier[7]/type"/>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../../../commons/commonTransition/start/elements/textField/identifiers/identifier/moderator"/>
-                </identifier>
-              </identifiers>
-              <directEditIdentifier reference="../identifiers/identifier"/>
-              <not>false</not>
-              <status reference="../../../commons/commonTransition/start/elements/textField/status"/>
-            </button>
-          </elements>
-          <name>Google</name>
-          <description></description>
-          <inTransition class="simpleTransition" reference="../.."/>
-          <outTransitions>
-            <userInteractionsTransition reference="../../commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
+              </end>
+            </userInteractionsTransition>
           </outTransitions>
           <id>page238271891220207519937</id>
           <position>
-            <x>107</x>
+            <x>113</x>
             <y>100</y>
           </position>
           <dimension>
-            <width>126</width>
-            <height>67</height>
+            <width>115</width>
+            <height>46</height>
           </dimension>
           <name defined-in="transitionNode"></name>
         </end>
@@ -509,7 +540,7 @@
         <height>0</height>
       </dimension>
     </page>
-    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
     <page>
       <commons/>
       <elements/>
@@ -561,7 +592,6 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
-    <common reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start"/>
     <page>
       <commons/>
       <elements/>
@@ -579,10 +609,11 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
-    <page reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userInteractionsTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
     <page>
       <commons/>
       <elements/>
+      <name></name>
       <description></description>
       <outTransitions/>
       <id>page51988511220300335652</id>
@@ -594,16 +625,32 @@
         <width>0</width>
         <height>0</height>
       </dimension>
+    </page>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page>
+      <commons/>
+      <elements/>
       <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page288920691220340796619</id>
+      <position>
+        <x>0</x>
+        <y>2200</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
     </page>
   </pages>
   <subTests/>
   <transitions>
     <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
-    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/inTransition"/>
-    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition"/>
-    <commonTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]"/>
-    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/commons/commonTransition/start/outTransitions/commonTransition[2]/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition"/>
   </transitions>
   <customTestSteps/>
   <allLanguages>
