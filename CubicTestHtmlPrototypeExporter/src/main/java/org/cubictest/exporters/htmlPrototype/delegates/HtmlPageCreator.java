@@ -306,6 +306,7 @@ public class HtmlPageCreator {
 		
 		script = new Element("script");
 		script.setAttribute("type", "text/javascript");
+		script.addContent(";");
 		head.addContent(script);
 	}
 }
