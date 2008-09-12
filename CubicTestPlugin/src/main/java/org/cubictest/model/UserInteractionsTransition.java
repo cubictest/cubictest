@@ -28,6 +28,7 @@ public class UserInteractionsTransition extends Transition {
 	private AbstractPage page;
 	private OnOffAutoTriState reloadsPage;
 	private Integer secondsToWaitForResult;
+	private String name = "";
 	
 	public UserInteractionsTransition() {}
 	
@@ -172,5 +173,19 @@ public class UserInteractionsTransition extends Transition {
 
 	public void setSecondsToWaitForResult(int secondsToWaitForResult) {
 		this.secondsToWaitForResult = secondsToWaitForResult;
+	}
+	
+	@Override
+	public String getName() {
+		if(name == null) {
+			name = "";
+		}
+		return name;
+	}
+
+	public void setName(String name) {
+		String oldName = this.name;
+		this.name = name;
+		firePropertyChange(PropertyAwareObject.NAME, oldName, name);
 	}
 }
