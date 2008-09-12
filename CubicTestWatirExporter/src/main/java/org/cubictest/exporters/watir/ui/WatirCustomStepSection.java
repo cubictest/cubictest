@@ -1,10 +1,16 @@
 package org.cubictest.exporters.watir.ui;
 
+import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.exporters.watir.WatirExporterPlugin;
 import org.cubictest.model.customstep.data.CustomTestStepData;
 import org.cubictest.model.customstep.data.CustomTestStepDataEvent;
 import org.cubictest.model.customstep.data.ICustomTestStepDataListener;
 import org.cubictest.ui.customstep.section.CustomStepSection;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -16,6 +22,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.ide.IDE;
 
 public class WatirCustomStepSection extends CustomStepSection implements ICustomTestStepDataListener{
 
@@ -39,7 +48,24 @@ public class WatirCustomStepSection extends CustomStepSection implements ICustom
 		newRbFileLink.addSelectionListener(new SelectionListener(){
 			public void widgetDefaultSelected(SelectionEvent e) {}
 			public void widgetSelected(SelectionEvent e) {
-				//TODO: implement something smart
+				if(data.getPath() != null && data.getPath().length() > 0){
+					
+					IPath path = Path.fromPortableString(data.getPath());
+					IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+					if(file.exists()){
+						IWorkbenchPage page = WatirExporterPlugin.getDefault().getWorkbench().
+							getActiveWorkbenchWindow().getActivePage();
+						try {
+							IDE.openEditor(page, file, true);
+							return;
+						} catch (PartInitException ex) {
+							ErrorHandler.logAndRethrow(ex);
+						}
+					}
+				}else{
+					// create watir file  dialog
+				}
+					
 			}
 		});
 		
@@ -62,7 +88,7 @@ public class WatirCustomStepSection extends CustomStepSection implements ICustom
 		browserRbFileButton.addSelectionListener(new SelectionListener(){
 			public void widgetDefaultSelected(SelectionEvent e) {}
 			public void widgetSelected(SelectionEvent e) {
-				//TODO: implement something smart
+				//TODO: implement something smart for browsing after a watir custom test step file..
 			}
 		});
 		layoutData = new FormData();
