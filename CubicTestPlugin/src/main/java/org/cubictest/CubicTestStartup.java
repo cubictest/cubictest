@@ -19,7 +19,7 @@ import org.eclipse.ui.IStartup;
 public class CubicTestStartup implements IStartup {
 
 	private CubicTestResourceChangeListener listener;
-	private static final String SKIP_INTRO = "CUbicTestFirstTime";
+	private static final String SKIP_INTRO = "CubicTestFirstTime";
 
 	public CubicTestStartup() {
 		listener = new CubicTestResourceChangeListener();
