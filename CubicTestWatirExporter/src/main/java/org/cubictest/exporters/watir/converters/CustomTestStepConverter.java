@@ -24,7 +24,7 @@ import org.cubictest.model.customstep.data.CustomTestStepData;
 public class CustomTestStepConverter implements ICustomTestStepConverter<WatirHolder> {
 
 	public String getDataKey() {
-		return null;
+		return "org.cubictest.watirexporter";
 	}
 
 	public void handleCustomStep(WatirHolder t, CustomTestStepHolder cts,
