@@ -1,61 +1,28 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.myCompany</groupId>
-  <artifactId>FunctionalTests</artifactId>
-  <version>1</version>
+  <artifactId>FunctionalWebTests</artifactId>
+  <version>1.0</version>
   
   <repositories>
   	<repository>
-	    <id>CubicTest</id>
-	    <url>http://boss.bekk.no/cubictest/m2repo/</url>
+	  <id>CubicTest</id>
+	  <url>http://boss.bekk.no/cubictest/m2repo/</url>
     </repository>
   </repositories>
   
-  <build>
-  
-  	<sourceDirectory>${project.basedir}/src</sourceDirectory>
-    <plugins>
-      <plugin>
-        <groupId>org.cubictest</groupId>
-        <artifactId>cubictest-selenium-runner-maven-plugin</artifactId>
-		<version>1.8.7</version>
-        <executions>
-          <execution>
-            <phase>integration-test</phase>
-            <goals>
-              <goal>run-tests</goal>
-            </goals>
-          </execution>
-        </executions>
-  	    <configuration>
-		  <testDir>test suites</testDir>
-	    </configuration>
-      </plugin>
-      
-      <plugin>
-      	<groupId>org.apache.maven.plugins</groupId>
-      	<artifactId>maven-compiler-plugin</artifactId>
-      	<configuration>
-      		<source>1.5</source>
-      		<target>1.5</target>
-      	</configuration>
-      </plugin>
-    </plugins>
-    
-  </build>
-  
-  <pluginRepositories>
-    <pluginRepository>
-      <id>CubicTest</id>
-      <url>http://boss.bekk.no/cubictest/m2repo/</url>
-    </pluginRepository>
-  </pluginRepositories>
   
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
+      <groupId>org.junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.cubictest</groupId>
+      <artifactId>cubictest</artifactId>
+      <version>1.8.7</version>
     </dependency>
 
     <dependency>

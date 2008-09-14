@@ -13,8 +13,13 @@ package org.cubictest.export;
 import java.io.File;
 import java.util.List;
 
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.swt.widgets.Shell;
+
 public interface IBuildPathSupporter {
 
 	List<File> getFiles();
+	
+	void addClassPathContainers(IJavaProject javaProject, Shell shell);
 
 }

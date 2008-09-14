@@ -78,6 +78,7 @@ public class CubicTestPerspectiveFactory implements IPerspectiveFactory {
 		// Bottom right: Property Sheet view and Log view
 		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, 0.66f, editorArea);
 		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
+		bottomRight.addView(IPageLayout.ID_PROBLEM_VIEW);
 		bottomRight.addView(LOG_VIEW_ID);
 		bottomRight.addView(IProgressConstants.PROGRESS_VIEW_ID);
 		

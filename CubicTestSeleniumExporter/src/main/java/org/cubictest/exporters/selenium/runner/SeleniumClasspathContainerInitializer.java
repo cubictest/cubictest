@@ -29,25 +29,21 @@ public class SeleniumClasspathContainerInitializer extends
 			throws CoreException {
 		
 		final IPath libPath = JavaCore.getClasspathVariable(CUBICTEST_SELENIUM);
-		final IClasspathEntry seleniumClientEntry = JavaCore.newLibraryEntry(
-				libPath.append("/lib/selenium-java-client-driver.jar"),
-				libPath.append("/lib/selenium-java-client-driver-sources.jar"),null);
 		final IClasspathEntry cubicCoreEntry = JavaCore.newLibraryEntry(
-				libPath.append("/lib/cubictest-core.jar"), null,null);
+				libPath.append("/lib/cubictest-1.8.9.jar"), null,null);
 		final IClasspathEntry cubicSeleniumExporterEntry = JavaCore.newLibraryEntry(
-				libPath.append("/lib/cubictest-selenium-exporter.jar"), null, null);
+				libPath.append("/lib/selenium-exporter-1.8.9.jar"), 
+				libPath.append("/lib/selenium-java-client-driver-sources.jar"), null);
 		final IClasspathEntry jUnitEntry = JavaCore.newLibraryEntry(
 				libPath.append("/lib/junit-4.5.jar"), null, null);
-		final IClasspathEntry cubicTestSeleniumEntry = JavaCore.newLibraryEntry(
-				libPath.append("/lib/CubicTestSelenium.jar"), null,null);
 		JavaCore.setClasspathContainer(
 			new Path(CUBICTEST_SELENIUM), 
 			new IJavaProject[]{ project }, // value for 'myProject'
 			new IClasspathContainer[] {
 				new IClasspathContainer() {
 					public IClasspathEntry[] getClasspathEntries() {
-						return new IClasspathEntry[]{seleniumClientEntry, cubicCoreEntry, jUnitEntry, 
-								cubicSeleniumExporterEntry, cubicTestSeleniumEntry};
+						return new IClasspathEntry[]{cubicCoreEntry, jUnitEntry, 
+								cubicSeleniumExporterEntry};
 					}
 					public String getDescription() { return "CubicTest Selenium Library"; }
 					public int getKind() { return IClasspathContainer.K_APPLICATION; }

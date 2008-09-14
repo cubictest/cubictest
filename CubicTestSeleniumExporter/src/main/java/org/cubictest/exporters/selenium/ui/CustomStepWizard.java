@@ -15,6 +15,7 @@ import java.util.Map;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.exporters.selenium.SeleniumBuildPathSupporter;
 import org.cubictest.exporters.selenium.runner.SeleniumClasspathContainerInitializer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -36,7 +37,6 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 
 public class CustomStepWizard extends Wizard {
 
-	private static final String BUILD_PATH_PAGE_ID= "org.eclipse.jdt.ui.propertyPages.BuildPathsPropertyPage"; //$NON-NLS-1$
 	private static final String TEST_SUPERCLASS_NAME = "org.cubictest.selenium.custom.ICustomTestStep";
 	private NewClassWizardPage classWizard;
 	private String name;
@@ -92,17 +92,12 @@ public class CustomStepWizard extends Wizard {
 	public static boolean addLibToClasspath(IJavaProject javaProject, Shell shell) {
 		if(MessageDialog.openQuestion(new Shell(), "Add CubicTest Selenium to classpath", 
 				"You need to have CubicTest and Selenium libraries on the classpath.\n\nWould you like to add them?")){
-			IClasspathEntry newEntry = JavaCore.newContainerEntry(
-					new Path(SeleniumClasspathContainerInitializer.CUBICTEST_SELENIUM));
-			
-			String id= BUILD_PATH_PAGE_ID;
-			Map<String,Object> input= new HashMap<String,Object>();
-			input.put("add_classpath_entry", newEntry);
-			input.put("block_until_buildpath_applied", Boolean.TRUE);
-			return PreferencesUtil.createPropertyDialogOn(shell, javaProject, id, new String[] { id }, input).open() == Window.OK;
+			return SeleniumBuildPathSupporter.putCubicSeleniumLibraryOnClasspath(javaProject, shell);
 		}
 		return false;
 	}
+
+
 	
 	public String getClassName(){
 		String packageText = classWizard.getPackageText();

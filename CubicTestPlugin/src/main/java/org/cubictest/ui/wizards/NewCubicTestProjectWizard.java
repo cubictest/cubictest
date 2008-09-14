@@ -127,8 +127,15 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			IFolder suiteFolder = project.getFolder(TEST_SUITES_FOLDER_NAME);
 			suiteFolder.create(false, true, monitor);
 
-			IFolder srcFolder = project.getFolder("src");
-			srcFolder.create(false, true, monitor);
+			project.getFolder("src").create(false, true, monitor);
+			project.getFolder("src/main").create(false, true, monitor);
+			project.getFolder("src/test").create(false, true, monitor);
+
+			IFolder javaSrcFolder = project.getFolder("src/main/java");
+			javaSrcFolder.create(false, true, monitor);
+
+			IFolder javaTestFolder = project.getFolder("src/test/java");
+			javaTestFolder.create(false, true, monitor);
 
 			IFolder binFolder = project.getFolder("bin");
 			binFolder.create(false, true, monitor);
@@ -141,34 +148,10 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 		
 			//construct build path for the new project
 			List<IClasspathEntry> classpathlist = new ArrayList<IClasspathEntry>();
-			classpathlist.add(JavaCore.newSourceEntry(srcFolder.getFullPath()));
+			classpathlist.add(JavaCore.newSourceEntry(javaSrcFolder.getFullPath()));
+			classpathlist.add(JavaCore.newSourceEntry(javaTestFolder.getFullPath()));
 			classpathlist.add(JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER")));
 
-			IExtensionRegistry registry = RegistryFactory.getRegistry();
-			IExtensionPoint extensionPoint = registry.getExtensionPoint(CustomStepEditor.CUBIC_TEST_CUSTOM_STEP_EXTENSION);
-			IExtension[] extensions = extensionPoint.getExtensions();
-			
-			// For each extension ...
-			for (IExtension extension : extensions) {
-				IConfigurationElement[] elements = extension.getConfigurationElements();
-				// For each member of the extension ...
-				for (IConfigurationElement element : elements) {
-					try {
-						IBuildPathSupporter supporter = (IBuildPathSupporter)element.createExecutableExtension("buildpathSupporter");
-						List<File> files = supporter.getFiles();
-						for (File file : files) {
-							FileUtils.copyFile(file, libFolder.getFile(file.getName()).getLocation().toFile());
-							classpathlist.add(JavaCore.newLibraryEntry(libFolder.getFile(file.getName()).getFullPath(), null, null));
-						}
-					} catch (CoreException e) {
-						Logger.info("Didn't find buildpath supporter for: " + element.getName() );
-					} catch (Exception e) {
-						Logger.error("Error when getting file from buildpath suppoerter", e);
-					}
-				}
-			}
-				//*/		
-			
 			javaProject.setOutputLocation(binFolder.getFullPath(), monitor);
 			
 			javaProject.setRawClasspath(classpathlist.toArray(
@@ -188,6 +171,8 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 				}
 			}
 			
+			handlePluginBuildPathSupporters(javaProject, libFolder, classpathlist);
+			
 			project.refreshLocal(IResource.DEPTH_INFINITE, null);
 			
 			return project;
@@ -195,6 +180,33 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 		} catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			return null;
+		}
+	}
+	private void handlePluginBuildPathSupporters(IJavaProject javaProject,
+			IFolder libFolder, List<IClasspathEntry> classpathlist) {
+		IExtensionRegistry registry = RegistryFactory.getRegistry();
+		IExtensionPoint extensionPoint = registry.getExtensionPoint(CustomStepEditor.CUBIC_TEST_CUSTOM_STEP_EXTENSION);
+		IExtension[] extensions = extensionPoint.getExtensions();
+		
+		// For each extension ...
+		for (IExtension extension : extensions) {
+			IConfigurationElement[] elements = extension.getConfigurationElements();
+			// For each member of the extension ...
+			for (IConfigurationElement element : elements) {
+				try {
+					IBuildPathSupporter supporter = (IBuildPathSupporter)element.createExecutableExtension("buildpathSupporter");
+					supporter.addClassPathContainers(javaProject, getShell());
+					List<File> files = supporter.getFiles();
+					for (File file : files) {
+						FileUtils.copyFile(file, libFolder.getFile(file.getName()).getLocation().toFile());
+						classpathlist.add(JavaCore.newLibraryEntry(libFolder.getFile(file.getName()).getFullPath(), null, null));
+					}
+				} catch (CoreException e) {
+					Logger.info("Didn't find buildpath supporter for: " + element.getName() );
+				} catch (Exception e) {
+					Logger.error("Error when getting file from buildpath suppoerter", e);
+				}
+			}
 		}
 	}
 

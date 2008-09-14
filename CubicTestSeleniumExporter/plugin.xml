@@ -6,7 +6,8 @@
          name="CubicTestSeleniumExporter"
          point="org.cubictest.exporters">
       <CustomStepExtension
-            section="org.cubictest.exporters.selenium.ui.SeleniumCustomStepSection">
+            section="org.cubictest.exporters.selenium.ui.SeleniumCustomStepSection"
+            buildpathSupporter="org.cubictest.exporters.selenium.SeleniumBuildPathSupporter">
       </CustomStepExtension>
    </extension>
   
