@@ -43,30 +43,27 @@ public class SeleniumRunner
 
 	/**
 	 * Run tests in specified directory and all subdirectories.
-	 * @param dirString Path to directory to run tests in, relative to project root.
+	 * @param dirPath Path to directory to run tests in, relative to project root.
 	 */
     @SuppressWarnings("unchecked")
-	public static void runTests(String dirString)
+	public static void runTests(String dirPath)
     {
-    	if (StringUtils.isBlank(dirString)) {
-    		System.out.println(LOG_PREFIX + "Please specify a path relative to the project root. E.g. \"/tests\"");
-    		return;
+    	if (StringUtils.isBlank(dirPath)) {
+    		throw new ExporterException("Please specify a path relative to the project root. E.g. \"/tests\"");
     	}
     	
-    	if (dirString.equals("/")) {
-    		dirString = ".";
+    	if (dirPath.equals("/")) {
+    		dirPath = ".";
     	}
-    	else if (dirString.startsWith("/")) {
+    	else if (dirPath.startsWith("/")) {
 			//remove "/" as it should be relative to project root, not file system root.
-			dirString = dirString.substring(1);
+			dirPath = dirPath.substring(1);
     	}
 
-    	File dir = new File(dirString);
+    	File dir = new File(dirPath);
     	
 		System.out.println(LOG_PREFIX + "Running all tests in folder " + dir.getAbsolutePath() + " and subfolders.");
     	
-        CubicTestProjectSettings settings = new CubicTestProjectSettings(new File("."));
-
         Collection<File> files = FileUtils.listFiles(dir, new String[] {"aat", "ats"}, true);
         if (files.isEmpty()) {
         	System.out.println(LOG_PREFIX + "No .aat or .ats tests found in folder " + dir.getAbsolutePath());
@@ -75,6 +72,45 @@ public class SeleniumRunner
         	System.out.println(LOG_PREFIX + "Found " + files.size() + " tests.");
         }
         
+        runTests(files);
+    }
+    
+	/**
+	 * Run specified test.
+	 * @param testPath Path to test to run, relative to project root.
+	 */
+    @SuppressWarnings("unchecked")
+	public static void runTest(String testPath)
+    {
+    	if (StringUtils.isBlank(testPath)) {
+    		throw new ExporterException("Please specify a path relative to the project root. E.g. \"/tests/test.aat\"");
+    	}
+    	
+    	if (!testPath.endsWith(".aat") && !testPath.endsWith(".ats")) {
+    		throw new ExporterException("File extension must be .aat or .ats");
+    	}
+    	
+    	if (testPath.startsWith("/")) {
+			//remove "/" as it should be relative to project root, not file system root.
+    		testPath = testPath.substring(1);
+    	}
+    	
+    	File file = new File(testPath);
+    	
+    	if (!file.exists()) {
+    		throw new ExporterException("Test file not found: " + file.getAbsolutePath());
+    	}
+    	
+    	Collection<File> files = new ArrayList<File>();
+    	files.add(file);
+    	
+        runTests(files);
+    }
+
+	private static void runTests(Collection<File> files) throws AssertionError {
+        
+		CubicTestProjectSettings settings = new CubicTestProjectSettings(new File("."));
+
         List<String> passedTests = new ArrayList<String>();
         List<String> failedTests = new ArrayList<String>();
         List<String> exceptionTests = new ArrayList<String>();
@@ -167,8 +203,7 @@ public class SeleniumRunner
         if (!buildOk) {
         	throw new AssertionError("[CubicTest] There were test failures.");
         }
-
-    }
+	}
     
 	private static void logSeperator() {
 		System.out.println(SEPERATOR);

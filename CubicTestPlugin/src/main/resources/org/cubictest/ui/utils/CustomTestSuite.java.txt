@@ -3,10 +3,19 @@ package customTestSuites;
 import org.cubictest.exporters.selenium.SeleniumRunner;
 import org.junit.Test;
 
+/**
+* Custom setUp and tearDown logic can be used in this class, see JUnit 4 documentation.
+*/
 public class CustomTestSuite {
 
 	@Test
 	public void runTests() {
+	
+		//run all tests in the "/test suites" folder:
 		SeleniumRunner.runTests("/test suites");
+		
+		
+		//alternatively, run single tests, e.g: 
+		//SeleniumRunner.runTest("/tests/myTest.aat");
 	}
 }
