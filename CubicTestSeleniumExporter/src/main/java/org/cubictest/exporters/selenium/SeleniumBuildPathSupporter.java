@@ -23,7 +23,7 @@ public class SeleniumBuildPathSupporter implements IBuildPathSupporter {
 
 	public void addClassPathContainers(IJavaProject javaProject, Shell shell) {
 		if(MessageDialog.openQuestion(new Shell(), "Add CubicTest Selenium to classpath", 
-				"Would you like to add CubicTest and Selenium libraries to the classpath?")){
+				"Would you like to add CubicTest and Selenium libraries to the classpath? (Recommended)")){
 			putCubicSeleniumLibraryOnClasspath(javaProject, shell);
 		}
 	}
