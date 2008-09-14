@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.EmptyTestSuiteException;
 import org.cubictest.export.exceptions.ExporterException;
@@ -47,16 +48,33 @@ public class SeleniumRunner
     @SuppressWarnings("unchecked")
 	public static void runTests(String dirString)
     {
-    	if (dirString.startsWith("/")) {
-    		dirString = "." + dirString;
+    	if (StringUtils.isBlank(dirString)) {
+    		System.out.println(LOG_PREFIX + "Please specify a path relative to the project root. E.g. \"/tests\"");
+    		return;
     	}
+    	
+    	if (dirString.equals("/")) {
+    		dirString = ".";
+    	}
+    	else if (dirString.startsWith("/")) {
+			//remove "/" as it should be relative to project root, not file system root.
+			dirString = dirString.substring(1);
+    	}
+
     	File dir = new File(dirString);
     	
-		System.out.println(LOG_PREFIX + " Running all tests in folder " + dir.getAbsolutePath() + " and subfolders.");
+		System.out.println(LOG_PREFIX + "Running all tests in folder " + dir.getAbsolutePath() + " and subfolders.");
     	
         CubicTestProjectSettings settings = new CubicTestProjectSettings(new File("."));
 
         Collection<File> files = FileUtils.listFiles(dir, new String[] {"aat", "ats"}, true);
+        if (files.isEmpty()) {
+        	System.out.println(LOG_PREFIX + "No .aat or .ats tests found in folder " + dir.getAbsolutePath());
+        }
+        else {
+        	System.out.println(LOG_PREFIX + "Found " + files.size() + " tests.");
+        }
+        
         List<String> passedTests = new ArrayList<String>();
         List<String> failedTests = new ArrayList<String>();
         List<String> exceptionTests = new ArrayList<String>();
@@ -70,7 +88,7 @@ public class SeleniumRunner
         
         TestRunner testRunner = null;
         boolean useFreshBrowser = settings.getBoolean(SeleniumUtils.getPluginPropertyPrefix(), "useNewBrowserInstanceForEachTestSuiteFile", false);
-        System.out.println(LOG_PREFIX + " Use new browser instance for each test suite file: " + useFreshBrowser);
+        System.out.println(LOG_PREFIX + "Use new browser instance for each test suite file: " + useFreshBrowser);
         boolean reuseBrowser = !useFreshBrowser;
         if (reuseBrowser) {
 			testRunner = new TestRunner(null, null, settings, true);
@@ -96,7 +114,7 @@ public class SeleniumRunner
         			testRunner.run(null);
         			passedTests.add(file.getName());
                 	smallLogSeperator();
-                	System.out.println("Test run finished: " + file.getName() + ": " + testRunner.getResultMessage());
+                	System.out.println(LOG_PREFIX + "Test run finished: " + file.getName() + ": " + testRunner.getResultMessage());
                 	smallLogSeperator();
         			stopSelenium(testRunner);
         			Thread.sleep(800); //do not reopen firefox immediately
