@@ -137,6 +137,9 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			IFolder javaTestFolder = project.getFolder("src/test/java");
 			javaTestFolder.create(false, true, monitor);
 
+			IFolder customTestSuites = project.getFolder("src/test/java/customTestSuites");
+			customTestSuites.create(false, true, monitor);
+
 			IFolder binFolder = project.getFolder("bin");
 			binFolder.create(false, true, monitor);
 			
@@ -144,6 +147,7 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			libFolder.create(false, true, monitor);
 			
 			WizardUtils.copyPom(project.getLocation().toFile());
+			WizardUtils.copySampleCustomTestSuite(customTestSuites.getRawLocation().toFile());
 			WizardUtils.copySettings(project.getLocation().toFile());
 		
 			//construct build path for the new project

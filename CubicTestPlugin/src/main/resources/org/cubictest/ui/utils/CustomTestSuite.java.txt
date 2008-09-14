@@ -1,0 +1,12 @@
+package customTestSuites;
+
+import org.cubictest.exporters.selenium.SeleniumRunner;
+import org.junit.Test;
+
+public class CustomTestSuite {
+
+	@Test
+	public void runTests() {
+		SeleniumRunner.runTests("/test suites");
+	}
+}
