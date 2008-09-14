@@ -1,10 +1,10 @@
 #Fat Jar Configuration File
-#Sun Sep 14 16:39:36 CEST 2008
+#Sun Sep 14 20:52:11 CEST 2008
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=cubictest-core.jar
+jarname=cubictest-1.8.9.jar
 manifest.mergeall=false
 manifest.mainclass=
 manifest.file=<createnew>
