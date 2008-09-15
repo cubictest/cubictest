@@ -14,7 +14,9 @@ package org.cubictest.exporters.selenium;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -40,15 +42,19 @@ public class SeleniumRunner
 	private static final String SMALL_SEPERATOR = "-----------------------------------------------";
 	private static final String LOG_PREFIX = "[CubicTest Selenium Runner] ";
 
+	private Set<TestListener> listeners;
 
 	public SeleniumRunner(){
+		listeners = new HashSet<TestListener>();
 	}
 	
-	/* Or maybe
-	public static SeleniumRunner getInstance(){
-		return new SeleniumRunner();
+	public void addTestListener(TestListener listener){
+		listeners.add(listener);
 	}
-	*/
+	
+	public void removeTestListener(TestListener listener){
+		listeners.remove(listener);
+	}
 	
 	/**
 	 * Run tests in specified directory and all subdirectories.
