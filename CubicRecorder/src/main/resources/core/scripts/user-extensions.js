@@ -57,6 +57,13 @@ Cubic.load('scripts/YahooUI/reset/reset.css');
 
 Cubic.load('scripts/YahooUI/logger/assets/logger.css');
 
+var base = "";
+try {
+	base = document.getElementsByTagName("base")[0].href;
+} catch(e) {
+	base = "/selenium-server/core/";
+}
+
 Event.observe(window, 'load', function() {
 	// Hide output
 	document.getElementsByTagName("TABLE")[0].style.width = "100%";
@@ -86,8 +93,8 @@ temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="posi
 		jsonrpc.recorder.setStateTitle(frameDoc.title);
 
 		/* Add menu.css to the page in the iframe */
-		Cubic.load('/selenium-server/core/scripts/YahooUI/menu/assets/menu.css', frameDoc);
-		Cubic.load('/selenium-server/core/scripts/cubic/contextmenu.css', frameDoc);
+		Cubic.load(base + 'scripts/YahooUI/menu/assets/menu.css', frameDoc);
+		Cubic.load(base + 'scripts/cubic/contextmenu.css', frameDoc);
 
 		/* Rebuild the context menu */
 		if(yuiContextMenu) {
