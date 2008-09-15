@@ -41,12 +41,21 @@ public class SeleniumRunner
 	private static final String LOG_PREFIX = "[CubicTest Selenium Runner] ";
 
 
+	public SeleniumRunner(){
+	}
+	
+	/* Or maybe
+	public static SeleniumRunner getInstance(){
+		return new SeleniumRunner();
+	}
+	*/
+	
 	/**
 	 * Run tests in specified directory and all subdirectories.
 	 * @param dirPath Path to directory to run tests in, relative to project root.
 	 */
     @SuppressWarnings("unchecked")
-	public static void runTests(String dirPath)
+	public void runTests(String dirPath)
     {
     	if (StringUtils.isBlank(dirPath)) {
     		throw new ExporterException("Please specify a path relative to the project root. E.g. \"/tests\"");
@@ -80,7 +89,7 @@ public class SeleniumRunner
 	 * @param testPath Path to test to run, relative to project root.
 	 */
     @SuppressWarnings("unchecked")
-	public static void runTest(String testPath)
+	public void runTest(String testPath)
     {
     	if (StringUtils.isBlank(testPath)) {
     		throw new ExporterException("Please specify a path relative to the project root. E.g. \"/tests/test.aat\"");
@@ -107,7 +116,7 @@ public class SeleniumRunner
         runTests(files);
     }
 
-	private static void runTests(Collection<File> files) throws AssertionError {
+	private void runTests(Collection<File> files) throws AssertionError {
         
 		CubicTestProjectSettings settings = new CubicTestProjectSettings(new File("."));
 
