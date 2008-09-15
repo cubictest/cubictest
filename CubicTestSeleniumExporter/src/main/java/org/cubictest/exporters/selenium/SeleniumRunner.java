@@ -173,10 +173,9 @@ public class SeleniumRunner
     		}
     		catch (EmptyTestSuiteException e) {
     			System.out.println(SEPERATOR);
-    			System.err.println("Warning: Test suite was empty: " + file.getName());
     			System.err.println("Warning: Test suites should contain at least one test. " + 
 						"To add a test, drag it from the package explorer into the test suite editor.");
-    			return;
+    			throw new AssertionError("Test suite was empty: " + file.getName());
     		}
     		catch (ExporterException e) {
     			System.err.println(LOG_PREFIX + "Test failure detected. Stopping Selenium.");
@@ -216,7 +215,7 @@ public class SeleniumRunner
         System.out.println("Tests not run: " + notRunTests.toString());
 
         if (!buildOk) {
-        	throw new AssertionError("[CubicTest] There were test failures.");
+        	throw new AssertionError("[CubicTest] There were test failures. See console/log output for failure details.");
         }
 	}
     
