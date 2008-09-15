@@ -8,14 +8,17 @@ import org.junit.Test;
 */
 public class CustomTestSuite {
 
+	
 	@Test
 	public void runTests() {
-	
+		
+		SeleniumRunner runner = new SeleniumRunner();
+		
 		//run all tests in the "/test suites" folder:
-		SeleniumRunner.runTests("/test suites");
+		runner.runTests("/test suites");
 		
 		
 		//alternatively, run single tests, e.g: 
-		//SeleniumRunner.runTest("/tests/myTest.aat");
+		//runner.runTest("/tests/myTest.aat");
 	}
 }
