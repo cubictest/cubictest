@@ -19,6 +19,7 @@ import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.TestRunner;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.common.BrowserTypeUtils;
+import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.cubictest.exporters.selenium.common.SeleniumSettingsWizard;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.Page;
@@ -148,8 +149,7 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 		BrowserType browserType = BrowserTypeUtils.getPreferredBrowserType(SeleniumExporterPlugin.getDefault(), SELENIUM_RUNNER_BROWSER_TYPE);
 		if (browserType == null) {
 			try {
-				browserType = BrowserType.fromId(settings.getString(SeleniumUtils.getPluginPropertyPrefix(), "defaultBrowserType",
-						TestRunner.DEFAULT_BROWSER.getId()));
+				browserType = SeleniumExporterProjectSettings.getPreferredBrowser(settings);
 			} catch (Exception ignore) {
 			}
 		}

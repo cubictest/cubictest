@@ -22,6 +22,7 @@ import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.export.runner.RunnerStarter.Operation;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.common.BrowserType;
+import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.SameVMCustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.UnsupportedCustomTestStepConverter;
@@ -50,8 +51,7 @@ public class TestRunner extends BaseTestRunner {
 	Selenium selenium;
 	Page targetPage;
 	static Integer port; 
-	public static final BrowserType DEFAULT_BROWSER = BrowserType.FIREFOX;
-	BrowserType browserType = DEFAULT_BROWSER;
+	BrowserType browserType = BrowserType.FIREFOX; //init
 	private IProgressMonitor monitor;
 	boolean reuseSelenium = false;
 	private boolean runingInSameVMAsCustomFiles = false;
@@ -81,8 +81,7 @@ public class TestRunner extends BaseTestRunner {
 		if (port == null) {
 			port = ExportUtils.findAvailablePort();
 		}
-		this.browserType = BrowserType.fromId(settings.getString(SeleniumUtils.getPluginPropertyPrefix(), "defaultBrowserType", 
-				DEFAULT_BROWSER.getId()));
+		this.browserType = SeleniumExporterProjectSettings.getPreferredBrowser(settings);
 	}
 	
 	public void run(IProgressMonitor monitor) {

@@ -18,6 +18,7 @@ import org.cubictest.common.utils.Logger;
 import org.cubictest.export.utils.exported.RunnerUtils;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.common.BrowserType;
+import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.cubictest.model.Test;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -375,8 +376,11 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 		try {
 			testName.setText(configuration.getAttribute(CUBIC_TEST_NAME, ""));
 			projectName.setText(configuration.getAttribute(ATTR_PROJECT_NAME, ""));
-			browserType = BrowserType.fromId(configuration.getAttribute(CUBIC_TEST_BROWSER, 
-					BrowserType.FIREFOX.getId()));
+			
+			CubicTestProjectSettings settings = CubicTestProjectSettings.getInstanceFromActivePage();
+			
+			String defaultBrowser = SeleniumExporterProjectSettings.getPreferredBrowser(settings).getId();
+			browserType = BrowserType.fromId(configuration.getAttribute(CUBIC_TEST_BROWSER, defaultBrowser));
 			nameSpaceButton.setSelection(configuration.getAttribute(
 					CUBIC_TEST_NAMESPACE_XPATH,	false));
 			seleniumServerHost.setText(configuration.getAttribute(

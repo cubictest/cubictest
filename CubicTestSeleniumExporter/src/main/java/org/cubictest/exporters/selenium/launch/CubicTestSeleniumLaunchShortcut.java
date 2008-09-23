@@ -3,8 +3,10 @@ package org.cubictest.exporters.selenium.launch;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.common.BrowserType;
+import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
@@ -61,10 +63,12 @@ public class CubicTestSeleniumLaunchShortcut implements ILaunchShortcut {
 		ILaunchConfigurationType configType = getLaunchManager().getLaunchConfigurationType(
 			"org.cubictest.exporters.selenium.ui.launchConfigurationType");
 		
+		CubicTestProjectSettings settings = CubicTestProjectSettings.getInstanceFromActivePage();
+		
 		ILaunchConfigurationWorkingCopy wc= configType.newInstance(file.getParent(), 
 				getLaunchManager().generateUniqueLaunchConfigurationNameFrom(file.getName()));
 		
-		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_BROWSER, BrowserType.FIREFOX.getId());
+		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_BROWSER, SeleniumExporterProjectSettings.getPreferredBrowser(settings).getId());
 		wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, 
 				file.getProject().getName());
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_NAME, 

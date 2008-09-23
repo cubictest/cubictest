@@ -39,14 +39,20 @@ public class CubicTestProjectSettings {
 	
 	File projectFolder;
 
+	public CubicTestProjectSettings() {
+	}
+	
+
 	/**
 	 * Constructor that gets project from active Eclipse page.
 	 */
-	public CubicTestProjectSettings() {
+	public static CubicTestProjectSettings getInstanceFromActivePage() {
+		CubicTestProjectSettings settings = new CubicTestProjectSettings();
 		IProject project = ViewUtil.getProjectFromActivePage();
-		projectFolder = project.getLocation().toFile();
-		File propsFile = getPropsFile(projectFolder);
-		loadProperties(propsFile);
+		settings.projectFolder = project.getLocation().toFile();
+		File propsFile = settings.getPropsFile(settings.projectFolder);
+		settings.loadProperties(propsFile);
+		return settings;
 	}
 
 	
@@ -61,6 +67,8 @@ public class CubicTestProjectSettings {
 		File propsFile = getPropsFile(projectFolder);
 		loadProperties(propsFile);
 	}
+
+
 
 	/**
 	 * Get boolean property from test-project.properties.
