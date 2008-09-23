@@ -17,7 +17,7 @@
       <plugin>
         <groupId>org.cubictest</groupId>
         <artifactId>cubictest-selenium-runner-maven-plugin</artifactId>
-		<version>1.8.7</version>
+		<version>1.8.9</version>
         <executions>
           <execution>
             <phase>integration-test</phase>
@@ -50,19 +50,5 @@
     </pluginRepository>
   </pluginRepositories>
   
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.cubictest</groupId>
-      <artifactId>selenium-exporter</artifactId>
-      <version>1.8.7</version>
-    </dependency>
-    
-  </dependencies>  	
     
 </project>
