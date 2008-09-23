@@ -54,16 +54,6 @@
                label="Run with Selenium to selected Page/State"
                menubarPath="additions"/>
       </objectContribution>
-      <objectContribution
-            id="CubicTestSeleniumExporter.objectContribution2"
-		    objectClass="org.cubictest.ui.gef.controller.PropertyChangePart">
-         <action
-               class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               icon="icons/selenium_run_icon.gif"
-               id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               label="Run Test with Selenium Runner"
-               menubarPath="additions"/>
-      </objectContribution>
 
    </extension>
    
