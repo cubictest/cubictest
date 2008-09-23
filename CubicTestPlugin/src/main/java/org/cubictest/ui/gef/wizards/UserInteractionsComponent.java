@@ -275,7 +275,7 @@ public class UserInteractionsComponent {
 			secsToWaitLabel.setVisible(false);
 			secsToWaitText.setVisible(false);
 		}
-
+		secsToWaitText.setText(transition.getSecondsToWaitForResult() + "");
 		
 		tableViewer.setInput(userInteractions);
 		transition.setUserInteractions(userInteractions);
