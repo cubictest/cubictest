@@ -12,7 +12,6 @@
   </repositories>
     
   <build>
-  	<sourceDirectory>${project.basedir}/src</sourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.cubictest</groupId>
@@ -29,15 +28,6 @@
   	    <configuration>
 		  <testDir>test suites</testDir>
 	    </configuration>
-      </plugin>
-      
-      <plugin>
-      	<groupId>org.apache.maven.plugins</groupId>
-      	<artifactId>maven-compiler-plugin</artifactId>
-      	<configuration>
-      		<source>1.5</source>
-      		<target>1.5</target>
-      	</configuration>
       </plugin>
     </plugins>
     
