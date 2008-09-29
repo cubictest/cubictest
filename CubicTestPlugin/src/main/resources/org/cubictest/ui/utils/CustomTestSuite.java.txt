@@ -1,16 +1,15 @@
-package customTestSuites;
+package org.cubicshop.customTestSuites;
+
+import junit.framework.TestCase;
 
 import org.cubictest.exporters.selenium.SeleniumRunner;
-import org.junit.Test;
 
 /**
-* Custom setUp and tearDown logic can be used in this class, see JUnit 4 documentation.
+* Custom setUp and tearDown logic can be used in this class, see JUnit documentation.
 */
-public class CustomTestSuite {
+public class CustomTestSuiteTest extends TestCase {
 
-	
-	@Test
-	public void runTests() {
+	public void test() {
 		
 		SeleniumRunner runner = new SeleniumRunner();
 		
