@@ -9,6 +9,28 @@ then
 	exit -1
 fi
 
+
+sha1() {
+	if [ ! -x sha1 ]
+	then
+		#probably cygwin
+		sha1sum "$@" | awk '{print $1}'
+	else
+		sha1 "$@"
+	fi
+}
+
+md5() {
+	if [ ! -x md5 ]
+	then
+		#probably cygwin
+		md5sum "$@" | awk '{print $1}'
+	else
+		md5 "$@"
+	fi
+}
+
+
 BASE_DIR=`pwd`
 
 # Copy hash CubicTest JARs to local repo:
@@ -42,7 +64,7 @@ cp selenium-exporter-$1.jar "$SELENIUM_EXPORTER_DIR"
 sha1 selenium-exporter-$1.jar | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/selenium-exporter-$1.jar.sha1"
 md5 selenium-exporter-$1.jar | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/selenium-exporter-$1.jar.md5"
 
-cp selenium-exporter-$1.pom $SELENIUM_EXPORTER_DIR
+cp selenium-exporter-$1.pom "$SELENIUM_EXPORTER_DIR"
 sha1 selenium-exporter-$1.pom | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/selenium-exporter-$1.pom.sha1"
 md5 selenium-exporter-$1.pom | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/selenium-exporter-$1.pom.md5"
 
@@ -56,4 +78,5 @@ mvn clean install -DcreateChecksum=true
 #Done:
 
 cd $BASE_DIR
+
 
