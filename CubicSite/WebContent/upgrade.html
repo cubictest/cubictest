@@ -28,7 +28,7 @@
 
 		<div class="download">
 			<h1>
-				Upgrading the Update Site version
+				General - Upgrading the Update Site version
 			</h1>
 			<div class="description">
 				Use the standard Eclipse plug-in upgrade mechanism to upgrade CubicTest:
@@ -43,12 +43,68 @@
 						When Eclipse is restarted, you need to <b>Reset the CubicTest Perspective</b> to get shortcuts to the new features. To reset, open the CubicTest Perspective and select Window -> Reset Perspective.
 					</li>
 					<li>
-						You should also edit your test project's <b>pom.xml</b> file and upgrade to version 1.8.9 of the cubictest maven 2 plugin referenced there.
+						You should also edit your test project's <b>pom.xml</b> file and update the version (e.g. to 1.8.9) of the cubictest dependencies.
 					</li>
 				</ul>
 			</div>
 			<h1>
-				Upgrading the Rich Client version
+				Upgrading from 1.8.6 to 1.8.9
+			</h1>
+			<div class="description">
+				Follow the procedure above. To get the new "Custom Test Suites" feature to work from maven 2, do the following.
+				<ul>
+					<li>
+						Modify your project's pom.xml and add the following:
+						
+						<div style="border: 1px"><pre>
+  &lt;build&gt;
+    .....
+    &lt;sourceDirectory&gt;src&lt;/sourceDirectory&gt;
+    &lt;testSourceDirectory&gt;src&lt;/testSourceDirectory&gt;
+    .....
+  &lt;/build&gt;
+  
+  &lt;plugins&gt;
+     .....
+     &lt;plugin&gt;
+      	&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+      	&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+      	&lt;configuration&gt;
+      		&lt;source&gt;1.5&lt;/source&gt;
+      		&lt;target&gt;1.5&lt;/target&gt;
+      	&lt;/configuration&gt;
+     &lt;/plugin&gt;
+     .....
+  &lt;/plugins&gt;
+  
+  &lt;dependencies&gt;
+    ....
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.cubictest&lt;/groupId&gt;
+      &lt;artifactId&gt;cubictest&lt;/artifactId&gt;
+      &lt;version&gt;1.8.9&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.cubictest&lt;/groupId&gt;
+      &lt;artifactId&gt;selenium-exporter&lt;/artifactId&gt;
+      &lt;version&gt;1.8.9&lt;/version&gt;
+    &lt;/dependency&gt;
+    ....
+  &lt;/dependencies&gt;  	
+						</pre></div>
+					</li>
+					<li>	
+						Upgrade the JUnit version from 3.8.1 to 4.5 in the pom.xml. 
+					</li>
+					<li>	
+						Create a new CubicTest project and take a look at the CustomTestSuite.java sample file that is created.
+						Copy the file into your existing project to get a head start at writing cusstom test suites. 
+					</li>
+				</ul>
+			</div>
+			<h1>
+				General - Upgrading the Rich Client version
 			</h1>
 			<div class="description">
 				To upgrade the Rich Client version, 
