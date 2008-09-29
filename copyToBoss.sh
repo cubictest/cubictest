@@ -5,11 +5,11 @@ then
 fi
 
 ./copyToLocalRepo.sh $@
-echo "OK to continue?"
+echo "OK to continue? (CTRL+C to abort)"
 read
 
 ./zipRepo.sh $@
-echo "OK to continue?"
+echo "OK to continue? (CTRL+C to abort)"
 read
 
 echo "Repo files:"
