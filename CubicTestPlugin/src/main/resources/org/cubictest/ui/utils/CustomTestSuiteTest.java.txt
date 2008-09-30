@@ -1,4 +1,4 @@
-package org.cubicshop.customTestSuites;
+package customTestSuites;
 
 import junit.framework.TestCase;
 

@@ -168,7 +168,7 @@ public class WizardUtils {
 	}
 	
 	public static void copySampleCustomTestSuite(File destinationFolder) throws IOException {
-		copyFile(destinationFolder, "CustomTestSuite.java.txt", "CustomTestSuite.java");
+		copyFile(destinationFolder, "CustomTestSuiteTest.java.txt", "CustomTestSuiteTest.java");
 	}
 
 	public static void copySettings(File destinationFolder) throws IOException {
