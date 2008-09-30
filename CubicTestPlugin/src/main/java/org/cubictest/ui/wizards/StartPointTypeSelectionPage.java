@@ -33,9 +33,11 @@ public class StartPointTypeSelectionPage extends WizardPage implements Selection
 	private Label subTestStartPointLabel = null;
 	private boolean urlStartPointSelected = false;
 	private boolean subTestStartPointSelected = false;
+	private final boolean testHasExtensionPoints;
 	
-	protected StartPointTypeSelectionPage() {
+	protected StartPointTypeSelectionPage(boolean testHasExtensionPoints) {
 		super(NAME);
+		this.testHasExtensionPoints = testHasExtensionPoints;
 		setPageComplete(true);
 		
 		setTitle("Choose startpoint type for the new Test");
@@ -69,6 +71,9 @@ public class StartPointTypeSelectionPage extends WizardPage implements Selection
 		createUrlStartPointOption(container);
 		createSubTestStartPointOption(container);
 		
+		if (!testHasExtensionPoints) {
+			urlStartPointSelected = true;
+		}
 		setSelected();
 		container.setLayout(gridLayout);
 		setControl(container);

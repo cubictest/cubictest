@@ -91,7 +91,8 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	public void addPages() {
 		testDetailsPage = new TestDetailsPage(selection, "test");
 		addPage(testDetailsPage);
-		startPointTypeSelectionPage = new StartPointTypeSelectionPage();
+		boolean testHasExtensionPoints = !extensionPointMap.isEmpty();
+		startPointTypeSelectionPage = new StartPointTypeSelectionPage(testHasExtensionPoints);
 		addPage(startPointTypeSelectionPage);
 		newUrlStartPointPage = new NewUrlStartPointPage(startPointTypeSelectionPage);
 		addPage(newUrlStartPointPage);

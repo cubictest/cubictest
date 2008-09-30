@@ -47,7 +47,8 @@ public class UpdateStartPointWizard extends NewTestWizard {
 	 */
 	@Override
 	public void addPages() {
-		startPointTypeSelectionPage = new StartPointTypeSelectionPage();
+		boolean testHasExtensionPoints = !extensionPointMap.isEmpty();
+		startPointTypeSelectionPage = new StartPointTypeSelectionPage(testHasExtensionPoints);
 		addPage(startPointTypeSelectionPage);
 		newUrlStartPointPage = new NewUrlStartPointPage(startPointTypeSelectionPage);
 		addPage(newUrlStartPointPage);
