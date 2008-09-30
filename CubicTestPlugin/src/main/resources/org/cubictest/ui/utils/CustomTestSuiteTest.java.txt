@@ -21,3 +21,4 @@ public class CustomTestSuiteTest extends TestCase {
 		//runner.runTest("/tests/myTest.aat");
 	}
 }
+
