@@ -34,6 +34,9 @@ public class SeleniumClasspathContainerInitializer extends
 		final IClasspathEntry cubicSeleniumExporterEntry = JavaCore.newLibraryEntry(
 				libPath.append("/lib/selenium-exporter-1.8.9.jar"), 
 				libPath.append("/lib/selenium-exporter-1.8.9.jar"), null);
+		final IClasspathEntry cubicSeleniumExporterServerEntry = JavaCore.newLibraryEntry(
+				libPath.append("/lib/selenium-exporter-server-1.8.9.jar"), 
+				libPath.append("/lib/selenium-exporter-server-1.8.9.jar"), null);
 		final IClasspathEntry jUnitEntry = JavaCore.newLibraryEntry(
 				libPath.append("/lib/junit-4.5.jar"), null, null);
 		JavaCore.setClasspathContainer(
@@ -43,7 +46,7 @@ public class SeleniumClasspathContainerInitializer extends
 				new IClasspathContainer() {
 					public IClasspathEntry[] getClasspathEntries() {
 						return new IClasspathEntry[]{cubicCoreEntry, jUnitEntry, 
-								cubicSeleniumExporterEntry};
+								cubicSeleniumExporterEntry, cubicSeleniumExporterServerEntry};
 					}
 					public String getDescription() { return "CubicTest Selenium Library"; }
 					public int getKind() { return IClasspathContainer.K_APPLICATION; }

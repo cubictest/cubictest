@@ -62,18 +62,15 @@ public class SeleniumClasspathVariableInitializer extends
 	}
 	
 	private Bundle getBundle(){
-		Bundle[] bundles= SeleniumExporterPlugin.getDefault().getBundles("org.cubictest.exporter.selenium.server", null);
-		if (bundles != null) {
-			for (int i= 0; i < bundles.length; i++) {
-				Bundle curr= bundles[i];
-				String version= (String) curr.getHeaders().get(Constants.BUNDLE_VERSION);
-				try {
-					if (new VersionRange("[0.0,2.0.0)").isIncluded(Version.parseVersion(version))) {
-						return curr;
-					}
-				} catch (IllegalArgumentException e) {
-					// ignore
+		Bundle bundle = SeleniumExporterPlugin.getDefault().getBundle();
+		if (bundle != null) {
+			String version= (String) bundle.getHeaders().get(Constants.BUNDLE_VERSION);
+			try {
+				if (new VersionRange("[0.0,9.0.0)").isIncluded(Version.parseVersion(version))) {
+					return bundle;
 				}
+			} catch (IllegalArgumentException e) {
+				// ignore
 			}
 		}
 		return null;

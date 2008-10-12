@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sun Oct 12 21:48:56 CEST 2008
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=selenium-exporter-server-1.8.9.jar
+manifest.mergeall=false
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=<jar|org.eclipse.core.runtime_3.4.0.v20080512.jar>;<jar|org.eclipse.osgi_3.4.0.v20080605-1900.jar>;<jar|org.eclipse.equinox.common_3.4.0.v20080421-2006.jar>;<jar|org.eclipse.core.jobs_3.4.0.v20080512.jar>;<jar|runtime_registry_compatibility.jar>;<jar|org.eclipse.equinox.registry_3.4.0.v20080516-0950.jar>;<jar|org.eclipse.equinox.preferences_3.2.200.v20080421-2006.jar>;<jar|org.eclipse.core.contenttype_3.3.0.v20080604-1400.jar>;<jar|org.eclipse.equinox.app_1.1.0.v20080421-2006.jar>;<jar|org.eclipse.ui_3.4.0.I20080610-1200.jar>;<jar|org.eclipse.swt_3.4.0.v3448f.jar>;<jar|org.eclipse.swt.win32.win32.x86_3.4.0.v3448f.jar>;<jar|org.eclipse.jface_3.4.0.I20080606-1300.jar>;<jar|org.eclipse.core.commands_3.4.0.I20080509-2000.jar>;<jar|org.eclipse.ui.workbench_3.4.0.I20080606-1300.jar>;<jar|org.eclipse.jdt.core_3.4.0.v_874.jar>;<jar|org.eclipse.jdt.compiler.apt_1.0.100.v20080513-1235.jar>;<jar|org.eclipse.jdt.compiler.tool_1.0.100.v_874.jar>
+includes=<inc|CubicTestSeleniumExporterServer/src\\main\\java>~org/

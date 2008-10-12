@@ -9,7 +9,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.jdt.core
 Bundle-ClassPath: .,
- lib/CubicTestSelenium.jar,
  lib/selenium-java-client-driver.jar,
  lib/selenium-java-client-driver-sources.jar,
  lib/selenium-server-dummy.jar

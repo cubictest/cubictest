@@ -4,8 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="lib" path="lib/selenium-java-client-driver.jar"/>
-	<classpathentry kind="lib" path="lib/CubicTestSelenium.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-java-client-driver-sources.jar"/>
-	<classpathentry kind="lib" path="lib/selenium-server-dummy.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-server.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/selenium-java-client-driver.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/selenium-server.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-io-1.3.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jdom.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdom.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/selenium-exporter-1.8.9.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/cubictest-1.8.9.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/junit-4.5.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/selenium-exporter-server-1.8.9.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
