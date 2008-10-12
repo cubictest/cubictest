@@ -13,8 +13,6 @@ import javax.net.SocketFactory;
 
 import org.openqa.selenium.server.BrowserConfigurationOptions;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import com.thoughtworks.selenium.Selenium;
 
 public class CubicSelenium implements Selenium {
@@ -746,10 +744,10 @@ public class CubicSelenium implements Selenium {
 	}
 
 	public void start(BrowserConfigurationOptions arg0) {
-		throw new NotImplementedException();
+		throw new RuntimeException("Not implemented");
 	}
 
 	public String retrieveLastRemoteControlLogs() {
-		throw new NotImplementedException();
+		throw new RuntimeException("Not implemented");
 	}
 }
