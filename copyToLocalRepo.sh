@@ -38,7 +38,7 @@ BASE_DIR=`pwd`
 CUBICTEST_REPO_DIR=~/.m2/repository/org/cubictest/cubictest/$1
 if [ ! -d "$CUBICTEST_REPO_DIR" ] 
 then
-	mkdir "$CUBICTEST_REPO_DIR"
+	mkdir -p "$CUBICTEST_REPO_DIR"
 fi
 
 cd $BASE_DIR/CubicTestPlugin
@@ -56,7 +56,7 @@ md5 cubictest-$1.pom | awk '{print $1}' > "$CUBICTEST_REPO_DIR/cubictest-$1.pom.
 SELENIUM_EXPORTER_DIR=~/.m2/repository/org/cubictest/selenium-exporter/$1
 if [ ! -d "$SELENIUM_EXPORTER_DIR" ]
 then
-	mkdir "$SELENIUM_EXPORTER_DIR"
+	mkdir -p "$SELENIUM_EXPORTER_DIR"
 fi
 
 cd $BASE_DIR/CubicTestSeleniumExporter
@@ -67,6 +67,24 @@ md5 selenium-exporter-$1.jar | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/seleni
 cp selenium-exporter-$1.pom "$SELENIUM_EXPORTER_DIR"
 sha1 selenium-exporter-$1.pom | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/selenium-exporter-$1.pom.sha1"
 md5 selenium-exporter-$1.pom | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/selenium-exporter-$1.pom.md5"
+
+
+# Copy hash CubicTest Selenium RC JARs to local repo:
+
+SELENIUM_RC_DIR=~/.m2/repository/org/cubictest/cubictest-selenium-rc/$1
+if [ ! -d "$SELENIUM_RC_DIR" ] 
+then
+	mkdir -p "$SELENIUM_RC_DIR"
+fi
+
+cd $BASE_DIR/CubicTestSeleniumExporterServer
+cp cubictest-selenium-rc-$1.jar "$SELENIUM_RC_DIR"
+sha1 cubictest-selenium-rc-$1.jar | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.jar.sha1"
+md5 cubictest-selenium-rc-$1.jar | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.jar.md5"
+
+cp cubictest-selenium-rc-$1.pom "$SELENIUM_RC_DIR"
+sha1 cubictest-selenium-rc-$1.pom | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.pom.sha1"
+md5 cubictest-selenium-rc-$1.pom | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.pom.md5"
 
 
 # Maven 2 runner:

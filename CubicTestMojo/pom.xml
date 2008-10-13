@@ -28,18 +28,25 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
     </dependency>
-    
-    <dependency>
-      <groupId>org.cubictest</groupId>
-      <artifactId>selenium-exporter</artifactId>
-      <version>1.8.9</version>
-    </dependency>
-    
+        
     <dependency>
       <groupId>org.cubictest</groupId>
       <artifactId>cubictest</artifactId>
       <version>1.8.9</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.cubictest</groupId>
+      <artifactId>selenium-exporter</artifactId>
+      <version>1.8.9</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.cubictest</groupId>
+      <artifactId>cubictest-selenium-rc</artifactId>
+      <version>1.8.9</version>
+    </dependency>
+
     
   </dependencies>
 
