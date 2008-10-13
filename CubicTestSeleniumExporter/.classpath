@@ -9,6 +9,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/selenium-exporter-1.8.9.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/cubictest-1.8.9.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/junit-4.5.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
-	<classpathentry exported="true" kind="lib" path="lib/selenium-exporter-server-1.8.9.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/cubictest-selenium-rc-1.8.9.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

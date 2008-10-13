@@ -35,8 +35,8 @@ public class SeleniumClasspathContainerInitializer extends
 				libPath.append("/lib/selenium-exporter-1.8.9.jar"), 
 				libPath.append("/lib/selenium-exporter-1.8.9.jar"), null);
 		final IClasspathEntry cubicSeleniumExporterServerEntry = JavaCore.newLibraryEntry(
-				libPath.append("/lib/selenium-exporter-server-1.8.9.jar"), 
-				libPath.append("/lib/selenium-exporter-server-1.8.9.jar"), null);
+				libPath.append("/lib/cubictest-selenium-rc-1.8.9.jar"), 
+				libPath.append("/lib/cubictest-selenium-rc-1.8.9.jar"), null);
 		final IClasspathEntry jUnitEntry = JavaCore.newLibraryEntry(
 				libPath.append("/lib/junit-4.5.jar"), null, null);
 		JavaCore.setClasspathContainer(

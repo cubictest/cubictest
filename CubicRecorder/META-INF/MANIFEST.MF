@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ClassPath: .,
  lib/jsonrpc-1.0.jar,
  lib/org.mortbay.jetty.jar,
- lib/selenium-exporter-server-1.8.9.jar
+ lib/cubictest-selenium-rc-1.8.9.jar
 Eclipse-LazyStart: true
 Bundle-Vendor: cubictest.org
 Bundle-Activator: org.cubictest.recorder.RecorderPlugin

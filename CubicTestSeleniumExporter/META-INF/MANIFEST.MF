@@ -26,7 +26,7 @@ Bundle-ClassPath: .,
  lib/selenium-exporter-1.8.9.jar,
  lib/cubictest-1.8.9.jar,
  lib/junit-4.5.jar,
- lib/selenium-exporter-server-1.8.9.jar
+ lib/cubictest-selenium-rc-1.8.9.jar
 Bundle-Vendor: cubictest.org
 Export-Package: com.thoughtworks.selenium,
  org.cubictest.exporters.selenium.common,
