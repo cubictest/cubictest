@@ -22,7 +22,7 @@ import java.util.List;
  * @author chr_schwarz
  * @author SK Skytteren  
  */
-public class UserInteractionsTransition extends Transition {
+public class UserInteractionsTransition extends Transition implements NamePropertyObject{
 
 	private List<UserInteraction> userInteractions = new ArrayList<UserInteraction>();
 	private AbstractPage page;

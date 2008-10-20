@@ -14,10 +14,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.cubictest.model.AbstractPage;
-import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
+import org.cubictest.model.NamePropertyObject;
+import org.cubictest.ui.gef.command.ChangeNameCommand;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
-import org.eclipse.gef.EditPart;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -39,9 +40,9 @@ public class NameSection extends AbstractPropertySection {
 
 	private Composite composite;
 	private Text nameText;
-	private AbstractPage abstractPage;
+	private NamePropertyObject namePropertyObject;
 	
-	private PropertyChangeListener abstractPageListener = new PropertyChangeListener(){
+	private PropertyChangeListener namePropertyObjectListener = new PropertyChangeListener(){
 		public void propertyChange(PropertyChangeEvent evt) {
 			if(!composite.isDisposed()){
 				refresh();
@@ -57,15 +58,15 @@ public class NameSection extends AbstractPropertySection {
 	};
 	
 	private void textChanged(){
-		if(!nameText.getText().equals( abstractPage.getName())){
+		if(!nameText.getText().equals( namePropertyObject.getName())){
 			GraphicalTestEditor part = (GraphicalTestEditor) getPart();
-			ChangeAbstractPageNameCommand command = new ChangeAbstractPageNameCommand();
-			command.setAbstractPage(abstractPage);
-			command.setName(nameText.getText());
-			command.setOldName(abstractPage.getName());
-			abstractPage.removePropertyChangeListener(abstractPageListener);
+			ChangeNameCommand command = new ChangeNameCommand();
+			command.setNamePropertyObject(namePropertyObject);
+			command.setNewName(nameText.getText());
+			command.setOldName(namePropertyObject.getName());
+			namePropertyObject.removePropertyChangeListener(namePropertyObjectListener);
 			part.getCommandStack().execute(command);
-			abstractPage.addPropertyChangeListener(abstractPageListener);
+			namePropertyObject.addPropertyChangeListener(namePropertyObjectListener);
 		}
 	}
 	
@@ -105,20 +106,20 @@ public class NameSection extends AbstractPropertySection {
 	
 	@Override
 	public void setInput(IWorkbenchPart part, ISelection selection) {
-		if(abstractPage != null){
-			abstractPage.removePropertyChangeListener(abstractPageListener);
+		if(namePropertyObject != null){
+			namePropertyObject.removePropertyChangeListener(namePropertyObjectListener);
 		}
 		super.setInput(part, selection);
 		Assert.isTrue(selection instanceof IStructuredSelection);
 		Object input = ((IStructuredSelection) selection).getFirstElement();
 		Assert.isTrue(input instanceof EditPart);
-		this.abstractPage = (AbstractPage) ((EditPart) input).getModel();
-		this.abstractPage.addPropertyChangeListener(abstractPageListener);
+		this.namePropertyObject = (NamePropertyObject) ((EditPart) input).getModel();
+		this.namePropertyObject.addPropertyChangeListener(namePropertyObjectListener);
 	}
 	
 	@Override
 	public void refresh() {
 		super.refresh();
-		nameText.setText(abstractPage.getName());
+		nameText.setText(namePropertyObject.getName());
 	}
 }

@@ -22,7 +22,6 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.model.formElement.AbstractTextInput;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Option;
@@ -123,6 +122,12 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			conn.setToolTip(new Label("User interaction on the page/state"));
 			
 			List<UserInteraction> actions = transition.getUserInteractions();
+			if(transition.getName() != null && transition.getName().trim().length()>0){
+				Label interactionName = new Label(transition.getName());
+				interactionName.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.USER_INTERACTION_IMAGE));
+				interactionName.setLabelAlignment(PositionConstants.LEFT);
+				figure.add(interactionName);
+			}
 			Label inputLabel;
 			
 			for(UserInteraction action : actions){

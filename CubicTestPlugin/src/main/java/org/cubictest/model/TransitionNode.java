@@ -28,7 +28,7 @@ import org.eclipse.draw2d.geometry.Point;
  *
  * @author trond
  */
-public abstract class TransitionNode extends PropertyAwareObject{
+public abstract class TransitionNode extends PropertyAwareObject implements NamePropertyObject {
 	private Transition inTransition = null;
 	private List<Transition> outTransitions = new ArrayList<Transition>();
 	private String id = "";

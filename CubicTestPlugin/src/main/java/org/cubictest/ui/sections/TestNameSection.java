@@ -14,7 +14,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import org.cubictest.model.Test;
-import org.cubictest.ui.gef.command.ChangeTestNameCommand;
+import org.cubictest.ui.gef.command.ChangeNameCommand;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.core.runtime.Assert;
@@ -42,8 +42,8 @@ public class TestNameSection extends AbstractPropertySection implements Property
 	private FocusListener listener = new FocusListener(){
 		public void focusLost(FocusEvent e) {
 			if (!test.getName().equals(labelText.getText())) {
-				ChangeTestNameCommand cmd = new ChangeTestNameCommand();
-				cmd.setTest(test);
+				ChangeNameCommand cmd = new ChangeNameCommand();
+				cmd.setNamePropertyObject(test);
 				cmd.setOldName(test.getName());
 				cmd.setNewName(labelText.getText());
 				ITestEditor editor = (ITestEditor) getPart();

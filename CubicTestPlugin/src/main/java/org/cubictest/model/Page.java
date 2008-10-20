@@ -21,6 +21,8 @@ import java.util.List;
  */
 public class Page extends AbstractPage {
 
+	private Page parent = null;
+	private List<Page> children = new ArrayList<Page>();
 	private List<CommonTransition> commons = new ArrayList<CommonTransition>();
 	
 	public void addCommonTransition(CommonTransition transition){
@@ -39,7 +41,9 @@ public class Page extends AbstractPage {
 	 * @param commons The commons to set.
 	 */
 	public void setCommonTransitions(List<CommonTransition> commons) {
+		List<CommonTransition> oldCommons = this.commons;
 		this.commons = commons;
+		firePropertyChange(PropertyAwareObject.INPUT,oldCommons,commons);
 	}
 
 	/**
@@ -59,5 +63,25 @@ public class Page extends AbstractPage {
 			linkElements.addAll(common.getLinkElements());
 		}		
 		return linkElements;
+	}
+
+	public void setParent(Page parent) {
+		Page oldParent = this.parent;
+		this.parent = parent;
+		firePropertyChange(PropertyAwareObject.PARENT,oldParent,parent);
+	}
+
+	public Page getParent() {
+		return parent;
+	}
+
+	public void setChildren(List<Page> children) {
+		List<Page> oldChildren = this.children;
+		this.children = children;
+		firePropertyChange(PropertyAwareObject.INPUT,oldChildren,children);
+	}
+
+	public List<Page> getChildren() {
+		return children;
 	}
 }

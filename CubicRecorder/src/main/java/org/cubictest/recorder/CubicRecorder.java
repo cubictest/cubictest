@@ -30,7 +30,7 @@ import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
-import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
+import org.cubictest.ui.gef.command.ChangeNameCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
@@ -173,14 +173,14 @@ public class CubicRecorder implements IRecorder {
 		commandStack.execute(addPageCmd);
 
 		/* Change Page Name */
-		ChangeAbstractPageNameCommand changePageNameCmd = new ChangeAbstractPageNameCommand();
-		changePageNameCmd.setAbstractPage(page);
+		ChangeNameCommand changePageNameCmd = new ChangeNameCommand();
+		changePageNameCmd.setNamePropertyObject(page);
 		changePageNameCmd.setOldName("");
 		if (from instanceof UrlStartPoint) {
-			changePageNameCmd.setName("First Page");
+			changePageNameCmd.setNewName("First Page");
 		}
 		else {
-			changePageNameCmd.setName("next page");
+			changePageNameCmd.setNewName("next page");
 		}
 		commandStack.execute(changePageNameCmd);
 		
@@ -200,15 +200,15 @@ public class CubicRecorder implements IRecorder {
 	}
 
 	public void setStateTitle(String title) {
-		ChangeAbstractPageNameCommand changePageNameCmd = new ChangeAbstractPageNameCommand();
+		ChangeNameCommand changePageNameCmd = new ChangeNameCommand();
 		if(userInteractionsTransition != null) {
-			changePageNameCmd.setAbstractPage((AbstractPage) userInteractionsTransition.getEnd());
+			changePageNameCmd.setNamePropertyObject((AbstractPage) userInteractionsTransition.getEnd());
 			changePageNameCmd.setOldName(userInteractionsTransition.getEnd().getName());
 		} else {
-			changePageNameCmd.setAbstractPage(cursor);
+			changePageNameCmd.setNamePropertyObject(cursor);
 			changePageNameCmd.setOldName(cursor.getName());
 		}
-		changePageNameCmd.setName(title);	
+		changePageNameCmd.setNewName(title);	
 		this.commandStack.execute(changePageNameCmd);
 	}
 

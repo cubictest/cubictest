@@ -52,6 +52,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -106,6 +107,7 @@ public class UserInteractionsComponent {
 	private Button autoButton;
 	private Button onButton;
 	private Button offButton;
+	private Composite content;
 
 	public UserInteractionsComponent(UserInteractionsTransition transition, Test test, TestEditPart testPart, 
 			boolean isPropertiesViewMode, PageElement preSelectedPageElement) {
@@ -135,7 +137,7 @@ public class UserInteractionsComponent {
 	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
 	 */
 	public Composite createControl(Composite parent) {
-		Composite content = new Composite(parent, SWT.NULL);
+		content = new Composite(parent, SWT.NULL);
 		
 		GridLayout layout = new GridLayout(NUM_COLUMNS, false);
 		layout.verticalSpacing = 4;
@@ -711,11 +713,8 @@ public class UserInteractionsComponent {
 			}
 			return result;
 		}
-		
-
 		public void dispose() {		
 		}
-		
 	}
 
 	public TableViewer getTableViewer() {
@@ -729,11 +728,14 @@ public class UserInteractionsComponent {
 		}
 	}
 
-
 	public void setTransition(UserInteractionsTransition transition) {
 		this.transition = transition;
 	}
 
-
+	public void setBackgroundColor(Color color) {
+		content.setBackground(color);
+		for(Control  control : content.getChildren())
+			control.setBackground(color);
+	}
 }
 

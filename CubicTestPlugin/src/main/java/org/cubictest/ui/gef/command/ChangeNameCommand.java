@@ -8,56 +8,55 @@
  * Contributors:
  *    Stein K. Skytteren and Christian Schwarz - initial API and implementation
  *******************************************************************************/
- 
 package org.cubictest.ui.gef.command;
 
-import org.cubictest.model.AbstractPage;
+import org.cubictest.model.NamePropertyObject;
+import org.cubictest.model.Test;
 import org.eclipse.gef.commands.Command;
 
 
 /**
- * @author Stein K. Skytteren
- * A command that changes an <code>Common</code>'s name.
+ * Command for changing name property.
+ * 
+ * @author Christian Schwarz
+ *
  */
-public class ChangeAbstractPageNameCommand extends Command {
+public class ChangeNameCommand extends Command {
 
-	private String name;
+	private NamePropertyObject namePropertyObject;
+	
 	private String oldName;
-	private AbstractPage page;
+	
+	private String newName;
 
-	/**
-	 * @param page
-	 */
-	public void setAbstractPage(AbstractPage page) {
-		this.page = page;
+	
+	public void setNewName(String newName) {
+		this.newName = newName;
 	}
 
-	/**
-	 * @param name
-	 */
-	public void setOldName(String name) {
-		this.oldName = name;
+	public void setOldName(String oldName) {
+		this.oldName = oldName;
 	}
 
-	/**
-	 * @param string
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setNamePropertyObject(NamePropertyObject namePropertyObject) {
+		this.namePropertyObject = namePropertyObject;
 	}
+	
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
-	public void execute() {
-		page.setName(name);
+	public void execute(){
+		super.execute();
+		namePropertyObject.setName(newName);
 	}
+	
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.gef.commands.Command#undo()
 	 */
 	public void undo() {
-		page.setName(oldName);
+		super.undo();
+		namePropertyObject.setName(oldName);
 	}
-
 }

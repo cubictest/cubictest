@@ -33,7 +33,7 @@ import org.eclipse.draw2d.geometry.Point;
  * @author SK Skytteren
  * @author Christian Schwarz
  */
-public class Test extends PropertyAwareObject {
+public class Test extends PropertyAwareObject implements NamePropertyObject {
 	
 	private ConnectionPoint startPoint;
 	private List<ExtensionPoint> extensionPoints = new ArrayList<ExtensionPoint>();

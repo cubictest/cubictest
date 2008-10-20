@@ -17,6 +17,7 @@ import org.cubictest.ui.gef.controller.UserInteractionsTransitionEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.wizards.UserInteractionsComponent;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
@@ -62,6 +63,7 @@ public class UserActionsSection extends AbstractPropertySection {
 			else {
 				component = new UserInteractionsComponent(actions, test, testPart, true, null);
 				component.createControl(parent);
+				component.setBackgroundColor(ColorConstants.white);
 				this.parent.setSize(400, 300);
 				created  = true;
 			}
