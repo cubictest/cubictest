@@ -207,6 +207,13 @@
             <input type="org.cubictest.model.UrlStartPoint"/>
          </propertySection>
          <propertySection
+               class="org.cubictest.ui.sections.NameSection"
+               id="org.cubictest.name"
+               tab="org.cubictest.tab.userActions">
+            <input type="org.cubictest.model.UserInteractionsTransition"/>
+         </propertySection>
+         <propertySection
+         	   afterSection="org.cubictest.name"
                class="org.cubictest.ui.sections.UserActionsSection"
                id="org.cubictest.userActions"
                tab="org.cubictest.tab.userActions">
@@ -379,5 +386,30 @@
                value="plugin_customization.ini">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.cubictest.ui.view.pages"
+            name="CubicTest">
+      </category>
+      <view
+            category="org.cubictest.ui.view.pages"
+            class="org.cubictest.ui.view.pages.PagesView"
+            icon="icons/sample.gif"
+            id="org.cubictest.ui.view.pages.PagesView"
+            name="Pages view">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.cubictest.CubicTestPerspective">
+         <view
+               id="org.cubictest.ui.view.pages.PagesView"
+               ratio="0.5"
+               relationship="right">
+         </view>
+      </perspectiveExtension>
    </extension>
 </plugin>
