@@ -15,7 +15,7 @@ import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
-import org.cubictest.ui.gef.command.ChangeAbstractPageNameCommand;
+import org.cubictest.ui.gef.command.ChangeNameCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.commands.Command;
@@ -32,12 +32,12 @@ public class AbstractPageDirectEditPolicy extends DirectEditPolicy {
 	 */
 	@Override
 	protected Command getDirectEditCommand(DirectEditRequest request) {
-		ChangeAbstractPageNameCommand editCommand = new ChangeAbstractPageNameCommand();
+		ChangeNameCommand editCommand = new ChangeNameCommand();
 		AbstractPage page = (AbstractPage) getHost().getModel();
-		editCommand.setAbstractPage(page);
+		editCommand.setNamePropertyObject(page);
 		editCommand.setOldName(page.getName());
 		CellEditor cellEditor = request.getCellEditor();
-		editCommand.setName((String) cellEditor.getValue());
+		editCommand.setNewName((String) cellEditor.getValue());
 
 		// make "undo" an atomic operation for a newly created page:
 
