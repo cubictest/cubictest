@@ -13,8 +13,8 @@ public class CustomTestSuiteTest extends TestCase {
 		
 		SeleniumRunner runner = new SeleniumRunner();
 		
-		//run all tests in the "/test suites" folder:
-		runner.runTests("/test suites");
+		//run all tests in the "/tests" folder:
+		runner.runTests("/tests");
 		
 		
 		//alternatively, run single tests, e.g: 
