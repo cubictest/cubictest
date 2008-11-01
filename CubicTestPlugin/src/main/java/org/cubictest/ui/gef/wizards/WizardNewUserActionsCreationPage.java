@@ -49,10 +49,14 @@ public class WizardNewUserActionsCreationPage extends WizardPage {
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
 		layout.numColumns = 1;
-		layout.verticalSpacing = 9;
-		
+		layout.verticalSpacing = 4;
+
+		Composite userInteratcion = component.createControl(container);
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		userInteratcion.setLayoutData(gd);
+
 		Composite nameContainer = new Composite(container, SWT.NULL);
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd = new GridData(GridData.FILL_HORIZONTAL);
 		nameContainer.setLayoutData(gd);
 		
 		FormLayout formLayout = new FormLayout();
@@ -61,11 +65,11 @@ public class WizardNewUserActionsCreationPage extends WizardPage {
 		nameContainer.setLayout(formLayout);
 		
 		Label nameLabel = new Label(nameContainer, SWT.NULL);
-		nameLabel.setText("Name:");
+		nameLabel.setText("User interaction name:");
 		
 		FormData data = new FormData();
 		data.left = new FormAttachment(0,0); 
-		data.width = 50;
+		data.width = 140;
 		nameLabel.setLayoutData(data);
 		
 		nameText = new Text(nameContainer, SWT.BORDER | SWT.SINGLE);
@@ -81,9 +85,6 @@ public class WizardNewUserActionsCreationPage extends WizardPage {
 			}
 		});
 		
-		Composite userInteratcion = component.createControl(container);
-		gd = new GridData(GridData.FILL_BOTH);
-		userInteratcion.setLayoutData(gd);
 		setControl(container);
 	}
 }
