@@ -161,9 +161,8 @@ public class ExportUtils {
 			// Get url start point of first sub-test:
 			if (!(test.getFirstNodeAfterStartPoint() instanceof SubTest)) {
 				ErrorHandler
-						.logAndShowErrorDialogAndThrow("Test suites must contain at least " +
-								"one sub test after the test suite start point.\n\n"
-								+ "To add a subtest, drag test from package explorer into the test suite editor.");
+						.logAndShowErrorDialogAndThrow("Test suite is empty.\n\n"
+								+ "To add a test, drag it from the package explorer into the test suite editor.");
 			}
 			return getInitialUrlStartPoint(((SubTest) test
 					.getFirstNodeAfterStartPoint()).getTest(true));
