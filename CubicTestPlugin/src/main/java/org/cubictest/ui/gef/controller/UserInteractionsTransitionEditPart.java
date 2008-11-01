@@ -10,10 +10,13 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.controller;
 
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Image;
@@ -110,7 +113,7 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 		for(Figure f : delete)
 			conn.remove(f);
 		
-		if (transition.hasUserInteractions()){
+		if (transition.hasUserInteractions() || isNotBlank(transition.getName())){
 			figure = new Figure();
 			ToolbarLayout layout = new ToolbarLayout();
 			layout.setVertical(true);
