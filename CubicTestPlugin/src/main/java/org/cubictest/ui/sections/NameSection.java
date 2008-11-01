@@ -13,7 +13,6 @@ package org.cubictest.ui.sections;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import org.cubictest.model.AbstractPage;
 import org.cubictest.model.NamePropertyObject;
 import org.cubictest.ui.gef.command.ChangeNameCommand;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
@@ -38,6 +37,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 
 public class NameSection extends AbstractPropertySection {
 
+	public static final int LABEL_WIDTH = STANDARD_LABEL_WIDTH + 35;
 	private Composite composite;
 	private Text nameText;
 	private NamePropertyObject namePropertyObject;
@@ -89,7 +89,7 @@ public class NameSection extends AbstractPropertySection {
 		
 		FormData data = new FormData();
 		data.left = new FormAttachment(0,0); 
-		data.width = STANDARD_LABEL_WIDTH + 35;
+		data.width = LABEL_WIDTH;
 		label.setLayoutData(data);
 		
 		nameText = factory.createText(composite,"",SWT.NONE);

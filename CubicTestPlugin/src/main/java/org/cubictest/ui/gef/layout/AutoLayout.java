@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.layout;
 
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+
 import java.util.Iterator;
 
 import org.cubictest.common.utils.Logger;
@@ -83,11 +85,16 @@ public class AutoLayout {
 
 	public static int getYPositionForNode(TransitionNode node) {
 		int numOfActions = 0;
-		if (node.getInTransition() instanceof UserInteractionsTransition) {
-			numOfActions = ((UserInteractionsTransition) node.getInTransition()).getUserInteractions().size();
+		UserInteractionsTransition inTransition = (UserInteractionsTransition) node.getInTransition();
+		
+		if (inTransition instanceof UserInteractionsTransition) {
+			numOfActions = inTransition.getUserInteractions().size();
+			if (isNotBlank(inTransition.getName())) {
+				numOfActions++; //space for action name
+			}
 		}
 		int inputSpace = TRANSITION_SPACE + (numOfActions * USER_INPUT_HEIGHT);
-		int y = node.getInTransition().getStart().getPosition().y + node.getInTransition().getStart().getDimension().height;
+		int y = node.getInTransition().getStart().getPosition().y + inTransition.getStart().getDimension().height;
 		return y + inputSpace;
 	}
 	
@@ -158,6 +165,9 @@ public class AutoLayout {
 			numOfTrans++;
 			if (t instanceof UserInteractionsTransition) {
 				numOfActions = ((UserInteractionsTransition) t).getUserInteractions().size();
+				if (isNotBlank(t.getName())) {
+					numOfActions++; //space for action name
+				}
 			}
 			numOfTrans = numOfTrans < 1 ? 1 : numOfTrans;
 			int newX = topCenter.x + (numOfTrans - 1) * ITestEditor.NEW_PATH_OFFSET;

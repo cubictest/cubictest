@@ -36,6 +36,7 @@ import org.cubictest.ui.gef.command.MoveUserInteractionCommand;
 import org.cubictest.ui.gef.command.NoOperationCommand;
 import org.cubictest.ui.gef.command.MoveUserInteractionCommand.Direction;
 import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.sections.NameSection;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -143,9 +144,11 @@ public class UserInteractionsComponent {
 		layout.verticalSpacing = 4;
 		content.setLayout(layout);
 		
+		GridData data = new GridData();
+		data.widthHint = NameSection.LABEL_WIDTH + 2;
 		Label fill = new Label(content, SWT.NULL);
-		fill.setText("User interaction input");
-
+		fill.setText("User interaction input:");
+		fill.setLayoutData(data);
 		
 		Button button = new Button(content, SWT.PUSH);
 		button.setText("Add New User Input");
@@ -215,7 +218,7 @@ public class UserInteractionsComponent {
 		secsToWaitLabel = new Label(content, SWT.NONE);
 		secsToWaitLabel.setText(" Seconds to wait for result:");
 		secsToWaitLabel.setVisible(offButton.getSelection());
-		secsToWaitText = new org.eclipse.swt.widgets.Text(content, SWT.NONE);
+		secsToWaitText = new org.eclipse.swt.widgets.Text(content, SWT.BORDER);
 		secsToWaitText.setText(transition.getSecondsToWaitForResult() + "");
 		secsToWaitText.setVisible(offButton.getSelection());
 		secsToWaitText.setLayoutData(new GridData(30, SWT.DEFAULT));
