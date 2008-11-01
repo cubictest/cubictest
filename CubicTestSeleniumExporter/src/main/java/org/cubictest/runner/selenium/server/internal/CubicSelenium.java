@@ -750,4 +750,12 @@ public class CubicSelenium implements Selenium {
 	public String retrieveLastRemoteControlLogs() {
 		throw new RuntimeException("Not implemented");
 	}
+
+	public void start(String arg0) {
+		execute("start", arg0);
+	}
+
+	public void start(Object arg0) {
+		throw new RuntimeException("Not implemented");
+	}
 }

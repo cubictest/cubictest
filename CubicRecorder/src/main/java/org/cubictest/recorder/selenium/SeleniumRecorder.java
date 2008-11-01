@@ -68,7 +68,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 			String baseUrl = getBaseUrl(url);
 			servletHandler.getSessionManager().addEventListener(new SeleniumRecorderSessionListener(recorder, baseUrl));
 		} catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow(e);
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Got an error when starting the recorder.", e);
 		}
 	}
 	
@@ -112,11 +112,12 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 					}
 					seleniumStarted = true;
 		        } catch (final Exception e) {
-		        	String msg = "Error occured when recording test. Recording might not work.\n\n";
-		        	if (e.toString().indexOf("Location.href") >= 0) {
+		        	String msg = "";
+		        	if (e.toString().indexOf("Location.href") >= 0 || e.toString().indexOf("Security error") >= 0) {
 		        		msg += "Looks like Selenium failed when following a redirect. If this occured at start of test, " +
-		        				"try modifying the start point URL to the correct/redirected address.";
+		        				"try modifying the start point URL to the correct/redirected address.\n\n";
 		        	}
+		        	msg += "Error occured when recording test. Recording might not work.";
 		        	final String finalMsg = msg;
 		    		shell.getDisplay().asyncExec(new Runnable() {
 		    			public void run() {
