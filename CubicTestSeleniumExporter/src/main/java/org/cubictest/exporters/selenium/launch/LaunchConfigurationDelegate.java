@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
@@ -211,6 +212,9 @@ public class LaunchConfigurationDelegate extends
 			
 			seleniumMultiWindow = getSeleniumMultiWindow(configuration);
 			
+			if (!ExportUtils.testIsOkForExport(test)) {
+				ErrorHandler.logAndShowErrorDialogAndThrow("Tests with sub test start points cannot be run standalone");
+			}
 			
 			// create the parameters:
 			TestRunner.RunnerParameters parameters = new TestRunner.RunnerParameters();
