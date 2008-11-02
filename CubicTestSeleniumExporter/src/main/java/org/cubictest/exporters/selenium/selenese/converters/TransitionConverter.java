@@ -17,7 +17,6 @@ import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
-import org.cubictest.model.OnOffAutoTriState;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;

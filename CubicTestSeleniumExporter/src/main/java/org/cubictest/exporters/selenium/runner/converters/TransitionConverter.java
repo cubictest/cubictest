@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.converters;
 
-import static org.cubictest.model.ActionType.CLICK;
-
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
@@ -22,7 +20,6 @@ import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
-import org.cubictest.model.OnOffAutoTriState;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.UserInteraction;
@@ -31,8 +28,6 @@ import org.cubictest.model.WebBrowser;
 import org.cubictest.model.context.Frame;
 import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Select;
-
-import com.thoughtworks.selenium.SeleniumException;
 
 /**
  * Class to convert transitions to selenium commands.
