@@ -5,8 +5,9 @@ import junit.framework.TestCase;
 import org.cubictest.exporters.selenium.SeleniumRunner;
 
 /**
-* Custom Test Suite. Run as normal JUnit test.
-*/
+ * Custom Test Suite.
+ * Test set up and tear down logic can be put here. See JUnit documentation.
+ */
 public class CustomTestSuiteTest extends TestCase {
 
 	public void test() {
