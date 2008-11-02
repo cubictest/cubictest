@@ -18,11 +18,8 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
-import org.cubictest.model.Common;
-import org.cubictest.model.CommonTransition;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.OnOffAutoTriState;
-import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.Text;
@@ -41,9 +38,12 @@ import org.cubictest.ui.utils.UserInteractionDialogUtil;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
@@ -109,6 +109,8 @@ public class UserInteractionsComponent {
 	private Button onButton;
 	private Button offButton;
 	private Composite content;
+	private int lastSelectedActionIndex = -99;
+
 
 	public UserInteractionsComponent(UserInteractionsTransition transition, Test test, TestEditPart testPart, 
 			boolean isPropertiesViewMode, PageElement preSelectedPageElement) {
@@ -124,6 +126,10 @@ public class UserInteractionsComponent {
 		this.preSelectedPageElement = preSelectedPageElement;
 		
 		initializeModel(transition);
+		
+		//init:
+		lastSelectedActionIndex = transition.getUserInteractions().size() - 1;
+
 	}
 
 
@@ -162,15 +168,18 @@ public class UserInteractionsComponent {
 					AddUserInteractionCommand addActionCmd = new AddUserInteractionCommand();
 					addActionCmd.setUserInteractionsTransition(transition);
 					addActionCmd.setNewUserInteraction(newUserInteraction);
+					addActionCmd.setIndex(lastSelectedActionIndex + 1);
 					testPart.getViewer().getEditDomain().getCommandStack().execute(addActionCmd);
 				}
 				else {
-					transition.addUserInteraction(newUserInteraction);
+					transition.addUserInteraction(lastSelectedActionIndex + 1, newUserInteraction);
 				}
 			
 				tableViewer.setInput(currentUserInteractions);
 				tableViewer.editElement(newUserInteraction, 0);
 
+				//reset last selected:
+				lastSelectedActionIndex = transition.getUserInteractions().size() - 1;
 			}
 		});
 		
@@ -365,6 +374,15 @@ public class UserInteractionsComponent {
 		tableViewer.setContentProvider(new ActionContentProvider());
 		tableViewer.setLabelProvider(new ActionLabelProvider());
 		tableViewer.setCellModifier(new UserInteractionCellModifier());
+		tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			public void selectionChanged(SelectionChangedEvent event) {
+				UserInteraction selectedAction = (UserInteraction) ((StructuredSelection) event.getSelection()).getFirstElement();
+				int index = transition.getUserInteractions().indexOf(selectedAction);
+				if (index >= 0) {
+					lastSelectedActionIndex = index;
+				}
+			}
+		});
 	}
 	
 	
