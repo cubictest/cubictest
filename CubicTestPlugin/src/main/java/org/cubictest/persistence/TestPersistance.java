@@ -99,7 +99,7 @@ public class TestPersistance {
 			test = (Test) new CubicTestXStream().fromXML(xml);
 		} catch (Exception e) {
 			if (ErrorHandler.getCause(e) instanceof ConversionException) {
-				ErrorHandler.logAndShowErrorDialogAndRethrow("Could not load test (error creating Test from XML file \"" + file.getName() + "\"). If the test was created with a newer version of CubicTest, then you will have to upgrade this version too.\n", e);
+				ErrorHandler.logAndShowErrorDialogAndRethrow("Could not load test (error creating Test from XML file \"" + file.getName() + "\"). If the test was created with a newer version of CubicTest, then please upgrade to that version.\n", e);
 			}
 			else {
 				ErrorHandler.logAndShowErrorDialogAndRethrow("Exception occured. Could not load test.", e);
