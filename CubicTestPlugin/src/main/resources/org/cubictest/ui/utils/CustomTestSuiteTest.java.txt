@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import org.cubictest.exporters.selenium.SeleniumRunner;
 
 /**
-* Custom setUp and tearDown logic can be used in this class, see JUnit documentation.
+* Custom Test Suite. Run as normal JUnit test.
 */
 public class CustomTestSuiteTest extends TestCase {
 
