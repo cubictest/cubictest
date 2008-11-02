@@ -140,7 +140,7 @@ public abstract class PageElement extends PropertyAwareObject
 	 * Get the default action for user interaction with this page element.
 	 */
 	public ActionType getDefaultAction(){
-		return getActionTypes().get(0);
+		return getActionTypes().size() > 0 ? getActionTypes().get(0) : null;
 	}
 	
 	public void setIdentifiers(List<Identifier> identifiers) {

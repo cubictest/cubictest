@@ -65,18 +65,18 @@ public class WizardNewUserActionsCreationPage extends WizardPage {
 		nameContainer.setLayout(formLayout);
 		
 		Label nameLabel = new Label(nameContainer, SWT.NULL);
-		nameLabel.setText("User interaction name:");
+		nameLabel.setText("User interaction name (optional):");
 		
 		FormData data = new FormData();
 		data.left = new FormAttachment(0,0); 
-		data.width = 140;
+		data.width = 170;
 		nameLabel.setLayoutData(data);
 		
 		nameText = new Text(nameContainer, SWT.BORDER | SWT.SINGLE);
 		
 		data = new FormData();
 		data.left = new FormAttachment(nameLabel);
-		data.width = 200;
+		data.width = 170;
 		nameText.setLayoutData(data);
 		
 		nameText.addModifyListener(new ModifyListener(){

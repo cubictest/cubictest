@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.controller;
 
+import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 import java.beans.PropertyChangeEvent;
@@ -124,8 +125,8 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 			figure.setToolTip(new Label("User interaction on the page/state"));
 			conn.setToolTip(new Label("User interaction on the page/state"));
 			
-			List<UserInteraction> actions = transition.getUserInteractions();
-			if(transition.getName() != null && transition.getName().trim().length()>0){
+			List<UserInteraction> actions = transition.getActiveUserInteractions();
+			if(isNotBlank(transition.getName())){
 				Label interactionName = new Label(transition.getName());
 				interactionName.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.USER_INTERACTION_IMAGE));
 				interactionName.setLabelAlignment(PositionConstants.LEFT);

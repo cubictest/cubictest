@@ -12,6 +12,7 @@ package org.cubictest.model;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -67,6 +68,18 @@ public class UserInteractionsTransition extends Transition implements NameProper
 		return userInteractions;
 	}
 	
+	
+	/** Getter that filters out NO_ACTION user interactions */
+	public List<UserInteraction> getActiveUserInteractions() {
+		List<UserInteraction> res = new ArrayList<UserInteraction>();
+		for (UserInteraction action : getUserInteractions()) {
+			if (action.getActionType() != ActionType.NO_ACTION) {
+				res.add(action);
+			}
+		}
+		return res;
+	}
+	
 	/**
 	 * Set the collection of user interactions that constitutes this user interactions transition.
 	 * @param userInteractions the collection of actions that constitutes this user interactions transition.
@@ -88,6 +101,18 @@ public class UserInteractionsTransition extends Transition implements NameProper
 	 * @param userInteraction the user interaction to add.
 	 */
 	public void addUserInteraction(int index, UserInteraction userInteraction){
+		//clean up unused NO_ACTION actions
+		int pos = 0;
+		for (Iterator<UserInteraction> iter = getUserInteractions().iterator(); iter.hasNext();) {
+			if (iter.next().getActionType() == ActionType.NO_ACTION) {
+				iter.remove();
+				if (index >= pos && index > 0) {
+					index--;
+				}
+			}
+			pos++;
+		}
+		
 		userInteractions.add(index, userInteraction);
 		for(int i = 0 ; i < getListeners().getPropertyChangeListeners().length; i++ )
 			userInteraction.addPropertyChangeListener(

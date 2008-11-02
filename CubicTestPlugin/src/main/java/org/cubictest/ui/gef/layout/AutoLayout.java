@@ -88,7 +88,7 @@ public class AutoLayout {
 		UserInteractionsTransition inTransition = (UserInteractionsTransition) node.getInTransition();
 		
 		if (inTransition instanceof UserInteractionsTransition) {
-			numOfActions = inTransition.getUserInteractions().size();
+			numOfActions = inTransition.getActiveUserInteractions().size();
 			if (isNotBlank(inTransition.getName())) {
 				numOfActions++; //space for action name
 			}
@@ -164,7 +164,7 @@ public class AutoLayout {
 			int numOfActions = 0;
 			numOfTrans++;
 			if (t instanceof UserInteractionsTransition) {
-				numOfActions = ((UserInteractionsTransition) t).getUserInteractions().size();
+				numOfActions = ((UserInteractionsTransition) t).getActiveUserInteractions().size();
 				if (isNotBlank(t.getName())) {
 					numOfActions++; //space for action name
 				}
