@@ -27,9 +27,9 @@ public class UserInteractionsTransition extends Transition implements NameProper
 
 	private List<UserInteraction> userInteractions = new ArrayList<UserInteraction>();
 	private AbstractPage page;
-	private OnOffAutoTriState reloadsPage;
 	private Integer secondsToWaitForResult;
 	private String name = "";
+	private boolean hasCustomTimeout;
 	
 	public UserInteractionsTransition() {}
 	
@@ -184,12 +184,12 @@ public class UserInteractionsTransition extends Transition implements NameProper
 		this.userInteractions = realActions;
 	}
 
-	public OnOffAutoTriState getReloadsPage() {
-		return reloadsPage == null ? OnOffAutoTriState.AUTO : reloadsPage;
+	public boolean hasCustomTimeout() {
+		return hasCustomTimeout;
 	}
 
-	public void setReloadsPage(OnOffAutoTriState reloadsPage) {
-		this.reloadsPage = reloadsPage;
+	public void setHasCustomTimeout(boolean hasCustomTimeout) {
+		this.hasCustomTimeout = hasCustomTimeout;
 	}
 
 	public Integer getSecondsToWaitForResult() {

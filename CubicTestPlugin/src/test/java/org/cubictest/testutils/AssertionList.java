@@ -15,6 +15,7 @@ import java.util.List;
 
 import junit.framework.AssertionFailedError;
 
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.holders.IResultHolder;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
@@ -109,6 +110,10 @@ public class AssertionList<T> extends ArrayList<T> implements IResultHolder {
 
 
 	public void setTestName(String testName) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setSettings(CubicTestProjectSettings settings) {
 		// TODO Auto-generated method stub
 		
 	}

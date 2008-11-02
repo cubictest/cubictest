@@ -50,6 +50,7 @@ public class LegacyUpgrade {
 		xml = upgradeModel6to7(xml, version, project);
 		xml = upgradeModel7to8(xml, version, project);
 		xml = upgradeModel8to9(xml, version, project);
+		xml = upgradeModel9to10(xml, version, project);
 		return xml;
 	}
 
@@ -365,6 +366,40 @@ public class LegacyUpgrade {
 			for(Object pathNode : xpath.selectNodes(rootElement)){
 				if(pathNode instanceof Element){
 					((Element) pathNode).addContent(new Element("parameterIndex").setText("-1"));
+				}
+			}
+			xml = new XMLOutputter().outputString(document);
+		}
+		catch (Exception e) {
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Could not convert old file format to new format.", e);
+		}
+		version.increment();
+		return xml;
+	}
+	
+	private static String upgradeModel9to10(String xml, ModelVersion version, IProject project) {
+		if (version.getVersion() != 9) {
+			return xml;
+		}
+		try {
+			//Converting "reloadsPage" OnOffTriState to hasDefaultTimeout boolean
+			Document document = new SAXBuilder().build(new StringReader(xml));
+			Element rootElement = document.getRootElement();
+			JDOMXPath xpath = new JDOMXPath("//reloadsPage");
+			for(Object node : xpath.selectNodes(rootElement)){
+				if(node instanceof Element){
+					Element element = ((Element) node);
+					element.setName("hasCustomTimeout");
+					String oldValue = element.getText();
+					String newValue = "false";
+					if ("OFF".equals(oldValue)) {
+						newValue = "true";
+					}
+					element.setText(newValue);
+					Attribute referenceAttr = element.getAttribute("reference");
+					if (referenceAttr != null) {
+						referenceAttr.setValue(StringUtils.replace(referenceAttr.getValue(), "reloadsPage", "hasCustomTimeout"));
+					}
 				}
 			}
 			xml = new XMLOutputter().outputString(document);

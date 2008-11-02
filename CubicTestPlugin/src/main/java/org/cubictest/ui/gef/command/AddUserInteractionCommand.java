@@ -26,6 +26,7 @@ public class AddUserInteractionCommand extends Command {
 
 	private UserInteraction userInteraction;
 	private UserInteractionsTransition transition;
+	private int index = -1;
 
 
 	public void setUserInteractionsTransition(UserInteractionsTransition transition) {
@@ -41,7 +42,12 @@ public class AddUserInteractionCommand extends Command {
 	 * @see org.eclipse.gef.commands.Command#execute()
 	 */
 	public void execute() {
-		transition.addUserInteraction(userInteraction);
+		if (index < 0) {
+			transition.addUserInteraction(userInteraction);
+		}
+		else {
+			transition.addUserInteraction(index, userInteraction);
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -49,6 +55,10 @@ public class AddUserInteractionCommand extends Command {
 	 */
 	public void undo() {
 		transition.removeUserInteraction(userInteraction);
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 

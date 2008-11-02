@@ -73,11 +73,12 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 			}
 			seleniumHolder = new SeleniumHolder(host, port, browser.getId(), baseUrl, display, settings);
 			seleniumHolder.getSelenium().start();
-			int timeout = SeleniumUtils.getTimeout(settings) * 1000;
-			seleniumHolder.getSelenium().setTimeout(timeout + "");
-
-			//open start URL and check connection (that browser profiles has been set correctly):
+			//using selenium default timeout, open start URL and check connection (that browser profiles has been set correctly):
 			seleniumHolder.getSelenium().open(initUrl);
+
+			int timeout = SeleniumUtils.getTimeout(settings);
+			seleniumHolder.getSelenium().setTimeout((timeout * 1000) + "");
+			seleniumHolder.setNextPageElementTimeout(timeout);
 		}
 		else {
 			//use custom Selenium, e.g. from the CubicRecorder.

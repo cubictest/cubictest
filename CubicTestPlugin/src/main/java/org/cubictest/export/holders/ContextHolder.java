@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.utils.exported.XPathBuilder;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.PageElement;
@@ -38,7 +39,18 @@ public abstract class ContextHolder implements IResultHolder {
 	private Map<PageElement, PageElement> elementParentMap = new HashMap<PageElement, PageElement>();
 	private boolean shouldFailOnAssertionFailure;
 	private boolean useNamespace = false;
+	private CubicTestProjectSettings settings;
 	
+	public CubicTestProjectSettings getSettings() {
+		return settings;
+	}
+
+
+	public void setSettings(CubicTestProjectSettings settings) {
+		this.settings = settings;
+	}
+
+
 	/**
 	 * Set new context, i.e. XPath starting point (path) for lookup of elements.
 	 * @param ctx

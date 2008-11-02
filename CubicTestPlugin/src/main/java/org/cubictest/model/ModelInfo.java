@@ -23,6 +23,6 @@ package org.cubictest.model;
 public class ModelInfo {
 
 	public static String getCurrentModelVersion() {
-		return "9";
+		return "10";
 	}
 }

@@ -19,7 +19,6 @@ import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
-import org.cubictest.model.OnOffAutoTriState;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.Text;
@@ -51,6 +50,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
@@ -105,9 +106,8 @@ public class UserInteractionsComponent {
 	private Label secsToWaitLabel;
 	private org.eclipse.swt.widgets.Text secsToWaitText;
 	private final PageElement preSelectedPageElement;
-	private Button autoButton;
-	private Button onButton;
-	private Button offButton;
+	private Button defaultTimeoutButton;
+	private Button customTimeoutButton;
 	private Composite content;
 	private int lastSelectedActionIndex = -99;
 
@@ -183,53 +183,53 @@ public class UserInteractionsComponent {
 			}
 		});
 		
-		Label label = new Label(content, SWT.NONE);
-		label.setText("Transition reloads page:");
-
-		label = new Label(content, SWT.NONE);
-		label.setText(" Auto:");
-		autoButton = new Button(content, SWT.RADIO);
-		autoButton.addSelectionListener(new SelectionAdapter(){
+		Label timeoutLabel = new Label(content, SWT.NONE);
+		timeoutLabel.setText("Timeout for result:");
+		
+		defaultTimeoutButton = new Button(content, SWT.RADIO);
+		defaultTimeoutButton.addSelectionListener(new SelectionAdapter(){
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				secsToWaitLabel.setVisible(false);
-				secsToWaitText.setVisible(false);
-				transition.setReloadsPage(OnOffAutoTriState.AUTO);
-				setEditorDirty();
+				defaultTimeoutSelected();
 			}
+		});
+		Label defaultTimeoutLabel = new Label(content, SWT.NONE);
+		defaultTimeoutLabel.setText("Default");
+		defaultTimeoutLabel.addMouseListener(new MouseListener() {
+			public void mouseDoubleClick(MouseEvent e) {
+				defaultTimeoutSelected();
+			}
+			public void mouseDown(MouseEvent e) {
+				defaultTimeoutSelected();
+			}
+			public void mouseUp(MouseEvent e) {}
 		});
 
-		label = new Label(content, SWT.NONE);
-		label.setText(" Yes:");
-		onButton = new Button(content, SWT.RADIO);
-		onButton.addSelectionListener(new SelectionAdapter(){
+		customTimeoutButton = new Button(content, SWT.RADIO);
+		customTimeoutButton.addSelectionListener(new SelectionAdapter(){
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				secsToWaitLabel.setVisible(false);
-				secsToWaitText.setVisible(false);
-				transition.setReloadsPage(OnOffAutoTriState.ON);
-				setEditorDirty();
+				customTimeoutSelected();
 			}
+		});
+		Label customTimeoutLabel = new Label(content, SWT.NONE);
+		customTimeoutLabel.setText("Custom");
+		customTimeoutLabel.addMouseListener(new MouseListener() {
+			public void mouseDoubleClick(MouseEvent e) {
+				customTimeoutSelected();
+			}
+			public void mouseDown(MouseEvent e) {
+				customTimeoutSelected();
+			}
+			public void mouseUp(MouseEvent e) {}
 		});
 
-		label = new Label(content, SWT.NONE);
-		label.setText(" No:");
-		offButton = new Button(content, SWT.RADIO);
-		offButton.addSelectionListener(new SelectionAdapter(){
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				secsToWaitLabel.setVisible(true);
-				secsToWaitText.setVisible(true);
-				transition.setReloadsPage(OnOffAutoTriState.OFF);
-				setEditorDirty();
-			}
-		});
 		secsToWaitLabel = new Label(content, SWT.NONE);
-		secsToWaitLabel.setText(" Seconds to wait for result:");
-		secsToWaitLabel.setVisible(offButton.getSelection());
+		secsToWaitLabel.setText("timeout seconds:");
+		secsToWaitLabel.setVisible(customTimeoutButton.getSelection());
 		secsToWaitText = new org.eclipse.swt.widgets.Text(content, SWT.BORDER);
 		secsToWaitText.setText(transition.getSecondsToWaitForResult() + "");
-		secsToWaitText.setVisible(offButton.getSelection());
+		secsToWaitText.setVisible(customTimeoutButton.getSelection());
 		secsToWaitText.setLayoutData(new GridData(30, SWT.DEFAULT));
 		secsToWaitText.addModifyListener(new ModifyListener(){
 			public void modifyText(ModifyEvent e) {
@@ -277,11 +277,9 @@ public class UserInteractionsComponent {
 			userInteractions.add(first);
 		}
 		
-		OnOffAutoTriState transReloadsPage = transition.getReloadsPage();
-		autoButton.setSelection(transReloadsPage.equals(OnOffAutoTriState.AUTO));
-		onButton.setSelection(transReloadsPage.equals(OnOffAutoTriState.ON));
-		offButton.setSelection(transReloadsPage.equals(OnOffAutoTriState.OFF));
-		if (transReloadsPage.equals(OnOffAutoTriState.OFF)) {
+		customTimeoutButton.setSelection(transition.hasCustomTimeout());
+		defaultTimeoutButton.setSelection(!transition.hasCustomTimeout());
+		if (transition.hasCustomTimeout()) {
 			secsToWaitLabel.setVisible(true);
 			secsToWaitText.setVisible(true);
 		}
@@ -758,5 +756,24 @@ public class UserInteractionsComponent {
 		for(Control  control : content.getChildren())
 			control.setBackground(color);
 	}
+	
+	private void customTimeoutSelected() {
+		defaultTimeoutButton.setSelection(false);
+		customTimeoutButton.setSelection(true);
+		secsToWaitLabel.setVisible(true);
+		secsToWaitText.setVisible(true);
+		transition.setHasCustomTimeout(true);
+		setEditorDirty();
+	}
+
+	private void defaultTimeoutSelected() {
+		defaultTimeoutButton.setSelection(true);
+		customTimeoutButton.setSelection(false);
+		secsToWaitLabel.setVisible(false);
+		secsToWaitText.setVisible(false);
+		transition.setHasCustomTimeout(false);
+		setEditorDirty();
+	}
+
 }
 

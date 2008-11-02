@@ -82,6 +82,10 @@ public class CubicTestLocalRunner {
 		return selenium.isTextPresent(text);
 	}
 
+	public boolean isElementPresent(String locator) {
+		return selenium.isElementPresent(locator);
+	}
+
 	public void waitForPageToLoad(String string) {
 		selenium.waitForPageToLoad(string);
 	}

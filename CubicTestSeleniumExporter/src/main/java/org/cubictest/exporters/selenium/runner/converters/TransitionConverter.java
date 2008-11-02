@@ -63,44 +63,14 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			seleniumHolder.addResult(null, TestPartStatus.PASS);
 		}
 		
-		boolean defaultWaitForPageReload = false;
-		
-		int numActions = transition.getUserInteractions().size();
-		if (numActions > 0) {
-			UserInteraction lastAction = transition.getUserInteractions().get(numActions - 1);
-			if (lastAction.getActionType().equals(CLICK)) {
-				defaultWaitForPageReload = true;
-			}
+		if (transition.hasCustomTimeout()) {
+			seleniumHolder.setNextPageElementTimeout(transition.getSecondsToWaitForResult());
 		}
-		
-		if ((transition.getReloadsPage().equals(OnOffAutoTriState.AUTO) && defaultWaitForPageReload) 
-				|| (transition.getReloadsPage().equals(OnOffAutoTriState.ON))){
-			int timeout = SeleniumUtils.getTimeout(seleniumHolder.getSettings());
-			waitForPageToLoad(seleniumHolder, timeout);
-		}
-		else if (transition.getReloadsPage().equals(OnOffAutoTriState.OFF)) {
-			try {
-				Thread.sleep(transition.getSecondsToWaitForResult() * 1000);
-			} catch (InterruptedException e) {
-				Logger.warn("Interrupted while sleepting after user interaction");
-			}
+		else {
+			seleniumHolder.setNextPageElementTimeout(SeleniumUtils.getTimeout(seleniumHolder.getSettings()));;
 		}
 	}
 
-
-	private void waitForPageToLoad(SeleniumHolder seleniumHolder, int seconds) {
-		try {
-			long millis = seconds * 1000;
-			seleniumHolder.getSelenium().waitForPageToLoad(millis + "");
-		}
-		catch (SeleniumException e) {
-			Logger.error("Error from Selenium", e);
-			throw new ExporterException("Selenium error while waiting for page to load: " + e.toString() + ". Timeout used: " + seconds + " seconds.\n\nThis may be due to an unsupported redirect.\n\n" +
-					"You might want try one of the experimental browser launchers (e.g. Firefox chrome or proxy injection mode).");
-		}
-	}
-	
-	
 	/**
 	 * Converts a single user interaction to a Selenium command.
 	 * @return the Selenium command name invoked. 

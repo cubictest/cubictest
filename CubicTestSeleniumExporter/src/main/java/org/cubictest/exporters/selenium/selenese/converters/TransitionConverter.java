@@ -36,8 +36,6 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 	 * Converts a user interactions transition to Selenium commands (Selenese steps).
 	 */
 	public void handleUserInteractions(SeleneseDocument doc, UserInteractionsTransition transition) {
-		boolean needsPageReload = false;
-		
 		for (UserInteraction action : transition.getUserInteractions()) {
 			IActionElement actionElement = action.getElement();
 			
@@ -45,17 +43,14 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 				Logger.warn("Action element was null. Skipping user interaction: " + action);
 				continue;
 			}
-			String commandName = handleUserInteraction(doc, action);
-			if (!commandName.equals(SeleniumUtils.FIREEVENT)) {
-				needsPageReload = true;
-			}
+			handleUserInteraction(doc, action);
 		}
-
-		if ((transition.getReloadsPage().equals(OnOffAutoTriState.AUTO) && needsPageReload) 
-				|| (transition.getReloadsPage().equals(OnOffAutoTriState.ON))){
-			int timeout = transition.getSecondsToWaitForResult();
-			waitForPageToLoad(doc, timeout);
+		
+		int timeout = SeleniumUtils.getTimeout(doc.getSettings());
+		if (transition.hasCustomTimeout()) {
+			timeout = transition.getSecondsToWaitForResult();
 		}
+		doc.addCommand("setTimeout", (timeout * 1000) + "");
 	}
 	
 	

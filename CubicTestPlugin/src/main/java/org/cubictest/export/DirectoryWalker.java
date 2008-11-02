@@ -15,6 +15,7 @@ import java.io.FileWriter;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.exception.ResourceNotCubicTestFileException;
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.export.converters.TreeTestWalker;
@@ -146,6 +147,7 @@ public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithPr
 		}
 	
 		T resultHolder = resultHolderClass.newInstance();
+		resultHolder.setSettings(new CubicTestProjectSettings(testFile.getProject()));
 		resultHolder.setTestName(StringUtils.isBlank(test.getName()) ? test.getFile().getName() : test.getName());
 		testWalker.convertTest(test, resultHolder);
 

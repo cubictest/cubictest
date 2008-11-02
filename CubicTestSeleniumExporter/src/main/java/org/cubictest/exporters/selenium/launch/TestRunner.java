@@ -18,6 +18,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.TreeTestWalker;
@@ -144,6 +145,7 @@ public class TestRunner {
 		seleniumStarter.setPort(runnerParameters.seleniumPort);
 		seleniumStarter.setMultiWindow(runnerParameters.seleniumMultiWindow);
 		seleniumStarter.setStartNewSeleniumServer(runnerParameters.serverAutoHostAndPort);
+		seleniumStarter.setSettings(new CubicTestProjectSettings(runnerParameters.test.getProject())); 
 
 		//start cancel handler, in case we want to cancel the Selenium startup or test run:
 		if (monitor != null) {

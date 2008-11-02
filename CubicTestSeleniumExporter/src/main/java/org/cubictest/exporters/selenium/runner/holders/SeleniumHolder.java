@@ -46,6 +46,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 	private String timestampFolder = new SimpleDateFormat("yyyy-MM-dd HHmm").format(new Date());
 	private boolean takeScreenshots;
 	private boolean captureHtml;
+	private int nextPageElementTimeout;
 	
 	
 	public SeleniumHolder(Selenium selenium, Display display, CubicTestProjectSettings settings) {
@@ -148,6 +149,16 @@ public class SeleniumHolder extends RunnerResultHolder {
 
 	public void setTestName(String testName) {
 		//not in use
+	}
+
+	/** Set next timeout in seconds */
+	public void setNextPageElementTimeout(int nextPageElementTimeout) {
+		this.nextPageElementTimeout = nextPageElementTimeout;
+	}
+	
+	/** Get next timeout in seconds */
+	public int getNextPageElementTimeout() {
+		return nextPageElementTimeout;
 	}
 
 }

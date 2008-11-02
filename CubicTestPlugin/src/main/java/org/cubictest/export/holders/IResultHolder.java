@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.export.holders;
 
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
@@ -60,4 +61,6 @@ public interface IResultHolder {
 	public void resetStatus(PropertyAwareObject object);
 
 	public void setTestName(String testName);
+	
+	public void setSettings(CubicTestProjectSettings settings);
 }
