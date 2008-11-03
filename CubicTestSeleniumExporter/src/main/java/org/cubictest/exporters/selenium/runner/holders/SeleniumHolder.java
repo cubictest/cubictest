@@ -20,11 +20,8 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
-import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.UrlStartPoint;
-import org.cubictest.model.context.Frame;
-import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.Selenium;
@@ -53,6 +50,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 		super(display, settings);
 		//use Selenium from client e.g. the CubicRecorder
 		this.selenium = new CubicTestLocalRunner(selenium);
+		this.nextPageElementTimeout = SeleniumUtils.getTimeout(settings);
 	}
 	
 	public SeleniumHolder(String host, int port, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
@@ -63,10 +61,12 @@ public class SeleniumHolder extends RunnerResultHolder {
 		if(host == null)
 			host = "localhost";
 		this.selenium = new CubicTestLocalRunner(host, port, browser, initialUrl);
+		this.nextPageElementTimeout = SeleniumUtils.getTimeout(settings);
 	}
 	
 	public SeleniumHolder(int port, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
 		this("localhost",port,browser, initialUrl, display, settings);
+		this.nextPageElementTimeout = SeleniumUtils.getTimeout(settings);
 	}
 	
 	public CubicTestLocalRunner getSelenium() {
