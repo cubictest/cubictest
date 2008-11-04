@@ -2,9 +2,9 @@
   <classpathentry kind="src" path="src/main/java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="var" path="M2_REPO/org/cubictest/cubictest/1.8.9/cubictest-1.8.9.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/cubictest/cubictest-selenium-rc/1.8.9/cubictest-selenium-rc-1.8.9.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/cubictest/cubictest/1.8.11/cubictest-1.8.11.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/cubictest/cubictest-selenium-rc/1.8.11/cubictest-selenium-rc-1.8.11.jar"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/cubictest/selenium-exporter/1.8.9/selenium-exporter-1.8.9.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/cubictest/selenium-exporter/1.8.11/selenium-exporter-1.8.11.jar"/>
 </classpath>
