@@ -5,14 +5,15 @@ import java.util.Map;
 import com.thoughtworks.selenium.Selenium;
 
 /**
- * The implementation is called from CubicTest to execute an Custom Test Step.
+ * Class for holding custom test code.
+ * Implementing class is invoked from CubicTest during a test run.
  * 
  * @author SK Skytteren
  */
 public interface ICustomTestStep {
 		
 	/**
-	 * Execute the test this element represents.
+	 * Execute the custom test step.
 	 * 
 	 * We expect you to use JUnit type assertions like assertEquals, etc. 
 	 * In this way CubicTest can handle the CustomTestStep assertion failures correctly.
