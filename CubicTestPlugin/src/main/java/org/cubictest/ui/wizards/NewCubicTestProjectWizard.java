@@ -14,6 +14,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.cubictest.common.utils.ErrorHandler;
@@ -120,6 +121,9 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			project.open(monitor);
 
 			IJavaProject javaProject = JavaCore.create(project);
+			Map java15options = javaProject.getOptions(true);
+			JavaCore.setComplianceOptions("1.5", java15options);
+			javaProject.setOptions(java15options);
 			
 			IFolder testFolder = project.getFolder(TESTS_FOLDER_NAME);
 			testFolder.create(false, true, monitor);
