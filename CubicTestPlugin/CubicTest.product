@@ -152,8 +152,10 @@ Erlend Halvorsen
       <plugin id="org.junit4"/>
       <plugin id="org.mortbay.jetty"/>
       <plugin id="org.tigris.subversion.clientadapter"/>
-      <plugin id="org.tigris.subversion.javahl.win32"/>
+      <plugin id="org.tigris.subversion.clientadapter.javahl"/>
+      <plugin id="org.tigris.subversion.clientadapter.javahl.win32" fragment="true"/>
       <plugin id="org.tigris.subversion.subclipse.core"/>
+      <plugin id="org.tigris.subversion.subclipse.doc"/>
       <plugin id="org.tigris.subversion.subclipse.ui"/>
    </plugins>
 
