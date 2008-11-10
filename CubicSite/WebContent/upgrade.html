@@ -53,8 +53,12 @@
 			<div class="description">
 				Follow the procedure above. To get the new "Custom Test Suites" feature to work from maven 2, do the following.
 				<ul>
+					<li>	
+						Create a new CubicTest project and take a look at the CustomTestSuite.java sample file that is created.
+						Copy the file into your existing project to get a head start at writing cusstom test suites. 
+					</li>
 					<li>
-						Modify your project's pom.xml and add the following:
+						Modify your project's pom.xml and add the following:<br/>(you might also want to check out/copy the default pom.xml of a new CubicTest project in 1.8.11)
 						
 						<div style="border: 1px"><pre>
   &lt;repositories&gt;
@@ -112,10 +116,6 @@
     ....
   &lt;/dependencies&gt;  	
 						</pre></div>
-					</li>
-					<li>	
-						Create a new CubicTest project and take a look at the CustomTestSuite.java sample file that is created.
-						Copy the file into your existing project to get a head start at writing cusstom test suites. 
 					</li>
 				</ul>
 			</div>
