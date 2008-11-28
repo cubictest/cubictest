@@ -55,8 +55,13 @@ public class Language{
 	}
 
 	public String get(String key) {
-		if(key == null)
-			key = keySet().iterator().next();
+		if(key == null) {
+			if (keySet().isEmpty()) {
+				return "[No keys defined in property file]";
+			} else {
+				key = keySet().iterator().next();
+			}
+		}
 		if(key == null)
 			return "";
 		
@@ -122,6 +127,9 @@ public class Language{
 	}
 	
 	public boolean relaxedEqual(Language other) {
+		if (other == null) {
+			return false;
+		}
 		return name.equals(other.getName()) && fileName.equals(other.getFileName());
 	}
 }
