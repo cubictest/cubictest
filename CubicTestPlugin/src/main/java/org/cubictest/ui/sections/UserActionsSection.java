@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.ui.sections;
 
+import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.controller.TestEditPart;
@@ -33,7 +34,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
  */
 public class UserActionsSection extends AbstractPropertySection {
 
-	private UserInteractionsTransition actions;
+	private UserInteractionsTransition transition;
 	private UserInteractionsComponent component;
 	private Composite parent = null;
 	private boolean created = false;
@@ -49,19 +50,19 @@ public class UserActionsSection extends AbstractPropertySection {
 		Assert.isTrue(selection instanceof IStructuredSelection);
 		Object input = ((IStructuredSelection) selection).getFirstElement();
 		Assert.isTrue(input instanceof UserInteractionsTransitionEditPart);
-		actions = (UserInteractionsTransition) ((UserInteractionsTransitionEditPart) input).getModel();
+		transition = (UserInteractionsTransition) ((UserInteractionsTransitionEditPart) input).getModel();
 		Assert.isTrue(part instanceof GraphicalTestEditor);
 		test = ((GraphicalTestEditor)part).getTest();
 		TestEditPart testPart = (TestEditPart) ((GraphicalTestEditor) part).getGraphicalViewer().getContents();
 
-		if(actions != null && parent != null){
+		if(transition != null && parent != null && !(transition.getStart() instanceof IStartPoint)){
 			if (created) {
-				component.setTransition(actions);
-				component.initializeModel(actions);
+				component.setTransition(transition);
+				component.initializeModel(transition);
 				component.populateView();
 			}
 			else {
-				component = new UserInteractionsComponent(actions, test, testPart, true, null);
+				component = new UserInteractionsComponent(transition, test, testPart, true, null);
 				component.createControl(parent);
 				component.setBackgroundColor(ColorConstants.white);
 				this.parent.setSize(400, 300);
