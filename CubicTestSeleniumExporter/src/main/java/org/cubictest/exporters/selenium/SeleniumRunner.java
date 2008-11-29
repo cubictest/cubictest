@@ -43,8 +43,14 @@ public class SeleniumRunner
 	private static final String LOG_PREFIX = "[CubicTest Selenium Runner] ";
 
 	private Set<TestListener> listeners;
+	private static final boolean REUSE_BROWSER_DEFAULT = true;
+	private boolean reuseBrowser = REUSE_BROWSER_DEFAULT;
+	private TestRunner testRunner;
 
-	public SeleniumRunner(){
+	/**
+	 * Create a new instance of the runner. Default settings is to reuse browser between test files.
+	 */
+	public SeleniumRunner() {
 		listeners = new HashSet<TestListener>();
 	}
 	
@@ -58,24 +64,24 @@ public class SeleniumRunner
 	
 	/**
 	 * Run tests in specified directory and all subdirectories.
-	 * @param dirPath Path to directory to run tests in, relative to project root.
+	 * @param directoryPath Path to directory to run tests in, relative to project root.
 	 */
     @SuppressWarnings("unchecked")
-	public void runTests(String dirPath)
+	public void runTests(String directoryPath)
     {
-    	if (StringUtils.isBlank(dirPath)) {
+    	if (StringUtils.isBlank(directoryPath)) {
     		throw new ExporterException("Please specify a path relative to the project root. E.g. \"/tests\"");
     	}
     	
-    	if (dirPath.equals("/")) {
-    		dirPath = ".";
+    	if (directoryPath.equals("/")) {
+    		directoryPath = ".";
     	}
-    	else if (dirPath.startsWith("/")) {
+    	else if (directoryPath.startsWith("/")) {
 			//remove "/" as it should be relative to project root, not file system root.
-			dirPath = dirPath.substring(1);
+			directoryPath = directoryPath.substring(1);
     	}
 
-    	File dir = new File(dirPath);
+    	File dir = new File(directoryPath);
     	
 		System.out.println(LOG_PREFIX + "Running all tests in folder " + dir.getAbsolutePath() + " and subfolders.");
     	
@@ -122,7 +128,7 @@ public class SeleniumRunner
         runTests(files);
     }
 
-	private void runTests(Collection<File> files) throws AssertionError {
+	public void runTests(Collection<File> files) throws AssertionError {
         
 		CubicTestProjectSettings settings = new CubicTestProjectSettings(new File("."));
 
@@ -137,11 +143,14 @@ public class SeleniumRunner
 
         boolean buildOk = true;
         
-        TestRunner testRunner = null;
-        boolean useFreshBrowser = settings.getBoolean(SeleniumUtils.getPluginPropertyPrefix(), "useNewBrowserInstanceForEachTestSuiteFile", false);
-        System.out.println(LOG_PREFIX + "Use new browser instance for each test suite file: " + useFreshBrowser);
-        boolean reuseBrowser = !useFreshBrowser;
-        if (reuseBrowser) {
+        if (reuseBrowser == REUSE_BROWSER_DEFAULT) {
+        	//can now be overridden with global property setting
+        	reuseBrowser = !settings.getBoolean(SeleniumUtils.getPluginPropertyPrefix(), "useNewBrowserInstanceForEachTestSuiteFile", false);
+        }
+        System.out.println(LOG_PREFIX + "Keep browser open between test suite files: " + reuseBrowser);
+        
+        if (reuseBrowser && testRunner == null) {
+        	//we start the browser just once for this instance
 			testRunner = new TestRunner(null, null, settings, true);
 			testRunner.setReuseSelenium(true);
 			testRunner.setFailOnAssertionFailure(true);
@@ -190,23 +199,26 @@ public class SeleniumRunner
             	}
     			failedTests.add(file.getName());
     			buildOk = false;
+    			testRunner = null;
     			break;
     		}
     		catch (Throwable e) {
     			System.err.println(LOG_PREFIX + "Error detected during test run. Stopping Selenium.");
     			stopSelenium(testRunner);
+    			testRunner = null;
     			System.err.println(e);
     			exceptionTests.add(file.getName());
     			buildOk = false;
     			break;
 			}
         }
-		if (reuseBrowser) {
+		if (!reuseBrowser) {
 			if (!files.isEmpty() && testRunner != null) {
     			stopSelenium(testRunner);
 			}
 	    	logSeperator();
         	System.out.println("Test run finished: " + testRunner.getResultMessage());
+			testRunner = null;
 		}        
     	logSeperator();
         System.out.println("Tests passed: " + passedTests.toString());
@@ -236,4 +248,12 @@ public class SeleniumRunner
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Set option to force new browser instance for each test.
+	 */
+	public void forceNewBrowserInstanceForEachTest() {
+		this.reuseBrowser = false;
+	}
+	
 }

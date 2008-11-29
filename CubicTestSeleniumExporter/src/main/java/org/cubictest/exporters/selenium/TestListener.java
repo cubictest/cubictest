@@ -2,7 +2,7 @@ package org.cubictest.exporters.selenium;
 
 public interface TestListener {
 	
-	void handleTestFinnished(TestEvent event);
+	void handleTestFinished(TestEvent event);
 
 	void handleTestFailed(TestEvent event);
 	
