@@ -37,7 +37,6 @@ import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.Select;
 import org.cubictest.model.formElement.TextArea;
 import org.cubictest.model.formElement.TextField;
-import org.cubictest.model.popup.JavaScriptPopup;
 import org.cubictest.ui.gef.controller.CommonEditPart;
 import org.cubictest.ui.gef.controller.CommonTransitionEditPart;
 import org.cubictest.ui.gef.controller.ContextEditPart;
@@ -45,7 +44,6 @@ import org.cubictest.ui.gef.controller.CustomTestStepEditPart;
 import org.cubictest.ui.gef.controller.ExtensionPointEditPart;
 import org.cubictest.ui.gef.controller.ExtensionStartPointEditPart;
 import org.cubictest.ui.gef.controller.ExtensionTransitionEditPart;
-import org.cubictest.ui.gef.controller.JavaScriptPopupEditPart;
 import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.PageImageEditPart;
 import org.cubictest.ui.gef.controller.PageLinkEditPart;
@@ -136,8 +134,6 @@ public class TestEditPartFactory implements EditPartFactory {
 			return new SubTestStartPointEditPart((SubTestStartPoint)model);
 		if (model instanceof TestSuiteStartPoint)
 			return new TestSuiteStartPointEditPart((TestSuiteStartPoint)model);
-		if (model instanceof JavaScriptPopup) 
-			return new JavaScriptPopupEditPart((JavaScriptPopup)model);
 		return null;
 	}
 
