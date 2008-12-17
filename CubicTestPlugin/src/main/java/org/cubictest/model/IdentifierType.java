@@ -53,7 +53,7 @@ public enum IdentifierType {
 	MULTISELECT("Multiselect", "Check whether it is possible to select several elements.", true, false, false),
 	
 	/** HTML title attribute */
-	TITLE("Tooltip", "Check the tooltip text.", false, true, true),
+	TITLE("Tooltip", "Check the tooltip text (title attribute).", false, true, true),
 	
 	/** Element index in page */
 	INDEX("Index", "Check the element's index in the page / Context. " +
