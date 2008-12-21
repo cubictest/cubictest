@@ -15,13 +15,13 @@ import static org.cubictest.model.IdentifierType.LABEL;
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.export.utils.exported.RunnerUtils;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
+import org.cubictest.exporters.selenium.utils.CubicWait;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 
-import com.thoughtworks.selenium.Wait;
 import com.thoughtworks.selenium.Wait.WaitTimedOutException;
 
 /**
@@ -74,7 +74,7 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 	private void waitForElement(final SeleniumHolder seleniumHolder, PageElement pe, final boolean isNot) {
 		final String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(pe);
 
-		new Wait() {
+		new CubicWait() {
 			public boolean until() {
 				if (isNot) {
 					return !seleniumHolder.getSelenium().isElementPresent(locator);
@@ -87,7 +87,7 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 	}
 	
 	private void waitForText(final SeleniumHolder seleniumHolder, final String text, final boolean isNot) {
-		new Wait() {
+		new CubicWait() {
 			public boolean until() {
 				if (isNot) {
 					return !seleniumHolder.getSelenium().isTextPresent(text);
