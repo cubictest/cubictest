@@ -18,8 +18,6 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-LazyStart: true
 Bundle-ClassPath: .,
  lib/jdom.jar,
- lib/selenium-exporter-1.8.11.jar,
- lib/cubictest-1.8.11.jar,
  lib/cubictest-selenium-rc-1.8.11.jar,
  lib/junit-4.4-src.jar,
  lib/junit-4.4.jar
