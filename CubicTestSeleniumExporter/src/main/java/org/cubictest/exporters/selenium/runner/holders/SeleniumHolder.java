@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.holders;
 
+import static org.apache.commons.lang.StringUtils.isBlank;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,34 +48,30 @@ public class SeleniumHolder extends RunnerResultHolder {
 	private int nextPageElementTimeout;
 	
 	
+	/**
+	 * Use pre-configured and started Selenium instance from client e.g. the CubicRecorder
+	 * @param selenium the Selenium to use.
+	 * @param display the display for showing results.
+	 * @param settings settings for the project.
+	 */
 	public SeleniumHolder(Selenium selenium, Display display, CubicTestProjectSettings settings) {
 		super(display, settings);
-		//use Selenium from client e.g. the CubicRecorder
 		this.selenium = new CubicTestLocalRunner(selenium);
 		this.nextPageElementTimeout = SeleniumUtils.getTimeout(settings);
 	}
 	
-	public SeleniumHolder(String host, int port, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
+	public SeleniumHolder(String seleniumServerHostname, int seleniumServerPort, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
 		super(display, settings);
-		if (port < 80) {
+		if (seleniumServerPort < 80) {
 			throw new ExporterException("Invalid port");
 		}
-		if(host == null)
-			host = "localhost";
-		this.selenium = new CubicTestLocalRunner(host, port, browser, initialUrl);
+		if(isBlank(seleniumServerHostname)) {
+			seleniumServerHostname = "localhost";
+		}
+		this.selenium = new CubicTestLocalRunner(seleniumServerHostname, seleniumServerPort, browser, initialUrl);
 		this.nextPageElementTimeout = SeleniumUtils.getTimeout(settings);
 	}
 	
-	public SeleniumHolder(int port, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
-		this("localhost",port,browser, initialUrl, display, settings);
-		this.nextPageElementTimeout = SeleniumUtils.getTimeout(settings);
-	}
-	
-	public CubicTestLocalRunner getSelenium() {
-		
-		return selenium;
-	}
-
 	@Override
 	protected void handleAssertionFailure(PropertyAwareObject element) {
 		
@@ -159,6 +157,10 @@ public class SeleniumHolder extends RunnerResultHolder {
 	/** Get next timeout in seconds */
 	public int getNextPageElementTimeout() {
 		return nextPageElementTimeout;
+	}
+
+	public CubicTestLocalRunner getSelenium() {
+		return selenium;
 	}
 
 }

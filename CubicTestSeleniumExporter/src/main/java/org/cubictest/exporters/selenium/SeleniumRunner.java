@@ -23,6 +23,7 @@ import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.EmptyTestSuiteException;
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.exporters.selenium.runner.TestRunner;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.Test;
@@ -46,13 +47,25 @@ public class SeleniumRunner
 	private static final boolean REUSE_BROWSER_DEFAULT = true;
 	private boolean reuseBrowser = REUSE_BROWSER_DEFAULT;
 	private TestRunner testRunner;
+	private SeleniumRunnerConfiguration config;
 
 	/**
-	 * Create a new instance of the runner. Default settings is to reuse browser between test files.
+	 * Create a new instance of the runner. Uses a default SeleniumRunnerConfiguration.
+	 * Default settings is to reuse browser between test files.
 	 */
 	public SeleniumRunner() {
 		listeners = new HashSet<TestListener>();
+		this.config = new SeleniumRunnerConfiguration();
 	}
+
+	/**
+	 * Set the configuration object to use.
+	 * The SeleniumRunnerConfiguration is a subclass of the standard Selenium RC RemoteControlConfiguration.
+	 */
+	public void setConfiguration(SeleniumRunnerConfiguration configuration) {
+		this.config = configuration;
+	}
+
 	
 	public void addTestListener(TestListener listener){
 		listeners.add(listener);
@@ -151,7 +164,7 @@ public class SeleniumRunner
         
         if (reuseBrowser && testRunner == null) {
         	//we start the browser just once for this instance
-			testRunner = new TestRunner(null, null, settings, true);
+			testRunner = new TestRunner(config, null, null, settings, true);
 			testRunner.setReuseSelenium(true);
 			testRunner.setFailOnAssertionFailure(true);
         }
@@ -169,7 +182,7 @@ public class SeleniumRunner
         			passedTests.add(file.getName());
     			}
     			else {
-    				testRunner = new TestRunner(test, null, settings,true);
+    				testRunner = new TestRunner(config, test, null, settings,true);
         			testRunner.setFailOnAssertionFailure(true);
         			testRunner.run(null);
         			passedTests.add(file.getName());

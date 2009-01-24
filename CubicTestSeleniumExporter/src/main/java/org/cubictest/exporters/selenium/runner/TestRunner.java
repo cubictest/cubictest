@@ -22,16 +22,14 @@ import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.export.runner.RunnerStarter.Operation;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.common.BrowserType;
-import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
-import org.cubictest.exporters.selenium.runner.converters.SameVMCustomTestStepConverter;
-import org.cubictest.exporters.selenium.runner.converters.UnsupportedCustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
+import org.cubictest.exporters.selenium.runner.converters.SameVMCustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
+import org.cubictest.exporters.selenium.runner.converters.UnsupportedCustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
-import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.Page;
 import org.cubictest.model.Test;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -40,7 +38,7 @@ import org.eclipse.swt.widgets.Display;
 import com.thoughtworks.selenium.Selenium;
 
 /**
- * The runner that starts the Selenium servers and test system and starts traversal of the test model.
+ * Runner that can use an existing Selenium instance to run the tests.
  * 
  * @author Christian Schwarz
  */
@@ -50,38 +48,31 @@ public class TestRunner extends BaseTestRunner {
 	SeleniumStarter seleniumStarter;
 	Selenium selenium;
 	Page targetPage;
-	static Integer port; 
-	BrowserType browserType = BrowserType.FIREFOX; //init
 	private IProgressMonitor monitor;
 	boolean reuseSelenium = false;
 	private boolean runingInSameVMAsCustomFiles = false;
-	
+	private final SeleniumRunnerConfiguration config;
+
 
 	/**
-	 * Typically invoked by the CubicTest Selenium exporter Eclipse plugin.
+	 * Typically invoked by the CubicTest Recorder plugin for test forwarding.
 	 */
-	public TestRunner(Test test, Display display, CubicTestProjectSettings settings, BrowserType browserType) {
+	public TestRunner(SeleniumRunnerConfiguration config, Test test, Display display, CubicTestProjectSettings settings) {
 		super(display, settings, test);
 		this.test = test;
-		if (port == null) {
-			port = ExportUtils.findAvailablePort();
-		}
-		this.browserType = browserType;
+		this.config = config;
 	}
-
-
+	
 	/**
+	 * Use existing Selenium instance in runner.
 	 * Typically invoked by the Maven plugin.
 	 */
-	public TestRunner(Test test, Selenium selenium, CubicTestProjectSettings settings, boolean runingInSameVMAsCustomFiles) {
+	public TestRunner(SeleniumRunnerConfiguration config, Test test, Selenium selenium, CubicTestProjectSettings settings, boolean runingInSameVMAsCustomFiles) {
 		super(null, settings, test);
+		this.config = config;
 		this.test = test;
 		this.selenium = selenium;
 		this.runingInSameVMAsCustomFiles  = runingInSameVMAsCustomFiles;
-		if (port == null) {
-			port = ExportUtils.findAvailablePort();
-		}
-		this.browserType = SeleniumExporterProjectSettings.getPreferredBrowser(settings);
 	}
 	
 	public void run(IProgressMonitor monitor) {
@@ -129,13 +120,12 @@ public class TestRunner extends BaseTestRunner {
 	 */
 	private void startSeleniumAndOpenInitialUrlWithTimeoutGuard(final IProgressMonitor monitor, int timeoutSeconds)
 			throws InterruptedException {
-		seleniumStarter = new SeleniumStarter();
+		
+		seleniumStarter = new SeleniumStarter(config);
 		seleniumStarter.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(test));
-		seleniumStarter.setBrowser(browserType);
 		seleniumStarter.setDisplay(display);
 		seleniumStarter.setSelenium(selenium);
 		seleniumStarter.setSettings(settings);
-		seleniumStarter.setPort(port);
 
 		if (monitor != null) {
 			CancelHandler cancelHandler = new CancelHandler(monitor, this);
@@ -148,7 +138,7 @@ public class TestRunner extends BaseTestRunner {
 			seleniumHolder = call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
 		}
 		catch (Exception e) {
-			ErrorHandler.rethrow("Unable to start " + browserType.getDisplayName() + 
+			ErrorHandler.rethrow("Unable to start " + config.getBrowser().getDisplayName() + 
 					" and open initial URL.\n\n" +
 							"Check that\n" +
 							"- The browser is installed (if in non-default dir, set it in PATH)\n" +

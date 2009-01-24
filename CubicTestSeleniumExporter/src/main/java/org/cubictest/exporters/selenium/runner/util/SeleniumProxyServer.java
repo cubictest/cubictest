@@ -10,11 +10,9 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.util;
 
-import java.lang.reflect.Method;
-
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
-import org.openqa.selenium.server.RemoteControlConfiguration;
+import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.openqa.selenium.server.SeleniumServer;
 
 /**
@@ -27,21 +25,17 @@ public class SeleniumProxyServer {
 
 	SeleniumServer seleniumServer;
 	Thread serverThread;
-	int port;
 	boolean started;
+	SeleniumRunnerConfiguration config;
 	
 	
-	public SeleniumProxyServer(boolean proxyInjectionMode, int port, boolean seleniumMultiWindow) {
+	public SeleniumProxyServer(SeleniumRunnerConfiguration config) {
+		this.config = config;
 		try {
-			this.port = port;
-			RemoteControlConfiguration config = new RemoteControlConfiguration();
-			config.setPort(port);
-			config.setPortDriversShouldContact(port);
-			config.setMultiWindow(seleniumMultiWindow);
 			seleniumServer = new SeleniumServer(false, config);
-			seleniumServer.setProxyInjectionMode(proxyInjectionMode);
+			SeleniumServer.setProxyInjectionMode(config.getBrowser().isProxyInjectionMode());
 
-			final int portInfo = port;
+			final int portInfo = config.getPort();
 	        serverThread = new Thread(new Runnable() {
 	            public void run() {
 	                try {
@@ -73,13 +67,13 @@ public class SeleniumProxyServer {
 	 * @throws InterruptedException
 	 */
 	public void stop() throws InterruptedException{
-		Logger.info("Stopping selenium server at port " + port);
+		Logger.info("Stopping selenium server at port " + config.getPort());
 		seleniumServer.stop();
 	}
 	
 
 	public int getPort() {
-		return port;
+		return config.getPort();
 	}
 
 	public boolean isStarted() {

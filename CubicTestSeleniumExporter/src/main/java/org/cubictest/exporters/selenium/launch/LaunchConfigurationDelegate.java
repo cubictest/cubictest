@@ -24,10 +24,10 @@ import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.common.BrowserType;
+import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
 import org.cubictest.exporters.selenium.ui.CustomStepWizard;
-import org.cubictest.exporters.selenium.ui.SeleniumCustomStepSection;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
@@ -37,7 +37,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
@@ -220,19 +219,20 @@ public class LaunchConfigurationDelegate extends
 			TestRunner.RunnerParameters parameters = new TestRunner.RunnerParameters();
 			parameters.test = test;
 			parameters.display = wb.getDisplay();
-			parameters.seleniumHost = seleniumHost;
-			parameters.seleniumPort = seleniumPort;
-			parameters.serverPort = serverPort;
+			parameters.remoteRunnerClientListenerPort = serverPort;
 			parameters.seleniumClientProxyPort = seleniumClientProxyPort;
-			parameters.seleniumMultiWindow = seleniumMultiWindow;
-			parameters.browserType = BrowserType.fromId(browser);
-			parameters.useNamespace = useNamespace;
-			parameters.workingDirName = workingDirName;
-			parameters.takeScreenshots = getSeleniumTakeScreenshots(configuration);
-			parameters.captureHtml = getSeleniumCaptureHtml(configuration);
-			parameters.serverAutoHostAndPort = getSeleniumServerAutoHostAndPort(configuration);
 			
-			final TestRunner testRunner = new TestRunner(parameters);
+			SeleniumRunnerConfiguration config = new SeleniumRunnerConfiguration();
+			config.setSeleniumServer(seleniumHost, seleniumPort);
+			config.setBrowser(BrowserType.fromId(browser));
+			config.setMultiWindow(seleniumMultiWindow);
+			config.setUseNamespace(useNamespace);
+			config.setWorkingDirName(workingDirName);
+			config.setTakeScreenshots(getSeleniumTakeScreenshots(configuration));
+			config.setCaptureHtml(getSeleniumCaptureHtml(configuration));
+			config.setServerAutoHostAndPort(getSeleniumServerAutoHostAndPort(configuration));
+
+			final TestRunner testRunner = new TestRunner(parameters, config);
 			try{
 				// run!
 				testRunner.run(monitor);

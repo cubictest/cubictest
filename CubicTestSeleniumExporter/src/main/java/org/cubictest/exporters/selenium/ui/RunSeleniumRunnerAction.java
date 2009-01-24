@@ -16,6 +16,7 @@ import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ITestRunner;
 import org.cubictest.export.ui.BaseRunnerAction;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
+import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.exporters.selenium.runner.TestRunner;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.common.BrowserTypeUtils;
@@ -91,7 +92,9 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 			else {
 				browserType = wizard.getBrowserType();
 			}
-			runner = new TestRunner(test, display, settings, browserType);
+			SeleniumRunnerConfiguration config = new SeleniumRunnerConfiguration();
+			config.setBrowser(browserType);
+			runner = new TestRunner(config, test, display, settings);
 			if (usePreCreatedSeleniumInstance()) {
 				runner.setSelenium(selenium);
 			}

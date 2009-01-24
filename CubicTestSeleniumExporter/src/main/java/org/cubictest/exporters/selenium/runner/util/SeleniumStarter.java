@@ -14,7 +14,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.runner.RunnerStarter;
-import org.cubictest.exporters.selenium.common.BrowserType;
+import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.UrlStartPoint;
@@ -32,14 +32,18 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 	SeleniumProxyServer server;
 	SeleniumHolder seleniumHolder;
 	UrlStartPoint initialUrlStartPoint;
-	BrowserType browser;
 	boolean seleniumStarted;
 	Selenium selenium;
-	private String host;
-	private int port;
-	private boolean seleniumMultiWindow;
 	private boolean startNewSeleniumServer = true;
+	private SeleniumRunnerConfiguration config;
 	
+	
+	@SuppressWarnings("unused")
+	private SeleniumStarter(){}
+	
+	public SeleniumStarter(SeleniumRunnerConfiguration configuration) {
+		this.config = configuration;
+	}
 	
 	/**
 	 * Start the Selenium Proxy Server and start and return the Selenium test object.
@@ -47,7 +51,7 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 	@Override
 	public SeleniumHolder doStart() {
 		if (selenium == null && startNewSeleniumServer) {
-			server = new SeleniumProxyServer(browser.isProxyInjectionMode(), port, seleniumMultiWindow);
+			server = new SeleniumProxyServer(config);
 			server.start();
 			while (!server.isStarted()) {
 				//wait for server thread to start
@@ -63,15 +67,15 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 		}
 
 		if (selenium == null) {
-			String browserName = browser.getId();
+			String browserName = config.getBrowser().getId();
 			browserName = browserName.startsWith("*") ? browserName.substring(1) : browserName;
-			Logger.info("Opening " + browserName + " and connecting to Selenium Proxy at port " + port + ", " + initialUrlStartPoint);
+			Logger.info("Opening " + browserName + " and connecting to Selenium Proxy at port " + config.getPort() + ", " + initialUrlStartPoint);
 			String initUrl = initialUrlStartPoint.getBeginAt();
 			String baseUrl = initUrl.substring(0, initUrl.lastIndexOf("/") + 1);
 			if (baseUrl.endsWith("://")) {
 				baseUrl = initUrl;
 			}
-			seleniumHolder = new SeleniumHolder(host, port, browser.getId(), baseUrl, display, settings);
+			seleniumHolder = new SeleniumHolder(config.getSeleniumServerHostname(), config.getPort(), config.getBrowser().getId(), baseUrl, display, settings);
 			seleniumHolder.getSelenium().start();
 			//using selenium default timeout, open start URL and check connection (that browser profiles has been set correctly):
 			seleniumHolder.getSelenium().open(initUrl);
@@ -127,27 +131,9 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 		this.initialUrlStartPoint = initialUrlStartPoint;
 	}
 
-	public void setBrowser(BrowserType browser) {
-		this.browser = browser;
-	}
-
 	public void setSelenium(Selenium selenium) {
 		this.selenium = selenium;
 	}
-
-	public void setHost(String host) {
-		this.host = host;
-	}
-
-	public void setPort(int port) {
-		this.port = port;
-	}
-
-	public void setMultiWindow(boolean seleniumMultiWindow) {
-		this.seleniumMultiWindow = seleniumMultiWindow;
- 	}
-
-
 
 	public void setStartNewSeleniumServer(boolean startNewSeleniumServer) {
 		this.startNewSeleniumServer = startNewSeleniumServer;

@@ -21,8 +21,8 @@ public class CubicTestLocalRunner {
 
 	private Selenium selenium;
 
-	public CubicTestLocalRunner(String host, int port, String browser, String initialUrl) {
-		selenium = new DefaultSelenium(host, port, browser, initialUrl);
+	public CubicTestLocalRunner(String seleniumServerHostname, int seleniumServerPort, String browser, String initialUrl) {
+		selenium = new DefaultSelenium(seleniumServerHostname, seleniumServerPort, browser, initialUrl);
 	}
 
 	public CubicTestLocalRunner(Selenium selenium) {

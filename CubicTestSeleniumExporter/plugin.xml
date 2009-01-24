@@ -44,26 +44,9 @@
                label="Export to Selenium Core test script"
                menubarPath="additions"/>
       </viewerContribution>
-      <objectContribution
-            id="CubicTestSeleniumExporter.objectContribution1"
-		    objectClass="org.cubictest.ui.gef.controller.PageEditPart">
-         <action
-               class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               icon="icons/selenium_run_icon.gif"
-               id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               label="Run with Selenium to selected Page/State"
-               menubarPath="additions"/>
-      </objectContribution>
 
    </extension>
    
-   <extension point="org.eclipse.ui.preferencePages">
- 	  <page id="CubicTestSeleniumExporterPreferencePage"
-  	      	name="Selenium Exporter"
-	      	class="org.cubictest.exporters.selenium.ui.preferences.SeleniumExporterPreferencePage"
-		    category="CubicTestPreferencePage">
-   	  </page>
-   </extension>
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType

@@ -22,24 +22,19 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.TreeTestWalker;
-import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.runner.RunnerStarter.Operation;
 import org.cubictest.export.utils.exported.ExportUtils;
-import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
-import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
-import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.launch.converters.LaunchCustomTestStepConverter;
+import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
+import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
+import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
 import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
-import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
-import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
-import org.cubictest.model.TestSuiteStartPoint;
-import org.cubictest.model.UrlStartPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 
@@ -52,37 +47,26 @@ public class TestRunner {
 	private SeleniumStarter seleniumStarter;
 	private Selenium selenium;
 	private Page targetPage;
-	public static final BrowserType DEFAULT_BROWSER = BrowserType.FIREFOX;
 	private IProgressMonitor monitor;
 	private boolean reuseSelenium = false;
 	private boolean failOnAssertionFailure;
 	private CubicTestRemoteRunnerClient cubicTestRemoteRunnerClient;
 	private SeleniumClientProxyServer seleniumClientProxyServer;
 	private final RunnerParameters runnerParameters;
+	SeleniumRunnerConfiguration config;
 	
+
 	public static class RunnerParameters {
 		public Test test;
 		public Display display;
-		public String seleniumHost;
-		public int seleniumPort;
-		public int serverPort;
+		public int remoteRunnerClientListenerPort;
 		public int seleniumClientProxyPort;
-		public boolean seleniumMultiWindow;
-		public BrowserType browserType = DEFAULT_BROWSER;
-		public boolean useNamespace;		
-		public String workingDirName;
-		public boolean takeScreenshots;
-		public boolean captureHtml;
-		public boolean serverAutoHostAndPort;
 	}
 
 
-	public TestRunner(RunnerParameters runnerParameters) {
+	public TestRunner(RunnerParameters runnerParameters, SeleniumRunnerConfiguration config) {
 		this.runnerParameters = runnerParameters;
-		if (runnerParameters.serverAutoHostAndPort) {
-			runnerParameters.seleniumHost = "localhost";
-			runnerParameters.seleniumPort = ExportUtils.findAvailablePort();
-		}
+		this.config = config;
 	}
 
 
@@ -93,10 +77,10 @@ public class TestRunner {
 			if (seleniumHolder == null || !reuseSelenium) {
 				startSeleniumAndOpenInitialUrlWithTimeoutGuard(monitor, 40);
 			}
-			seleniumHolder.setWorkingDir(runnerParameters.workingDirName);
-			seleniumHolder.setUseNamespace(runnerParameters.useNamespace);
-			seleniumHolder.setTakeScreenshots(runnerParameters.takeScreenshots);
-			seleniumHolder.setCaptureHtml(runnerParameters.captureHtml);
+			seleniumHolder.setWorkingDir(config.getWorkingDirName());
+			seleniumHolder.setUseNamespace(config.isUseNamespace());
+			seleniumHolder.setTakeScreenshots(config.isTakeScreenshots());
+			seleniumHolder.setCaptureHtml(config.isCaptureHtml());
 			
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(
 					UrlStartPointConverter.class, PageElementConverter.class,
@@ -108,7 +92,7 @@ public class TestRunner {
 						IProgressMonitor.UNKNOWN);
 			}
 			
-			cubicTestRemoteRunnerClient = new CubicTestRemoteRunnerClient(runnerParameters.serverPort);
+			cubicTestRemoteRunnerClient = new CubicTestRemoteRunnerClient(runnerParameters.remoteRunnerClientListenerPort);
 			seleniumHolder.setCustomStepRunner(cubicTestRemoteRunnerClient);
 			
 			seleniumClientProxyServer = new SeleniumClientProxyServer(seleniumHolder, runnerParameters.seleniumClientProxyPort);
@@ -136,17 +120,14 @@ public class TestRunner {
 	 */
 	private void startSeleniumAndOpenInitialUrlWithTimeoutGuard(final IProgressMonitor monitor, int timeoutSeconds)
 			throws InterruptedException {
-		seleniumStarter = new SeleniumStarter();
+		
+		seleniumStarter = new SeleniumStarter(config);
 		seleniumStarter.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(runnerParameters.test));
-		seleniumStarter.setBrowser(runnerParameters.browserType);
 		seleniumStarter.setDisplay(runnerParameters.display);
 		seleniumStarter.setSelenium(selenium);
-		seleniumStarter.setHost(runnerParameters.seleniumHost);
-		seleniumStarter.setPort(runnerParameters.seleniumPort);
-		seleniumStarter.setMultiWindow(runnerParameters.seleniumMultiWindow);
-		seleniumStarter.setStartNewSeleniumServer(runnerParameters.serverAutoHostAndPort);
+		seleniumStarter.setStartNewSeleniumServer(config.isServerAutoHostAndPort());
 		seleniumStarter.setSettings(new CubicTestProjectSettings(runnerParameters.test.getProject())); 
-
+		
 		//start cancel handler, in case we want to cancel the Selenium startup or test run:
 		if (monitor != null) {
 			Thread cancelHandler = new Thread() {
@@ -176,7 +157,7 @@ public class TestRunner {
 			seleniumStarter.setOperation(Operation.START);
 			seleniumHolder = call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
 		} catch (Exception e) {
-			ErrorHandler.rethrow("Unable to start " + runnerParameters.browserType.getDisplayName() + 
+			ErrorHandler.rethrow("Unable to start " + config.getBrowser().getDisplayName() + 
 					" and open initial URL.\n\n" +
 							"Check that\n" +
 							"- The browser is installed (if in non-default dir, set it in PATH)\n" +
@@ -222,8 +203,6 @@ public class TestRunner {
 		}
 	}
 
-	
-	
 	/**
 	 * Show the results of the test in the GUI.
 	 * 
