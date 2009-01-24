@@ -172,9 +172,10 @@ public class AutoLayout {
 			numOfTrans = numOfTrans < 1 ? 1 : numOfTrans;
 			int newX = topCenter.x + (numOfTrans - 1) * ITestEditor.NEW_PATH_OFFSET;
 			int newY = bottom + TRANSITION_SPACE + (numOfActions * USER_INPUT_HEIGHT);
-			if (t.getEnd() instanceof ExtensionPoint && node.getOutTransitions().size() > 1) {
+			if (t.getEnd() instanceof ExtensionPoint) {
 				newY = node.getPosition().y + node.getDefaultDimension().height / 2;
-				newX = node.getPosition().x + node.getDimension().width + 120;
+				newX = node.getPosition().x + node.getDimension().width + 150;
+				numOfTrans--; //since exPoint is placed at side
 			}
 			layout(t.getEnd(), new Point(newX, newY));
 		}
