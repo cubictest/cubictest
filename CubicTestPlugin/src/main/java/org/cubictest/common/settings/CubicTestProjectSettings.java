@@ -23,7 +23,7 @@ import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IProject;
 
 /**
- * Provies access to properties for CubicTest projects.
+ * Provides access to properties for CubicTest projects.
  * Not very Eclipse'ish to have settings here, but has to be this way to support Maven.
  * 
  * @author Christian Schwarz

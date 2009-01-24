@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="Cp1252"?>
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>www.test.org</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="page">
+          <children/>
+          <commons/>
+          <elements>
+            <text>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>FirstText</value>
+                  <probability>100</probability>
+                  <type>LABEL</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator>EQUAL</moderator>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status>UNKNOWN</status>
+            </text>
+            <link>
+              <description></description>
+              <identifiers>
+                <identifier>
+                  <value>LinkToSecond</value>
+                  <probability>100</probability>
+                  <type reference="../../../../text/identifiers/identifier/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ID</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>HREF</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>TITLE</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>CLASS</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../text/identifiers/identifier/moderator"/>
+                </identifier>
+              </identifiers>
+              <directEditIdentifier reference="../identifiers/identifier"/>
+              <not>false</not>
+              <status reference="../../text/status"/>
+            </link>
+          </elements>
+          <name>First Page</name>
+          <description></description>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <userInteractionsTransition>
+              <userInteractions>
+                <userInteraction>
+                  <element class="link" reference="../../../../../elements/link"/>
+                  <input></input>
+                  <action>CLICK</action>
+                  <i18nKey></i18nKey>
+                  <paramKey></paramKey>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                </userInteraction>
+              </userInteractions>
+              <page class="page" reference="../../.."/>
+              <secondsToWaitForResult>5</secondsToWaitForResult>
+              <name></name>
+              <hasCustomTimeout>false</hasCustomTimeout>
+              <start class="page" reference="../../.."/>
+              <end class="page">
+                <children/>
+                <commons/>
+                <elements>
+                  <text>
+                    <description></description>
+                    <identifiers>
+                      <identifier>
+                        <value>SecondText</value>
+                        <probability>100</probability>
+                        <type reference="../../../../../../../../elements/text/identifiers/identifier/type"/>
+                        <useI18n>false</useI18n>
+                        <useParam>false</useParam>
+                        <moderator reference="../../../../../../../../elements/text/identifiers/identifier/moderator"/>
+                      </identifier>
+                    </identifiers>
+                    <directEditIdentifier reference="../identifiers/identifier"/>
+                    <not>false</not>
+                    <status reference="../../../../../../elements/text/status"/>
+                  </text>
+                </elements>
+                <name>Second Page</name>
+                <description></description>
+                <inTransition class="userInteractionsTransition" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="page" reference="../../.."/>
+                    <end class="extensionPoint">
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>extensionpoint122966451232834610328</id>
+                      <position>
+                        <x>279</x>
+                        <y>263</y>
+                      </position>
+                      <dimension>
+                        <width>150</width>
+                        <height>95</height>
+                      </dimension>
+                      <name>Bring Fraktguide: Gir systemtilgang til produkter, priser, dekningsområde og fremsendingstider for Bring sine kunder Extension Point</name>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>page162238191232834559218</id>
+                <position>
+                  <x>113</x>
+                  <y>230</y>
+                </position>
+                <dimension>
+                  <width>115</width>
+                  <height>46</height>
+                </dimension>
+                <name defined-in="transitionNode"></name>
+              </end>
+            </userInteractionsTransition>
+            <simpleTransition>
+              <start class="page" reference="../../.."/>
+              <end class="extensionPoint">
+                <inTransition class="simpleTransition" reference="../.."/>
+                <outTransitions/>
+                <id>extensionpoint228720731232834634875</id>
+                <position>
+                  <x>282</x>
+                  <y>147</y>
+                </position>
+                <dimension>
+                  <width>150</width>
+                  <height>95</height>
+                </dimension>
+                <name>Bring Fraktguide: Gir systemtilgang til produkter, priser, dekningsområde og fremsendingstider for Bring sine kunder Extension Point</name>
+              </end>
+            </simpleTransition>
+          </outTransitions>
+          <id>page23049991232834551593</id>
+          <position>
+            <x>113</x>
+            <y>100</y>
+          </position>
+          <dimension>
+            <width>115</width>
+            <height>67</height>
+          </dimension>
+          <name defined-in="transitionNode"></name>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>urlstartpoint293477861229591704562</id>
+    <position>
+      <x>4</x>
+      <y>4</y>
+    </position>
+    <name>URL</name>
+  </startPoint>
+  <extensionPoints>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition/end"/>
+    <extensionPoint reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+  </extensionPoints>
+  <pages>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page21205491232833903812</id>
+      <position>
+        <x>0</x>
+        <y>620</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page272246701232834464640</id>
+      <position>
+        <x>0</x>
+        <y>920</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page206393181232834487531</id>
+      <position>
+        <x>0</x>
+        <y>1220</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <page reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end"/>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page51002081232834634875</id>
+      <position>
+        <x>0</x>
+        <y>1520</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page126895961232835443562</id>
+      <position>
+        <x>0</x>
+        <y>1820</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page8070511232835675812</id>
+      <position>
+        <x>0</x>
+        <y>2120</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+  </pages>
+  <subTests/>
+  <transitions>
+    <userInteractionsTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+  </transitions>
+  <customTestSteps/>
+  <allLanguages>
+    <languages/>
+    <observers/>
+  </allLanguages>
+  <name>Forsiden</name>
+  <description></description>
+  <id>test1229591704531</id>
+  <modelVersion>10</modelVersion>
+  <status>PASS</status>
+</test>

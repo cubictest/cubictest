@@ -11,12 +11,10 @@
 package org.cubictest.export.converters;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cubictest.common.exception.UnknownExtensionPointException;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
@@ -388,6 +386,26 @@ public class TreeTestWalkerTest {
 		assertionList.assertContainsInOrder("LinkToFifth");
 		assertionList.assertContainsInOrder("Fourth Page --> Fifth Page");
 		assertionList.assertContainsInOrder("Fifth");
+
+		assertionList.verifySize();
+	}
+	
+	
+	/**
+	 * Test that unused ExtensionStartPoints do not affect the walker.
+	 */
+	@org.junit.Test
+	public void testWalkerUnaffectedByUnusedExtensionPoints() throws InstantiationException, IllegalAccessException {
+		String fileName = "src/test/resources/org/cubictest/common/converters/UnusedExtensionPoints.aat";
+		Test test = TestPersistance.loadFromFile(null, fileName);
+		testWalker.convertTest(test, assertionList);
+		
+		//pre-test
+		assertionList.assertContainsInOrder("www.test.org");
+		assertionList.assertContainsInOrder("FirstText");
+		assertionList.assertContainsInOrder("LinkToSecond");
+		assertionList.assertContainsInOrder("First Page --> Second Page");
+		assertionList.assertContainsInOrder("SecondText");
 
 		assertionList.verifySize();
 	}
