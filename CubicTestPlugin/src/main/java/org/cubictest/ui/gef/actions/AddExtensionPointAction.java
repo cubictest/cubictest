@@ -11,7 +11,6 @@
 package org.cubictest.ui.gef.actions;
 
 import java.util.Iterator;
-import java.util.List;
 
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
@@ -70,18 +69,18 @@ public class AddExtensionPointAction extends BaseEditorAction {
 
 				CompoundCommand compoundCmd = new CompoundCommand();
 
-				AddExtensionPointCommand cmd = new AddExtensionPointCommand();
-				cmd.setPage(page);
-				cmd.setExtensionPoint(exPoint);
-				cmd.setTest(test);
-				compoundCmd.add(cmd);
-				
 				CreateTransitionCommand transitionCreateCommand = new CreateTransitionCommand();
 				transitionCreateCommand.setSource(page);
 				transitionCreateCommand.setTarget(exPoint);
 				transitionCreateCommand.setTest(test);
 				transitionCreateCommand.setPageEditPart(pageEditPart);
 				compoundCmd.add(transitionCreateCommand);
+
+				AddExtensionPointCommand cmd = new AddExtensionPointCommand();
+				cmd.setPage(page);
+				cmd.setExtensionPoint(exPoint);
+				cmd.setTest(test);
+				compoundCmd.add(cmd);
 
 				getCommandStack().execute(compoundCmd);
 			}
