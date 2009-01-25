@@ -102,6 +102,10 @@ public class SeleniumHolder extends RunnerResultHolder {
 					Logger.warn("Unable to capture screenshot of failing test", e);
 				}
 			}
+			
+			if (captureHtml || takeScreenshots) {
+				Logger.info("HTML capture and/or screenshots of failed test saved to folder \"" + HTML_AND_SCREENSHOTS_FOLDER_NAME + "\"");
+			}
 		}
 
 		super.handleAssertionFailure(element);

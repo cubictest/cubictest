@@ -36,6 +36,7 @@ import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
 import org.cubictest.model.Page;
 import org.cubictest.model.Test;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 
@@ -102,19 +103,24 @@ public class TestRunner {
 			//run the test!
 			testWalker.convertTest(runnerParameters.test, seleniumHolder, targetPage);
 
-			runnerParameters.test.getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
-
-			if (monitor != null) {
-				monitor.done();
-			}
-			
-
 		} catch (Exception e) {
 			if (monitor != null && monitor.isCanceled()) {
 				Logger.warn("User cancelled", e);
 			} else {
 				ErrorHandler.rethrow("Exception when running test", e);
 			}
+		}
+		finally {
+			try {
+				runnerParameters.test.getProject().refreshLocal(IResource.DEPTH_INFINITE, monitor);
+			} catch (CoreException e) {
+				Logger.error("Error refreshing project in package explorer", e);
+			}
+
+			if (monitor != null) {
+				monitor.done();
+			}
+
 		}
 	}
 
