@@ -22,9 +22,9 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.EmptyTestSuiteException;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.common.BrowserType;
+import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.exporters.selenium.runner.TestRunner;
-import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.openqa.selenium.server.RemoteControlConfiguration;
@@ -47,6 +47,7 @@ public class SeleniumRunner
 	private boolean reuseBrowser = REUSE_BROWSER_DEFAULT;
 	private TestRunner testRunner;
 	private SeleniumRunnerConfiguration config;
+	private CubicTestProjectSettings settings;
 
 	/**
 	 * Create a new instance of the runner.
@@ -59,7 +60,8 @@ public class SeleniumRunner
 	public SeleniumRunner() {
 		this.config = new SeleniumRunnerConfiguration();
 		config.setMultiWindow(false);
-		config.setBrowser(BrowserType.FIREFOX);
+		settings = new CubicTestProjectSettings(new File("."));
+		config.setBrowser(SeleniumExporterProjectSettings.getPreferredBrowser(settings));
 	}
 
 	/**
@@ -130,8 +132,6 @@ public class SeleniumRunner
 
 	public void runTests(Collection<File> files) throws AssertionError {
         
-		CubicTestProjectSettings settings = new CubicTestProjectSettings(new File("."));
-
         List<String> passedTests = new ArrayList<String>();
         List<String> failedTests = new ArrayList<String>();
         List<String> exceptionTests = new ArrayList<String>();
@@ -143,10 +143,6 @@ public class SeleniumRunner
 
         boolean buildOk = true;
         
-        if (reuseBrowser == REUSE_BROWSER_DEFAULT) {
-        	//can now be overridden with global property setting
-        	reuseBrowser = !settings.getBoolean(SeleniumUtils.getPluginPropertyPrefix(), "useNewBrowserInstanceForEachTestSuiteFile", false);
-        }
         System.out.println(LOG_PREFIX + "Keep browser open between test suite files: " + reuseBrowser);
         
         if (reuseBrowser && testRunner == null) {
