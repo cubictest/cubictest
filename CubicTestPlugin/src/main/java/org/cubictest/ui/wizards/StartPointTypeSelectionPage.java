@@ -67,8 +67,8 @@ public class StartPointTypeSelectionPage extends WizardPage implements Selection
 		Composite container = new Composite(parent, SWT.NULL);
 		GridLayout gridLayout = new GridLayout(2,false);
 
-		createExtensionStartPointOption(container);
 		createUrlStartPointOption(container);
+		createExtensionStartPointOption(container);
 		createSubTestStartPointOption(container);
 		
 		if (!testHasExtensionPoints) {
