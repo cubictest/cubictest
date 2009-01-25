@@ -14,13 +14,11 @@ import java.beans.PropertyChangeEvent;
 
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.ExtensionPoint;
-import org.cubictest.model.Page;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -114,7 +112,9 @@ public class ExtensionPointEditPart extends AbstractNodeEditPart {
 		figure.setText(" " + ((ExtensionPoint)getModel()).getName()+ " ");
 		Point position = connectionPoint.getPosition();
 		Rectangle r = new Rectangle(position.x,position.y,-1,-1);
-		((TestEditPart)getParent()).setLayoutConstraint(this,figure,r);
+		if (getParent() != null) {
+			((TestEditPart)getParent()).setLayoutConstraint(this,figure,r);
+		}
 	}
 
 	public void updateParams() {
