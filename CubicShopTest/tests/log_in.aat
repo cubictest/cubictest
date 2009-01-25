@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://cubictest.openqa.org/cubicshop/</beginAt>
+    <beginAt>http://cubictest.seleniumhq.org/cubicshop/</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
