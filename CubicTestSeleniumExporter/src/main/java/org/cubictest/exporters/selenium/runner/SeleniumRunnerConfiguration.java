@@ -76,6 +76,8 @@ public class SeleniumRunnerConfiguration extends RemoteControlConfiguration {
 	public void setSeleniumServer(String seleniumServerHostname, int seleniumServerPort) {
 		this.seleniumServerHostname = seleniumServerHostname;
 		this.seleniumServerPort = seleniumServerPort;
+		setPort(seleniumServerPort);
+		setPortDriversShouldContact(seleniumServerPort);
 	}
 	
 	public void setCaptureHtml(boolean captureHtml) {
