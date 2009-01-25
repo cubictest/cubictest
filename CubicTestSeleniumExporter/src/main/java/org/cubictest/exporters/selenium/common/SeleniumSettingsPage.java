@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.common;
 
+import static org.cubictest.exporters.selenium.common.BrowserType.FIREFOX;
+import static org.cubictest.exporters.selenium.common.BrowserType.OPERA;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -92,7 +95,7 @@ public class SeleniumSettingsPage extends WizardPage {
 		GridData data = new GridData();
 		data.horizontalSpan = 2;
 		recorderInfoLabel = new Label(composite, SWT.NONE);
-		recorderInfoLabel.setText("Minimum Opera 9.5 is required.\nHold CTRL key and press mouse button on web page for recorder context menu.");
+		recorderInfoLabel.setText("Recorder context menu in Opera:\nTo show context menu, hold \"ctrl\" key and press left mouse button on web page.");
 		recorderInfoLabel.setVisible(recorderMode && (browserType == BrowserType.OPERA));
 		recorderInfoLabel.setLayoutData(data);
 	}
@@ -110,16 +113,15 @@ public class SeleniumSettingsPage extends WizardPage {
 	/**
 	 * This method initializes browserCombo	
 	 * @param content 
-	 *
 	 */
 	private void createBrowserCombo(Composite content) {
 		browserCombo = new Combo(content, SWT.NONE | SWT.READ_ONLY);
-		for (BrowserType browserType : BrowserType.values()) {
-			if (recorderMode && (browserType == BrowserType.INTERNET_EXPLORER
-							|| browserType == BrowserType.INTERNET_EXPLORER_HTA || browserType == BrowserType.INTERNET_EXPLORER_PI)) {
-				// do not add
-			}
-			else {
+		if (recorderMode) {
+			browserCombo.add(FIREFOX.getDisplayName());
+			browserCombo.add(OPERA.getDisplayName());
+		}
+		else {
+			for (BrowserType browserType : BrowserType.values()) {
 				browserCombo.add(browserType.getDisplayName());
 			}
 		}

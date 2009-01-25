@@ -12,20 +12,19 @@ package org.cubictest.exporters.selenium.common;
 
 
 /**
- * Enum for supported browsers.
+ * Supported browsers.
  * 
  * @author Christian Schwarz
  */
 public enum BrowserType {
 
-	FIREFOX("*firefox", "Firefox - standard", false),
-	CHROME("*chrome", "Firefox - chrome version (experimental, better HTTPS support)", false),
-	FIREFOX_PI("*pifirefox", "Firefox - proxy injection mode (experimental)", true),
+	FIREFOX("*chrome", "Firefox", false),
 	OPERA("*opera", "Opera", false),
-	INTERNET_EXPLORER("*iexplore", "Internet Explorer - standard", false),
-	INTERNET_EXPLORER_HTA("*iehta", "Internet Explorer - HTA version (experimental, better HTTPS support)", false),
-	INTERNET_EXPLORER_PI("*piiexplore", "Internet Explorer - proxy injection mode (experimental)", true),
-	SAFARI("*safari", "Safari", false);
+	GOOGLE_CHROME("*googlechrome", "Google Chrome", false),
+	INTERNET_EXPLORER("*iehta", "Internet Explorer", false),
+	SAFARI("*safari", "Safari", false),
+	FIREFOX_PI("*pifirefox", "Firefox - Proxy injection mode", true),
+	INTERNET_EXPLORER_PI("*piiexplore", "Internet Explorer - Proxy injection mode", true);
 	
 	private String id;
 	private String displayName;
@@ -51,6 +50,13 @@ public enum BrowserType {
 			if (browserType.getId().equals(id)) {
 				return browserType;
 			}
+		}
+		
+		if ("*firefox".equals(id)) {
+			return FIREFOX;
+		}
+		else if ("*iexplore".equals(id)) {
+			return INTERNET_EXPLORER;
 		}
 		throw new IllegalArgumentException("Unknown BrowserType: " + id);
 	}

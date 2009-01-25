@@ -93,6 +93,10 @@ public class CubicTestLocalRunner {
 	public void open(String beginAt) {
 		selenium.open(beginAt);
 	}
+	
+	public void selectFrame(String locator) {
+		selenium.selectFrame(locator);
+	}
 
 	public void setTimeout(String string) {
 		selenium.setTimeout(string);

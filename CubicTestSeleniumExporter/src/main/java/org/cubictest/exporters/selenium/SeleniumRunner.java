@@ -252,8 +252,8 @@ public class SeleniumRunner
 	/**
 	 * Set option to force new browser instance for each test.
 	 */
-	public void forceNewBrowserInstanceForEachTest() {
-		this.reuseBrowser = false;
+	public void setUseNewBrowserInstanceForEachTest(boolean useNewBrowserInstanceForEachTest) {
+		this.reuseBrowser = !useNewBrowserInstanceForEachTest;
 	}
 	
 	

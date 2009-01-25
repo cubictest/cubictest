@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.converters;
 
+import static org.cubictest.exporters.selenium.runner.converters.ConverterUtils.waitForElement;
+
 import org.cubictest.export.converters.IContextConverter;
 import org.cubictest.export.converters.PostContextHandle;
 import org.cubictest.export.converters.PreContextHandle;
@@ -21,7 +23,7 @@ import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
 
-import com.thoughtworks.selenium.SeleniumException;
+import com.thoughtworks.selenium.Wait.WaitTimedOutException;
 
 /**
  * Converter for contexts.
@@ -38,7 +40,8 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 			Frame frame = (Frame) ctx;
 			String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(frame);
 			try{
-				seleniumHolder.getSelenium().execute("selectFrame", locator);
+				waitForElement(seleniumHolder, locator, frame.isNot());
+				seleniumHolder.getSelenium().selectFrame(locator);
 				seleniumHolder.addResultByIsNot(frame, TestPartStatus.PASS, frame.isNot());
 			}catch (Exception e) {
 				seleniumHolder.addResultByIsNot(frame, TestPartStatus.FAIL, frame.isNot());
@@ -49,7 +52,14 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 			//assert context present:
 			PageElement pe = (PageElement) ctx;
 			
-			new PageElementConverter().handlePageElement(seleniumHolder, pe);
+			try {
+				String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(pe);
+				waitForElement(seleniumHolder, locator, pe.isNot());
+				seleniumHolder.addResult(pe, TestPartStatus.PASS);
+			}
+			catch (WaitTimedOutException e) {
+				seleniumHolder.addResult(pe, TestPartStatus.FAIL);
+			}
 			
 			//save the context:
 			seleniumHolder.pushContext(ctx);
@@ -64,11 +74,12 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 	public PostContextHandle handlePostContext(SeleniumHolder seleniumHolder, IContext ctx) {
 		
 		if(ctx instanceof Frame){
-			seleniumHolder.getSelenium().execute("selectFrame", "relative=up");
+			seleniumHolder.getSelenium().execute("selectFrame", "relative=parent");
 			seleniumHolder.popFrame();
 		}else if (ctx instanceof AbstractContext || ctx instanceof Select) {
 			seleniumHolder.popContext();
 		}
 		return PostContextHandle.DONE;
 	}
+	
 }

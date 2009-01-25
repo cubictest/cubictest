@@ -16,7 +16,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.utils.exported.RunnerUtils;
-import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.cubictest.model.Test;
@@ -313,14 +312,14 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			groupLayout.numColumns = 5;
 
 			Group group = new Group(composite, SWT.NONE);
-			group.setText("Selenium RC Server - Host and port: ");
+			group.setText("Selenium Server");
 			group.setLayout(groupLayout);
 			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			
 			GridData layoutData;
 			
 			seleniumAutoHostAndPortLabel = new Label(group, SWT.NONE);
-			seleniumAutoHostAndPortLabel.setText("Auto (localhost):");
+			seleniumAutoHostAndPortLabel.setText("Start new server on localhost (auto port):");
 			layoutData = new GridData();
 			layoutData.horizontalSpan = 2;
 			seleniumAutoHostAndPortLabel.setLayoutData(layoutData);

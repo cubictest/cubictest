@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.converters;
 
+import static org.cubictest.exporters.selenium.runner.converters.ConverterUtils.waitForElement;
 import static org.cubictest.model.IdentifierType.LABEL;
 
 import org.cubictest.export.converters.IPageElementConverter;
@@ -62,28 +63,14 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 		else {
 			//all other elements
 			try {
-				waitForElement(seleniumHolder, pe, pe.isNot());
+				String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(pe);
+				waitForElement(seleniumHolder, locator, pe.isNot());
 				seleniumHolder.addResult(pe, TestPartStatus.PASS);
 			}
 			catch (WaitTimedOutException e) {
 				seleniumHolder.addResult(pe, TestPartStatus.FAIL);
 			}
 		}
-	}
-	
-	private void waitForElement(final SeleniumHolder seleniumHolder, PageElement pe, final boolean isNot) {
-		final String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(pe);
-
-		new CubicWait() {
-			public boolean until() {
-				if (isNot) {
-					return !seleniumHolder.getSelenium().isElementPresent(locator);
-				}
-				else {
-					return seleniumHolder.getSelenium().isElementPresent(locator);
-				}
-			}
-		}.wait("Page element not found: " + pe.toString(), seleniumHolder.getNextPageElementTimeout() * 1000);
 	}
 	
 	private void waitForText(final SeleniumHolder seleniumHolder, final String text, final boolean isNot) {
@@ -98,6 +85,4 @@ public class PageElementConverter implements IPageElementConverter<SeleniumHolde
 			}
 		}.wait("Text not found: " + text, seleniumHolder.getNextPageElementTimeout() * 1000);
 	}
-	
-	
 }

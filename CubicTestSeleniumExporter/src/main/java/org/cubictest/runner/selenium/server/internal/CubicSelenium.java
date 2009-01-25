@@ -744,11 +744,11 @@ public class CubicSelenium implements Selenium {
 	}
 
 	public void start(BrowserConfigurationOptions arg0) {
-		throw new RuntimeException("Not implemented");
+		throw new RuntimeException("Not implementedin CubicTest");
 	}
 
 	public String retrieveLastRemoteControlLogs() {
-		throw new RuntimeException("Not implemented");
+		throw new RuntimeException("Not implementedin CubicTest");
 	}
 
 	public void start(String arg0) {
@@ -756,6 +756,26 @@ public class CubicSelenium implements Selenium {
 	}
 
 	public void start(Object arg0) {
-		throw new RuntimeException("Not implemented");
+		throw new RuntimeException("Not implemented in CubicTest");
+	}
+
+	public void addScript(String arg0, String arg1) {
+		execute("addScript", arg0, arg1);
+	}
+
+	public String captureEntirePageScreenshotToString(String arg0) {
+		return execute("captureEntirePageScreenshotToString", arg0)[0];
+	}
+
+	public void removeScript(String arg0) {
+		execute("removeScript", arg0);
+	}
+
+	public void showContextualBanner(String arg0, String arg1) {
+		execute("showContextualBanner", arg0, arg1);
+	}
+
+	public void useXpathLibrary(String arg0) {
+		execute("useXpathLibrary", arg0);
 	}
 }
