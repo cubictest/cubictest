@@ -32,10 +32,10 @@ public class SeleniumProxyServer {
 	public SeleniumProxyServer(SeleniumRunnerConfiguration config) {
 		this.config = config;
 		try {
-			seleniumServer = new SeleniumServer(false, config);
+			seleniumServer = new SeleniumServer(false, config.getRemoteControlConfiguration());
 			SeleniumServer.setProxyInjectionMode(config.getBrowser().isProxyInjectionMode());
 
-			final int portInfo = config.getPort();
+			final int portInfo = config.getSeleniumServerPort();
 	        serverThread = new Thread(new Runnable() {
 	            public void run() {
 	                try {
@@ -67,13 +67,13 @@ public class SeleniumProxyServer {
 	 * @throws InterruptedException
 	 */
 	public void stop() throws InterruptedException{
-		Logger.info("Stopping selenium server at port " + config.getPort());
+		Logger.info("Stopping selenium server at port " + config.getSeleniumServerPort());
 		seleniumServer.stop();
 	}
 	
 
 	public int getPort() {
-		return config.getPort();
+		return config.getSeleniumServerPort();
 	}
 
 	public boolean isStarted() {

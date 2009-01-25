@@ -82,8 +82,8 @@ public class TestRunner extends BaseTestRunner {
 				startSeleniumAndOpenInitialUrlWithTimeoutGuard(monitor, 40);
 			}
 			
-			seleniumHolder.setWorkingDir(config.getWorkingDirName());
-			seleniumHolder.setUseNamespace(config.isUseNamespace());
+			seleniumHolder.setWorkingDir(config.getHtmlCaptureAndScreenshotsTargetDir());
+			seleniumHolder.setUseNamespace(config.isSupportXHtmlNamespaces());
 			seleniumHolder.setTakeScreenshots(config.isTakeScreenshots());
 			seleniumHolder.setCaptureHtml(config.isCaptureHtml());
 
@@ -130,7 +130,7 @@ public class TestRunner extends BaseTestRunner {
 		seleniumStarter.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(test));
 		seleniumStarter.setDisplay(display);
 		seleniumStarter.setSelenium(selenium);
-		seleniumStarter.setStartNewSeleniumServer(config.isServerAutoHostAndPort());
+		seleniumStarter.setStartNewSeleniumServer(config.shouldStartCubicSeleniumServer());
 		seleniumStarter.setSettings(settings);
 
 		if (monitor != null) {

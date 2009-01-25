@@ -79,8 +79,8 @@ public class TestRunner {
 			if (seleniumHolder == null || !reuseSelenium) {
 				startSeleniumAndOpenInitialUrlWithTimeoutGuard(monitor, 40);
 			}
-			seleniumHolder.setWorkingDir(config.getWorkingDirName());
-			seleniumHolder.setUseNamespace(config.isUseNamespace());
+			seleniumHolder.setWorkingDir(config.getHtmlCaptureAndScreenshotsTargetDir());
+			seleniumHolder.setUseNamespace(config.isSupportXHtmlNamespaces());
 			seleniumHolder.setTakeScreenshots(config.isTakeScreenshots());
 			seleniumHolder.setCaptureHtml(config.isCaptureHtml());
 			
@@ -135,7 +135,7 @@ public class TestRunner {
 		seleniumStarter.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(runnerParameters.test));
 		seleniumStarter.setDisplay(runnerParameters.display);
 		seleniumStarter.setSelenium(selenium);
-		seleniumStarter.setStartNewSeleniumServer(config.isServerAutoHostAndPort());
+		seleniumStarter.setStartNewSeleniumServer(config.shouldStartCubicSeleniumServer());
 		seleniumStarter.setSettings(new CubicTestProjectSettings(runnerParameters.test.getProject())); 
 		
 		//start cancel handler, in case we want to cancel the Selenium startup or test run:

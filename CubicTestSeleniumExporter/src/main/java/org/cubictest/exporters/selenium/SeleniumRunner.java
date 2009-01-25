@@ -14,20 +14,20 @@ package org.cubictest.exporters.selenium;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.EmptyTestSuiteException;
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.exporters.selenium.runner.TestRunner;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
+import org.openqa.selenium.server.RemoteControlConfiguration;
 
 
 /**
@@ -43,38 +43,25 @@ public class SeleniumRunner
 	private static final String SMALL_SEPERATOR = "-----------------------------------------------";
 	private static final String LOG_PREFIX = "[CubicTest Selenium Runner] ";
 
-	private Set<TestListener> listeners;
 	private static final boolean REUSE_BROWSER_DEFAULT = true;
 	private boolean reuseBrowser = REUSE_BROWSER_DEFAULT;
 	private TestRunner testRunner;
 	private SeleniumRunnerConfiguration config;
 
 	/**
-	 * Create a new instance of the runner. Uses a default SeleniumRunnerConfiguration.
-	 * Default settings is to reuse browser between test files.
+	 * Create a new instance of the runner.
+	 * Default settings:
+	 * * Firefox as browser.
+	 * * Reuse browser instance between test files.
+	 * * No capture of HTML or screenshots of failed tests.
+	 * * No support for XHTML namespaces.
 	 */
 	public SeleniumRunner() {
-		listeners = new HashSet<TestListener>();
 		this.config = new SeleniumRunnerConfiguration();
+		config.setMultiWindow(false);
+		config.setBrowser(BrowserType.FIREFOX);
 	}
 
-	/**
-	 * Set the configuration object to use.
-	 * The SeleniumRunnerConfiguration is a subclass of the standard Selenium RC RemoteControlConfiguration.
-	 */
-	public void setConfiguration(SeleniumRunnerConfiguration configuration) {
-		this.config = configuration;
-	}
-
-	
-	public void addTestListener(TestListener listener){
-		listeners.add(listener);
-	}
-	
-	public void removeTestListener(TestListener listener){
-		listeners.remove(listener);
-	}
-	
 	/**
 	 * Run tests in specified directory and all subdirectories.
 	 * @param directoryPath Path to directory to run tests in, relative to project root.
@@ -267,6 +254,45 @@ public class SeleniumRunner
 	 */
 	public void forceNewBrowserInstanceForEachTest() {
 		this.reuseBrowser = false;
+	}
+	
+	
+	public void setBrowser(BrowserType browserType) {
+		config.setBrowser(browserType);
+	}
+	
+	/**
+	 * Set hostname (or IP address) and port of existing Selenium Server to use.
+	 * This will prevent CubicTest from starting its own Selenium Server at localhost and random port.
+	 */
+	public void setUseExistingSeleniumServer(String seleniumServerHostname, int seleniumServerPort) {
+		config.setUseExistingSeleniumServer(seleniumServerHostname, seleniumServerPort);
+	}
+	
+	public void setCaptureHtml(boolean captureHtml) {
+		config.setCaptureHtml(captureHtml);
+	}
+
+	public void setSupportXHtmlNamespaces(boolean useNamespace) {
+		config.setSupportXHtmlNamespaces(useNamespace);
+	}
+
+	public void setHtmlCaptureAndScreenshotsTargetDir(String absolutePath) {
+		config.setHtmlCaptureAndScreenshotsTargetDir(absolutePath);
+	}
+
+	public void setTakeScreenshots(boolean takeScreenshots) {
+		config.setTakeScreenshots(takeScreenshots);
+	}
+
+
+	public void setRemoteControlConfiguration(RemoteControlConfiguration rcConfiguration) {
+		config.setRemoteControlConfiguration(rcConfiguration);
+	}
+
+
+	public void setMultiWindow(boolean seleniumMultiWindow) {
+		config.setMultiWindow(seleniumMultiWindow);
 	}
 	
 }

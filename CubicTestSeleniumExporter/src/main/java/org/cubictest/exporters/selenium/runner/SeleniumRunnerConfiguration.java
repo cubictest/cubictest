@@ -26,36 +26,38 @@ import org.openqa.selenium.server.RemoteControlConfiguration;
  * 
  * @author Christian Schwarz
  */
-public class SeleniumRunnerConfiguration extends RemoteControlConfiguration {
+public class SeleniumRunnerConfiguration  {
 
-	private static final String LOCALHOST = "localhost";
 	private BrowserType browserType;
 	private String seleniumServerHostname;
-	private int seleniumServerPort;
-	private boolean useNamespace;		
-	private String workingDirName;
+	private boolean supportXHtmlNamespaces;		
+	private String htmlCaptureAndScreenshotsTargetDir;
 	private boolean takeScreenshots;
 	private boolean captureHtml;
-	private boolean serverAutoHostAndPort = true;
-		
+	private boolean shouldStartCubicSeleniumServer = true;
+	private RemoteControlConfiguration rcConfiguration;
 	
+	/**
+	 * Default is that CubicTest starts its own Selenium server at localhost and random port.
+	 */
 	public SeleniumRunnerConfiguration() {
-		initDefaultSeleniumServerPort();
-		this.seleniumServerHostname = LOCALHOST;
-		setMultiWindow(false);
+		rcConfiguration = new RemoteControlConfiguration();
+		initDefaultPort();
+		this.seleniumServerHostname = "localhost";
+		rcConfiguration.setMultiWindow(false);
 		setBrowser(BrowserType.FIREFOX);
 	}
 
-	private void initDefaultSeleniumServerPort() {
+	private void initDefaultPort() {
 		int seleniumServerPort = ExportUtils.findAvailablePort();
-		setPort(seleniumServerPort);
-		setPortDriversShouldContact(seleniumServerPort);
+		rcConfiguration.setPort(seleniumServerPort);
+		rcConfiguration.setPortDriversShouldContact(seleniumServerPort);
 	}
 	
 	public void setBrowser(BrowserType browserType) {
 		this.browserType = browserType;
 		if (browserType.isProxyInjectionMode()) {
-			setProxyInjectionModeArg(true);
+			rcConfiguration.setProxyInjectionModeArg(true);
 		}
 	}
 	
@@ -69,52 +71,47 @@ public class SeleniumRunnerConfiguration extends RemoteControlConfiguration {
 	}
 	
 	public int getSeleniumServerPort() {
-		return seleniumServerPort;
+		return rcConfiguration.getPort();
 	}
 
 	
 	/**
-	 * Set hostname (or IP address) and port of Selenium Server to use.
-	 * If not localhost or 127.0.0.1, a local server will not be started.
+	 * Set hostname (or IP address) and port of existing Selenium Server to use.
+	 * This will prevent CubicTest from starting its own Selenium Server at localhost and random port.
 	 */
-	public void setSeleniumServer(String seleniumServerHostname, int seleniumServerPort) {
+	public void setUseExistingSeleniumServer(String seleniumServerHostname, int seleniumServerPort) {
 		this.seleniumServerHostname = seleniumServerHostname;
-		this.seleniumServerPort = seleniumServerPort;
-		setPort(seleniumServerPort);
-		setPortDriversShouldContact(seleniumServerPort);
-		this.serverAutoHostAndPort = false;
+		rcConfiguration.setPort(seleniumServerPort);
+		rcConfiguration.setPortDriversShouldContact(seleniumServerPort);
+		this.shouldStartCubicSeleniumServer = false;
 	}
 	
 	public void setCaptureHtml(boolean captureHtml) {
 		this.captureHtml = captureHtml;
 	}
 
-	public void setUseNamespace(boolean useNamespace) {
-		this.useNamespace = useNamespace;
+	public void setSupportXHtmlNamespaces(boolean useNamespace) {
+		this.supportXHtmlNamespaces = useNamespace;
 	}
 
-	public void setWorkingDirName(String workingDirName) {
+	public void setHtmlCaptureAndScreenshotsTargetDir(String workingDirName) {
 		System.out.println("Using working directory: " + workingDirName);
-		this.workingDirName = workingDirName;
+		this.htmlCaptureAndScreenshotsTargetDir = workingDirName;
 	}
 
 	public void setTakeScreenshots(boolean takeScreenshots) {
 		this.takeScreenshots = takeScreenshots;
 	}
 
-	public void setServerAutoHostAndPort(boolean serverAutoHostAndPort) {
-		this.serverAutoHostAndPort = serverAutoHostAndPort;
-	}
-	
-	public boolean isUseNamespace() {
-		return useNamespace;
+	public boolean isSupportXHtmlNamespaces() {
+		return supportXHtmlNamespaces;
 	}
 
-	public String getWorkingDirName() {
-		if (isBlank(workingDirName)) {
-			setWorkingDirName(new File("").getAbsolutePath());
+	public String getHtmlCaptureAndScreenshotsTargetDir() {
+		if (isBlank(htmlCaptureAndScreenshotsTargetDir)) {
+			setHtmlCaptureAndScreenshotsTargetDir(new File("").getAbsolutePath());
 		}
-		return workingDirName;
+		return htmlCaptureAndScreenshotsTargetDir;
 	}
 
 	public boolean isTakeScreenshots() {
@@ -125,7 +122,19 @@ public class SeleniumRunnerConfiguration extends RemoteControlConfiguration {
 		return captureHtml;
 	}
 
-	public boolean isServerAutoHostAndPort() {
-		return serverAutoHostAndPort;
+	public boolean shouldStartCubicSeleniumServer() {
+		return shouldStartCubicSeleniumServer;
+	}
+
+	public void setRemoteControlConfiguration(RemoteControlConfiguration rcConfiguration) {
+		this.rcConfiguration = rcConfiguration;
+	}
+
+	public RemoteControlConfiguration getRemoteControlConfiguration() {
+		return rcConfiguration;
+	}
+
+	public void setMultiWindow(boolean seleniumMultiWindow) {
+		rcConfiguration.setMultiWindow(seleniumMultiWindow);
 	}
 }

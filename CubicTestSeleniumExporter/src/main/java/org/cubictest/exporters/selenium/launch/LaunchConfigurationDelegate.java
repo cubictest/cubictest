@@ -223,14 +223,13 @@ public class LaunchConfigurationDelegate extends
 			parameters.seleniumClientProxyPort = seleniumClientProxyPort;
 			
 			SeleniumRunnerConfiguration config = new SeleniumRunnerConfiguration();
-			config.setServerAutoHostAndPort(isSeleniumServerAutoHostAndPort(configuration));
 			if (!isSeleniumServerAutoHostAndPort(configuration)) {
-				config.setSeleniumServer(seleniumHost, seleniumPort);
+				config.setUseExistingSeleniumServer(seleniumHost, seleniumPort);
 			}
 			config.setBrowser(BrowserType.fromId(browser));
 			config.setMultiWindow(seleniumMultiWindow);
-			config.setUseNamespace(useNamespace);
-			config.setWorkingDirName(workingDirName);
+			config.setSupportXHtmlNamespaces(useNamespace);
+			config.setHtmlCaptureAndScreenshotsTargetDir(workingDirName);
 			config.setTakeScreenshots(getSeleniumTakeScreenshots(configuration));
 			config.setCaptureHtml(getSeleniumCaptureHtml(configuration));
 
