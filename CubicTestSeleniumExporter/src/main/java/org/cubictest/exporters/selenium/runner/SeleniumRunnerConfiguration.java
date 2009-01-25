@@ -10,6 +10,10 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner;
 
+import static org.apache.commons.lang.StringUtils.isBlank;
+
+import java.io.File;
+
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.openqa.selenium.server.RemoteControlConfiguration;
@@ -32,7 +36,7 @@ public class SeleniumRunnerConfiguration extends RemoteControlConfiguration {
 	private String workingDirName;
 	private boolean takeScreenshots;
 	private boolean captureHtml;
-	private boolean serverAutoHostAndPort;
+	private boolean serverAutoHostAndPort = true;
 		
 	
 	public SeleniumRunnerConfiguration() {
@@ -78,6 +82,7 @@ public class SeleniumRunnerConfiguration extends RemoteControlConfiguration {
 		this.seleniumServerPort = seleniumServerPort;
 		setPort(seleniumServerPort);
 		setPortDriversShouldContact(seleniumServerPort);
+		this.serverAutoHostAndPort = false;
 	}
 	
 	public void setCaptureHtml(boolean captureHtml) {
@@ -89,6 +94,7 @@ public class SeleniumRunnerConfiguration extends RemoteControlConfiguration {
 	}
 
 	public void setWorkingDirName(String workingDirName) {
+		System.out.println("Using working directory: " + workingDirName);
 		this.workingDirName = workingDirName;
 	}
 
@@ -105,6 +111,9 @@ public class SeleniumRunnerConfiguration extends RemoteControlConfiguration {
 	}
 
 	public String getWorkingDirName() {
+		if (isBlank(workingDirName)) {
+			setWorkingDirName(new File("").getAbsolutePath());
+		}
 		return workingDirName;
 	}
 

@@ -21,7 +21,6 @@ import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.export.runner.RunnerStarter.Operation;
 import org.cubictest.export.utils.exported.ExportUtils;
-import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
 import org.cubictest.exporters.selenium.runner.converters.SameVMCustomTestStepConverter;
@@ -82,6 +81,12 @@ public class TestRunner extends BaseTestRunner {
 			if (seleniumHolder == null || !reuseSelenium) {
 				startSeleniumAndOpenInitialUrlWithTimeoutGuard(monitor, 40);
 			}
+			
+			seleniumHolder.setWorkingDir(config.getWorkingDirName());
+			seleniumHolder.setUseNamespace(config.isUseNamespace());
+			seleniumHolder.setTakeScreenshots(config.isTakeScreenshots());
+			seleniumHolder.setCaptureHtml(config.isCaptureHtml());
+
 			Class<? extends ICustomTestStepConverter<SeleniumHolder>> ctsc = null;
 			if(runingInSameVMAsCustomFiles)
 				ctsc = SameVMCustomTestStepConverter.class;
@@ -125,6 +130,7 @@ public class TestRunner extends BaseTestRunner {
 		seleniumStarter.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(test));
 		seleniumStarter.setDisplay(display);
 		seleniumStarter.setSelenium(selenium);
+		seleniumStarter.setStartNewSeleniumServer(config.isServerAutoHostAndPort());
 		seleniumStarter.setSettings(settings);
 
 		if (monitor != null) {
