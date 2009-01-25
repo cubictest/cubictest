@@ -52,7 +52,7 @@ public class SeleniumRunner
 	/**
 	 * Create a new instance of the runner.
 	 * Default settings:
-	 * * Firefox as browser.
+	 * * Use browser set in test-project.properties.
 	 * * Reuse browser instance between test files.
 	 * * No capture of HTML or screenshots of failed tests.
 	 * * No support for XHTML namespaces.
