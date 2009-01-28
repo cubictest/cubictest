@@ -25,8 +25,10 @@ import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.exporters.selenium.runner.TestRunner;
+import org.cubictest.exporters.selenium.runner.converters.SameVMCustomTestStepConverter;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
+import org.cubictest.selenium.custom.IElementContext;
 import org.openqa.selenium.server.RemoteControlConfiguration;
 
 
@@ -62,6 +64,7 @@ public class SeleniumRunner
 		config.setMultiWindow(false);
 		settings = new CubicTestProjectSettings(new File("."));
 		config.setBrowser(SeleniumExporterProjectSettings.getPreferredBrowser(settings));
+		SameVMCustomTestStepConverter.resetElementContext();
 	}
 
 	/**
@@ -292,6 +295,10 @@ public class SeleniumRunner
 
 	public void setMultiWindow(boolean seleniumMultiWindow) {
 		config.setMultiWindow(seleniumMultiWindow);
+	}
+	
+	public void setCustomStepElementContext(IElementContext elementContext) {
+		SameVMCustomTestStepConverter.setElementContext(elementContext);
 	}
 	
 }

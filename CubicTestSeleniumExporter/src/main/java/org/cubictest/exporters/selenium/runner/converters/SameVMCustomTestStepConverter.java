@@ -5,18 +5,19 @@ import java.util.Map;
 
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.exporters.selenium.ElementContext;
 import org.cubictest.exporters.selenium.common.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.model.customstep.data.CustomTestStepData;
-import org.cubictest.runner.selenium.server.internal.ElementContext;
 import org.cubictest.selenium.custom.ICustomTestStep;
+import org.cubictest.selenium.custom.IElementContext;
 
 public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 
-	private static ElementContext context = new ElementContext();
+	private static IElementContext context = new ElementContext();
 	
 	public void handleCustomStep(SeleniumHolder t, CustomTestStepHolder cts,
 			CustomTestStepData data) {
@@ -46,8 +47,12 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 		}
 	}
 
-	public static void initializeElementContext() {
+	public static void resetElementContext() {
 		context = new ElementContext();
+	}
+	
+	public static void setElementContext(IElementContext elementContext) {
+		context = elementContext;
 	}
 
 }

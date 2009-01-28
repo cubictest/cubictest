@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.net.ServerSocketFactory;
 
+import org.cubictest.exporters.selenium.ElementContext;
 import org.cubictest.selenium.custom.ICustomTestStep;
 import org.cubictest.selenium.custom.IElementContext;
 

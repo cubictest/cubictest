@@ -90,7 +90,6 @@ public class TestRunner extends BaseTestRunner {
 			Class<? extends ICustomTestStepConverter<SeleniumHolder>> ctsc = null;
 			if(runingInSameVMAsCustomFiles) {
 				ctsc = SameVMCustomTestStepConverter.class;
-				SameVMCustomTestStepConverter.initializeElementContext();
 			}
 			else {
 				ctsc = UnsupportedCustomTestStepConverter.class;
