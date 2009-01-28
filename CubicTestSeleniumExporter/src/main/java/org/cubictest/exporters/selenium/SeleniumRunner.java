@@ -300,5 +300,9 @@ public class SeleniumRunner
 	public void setCustomStepElementContext(IElementContext elementContext) {
 		SameVMCustomTestStepConverter.setElementContext(elementContext);
 	}
-	
+
+	public IElementContext getCustomStepElementContext() {
+		return SameVMCustomTestStepConverter.getElementContext();
+	}
+
 }

@@ -54,5 +54,9 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 	public static void setElementContext(IElementContext elementContext) {
 		context = elementContext;
 	}
+	
+	public static IElementContext getElementContext() {
+		return context;
+	}
 
 }
