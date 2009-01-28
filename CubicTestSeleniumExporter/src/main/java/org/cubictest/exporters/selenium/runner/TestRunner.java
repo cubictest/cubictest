@@ -88,10 +88,13 @@ public class TestRunner extends BaseTestRunner {
 			seleniumHolder.setCaptureHtml(config.isCaptureHtml());
 
 			Class<? extends ICustomTestStepConverter<SeleniumHolder>> ctsc = null;
-			if(runingInSameVMAsCustomFiles)
+			if(runingInSameVMAsCustomFiles) {
 				ctsc = SameVMCustomTestStepConverter.class;
-			else 
+				SameVMCustomTestStepConverter.initializeElementContext();
+			}
+			else {
 				ctsc = UnsupportedCustomTestStepConverter.class;
+			}
 				
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(UrlStartPointConverter.class, 
 					PageElementConverter.class, ContextConverter.class, 

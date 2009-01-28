@@ -16,7 +16,7 @@ import org.cubictest.selenium.custom.ICustomTestStep;
 
 public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 
-	private ElementContext context;
+	private static ElementContext context = new ElementContext();
 	
 	public void handleCustomStep(SeleniumHolder t, CustomTestStepHolder cts,
 			CustomTestStepData data) {
@@ -25,10 +25,6 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 		
 		for(CustomTestStepParameter param : cts.getCustomTestStepParameters()){
 			arguments.put(param.getKey(), cts.getValue(param).getValue());
-		}
-		
-		if(context == null){
-			context = new ElementContext();
 		}
 		
 		String ctsName = null;
@@ -48,6 +44,10 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 			Logger.error("AssertionError in custom step " + ctsName + ": " + e.getMessage());
 			t.addResult(cts, TestPartStatus.FAIL);
 		}
+	}
+
+	public static void initializeElementContext() {
+		context = new ElementContext();
 	}
 
 }

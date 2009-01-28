@@ -84,6 +84,9 @@ public class SeleniumRunner
     	}
 
     	File dir = new File(directoryPath);
+    	if (!dir.exists() || dir.isFile()) {
+    		throw new ExporterException("The directory " + dir.getAbsolutePath() + " does not exist");
+    	}
     	
 		System.out.println(LOG_PREFIX + "Running all tests in folder " + dir.getAbsolutePath() + " and subfolders.");
     	
