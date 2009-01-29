@@ -298,11 +298,11 @@ public class SeleniumRunner
 	}
 	
 	public void setCustomStepElementContext(IElementContext elementContext) {
-		SameVMCustomTestStepConverter.setElementContext(elementContext);
+		SameVMCustomTestStepConverter.setThreadElementContext(elementContext);
 	}
 
 	public IElementContext getCustomStepElementContext() {
-		return SameVMCustomTestStepConverter.getElementContext();
+		return SameVMCustomTestStepConverter.getThreadElementContext();
 	}
 
 }

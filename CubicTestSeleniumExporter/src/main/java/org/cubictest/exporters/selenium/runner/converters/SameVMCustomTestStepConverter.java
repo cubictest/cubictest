@@ -17,10 +17,16 @@ import org.cubictest.selenium.custom.IElementContext;
 
 public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 
-	private static IElementContext context = new ElementContext();
+	private static final ThreadLocal<IElementContext> threadElementContext = new ThreadLocal<IElementContext>();
+
 	
 	public void handleCustomStep(SeleniumHolder t, CustomTestStepHolder cts,
 			CustomTestStepData data) {
+
+		
+		if (threadElementContext.get() == null) {
+			throw new ExporterException("Custom step converter thread ElementContext was null. Please set an ElementContext on the SeleniumRunner or this converter.");
+		}
 		
 		Map<String, String> arguments = new HashMap<String, String>();
 		
@@ -35,7 +41,7 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 
 		try{
 			ICustomTestStep testStep = (ICustomTestStep) Class.forName(data.getDisplayText()).newInstance();
-			testStep.execute(arguments, context, t.getSelenium().getSelenium());
+			testStep.execute(arguments, threadElementContext.get(), t.getSelenium().getSelenium());
 			t.addResult(cts,TestPartStatus.PASS);
 		}catch (Exception e) {
 			Logger.error("Error handling custom step " + ctsName, e);
@@ -47,16 +53,18 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 		}
 	}
 
-	public static void resetElementContext() {
-		context = new ElementContext();
-	}
-	
-	public static void setElementContext(IElementContext elementContext) {
-		context = elementContext;
-	}
-	
-	public static IElementContext getElementContext() {
-		return context;
+	/** Retrieves the ElementContext of this thread. */
+	public static IElementContext getThreadElementContext() {
+		return threadElementContext.get();
 	}
 
+	/** Stores the ElementContext of this thread. */
+	public static void setThreadElementContext(IElementContext elementContext) {
+		threadElementContext.set(elementContext);
+	}
+	
+	public static void resetElementContext() {
+		setThreadElementContext(new ElementContext());
+	}
+	
 }
