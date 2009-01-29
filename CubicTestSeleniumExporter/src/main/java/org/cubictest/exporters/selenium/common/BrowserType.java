@@ -18,10 +18,10 @@ package org.cubictest.exporters.selenium.common;
  */
 public enum BrowserType {
 
-	FIREFOX("*chrome", "Firefox", false),
+	FIREFOX("*firefox", "Firefox", false),
 	OPERA("*opera", "Opera", false),
 	GOOGLE_CHROME("*googlechrome", "Google Chrome", false),
-	INTERNET_EXPLORER("*iehta", "Internet Explorer", false),
+	INTERNET_EXPLORER("*iexplore", "Internet Explorer", false),
 	SAFARI("*safari", "Safari", false),
 	FIREFOX_PI("*pifirefox", "Firefox - Proxy injection mode", true),
 	INTERNET_EXPLORER_PI("*piiexplore", "Internet Explorer - Proxy injection mode", true);
@@ -52,10 +52,10 @@ public enum BrowserType {
 			}
 		}
 		
-		if ("*firefox".equals(id)) {
+		if ("*chrome".equals(id)) {
 			return FIREFOX;
 		}
-		else if ("*iexplore".equals(id)) {
+		else if ("*iehta".equals(id)) {
 			return INTERNET_EXPLORER;
 		}
 		throw new IllegalArgumentException("Unknown BrowserType: " + id);
