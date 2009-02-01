@@ -43,8 +43,8 @@ import org.eclipse.gef.ui.actions.UndoAction;
 import org.eclipse.gef.ui.actions.UpdateAction;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -237,16 +237,15 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		descText.setLayoutData(layoutData);
 		descText.setText(customStep.getDescription() == null ? "" : customStep.getDescription());		
 		
-		descText.addFocusListener(new FocusListener(){
-			public void focusGained(FocusEvent e) {}
-			public void focusLost(FocusEvent e) {
+		descText.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
 				if(!descText.getText().equals(customStep.getDescription())){
 					ChangeCustomStepDescriptionCommand command = new ChangeCustomStepDescriptionCommand();
 					command.setDescription(descText.getText());
 					command.setCustomStep(customStep);
 					commandStack.execute(command);
 				}
-			}			
+			}
 		});
 	}
 	
@@ -275,9 +274,8 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		nameText.setLayoutData(layoutData);
 		nameText.setText(customStep.getName() == null ? "" : customStep.getName());		
 		
-		nameText.addFocusListener(new FocusListener(){
-			public void focusGained(FocusEvent e) {}
-			public void focusLost(FocusEvent e) {
+		nameText.addModifyListener(new ModifyListener(){
+			public void modifyText(ModifyEvent e) {
 				if(!nameText.getText().equals(customStep.getName())){
 					ChangeCustomStepNameCommand command = new ChangeCustomStepNameCommand();
 					command.setName(nameText.getText());

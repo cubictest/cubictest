@@ -21,6 +21,8 @@ import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormAttachment;
@@ -98,6 +100,17 @@ public class SeleniumCustomStepSection extends CustomStepSection
 		classText = new Text(composite,SWT.BORDER);
 		classText.setBackground(ColorConstants.white);
 		classText.setText(data.getDisplayText());
+		classText.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) {
+			}
+			public void focusLost(FocusEvent e) {
+				ChangeSeleniumCustomStepCommand command = new ChangeSeleniumCustomStepCommand();
+				command.setCustomTestStepData(data);
+				command.setPath(data.getPath());
+				command.setDisplayText(classText.getText());
+				getCommandStack().execute(command);
+			}
+		});
 		
 		layoutData = new FormData();
 		layoutData.left = new FormAttachment(newClassLink);
