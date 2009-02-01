@@ -87,7 +87,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 					String bodyText = selenium.execute("getHtmlSource")[0];
 					SeleniumUtils.writeTextToFile(innerFolder, element.getName(), bodyText, "html");
 				}
-				catch (Exception e) {
+				catch (Throwable e) {
 					Logger.warn("Unable to capture HTML of failing test", e);
 				}
 			}
@@ -98,7 +98,7 @@ public class SeleniumHolder extends RunnerResultHolder {
 					Thread.sleep(100);
 					selenium.execute("captureScreenshot", innerFolder + element.getName() + ".png");
 				}
-				catch (Exception e) {
+				catch (Throwable e) {
 					Logger.warn("Unable to capture screenshot of failing test", e);
 				}
 			}

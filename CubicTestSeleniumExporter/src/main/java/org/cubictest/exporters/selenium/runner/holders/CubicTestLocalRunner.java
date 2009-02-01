@@ -12,10 +12,12 @@ package org.cubictest.exporters.selenium.runner.holders;
 
 import java.lang.reflect.Method;
 
+import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.exceptions.ExporterException;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
+import com.thoughtworks.selenium.SeleniumException;
 
 public class CubicTestLocalRunner {
 
@@ -38,7 +40,7 @@ public class CubicTestLocalRunner {
 		}
 	}
 
-	public String[] execute(String commandName, String... vars){
+	public String[] execute(String commandName, String... vars) throws Throwable{
 		Class<?>[] classes = new Class[vars.length];
 		
 		for(int i = 0; i < vars.length; i++){
@@ -52,8 +54,10 @@ public class CubicTestLocalRunner {
 				return (String[]) result;
 			}
 			return new String[]{result + ""};
+		} catch (SeleniumException e) {
+			throw e;
 		} catch (Exception e) {
-			throw new ExporterException(e);
+			throw ErrorHandler.getCause(e);
 		}
 	}
 	

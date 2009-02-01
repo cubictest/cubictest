@@ -46,9 +46,16 @@ public class SeleniumClientProxyServer extends Thread {
 					params[i] = value;
 				}
 				
-				String[] results = execute(commando, params);
-				OutputStreamWriter writer = 
-					new OutputStreamWriter(socket.getOutputStream());
+				OutputStreamWriter writer = new OutputStreamWriter(socket.getOutputStream());
+				
+				String[] results;
+				try {
+					results = execute(commando, params);
+				} catch (Throwable e) {
+					Logger.error("Exception executing Selenium command.", e);
+					results = new String[] { "Error: " + e.toString()};
+				}
+				
 				writer.write( results.length + "\n");
 				for(String result : results){
 					writer.write(result + "\n");
@@ -61,7 +68,7 @@ public class SeleniumClientProxyServer extends Thread {
 		}
 	}
 	
-	private String[] execute(String commando, String[] params) {
+	private String[] execute(String commando, String[] params) throws Throwable {
 		CubicTestLocalRunner selenium = seleniumHolder.getSelenium();
 		return selenium.execute(commando, params);
 	}

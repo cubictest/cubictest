@@ -44,7 +44,7 @@ public class LaunchCustomTestStepConverter extends CustomTestStepConverter {
 				attributes.toArray(new String[attributes.size()]));
 		if(result.startsWith("Error")){
 			t.addResult(cts, TestPartStatus.EXCEPTION);
-			throw new ExporterException(result.replaceFirst("Error: ", result));
+			throw new ExporterException(result.replaceFirst("Error: ", ""));
 		}
 		if(result.startsWith("Failure")){
 			t.addResult(cts, TestPartStatus.FAIL);

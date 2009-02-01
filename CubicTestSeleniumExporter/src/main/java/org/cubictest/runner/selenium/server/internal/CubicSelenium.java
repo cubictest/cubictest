@@ -11,6 +11,7 @@ import java.net.UnknownHostException;
 
 import javax.net.SocketFactory;
 
+import org.cubictest.export.exceptions.ExporterException;
 import org.openqa.selenium.server.BrowserConfigurationOptions;
 
 import com.thoughtworks.selenium.Selenium;
@@ -50,8 +51,12 @@ public class CubicSelenium implements Selenium {
 			BufferedReader br = new BufferedReader(isr);
 			int numberOfResults = Integer.parseInt(br.readLine());
 			results = new String[numberOfResults];
-			for(int i = 0; i < numberOfResults; i++)
+			for(int i = 0; i < numberOfResults; i++) {
 				results[i] = br.readLine();
+				if (results[i].startsWith("Error: ")) {
+					throw new ExporterException(results[i].replaceFirst("Error: ", ""));
+				}
+			}
 		}catch (IOException e) {
 			//e.printStackTrace();
 			throw new RuntimeException("Could not execute Selenium command: " + command + " " + args, e);
