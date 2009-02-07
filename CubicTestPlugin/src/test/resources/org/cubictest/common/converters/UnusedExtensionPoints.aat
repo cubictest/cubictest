@@ -134,7 +134,7 @@
                         <width>150</width>
                         <height>95</height>
                       </dimension>
-                      <name>Bring Fraktguide: Gir systemtilgang til produkter, priser, dekningsområde og fremsendingstider for Bring sine kunder Extension Point</name>
+                      <name>Test Extension Point</name>
                     </end>
                   </simpleTransition>
                 </outTransitions>
@@ -164,7 +164,7 @@
                   <width>150</width>
                   <height>95</height>
                 </dimension>
-                <name>Bring Fraktguide: Gir systemtilgang til produkter, priser, dekningsområde og fremsendingstider for Bring sine kunder Extension Point</name>
+                <name>Test Extension Point</name>
               </end>
             </simpleTransition>
           </outTransitions>
