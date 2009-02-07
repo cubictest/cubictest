@@ -125,7 +125,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				upToParentFrame(seleniumHolder);
 			return commandName;
 		}
-		catch (Exception e) {
+		catch (Throwable e) {
 			String msg = "Error invoking user interaction: " + userInteraction.toString() + ".";
 			if (element instanceof PageElement) {
 				PageElement pe = (PageElement) element;
@@ -137,21 +137,19 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			Logger.error(msg, e);
 			throw new UserInteractionException(msg);
 		}
-		
 	}
 
-	private void getToRightFrame(SeleniumHolder seleniumHolder,
-			PageElement element) {
+	private void getToRightFrame(SeleniumHolder seleniumHolder, PageElement element) {
 		Frame parent = seleniumHolder.getParentFrame(element);
 		if(parent != null){
 			getToRightFrame(seleniumHolder, parent);
 		}
 		String locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(element);
-		seleniumHolder.getSelenium().execute("selectFrame", locator);
+		seleniumHolder.getSelenium().selectFrame(locator);
 	}
 
 	private void upToParentFrame(SeleniumHolder seleniumHolder) {
 		final CubicTestLocalRunner seleniumRunner = seleniumHolder.getSelenium();
-		seleniumRunner.execute("selectFrame", "relative=top");
+		seleniumRunner.selectFrame("relative=parent");
 	}
 }

@@ -64,7 +64,7 @@ public class SeleniumClientProxyServer extends Thread {
 			}
 			socket.close();
 		} catch (IOException e) {
-			Logger.error("IOException in server", e);
+			Logger.warn("Unexcepted server shutdown", e);
 		}
 	}
 	

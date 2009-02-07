@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
-import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -76,7 +75,7 @@ public class CubicTestSeleniumLaunchShortcut implements ILaunchShortcut {
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_NAMESPACE_XPATH, false);
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_HOST, "localhost");
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_PORT, "4444");
-		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, false);
+		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW, true);
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_TAKE_SCREENSHOTS, false);
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_CAPTURE_HTML, false);
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_AUTO_HOST_AND_PORT, true);

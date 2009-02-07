@@ -328,10 +328,10 @@ public class LaunchConfigurationDelegate extends
 		try {
 			return configuration.getAttribute(
 					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW,
-					false);
+					true);
 		} catch (Exception e) {
 			Logger.error("Error getting property", e);
-			return false;
+			return true;
 		}
 	}
 

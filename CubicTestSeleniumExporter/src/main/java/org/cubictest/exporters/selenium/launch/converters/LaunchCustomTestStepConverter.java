@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.launch.converters;
 
+import static org.apache.commons.lang.StringUtils.isBlank;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +44,11 @@ public class LaunchCustomTestStepConverter extends CustomTestStepConverter {
 		
 		String result = runner.executeOnServer("cubicTestCustomStep",
 				attributes.toArray(new String[attributes.size()]));
-		if(result.startsWith("Error")){
+		if(isBlank(result)){
+			t.addResult(cts, TestPartStatus.EXCEPTION);
+			throw new ExporterException("Unknown exception while executing Custom Test Step " + cts.getName());
+		}
+		else if(result.startsWith("Error")){
 			t.addResult(cts, TestPartStatus.EXCEPTION);
 			throw new ExporterException(result.replaceFirst("Error: ", ""));
 		}

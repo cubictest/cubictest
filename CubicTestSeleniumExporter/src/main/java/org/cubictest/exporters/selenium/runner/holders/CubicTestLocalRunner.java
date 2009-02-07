@@ -13,11 +13,9 @@ package org.cubictest.exporters.selenium.runner.holders;
 import java.lang.reflect.Method;
 
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.export.exceptions.ExporterException;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
-import com.thoughtworks.selenium.SeleniumException;
 
 public class CubicTestLocalRunner {
 
@@ -31,12 +29,12 @@ public class CubicTestLocalRunner {
 		this.selenium = selenium;
 	}
 
-	public String execute(String commandName, String locator, String inputValue) {
+	public String execute(String commandName, String locator, String inputValue) throws Throwable {
 		try {
 			Method method = selenium.getClass().getMethod(commandName, new Class[]{String.class, String.class});
 			return method.invoke(selenium, new Object[]{locator, inputValue}) + "";
 		} catch (Exception e) {
-			throw new ExporterException(e);
+			throw ErrorHandler.getCause(e);
 		}
 	}
 
@@ -54,19 +52,17 @@ public class CubicTestLocalRunner {
 				return (String[]) result;
 			}
 			return new String[]{result + ""};
-		} catch (SeleniumException e) {
-			throw e;
 		} catch (Exception e) {
 			throw ErrorHandler.getCause(e);
 		}
 	}
 	
-	public String execute(String commandName, String locator) {
+	public String execute(String commandName, String locator) throws Throwable {
 		try {
 			Method method = selenium.getClass().getMethod(commandName, new Class[]{String.class});
 			return method.invoke(selenium, new Object[]{locator}) + "";
 		} catch (Exception e) {
-			throw new ExporterException(e);
+			throw ErrorHandler.getCause(e);
 		}
 	}
 

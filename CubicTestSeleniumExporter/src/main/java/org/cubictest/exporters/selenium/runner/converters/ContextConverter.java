@@ -74,7 +74,7 @@ public class ContextConverter implements IContextConverter<SeleniumHolder> {
 	public PostContextHandle handlePostContext(SeleniumHolder seleniumHolder, IContext ctx) {
 		
 		if(ctx instanceof Frame){
-			seleniumHolder.getSelenium().execute("selectFrame", "relative=parent");
+			seleniumHolder.getSelenium().selectFrame("relative=parent");
 			seleniumHolder.popFrame();
 		}else if (ctx instanceof AbstractContext || ctx instanceof Select) {
 			seleniumHolder.popContext();
