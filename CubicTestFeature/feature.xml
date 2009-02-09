@@ -2,7 +2,7 @@
 <feature
       id="org.cubictest"
       label="CubicTest"
-      version="1.8.11"
+      version="1.9.2"
       provider-name="cubictest.org"
       plugin="org.cubictest">
 

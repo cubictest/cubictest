@@ -87,14 +87,8 @@ sha1 cubictest-selenium-rc-$1.pom | awk '{print $1}' > "$SELENIUM_RC_DIR/cubicte
 md5 cubictest-selenium-rc-$1.pom | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.pom.md5"
 
 
-# Maven 2 runner:
-
-cd $BASE_DIR/CubicTestMojo
-mvn clean install -DcreateChecksum=true
-
-
 #Done:
-
+echo Jars copied to local m2 repo.
 cd $BASE_DIR
 
 

@@ -7,6 +7,6 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry exported="true" kind="lib" path="lib/jsonrpc-1.0.jar" sourcepath="CubicRecordersrc.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.mortbay.jetty.jar" sourcepath="CubicRecordersrc.zip"/>
-	<classpathentry exported="true" kind="lib" path="lib/cubictest-selenium-rc-1.8.11.jar" sourcepath="CubicRecordersrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/cubictest-selenium-rc-1.9.2.jar" sourcepath="CubicRecordersrc.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
