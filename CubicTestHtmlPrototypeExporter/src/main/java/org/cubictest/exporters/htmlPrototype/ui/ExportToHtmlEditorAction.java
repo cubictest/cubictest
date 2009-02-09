@@ -60,6 +60,8 @@ public class ExportToHtmlEditorAction implements IEditorActionDelegate {
 	public void selectionChanged(IAction action, ISelection selection) {}
 
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
-		currentFile = ((FileEditorInput)targetEditor.getEditorInput()).getFile();
+		if (targetEditor != null && (FileEditorInput)targetEditor.getEditorInput() != null) {
+			currentFile = ((FileEditorInput)targetEditor.getEditorInput()).getFile();
+		}
 	}
 }
