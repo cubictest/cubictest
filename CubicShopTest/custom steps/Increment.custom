@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="Cp1252"?>
+<org.cubictest.model.customstep.CustomTestStep>
+  <customSteps>
+    <entry>
+      <string>org.cubictest.seleniumexporter</string>
+      <org.cubictest.model.customstep.data.CustomTestStepData>
+        <displayText>org.cubicshop.customSteps.Increment</displayText>
+        <path>/CubicShopTest/src/org/cubicshop/customSteps/Increment.java</path>
+      </org.cubictest.model.customstep.data.CustomTestStepData>
+    </entry>
+  </customSteps>
+  <name>Increment</name>
+  <description></description>
+  <parameters>
+    <parameters/>
+  </parameters>
+</org.cubictest.model.customstep.CustomTestStep>

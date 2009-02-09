@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="Cp1252"?>
+<test>
+  <startPoint class="urlStartPoint">
+    <beginAt>http://cubictest.seleniumhq.org/cubicshop/</beginAt>
+    <outTransitions>
+      <simpleTransition>
+        <start class="urlStartPoint" reference="../../.."/>
+        <end class="customTestStep">
+          <file>custom steps/Increment.custom</file>
+          <inTransition class="simpleTransition" reference="../.."/>
+          <outTransitions>
+            <simpleTransition>
+              <start class="customTestStep" reference="../../.."/>
+              <end class="customTestStep">
+                <file>custom steps/Increment.custom</file>
+                <inTransition class="simpleTransition" reference="../.."/>
+                <outTransitions>
+                  <simpleTransition>
+                    <start class="customTestStep" reference="../../.."/>
+                    <end class="customTestStep">
+                      <file>custom steps/Increment.custom</file>
+                      <inTransition class="simpleTransition" reference="../.."/>
+                      <outTransitions/>
+                      <id>customteststepholder36905781233174473156</id>
+                      <position>
+                        <x>136</x>
+                        <y>250</y>
+                      </position>
+                      <dimension>
+                        <width>150</width>
+                        <height>95</height>
+                      </dimension>
+                      <name></name>
+                      <status>UNKNOWN</status>
+                    </end>
+                  </simpleTransition>
+                </outTransitions>
+                <id>customteststepholder10404991233174460796</id>
+                <position>
+                  <x>136</x>
+                  <y>175</y>
+                </position>
+                <dimension>
+                  <width>150</width>
+                  <height>95</height>
+                </dimension>
+                <name></name>
+                <status reference="../outTransitions/simpleTransition/end/status"/>
+              </end>
+            </simpleTransition>
+          </outTransitions>
+          <id>customteststepholder270043451233174458093</id>
+          <position>
+            <x>136</x>
+            <y>100</y>
+          </position>
+          <dimension>
+            <width>150</width>
+            <height>95</height>
+          </dimension>
+          <name></name>
+          <status reference="../outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/status"/>
+        </end>
+      </simpleTransition>
+    </outTransitions>
+    <id>urlstartpoint159869551233174326250</id>
+    <position>
+      <x>4</x>
+      <y>4</y>
+    </position>
+    <name>URL</name>
+  </startPoint>
+  <extensionPoints/>
+  <pages>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page224202501233174326250</id>
+      <position>
+        <x>0</x>
+        <y>400</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+    </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page266075641233174476281</id>
+      <position>
+        <x>0</x>
+        <y>767</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page132401271234206334687</id>
+      <position>
+        <x>0</x>
+        <y>1067</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page145299461234206702843</id>
+      <position>
+        <x>0</x>
+        <y>1367</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+  </pages>
+  <subTests/>
+  <transitions>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition"/>
+    <simpleTransition reference="../../startPoint/outTransitions/simpleTransition"/>
+  </transitions>
+  <customTestSteps>
+    <customTestStep reference="../../startPoint/outTransitions/simpleTransition/end"/>
+    <customTestStep reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+    <customTestStep reference="../../startPoint/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end/outTransitions/simpleTransition/end"/>
+  </customTestSteps>
+  <name>myTest</name>
+  <description></description>
+  <id>test1233174326250</id>
+  <modelVersion>10</modelVersion>
+</test>
