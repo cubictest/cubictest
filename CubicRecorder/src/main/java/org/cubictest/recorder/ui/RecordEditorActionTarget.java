@@ -17,6 +17,7 @@ import java.util.Map;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.common.BrowserType;
@@ -26,6 +27,7 @@ import org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Page;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
@@ -38,6 +40,7 @@ import org.cubictest.recorder.selenium.SeleniumRecorder;
 import org.cubictest.ui.gef.interfaces.exported.IDisposeListener;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -266,6 +269,9 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 		Object selected = ((StructuredSelection) selection).getFirstElement();
 		if (selected instanceof AbstractEditPart) {
 			Object model = ((AbstractEditPart) selected).getModel();
+			if (model instanceof PageElement) {
+				model = ViewUtil.getSurroundingPage((EditPart)selected);
+			}
 			if (model instanceof Page) {
 				this.selectedPage = (Page) model;
 			}

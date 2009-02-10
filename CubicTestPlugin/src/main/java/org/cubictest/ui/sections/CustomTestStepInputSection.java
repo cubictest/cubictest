@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelection;

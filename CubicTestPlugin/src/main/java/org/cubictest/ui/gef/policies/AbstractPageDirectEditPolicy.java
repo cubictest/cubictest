@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.policies;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
@@ -17,7 +18,6 @@ import org.cubictest.model.Test;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.ChangeNameCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.editpolicies.DirectEditPolicy;

@@ -19,7 +19,7 @@ import org.apache.commons.io.FileUtils;
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
-import org.cubictest.ui.utils.ViewUtil;
+import org.cubictest.common.utils.ViewUtil;
 import org.eclipse.core.resources.IProject;
 
 /**

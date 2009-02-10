@@ -13,6 +13,7 @@ package org.cubictest.ui.sections;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.parameterization.ParameterList;
@@ -21,7 +22,6 @@ import org.cubictest.ui.gef.command.ChangeParameterListCommand;
 import org.cubictest.ui.gef.command.ChangeSubTestParamIndexCommand;
 import org.cubictest.ui.gef.controller.SubTestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;

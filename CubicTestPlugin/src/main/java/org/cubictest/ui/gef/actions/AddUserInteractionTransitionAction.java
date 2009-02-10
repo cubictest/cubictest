@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
@@ -24,7 +25,6 @@ import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.resource.ImageDescriptor;

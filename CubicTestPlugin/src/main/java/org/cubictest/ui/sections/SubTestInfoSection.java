@@ -13,10 +13,10 @@ package org.cubictest.ui.sections;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.controller.SubTestEditPart;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;

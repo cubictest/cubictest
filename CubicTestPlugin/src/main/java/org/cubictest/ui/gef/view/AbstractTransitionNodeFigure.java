@@ -11,7 +11,7 @@
 package org.cubictest.ui.gef.view;
 
 import org.apache.commons.lang.StringUtils;
-import org.cubictest.ui.utils.ViewUtil;
+import org.cubictest.common.utils.ViewUtil;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;

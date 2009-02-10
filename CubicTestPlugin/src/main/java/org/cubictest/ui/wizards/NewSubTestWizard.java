@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
@@ -23,7 +24,6 @@ import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.gef.layout.AutoLayout;
-import org.cubictest.ui.utils.ViewUtil;
 import org.cubictest.ui.utils.WizardUtils;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.CommandStack;

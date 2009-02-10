@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.policies;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.PageElement;
 import org.cubictest.ui.gef.command.ChangePageElementTextCommand;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;

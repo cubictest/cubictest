@@ -12,6 +12,7 @@ package org.cubictest.ui.gef.controller;
 
 import java.beans.PropertyChangeEvent;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.PageElement;
 import org.cubictest.ui.gef.directEdit.CubicTestDirectEditManager;
@@ -21,7 +22,6 @@ import org.cubictest.ui.gef.policies.PageElementDirectEditPolicy;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
 import org.cubictest.ui.gef.view.CubicTestLabel;
 import org.cubictest.ui.gef.view.TestStepLabel;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.gef.EditPart;

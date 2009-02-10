@@ -12,6 +12,7 @@ package org.cubictest.ui.gef.policies;
 
 import java.util.List;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
@@ -22,7 +23,6 @@ import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.command.MovePageElementCommand;
 import org.cubictest.ui.gef.command.TransferPageElementCommand;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;

@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.policies;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.DeletePageElementCommand;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.ComponentEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;

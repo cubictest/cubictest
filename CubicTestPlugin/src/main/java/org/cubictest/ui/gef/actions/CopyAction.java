@@ -12,8 +12,8 @@ package org.cubictest.ui.gef.actions;
 
 import java.util.List;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.ui.actions.Clipboard;

@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.view;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.TestPartStatus;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.LineBorder;

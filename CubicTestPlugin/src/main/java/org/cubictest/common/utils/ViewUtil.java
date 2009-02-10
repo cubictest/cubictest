@@ -8,7 +8,7 @@
  * Contributors:
  *    Stein K. Skytteren and Christian Schwarz - initial API and implementation
  *******************************************************************************/
-package org.cubictest.ui.utils;
+package org.cubictest.common.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,8 +18,6 @@ import java.util.Map;
 
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.exception.CubicException;
-import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.common.utils.Logger;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.model.CustomTestStepHolder;
@@ -56,6 +54,7 @@ import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
+import org.cubictest.ui.utils.UserInteractionDialogUtil;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;

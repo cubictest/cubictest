@@ -12,6 +12,7 @@ package org.cubictest.ui.utils;
 
 import junit.framework.TestCase;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.Page;
 import org.cubictest.model.Text;
 import org.cubictest.model.context.SimpleContext;

@@ -12,13 +12,13 @@ package org.cubictest.ui.gef.actions;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.view.AddElementContextMenuList;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.ui.actions.SelectionAction;

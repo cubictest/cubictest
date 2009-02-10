@@ -12,6 +12,7 @@ package org.cubictest.ui.gef.controller;
 
 import java.util.List;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.TransitionNode;
@@ -26,7 +27,6 @@ import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
 import org.cubictest.ui.gef.view.CubicTestHeaderLabel;
 import org.cubictest.ui.gef.view.CubicTestScrollableGroupFigure;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;

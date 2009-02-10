@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.policies;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
@@ -25,7 +26,6 @@ import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.ContextEditPart;
 import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;

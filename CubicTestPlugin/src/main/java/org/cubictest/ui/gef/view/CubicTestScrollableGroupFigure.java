@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.view;
 
-import org.cubictest.ui.utils.ViewUtil;
+import org.cubictest.common.utils.ViewUtil;
 import org.eclipse.draw2d.FreeformViewport;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ScrollPane;

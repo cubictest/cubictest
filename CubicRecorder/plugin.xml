@@ -22,7 +22,7 @@
          <action
                class="org.cubictest.recorder.ui.RecordEditorAction"
                id="CubicRecorder.record"
-               label="Record"
+               label="Record from this Page/State"
                menubarPath="additions"
                state="false"
                icon="icons/record.gif"
@@ -36,6 +36,32 @@
                class="org.cubictest.recorder.ui.RecordEditorAction"
                id="CubicRecorder.recordFromSelectedPage"
                label="Record from this Page/State"
+               menubarPath="additions"
+               state="false"
+               icon="icons/record.gif"
+               style="toggle"
+               tooltip="Record test in a web browser"/>
+      </objectContribution>
+      <objectContribution 
+	       id="CubicRecorder.objectContribution3"
+		   objectClass="org.cubictest.ui.gef.controller.ExtensionStartPointEditPart">
+         <action
+               class="org.cubictest.recorder.ui.RecordEditorAction"
+               id="CubicRecorder.record3"
+               label="Record"
+               menubarPath="additions"
+               state="false"
+               icon="icons/record.gif"
+               style="toggle"
+               tooltip="Record test in a web browser"/>
+      </objectContribution>
+      <objectContribution 
+	       id="CubicRecorder.objectContribution4"
+		   objectClass="org.cubictest.ui.gef.controller.UrlStartPointEditPart">
+         <action
+               class="org.cubictest.recorder.ui.RecordEditorAction"
+               id="CubicRecorder.record4"
+               label="Record"
                menubarPath="additions"
                state="false"
                icon="icons/record.gif"

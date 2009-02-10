@@ -12,6 +12,7 @@ package org.cubictest.ui.gef.controller.formElement;
 
 import java.util.List;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Select;
@@ -23,7 +24,6 @@ import org.cubictest.ui.gef.policies.PageElementDirectEditPolicy;
 import org.cubictest.ui.gef.policies.SelectContextContainerEditPolicy;
 import org.cubictest.ui.gef.view.CubicTestGroupFigure;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;

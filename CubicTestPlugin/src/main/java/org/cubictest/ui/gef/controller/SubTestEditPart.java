@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
@@ -28,7 +29,6 @@ import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.PageNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
 import org.cubictest.ui.gef.view.SubTestFigure;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;

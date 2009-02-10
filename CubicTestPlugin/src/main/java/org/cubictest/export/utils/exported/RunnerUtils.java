@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.cubictest.export.utils.exported;
 
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.Moderator;
 import org.cubictest.model.Test;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.core.resources.IProject;
 
 /**

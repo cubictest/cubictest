@@ -15,9 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
-import org.cubictest.ui.utils.ViewUtil;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.ui.actions.Clipboard;
 import org.eclipse.gef.ui.actions.SelectionAction;
