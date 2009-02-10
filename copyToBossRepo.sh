@@ -4,10 +4,12 @@ then
         exit -1
 fi
 
+# Copy jars and poms, generate checksums
 ./copyToLocalRepo.sh $@
 echo "OK to continue? (CTRL+C to abort)"
 read
 
+# Build release dir structure
 ./zipRepo.sh $@
 echo "OK to continue? (CTRL+C to abort)"
 read
