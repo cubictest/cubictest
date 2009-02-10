@@ -1,5 +1,5 @@
 #Fat Jar Configuration File
-#Mon Oct 13 17:08:39 CEST 2008
+#Tue Feb 10 07:44:15 CET 2009
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
@@ -10,5 +10,5 @@ manifest.mainclass=
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=
-excludes=<po|CubicTestSeleniumExporterServer>
+excludes=
 includes=
