@@ -71,7 +71,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	private static final String SHOULD = "should";
 	private static final String MUST = "must";
 	
-	private static final String EQUAL = "be equalt to";
+	private static final String EQUAL = "be equal to";
 	private static final String BEGIN = "begin with";
 	private static final String END = "end with";
 	private static final String CONTAIN = "contain";
