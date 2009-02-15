@@ -28,7 +28,7 @@
 
 		<div class="download">
 			<h1>
-				General - Upgrading the Update Site version
+				Upgrading the Update Site version
 			</h1>
 			<div class="description">
 				Use the standard Eclipse plug-in upgrade mechanism to upgrade CubicTest:
@@ -37,90 +37,22 @@
 						In Eclipse select Help -> Software Updates -> <b>Manage Configuration</b>. 
 					</li>
 					<li>	
-						Locate CubicTest (expand Eclipse), right click on it and select <b>Find Updates...</b>. Complete the standard Eclipse plugin upgrade process.
+						Locate CubicTest (expand Eclipse), right click on it and select <b>Find Updates...</b>.
+					</li>
+					<li> 
+						Complete the standard Eclipse plugin upgrade process.
 					</li>
 					<li>
 						When Eclipse is restarted, you need to <b>Reset the CubicTest Perspective</b> to get shortcuts to the new features. To reset, open the CubicTest Perspective and select Window -> Reset Perspective.
 					</li>
 					<li>
-						You should also edit your test project's <b>pom.xml</b> file and update the version (e.g. to 1.8.11) of the cubictest dependencies.
+						You should also edit your test project's <b>pom.xml</b> file and update the version of the cubictest dependencies to the latest version.
 					</li>
 				</ul>
 			</div>
+			
 			<h1>
-				Upgrading from 1.8.6 to 1.8.11
-			</h1>
-			<div class="description">
-				Follow the procedure above. To get the new "Custom Test Suites" feature to work from maven 2, do the following.
-				<ul>
-					<li>	
-						Create a new CubicTest project and take a look at the CustomTestSuite.java sample file that is created.
-						Copy the file into your existing project to get a head start at writing cusstom test suites. 
-					</li>
-					<li>
-						Modify your project's pom.xml and add the following:<br/>(you might also want to check out/copy the default pom.xml of a new CubicTest project in 1.8.11)
-						
-						<div style="border: 1px"><pre>
-  &lt;repositories&gt;
-    &lt;repository&gt;
-       &lt;id&gt;CubicTest&lt;/id&gt;
-       &lt;url&gt;http://boss.bekk.no/cubictest/m2repo/&lt;/url&gt;
-    &lt;/repository&gt;
-  &lt;/repositories&gt;
-   						
-  &lt;build&gt;
-    .....
-    &lt;sourceDirectory&gt;src&lt;/sourceDirectory&gt;
-    &lt;testSourceDirectory&gt;src&lt;/testSourceDirectory&gt;
-    .....
-  &lt;/build&gt;
-  
-  &lt;plugins&gt;
-     .....
-     &lt;plugin&gt;
-      	&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-      	&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-      	&lt;configuration&gt;
-      		&lt;source&gt;1.5&lt;/source&gt;
-      		&lt;target&gt;1.5&lt;/target&gt;
-      	&lt;/configuration&gt;
-     &lt;/plugin&gt;
-     .....
-  &lt;/plugins&gt;
-  
-  &lt;dependencies&gt;
-    ....
-    &lt;dependency&gt;
-      &lt;groupId&gt;junit&lt;/groupId&gt;
-      &lt;artifactId&gt;junit&lt;/artifactId&gt;
-      &lt;version&gt;4.4&lt;/version&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-      &lt;groupId&gt;org.cubictest&lt;/groupId&gt;
-      &lt;artifactId&gt;cubictest&lt;/artifactId&gt;
-      &lt;version&gt;1.8.11&lt;/version&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-      &lt;groupId&gt;org.cubictest&lt;/groupId&gt;
-      &lt;artifactId&gt;selenium-exporter&lt;/artifactId&gt;
-      &lt;version&gt;1.8.11&lt;/version&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-      &lt;groupId&gt;org.cubictest&lt;/groupId&gt;
-      &lt;artifactId&gt;cubictest-selenium-rc&lt;/artifactId&gt;
-      &lt;version&gt;1.8.11&lt;/version&gt;
-    &lt;/dependency&gt;
-    ....
-  &lt;/dependencies&gt;  	
-						</pre></div>
-					</li>
-				</ul>
-			</div>
-			<h1>
-				General - Upgrading the Rich Client version
+				Upgrading the Rich Client version
 			</h1>
 			<div class="description">
 				To upgrade the Rich Client version, 
@@ -135,7 +67,8 @@
 						When CubicTest is started, you need to <b>Reset the Perspective</b> to get shortcuts to the new features . In CubicTest, select Window -> Reset Perspective.
 			</div>
 		</div>
-					
+		
+		<br/><br/>			
 
 	</div>
 	<div id="footer"></div>
