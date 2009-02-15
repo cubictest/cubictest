@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?metadataRepository class='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1.0.0'?>
-<repository name='CubicTest Update Site' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
+<repository name='CubicTest Update Site' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1.0.0'>
   <properties size='2'>
     <property name='p2.compressed' value='false'/>
-    <property name='p2.timestamp' value='1234250240296'/>
+    <property name='p2.timestamp' value='1234252073765'/>
   </properties>
   <references size='2'>
     <repository url='http://www.cubictest.org/update' type='1' options='0'/>
@@ -44,7 +44,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-ManifestVersion: 2&#xA;Export-Package: com.thoughtworks.selenium,org.cubictest.exporters.selenium.common,org.cubictest.exporters.selenium.ui&#xA;Bundle-Localization: plugin&#xA;Require-Bundle: org.eclipse.core.runtime,org.cubictest,org.eclipse.ui.ide,org.junit4,org.eclipse.jdt.launching,org.eclipse.jdt.core,org.eclipse.jdt.debug.ui,org.eclipse.debug.ui,org.eclipse.jdt.ui,org.eclipse.ui.views.properties.tabbed,org.eclipse.gef&#xA;Bundle-Activator: org.cubictest.exporters.selenium.SeleniumExporterPlugin&#xA;Bundle-Name: CubicTestSeleniumExporter&#xA;Bundle-Version: 1.9.2&#xA;Bundle-Vendor: cubictest.org&#xA;Bundle-SymbolicName: org.cubictest.exporters.selenium;singleton:=true&#xA;Bundle-ClassPath: .,lib/jdom.jar,lib/cubictest-selenium-rc-1.9.2.jar,lib/junit-4.4-src.jar,lib/junit-4.4.jar&#xA;Manifest-Version: 1.0&#xA;Eclipse-LazyStart: true&#xA;
+            Bundle-ManifestVersion: 2&#xA;Export-Package: com.thoughtworks.selenium,org.cubictest.exporters.selenium.common,org.cubictest.exporters.selenium.ui&#xA;Bundle-Localization: plugin&#xA;Require-Bundle: org.eclipse.core.runtime,org.cubictest,org.eclipse.ui.ide,org.junit4,org.eclipse.jdt.launching,org.eclipse.jdt.core,org.eclipse.jdt.debug.ui,org.eclipse.debug.ui,org.eclipse.jdt.ui,org.eclipse.ui.views.properties.tabbed,org.eclipse.gef&#xA;Bundle-Activator: org.cubictest.exporters.selenium.SeleniumExporterPlugin&#xA;Bundle-Name: CubicTestSeleniumExporter&#xA;Bundle-Version: 1.9.2&#xA;Bundle-Vendor: cubictest.org&#xA;Bundle-SymbolicName: org.cubictest.exporters.selenium;singleton:=true&#xA;Bundle-ClassPath: .,lib/jdom.jar,lib/cubictest-selenium-rc-1.9.2.jar,lib/junit-4.4-src.jar,lib/junit-4.4.jar&#xA;Manifest-Version: 1.0&#xA;Eclipse-LazyStart: true
           </instruction>
         </instructions>
       </touchpointData>
@@ -216,7 +216,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-ManifestVersion: 2&#xA;Bundle-Localization: plugin&#xA;Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.cubictest,org.eclipse.core.resources,org.eclipse.ui.ide&#xA;Bundle-Activator: org.cubictest.exporters.watir.WatirExporterPlugin&#xA;Bundle-Name: CubicTestWatirExporter&#xA;Bundle-Version: 1.9.2&#xA;Bundle-Vendor: cubictest.org&#xA;Bundle-SymbolicName: org.cubictest.exporters.watir;singleton:=true&#xA;Import-Package: org.eclipse.draw2d&#xA;Bundle-ActivationPolicy: lazy&#xA;Bundle-ClassPath: .,lib/commons-lang-2.3.jar&#xA;Manifest-Version: 1.0&#xA;
+            Bundle-ManifestVersion: 2&#xA;Bundle-Localization: plugin&#xA;Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.cubictest,org.eclipse.core.resources,org.eclipse.ui.ide&#xA;Bundle-Activator: org.cubictest.exporters.watir.WatirExporterPlugin&#xA;Bundle-Name: CubicTestWatirExporter&#xA;Bundle-Version: 1.9.2&#xA;Bundle-Vendor: cubictest.org&#xA;Bundle-SymbolicName: org.cubictest.exporters.watir;singleton:=true&#xA;Import-Package: org.eclipse.draw2d&#xA;Bundle-ActivationPolicy: lazy&#xA;Bundle-ClassPath: .,lib/commons-lang-2.3.jar&#xA;Manifest-Version: 1.0
           </instruction>
         </instructions>
       </touchpointData>
@@ -275,7 +275,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-Vendor: cubictest.org&#xA;Bundle-ManifestVersion: 2&#xA;Bundle-Activator: org.cubictest.exporters.htmlPrototype.ui.Activator&#xA;Bundle-ClassPath: .,lib/jdom.jar,src/main/resources/&#xA;Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.cubictest,org.eclipse.core.resources,org.eclipse.ui.ide&#xA;Bundle-Name: CubicTestHtmlPrototypeExporter&#xA;Bundle-Localization: plugin&#xA;Manifest-Version: 1.0&#xA;Bundle-SymbolicName: org.cubictest.exporters.htmlprototype;singleton:=true&#xA;Bundle-Version: 1.9.2&#xA;Eclipse-LazyStart: true&#xA;
+            Bundle-Vendor: cubictest.org&#xA;Bundle-ManifestVersion: 2&#xA;Bundle-Activator: org.cubictest.exporters.htmlPrototype.ui.Activator&#xA;Bundle-ClassPath: .,lib/jdom.jar,src/main/resources/&#xA;Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.cubictest,org.eclipse.core.resources,org.eclipse.ui.ide&#xA;Bundle-Name: CubicTestHtmlPrototypeExporter&#xA;Bundle-Localization: plugin&#xA;Manifest-Version: 1.0&#xA;Bundle-SymbolicName: org.cubictest.exporters.htmlprototype;singleton:=true&#xA;Bundle-Version: 1.9.2&#xA;Eclipse-LazyStart: true
           </instruction>
         </instructions>
       </touchpointData>
@@ -333,7 +333,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-RequiredExecutionEnvironment: J2SE-1.5,JavaSE-1.6&#xA;Bundle-Name: CubicTest Plug-in&#xA;Bundle-Activator: org.cubictest.CubicTestPlugin&#xA;Manifest-Version: 1.0&#xA;Bundle-Vendor: cubictest.org&#xA;Bundle-ClassPath: .,lib/jdom.jar,lib/junit.jar,lib/xpp3_min-1.1.3.4.jar,lib/xstream-1.2.1.jar,lib/jaxen-1.1.jar,lib/saxpath.jar,lib/commons-lang-2.3.jar,lib/commons-io-1.3.1.jar,lib/commons-logging-1.1.jar&#xA;Bundle-SymbolicName: org.cubictest;singleton:=true&#xA;Bundle-ManifestVersion: 2&#xA;Eclipse-LazyStart: true&#xA;Bundle-Version: 1.9.2&#xA;Bundle-Localization: plugin&#xA;Export-Package: org.apache.commons.io,org.apache.commons.lang,org.cubictest.common.resources,org.cubictest.common.settings,org.cubictest.common.utils,org.cubictest.export,org.cubictest.export.converters,org.cubictest.export.exceptions,org.cubictest.export.holders,org.cubictest.export.runner,org.cubictest.export.ui,org.cubictest.export.utils.exported,org.cubictest.model,org.cubictest.model.context,org.cubictest.model.customstep,org.cubictest.model.customstep.data,org.cubictest.model.formElement,org.cubictest.persistence,org.cubictest.ui.customstep.section,org.cubictest.ui.gef.command,org.cubictest.ui.gef.editors,org.cubictest.ui.gef.interfaces.exported,org.cubictest.ui.gef.layout&#xA;Require-Bundle: org.eclipse.core.runtime,org.eclipse.ui.ide,org.eclipse.gef,org.eclipse.ui.views.properties.tabbed,org.eclipse.jdt.core,org.junit4,org.eclipse.jdt.ui,org.eclipse.ui.console,org.eclipse.debug.ui,org.eclipse.pde.runtime&#xA;
+            Bundle-RequiredExecutionEnvironment: J2SE-1.5,JavaSE-1.6&#xA;Bundle-Name: CubicTest Plug-in&#xA;Bundle-Activator: org.cubictest.CubicTestPlugin&#xA;Manifest-Version: 1.0&#xA;Bundle-Vendor: cubictest.org&#xA;Bundle-ClassPath: .,lib/jdom.jar,lib/junit.jar,lib/xpp3_min-1.1.3.4.jar,lib/xstream-1.2.1.jar,lib/jaxen-1.1.jar,lib/saxpath.jar,lib/commons-lang-2.3.jar,lib/commons-io-1.3.1.jar,lib/commons-logging-1.1.jar&#xA;Bundle-SymbolicName: org.cubictest;singleton:=true&#xA;Bundle-ManifestVersion: 2&#xA;Eclipse-LazyStart: true&#xA;Bundle-Version: 1.9.2&#xA;Bundle-Localization: plugin&#xA;Export-Package: org.apache.commons.io,org.apache.commons.lang,org.cubictest.common.resources,org.cubictest.common.settings,org.cubictest.common.utils,org.cubictest.export,org.cubictest.export.converters,org.cubictest.export.exceptions,org.cubictest.export.holders,org.cubictest.export.runner,org.cubictest.export.ui,org.cubictest.export.utils.exported,org.cubictest.model,org.cubictest.model.context,org.cubictest.model.customstep,org.cubictest.model.customstep.data,org.cubictest.model.formElement,org.cubictest.persistence,org.cubictest.ui.customstep.section,org.cubictest.ui.gef.command,org.cubictest.ui.gef.editors,org.cubictest.ui.gef.interfaces.exported,org.cubictest.ui.gef.layout&#xA;Require-Bundle: org.eclipse.core.runtime,org.eclipse.ui.ide,org.eclipse.gef,org.eclipse.ui.views.properties.tabbed,org.eclipse.jdt.core,org.junit4,org.eclipse.jdt.ui,org.eclipse.ui.console,org.eclipse.debug.ui,org.eclipse.pde.runtime
           </instruction>
         </instructions>
       </touchpointData>
@@ -386,7 +386,7 @@
       <touchpointData size='1'>
         <instructions size='1'>
           <instruction key='manifest'>
-            Bundle-ManifestVersion: 2&#xA;Export-Package: com.thoughtworks.selenium&#xA;Bundle-Localization: plugin&#xA;Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.cubictest,org.eclipse.gef,org.cubictest.exporters.selenium&#xA;Bundle-Activator: org.cubictest.recorder.RecorderPlugin&#xA;Bundle-Name: CubicRecorder&#xA;Bundle-Version: 1.9.2&#xA;Bundle-Vendor: cubictest.org&#xA;Bundle-SymbolicName: org.cubictest.recorder.cubicrecorder;singleton:=true&#xA;Bundle-ClassPath: .,lib/jsonrpc-1.0.jar,lib/org.mortbay.jetty.jar,lib/cubictest-selenium-rc-1.9.2.jar&#xA;Manifest-Version: 1.0&#xA;Eclipse-LazyStart: true&#xA;
+            Bundle-ManifestVersion: 2&#xA;Export-Package: com.thoughtworks.selenium&#xA;Bundle-Localization: plugin&#xA;Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.cubictest,org.eclipse.gef,org.cubictest.exporters.selenium&#xA;Bundle-Activator: org.cubictest.recorder.RecorderPlugin&#xA;Bundle-Name: CubicRecorder&#xA;Bundle-Version: 1.9.2&#xA;Bundle-Vendor: cubictest.org&#xA;Bundle-SymbolicName: org.cubictest.recorder.cubicrecorder;singleton:=true&#xA;Bundle-ClassPath: .,lib/jsonrpc-1.0.jar,lib/org.mortbay.jetty.jar,lib/cubictest-selenium-rc-1.9.2.jar&#xA;Manifest-Version: 1.0&#xA;Eclipse-LazyStart: true
           </instruction>
         </instructions>
       </touchpointData>
