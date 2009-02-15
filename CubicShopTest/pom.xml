@@ -24,56 +24,33 @@
       		<target>1.5</target>
       	</configuration>
       </plugin>
-      <plugin>
-        <groupId>org.cubictest</groupId>
-        <artifactId>cubictest-selenium-runner-maven-plugin</artifactId>
-		<version>1.8.9</version>
-        <executions>
-          <execution>
-            <phase>integration-test</phase>
-            <goals>
-              <goal>run-tests</goal>
-            </goals>
-          </execution>
-        </executions>
-  	    <configuration>
-		  <testDir>test suites</testDir>
-	    </configuration>
-      </plugin>
     </plugins>
     
   </build>
-  
-  <pluginRepositories>
-    <pluginRepository>
-      <id>CubicTest</id>
-      <url>http://boss.bekk.no/cubictest/m2repo/</url>
-    </pluginRepository>
-  </pluginRepositories>
   
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.5</version>
+      <version>4.4</version>
     </dependency>
 
     <dependency>
       <groupId>org.cubictest</groupId>
       <artifactId>cubictest</artifactId>
-      <version>1.8.9</version>
+      <version>1.9.2</version>
     </dependency>
 
     <dependency>
       <groupId>org.cubictest</groupId>
       <artifactId>selenium-exporter</artifactId>
-      <version>1.8.9</version>
+      <version>1.9.2</version>
     </dependency>
 
     <dependency>
       <groupId>org.cubictest</groupId>
       <artifactId>cubictest-selenium-rc</artifactId>
-      <version>1.8.9</version>
+      <version>1.9.2</version>
     </dependency>
     
   </dependencies>  	
