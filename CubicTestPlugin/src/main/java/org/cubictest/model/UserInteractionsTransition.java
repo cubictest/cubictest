@@ -136,6 +136,12 @@ public class UserInteractionsTransition extends Transition implements NameProper
 		userInteractions.remove(userInteraction);
 		firePropertyChange(CHILD, null, userInteraction);
 	}
+	
+	public void removeAllUserInteractions() {
+		for (UserInteraction userInteraction : new ArrayList<UserInteraction>(userInteractions)) {
+			removeUserInteraction(userInteraction);
+		}
+	}
 
 	/**
 	 * Utility method for checking whether there are any user interactions.

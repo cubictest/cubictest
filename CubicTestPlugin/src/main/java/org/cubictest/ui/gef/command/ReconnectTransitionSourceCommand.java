@@ -10,10 +10,16 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.cubictest.common.utils.ModelUtil;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
+import org.cubictest.model.UserInteraction;
+import org.cubictest.model.UserInteractionsTransition;
 import org.eclipse.gef.commands.Command;
 
 
@@ -28,6 +34,8 @@ public class ReconnectTransitionSourceCommand extends Command {
 	private Transition transition;
 	private TransitionNode newSource;
 	private TransitionNode oldSource;
+	private boolean actionElementDeletionInfoShowed;
+	private List<UserInteraction> oldUserInteractions;
 
 	public ReconnectTransitionSourceCommand(TransitionNode newSource, Transition transition) {
 		super();
@@ -41,10 +49,24 @@ public class ReconnectTransitionSourceCommand extends Command {
 	 */
 	public void execute() {
 		super.execute();
+		
 		transition.disconnect();
 		oldSource.removeOutTransition(transition);
 		transition.setStart(newSource);
 		transition.connect();
+
+		if (transition instanceof UserInteractionsTransition) {
+			
+			UserInteractionsTransition userInteractionsTransition = (UserInteractionsTransition) transition;
+			oldUserInteractions = new ArrayList<UserInteraction>(userInteractionsTransition.getUserInteractions());
+			userInteractionsTransition.removeAllUserInteractions();
+			
+			if (!actionElementDeletionInfoShowed) {
+				String msg = "Transition source change: All action elements of the user interaction were removed. Undo to revert.";
+				UserInfo.setStatusLine(msg);
+				actionElementDeletionInfoShowed = true;
+			}
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -52,6 +74,11 @@ public class ReconnectTransitionSourceCommand extends Command {
 	 */
 	public void undo() {
 		super.undo();
+		
+		if (transition instanceof UserInteractionsTransition) {
+			UserInteractionsTransition userInteractionsTransition = (UserInteractionsTransition) transition;
+			userInteractionsTransition.setUserInteractions(oldUserInteractions);
+		}
 		transition.disconnect();
 		newSource.removeOutTransition(transition);
 		transition.setStart(oldSource);
