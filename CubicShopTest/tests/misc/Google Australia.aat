@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="Cp1252"?>
 <test>
   <startPoint class="urlStartPoint">
-    <beginAt>http://www.google.com.au/</beginAt>
+    <beginAt>http://www.google.com.au/search?hl=en&amp;q=cubictest</beginAt>
     <outTransitions>
       <simpleTransition>
         <start class="urlStartPoint" reference="../../.."/>
@@ -83,8 +83,9 @@
                 </userInteraction>
               </userInteractions>
               <page class="page" reference="../../.."/>
-              <reloadsPage>OFF</reloadsPage>
               <secondsToWaitForResult>5</secondsToWaitForResult>
+              <name></name>
+              <hasCustomTimeout>true</hasCustomTimeout>
               <start class="page" reference="../../.."/>
               <end class="page">
                 <commons/>
@@ -212,8 +213,9 @@
                       </userInteraction>
                     </userInteractions>
                     <page class="page" reference="../../.."/>
-                    <reloadsPage reference="../../../../reloadsPage"/>
                     <secondsToWaitForResult>5</secondsToWaitForResult>
+                    <name></name>
+                    <hasCustomTimeout>true</hasCustomTimeout>
                     <start class="page" reference="../../.."/>
                     <end class="page">
                       <commons/>
@@ -348,6 +350,8 @@
                             </userInteraction>
                           </userInteractions>
                           <page class="page" reference="../../.."/>
+                          <name></name>
+                          <hasCustomTimeout>false</hasCustomTimeout>
                           <start class="page" reference="../../.."/>
                           <end class="page">
                             <commons/>
@@ -644,6 +648,24 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page90489561236711222625</id>
+      <position>
+        <x>0</x>
+        <y>2500</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -660,6 +682,6 @@
   <name>Google Australia. CT-69.</name>
   <description></description>
   <id>test1220207519937</id>
-  <modelVersion>9</modelVersion>
+  <modelVersion>10</modelVersion>
   <status>WARN</status>
 </test>
