@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.converters;
 
+import static org.cubictest.model.ActionType.SELECT;
+import static org.cubictest.model.IdentifierType.MULTISELECT;
+
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
@@ -92,9 +95,12 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 		String inputValue = null;
 		
 		if (element instanceof Option) {
-			Select select = ((Option) element).getParent();
-			locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(select);
+			Select selectbox = ((Option) element).getParent();
+			locator = "xpath=" + seleniumHolder.getFullContextWithAllElements(selectbox);
 			inputValue = SeleniumUtils.getOptionLocator((Option) element);
+			if (SELECT.equals(actionType) && selectbox.getIdentifier(MULTISELECT).getProbability() > 0) {
+				commandName = "addSelection"; //appropriate for multi-selection
+			}
 		}else {
 			//all other elements
 			if (element instanceof PageElement) {
