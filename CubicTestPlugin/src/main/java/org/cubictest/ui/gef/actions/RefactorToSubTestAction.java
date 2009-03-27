@@ -18,17 +18,13 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.ExtensionPoint;
-import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.IStartPoint;
-import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
-import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.AddSubTestCommand;
 import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.command.DeleteTransitionCommand;
@@ -137,7 +133,7 @@ public class RefactorToSubTestAction extends BaseEditorAction {
 				TransitionNode firstNodeInSelection = ModelUtil.getFirstNode(selectedNodes);
 				
 				//create subtest:
-				String filePath = wiz.getFilePath().replaceFirst("/" + project.getName(), "");
+				String filePath = wiz.getFilePath().replaceFirst("[/\\\\]" + project.getName(), "");
 				SubTest subTest = new SubTest(filePath, project);
 				subTest.setPosition(firstNodeInSelection.getPosition());
 				compoundCmd.add(new AddSubTestCommand(subTest, test));
