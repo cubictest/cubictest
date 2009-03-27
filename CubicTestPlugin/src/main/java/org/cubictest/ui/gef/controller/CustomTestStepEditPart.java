@@ -22,6 +22,7 @@ import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.CustomTestStepEvent;
+import org.cubictest.model.customstep.CustomTestStepParameter;
 import org.cubictest.model.customstep.ICustomStepListener;
 import org.cubictest.ui.customstep.CustomStepEditor;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
@@ -92,11 +93,18 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 
 	
 	private String getTooltipText() {
-		String filePath = ((CustomTestStepHolder)getModel()).getFilePath();
-		String description = ((CustomTestStepHolder)getModel()).getDescription();
-		return "Custom test step: $labelText"  
+		CustomTestStepHolder model = (CustomTestStepHolder)getModel();
+		String filePath = model.getFilePath();
+		String description = model.getDescription();
+		String tooltip = "Custom test step: $labelText"  
 				+ "\nDescription: " + (StringUtils.isBlank(description) ? "(none)" : description)
 				+ "\nFile: " + filePath;
+		tooltip += "\nParameters:";
+		tooltip += model.getCustomTestStepParameters().isEmpty() ? " (none)" : "";
+		for (CustomTestStepParameter param : model.getCustomTestStepParameters()) {
+			tooltip += "\n  " + param.getKey() + ": \"" + model.getValue(param).getValue() + "\"";
+		}
+		return tooltip;
 	}
 
 	/* (non-Javadoc)
