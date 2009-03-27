@@ -15,7 +15,6 @@ import java.beans.PropertyChangeEvent;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.Logger;
-import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.PropertyAwareObject;
@@ -25,19 +24,14 @@ import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.CustomTestStepEvent;
 import org.cubictest.model.customstep.ICustomStepListener;
 import org.cubictest.ui.customstep.CustomStepEditor;
-import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.policies.StartPointNodeEditPolicy;
 import org.cubictest.ui.gef.policies.TestComponentEditPolicy;
-import org.cubictest.ui.gef.view.AbstractTransitionNodeFigure;
 import org.cubictest.ui.gef.view.CustomTestStepFigure;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -100,8 +94,9 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 	private String getTooltipText() {
 		String filePath = ((CustomTestStepHolder)getModel()).getFilePath();
 		String description = ((CustomTestStepHolder)getModel()).getDescription();
-		return "Custom test step: $labelText\nFile: " + filePath + 
-				((StringUtils.isBlank(description)) ? "" : ("\n\n" + description));
+		return "Custom test step: $labelText"  
+				+ "\nDescription: " + (StringUtils.isBlank(description) ? "(none)" : description)
+				+ "\nFile: " + filePath;
 	}
 
 	/* (non-Javadoc)
