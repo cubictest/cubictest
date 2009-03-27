@@ -219,7 +219,11 @@ public class SeleniumRunner
     			stopSelenium(testRunner);
 			}
 	    	logSeperator();
-        	System.out.println("Test run finished: " + testRunner.getResultMessage());
+        	String resultMessage = "";
+        	if (testRunner != null) {
+        		resultMessage = testRunner.getResultMessage();
+        	}
+			System.out.println("Test run finished. " + resultMessage);
 			testRunner = null;
 		}        
     	logSeperator();
