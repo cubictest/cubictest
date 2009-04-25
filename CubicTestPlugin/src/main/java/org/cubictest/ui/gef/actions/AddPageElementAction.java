@@ -15,6 +15,8 @@ import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.context.IContext;
+import org.cubictest.model.formElement.Option;
+import org.cubictest.model.formElement.Select;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.view.AddElementContextMenuList;
@@ -37,11 +39,11 @@ import org.eclipse.ui.IWorkbenchPart;
 public class AddPageElementAction extends SelectionAction {
 
 	private Object selectedObj;
-	private Class<? extends PageElement> pageElement;
+	private Class<? extends PageElement> actionPageElementClass;
 
 	public AddPageElementAction(IWorkbenchPart part,Class<? extends PageElement> newElement) {
 		super(part);
-		this.pageElement = newElement;
+		this.actionPageElementClass = newElement;
 		setActionText();
 	}
 
@@ -57,8 +59,14 @@ public class AddPageElementAction extends SelectionAction {
 	 */
 	protected boolean calculateEnabled() {
 		if(selectedObj instanceof EditPart){
-			Object model = ((EditPart)selectedObj).getModel();
-			if(model instanceof IContext || model instanceof PageElement){
+			Object selectedModel = ((EditPart)selectedObj).getModel();
+			if (selectedModel instanceof Select) {
+				return actionPageElementClass.equals(Option.class);
+			}
+			else if (actionPageElementClass.equals(Option.class)) {
+				return selectedModel instanceof Select;
+			}
+			else if(selectedModel instanceof IContext || selectedModel instanceof PageElement){
 				return true;
 			}
 		}
@@ -70,13 +78,13 @@ public class AddPageElementAction extends SelectionAction {
 	 */
 	protected void setActionText() {
 		try {
-			setText("Add new " + pageElement.newInstance().getType());
+			setText("Add new " + actionPageElementClass.newInstance().getType());
 		} catch (InstantiationException e) {
 			Logger.error("Could not set action text.", e);
 		} catch (IllegalAccessException e) {
 			Logger.error("Could not set action text.", e);
 		}
-    	setId(getActionId(pageElement));
+    	setId(getActionId(actionPageElementClass));
 	}
 
 	@Override
@@ -86,9 +94,9 @@ public class AddPageElementAction extends SelectionAction {
 			CreatePageElementCommand command = new CreatePageElementCommand();
 			PageElement pe;
 			try {
-				if(pageElement == null)
+				if(actionPageElementClass == null)
 					return;
-				pe = pageElement.newInstance();
+				pe = actionPageElementClass.newInstance();
 			} catch (Exception e) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow("Problems with adding the new pageElement",e);
 				return;
@@ -141,7 +149,7 @@ public class AddPageElementAction extends SelectionAction {
 	
 	@Override
 	public ImageDescriptor getImageDescriptor() {
-		String type = AddElementContextMenuList.getType(pageElement);
+		String type = AddElementContextMenuList.getType(actionPageElementClass);
 		type = type.substring(0, 1).toLowerCase() + type.substring(1, type.length());
 		return CubicTestImageRegistry.getDescriptor(type);
 	}
