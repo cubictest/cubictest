@@ -13,7 +13,11 @@ package org.cubictest.ui.gef.policies;
 import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Option;
+import org.cubictest.model.formElement.Select;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
+import org.cubictest.ui.gef.controller.AbstractPageEditPart;
+import org.cubictest.ui.gef.controller.ContextEditPart;
+import org.cubictest.ui.gef.controller.formElement.FormSelectEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 
@@ -22,8 +26,7 @@ import org.eclipse.gef.requests.CreateRequest;
  * 
  * @author chr_schwarz 
  */
-public class SelectContextContainerEditPolicy extends
-		ContextContainerEditPolicy {
+public class SelectContextContainerEditPolicy extends ContextContainerEditPolicy {
 
 	public SelectContextContainerEditPolicy(ContextLayoutEditPolicy flowPolicy) {
 		super(flowPolicy);
@@ -35,7 +38,7 @@ public class SelectContextContainerEditPolicy extends
 	@Override
 	protected Command getCreateCommand(CreateRequest request) {
 		
-		int index = super.getIndex(request);
+		int index = getIndex(request);
 		
 		Object obj = request.getNewObject();
 		if(!(getHost().getModel() instanceof IContext)) {
@@ -53,6 +56,20 @@ public class SelectContextContainerEditPolicy extends
 		}
 		return null;
 		
+	}
+	
+	protected int getIndex(CreateRequest request) {
+		int index = flowPolicy.getIndex(request);
+		
+		if (index < 0){
+			if (getHost() instanceof FormSelectEditPart) {
+				index = ((FormSelectEditPart)getHost()).getChildren().size();
+			}
+			else {
+				index = 0;
+			}
+		}
+		return index;
 	}
 
 }

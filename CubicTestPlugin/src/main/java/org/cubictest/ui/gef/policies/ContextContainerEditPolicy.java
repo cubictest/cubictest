@@ -42,7 +42,7 @@ import org.eclipse.gef.requests.CreateRequest;
  */
 public class ContextContainerEditPolicy extends ContainerEditPolicy {
 
-	private ContextLayoutEditPolicy flowPolicy;
+	protected ContextLayoutEditPolicy flowPolicy;
 	
 	public ContextContainerEditPolicy(ContextLayoutEditPolicy flowPolicy) {
 		this.flowPolicy = flowPolicy;

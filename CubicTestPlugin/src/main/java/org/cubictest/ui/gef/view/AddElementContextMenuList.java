@@ -22,6 +22,7 @@ import org.cubictest.model.Title;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
+import org.cubictest.model.formElement.Option;
 import org.cubictest.model.formElement.Password;
 import org.cubictest.model.formElement.RadioButton;
 import org.cubictest.model.formElement.Select;
@@ -47,6 +48,7 @@ public class AddElementContextMenuList {
 		list.add(Checkbox.class);
 		list.add(RadioButton.class);
 		list.add(Select.class);
+		list.add(Option.class);
 		list.add(TextArea.class);
 		list.add(Password.class);
 		list.add(Image.class);
