@@ -3,18 +3,18 @@ In FatJar config, only check option to remove *.SF files
 Required to run tests from maven:
 --------------------------------------
 CubicTest Plugin Output (excluding .svn)
-commons-io
-commons-lang
-xpp
-xstream
 org.eclipse.core.runtime
 org.eclipse.osgi
 org.eclipse.equinox.common
 org.eclipse.core.jobs
-org.eclipse.core.resources
 org.eclipse.draw2d
 org.eclipse.swt.win32 		(2 meg)
 org.eclipse.jface  (not .text) 	(1 meg)
+org.eclipse.core.resources
 jdom
-saxpath
+xpp
+xstream
 jaxen
+saxpath
+commons-lang
+commons-io
