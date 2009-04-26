@@ -3,7 +3,4 @@ In FatJar config, only check option to remove *.SF files
 Required to run tests from maven:
 --------------------------------------
 CubicTest Selenium Exporter output (excluding .svn)
-CubicTest Selenium Exporter Server output (excluding .svn)
-selenium-server
-selenium-java-client-driver
-CubicTestSelenium.jar
+CubicTest Selenium Exporter java source (excluding .svn)
