@@ -8,6 +8,7 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.ElementContext;
 import org.cubictest.exporters.selenium.common.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
+import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.TestPartStatus;
 import org.cubictest.model.customstep.CustomTestStepParameter;
@@ -23,6 +24,10 @@ public class SameVMCustomTestStepConverter extends CustomTestStepConverter {
 	public void handleCustomStep(SeleniumHolder t, CustomTestStepHolder cts,
 			CustomTestStepData data) {
 
+		boolean waitForPageToLoad = SeleniumUtils.getWaitForPageToLoadValue(data);
+		if (waitForPageToLoad) {
+			t.getSelenium().waitForPageToLoad((t.getNextPageElementTimeout() * 1000) + "");
+		}
 		
 		if (threadElementContext.get() == null) {
 			throw new ExporterException("Custom step converter thread ElementContext was null. Please set an ElementContext on the SeleniumRunner or this converter.");

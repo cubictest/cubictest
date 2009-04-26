@@ -20,11 +20,13 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
+import org.cubictest.exporters.selenium.ui.command.ChangeCustomStepWaitForPageToLoadCommand;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.UserInteraction;
+import org.cubictest.model.customstep.data.CustomTestStepData;
 import org.cubictest.model.formElement.Option;
 
 
@@ -252,5 +254,14 @@ public class SeleniumUtils {
 			Logger.error("Error writing text to file", e);
 		}
 	}
-	
+
+	public static boolean getWaitForPageToLoadValue(CustomTestStepData data) {
+		boolean waitForPageToLoad = false;
+		Object waitForPageToLoadSetting = data.getExporterUserSetting(ChangeCustomStepWaitForPageToLoadCommand.WAIT_FOR_PAGE_TO_LOAD);
+		if (waitForPageToLoadSetting != null) {
+			waitForPageToLoad = ((Boolean) waitForPageToLoadSetting);
+		}
+		return waitForPageToLoad;
+	}
+
 }

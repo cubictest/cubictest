@@ -2,7 +2,9 @@ package org.cubictest.exporters.selenium.ui;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
-import org.cubictest.exporters.selenium.ui.command.ChangeSeleniumCustomStepCommand;
+import org.cubictest.exporters.selenium.ui.command.ChangeCustomStepClassNameCommand;
+import org.cubictest.exporters.selenium.ui.command.ChangeCustomStepWaitForPageToLoadCommand;
+import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.customstep.data.CustomTestStepData;
 import org.cubictest.model.customstep.data.CustomTestStepDataEvent;
 import org.cubictest.model.customstep.data.ICustomTestStepDataListener;
@@ -30,6 +32,7 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -43,7 +46,9 @@ public class SeleniumCustomStepSection extends CustomStepSection
 
 	private Text classText;
 	private Link newClassLink;
-	private Button browserClassButton;
+	private Button browseClassButton;
+	private Label waitForPageToLoadLabel;
+	private Button waitForPageToLoadButton;
 	private CustomTestStepData data;
 	private IProject project;
 	
@@ -55,6 +60,14 @@ public class SeleniumCustomStepSection extends CustomStepSection
 		FormLayout formLayout = new FormLayout();
 		composite.setLayout(formLayout);
 		
+		createNewOrOpenClassLink(composite);
+		createClassNameTextField(composite);
+		createBrowseClassButton(composite);
+		createWaitForPageToLoadCheckbox(composite);
+	}
+
+	
+	private void createNewOrOpenClassLink(Composite composite) {
 		newClassLink = new Link(composite, SWT.PUSH);
 		newClassLink.setText("<A>CubicTest Selenium extension*: </A>");
 		newClassLink.setBackground(ColorConstants.white);
@@ -81,8 +94,8 @@ public class SeleniumCustomStepSection extends CustomStepSection
 				WizardDialog dialog = new WizardDialog(new Shell(),customStepWizard);
 				if(dialog.open() == WizardDialog.OK){
 					String className = customStepWizard.getClassName();
-					ChangeSeleniumCustomStepCommand command = 
-		        		new ChangeSeleniumCustomStepCommand();
+					ChangeCustomStepClassNameCommand command = 
+		        		new ChangeCustomStepClassNameCommand();
 		        	command.setCustomTestStepData(data);
 		        	command.setPath(customStepWizard.getPath());
 		        	command.setDisplayText(className);
@@ -96,7 +109,10 @@ public class SeleniumCustomStepSection extends CustomStepSection
 		layoutData.left = new FormAttachment(0,0);
 		layoutData.width = STANDARD_LABEL_WIDTH;
 		newClassLink.setLayoutData(layoutData);
-		
+	}
+	
+	
+	private void createClassNameTextField(Composite composite) {
 		classText = new Text(composite,SWT.BORDER);
 		classText.setBackground(ColorConstants.white);
 		classText.setText(data.getDisplayText());
@@ -104,7 +120,7 @@ public class SeleniumCustomStepSection extends CustomStepSection
 			public void focusGained(FocusEvent e) {
 			}
 			public void focusLost(FocusEvent e) {
-				ChangeSeleniumCustomStepCommand command = new ChangeSeleniumCustomStepCommand();
+				ChangeCustomStepClassNameCommand command = new ChangeCustomStepClassNameCommand();
 				command.setCustomTestStepData(data);
 				command.setPath(data.getPath());
 				command.setDisplayText(classText.getText());
@@ -112,14 +128,18 @@ public class SeleniumCustomStepSection extends CustomStepSection
 			}
 		});
 		
-		layoutData = new FormData();
+		FormData layoutData = new FormData();
 		layoutData.left = new FormAttachment(newClassLink);
 		layoutData.width = STANDARD_LABEL_WIDTH * 2;
 		classText.setLayoutData(layoutData);
-		
-		browserClassButton = new Button(composite, SWT.PUSH);
-		browserClassButton.setText("Browse...");
-		browserClassButton.addSelectionListener(new SelectionListener(){
+	}
+
+	
+	
+	private void createBrowseClassButton(Composite composite) {
+		browseClassButton = new Button(composite, SWT.PUSH);
+		browseClassButton.setText("Browse...");
+		browseClassButton.addSelectionListener(new SelectionListener(){
 			public void widgetDefaultSelected(SelectionEvent e) {}
 			public void widgetSelected(SelectionEvent e) {
 				Shell shell = new Shell();
@@ -133,8 +153,8 @@ public class SeleniumCustomStepSection extends CustomStepSection
 			        if (dialog.open() == SelectionDialog.OK){
 			        	IType result = (IType) dialog.getResult()[0];
 			        	
-			        	ChangeSeleniumCustomStepCommand command = 
-			        		new ChangeSeleniumCustomStepCommand();
+			        	ChangeCustomStepClassNameCommand command = 
+			        		new ChangeCustomStepClassNameCommand();
 			        	command.setCustomTestStepData(data);
 			        	command.setPath(result.getPath().toPortableString());
 			        	command.setDisplayText(result.getFullyQualifiedName());
@@ -146,11 +166,45 @@ public class SeleniumCustomStepSection extends CustomStepSection
 		        
 			}
 		});
-		layoutData = new FormData();
+		FormData layoutData = new FormData();
 		layoutData.left = new FormAttachment(classText,5);
-		browserClassButton.setLayoutData(layoutData);
+		browseClassButton.setLayoutData(layoutData);
 	}
 	
+	
+	private void createWaitForPageToLoadCheckbox(Composite composite) {
+		waitForPageToLoadButton = new Button(composite,SWT.CHECK);
+		waitForPageToLoadButton.setBackground(ColorConstants.white);
+		
+		boolean waitForPageToLoad = SeleniumUtils.getWaitForPageToLoadValue(data);
+		
+		waitForPageToLoadButton.setSelection(waitForPageToLoad);
+		waitForPageToLoadButton.addSelectionListener(new SelectionListener() {
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+			public void widgetSelected(SelectionEvent e) {
+				ChangeCustomStepWaitForPageToLoadCommand command = new ChangeCustomStepWaitForPageToLoadCommand();
+				command.setCustomTestStepData(data);
+				command.setNewWaitForPageToLoad(waitForPageToLoadButton.getSelection());
+				getCommandStack().execute(command);
+			}
+		});
+		
+		FormData layoutData = new FormData();
+		layoutData.left = new FormAttachment(classText, 0, SWT.LEFT);
+		layoutData.top = new FormAttachment(classText, 5, SWT.BOTTOM);
+		waitForPageToLoadButton.setLayoutData(layoutData);
+		
+		layoutData = new FormData();
+		waitForPageToLoadLabel = new Label(composite, SWT.NONE);
+		waitForPageToLoadLabel.setText("Wait for page to load before entering Custom Test Step");
+		waitForPageToLoadLabel.setBackground(ColorConstants.white);
+		layoutData.left = new FormAttachment(waitForPageToLoadButton, 7, SWT.RIGHT);
+		layoutData.top = new FormAttachment(classText, 5, SWT.BOTTOM);
+		waitForPageToLoadLabel.setLayoutData(layoutData);
+	
+	}
+
 	@Override
 	public void setData(CustomTestStepData data) {
 		this.data = data;

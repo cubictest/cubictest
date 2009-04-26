@@ -11,7 +11,9 @@
 package org.cubictest.model.customstep.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.cubictest.model.customstep.data.CustomTestStepDataEvent.EventType;
 
@@ -19,8 +21,24 @@ public final class CustomTestStepData {
 
 	private String displayText = "";
 	private String path = "";
+	private Map<String, Object> exporterUserSettings;
+	
 	private transient List<ICustomTestStepDataListener> listeners = new ArrayList<ICustomTestStepDataListener>();
 
+	public Object getExporterUserSetting(String key) {
+		if (exporterUserSettings == null) {
+			exporterUserSettings = new HashMap<String, Object>();
+		}
+		return exporterUserSettings.get(key);
+	}
+	
+	public void setExporterUserSetting(String key, Object value) {
+		if (exporterUserSettings == null) {
+			exporterUserSettings = new HashMap<String, Object>();
+		}
+		exporterUserSettings.put(key, value);
+	}
+	
 	public String getDisplayText() {
 		return displayText;
 	}
