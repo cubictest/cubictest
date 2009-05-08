@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="Cp1252"?>
 <test>
   <startPoint class="urlStartPoint">
     <beginAt>http://cubictest.openqa.org/cubicshop/misc.jsp</beginAt>
@@ -62,8 +62,8 @@
                   <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
                 </identifier>
                 <identifier>
-                  <value>1</value>
-                  <probability>100</probability>
+                  <value></value>
+                  <probability>0</probability>
                   <type>INDEX</type>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
@@ -136,8 +136,8 @@
                   <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
                 </identifier>
                 <identifier>
-                  <value>2</value>
-                  <probability>100</probability>
+                  <value></value>
+                  <probability>0</probability>
                   <type reference="../../../../simpleContext/identifiers/identifier[5]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
@@ -174,6 +174,8 @@
                 </userInteraction>
               </userInteractions>
               <page class="page" reference="../../.."/>
+              <name></name>
+              <hasCustomTimeout>false</hasCustomTimeout>
               <start class="page" reference="../../.."/>
               <end class="page">
                 <commons/>
@@ -224,6 +226,8 @@
                 </userInteraction>
               </userInteractions>
               <page class="page" reference="../../.."/>
+              <name></name>
+              <hasCustomTimeout>false</hasCustomTimeout>
               <start class="page" reference="../../.."/>
               <end class="page">
                 <commons/>
@@ -354,6 +358,24 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page232276081241816588551</id>
+      <position>
+        <x>0</x>
+        <y>1826</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -369,6 +391,6 @@
   <name>This test does not work. See Jira CT-57.</name>
   <description></description>
   <id>test1213305673116</id>
-  <modelVersion>9</modelVersion>
+  <modelVersion>10</modelVersion>
   <status>WARN</status>
 </test>
