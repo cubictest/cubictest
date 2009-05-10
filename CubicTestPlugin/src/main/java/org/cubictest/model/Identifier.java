@@ -28,8 +28,9 @@ import org.cubictest.common.utils.CubicCloner;
 public class Identifier implements Cloneable, SationObserver{
 
 	public final static int MAX_PROBABILITY = 100;
+	public final static int INDIFFERENT_PROBABILITY = 0;
 	private String value = "";
-	private int probability = 0;
+	private int probability = INDIFFERENT_PROBABILITY;
 	private IdentifierType type;
 	private String actual;
 	private String i18nKey;
@@ -165,7 +166,11 @@ public class Identifier implements Cloneable, SationObserver{
 	}
 	
 	public boolean isIndifferent() {
-		return probability == 0;
+		return probability == INDIFFERENT_PROBABILITY;
+	}
+	
+	public boolean isMaxProbability() {
+		return probability == MAX_PROBABILITY;
 	}
 	
 	public boolean isNotBlank() {

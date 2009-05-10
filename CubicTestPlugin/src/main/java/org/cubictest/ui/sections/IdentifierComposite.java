@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.ui.sections;
 
+import static org.apache.commons.lang.StringUtils.isBlank;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static org.cubictest.model.IdentifierType.LABEL;
 
 import java.beans.PropertyChangeEvent;
@@ -646,6 +648,8 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		}
 
 		private void updateValue(){
+			int oldPos = value.getSelection().x;
+			
 			if(!value.getText().equals( identifier.getValue())){
 				CompoundCommand compundCommand = new CompoundCommand();
 				if(pageElement.getDirectEditIdentifier().equals(identifier)){
@@ -656,8 +660,11 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 					compundCommand.add(command);
 				}else{
 					ChangeIdentifierValueCommand command = new ChangeIdentifierValueCommand();
-					if (identifier.isIndifferent()) {
+					if (isNotBlank(value.getText()) && identifier.isIndifferent()) {
 						command.setProbabilityToMax(true);
+					}
+					if (isBlank(value.getText()) && identifier.isMaxProbability()) {
+						command.setProbabilityToIndifferent(true);
 					}
 					command.setIdentifer(identifier);
 					command.setNewValue(value.getText());
@@ -667,6 +674,8 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 				}		
 				executeCommand(compundCommand);
 			}
+			
+			value.setSelection(oldPos);
 		}
 	};
 

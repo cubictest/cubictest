@@ -239,12 +239,14 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		
 		descText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
+				int oldPos = descText.getSelection().x;
 				if(!descText.getText().equals(customStep.getDescription())){
 					ChangeCustomStepDescriptionCommand command = new ChangeCustomStepDescriptionCommand();
 					command.setDescription(descText.getText());
 					command.setCustomStep(customStep);
 					commandStack.execute(command);
 				}
+				descText.setSelection(oldPos);
 			}
 		});
 	}
@@ -276,12 +278,14 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		
 		nameText.addModifyListener(new ModifyListener(){
 			public void modifyText(ModifyEvent e) {
+				int oldPos = nameText.getSelection().x;
 				if(!nameText.getText().equals(customStep.getName())){
 					ChangeCustomStepNameCommand command = new ChangeCustomStepNameCommand();
 					command.setName(nameText.getText());
 					command.setCustomStep(customStep);
 					commandStack.execute(command);
 				}
+				nameText.setSelection(oldPos);
 			}			
 		});
 	}

@@ -22,6 +22,7 @@ public class ChangeIdentifierValueCommand extends Command {
 	private boolean oldUseI18n;
 	private boolean setProbabilityToMax;
 	private int oldProbability;
+	private boolean setProbabilityToIndifferent;
 
 	public void setOldProbability(int oldProbability) {
 		this.oldProbability = oldProbability;
@@ -51,6 +52,11 @@ public class ChangeIdentifierValueCommand extends Command {
 			oldProbability = identifier.getProbability();
 			identifier.setProbability(Identifier.MAX_PROBABILITY);
 		}
+		else if (setProbabilityToIndifferent) {
+			oldProbability = identifier.getProbability();
+			identifier.setProbability(Identifier.INDIFFERENT_PROBABILITY);
+			
+		}
 	}
 	@Override
 	public void undo() {
@@ -63,5 +69,9 @@ public class ChangeIdentifierValueCommand extends Command {
 
 	public void setProbabilityToMax(boolean setProbabilityToMax) {
 		this.setProbabilityToMax = setProbabilityToMax;
+	}
+	
+	public void setProbabilityToIndifferent(boolean setProbabilityToIndifferent) {
+		this.setProbabilityToIndifferent = setProbabilityToIndifferent;
 	}
 }
