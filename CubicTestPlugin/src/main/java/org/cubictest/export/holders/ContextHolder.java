@@ -21,7 +21,6 @@ import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
-import org.cubictest.model.TransitionNode;
 import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.IContext;
 
@@ -91,63 +90,46 @@ public abstract class ContextHolder implements IResultHolder {
 	 * Gets "smart context" assertion for a page element. 
 	 * Asserts all sibling elements in context present, and recurses into parent contexts to
 	 * give a precise XPath to identify the element.
+	 * Appends child element XPaths.
 	 */
 	public String getFullContextWithAllElements(PageElement pageElement) {
-		return getSmartContext(pageElement, pageElement);
-	}
-	
-	/**
-	 * Recursive private utility method. Gets "smart context" for a page element.
-	 * Asserts all sibling elements in context present.
-	 * Recurses into parent contexts.
-	 * @param currentElement Current page element to get XPath for.
-	 * @param orgElement The original element for the query.
-	 */
-	private String getSmartContext(PageElement currentElement, PageElement orgElement) {
-		String res = "";
-		if (currentElement == null || (currentElement instanceof Frame && !orgElement.equals(currentElement))) {
-			return "";
-		}
-		
 		String axis = "/descendant-or-self::";
-		if (isInRootContext()) {
+		if (!isInAContext(pageElement)) {
 			axis = "//";
 		}
-		
-		res += axis + XPathBuilder.getXPathForSingleElement(currentElement, useNamespace);
-		
-		if (currentElement instanceof IContext && !(currentElement instanceof Frame) 
-				&& ((IContext) currentElement).getRootElements().size() > 1) {
-			String assertion = getSiblingElementsXPathAssertion(orgElement, (IContext) currentElement);
-			if (StringUtils.isNotBlank(assertion)) {
-				res += "[" + assertion + "]";
-			}
-		}
-		
-		//recurse into parent contexts, appending them to beginning of XPath:
-		PageElement parent = elementParentMap.get(currentElement);
-		return getSmartContext(parent, orgElement) + res;
+		return getFullContextWithAllElements(pageElement, axis, true, null);
 	}
 	
-
-
-	private String getSiblingElementsXPathAssertion(PageElement orgElement, IContext context) {
-		String res = "";
-		int i = 0;
-		for (PageElement pe : context.getRootElements()) {
-			if (pe.equals(orgElement)) {
-				continue; //skip current element
+	 private String getFullContextWithAllElements(PageElement pageElement, String axis, boolean traverseParents, PageElement elementToIgnore) {
+		
+		String elementExp = axis + XPathBuilder.getXPathForSingleElement(pageElement, useNamespace);
+		
+		if (pageElement instanceof IContext) {
+			IContext context = (IContext) pageElement;
+			for (PageElement child : context.getRootElements()) {
+				if (child == elementToIgnore) {
+					continue;
+				}
+				elementExp = elementExp + "[" + getFullContextWithAllElements(child, "descendant-or-self::", false, null) + "]";
 			}
-			if (pe.isNot()) {
-				continue; //skip elements that are not there
-			}
-			if (i > 0) {
-				res += "][";
-			}
-			res += ".//" + XPathBuilder.getXPathForSingleElement(pe, useNamespace);
-			i++;
 		}
-		return res;
+		
+		if (traverseParents && isInAContext(pageElement)) {
+			elementExp = getFullContextWithAllElements(getParent(pageElement), "/descendant-or-self::", true, pageElement) + elementExp;
+		}
+		
+		return elementExp;
+	}
+
+	
+
+	private PageElement getParent(PageElement pageElement) {
+		return elementParentMap.get(pageElement);
+	}
+
+
+	private boolean isInAContext(PageElement pageElement) {
+		return elementParentMap.get(pageElement) != null;
 	}
 
 

@@ -121,12 +121,11 @@ public class ContextHolderTest {
 	
 	@Test
 	public void testContextWithThreeElements() {
-		outerContext.addElement(link);
 		outerContext.addElement(image);
 		outerContext.addElement(textArea);
 		holder.pushContext(outerContext);
 
-		String expAll = "/descendant-or-self::*[@id=\'outerId\'][.//a[@href=\'linkHref\']][.//textarea[@name=\'textAreaName\']]/descendant-or-self::img[@id=\'imageId\']";
+		String expAll = "/descendant-or-self::*[@id=\'outerId\'][descendant-or-self::textarea[@name=\'textAreaName\']]/descendant-or-self::img[@id=\'imageId\']";
 		assertEquals(expAll, holder.getFullContextWithAllElements(image));
 	}
 	
@@ -134,50 +133,72 @@ public class ContextHolderTest {
 	@Test
 	public void testNestedContextWithThreeElements() {
 		outerContext.addElement(innerContext1);
-		innerContext1.addElement(link);
 		innerContext1.addElement(image);
 		innerContext1.addElement(textArea);
+		innerContext1.addElement(link);
 		holder.pushContext(outerContext);
 		holder.pushContext(innerContext1);
 
-		String expAll = "/descendant-or-self::*[@id=\'outerId\']/descendant-or-self::*[@id=\'inner1Id\'][.//a[@href=\'linkHref\']][.//textarea[@name=\'textAreaName\']]/descendant-or-self::img[@id=\'imageId\']";
+		String expAll = "/descendant-or-self::*[@id=\'outerId\']/descendant-or-self::*[@id=\'inner1Id\'][descendant-or-self::textarea[@name=\'textAreaName\']][descendant-or-self::a[@href=\'linkHref\']]/descendant-or-self::img[@id=\'imageId\']";
 		assertEquals(expAll, holder.getFullContextWithAllElements(image));
 	}
 	
 	@Test
 	public void testNestedContextWithThreeInnerContexts() throws CloneNotSupportedException {
-		SimpleContext outerContext1 = outerContext;
-		SimpleContext outerContext2 = (SimpleContext) outerContext.clone();
-		SimpleContext outerContext3 = (SimpleContext) outerContext.clone();
-		
-		SimpleContext innerContext1 = (SimpleContext) this.innerContext1.clone();
-		SimpleContext innerContext2 = (SimpleContext) innerContext1.clone();
-		SimpleContext innerContext3 = (SimpleContext) innerContext1.clone();
-
+		SimpleContext outerContext1 = (SimpleContext) outerContext.clone();
 		outerContext1.addElement(innerContext1);
-		outerContext2.addElement(innerContext2);
-		outerContext3.addElement(innerContext3);
 		outerContext1.addElement(link);
+
+		SimpleContext outerContext2 = (SimpleContext) outerContext.clone();
+		outerContext2.addElement(innerContext2);
 		outerContext2.addElement(image);
-		outerContext3.addElement(textArea);
-		
+
 		Link innerLink = new Link();
 		Identifier id = new Identifier();
 		id.setType(IdentifierType.ID);
-		id.setValue("innderLinkId");
+		id.setValue("innerLinkId");
 		id.setProbability(100);
 		innerLink.addIdentifier(id);
 		
-		innerContext1.addElement(innerLink);innerContext1.addElement(textArea);
-		innerContext2.addElement(innerLink);innerContext2.addElement(textArea);
-		innerContext3.addElement(innerLink);innerContext3.addElement(textArea);
-		
+		innerContext2.addElement(innerLink);
+		innerContext2.addElement(textArea);
+
+		SimpleContext outerContext3 = (SimpleContext) outerContext.clone();
+		SimpleContext innerContext3 = (SimpleContext) innerContext1.clone();
+		outerContext3.addElement(innerContext3);
+		outerContext3.addElement(textArea);
+
 		holder.pushContext(outerContext2);
 		holder.pushContext(innerContext2);
-		
 
-		String expAll =  "/descendant-or-self::*[@id=\'outerId\'][.//*[@id=\'inner1Id\']][.//img[@id=\'imageId\']]/descendant-or-self::*[@id=\'inner1Id\'][.//textarea[@name=\'textAreaName\']]/descendant-or-self::a[@id=\'innderLinkId\']";
+		String expAll =  "/descendant-or-self::*[@id=\'outerId\'][descendant-or-self::img[@id=\'imageId\']]/descendant-or-self::*[@id=\'inner2Id\'][descendant-or-self::textarea[@name=\'textAreaName\']]/descendant-or-self::a[@id=\'innerLinkId\']";
 		assertEquals(expAll, holder.getFullContextWithAllElements(innerLink));
 	}
 	
+	@Test
+	public void testSingleChildElementInclusionWhenRootContextIsTargeted() {
+		outerContext.addElement(innerContext1);
+		innerContext1.addElement(link);
+		String exp = "//*[@id=\'outerId\'][descendant-or-self::*[@id=\'inner1Id\'][descendant-or-self::a[@href=\'linkHref\']]]";
+		assertEquals(exp, holder.getFullContextWithAllElements(outerContext));
+	}
+
+	@Test
+	public void testMultipleChildElementsInclusionWhenRootContextIsTargeted() {
+		outerContext.addElement(link);
+		outerContext.addElement(textArea);
+		String exp = "//*[@id=\'outerId\'][descendant-or-self::a[@href=\'linkHref\']][descendant-or-self::textarea[@name=\'textAreaName\']]";
+		assertEquals(exp, holder.getFullContextWithAllElements(outerContext));
+	}
+	
+	@Test
+	public void testMultipleRecursiveChildElementsInclusionWhenRootContextIsTargeted() {
+		outerContext.addElement(image);
+		outerContext.addElement(innerContext1);
+		innerContext1.addElement(textArea);
+		innerContext1.addElement(link);
+		String exp = "//*[@id=\'outerId\'][descendant-or-self::img[@id=\'imageId\']][descendant-or-self::*[@id=\'inner1Id\'][descendant-or-self::textarea[@name=\'textAreaName\']][descendant-or-self::a[@href=\'linkHref\']]]";
+		assertEquals(exp, holder.getFullContextWithAllElements(outerContext));
+	}
+
 }
