@@ -10,151 +10,267 @@
           <elements>
             <simpleContext>
               <elements>
-                <text>
+                <simpleContext>
+                  <elements>
+                    <text>
+                      <description></description>
+                      <identifiers>
+                        <identifier>
+                          <value>About</value>
+                          <probability>100</probability>
+                          <type>LABEL</type>
+                          <useI18n>false</useI18n>
+                          <useParam>false</useParam>
+                          <moderator>EQUAL</moderator>
+                        </identifier>
+                      </identifiers>
+                      <directEditIdentifier reference="../identifiers/identifier"/>
+                      <not>false</not>
+                      <status>PASS</status>
+                    </text>
+                  </elements>
                   <description></description>
                   <identifiers>
                     <identifier>
-                      <value>About</value>
-                      <probability>100</probability>
-                      <type>LABEL</type>
+                      <value>AboutLink</value>
+                      <probability>0</probability>
+                      <type reference="../../../elements/text/identifiers/identifier/type"/>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
-                      <moderator>EQUAL</moderator>
+                      <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value></value>
+                      <probability>0</probability>
+                      <type>ELEMENT_NAME</type>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value></value>
+                      <probability>0</probability>
+                      <type>ID</type>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value></value>
+                      <probability>0</probability>
+                      <type>NAME</type>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value></value>
+                      <probability>0</probability>
+                      <type>INDEX</type>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value>subMenuMainItem</value>
+                      <probability>100</probability>
+                      <type>CLASS</type>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
                     </identifier>
                   </identifiers>
                   <directEditIdentifier reference="../identifiers/identifier"/>
                   <not>false</not>
-                  <status>UNKNOWN</status>
-                </text>
+                  <status reference="../elements/text/status"/>
+                </simpleContext>
               </elements>
               <description></description>
               <identifiers>
                 <identifier>
-                  <value>AboutLink</value>
+                  <value>divider</value>
                   <probability>0</probability>
-                  <type reference="../../../elements/text/identifiers/identifier/type"/>
+                  <type reference="../../../elements/simpleContext/elements/text/identifiers/identifier/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
-                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                  <moderator reference="../../../elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
                 </identifier>
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type>ELEMENT_NAME</type>
+                  <type reference="../../../elements/simpleContext/identifiers/identifier[2]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
-                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                  <moderator reference="../../../elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
                 </identifier>
                 <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type>ID</type>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type>NAME</type>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type>INDEX</type>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value>subMenuMainItem</value>
+                  <value>leftnavigation</value>
                   <probability>100</probability>
-                  <type>CLASS</type>
+                  <type reference="../../../elements/simpleContext/identifiers/identifier[3]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
-                  <moderator reference="../../../elements/text/identifiers/identifier/moderator"/>
+                  <moderator reference="../../../elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../elements/simpleContext/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../elements/simpleContext/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../elements/simpleContext/identifiers/identifier[6]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
                 </identifier>
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status reference="../elements/text/status"/>
+              <status reference="../elements/simpleContext/elements/text/status"/>
             </simpleContext>
             <simpleContext>
               <elements>
-                <text>
+                <simpleContext>
+                  <elements>
+                    <text>
+                      <description></description>
+                      <identifiers>
+                        <identifier>
+                          <value>Webshop</value>
+                          <probability>100</probability>
+                          <type reference="../../../../../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/type"/>
+                          <useI18n>false</useI18n>
+                          <useParam>false</useParam>
+                          <moderator reference="../../../../../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                        </identifier>
+                      </identifiers>
+                      <directEditIdentifier reference="../identifiers/identifier"/>
+                      <not>false</not>
+                      <status reference="../../../../../../simpleContext/elements/simpleContext/elements/text/status"/>
+                    </text>
+                  </elements>
                   <description></description>
                   <identifiers>
                     <identifier>
-                      <value>Webshop</value>
-                      <probability>100</probability>
-                      <type reference="../../../../../../simpleContext/elements/text/identifiers/identifier/type"/>
+                      <value>WebshopLink</value>
+                      <probability>0</probability>
+                      <type reference="../../../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/type"/>
                       <useI18n>false</useI18n>
                       <useParam>false</useParam>
-                      <moderator reference="../../../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                      <moderator reference="../../../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value></value>
+                      <probability>0</probability>
+                      <type reference="../../../../../../simpleContext/elements/simpleContext/identifiers/identifier[2]/type"/>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value></value>
+                      <probability>0</probability>
+                      <type reference="../../../../../../simpleContext/elements/simpleContext/identifiers/identifier[3]/type"/>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value></value>
+                      <probability>0</probability>
+                      <type reference="../../../../../../simpleContext/elements/simpleContext/identifiers/identifier[4]/type"/>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value></value>
+                      <probability>0</probability>
+                      <type reference="../../../../../../simpleContext/elements/simpleContext/identifiers/identifier[5]/type"/>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                    </identifier>
+                    <identifier>
+                      <value>subMenuMainItem</value>
+                      <probability>100</probability>
+                      <type reference="../../../../../../simpleContext/elements/simpleContext/identifiers/identifier[6]/type"/>
+                      <useI18n>false</useI18n>
+                      <useParam>false</useParam>
+                      <moderator reference="../../../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
                     </identifier>
                   </identifiers>
                   <directEditIdentifier reference="../identifiers/identifier"/>
                   <not>false</not>
-                  <status reference="../../../../simpleContext/elements/text/status"/>
-                </text>
+                  <status reference="../../../../simpleContext/elements/simpleContext/elements/text/status"/>
+                </simpleContext>
               </elements>
               <description></description>
               <identifiers>
                 <identifier>
-                  <value>WebshopLink</value>
+                  <value>divider</value>
                   <probability>0</probability>
-                  <type reference="../../../../simpleContext/elements/text/identifiers/identifier/type"/>
+                  <type reference="../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
-                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                  <moderator reference="../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
                 </identifier>
                 <identifier>
                   <value></value>
                   <probability>0</probability>
-                  <type reference="../../../../simpleContext/identifiers/identifier[2]/type"/>
+                  <type reference="../../../../simpleContext/elements/simpleContext/identifiers/identifier[2]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
-                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                  <moderator reference="../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
                 </identifier>
                 <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type reference="../../../../simpleContext/identifiers/identifier[3]/type"/>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type reference="../../../../simpleContext/identifiers/identifier[4]/type"/>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value></value>
-                  <probability>0</probability>
-                  <type reference="../../../../simpleContext/identifiers/identifier[5]/type"/>
-                  <useI18n>false</useI18n>
-                  <useParam>false</useParam>
-                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
-                </identifier>
-                <identifier>
-                  <value>subMenuMainItem</value>
+                  <value>leftnavigation</value>
                   <probability>100</probability>
-                  <type reference="../../../../simpleContext/identifiers/identifier[6]/type"/>
+                  <type reference="../../../../simpleContext/elements/simpleContext/identifiers/identifier[3]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
-                  <moderator reference="../../../../simpleContext/elements/text/identifiers/identifier/moderator"/>
+                  <moderator reference="../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../simpleContext/elements/simpleContext/identifiers/identifier[4]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../simpleContext/elements/simpleContext/identifiers/identifier[5]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type reference="../../../../simpleContext/elements/simpleContext/identifiers/identifier[6]/type"/>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../../../simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
                 </identifier>
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>false</not>
-              <status reference="../../simpleContext/elements/text/status"/>
+              <status reference="../../simpleContext/elements/simpleContext/elements/text/status"/>
             </simpleContext>
           </elements>
           <name>Misc</name>
@@ -164,7 +280,7 @@
             <userInteractionsTransition>
               <userInteractions>
                 <userInteraction>
-                  <element class="simpleContext" reference="../../../../../elements/simpleContext"/>
+                  <element class="simpleContext" reference="../../../../../elements/simpleContext/elements/simpleContext"/>
                   <input></input>
                   <action>CLICK</action>
                   <i18nKey></i18nKey>
@@ -186,15 +302,15 @@
                       <identifier>
                         <value>We sell cubics</value>
                         <probability>100</probability>
-                        <type reference="../../../../../../../../elements/simpleContext/elements/text/identifiers/identifier/type"/>
+                        <type reference="../../../../../../../../elements/simpleContext/elements/simpleContext/elements/text/identifiers/identifier/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
-                        <moderator reference="../../../../../../../../elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                        <moderator reference="../../../../../../../../elements/simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
                       </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/simpleContext/elements/text/status"/>
+                    <status reference="../../../../../../elements/simpleContext/elements/simpleContext/elements/text/status"/>
                   </text>
                 </elements>
                 <name>New page</name>
@@ -204,7 +320,7 @@
                 <id>page76917631213558010950</id>
                 <position>
                   <x>113</x>
-                  <y>280</y>
+                  <y>334</y>
                 </position>
                 <dimension>
                   <width>115</width>
@@ -216,7 +332,7 @@
             <userInteractionsTransition>
               <userInteractions>
                 <userInteraction>
-                  <element class="simpleContext" reference="../../../../../elements/simpleContext[2]"/>
+                  <element class="simpleContext" reference="../../../../../elements/simpleContext[2]/elements/simpleContext"/>
                   <input></input>
                   <action reference="../../../../userInteractionsTransition/userInteractions/userInteraction/action"/>
                   <i18nKey></i18nKey>
@@ -238,15 +354,15 @@
                       <identifier>
                         <value>Large boxes</value>
                         <probability>100</probability>
-                        <type reference="../../../../../../../../elements/simpleContext/elements/text/identifiers/identifier/type"/>
+                        <type reference="../../../../../../../../elements/simpleContext/elements/simpleContext/elements/text/identifiers/identifier/type"/>
                         <useI18n>false</useI18n>
                         <useParam>false</useParam>
-                        <moderator reference="../../../../../../../../elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
+                        <moderator reference="../../../../../../../../elements/simpleContext/elements/simpleContext/elements/text/identifiers/identifier/moderator"/>
                       </identifier>
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status reference="../../../../../../elements/simpleContext/elements/text/status"/>
+                    <status reference="../../../../../../elements/simpleContext/elements/simpleContext/elements/text/status"/>
                   </text>
                 </elements>
                 <name>New page</name>
@@ -256,7 +372,7 @@
                 <id>page223751481213558077205</id>
                 <position>
                   <x>363</x>
-                  <y>280</y>
+                  <y>334</y>
                 </position>
                 <dimension>
                   <width>115</width>
@@ -273,7 +389,7 @@
           </position>
           <dimension>
             <width>115</width>
-            <height>117</height>
+            <height>171</height>
           </dimension>
           <name defined-in="transitionNode"></name>
         </end>
@@ -376,6 +492,42 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page91829431241961876578</id>
+      <position>
+        <x>0</x>
+        <y>2126</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page67777411241964179109</id>
+      <position>
+        <x>0</x>
+        <y>2426</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -388,7 +540,7 @@
     <languages/>
     <observers/>
   </allLanguages>
-  <name>This test does not work. See Jira CT-57.</name>
+  <name></name>
   <description></description>
   <id>test1213305673116</id>
   <modelVersion>10</modelVersion>
