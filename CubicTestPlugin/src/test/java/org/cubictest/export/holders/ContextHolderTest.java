@@ -8,7 +8,7 @@
  * Contributors:
  *    Christian Schwarz and Stein K. Skytteren - initial API and implementation
  *******************************************************************************/
-package org.cubictest.exporters.selenium.utils;
+package org.cubictest.export.holders;
 
 import static org.junit.Assert.assertEquals;
 
