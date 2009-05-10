@@ -23,6 +23,10 @@ public class ChangeIdentifierValueCommand extends Command {
 	private boolean setProbabilityToMax;
 	private int oldProbability;
 
+	public void setOldProbability(int oldProbability) {
+		this.oldProbability = oldProbability;
+	}
+
 	public void setIdentifer(Identifier identifier) {
 		this.identifier = identifier;
 	}

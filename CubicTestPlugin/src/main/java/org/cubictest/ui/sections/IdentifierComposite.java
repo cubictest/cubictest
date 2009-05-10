@@ -41,6 +41,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
@@ -180,8 +182,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		data.width = labelWidth * 3;
 		value = factory.createText(firstRow, "", SWT.BORDER);
 		value.setLayoutData(data);
-		value.addSelectionListener(valueListener);
-		value.addFocusListener(valueListener);
+		value.addModifyListener(valueListener);
 		
 		//Adding DirectEdit idendifier input (must be last in row to get correct focus behaviour)
 		data = new FormData();
@@ -639,15 +640,11 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		}
 	};
 	
-	private class ValueListener implements SelectionListener, FocusListener{
-		public void widgetDefaultSelected(SelectionEvent e) {
+	private class ValueListener implements ModifyListener {
+		public void modifyText(ModifyEvent e) {
 			updateValue();
 		}
-		public void widgetSelected(SelectionEvent e) {}
-		public void focusGained(FocusEvent e) {}
-		public void focusLost(FocusEvent e) {
-			updateValue();
-		}
+
 		private void updateValue(){
 			if(!value.getText().equals( identifier.getValue())){
 				CompoundCommand compundCommand = new CompoundCommand();
@@ -665,6 +662,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 					command.setIdentifer(identifier);
 					command.setNewValue(value.getText());
 					command.setOldValue(identifier.getValue());
+					command.setOldProbability(identifier.getProbability());
 					compundCommand.add(command);
 				}		
 				executeCommand(compundCommand);
