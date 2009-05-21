@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.exporters.watir.converters.delegates;
 
+import static org.cubictest.exporters.watir.utils.WatirUtils.escape;
+
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.PageElement;
@@ -27,14 +29,14 @@ public class ContextAsserterXPath {
 		watirHolder.add("pass = 0", 3);
 
 		if (WatirUtils.getElementType(pe).equals("*")){
-			String xpath = watirHolder.getFullContextWithAllElements(pe);
+			String xpath = escape(watirHolder.getFullContextWithAllElements(pe));
 			watirHolder.add(watirHolder.getVariableName(pe) + " = " + watirHolder.getActiveContainer() + ".element_by_xpath(\"" + xpath + "\")", 3);
 			String not = pe.isNot() ? "" : "not "; 
 			watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".methods.member?(\"ole_get_methods\")", 3);
 		}
 		else {
 			//context elements that have class in watir
-			String xpath = watirHolder.getFullContextWithAllElements(pe);
+			String xpath = escape(watirHolder.getFullContextWithAllElements(pe));
 			watirHolder.add(watirHolder.getVariableName(pe) + " =  " + watirHolder.getActiveContainer() + "." + WatirUtils.getElementType(pe) + "(:xpath, \"" + xpath + "\")", 3);
 			String not = pe.isNot() ? "" : "not "; 
 			watirHolder.add("while " + not + watirHolder.getVariableName(pe) + ".methods.member?(\"display\")", 3);

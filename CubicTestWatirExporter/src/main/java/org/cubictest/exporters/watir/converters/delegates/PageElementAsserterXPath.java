@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.exporters.watir.converters.delegates;
 
+import static org.cubictest.exporters.watir.utils.WatirUtils.escape;
 import static org.cubictest.model.IdentifierType.LABEL;
 
 import org.apache.commons.lang.StringUtils;
@@ -65,7 +66,4 @@ public class PageElementAsserterXPath {
 		}
 	}
 	
-	private static String escape(String s) { 
-		return StringUtils.replace(s, "\"", "\\\"");
-	}
 }

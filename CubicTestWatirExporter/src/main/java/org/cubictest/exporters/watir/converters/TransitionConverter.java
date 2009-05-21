@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.exporters.watir.converters;
 
+import static org.cubictest.exporters.watir.utils.WatirUtils.escape;
+
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
@@ -48,10 +50,7 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 			}
 		}
 	}
-	
-	private String escape(String s) { 
-		return StringUtils.replace(s, "\"", "\\\"");
-	}
+
 	
 	/**
 	 * Converts a UserInteraction on a page element to a Watir Step.
@@ -69,7 +68,9 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 		watirHolder.add("rescue", 2);
 		watirHolder.add("puts " + "\"" + WatirHolder.EXCEPTION + escape(watirHolder.getId(pe)) + " -- \" + $!", 3);
 		watirHolder.add("failedSteps += 1 ", 3);
-		String interactionType = StringUtils.replace(WatirUtils.getInteraction(userInteraction) ,"\"", "\\\"");
+		String quoteNotStartingWithABackslash = "([^\\\\])\"";
+		String quoteStartingWithABackslash = "$1\\\\\"";
+		String interactionType = WatirUtils.getInteraction(userInteraction).replaceAll(quoteNotStartingWithABackslash, quoteStartingWithABackslash);
 		watirHolder.add("puts \"Could not " + interactionType + " " + escape(pe.toString()) + "\"", 3);
 		watirHolder.add("raise " + WatirHolder.INTERACTION_FAILURE, 3);
 		watirHolder.add("end", 2);

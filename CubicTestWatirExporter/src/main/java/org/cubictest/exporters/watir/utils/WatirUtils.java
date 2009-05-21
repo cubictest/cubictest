@@ -162,7 +162,7 @@ public class WatirUtils {
 	 */
 	public static String getInteraction(UserInteraction userInteraction) {
 		ActionType a = userInteraction.getActionType();
-		String textualInput = userInteraction.getTextualInput();
+		String textualInput = escape(userInteraction.getTextualInput());
 		
 		if (a.equals(CLICK))
 			return "click";
@@ -234,7 +234,7 @@ public class WatirUtils {
 	
 	
 	public static String getIdValue(Identifier id) {
-		String idValue = StringUtils.replace(id.getValue(), "\"", "\\\"");
+		String idValue = escape(id.getValue());
 		switch (id.getModerator()) {
 		case CONTAIN:
 			idValue = "/" + idValue + "/";
@@ -252,5 +252,7 @@ public class WatirUtils {
 		return idValue;
 	}
 
-
+	public static String escape(String s) { 
+		return StringUtils.replace(s, "\"", "\\\"");
+	}
 }
