@@ -21,6 +21,7 @@ import org.cubictest.ui.customstep.command.ChangeCustomTestStepParameterKeyComma
 import org.cubictest.ui.customstep.command.CreateCustomTestStepParameterCommand;
 import org.cubictest.ui.customstep.command.DeleteCustomTestStepParameterCommand;
 import org.cubictest.ui.customstep.section.CustomStepSection;
+import org.cubictest.ui.utils.DoubleClickableTextCellEditor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -32,14 +33,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -219,12 +218,12 @@ public class ParameterTableComposite extends Composite implements PropertyChange
 
 	private CellEditor[] createCellEditors() {
 		CellEditor[] editors = new CellEditor[3];	
-		editors[0] = new TextCellEditor(table);
-		editors[1] = new TextCellEditor(table);
-		editors[2] = new TextCellEditor(table);
+		editors[0] = new DoubleClickableTextCellEditor(table);
+		editors[1] = new DoubleClickableTextCellEditor(table);
+		editors[2] = new DoubleClickableTextCellEditor(table);
 		return editors;
 	}
-
+	
 	public void setCustemTestStepParameters(CustomTestStepParameterList parameters) {
 		super.setData(parameters);
 		this.parameters = parameters;

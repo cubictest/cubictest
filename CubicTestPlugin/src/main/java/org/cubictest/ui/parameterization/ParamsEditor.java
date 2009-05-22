@@ -16,6 +16,7 @@ import org.cubictest.model.parameterization.ParamMapper;
 import org.cubictest.model.parameterization.Parameter;
 import org.cubictest.model.parameterization.ParameterList;
 import org.cubictest.persistence.ParameterPersistance;
+import org.cubictest.ui.utils.DoubleClickableTextCellEditor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.Dialog;
@@ -162,7 +163,7 @@ public class ParamsEditor extends EditorPart {
 		
 		CellEditor[] cellEditors = new CellEditor[paramList.size()];
 		for (int i = 0; i<cellEditors.length; i++)
-			cellEditors[i] = new TextCellEditor(table);
+			cellEditors[i] = new DoubleClickableTextCellEditor(table);
 		
 		tableViewer.setCellEditors(cellEditors);
 		tableViewer.setCellModifier(new ParamsTableCellModifier(this));
@@ -275,7 +276,7 @@ public class ParamsEditor extends EditorPart {
 	
 				CellEditor[] cellEditors = new CellEditor[paramList.size()];
 				for (int i = 0; i<cellEditors.length; i++){
-					cellEditors[i] = new TextCellEditor(table);
+					cellEditors[i] = new DoubleClickableTextCellEditor(table);
 				}
 				
 				tableViewer.setColumnProperties(paramList.getHeaders().toArray());

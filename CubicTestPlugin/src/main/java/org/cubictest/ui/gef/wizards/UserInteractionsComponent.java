@@ -33,6 +33,7 @@ import org.cubictest.ui.gef.command.NoOperationCommand;
 import org.cubictest.ui.gef.command.MoveUserInteractionCommand.Direction;
 import org.cubictest.ui.gef.controller.TestEditPart;
 import org.cubictest.ui.sections.NameSection;
+import org.cubictest.ui.utils.DoubleClickableTextCellEditor;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -365,8 +366,13 @@ public class UserInteractionsComponent {
 		actionElements[a++] = DELETE_ROW;
 
 		cellEditors[ACTION_ELEMENT_COLINDEX] = new ActionElementComboBoxCellEditor(table, actionElements, SWT.READ_ONLY);
-		cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, new String[]{""}, SWT.READ_ONLY);
-		cellEditors[TEXT_INPUT_COLINDEX] = new TextCellEditor(table);
+		cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, new String[]{""}, SWT.READ_ONLY) {
+			@Override
+			protected int getDoubleClickTimeout() {
+				return 0;
+			}
+		};
+		cellEditors[TEXT_INPUT_COLINDEX] = new DoubleClickableTextCellEditor(table);
 		
 		tableViewer.setCellEditors(cellEditors);
 		tableViewer.setContentProvider(new ActionContentProvider());
@@ -393,7 +399,10 @@ public class UserInteractionsComponent {
 		public ActionElementComboBoxCellEditor(Table table, String[] elementNames, int read_only) {
 				super(table,elementNames, read_only);
 		}
-
+		@Override
+		protected int getDoubleClickTimeout() {
+			return 0;
+		}
 		/**
 		 * Create dropdown list with action elements.
 		 */
@@ -478,7 +487,12 @@ public class UserInteractionsComponent {
 						IActionElement element = ((UserInteraction) activeUserinteraction).getElement();
 						if(element != null) {
 							currentActions = UserInteractionDialogUtil.getActionTypeLabelsForElement(element, test);
-							cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY);
+							cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY) {
+								@Override
+								protected int getDoubleClickTimeout() {
+									return 0;
+								}
+							};
 						}
 					}
 					//make the change immediately visible in the graphical test editor:
@@ -519,21 +533,30 @@ public class UserInteractionsComponent {
 			else if (property.equals(ACTION_TYPE)){
 				//populate selected dropdown:
 				currentActions = UserInteractionDialogUtil.getActionTypeLabelsForElement(activeUserinteraction.getElement(), test);
-				cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY);
+				cellEditors[ACTION_TYPE_COLINDEX] = new ComboBoxCellEditor(table, currentActions, SWT.READ_ONLY) {
+					@Override
+					protected int getDoubleClickTimeout() {
+						return 0;
+					}
+				};
 			}
-			
 			else if (property.equals(TEXT_INPUT)){
 				if (activeUserinteraction.useParam()){
 					//get parameterization keys:
 					ParameterList list = test.getParamList();
 					String[] keys = list.getHeaders().toArray();
-					cellEditors[TEXT_INPUT_COLINDEX] = new ComboBoxCellEditor(table,keys,SWT.READ_ONLY);
+					cellEditors[TEXT_INPUT_COLINDEX] = new ComboBoxCellEditor(table,keys,SWT.READ_ONLY) {
+						@Override
+						protected int getDoubleClickTimeout() {
+							return 0;
+						}
+					};
 				}
 				else if (activeUserinteraction.getActionType().acceptsInput()) {
-					cellEditors[TEXT_INPUT_COLINDEX] = new TextCellEditor(table);
+					cellEditors[TEXT_INPUT_COLINDEX] = new DoubleClickableTextCellEditor(table);
 				}
 				else {
-					cellEditors[TEXT_INPUT_COLINDEX] = new TextCellEditor(table, SWT.READ_ONLY);
+					cellEditors[TEXT_INPUT_COLINDEX] = new DoubleClickableTextCellEditor(table, SWT.READ_ONLY);
 					activeUserinteraction.setTextualInput("");
 					return false;
 				}
