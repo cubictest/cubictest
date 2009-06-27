@@ -5,7 +5,7 @@ then
 fi
 
 # Build release dir structure
-./zipUpdateSite.sh
+#./zipUpdateSite.sh
 
 echo "Update site files: (CTRL+C to abort)"
 scp -r ./CubicTestLocalUpdateSite/*  schwarz@boss.bekk.no:/srv/www/htdocs/cubictest/update/
