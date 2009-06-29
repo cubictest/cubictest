@@ -16,6 +16,7 @@ import static org.cubictest.exporters.selenium.ui.command.ChangeCustomStepWaitFo
 import java.util.ArrayList;
 import java.util.List;
 
+import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.common.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
@@ -61,8 +62,8 @@ public class LaunchCustomTestStepConverter extends CustomTestStepConverter {
 			throw new ExporterException(result.replaceFirst("Error: ", ""));
 		}
 		if(result.startsWith("Failure")){
+			Logger.error("AssertionError in custom step " + cts.getName() + ": " + result);
 			t.addResult(cts, TestPartStatus.FAIL);
-			throw new ExporterException(result.replaceFirst("Failure: ", result));
 		}
 		else 
 			t.addResult(cts,TestPartStatus.PASS);
