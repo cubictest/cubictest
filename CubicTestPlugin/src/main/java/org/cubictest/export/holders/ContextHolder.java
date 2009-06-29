@@ -104,7 +104,7 @@ public abstract class ContextHolder implements IResultHolder {
 		
 		String elementExp = axis + XPathBuilder.getXPathForSingleElement(pageElement, useNamespace);
 		
-		if (pageElement instanceof IContext) {
+		if (pageElement instanceof IContext && !(pageElement instanceof Frame)) {
 			IContext context = (IContext) pageElement;
 			for (PageElement child : context.getRootElements()) {
 				if (child == elementToIgnore) {
@@ -114,7 +114,7 @@ public abstract class ContextHolder implements IResultHolder {
 			}
 		}
 		
-		if (traverseParents && isInAContext(pageElement)) {
+		if (traverseParents && isInAContext(pageElement) && !(getParent(pageElement) instanceof Frame)) {
 			elementExp = getFullContextWithAllElements(getParent(pageElement), "/descendant-or-self::", true, pageElement) + elementExp;
 		}
 		

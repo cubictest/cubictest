@@ -783,4 +783,20 @@ public class CubicSelenium implements Selenium {
 	public void useXpathLibrary(String arg0) {
 		execute("useXpathLibrary", arg0);
 	}
+
+	public void addCustomRequestHeader(String arg0, String arg1) {
+		execute("addCustomRequestHeader", arg0, arg1);
+	}
+
+	public String captureNetworkTraffic(String arg0) {
+		return execute("captureNetworkTraffic", arg0)[0];
+	}
+
+	public void deselectPopUp() {
+		execute("deselectPopUp");
+	}
+
+	public void selectPopUp(String arg0) {
+		execute("selectPopUp", arg0);
+	}
 }

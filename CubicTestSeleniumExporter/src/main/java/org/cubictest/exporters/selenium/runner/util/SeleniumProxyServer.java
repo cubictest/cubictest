@@ -33,7 +33,6 @@ public class SeleniumProxyServer {
 		this.config = config;
 		try {
 			seleniumServer = new SeleniumServer(false, config.getRemoteControlConfiguration());
-			SeleniumServer.setProxyInjectionMode(config.getBrowser().isProxyInjectionMode());
 
 			final int portInfo = config.getSeleniumServerPort();
 	        serverThread = new Thread(new Runnable() {

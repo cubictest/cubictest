@@ -44,7 +44,7 @@ public class SeleniumRunnerConfiguration  {
 		rcConfiguration = new RemoteControlConfiguration();
 		initDefaultPort();
 		this.seleniumServerHostname = "localhost";
-		rcConfiguration.setMultiWindow(false);
+		rcConfiguration.setSingleWindow(true);
 		setBrowser(BrowserType.FIREFOX);
 	}
 
@@ -135,6 +135,6 @@ public class SeleniumRunnerConfiguration  {
 	}
 
 	public void setMultiWindow(boolean seleniumMultiWindow) {
-		rcConfiguration.setMultiWindow(seleniumMultiWindow);
+		rcConfiguration.setSingleWindow(!seleniumMultiWindow);
 	}
 }

@@ -55,7 +55,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 			port = ExportUtils.findAvailablePort();
 			System.out.println("Port: " + port);
 			RemoteControlConfiguration config = new RemoteControlConfiguration();
-			config.setMultiWindow(false);
+			config.setSingleWindow(true);
 			config.setPort(port);
 			config.setPortDriversShouldContact(port);
 			seleniumProxy = new SeleniumServer(false, config);
