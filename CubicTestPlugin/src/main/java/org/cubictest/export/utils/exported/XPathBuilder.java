@@ -124,7 +124,7 @@ public class XPathBuilder {
 		Identifier id = pe.getIdentifier(LABEL);
 		if (id != null && id.isNotIndifferent()) {
 			if (pe instanceof Text) {
-				result += "contains(normalize-space(.), '" + id.getValue() + "')";
+				result += "contains(normalize-space(.), " + getIdValueInQuotes(id) + ")";
 			}
 			else if (pe instanceof Link || pe instanceof Option) {
 				result += getPageValueCheck(id, "normalize-space(text())");
@@ -212,24 +212,38 @@ public class XPathBuilder {
 	private static String getPageValueCheck(Identifier id, String pageValue) {
 		String result = "";
 		String comparisonOperator = getStringComparisonOperator(id);
+		
+		String idValueInQuotes = getIdValueInQuotes(id);
+		
 		if (id.getModerator().equals(Moderator.EQUAL)) {
 			//normal equal check
-			result += pageValue + comparisonOperator + "'" + id.getValue() + "'";
+			result += pageValue + comparisonOperator + idValueInQuotes;
 		}
 		else {
 			String prefixOperator = getPrefixComparisonOperator(id);
 			if (id.getModerator().equals(Moderator.BEGIN)) {
-				result += "substring(" + pageValue + ", 0, string-length('" + id.getValue() + "') + 1) " + comparisonOperator + " '" + id.getValue() + "'";
+				result += "substring(" + pageValue + ", 0, string-length(" + idValueInQuotes + ") + 1) " + comparisonOperator + " " + idValueInQuotes;
 			}
 			else if (id.getModerator().equals(Moderator.CONTAIN)) {
-				result += prefixOperator + "(contains(" + pageValue + ", " + "'" + id.getValue() + "'))";
+				result += prefixOperator + "(contains(" + pageValue + ", " + idValueInQuotes + "))";
 			}
 			else if (id.getModerator().equals(Moderator.END)) {
-				result += "substring(" + pageValue + ", string-length(" + pageValue + ") - string-length(" + "'" + id.getValue() +"')" +
-						" + 1, string-length('" + id.getValue() + "')) " + comparisonOperator + " '" + id.getValue() + "'";
+				result += "substring(" + pageValue + ", string-length(" + pageValue + ") - string-length(" + idValueInQuotes +")" +
+						" + 1, string-length(" + idValueInQuotes + ")) " + comparisonOperator + " " + idValueInQuotes;
 			}
 		}
 		return result;
+	}
+
+	private static String getIdValueInQuotes(Identifier id) {
+		String idValueInQuotes;
+		if (id.getValue().contains("'")) {
+			idValueInQuotes = "\"" + id.getValue() + "\"";
+		}
+		else {
+			idValueInQuotes = "'" + id.getValue() + "'";
+		}
+		return idValueInQuotes;
 	}
 
 
