@@ -70,7 +70,7 @@ public class FileExportUtils {
 	 * 
 	 * @return the root directory to start generation from
 	 */
-	private static IFolder prepareDestionationDirectoryTree(IProgressMonitor monitor, IProject project, IFolder destFolder, IResource resource) {
+	public static IFolder prepareDestionationDirectoryTree(IProgressMonitor monitor, IProject project, IFolder destFolder, IResource resource) {
 		IFolder updatedFolder = null;
 		int i = destFolder.getProjectRelativePath().segments().length;
 		StringBuffer addedSegments = new StringBuffer();

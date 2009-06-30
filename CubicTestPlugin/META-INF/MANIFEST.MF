@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CubicTest Plug-in
 Bundle-SymbolicName: org.cubictest;singleton:=true
-Bundle-Version: 1.9.2
+Bundle-Version: 1.9.6
 Bundle-ClassPath: .,
  lib/jdom.jar,
  lib/junit.jar,

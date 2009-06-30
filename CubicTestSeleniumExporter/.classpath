@@ -8,6 +8,6 @@
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry exported="true" kind="lib" path="lib/jdom.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
-	<classpathentry exported="true" kind="lib" path="lib/cubictest-selenium-rc-1.9.2.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/cubictest-selenium-rc-1.9.6.jar" sourcepath="C:/projects/selenium-1.0.1-download/selenium-remote-control-1.0.1/selenium-server-1.0.1/selenium-server-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

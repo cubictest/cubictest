@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CubicTestSeleniumLibraries Plug-in
 Bundle-SymbolicName: org.cubictest.exporter.selenium.lib;singleton:=true
-Bundle-Version: 1.9.2
+Bundle-Version: 1.9.6
 Bundle-Vendor: www.CubicTest.org
 Eclipse-LazyStart: false
 Bundle-ClassPath: lib/selenium-java-client-driver.jar,

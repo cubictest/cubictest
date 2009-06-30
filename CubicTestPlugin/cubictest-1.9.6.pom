@@ -1,6 +1,6 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.cubictest</groupId>
-  <artifactId>selenium-exporter</artifactId>
-  <version>1.9.2</version>
+  <artifactId>cubictest</artifactId>
+  <version>1.9.6</version>
 </project>
