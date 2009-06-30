@@ -41,11 +41,12 @@ then
 	mkdir -p "$CUBICTEST_REPO_DIR"
 fi
 
-cd $BASE_DIR/CubicTestPlugin
+cd $BASE_DIR/CubicTestSeleniumExporter/lib
 cp cubictest-$1.jar "$CUBICTEST_REPO_DIR"
 sha1 cubictest-$1.jar | awk '{print $1}' > "$CUBICTEST_REPO_DIR/cubictest-$1.jar.sha1"
 md5 cubictest-$1.jar | awk '{print $1}' > "$CUBICTEST_REPO_DIR/cubictest-$1.jar.md5"
 
+cd $BASE_DIR/CubicTestPlugin
 cp cubictest-$1.pom "$CUBICTEST_REPO_DIR"
 sha1 cubictest-$1.pom | awk '{print $1}' > "$CUBICTEST_REPO_DIR/cubictest-$1.pom.sha1"
 md5 cubictest-$1.pom | awk '{print $1}' > "$CUBICTEST_REPO_DIR/cubictest-$1.pom.md5"
@@ -59,11 +60,12 @@ then
 	mkdir -p "$SELENIUM_EXPORTER_DIR"
 fi
 
-cd $BASE_DIR/CubicTestSeleniumExporter
+cd $BASE_DIR/CubicTestSeleniumExporter/lib
 cp selenium-exporter-$1.jar "$SELENIUM_EXPORTER_DIR"
 sha1 selenium-exporter-$1.jar | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/selenium-exporter-$1.jar.sha1"
 md5 selenium-exporter-$1.jar | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/selenium-exporter-$1.jar.md5"
 
+cd $BASE_DIR/CubicTestSeleniumExporter
 cp selenium-exporter-$1.pom "$SELENIUM_EXPORTER_DIR"
 sha1 selenium-exporter-$1.pom | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/selenium-exporter-$1.pom.sha1"
 md5 selenium-exporter-$1.pom | awk '{print $1}' > "$SELENIUM_EXPORTER_DIR/selenium-exporter-$1.pom.md5"
@@ -77,11 +79,12 @@ then
 	mkdir -p "$SELENIUM_RC_DIR"
 fi
 
-cd $BASE_DIR/CubicTestSeleniumExporterServer
+cd $BASE_DIR/CubicTestSeleniumExporter/lib
 cp cubictest-selenium-rc-$1.jar "$SELENIUM_RC_DIR"
 sha1 cubictest-selenium-rc-$1.jar | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.jar.sha1"
 md5 cubictest-selenium-rc-$1.jar | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.jar.md5"
 
+cd $BASE_DIR/CubicTestSeleniumExporterServer
 cp cubictest-selenium-rc-$1.pom "$SELENIUM_RC_DIR"
 sha1 cubictest-selenium-rc-$1.pom | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.pom.sha1"
 md5 cubictest-selenium-rc-$1.pom | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.pom.md5"
