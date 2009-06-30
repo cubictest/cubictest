@@ -76,7 +76,7 @@ public class NewParamWizard extends Wizard implements INewWizard{
 		IResource resource = project.findMember(new Path(containerName));
 		if (resource == null || !resource.exists() || !(resource instanceof IContainer)) {
 			Path path = new Path(project.getLocation().removeLastSegments(1) + containerName);
-			path.toFile().mkdir();
+			path.toFile().mkdirs();
 			project.refreshLocal(Integer.MAX_VALUE, monitor);
 			resource = project.findMember(new Path(containerName).removeFirstSegments(1));
 		}
