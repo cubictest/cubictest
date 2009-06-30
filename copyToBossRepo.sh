@@ -14,9 +14,21 @@ read
 echo "OK to continue? (CTRL+C to abort)"
 read
 
+
+
 echo "Repo files:"
-scp -r ./cubictest_m2_jars/* schwarz@boss.bekk.no:/srv/www/htdocs/cubictest/m2repo/
+#Linux:
+#scp -r ./cubictest_m2_jars/* schwarz@boss.bekk.no:/srv/www/htdocs/cubictest/m2repo/
+
+#Windows:
+#echo "FYI: WinSCP must be on PATH"
+#winscp.com /command "open schwarz@boss.bekk.no" "put ./cubictest_m2_jars/* /srv/www/htdocs/cubictest/m2repo/" "exit"
+
+
 
 echo "Repo zip file:"
-scp -r ./cubictest_m2_jars.zip schwarz@boss.bekk.no:/srv/www/htdocs/cubictest/m2repo/
+#Linux:
+#scp -r ./cubictest_m2_jars.zip schwarz@boss.bekk.no:/srv/www/htdocs/cubictest/m2repo/
 
+#Windows:
+winscp.com /command "open schwarz@boss.bekk.no" "put ./cubictest_m2_jars.zip /srv/www/htdocs/cubictest/m2repo/" "exit"
