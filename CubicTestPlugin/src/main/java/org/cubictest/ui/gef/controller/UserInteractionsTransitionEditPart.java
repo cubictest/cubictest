@@ -26,6 +26,9 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
+import org.cubictest.model.context.AbstractContext;
+import org.cubictest.model.context.Frame;
+import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;
 import org.cubictest.model.formElement.Checkbox;
 import org.cubictest.model.formElement.Option;
@@ -191,6 +194,12 @@ public class UserInteractionsTransitionEditPart extends TransitionEditPart{
 				}
 				else if (element instanceof Password){
 					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.PASSWORD_IMAGE));
+				}	
+				else if (element instanceof SimpleContext){
+					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.CONTEXT_IMAGE));
+				}	
+				else if (element instanceof Frame){
+					inputLabel.setIcon(CubicTestImageRegistry.get(CubicTestImageRegistry.FRAME_IMAGE));
 				}	
 				else {
 					inputLabel = new Label(inputLabelText);
