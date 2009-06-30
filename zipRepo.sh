@@ -8,7 +8,6 @@ then
         exit -1
 fi
 
-
 if [ -e cubictest_m2_jars.zip ]
 then 
 	rm cubictest_m2_jars.zip
@@ -56,7 +55,13 @@ cp -r "$SELENIUMRCFILES"/* ./cubictest_m2_jars/org/cubictest/cubictest-selenium-
 
 
 cd cubictest_m2_jars
-zip -r ../cubictest_m2_jars.zip *
+
+#Linux: 
+#zip -r ../cubictest_m2_jars.zip *
+
+#Windows
+echo "FYI: 7-zip must be on PATH"
+7z a -r ../cubictest_m2_jars.zip *
 
 cd "$BASE_DIR"
 
