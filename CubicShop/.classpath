@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/ant.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.6.0_06/lib/tools.jar"/>
 	<classpathentry kind="output" path="src"/>
 </classpath>
