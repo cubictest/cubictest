@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="Cp1252"?>
 <test>
   <startPoint class="urlStartPoint">
     <beginAt>http://cubictest.seleniumhq.org/cubicshop/index.jsp</beginAt>
@@ -24,7 +24,7 @@
                     </identifiers>
                     <directEditIdentifier reference="../identifiers/identifier"/>
                     <not>false</not>
-                    <status>PASS</status>
+                    <status>UNKNOWN</status>
                   </title>
                   <text>
                     <identifiers>
@@ -878,6 +878,8 @@
                               </userInteraction>
                             </userInteractions>
                             <page class="page" reference="../../../../../../../../../.."/>
+                            <name></name>
+                            <hasCustomTimeout>false</hasCustomTimeout>
                             <start class="page" reference="../../../../../../../../../.."/>
                             <end class="page" reference="../.."/>
                           </inTransition>
@@ -895,6 +897,8 @@
                           </dimension>
                           <name defined-in="transitionNode"></name>
                         </page>
+                        <name></name>
+                        <hasCustomTimeout>false</hasCustomTimeout>
                         <start class="page" reference="../page"/>
                         <end class="page" reference="../.."/>
                       </inTransition>
@@ -911,6 +915,8 @@
                             </userInteraction>
                           </userInteractions>
                           <page class="page" reference="../../.."/>
+                          <name></name>
+                          <hasCustomTimeout>false</hasCustomTimeout>
                           <start class="page" reference="../../.."/>
                           <end class="page">
                             <commons>
@@ -1080,6 +1086,8 @@
                                   </userInteraction>
                                 </userInteractions>
                                 <page class="page" reference="../../.."/>
+                                <name></name>
+                                <hasCustomTimeout>false</hasCustomTimeout>
                                 <start class="page" reference="../../.."/>
                                 <end class="page">
                                   <commons>
@@ -1125,8 +1133,8 @@
                                   <outTransitions/>
                                   <id>1157552123784</id>
                                   <position>
-                                    <x>656</x>
-                                    <y>183</y>
+                                    <x>696</x>
+                                    <y>180</y>
                                   </position>
                                   <dimension>
                                     <width>93</width>
@@ -1308,6 +1316,24 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page35212021246537347296</id>
+      <position>
+        <x>0</x>
+        <y>944</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -1330,5 +1356,5 @@
   <name>Test contents</name>
   <description></description>
   <id>/CubicShopTest/tests/contents.aat</id>
-  <modelVersion>9</modelVersion>
+  <modelVersion>10</modelVersion>
 </test>
