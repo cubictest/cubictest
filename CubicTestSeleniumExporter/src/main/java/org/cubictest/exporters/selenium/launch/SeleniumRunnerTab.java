@@ -12,10 +12,13 @@ package org.cubictest.exporters.selenium.launch;
 
 import static org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME;
 
+import java.net.URL;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.utils.exported.RunnerUtils;
+import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.cubictest.model.Test;
@@ -24,6 +27,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
@@ -32,6 +37,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.launching.JavaMigrationDelegate;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
@@ -43,6 +49,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -58,6 +65,7 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
 import org.eclipse.ui.views.navigator.ResourcePatternFilter;
+import org.osgi.framework.Bundle;
 
 public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 
@@ -369,6 +377,13 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 
 	public String getName() {
 		return "CubicTest";
+	}
+	
+	@Override
+	public Image getImage() {
+		Bundle pluginBundle = SeleniumExporterPlugin.getDefault().getBundle();
+		URL pageUrl = FileLocator.find(pluginBundle, new Path("icons/cubictest_icon.gif"), null);
+		return ImageDescriptor.createFromURL(pageUrl).createImage();
 	}
 
 	public void initializeFrom(ILaunchConfiguration configuration) {
