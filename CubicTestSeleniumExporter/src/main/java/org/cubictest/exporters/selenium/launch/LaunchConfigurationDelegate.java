@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
-import org.cubictest.export.ITestRunner;
+import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.common.BrowserType;
@@ -234,7 +234,7 @@ public abstract class LaunchConfigurationDelegate extends
 			config.setTakeScreenshots(getSeleniumTakeScreenshots(configuration));
 			config.setCaptureHtml(getSeleniumCaptureHtml(configuration));
 
-			final ITestRunner cubicTestRunnable = getCubicTestRunnable(parameters, config);
+			final ICubicTestRunnable cubicTestRunnable = getCubicTestRunnable(parameters, config);
 			try{
 				// run!
 				cubicTestRunnable.run(monitor);
@@ -274,7 +274,7 @@ public abstract class LaunchConfigurationDelegate extends
 
 	
 	/** To be overridden by runner implementations. */
-	protected abstract ITestRunner getCubicTestRunnable(TestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config);
+	protected abstract ICubicTestRunnable getCubicTestRunnable(TestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config);
 
 	
 	private String getBrowser(ILaunchConfiguration configuration) {

@@ -11,7 +11,7 @@
 package org.cubictest.recorder.launch;
 
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.export.ITestRunner;
+import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.launch.LaunchConfigurationDelegate;
 import org.cubictest.exporters.selenium.launch.TestRunner;
@@ -28,7 +28,7 @@ public class RecorderLaunchConfigurationDelegate extends LaunchConfigurationDele
 
 	private SeleniumRecorder seleniumRecorder;
 
-	protected ITestRunner getCubicTestRunnable(TestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config) {
+	protected ICubicTestRunnable getCubicTestRunnable(TestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config) {
 		ITestEditor testEditor = getTestEditor();
 		AutoLayout autoLayout = new AutoLayout(testEditor);
 		SynchronizedCommandStack syncCommandStack = new SynchronizedCommandStack(parameters.display, testEditor.getCommandStack());

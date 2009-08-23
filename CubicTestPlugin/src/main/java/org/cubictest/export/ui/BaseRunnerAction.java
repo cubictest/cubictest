@@ -19,7 +19,7 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
-import org.cubictest.export.ITestRunner;
+import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.model.ExtensionStartPoint;
@@ -49,7 +49,7 @@ import org.eclipse.ui.ide.IDE;
 public abstract class BaseRunnerAction implements IObjectActionDelegate {
 
 	protected ITestEditor testEditor;
-	protected ITestRunner testRunner;
+	protected ICubicTestRunnable testRunner;
 	private Page selectedPage;
 
 	public BaseRunnerAction() {
@@ -136,7 +136,7 @@ public abstract class BaseRunnerAction implements IObjectActionDelegate {
 	private void handleException(Shell shell, Exception e) {
 		try {
 			if (testRunner != null) {
-				((ITestRunner) testRunner).getResultMessage();
+				((ICubicTestRunnable) testRunner).getResultMessage();
 			}
 			if(shell != null) {
 				shell.forceActive();
@@ -189,7 +189,7 @@ public abstract class BaseRunnerAction implements IObjectActionDelegate {
 	}
 	
 	
-	protected abstract ITestRunner getTestRunner(Test test, Display display, CubicTestProjectSettings settings);
+	protected abstract ICubicTestRunnable getTestRunner(Test test, Display display, CubicTestProjectSettings settings);
 
 	protected abstract Shell getShell();
 

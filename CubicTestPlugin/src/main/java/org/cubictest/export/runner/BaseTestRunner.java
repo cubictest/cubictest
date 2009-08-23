@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
-import org.cubictest.export.ITestRunner;
+import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.model.Test;
 import org.eclipse.swt.widgets.Display;
 
@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Display;
  * 
  * @author Christian Schwarz
  */
-public abstract class BaseTestRunner implements ITestRunner {
+public abstract class BaseTestRunner implements ICubicTestRunnable {
 
 	protected static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
 	protected boolean failOnAssertionFailure;

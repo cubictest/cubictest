@@ -11,7 +11,7 @@
 package org.cubictest.exporters.watir.ui;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
-import org.cubictest.export.ITestRunner;
+import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.ui.BaseRunnerAction;
 import org.cubictest.exporters.watir.WatirExporterPlugin;
 import org.cubictest.exporters.watir.runner.TestRunner;
@@ -35,7 +35,7 @@ public class RunWatirRunnerAction extends BaseRunnerAction {
 
 
 	@Override
-	public ITestRunner getTestRunner(Test test, Display display, CubicTestProjectSettings settings) {
+	public ICubicTestRunnable getTestRunner(Test test, Display display, CubicTestProjectSettings settings) {
 		return new TestRunner(test, display, settings);
 	}
 

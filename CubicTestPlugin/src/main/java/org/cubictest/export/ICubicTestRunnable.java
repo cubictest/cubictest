@@ -17,12 +17,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 /**
- * Base interface for test runners.
+ * Base interface for runnable test exporters/plugins.
  * 
  * @author Christian Schwarz
  *
  */
-public interface ITestRunner extends IRunnableWithProgress {
+public interface ICubicTestRunnable extends IRunnableWithProgress {
 
 	/**
 	 * Runs the runnable updating the monitor with status.

@@ -13,7 +13,7 @@ package org.cubictest.exporters.selenium.ui;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.UserInfo;
-import org.cubictest.export.ITestRunner;
+import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.ui.BaseRunnerAction;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
@@ -57,7 +57,7 @@ public class RunSeleniumRunnerAction extends BaseRunnerAction {
 
 
 	@Override
-	public ITestRunner getTestRunner(Test test, Display display, CubicTestProjectSettings settings) {
+	public ICubicTestRunnable getTestRunner(Test test, Display display, CubicTestProjectSettings settings) {
 		TestRunner runner = null;
 		Shell shell = SeleniumExporterPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getShell();
 

@@ -16,7 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
-import org.cubictest.export.ITestRunner;
+import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.model.Page;
@@ -34,7 +34,7 @@ import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.SeleniumException;
 
-public class SeleniumRecorder implements ITestRunner {
+public class SeleniumRecorder implements ICubicTestRunnable {
 	private boolean seleniumStarted;
 	private Selenium selenium;
 	BrowserType browser;
