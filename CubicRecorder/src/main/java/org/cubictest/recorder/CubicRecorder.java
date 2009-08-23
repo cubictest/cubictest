@@ -29,6 +29,7 @@ import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.model.context.IContext;
 import org.cubictest.model.formElement.Button;
+import org.cubictest.recorder.launch.SynchronizedCommandStack;
 import org.cubictest.ui.gef.command.AddAbstractPageCommand;
 import org.cubictest.ui.gef.command.ChangeNameCommand;
 import org.cubictest.ui.gef.command.CreatePageElementCommand;
@@ -36,19 +37,18 @@ import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.gef.commands.CommandStack;
 
 public class CubicRecorder implements IRecorder {
 	private Test test;
 	private AbstractPage cursor;
 	private UserInteractionsTransition userInteractionsTransition;
-	private final CommandStack commandStack;
+	private final SynchronizedCommandStack syncCommandStack;
 	private final AutoLayout autoLayout;
 	private boolean enabled;
 	
-	public CubicRecorder(Test test, CommandStack comandStack, AutoLayout autoLayout) {
+	public CubicRecorder(final Test test, SynchronizedCommandStack comandStack, AutoLayout autoLayout) {
 		this.test = test;
-		this.commandStack = comandStack;
+		this.syncCommandStack = comandStack;
 		this.autoLayout = autoLayout;
 		//reuse empty start page if present:
 		for(Transition t : test.getStartPoint().getOutTransitions()) {
@@ -59,16 +59,20 @@ public class CubicRecorder implements IRecorder {
 		
 		//if no empty start page, create new
 		if(this.cursor == null && test.getStartPoint().getFirstNodeFromOutTransitions() == null) {
-			setCursor(this.createNewUserInteractionTransition(test.getStartPoint()));
+			syncCommandStack.execute(new Runnable() {
+				public void run() {
+					setCursor(createNewUserInteractionTransition(test.getStartPoint()));
+				}
+			});
 		}
 		//reset active transition to force creation of a new one for the user inputs
 		this.userInteractionsTransition = null;
 	}
 	
-	public CubicRecorder(Test test, Page cursor, CommandStack commandStack, AutoLayout autoLayout) {
+	public CubicRecorder(Test test, Page cursor, SynchronizedCommandStack commandStack, AutoLayout autoLayout) {
 		this.test = test;
 		setCursor(cursor);
-		this.commandStack = commandStack;
+		this.syncCommandStack = commandStack;
 		this.autoLayout = autoLayout;
 	}
 	
@@ -99,7 +103,7 @@ public class CubicRecorder implements IRecorder {
 		}
 		createElementCmd.setPageElement(element);
 		
-		this.commandStack.execute(createElementCmd);
+		this.syncCommandStack.execute(createElementCmd);
 		this.autoLayout.layout(cursor);
 	}
 	
@@ -170,7 +174,7 @@ public class CubicRecorder implements IRecorder {
 		AddAbstractPageCommand addPageCmd = new AddAbstractPageCommand();
 		addPageCmd.setPage(page);
 		addPageCmd.setTest(test);
-		commandStack.execute(addPageCmd);
+		syncCommandStack.execute(addPageCmd);
 
 		/* Change Page Name */
 		ChangeNameCommand changePageNameCmd = new ChangeNameCommand();
@@ -182,7 +186,7 @@ public class CubicRecorder implements IRecorder {
 		else {
 			changePageNameCmd.setNewName("next page");
 		}
-		commandStack.execute(changePageNameCmd);
+		syncCommandStack.execute(changePageNameCmd);
 		
 		/* Add Transition */
 		CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
@@ -193,7 +197,7 @@ public class CubicRecorder implements IRecorder {
 		createTransitionCmd.setSource(from);
 		createTransitionCmd.setTarget(page);
 		createTransitionCmd.setAutoCreateTargetPage(false);
-		commandStack.execute(createTransitionCmd);
+		syncCommandStack.execute(createTransitionCmd);
 
 		userInteractionsTransition = ua;
 		return page;
@@ -209,7 +213,7 @@ public class CubicRecorder implements IRecorder {
 			changePageNameCmd.setOldName(cursor.getName());
 		}
 		changePageNameCmd.setNewName(title);	
-		this.commandStack.execute(changePageNameCmd);
+		this.syncCommandStack.execute(changePageNameCmd);
 	}
 
 	public boolean isEnabled() {

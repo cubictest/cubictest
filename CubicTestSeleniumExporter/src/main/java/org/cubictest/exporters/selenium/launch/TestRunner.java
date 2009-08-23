@@ -21,6 +21,7 @@ import java.util.concurrent.TimeoutException;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.export.ITestRunner;
 import org.cubictest.export.converters.TreeTestWalker;
 import org.cubictest.export.runner.RunnerStarter.Operation;
 import org.cubictest.export.utils.exported.ExportUtils;
@@ -42,7 +43,7 @@ import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.Selenium;
 
-public class TestRunner {
+public class TestRunner implements ITestRunner {
 
 	private static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
 	private SeleniumHolder seleniumHolder;

@@ -50,7 +50,7 @@
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
-            delegate="org.cubictest.exporters.selenium.launch.LaunchConfigurationDelegate"
+            delegate="org.cubictest.exporters.selenium.launch.RunnerLaunchConfigurationDelegate"
             delegateDescription="SeleniumRunner - Runs the CubicTest tests with Selenium"
             delegateName="SeleniumRunner"
             id="org.cubictest.exporters.selenium.ui.launchConfigurationType"
@@ -60,7 +60,7 @@
             public="true">
          <fileExtension
                default="true"
-               extension=".att">
+               extension=".aat">
          </fileExtension>
       </launchConfigurationType>
    </extension>
@@ -114,11 +114,11 @@
             modes="run, debug">
          <contextualLaunch>
             <contextLabel
-                  label="Run CubicTest with Selenium"
+                  label="Run Test with Selenium"
                   mode="run">
             </contextLabel>
             <contextLabel
-                  label="Debug CubicTest with Selenium"
+                  label="Debug Test with Selenium"
                   mode="debug">
             </contextLabel>
             <enablement>

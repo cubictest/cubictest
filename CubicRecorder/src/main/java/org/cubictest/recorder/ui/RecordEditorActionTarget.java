@@ -36,6 +36,7 @@ import org.cubictest.recorder.CubicRecorder;
 import org.cubictest.recorder.GUIAwareRecorder;
 import org.cubictest.recorder.IRecorder;
 import org.cubictest.recorder.RecorderPlugin;
+import org.cubictest.recorder.launch.SynchronizedCommandStack;
 import org.cubictest.recorder.selenium.SeleniumRecorder;
 import org.cubictest.ui.gef.interfaces.exported.IDisposeListener;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
@@ -47,6 +48,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IEditorPart;
@@ -135,9 +137,11 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 
 			
 			//Starting the recorder:
-			IRecorder cubicRecorder = new CubicRecorder(test, testEditor.getCommandStack(), autoLayout);
-			IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder);
-			seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, getInitialUrlStartPoint(test).getBeginAt(), new Shell(), browserType);
+			Display display = new Shell().getDisplay();
+			SynchronizedCommandStack syncCommandStack = new SynchronizedCommandStack(display, testEditor.getCommandStack());
+			IRecorder cubicRecorder = new CubicRecorder(test, syncCommandStack, autoLayout);
+			IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder, display);
+			seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, getInitialUrlStartPoint(test).getBeginAt(), display, browserType);
 
 			testEditor.addDisposeListener(new IDisposeListener() {
 				public void disposed() {

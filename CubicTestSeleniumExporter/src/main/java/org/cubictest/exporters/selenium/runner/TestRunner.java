@@ -225,4 +225,9 @@ public class TestRunner extends BaseTestRunner {
 		this.reuseSelenium = reuseSelenium;
 	}
 
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

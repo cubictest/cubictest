@@ -12,17 +12,17 @@
 package org.cubictest.recorder.selenium;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.export.ITestRunner;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.common.BrowserType;
+import org.cubictest.model.Page;
 import org.cubictest.recorder.IRecorder;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Display;
 import org.mortbay.http.HttpContext;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.ServletHandler;
@@ -34,7 +34,7 @@ import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.SeleniumException;
 
-public class SeleniumRecorder implements IRunnableWithProgress {
+public class SeleniumRecorder implements ITestRunner {
 	private boolean seleniumStarted;
 	private Selenium selenium;
 	BrowserType browser;
@@ -42,11 +42,11 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 	private int port = -1;
 	private final String url;
 	private Thread serverThread;
-	protected Shell shell;
+	private final Display display;
 
-	public SeleniumRecorder(IRecorder recorder, String url, Shell shell, BrowserType browser) {
+	public SeleniumRecorder(IRecorder recorder, String url, Display display, BrowserType browser) {
 		this.url = url;
-		this.shell = shell;
+		this.display = display;
 		this.browser = browser;
 		
 		// start server
@@ -119,7 +119,7 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 		        	}
 		        	msg += "Error occured when recording test. Recording might not work.";
 		        	final String finalMsg = msg;
-		    		shell.getDisplay().asyncExec(new Runnable() {
+		    		display.syncExec(new Runnable() {
 		    			public void run() {
 		    				UserInfo.showErrorDialog(e, finalMsg);
 		    			}
@@ -142,6 +142,21 @@ public class SeleniumRecorder implements IRunnableWithProgress {
 
 	public boolean isSeleniumStarted() {
 		return seleniumStarted;
+	}
+
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getResultMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setTargetPage(Page selectedPage) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -135,4 +135,10 @@ public class TestRunner extends BaseTestRunner {
 		this.targetPage = targetPage;
 	}
 
+
+	public void cleanUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -21,15 +21,7 @@ public class GUIAwareRecorder implements IRecorder {
 	private final IRecorder recorder;
 	private final Display display;
 	private boolean enabled;
-	
-	/**
-	 * Uses the current thread's Display
-	 * @param recorder
-	 */
-	public GUIAwareRecorder(IRecorder recorder) {
-		this.recorder = recorder;
-		this.display = Display.getCurrent();
-	}
+
 	
 	public GUIAwareRecorder(IRecorder recorder, Display display) {
 		this.recorder = recorder;

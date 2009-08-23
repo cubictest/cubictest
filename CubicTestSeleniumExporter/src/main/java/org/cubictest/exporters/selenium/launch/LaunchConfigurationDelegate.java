@@ -21,16 +21,17 @@ import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.export.ITestRunner;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
-import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
 import org.cubictest.exporters.selenium.ui.CustomStepWizard;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;
+import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -54,7 +55,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
-public class LaunchConfigurationDelegate extends
+public abstract class LaunchConfigurationDelegate extends
 		AbstractJavaLaunchConfigurationDelegate {
 
 	private static final String CUBICTEST_SELENIUM_RUNNER_CLASS = "org.cubictest.runner.selenium.server.internal.CubicTestRemoteRunnerServer";
@@ -65,12 +66,12 @@ public class LaunchConfigurationDelegate extends
 	private static final String CUBIC_UNIT_PORT = "CUBIC_UNIT_PORT";
 	private static final String SELENIUM_CLIENT_PROXY = "SELENIUM_CLIENT_PROXY";
 	private int serverPort;
-	private SeleniumStarter seleniumStarter;
 	private String seleniumHost;
 	private int seleniumPort;
 	private boolean seleniumMultiWindow;
 	private int seleniumClientProxyPort;
 	private Test test;
+	private ITestEditor testEditor;
 
 	@Override
 	public String getMainTypeName(ILaunchConfiguration configuration)
@@ -89,7 +90,7 @@ public class LaunchConfigurationDelegate extends
 			monitor = new NullProgressMonitor();
 		}
 		
-		monitor.beginTask(MessageFormat.format("{0}...", new String[]{configuration.getName()}), 5); //$NON-NLS-1$
+		monitor.beginTask(MessageFormat.format("{0}...", new String[]{configuration.getName()}), 5);
 		// check for cancellation
 		if (monitor.isCanceled()) {
 			return;
@@ -187,16 +188,16 @@ public class LaunchConfigurationDelegate extends
 			wb.getDisplay().syncExec(new Runnable(){
 				public void run() {
 					try{
-						GraphicalTestEditor part = (GraphicalTestEditor) 
+						GraphicalTestEditor editor = (GraphicalTestEditor) 
 							IDE.openEditor(finalAp, testFile);
-						setTest(part.getTest());
-						part.getTest().resetStatus();
-						part.getTest().refreshSubFiles();
+						setTest(editor.getTest());
+						setTestEditor(editor);
+						editor.getTest().resetStatus();
+						editor.getTest().refreshSubFiles();
 					}catch (Exception e) {
 						Logger.warn("Error opening test in editor", e);
 						setTest(TestPersistance.loadFromFile(testFile));
 					}
-						
 				}
 			});
 			
@@ -233,16 +234,16 @@ public class LaunchConfigurationDelegate extends
 			config.setTakeScreenshots(getSeleniumTakeScreenshots(configuration));
 			config.setCaptureHtml(getSeleniumCaptureHtml(configuration));
 
-			final TestRunner testRunner = new TestRunner(parameters, config);
+			final ITestRunner cubicTestRunnable = getCubicTestRunnable(parameters, config);
 			try{
 				// run!
-				testRunner.run(monitor);
+				cubicTestRunnable.run(monitor);
 				
 				// show result message
 				wb.getDisplay().syncExec(new Runnable() {
 					public void run() {
-						if (StringUtils.isNotBlank(testRunner.getResultMessage())) {
-							final String msg = "Test run finished. " + testRunner.getResultMessage();
+						if (StringUtils.isNotBlank(cubicTestRunnable.getResultMessage())) {
+							final String msg = "Test run finished. " + cubicTestRunnable.getResultMessage();
 							UserInfo.showInfoDialog(msg);
 						}
 					}
@@ -262,7 +263,7 @@ public class LaunchConfigurationDelegate extends
 					}
 				});
 			}finally{
-				testRunner.cleanUp();
+				cubicTestRunnable.cleanUp();
 			}
 		}catch(Exception e){
 			Logger.error("Error launching test", e);
@@ -271,6 +272,11 @@ public class LaunchConfigurationDelegate extends
 		}
 	}
 
+	
+	/** To be overridden by runner implementations. */
+	protected abstract ITestRunner getCubicTestRunnable(TestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config);
+
+	
 	private String getBrowser(ILaunchConfiguration configuration) {
 		try {
 			return configuration.getAttribute(
@@ -471,4 +477,13 @@ public class LaunchConfigurationDelegate extends
 		programArguments.add("-seleniumClientProxyPort:"
 				+ String.valueOf(seleniumClientProxyPort));
 	}
+
+	private void setTestEditor(ITestEditor testEditor) {
+		this.testEditor = testEditor;
+	}
+	
+	protected ITestEditor getTestEditor() {
+		return testEditor;
+	}
+
 }

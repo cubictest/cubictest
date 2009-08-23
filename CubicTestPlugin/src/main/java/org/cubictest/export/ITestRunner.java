@@ -10,7 +10,10 @@
  *******************************************************************************/
 package org.cubictest.export;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.cubictest.model.Page;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 /**
@@ -22,6 +25,12 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 public interface ITestRunner extends IRunnableWithProgress {
 
 	/**
+	 * Runs the runnable updating the monitor with status.
+	 */
+    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException;
+
+    
+	/**
 	 * Get message for test completion.
 	 * @return
 	 */
@@ -32,5 +41,11 @@ public interface ITestRunner extends IRunnableWithProgress {
 	 * @param selectedPage
 	 */
 	public void setTargetPage(Page selectedPage);
+	
+	
+	/**
+	 * Clean up after running test (e.g. stop selenium server). 
+	 */
+	public void cleanUp();
 	
 }

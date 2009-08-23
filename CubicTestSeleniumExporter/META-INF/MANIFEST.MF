@@ -24,5 +24,7 @@ Bundle-ClassPath: .,
 Bundle-Vendor: cubictest.org
 Export-Package: com.thoughtworks.selenium,
  org.cubictest.exporters.selenium.common,
+ org.cubictest.exporters.selenium.launch,
+ org.cubictest.exporters.selenium.runner,
  org.cubictest.exporters.selenium.ui
 Bundle-Activator: org.cubictest.exporters.selenium.SeleniumExporterPlugin
