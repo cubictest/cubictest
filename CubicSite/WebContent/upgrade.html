@@ -45,8 +45,14 @@
 					<li>
 						When Eclipse is restarted, you need to <b>Reset the CubicTest Perspective</b> to get shortcuts to the new features. To reset, open the CubicTest Perspective and select Window -> Reset Perspective.
 					</li>
+				</ul>
+				<b>If you run tests from JUnit...</b>
+				<ul>
 					<li>
-						You should also edit your test project's <b>pom.xml</b> file and update the version of the cubictest dependencies to the latest version.
+						Edit your test project's <b>pom.xml</b> file and update the version of the cubictest dependencies to the latest version.
+					</li>
+					<li>
+						Open up a command shell and run the maven command <b>mvn eclipse:eclipse</b> to update the CubicTest jars used by JUnit in Eclipse to the latest version. 
 					</li>
 				</ul>
 			</div>
