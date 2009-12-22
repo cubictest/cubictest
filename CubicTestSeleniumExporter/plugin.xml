@@ -191,14 +191,14 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            name="Run CubicTest Selenium"
-            description="Run the CubicTest with Selenium"
+            name="Run Test with Selenium"
+            description="Run the Test with Selenium"
             categoryId="org.eclipse.debug.ui.category.run"
             id="org.cubictest.exporters.selenium.ui.launchShortcut.run">
       </command>
       <command
-            name="Debug CubicTest Selenium"
-            description="Debug the CubicTest with Selenium"
+            name="Debug Test with Selenium"
+            description="Debug the Test with Selenium"
             categoryId="org.eclipse.debug.ui.category.run"
             id="org.cubictest.exporters.selenium.ui.launchShortcut.debug">
       </command>
