@@ -37,6 +37,7 @@ import org.cubictest.ui.gef.command.CreateTransitionCommand;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.gef.layout.AutoLayout;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.widgets.Display;
 
 public class CubicRecorder implements IRecorder {
 	private Test test;
@@ -45,11 +46,13 @@ public class CubicRecorder implements IRecorder {
 	private final SynchronizedCommandStack syncCommandStack;
 	private final AutoLayout autoLayout;
 	private boolean enabled;
+	private final Display display;
 	
-	public CubicRecorder(final Test test, SynchronizedCommandStack comandStack, AutoLayout autoLayout) {
+	public CubicRecorder(final Test test, SynchronizedCommandStack comandStack, AutoLayout autoLayout, Display display) {
 		this.test = test;
 		this.syncCommandStack = comandStack;
 		this.autoLayout = autoLayout;
+		this.display = display;
 		//reuse empty start page if present:
 		for(Transition t : test.getStartPoint().getOutTransitions()) {
 			if(t.getEnd() instanceof Page) {
@@ -69,8 +72,9 @@ public class CubicRecorder implements IRecorder {
 		this.userInteractionsTransition = null;
 	}
 	
-	public CubicRecorder(Test test, Page cursor, SynchronizedCommandStack commandStack, AutoLayout autoLayout) {
+	public CubicRecorder(Test test, Page cursor, SynchronizedCommandStack commandStack, AutoLayout autoLayout, Display display) {
 		this.test = test;
+		this.display = display;
 		setCursor(cursor);
 		this.syncCommandStack = commandStack;
 		this.autoLayout = autoLayout;
@@ -82,10 +86,13 @@ public class CubicRecorder implements IRecorder {
 	 */
 	public void setCursor(AbstractPage page) {
 		this.cursor = page;
-		autoLayout.setPageSelected(this.cursor);
+		final AbstractPage cursor = this.cursor; 
+		display.asyncExec(new Runnable() {
+			public void run() {
+				autoLayout.setPageSelected(cursor);
+			}
+		});
 	}
-
-	
 	
 	/* (non-Javadoc)
 	 * @see org.cubictest.recorder.IRecorder#addPageElement(org.cubictest.model.PageElement)

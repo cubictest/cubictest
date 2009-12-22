@@ -139,7 +139,7 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 			//Starting the recorder:
 			Display display = new Shell().getDisplay();
 			SynchronizedCommandStack syncCommandStack = new SynchronizedCommandStack(display, testEditor.getCommandStack());
-			IRecorder cubicRecorder = new CubicRecorder(test, syncCommandStack, autoLayout);
+			IRecorder cubicRecorder = new CubicRecorder(test, syncCommandStack, autoLayout, display);
 			IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder, display);
 			seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, getInitialUrlStartPoint(test).getBeginAt(), display, browserType);
 
