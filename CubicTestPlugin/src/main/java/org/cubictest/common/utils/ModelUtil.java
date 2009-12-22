@@ -290,4 +290,13 @@ public class ModelUtil {
 		}
 		return allActionElements;
 	}
+	
+	public static TransitionNode getLastNodeInGraph(TransitionNode node) {
+		if (node.getOutTransitionsWithoutExtensionPoints().size() == 0) {
+			return node;
+		}
+		else {
+			return getLastNodeInGraph(node.getOutTransitionsWithoutExtensionPoints().get(0).getEnd());
+		}
+	}
 }

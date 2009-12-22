@@ -141,7 +141,7 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 			SynchronizedCommandStack syncCommandStack = new SynchronizedCommandStack(display, testEditor.getCommandStack());
 			IRecorder cubicRecorder = new CubicRecorder(test, syncCommandStack, autoLayout, display);
 			IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder, display);
-			seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, getInitialUrlStartPoint(test).getBeginAt(), display, browserType);
+			seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, getInitialUrlStartPoint(test).getBeginAt(), display, browserType, null);
 
 			testEditor.addDisposeListener(new IDisposeListener() {
 				public void disposed() {

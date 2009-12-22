@@ -279,5 +279,9 @@ public class TestRunner implements ICubicTestRunnable {
 		}
 		
 	}
+	
+	public Test getTest() {
+		return runnerParameters.test;
+	}
 
 }

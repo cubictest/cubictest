@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.policies;
 
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Common;
 import org.cubictest.model.CustomTestStepHolder;
@@ -68,7 +69,7 @@ public class TestContainerEditPolicy extends ContainerEditPolicy {
 			AddSubTestCommand addSubTestCmd = new AddSubTestCommand(subTest, test);
 			if (test.getStartPoint() instanceof TestSuiteStartPoint) {
 				CreateTransitionCommand createTransitionCmd = new CreateTransitionCommand();
-				createTransitionCmd.setSource(getLastNodeInGraph(test.getStartPoint()));
+				createTransitionCmd.setSource(ModelUtil.getLastNodeInGraph(test.getStartPoint()));
 				createTransitionCmd.setTarget(subTest);
 				createTransitionCmd.setTest(test);
 				return addSubTestCmd.chain(createTransitionCmd);
@@ -86,14 +87,6 @@ public class TestContainerEditPolicy extends ContainerEditPolicy {
 		return null;
 	}
 
-	private TransitionNode getLastNodeInGraph(TransitionNode node) {
-		if (node.getOutTransitionsWithoutExtensionPoints().size() == 0) {
-			return node;
-		}
-		else {
-			return getLastNodeInGraph(node.getOutTransitionsWithoutExtensionPoints().get(0).getEnd());
-		}
-	}
 
 	@Override
 	protected Command getOrphanChildrenCommand(GroupRequest request) {

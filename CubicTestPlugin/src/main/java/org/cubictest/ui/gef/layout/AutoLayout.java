@@ -85,10 +85,10 @@ public class AutoLayout {
 
 	public static int getYPositionForNode(TransitionNode node) {
 		int numOfActions = 0;
-		UserInteractionsTransition inTransition = (UserInteractionsTransition) node.getInTransition();
+		Transition inTransition = node.getInTransition();
 		
 		if (inTransition instanceof UserInteractionsTransition) {
-			numOfActions = inTransition.getActiveUserInteractions().size();
+			numOfActions = ((UserInteractionsTransition) inTransition).getActiveUserInteractions().size();
 			if (isNotBlank(inTransition.getName())) {
 				numOfActions++; //space for action name
 			}

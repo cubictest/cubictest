@@ -15,11 +15,15 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.common.BrowserType;
+import org.cubictest.exporters.selenium.launch.TestRunner;
+import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Page;
+import org.cubictest.model.TransitionNode;
 import org.cubictest.recorder.IRecorder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
@@ -43,11 +47,15 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 	private final String url;
 	private Thread serverThread;
 	private final Display display;
+	private final TestRunner initialTestRunner;
+	private final IRecorder recorder;
 
-	public SeleniumRecorder(IRecorder recorder, String url, Display display, BrowserType browser) {
+	public SeleniumRecorder(IRecorder recorder, String url, Display display, BrowserType browser, TestRunner initialTestRunner) {
+		this.recorder = recorder;
 		this.url = url;
 		this.display = display;
 		this.browser = browser;
+		this.initialTestRunner = initialTestRunner;
 		
 		// start server
 		
@@ -95,7 +103,8 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 		}
 	}
 
-	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+	public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+
 		serverThread = new Thread() {
 
 			@Override
@@ -126,6 +135,24 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 		    		});
 					ErrorHandler.logAndRethrow(finalMsg, e);
 				}
+		        
+		        if (initialTestRunner != null) {
+	 				recorder.setEnabled(false);
+		        	initialTestRunner.setSelenium(selenium);
+		        	initialTestRunner.run(monitor);
+		        	final TransitionNode lastNodeInTest = ModelUtil.getLastNodeInGraph(initialTestRunner.getTest().getStartPoint());
+		        	if (!(lastNodeInTest instanceof AbstractPage)) {
+		        		final String finalMsg = "Please add an empty Page/State at the end of the test (will be start point for the recordings).";
+		        		display.syncExec(new Runnable() {
+			    			public void run() {
+								UserInfo.showErrorDialog(finalMsg);
+			    			}
+			    		});
+						ErrorHandler.logAndThrow(finalMsg);
+		        	}
+    				recorder.setCursor((AbstractPage) lastNodeInTest);
+		        	recorder.setEnabled(true);
+		        }
 			}
 			
 			

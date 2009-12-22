@@ -34,7 +34,9 @@ public class RecorderLaunchConfigurationDelegate extends LaunchConfigurationDele
 		SynchronizedCommandStack syncCommandStack = new SynchronizedCommandStack(parameters.display, testEditor.getCommandStack());
 		IRecorder cubicRecorder = new CubicRecorder(parameters.test, syncCommandStack, autoLayout, parameters.display);
 		IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder, parameters.display);
-		seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, ExportUtils.getInitialUrlStartPoint(parameters.test).getBeginAt(), parameters.display, config.getBrowser());
+		TestRunner initialTestRunner = new TestRunner(parameters, config);
+
+		seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, ExportUtils.getInitialUrlStartPoint(parameters.test).getBeginAt(), parameters.display, config.getBrowser(), initialTestRunner);
 		cubicRecorder.setEnabled(true);
 		guiAwareRecorder.setEnabled(true);
 		
