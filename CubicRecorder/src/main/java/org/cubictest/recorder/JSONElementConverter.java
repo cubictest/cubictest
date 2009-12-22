@@ -27,7 +27,6 @@ import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
-import org.cubictest.model.Moderator;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Title;
 import org.cubictest.model.context.SimpleContext;
