@@ -25,7 +25,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
-public class CubicTestSeleniumLaunchShortcut implements ILaunchShortcut {
+public abstract class AbstractRunnerLaunchShortcut implements ILaunchShortcut {
 
 	public void launch(ISelection selection, String mode) {
 		if(selection instanceof StructuredSelection) {
@@ -60,7 +60,7 @@ public class CubicTestSeleniumLaunchShortcut implements ILaunchShortcut {
 
 	private ILaunchConfigurationWorkingCopy createLaunchConfiguration(IFile file) throws CoreException {
 		ILaunchConfigurationType configType = getLaunchManager().getLaunchConfigurationType(
-			"org.cubictest.exporters.selenium.ui.launchConfigurationType");
+			getLaunchConfigurationTypeId());
 		
 		CubicTestProjectSettings settings = CubicTestProjectSettings.getInstanceFromActivePage();
 		
@@ -82,6 +82,8 @@ public class CubicTestSeleniumLaunchShortcut implements ILaunchShortcut {
 		LaunchConfigurationMigrationDelegate.mapResources(wc);
 		return wc;
 	}
+
+	protected abstract String getLaunchConfigurationTypeId();
 	
 	private ILaunchConfiguration findExistingLaunchConfiguration(
 			ILaunchConfigurationWorkingCopy temporary, String mode) throws CoreException, InterruptedException {

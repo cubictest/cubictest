@@ -107,7 +107,7 @@
    <extension
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
-            class="org.cubictest.exporters.selenium.launch.CubicTestSeleniumLaunchShortcut"
+            class="org.cubictest.exporters.selenium.launch.SeleniumRunnerLaunchShortcut"
             icon="icons/selenium_run_icon.gif"
             id="org.cubictest.exporters.selenium.ui.launchShortcut"
             label="SeleniumRunner"

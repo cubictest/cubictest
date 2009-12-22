@@ -80,7 +80,7 @@
    <extension
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
-            class="org.cubictest.exporters.selenium.launch.CubicTestSeleniumLaunchShortcut"
+            class="org.cubictest.recorder.launch.SeleniumRecorderLaunchShortcut"
             icon="icons/record.gif"
             id="org.cubictest.recorder.launchShortcut"
             label="SeleniumRecorder"
@@ -127,10 +127,48 @@
             </enablement>
          </contextualLaunch>
          <configurationType
-               id="org.cubictest.exporters.selenium.ui.launchConfigurationType">
+               id="org.cubictest.recorder.ui.launchConfigurationType">
          </configurationType>
       </shortcut>
    </extension>
+   
+   
+      <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="org.cubictest.exporters.selenium.launch.RunnerLaunchConfigurationDelegate"
+            delegateDescription="SeleniumRecorder - Records CubicTest test with Selenium"
+            delegateName="SeleniumRecorder"
+            id="org.cubictest.recorder.ui.launchConfigurationType"
+            migrationDelegate="org.cubictest.exporters.selenium.launch.LaunchConfigurationMigrationDelegate"
+            modes="run, debug"
+            name="CubicTest Selenium Recorder"
+            public="true">
+         <fileExtension
+               default="true"
+               extension=".aat">
+         </fileExtension>
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.cubictest.exporters.selenium.launch.LaunchConfigurationTabGroup"
+            description="SeleniumRecorder spesific tabs"
+            id="org.cubictest.exporters.selenium.ui.launchConfigurationTabGroup"
+            type="org.cubictest.recorder.ui.launchConfigurationType">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.cubictest.recorder.ui.launchConfigurationType"
+            icon="icons/record.gif"
+            id="org.cubictest.recorder.ui.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   
+   
    
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
