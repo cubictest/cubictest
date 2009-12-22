@@ -9,7 +9,7 @@
          <action
                class="org.cubictest.recorder.ui.RecordEditorAction"
                id="CubicRecorder.record"
-               label="Record"
+               label="Record Test"
                menubarPath="additions"
                state="false"
                icon="icons/record.gif"
@@ -22,7 +22,7 @@
          <action
                class="org.cubictest.recorder.ui.RecordEditorAction"
                id="CubicRecorder.record"
-               label="Record from this Page/State"
+               label="Record from selected Page/State"
                menubarPath="additions"
                state="false"
                icon="icons/record.gif"
@@ -87,11 +87,11 @@
             modes="run, debug">
          <contextualLaunch>
             <contextLabel
-                  label="Record Test with Selenium"
+                  label="Record Test with Selenium (Custom Test Steps)"
                   mode="run">
             </contextLabel>
             <contextLabel
-                  label="Record/Debug Test with Selenium"
+                  label="Record/Debug Test with Selenium (Custom Test Steps)"
                   mode="debug">
             </contextLabel>
             <enablement>
