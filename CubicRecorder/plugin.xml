@@ -9,7 +9,7 @@
          <action
                class="org.cubictest.recorder.ui.RecordEditorAction"
                id="CubicRecorder.record"
-               label="Record Test"
+               label="Record with Selenium"
                menubarPath="additions"
                state="false"
                icon="icons/record.gif"
@@ -22,7 +22,7 @@
          <action
                class="org.cubictest.recorder.ui.RecordEditorAction"
                id="CubicRecorder.record"
-               label="Record from selected Page/State"
+               label="Record with Selenium from selected Page/State"
                menubarPath="additions"
                state="false"
                icon="icons/record.gif"
@@ -35,7 +35,7 @@
          <action
                class="org.cubictest.recorder.ui.RecordEditorAction"
                id="CubicRecorder.recordFromSelectedPage"
-               label="Record from this Page/State"
+               label="Record with Selenium from selected Page/State"
                menubarPath="additions"
                state="false"
                icon="icons/record.gif"
