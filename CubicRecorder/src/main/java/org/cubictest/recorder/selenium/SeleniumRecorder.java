@@ -143,15 +143,16 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 		        	initialTestRunner.run(monitor);
 		        	recorder.setEnabled(true);
 		        	TransitionNode lastNodeInTest = ModelUtil.getLastNodeInGraph(initialTestRunner.getTest().getStartPoint());
-		        	if (!(lastNodeInTest instanceof AbstractPage)) {
-						Page newPage = new Page();
-						newPage.setName("Record start");
-						SimpleTransition transition = new SimpleTransition();
-						transition.setStart(lastNodeInTest);
-						transition.setEnd(newPage);
-		        		recorder.addToTest(transition, newPage);
-		        		lastNodeInTest = newPage;
-		        	}
+					
+		        	//create new page for start of recording
+		        	Page newPage = new Page();
+					newPage.setName("Record start");
+					SimpleTransition transition = new SimpleTransition();
+					transition.setStart(lastNodeInTest);
+					transition.setEnd(newPage);
+	        		recorder.addToTest(transition, newPage);
+	        		lastNodeInTest = newPage;
+	        		
     				recorder.setCursor((AbstractPage) lastNodeInTest);
 		        }
 			}
