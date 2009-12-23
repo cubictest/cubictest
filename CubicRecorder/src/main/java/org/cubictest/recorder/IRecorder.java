@@ -13,6 +13,7 @@ package org.cubictest.recorder;
 
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.PageElement;
+import org.cubictest.model.Transition;
 import org.cubictest.model.UserInteraction;
 
 public interface IRecorder {
@@ -48,4 +49,7 @@ public interface IRecorder {
 	public void setEnabled(boolean enabled);
 	
 	public boolean isEnabled();
+	
+	public void addToTest(Transition transition, AbstractPage endPage);
+
 }

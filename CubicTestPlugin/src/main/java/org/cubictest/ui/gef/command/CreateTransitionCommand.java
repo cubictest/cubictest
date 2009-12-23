@@ -97,7 +97,7 @@ public class CreateTransitionCommand extends Command {
 	 */
 	@Override
 	public boolean canExecute() {
-		if (skipLegalTransitionCheck) {
+		if (transition != null || skipLegalTransitionCheck) {
 			return true;
 		}
 		if (autoCreateTargetPage) {

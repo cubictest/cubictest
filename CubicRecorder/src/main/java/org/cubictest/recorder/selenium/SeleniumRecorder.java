@@ -23,6 +23,7 @@ import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.launch.TestRunner;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Page;
+import org.cubictest.model.SimpleTransition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.recorder.IRecorder;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -140,18 +141,18 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 	 				recorder.setEnabled(false);
 		        	initialTestRunner.setSelenium(selenium);
 		        	initialTestRunner.run(monitor);
-		        	final TransitionNode lastNodeInTest = ModelUtil.getLastNodeInGraph(initialTestRunner.getTest().getStartPoint());
+		        	recorder.setEnabled(true);
+		        	TransitionNode lastNodeInTest = ModelUtil.getLastNodeInGraph(initialTestRunner.getTest().getStartPoint());
 		        	if (!(lastNodeInTest instanceof AbstractPage)) {
-		        		final String finalMsg = "Please add an empty Page/State at the end of the test (will be start point for the recordings).";
-		        		display.syncExec(new Runnable() {
-			    			public void run() {
-								UserInfo.showErrorDialog(finalMsg);
-			    			}
-			    		});
-						ErrorHandler.logAndThrow(finalMsg);
+						Page newPage = new Page();
+						newPage.setName("Record start");
+						SimpleTransition transition = new SimpleTransition();
+						transition.setStart(lastNodeInTest);
+						transition.setEnd(newPage);
+		        		recorder.addToTest(transition, newPage);
+		        		lastNodeInTest = newPage;
 		        	}
     				recorder.setCursor((AbstractPage) lastNodeInTest);
-		        	recorder.setEnabled(true);
 		        }
 			}
 			

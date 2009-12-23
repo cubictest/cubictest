@@ -230,4 +230,20 @@ public class CubicRecorder implements IRecorder {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+	public void addToTest(final Transition transition, final AbstractPage endPage) {
+		if (!enabled) return;
+		
+		CreateTransitionCommand createTransitionCommand = new CreateTransitionCommand();
+		createTransitionCommand.setTransition(transition);
+		createTransitionCommand.setTest(test);
+		this.syncCommandStack.execute(createTransitionCommand);
+
+		AddAbstractPageCommand addAbstractPageCommand = new AddAbstractPageCommand();
+		addAbstractPageCommand.setPage(endPage);
+		addAbstractPageCommand.setTest(test);
+		this.syncCommandStack.execute(addAbstractPageCommand);
+
+		this.autoLayout.layout(transition.getStart());
+	}
 }
