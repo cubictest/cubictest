@@ -99,7 +99,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 	 * Traverse the test, using the generic converters.
 	 * Stops at target page. Does not convert all paths in tree if target page non-null. 
 	 */
-	public void convertTest(Test test, T resultHolder, Page targetPage) {
+	public void convertTest(Test test, T resultHolder, TransitionNode targetPage) {
 		convertTest(test, null, resultHolder, targetPage);
 	}
 	
@@ -114,7 +114,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 	 * @param targetExtensionPoint Convert only path in test that leads to this targetExtensionPoint
 	 * @param targetPage page that the walker should stop when it gets to
 	 */
-	public void convertTest(Test test, ConnectionPoint targetExtensionPoint, T resultHolder, Page targetPage) {
+	public void convertTest(Test test, ConnectionPoint targetExtensionPoint, T resultHolder, TransitionNode targetPage) {
 		if (targetExtensionPoint == null && targetPage == null) {
 			//traverse tree
 			convertTest(test, resultHolder);
@@ -147,7 +147,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 	 * @param targetPage page that the walker should stop when it gets to
 	 * @return whether the node is finished (all paths in tree containing node has been traversed).
 	 */
-	protected boolean convertTransitionNode(T resultHolder, TransitionNode node, ConnectionPoint targetExtensionPoint, Page targetPage)
+	protected boolean convertTransitionNode(T resultHolder, TransitionNode node, ConnectionPoint targetExtensionPoint, TransitionNode targetPage)
 			throws InstantiationException, IllegalAccessException {
 
 		boolean nodeFinished = true; //init
@@ -220,7 +220,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 
 
 	private boolean handleNextNode(T resultHolder, TransitionNode node,
-			ConnectionPoint targetExtensionPoint, Page targetPage,
+			ConnectionPoint targetExtensionPoint, TransitionNode targetPage,
 			int pathNum, Transition outTransition)
 			throws InstantiationException, IllegalAccessException {
 		
@@ -317,7 +317,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 
 
 
-	private boolean nodeShouldBeConverted(TransitionNode node, ConnectionPoint targetExtensionPoint, Page targetPage) {
+	private boolean nodeShouldBeConverted(TransitionNode node, ConnectionPoint targetExtensionPoint, TransitionNode targetPage) {
 		if (node == null) {
 			Logger.warn("Encountered null node in traversal of test. Skipping it");
 			return false;

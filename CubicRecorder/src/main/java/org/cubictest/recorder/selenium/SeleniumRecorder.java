@@ -140,20 +140,21 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 		        if (initialTestRunner != null) {
 	 				recorder.setEnabled(false);
 		        	initialTestRunner.setSelenium(selenium);
+		        	TransitionNode lastNodeInTestOnFirstPath = ModelUtil.getLastNodeInGraph(initialTestRunner.getTest().getStartPoint());
+		        	initialTestRunner.setTargetPage(lastNodeInTestOnFirstPath);
 		        	initialTestRunner.run(monitor);
-		        	recorder.setEnabled(true);
-		        	TransitionNode lastNodeInTest = ModelUtil.getLastNodeInGraph(initialTestRunner.getTest().getStartPoint());
 					
 		        	//create new page for start of recording
 		        	Page newPage = new Page();
 					newPage.setName("Record start");
 					SimpleTransition transition = new SimpleTransition();
-					transition.setStart(lastNodeInTest);
+					transition.setStart(lastNodeInTestOnFirstPath);
 					transition.setEnd(newPage);
 	        		recorder.addToTest(transition, newPage);
-	        		lastNodeInTest = newPage;
+	        		lastNodeInTestOnFirstPath = newPage;
 	        		
-    				recorder.setCursor((AbstractPage) lastNodeInTest);
+    				recorder.setCursor((AbstractPage) lastNodeInTestOnFirstPath);
+		        	recorder.setEnabled(true);
 		        }
 			}
 			
@@ -183,7 +184,7 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 		return null;
 	}
 
-	public void setTargetPage(Page selectedPage) {
+	public void setTargetPage(TransitionNode selectedPage) {
 		// TODO Auto-generated method stub
 		
 	}

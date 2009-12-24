@@ -31,6 +31,7 @@ import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
 import org.cubictest.model.Page;
 import org.cubictest.model.Test;
+import org.cubictest.model.TransitionNode;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 
@@ -46,7 +47,7 @@ public class TestRunner extends BaseTestRunner {
 	SeleniumHolder seleniumHolder;
 	SeleniumStarter seleniumStarter;
 	Selenium selenium;
-	Page targetPage;
+	TransitionNode targetPage;
 	private IProgressMonitor monitor;
 	boolean reuseSelenium = false;
 	private boolean runingInSameVMAsCustomFiles = false;
@@ -216,7 +217,7 @@ public class TestRunner extends BaseTestRunner {
 	}
 
 
-	public void setTargetPage(Page targetPage) {
+	public void setTargetPage(TransitionNode targetPage) {
 		this.targetPage = targetPage;
 	}
 

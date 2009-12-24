@@ -36,6 +36,7 @@ import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
 import org.cubictest.model.Page;
 import org.cubictest.model.Test;
+import org.cubictest.model.TransitionNode;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -49,7 +50,7 @@ public class TestRunner implements ICubicTestRunnable {
 	private SeleniumHolder seleniumHolder;
 	private SeleniumStarter seleniumStarter;
 	private Selenium selenium;
-	private Page targetPage;
+	private TransitionNode targetPage;
 	private IProgressMonitor monitor;
 	private boolean reuseSelenium = false;
 	private boolean failOnAssertionFailure;
@@ -236,7 +237,7 @@ public class TestRunner implements ICubicTestRunnable {
 		this.selenium = selenium;
 	}
 
-	public void setTargetPage(Page targetPage) {
+	public void setTargetPage(TransitionNode targetPage) {
 		this.targetPage = targetPage;
 	}
 

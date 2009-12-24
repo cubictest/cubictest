@@ -25,6 +25,7 @@ import org.cubictest.exporters.watir.converters.UrlStartPointConverter;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.Page;
 import org.cubictest.model.Test;
+import org.cubictest.model.TransitionNode;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
 
@@ -44,7 +45,7 @@ public class TestRunner extends BaseTestRunner {
 	WatirHolder watirHolder;
 	Process process;
 	TestDoneHandler testDoneHandler;
-	private Page targetPage;
+	private TransitionNode targetPage;
 
 	
 	public TestRunner(Test test, Display display, CubicTestProjectSettings settings) {
@@ -131,7 +132,7 @@ public class TestRunner extends BaseTestRunner {
 	}
 
 
-	public void setTargetPage(Page targetPage) {
+	public void setTargetPage(TransitionNode targetPage) {
 		this.targetPage = targetPage;
 	}
 

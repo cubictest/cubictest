@@ -48,22 +48,34 @@ import org.cubictest.model.UrlStartPoint;
  */
 public class ExportUtils {
 
-	public static String SUBTEST_START_POINT_MSG = "Tests with SubTest start points cannot be exported on their own. They must be part of a normal Test (drag and drop subtest into a normal test).";
+	public static String SUBTEST_START_POINT_MSG = "Tests with SubTest start points cannot be run/exported on their own. They must be part of a normal Test (drag and drop subtest into a normal test).";
 	
 	
 	public static void throwTestNotOkForExportException(Test test) {
-		ErrorHandler.logAndThrow(SUBTEST_START_POINT_MSG);
+		if (testStartsWithSubTestStartPoint(test)) {
+			ErrorHandler.logAndThrow(SUBTEST_START_POINT_MSG);
+		}
+		ErrorHandler.logAndThrow("Test not OK for export.");
 	}
 
 	public static void showTestNotOkForExportMsg(Test test) {
-		ErrorHandler.logAndShowErrorDialog(SUBTEST_START_POINT_MSG);
+		if (testStartsWithSubTestStartPoint(test)) {
+			ErrorHandler.logAndShowErrorDialog(SUBTEST_START_POINT_MSG);
+		}
+		else {
+			ErrorHandler.logAndShowErrorDialog("Test not OK for export.");
+		}
 	}
 	
 	public static boolean testIsOkForExport(Test test) {
+		return !testStartsWithSubTestStartPoint(test);
+	}
+
+	private static boolean testStartsWithSubTestStartPoint(Test test) {
 		if (test.getStartPoint() instanceof SubTestStartPoint) {
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	public static boolean isTestFile(String fileName) {
@@ -72,15 +84,22 @@ public class ExportUtils {
 	
 	public static boolean testIsOkForRecord(Test test) {
 		if (test.getStartPoint() instanceof SubTestStartPoint) {
-			ErrorHandler.logAndShowErrorDialog("It is not possible to record from tests that start with a sub test start point.");
 			return false;
 		}
 		else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
-			ErrorHandler.logAndShowErrorDialog("It is not possible to record from a test suite start point.\n\n" + 
-					"To add tests to the suite, drag and drop test-files from the package explorer into the test suite editor.");
 			return false;
 		}
 		return true;
+	}
+
+	public static void showTestNotOkForRecordMsg(Test test) {
+		if (test.getStartPoint() instanceof SubTestStartPoint) {
+			ErrorHandler.logAndShowErrorDialog("It is not possible to record from tests that start with a sub test start point.");
+		}
+		else if (test.getStartPoint() instanceof TestSuiteStartPoint) {
+			ErrorHandler.logAndShowErrorDialog("It is not possible to record from a test suite start point.\n\n" + 
+			"To add tests to the suite, drag and drop test-files from the package explorer into the test suite editor.");
+		}
 	}
 	
 	

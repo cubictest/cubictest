@@ -12,7 +12,7 @@ package org.cubictest.export;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.cubictest.model.Page;
+import org.cubictest.model.TransitionNode;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
@@ -40,7 +40,7 @@ public interface ICubicTestRunnable extends IRunnableWithProgress {
 	 * Set page where test run will be stopped.
 	 * @param selectedPage
 	 */
-	public void setTargetPage(Page selectedPage);
+	public void setTargetPage(TransitionNode selectedPage);
 	
 	
 	/**

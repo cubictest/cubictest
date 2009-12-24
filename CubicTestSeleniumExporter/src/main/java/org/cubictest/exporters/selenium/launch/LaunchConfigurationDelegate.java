@@ -22,7 +22,6 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ICubicTestRunnable;
-import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.SeleniumExporterPlugin;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
@@ -55,8 +54,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
-public abstract class LaunchConfigurationDelegate extends
-		AbstractJavaLaunchConfigurationDelegate {
+public abstract class LaunchConfigurationDelegate extends AbstractJavaLaunchConfigurationDelegate {
 
 	private static final String CUBICTEST_SELENIUM_RUNNER_CLASS = "org.cubictest.runner.selenium.server.internal.CubicTestRemoteRunnerServer";
 	private static final String ERROR_INVALID_PROJECT_GOT_TO_BE_A_JAVA_PROJEDT = "Error invalid project, got to be a java project";
@@ -74,8 +72,7 @@ public abstract class LaunchConfigurationDelegate extends
 	private ITestEditor testEditor;
 
 	@Override
-	public String getMainTypeName(ILaunchConfiguration configuration)
-			throws CoreException {
+	public String getMainTypeName(ILaunchConfiguration configuration) throws CoreException {
 		return CUBICTEST_SELENIUM_RUNNER_CLASS;
 	}
 
@@ -212,10 +209,6 @@ public abstract class LaunchConfigurationDelegate extends
 			
 			seleniumMultiWindow = getSeleniumMultiWindow(configuration);
 			
-			if (!ExportUtils.testIsOkForExport(test)) {
-				ErrorHandler.logAndShowErrorDialogAndThrow("Tests with sub test start points cannot be run standalone");
-			}
-			
 			// create the parameters:
 			TestRunner.RunnerParameters parameters = new TestRunner.RunnerParameters();
 			parameters.test = test;
@@ -234,6 +227,9 @@ public abstract class LaunchConfigurationDelegate extends
 			config.setTakeScreenshots(getSeleniumTakeScreenshots(configuration));
 			config.setCaptureHtml(getSeleniumCaptureHtml(configuration));
 
+			
+			verifyPreconditions(parameters, config);
+			
 			final ICubicTestRunnable cubicTestRunnable = getCubicTestRunnable(parameters, config);
 			try{
 				// run!
@@ -271,6 +267,10 @@ public abstract class LaunchConfigurationDelegate extends
 			monitor.done();
 		}
 	}
+
+	
+	/** To be overridden by runner implementations. */
+	protected abstract void verifyPreconditions(TestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config);
 
 	
 	/** To be overridden by runner implementations. */

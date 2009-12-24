@@ -12,10 +12,13 @@ package org.cubictest.recorder.launch;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.ICubicTestRunnable;
+import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.launch.LaunchConfigurationDelegate;
 import org.cubictest.exporters.selenium.launch.TestRunner;
+import org.cubictest.exporters.selenium.launch.TestRunner.RunnerParameters;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
+import org.cubictest.model.Test;
 import org.cubictest.recorder.CubicRecorder;
 import org.cubictest.recorder.GUIAwareRecorder;
 import org.cubictest.recorder.IRecorder;
@@ -29,6 +32,7 @@ public class RecorderLaunchConfigurationDelegate extends LaunchConfigurationDele
 	private SeleniumRecorder seleniumRecorder;
 
 	protected ICubicTestRunnable getCubicTestRunnable(TestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config) {
+		
 		ITestEditor testEditor = getTestEditor();
 		AutoLayout autoLayout = new AutoLayout(testEditor);
 		SynchronizedCommandStack syncCommandStack = new SynchronizedCommandStack(parameters.display, testEditor.getCommandStack());
@@ -61,6 +65,19 @@ public class RecorderLaunchConfigurationDelegate extends LaunchConfigurationDele
 
 		if (autoLayout != null) {
 			autoLayout.setPageSelected(null);
+		}
+	}
+
+	@Override
+	protected void verifyPreconditions(RunnerParameters parameters, SeleniumRunnerConfiguration config) {
+		final Test test = parameters.test;
+		if (!ExportUtils.testIsOkForRecord(test)) {
+			parameters.display.syncExec(new Runnable() {
+				public void run() {
+					ExportUtils.showTestNotOkForRecordMsg(test);
+				}
+			});
+			throw new ExporterException("Test not suitable for recording. Check log for details.");
 		}
 	}
 
