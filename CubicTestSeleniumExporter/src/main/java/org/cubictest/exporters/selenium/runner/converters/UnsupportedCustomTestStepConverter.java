@@ -28,7 +28,7 @@ public class UnsupportedCustomTestStepConverter extends CustomTestStepConverter 
 			CustomTestStepData data) {
 		CustomTestStep ts = ((CustomTestStepHolder)cts).getCustomTestStep(false);
 		
-		throw new ExporterException("Custom test step not supported in standard Selenium runner. Use the new Runner: Right click on test -> Run As -> Run CubicTest with Selenium");
+		throw new ExporterException("Custom test step not supported in standard Selenium runner. Use the new Runner: Right click on test -> Run As -> Run Test with Selenium");
 	}
 
 }
