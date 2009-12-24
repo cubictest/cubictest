@@ -82,6 +82,7 @@ public class RecordEditorActionTarget implements IObjectActionDelegate {
 		AutoLayout autoLayout = new AutoLayout(testEditor);
 		
 		if (!ExportUtils.testIsOkForRecord(test)) {
+			ExportUtils.showTestNotOkForRecordMsg(test);
 			return;
 		}
 		
