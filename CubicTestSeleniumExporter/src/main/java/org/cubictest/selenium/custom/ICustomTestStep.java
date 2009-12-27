@@ -13,11 +13,12 @@ import com.thoughtworks.selenium.Selenium;
 public interface ICustomTestStep {
 		
 	/**
-	 * Execute the Custom Test Step. 
+	 * Execute the Custom Test Step.
+	 * 
 	 * The web page under test might not be fully loaded when this method is invoked, so use either 
 	 * selenium.waitForPageToLoad(..) or when testing JavaScript/Ajax, wrap element assertions in 
-	 * com.thoughtworks.selenium.Wait instances to wait for page elements to appear.
-	 * See the CubicTest documentation for examples of how to use the Wait class.
+	 * org.cubictest.exporters.selenium.utils.CubicWait instances to wait for page elements to appear.
+	 * See the CubicTest documentation for examples of how to use the CubicWait class.
 	 * 
 	 * We expect you to use JUnit type assertions like assertEquals. 
 	 * In this way CubicTest can handle the CustomTestStep assertion failures correctly.
@@ -34,6 +35,6 @@ public interface ICustomTestStep {
 	 * @param selenium The Selenium Remote Control object.
 	 * @throws any type of exception or error. Handled by CubicTest. java.lang.AssertionError = test failed, others = test exception.
 	 */
-	public void execute(Map<String,String> arguments, IElementContext context, Selenium selenium) throws Exception;
+	public void execute(final Map<String,String> arguments, final IElementContext context, final Selenium selenium) throws Exception;
 }
 
