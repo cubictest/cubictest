@@ -35,7 +35,7 @@ import org.eclipse.ui.IWorkbenchPart;
  */
 public class UpdateTestStartPointAction extends BaseEditorAction  {
 
-	public static final String ACTION_NAME = "Change start point for test";
+	public static final String ACTION_NAME = "Change Start Point for Test";
 	public static final String ACTION_ID = "CubicTestPlugin.action.updateTestStartPointAction";
 	
 	public UpdateTestStartPointAction(IWorkbenchPart part) {

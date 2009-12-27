@@ -44,6 +44,27 @@
 
       <objectContribution
             id="CubicTestSeleniumExporter.objectContribution1"
+		    objectClass="org.cubictest.ui.gef.controller.TestEditPart">
+         <action
+               class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
+               icon="icons/selenium_run_icon.gif"
+               id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
+               label="Run Test with Selenium Runner"
+               menubarPath="additions"/>
+      </objectContribution>
+      <objectContribution
+            id="CubicTestSeleniumExporter.objectContribution2"
+		    objectClass="org.cubictest.ui.gef.controller.AbstractStartPointEditPart">
+         <action
+               class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
+               icon="icons/selenium_run_icon.gif"
+               id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
+               label="Run Test with Selenium Runner"
+               menubarPath="additions"/>
+      </objectContribution>
+
+      <objectContribution
+            id="CubicTestSeleniumExporter.objectContribution3"
 		    objectClass="org.cubictest.ui.gef.controller.PageEditPart">
          <action
                class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
@@ -53,13 +74,13 @@
                menubarPath="additions"/>
       </objectContribution>
       <objectContribution
-            id="CubicTestSeleniumExporter.objectContribution2"
-		    objectClass="org.cubictest.ui.gef.controller.PropertyChangePart">
+            id="CubicTestSeleniumExporter.objectContribution4"
+		    objectClass="org.cubictest.ui.gef.controller.PageElementEditPart">
          <action
                class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
                icon="icons/selenium_run_icon.gif"
                id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               label="Run Test with Selenium Runner"
+               label="Run with Selenium to selected Page/State"
                menubarPath="additions"/>
       </objectContribution>
       

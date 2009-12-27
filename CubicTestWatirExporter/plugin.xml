@@ -2,7 +2,6 @@
 <?eclipse version="3.2"?>
 <plugin>
 
-<!--
    <extension
          point="org.cubictest.exporters"
          name="CubicTestWatirExporter">
@@ -10,7 +9,6 @@
             section="org.cubictest.exporters.watir.ui.WatirCustomStepSection">
       </CustomStepExtension>
    </extension>
--->   
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -47,6 +45,27 @@
 
       <objectContribution
            id="CubicTestWatirExporter.objectContribution1"
+		   objectClass="org.cubictest.ui.gef.controller.TestEditPart">
+         <action
+               class="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"
+               icon="icons/watir_run_icon.gif"
+               id="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"
+               label="Run Test with Watir Runner"
+               menubarPath="additions"/>
+      </objectContribution>
+      <objectContribution
+           id="CubicTestWatirExporter.objectContribution2"
+		   objectClass="org.cubictest.ui.gef.controller.AbstractStartPointEditPart">
+         <action
+               class="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"
+               icon="icons/watir_run_icon.gif"
+               id="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"
+               label="Run Test with Watir Runner"
+               menubarPath="additions"/>
+      </objectContribution>
+      
+      <objectContribution
+           id="CubicTestWatirExporter.objectContribution3"
 		   objectClass="org.cubictest.ui.gef.controller.PageEditPart">
          <action
                class="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"
@@ -56,13 +75,13 @@
                menubarPath="additions"/>
       </objectContribution>
       <objectContribution
-           id="CubicTestWatirExporter.objectContribution2"
-		   objectClass="org.cubictest.ui.gef.controller.PropertyChangePart">
+           id="CubicTestWatirExporter.objectContribution4"
+		   objectClass="org.cubictest.ui.gef.controller.PageElementEditPart">
          <action
                class="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"
                icon="icons/watir_run_icon.gif"
                id="org.cubictest.exporters.watir.ui.RunWatirRunnerAction"
-               label="Run Test with Watir Runner"
+               label="Run with Watir to selected Page/State"
                menubarPath="additions"/>
       </objectContribution>
       

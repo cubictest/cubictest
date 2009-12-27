@@ -19,15 +19,19 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.exceptions.UserCancelledException;
 import org.cubictest.export.utils.exported.ExportUtils;
+import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Page;
+import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -184,6 +188,12 @@ public abstract class BaseRunnerAction implements IObjectActionDelegate {
 			Object model = ((AbstractEditPart) selected).getModel();
 			if (model instanceof Page) {
 				this.selectedPage = (Page) model;
+			}
+			else if (model instanceof PageElement) {
+				AbstractPage surroundingPage = ViewUtil.getSurroundingPage((EditPart) selected);
+				if (surroundingPage instanceof Page) {
+					this.selectedPage = (Page) surroundingPage;
+				}
 			}
 		}
 	}
