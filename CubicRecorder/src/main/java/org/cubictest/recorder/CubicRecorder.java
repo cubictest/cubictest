@@ -87,7 +87,7 @@ public class CubicRecorder implements IRecorder {
 	public void setCursor(AbstractPage page) {
 		this.cursor = page;
 		final AbstractPage cursor = this.cursor; 
-		display.asyncExec(new Runnable() {
+		display.syncExec(new Runnable() {
 			public void run() {
 				autoLayout.setPageSelected(cursor);
 			}
