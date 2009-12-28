@@ -109,8 +109,6 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		}
 	}
 
-	
-	
 	/**
 	 * Colors elements and gets result info string.
 	 */
