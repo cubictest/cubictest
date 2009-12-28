@@ -110,17 +110,6 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	}
 
 	
-	private void updateStatus(final CustomTestStepHolder ctsh, final TestPartStatus newStatus) {
-		if (display != null) {
-			display.asyncExec(new Runnable() {
-				public void run() {
-					if(ctsh != null)
-						ctsh.setStatus(newStatus);
-				}
-			});
-		}
-	}
-	
 	
 	/**
 	 * Colors elements and gets result info string.
