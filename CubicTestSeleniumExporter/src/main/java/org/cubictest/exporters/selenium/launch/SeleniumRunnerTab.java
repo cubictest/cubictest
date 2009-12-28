@@ -413,11 +413,11 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			updateHostAndPortControls();
 
 		} catch (CoreException e) {
+			Logger.warn(e.getMessage(), e);
 			testName.setText("");
 			projectName.setText("");
 			browserType = BrowserType.FIREFOX;
 			nameSpaceButton.setSelection(false);
-			Logger.warn(e.getMessage(), e);
 		}
 		int storedBrowserTypeIndex = ArrayUtils.indexOf(BrowserType.values(), browserType);
 		browserCombo.select(storedBrowserTypeIndex);
