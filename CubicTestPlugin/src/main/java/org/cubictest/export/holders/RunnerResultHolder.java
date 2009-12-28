@@ -152,8 +152,6 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	}
 	
 	
-	
-	
 	/** Set the progress monitor. Not used when invoked from maven */
 	public void setMonitor(IProgressMonitor monitor) {
 		this.monitor = monitor;
