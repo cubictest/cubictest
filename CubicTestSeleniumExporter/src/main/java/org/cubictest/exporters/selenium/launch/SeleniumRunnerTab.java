@@ -264,18 +264,18 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 			browserCombo = new Combo(group, SWT.NONE | SWT.READ_ONLY);
-			for (BrowserType browserType : BrowserType.values()) {
+			for (BrowserType browserType : getSupportedBrowsers()) {
 				browserCombo.add(browserType.getDisplayName());
 			}
 		
 			browserCombo.addModifyListener(new ModifyListener(){
 				public void modifyText(ModifyEvent e) {
-					browserType = BrowserType.values()[browserCombo.getSelectionIndex()];
+					browserType = getSupportedBrowsers()[browserCombo.getSelectionIndex()];
 					setDirty(true);
 					updateLaunchConfigurationDialog();
 				}
 			});
-			int storedBrowserTypeIndex = ArrayUtils.indexOf(BrowserType.values(), browserType);
+			int storedBrowserTypeIndex = ArrayUtils.indexOf(getSupportedBrowsers(), browserType);
 			browserCombo.select(storedBrowserTypeIndex);
 			setControl(composite);
 		}
@@ -419,8 +419,13 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			browserType = BrowserType.FIREFOX;
 			nameSpaceButton.setSelection(false);
 		}
-		int storedBrowserTypeIndex = ArrayUtils.indexOf(BrowserType.values(), browserType);
+		int storedBrowserTypeIndex = ArrayUtils.indexOf(getSupportedBrowsers(), browserType);
 		browserCombo.select(storedBrowserTypeIndex);
+	}
+
+
+	protected BrowserType[] getSupportedBrowsers() {
+		return BrowserType.values();
 	}
 
 

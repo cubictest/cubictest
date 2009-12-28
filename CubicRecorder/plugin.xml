@@ -154,7 +154,7 @@
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="org.cubictest.exporters.selenium.launch.LaunchConfigurationTabGroup"
+            class="org.cubictest.recorder.launch.RecorderLaunchConfigurationTabGroup"
             description="Recorder spesific tabs"
             id="org.cubictest.recorder.ui.launchConfigurationTabGroup"
             type="org.cubictest.recorder.ui.launchConfigurationType">

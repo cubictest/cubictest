@@ -117,7 +117,7 @@
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="org.cubictest.exporters.selenium.launch.LaunchConfigurationTabGroup"
+            class="org.cubictest.exporters.selenium.launch.RunnerLaunchConfigurationTabGroup"
             description="SeleniumRunner spesific tabs"
             id="org.cubictest.exporters.selenium.ui.launchConfigurationTabGroup"
             type="org.cubictest.exporters.selenium.ui.launchConfigurationType">
