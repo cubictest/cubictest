@@ -150,25 +150,6 @@
          </fileExtension>
       </launchConfigurationType>
    </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-      <launchConfigurationTabGroup
-            class="org.cubictest.exporters.selenium.launch.LaunchConfigurationTabGroup"
-            description="SeleniumRecorder spesific tabs"
-            id="org.cubictest.exporters.selenium.ui.launchConfigurationTabGroup"
-            type="org.cubictest.recorder.ui.launchConfigurationType">
-      </launchConfigurationTabGroup>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
-      <launchConfigurationTypeImage
-            configTypeID="org.cubictest.recorder.ui.launchConfigurationType"
-            icon="icons/record.gif"
-            id="org.cubictest.recorder.ui.launchConfigurationTypeImage">
-      </launchConfigurationTypeImage>
-   </extension>
-   
-   
    
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
@@ -179,8 +160,6 @@
             type="org.cubictest.recorder.ui.launchConfigurationType">
       </launchConfigurationTabGroup>
    </extension>
-   
-   
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
@@ -189,6 +168,7 @@
             id="org.cubictest.recorder.ui.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
    </extension>
+   
    
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
