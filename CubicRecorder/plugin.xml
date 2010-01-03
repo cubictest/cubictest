@@ -65,11 +65,11 @@
    </extension>
    
    
-      <extension
+   <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
-            delegate="org.cubictest.exporters.selenium.launch.RunnerLaunchConfigurationDelegate"
-            delegateDescription="SeleniumRecorder - Records CubicTest test with Selenium"
+            delegate="org.cubictest.recorder.launch.RecorderLaunchConfigurationDelegate"
+            delegateDescription="Recorder - Records CubicTest tests with Selenium"
             delegateName="SeleniumRecorder"
             id="org.cubictest.recorder.ui.launchConfigurationType"
             migrationDelegate="org.cubictest.exporters.selenium.launch.LaunchConfigurationMigrationDelegate"
@@ -82,6 +82,7 @@
          </fileExtension>
       </launchConfigurationType>
    </extension>
+   
    
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
