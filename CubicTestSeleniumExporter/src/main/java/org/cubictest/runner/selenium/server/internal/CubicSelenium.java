@@ -85,7 +85,7 @@ public class CubicSelenium implements Selenium {
 
 	
 	public void check(String arg0) {
-		execute("check");
+		execute("check", arg0);
 	}
 
 	
