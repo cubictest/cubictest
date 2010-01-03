@@ -51,7 +51,6 @@ Erlend Halvorsen
       <plugin id="org.apache.lucene"/>
       <plugin id="org.apache.lucene.analysis"/>
       <plugin id="org.cubictest"/>
-      <plugin id="org.cubictest.exporters.htmlprototype"/>
       <plugin id="org.cubictest.exporters.selenium"/>
       <plugin id="org.cubictest.exporters.watir"/>
       <plugin id="org.cubictest.recorder.cubicrecorder"/>

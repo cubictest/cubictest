@@ -24,13 +24,6 @@
         <property name='download.size' value='4953'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.cubictest.exporters.htmlprototype' version='1.9.6'>
-      <properties size='3'>
-        <property name='artifact.size' value='176222'/>
-        <property name='download.size' value='176222'/>
-        <property name='download.contentType' value='application/zip'/>
-      </properties>
-    </artifact>
     <artifact classifier='osgi.bundle' id='org.cubictest.exporters.watir' version='1.9.6'>
       <properties size='3'>
         <property name='artifact.size' value='43860'/>
@@ -83,13 +76,6 @@
       <properties size='3'>
         <property name='artifact.size' value='6397021'/>
         <property name='download.size' value='6397021'/>
-        <property name='download.contentType' value='application/zip'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.cubictest.exporters.htmlprototype' version='1.9.6'>
-      <properties size='3'>
-        <property name='artifact.size' value='176924'/>
-        <property name='download.size' value='176924'/>
         <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
