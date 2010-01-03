@@ -78,7 +78,11 @@ public class TextUtil {
 	 * @param s
 	 * @return
 	 */
-	public static String normalize(String s) {
+	public static String normalizeAndTrim(String s) {
+		if (StringUtils.isBlank(s)) {
+			return "";
+		}
+		
 		String res = "";
 		char[] chars = s.toCharArray();
 		boolean hasWhite = true;
@@ -102,5 +106,13 @@ public class TextUtil {
 
 	public static String stripHtmlTags(String s) {
 		return s.replaceAll("<[^>]+>", ""); 
+	}
+
+	public static String normalizeWithPossibleSingleTrailingSpace(String s) {
+		if (StringUtils.isBlank(s)) {
+			return "";
+		}
+		char originalLastChar = StringUtils.right(s, 1).toCharArray()[0];
+		return normalizeAndTrim(s) + (Character.isWhitespace(originalLastChar) ? " " : "");
 	}
 }

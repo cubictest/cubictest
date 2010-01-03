@@ -15,6 +15,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.CubicCloner;
+import org.cubictest.common.utils.TextUtil;
 
 
 /**
@@ -61,15 +62,20 @@ public class Identifier implements Cloneable, SationObserver{
 
 	public void setValue(String value){
 		String oldValue = this.value;
-		this.value = value;
-		firePropertyChanged(VALUE, oldValue, value);
+		this.value = TextUtil.normalizeWithPossibleSingleTrailingSpace(value);
+		firePropertyChanged(VALUE, oldValue, this.value);
 	}
+	
 	private void firePropertyChanged(String propertyName,Object oldValue, Object newValue){
 		getListeners().firePropertyChange(propertyName, oldValue, newValue);
 	}
 	
 	public String getValue(){
-		return value == null ? "" : value.trim();
+		return TextUtil.normalizeAndTrim(value);
+	}
+
+	public String getValueWithPossibleSingleTrailingSpace(){
+		return TextUtil.normalizeWithPossibleSingleTrailingSpace(value);
 	}
 
 	public void setProbability(int probability){

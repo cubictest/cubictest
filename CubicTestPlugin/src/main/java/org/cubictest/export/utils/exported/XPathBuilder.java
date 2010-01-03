@@ -127,14 +127,14 @@ public class XPathBuilder {
 				result += "contains(normalize-space(.), " + getIdValueInQuotes(id) + ")";
 			}
 			else if (pe instanceof Link || pe instanceof Option) {
-				result += getPageValueCheck(id, "normalize-space(text())");
+				result += getPageValueCheck(id, "normalize-space(.)");
 			}
 			else if (pe instanceof Button) {
 				result += getIdentifierCondition(id);
 			}
 			else {
 				//get first element that has "id" attribute equal to the "for" attribute of label with the specified text:
-				String labelCondition = getPageValueCheck(id, "normalize-space(text())");
+				String labelCondition = getPageValueCheck(id, "normalize-space(.)");
 				result += "@id" + getStringComparisonOperator(id) + 
 					"(//" + (useNamespace ? "x:" : "") + "label[" + labelCondition + "]/@for)";
 			}

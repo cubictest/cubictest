@@ -232,7 +232,7 @@ public class JSONElementConverter {
 			else if (idType.equals(SRC)) {
 				identifier.setModerator(END);
 			}
-			value = TextUtil.normalize(value);
+			value = TextUtil.normalizeAndTrim(value);
 			value = StringEscapeUtils.unescapeHtml(value);
 			value = TextUtil.stripHtmlTags(value);
 			identifier.setValue(value);

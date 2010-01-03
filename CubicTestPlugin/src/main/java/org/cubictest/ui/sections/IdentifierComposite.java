@@ -312,7 +312,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		moderator.setEnabled(identifier.getType().acceptsModerator());
 
 		if(IdentifierType.FRAME_TYPE.equals(identifier.getType())){
-			if (StringUtils.isBlank(identifier.getValue())) {
+			if (StringUtils.isBlank(identifier.getValueWithPossibleSingleTrailingSpace())) {
 				identifier.setValue(FRAME);
 			}
 			value.setVisible(false);
@@ -326,9 +326,9 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 	public void refresh(){
 		type.setText(identifier.getType() + ":");
 		type.setToolTipText(identifier.getType().getDescription());
-		value.setText(identifier.getValue());
+		value.setText(identifier.getValueWithPossibleSingleTrailingSpace());
 		
-		frameType.setText(identifier.getValue());
+		frameType.setText(identifier.getValueWithPossibleSingleTrailingSpace());
 		
 		probability.removeSelectionListener(probabilityListener);
 		setProbability(identifier.getProbability());
@@ -610,7 +610,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 				new ChangeFrameTypeCommand();
 			command.setIdentifier(identifier);
 			command.setFrame(frame);
-			command.setOldFrame(identifier.getValue());
+			command.setOldFrame(identifier.getValueWithPossibleSingleTrailingSpace());
 			executeCommand(command);
 			
 		}
@@ -635,7 +635,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 
 		public void widgetSelected(SelectionEvent e) {
 			ChangeIdentiferValueToActualCommand cmd = new ChangeIdentiferValueToActualCommand();
-			cmd.setValue(identifier.getValue());
+			cmd.setValue(identifier.getValueWithPossibleSingleTrailingSpace());
 			cmd.setActual(identifier.getActual());
 			cmd.setIdentifier(identifier);
 			editor.getCommandStack().execute(cmd);
@@ -650,12 +650,12 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 		private void updateValue(){
 			int oldPos = value.getSelection().x;
 			
-			if(!value.getText().equals( identifier.getValue())){
+			if(!value.getText().equals( identifier.getValueWithPossibleSingleTrailingSpace())){
 				CompoundCommand compundCommand = new CompoundCommand();
 				if(pageElement.getDirectEditIdentifier().equals(identifier)){
 					ChangePageElementTextCommand command = new ChangePageElementTextCommand();
 					command.setNewText(value.getText());
-					command.setOldText(identifier.getValue());
+					command.setOldText(identifier.getValueWithPossibleSingleTrailingSpace());
 					command.setPageElement(pageElement);
 					compundCommand.add(command);
 				}else{
@@ -668,7 +668,7 @@ public class IdentifierComposite extends Composite implements PropertyChangeList
 					}
 					command.setIdentifer(identifier);
 					command.setNewValue(value.getText());
-					command.setOldValue(identifier.getValue());
+					command.setOldValue(identifier.getValueWithPossibleSingleTrailingSpace());
 					command.setOldProbability(identifier.getProbability());
 					compundCommand.add(command);
 				}		

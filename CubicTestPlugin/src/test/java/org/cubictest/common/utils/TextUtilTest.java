@@ -80,28 +80,28 @@ public class TextUtilTest extends TestCase {
 	@Test
 	public void testNormalizeSimple() {
 		String s = "abc";
-		assertEquals(s, TextUtil.normalize(s));
+		assertEquals(s, TextUtil.normalizeAndTrim(s));
 	}
 	
 	@Test
 	public void testNormalizeSimpleWithSpace() {
 		String s = " abc ";
 		String ex = "abc";
-		assertEquals(ex, TextUtil.normalize(s));
+		assertEquals(ex, TextUtil.normalizeAndTrim(s));
 	}
 	
 	@Test
 	public void testNormalizeSimpleWithMultipleSpace() {
 		String s = " a     b  c    ";
 		String ex = "a b c";
-		assertEquals(ex, TextUtil.normalize(s));
+		assertEquals(ex, TextUtil.normalizeAndTrim(s));
 	}
 	
 	@Test
 	public void testNormalizeSimpleWithLineBreakAndTab() {
 		String s = " \ta   \n  b  c  \t\t\n  ";
 		String ex = "a b c";
-		assertEquals(ex, TextUtil.normalize(s));
+		assertEquals(ex, TextUtil.normalizeAndTrim(s));
 	}
 
 	@Test
@@ -131,4 +131,26 @@ public class TextUtilTest extends TestCase {
 		String expected = "Test</i";
 		assertEquals(expected, TextUtil.stripHtmlTags(s));
 	}
+
+	@Test
+	public void testShouldKeepTrailingSpaceWhenNormalizingWithTrailingSpace() {
+		String s = " \ta   \n  b  c ";
+		String ex = "a b c ";
+		assertEquals(ex, TextUtil.normalizeWithPossibleSingleTrailingSpace(s));		
+	}
+	
+	@Test
+	public void testShouldKeepTrailingSpaceWhenNormalizingWithMultipleTrailingSpaces() {
+		String s = " \ta   \n  b  c  \t\t\n  ";
+		String ex = "a b c ";
+		assertEquals(ex, TextUtil.normalizeWithPossibleSingleTrailingSpace(s));		
+	}
+	
+	@Test
+	public void testShouldKeepNoTrailingSpaceWhenNormalizingWithNoTrailingSpace() {
+		String s = " \ta   \n  b  c";
+		String ex = "a b c";
+		assertEquals(ex, TextUtil.normalizeWithPossibleSingleTrailingSpace(s));		
+	}
+	
 }
