@@ -303,56 +303,16 @@
             modes="CubicTestPlugin.launchConfigurationType1"
             name="CubicTestPlugin.launchConfigurationType1"/>
    </extension>
-   <!--
-   <extension
-         id="org.cubictest.help"
-         name="CubicTestHelp"
-         point="org.eclipse.help.toc">
-      <toc
-            file="src/main/resources/org/cubictest/help/toc.xml"
-            primary="true"/>
-   </extension>
-   -->
+   
+
    <extension
          id="org.cubictest.startup"
          name="CubicTestStartup"
          point="org.eclipse.ui.startup">
       <startup class="org.cubictest.CubicTestStartup"/>
    </extension>
-   <extension
-         id="org.eclipse.intro.config"
-         name="CubicTestIntroConfig"
-         point="org.eclipse.ui.intro.config">
-      <config
-            content="src/main/resources/org/cubictest/intro/introContent.xml"
-            id="cubicTestIntroConfig"
-            introId="org.cubictest.intro.config">
-         <presentation
-               home-page-id="homePageId"
-               standby-page-id="standbyPageId">
-            <implementation kind="html"/>
-            <implementation kind="swt"/>
-            <launchBar
-                  bg="red"
-                  computed="false"
-                  fg="black"
-                  location="fastview"/>
-         </presentation>
-      </config>
-   </extension>
-   <extension
-         id="org.eclipse.intro"
-         name="CubicTestIntro"
-         point="org.eclipse.ui.intro">
-      <intro
-            class="org.eclipse.ui.intro.config.CustomizableIntroPart"
-            icon="icons/fileicon.gif"
-            id="org.cubictest.intro"
-            label="CubicTest Introduction"/>
-      <introProductBinding
-            introId="org.cubictest.intro.config"
-            productId="org.cubictest"/>
-   </extension>
+
+   
    <extension
          id="product"
          point="org.eclipse.core.runtime.products">

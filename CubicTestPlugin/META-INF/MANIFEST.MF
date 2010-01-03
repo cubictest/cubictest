@@ -13,7 +13,6 @@ Bundle-ClassPath: .,
  lib/commons-io-1.3.1.jar,
  lib/commons-logging-1.1.jar
 Bundle-Activator: org.cubictest.CubicTestPlugin
-Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.ide,
  org.eclipse.gef,
@@ -24,8 +23,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.console,
  org.eclipse.debug.ui,
  org.eclipse.pde.runtime
-Bundle-RequiredExecutionEnvironment: J2SE-1.5,
- JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Eclipse-LazyStart: true
 Export-Package: org.apache.commons.io,
  org.apache.commons.lang,

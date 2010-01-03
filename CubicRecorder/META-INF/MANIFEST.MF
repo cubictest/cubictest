@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: CubicRecorder
 Bundle-SymbolicName: org.cubictest.recorder.cubicrecorder;singleton:=true
 Bundle-Version: 1.9.6
-Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.cubictest,
@@ -22,3 +21,4 @@ Eclipse-LazyStart: true
 Bundle-Vendor: cubictest.org
 Bundle-Activator: org.cubictest.recorder.RecorderPlugin
 Export-Package: com.thoughtworks.selenium
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
