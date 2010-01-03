@@ -11,7 +11,6 @@
 package org.cubictest.exporters.selenium.launch.converters;
 
 import static org.apache.commons.lang.StringUtils.isBlank;
-import static org.cubictest.exporters.selenium.ui.command.ChangeCustomStepWaitForPageToLoadCommand.WAIT_FOR_PAGE_TO_LOAD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,6 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.common.converters.CustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
-import org.cubictest.exporters.selenium.ui.command.ChangeCustomStepWaitForPageToLoadCommand;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.TestPartStatus;

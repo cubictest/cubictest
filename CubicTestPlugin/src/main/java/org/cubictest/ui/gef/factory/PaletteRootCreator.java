@@ -15,8 +15,8 @@ import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CHECKBOX_UNCHECKE
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.COMMON_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONNECTION_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.CONTEXT_IMAGE;
-import static org.cubictest.ui.gef.view.CubicTestImageRegistry.FRAME_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.EXTENSION_POINT_IMAGE;
+import static org.cubictest.ui.gef.view.CubicTestImageRegistry.FRAME_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.IMAGE_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.LINK_IMAGE;
 import static org.cubictest.ui.gef.view.CubicTestImageRegistry.OPTION_IMAGE;

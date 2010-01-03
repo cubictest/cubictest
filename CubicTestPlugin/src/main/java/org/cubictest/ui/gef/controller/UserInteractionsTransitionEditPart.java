@@ -10,14 +10,12 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.controller;
 
-import static org.apache.commons.lang.StringUtils.isBlank;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.IActionElement;
 import org.cubictest.model.Image;
@@ -26,7 +24,6 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.UserInteraction;
 import org.cubictest.model.UserInteractionsTransition;
-import org.cubictest.model.context.AbstractContext;
 import org.cubictest.model.context.Frame;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Button;

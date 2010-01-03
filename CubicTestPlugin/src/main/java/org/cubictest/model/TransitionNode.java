@@ -17,7 +17,6 @@ import java.util.Set;
 
 import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.CubicCloner;
-import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.eclipse.draw2d.geometry.Dimension;

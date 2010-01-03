@@ -12,7 +12,6 @@ package org.cubictest.exporters.watir.converters;
 
 import static org.cubictest.exporters.watir.utils.WatirUtils.escape;
 
-import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.converters.ITransitionConverter;
 import org.cubictest.exporters.watir.converters.delegates.TransitionHandler;

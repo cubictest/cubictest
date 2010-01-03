@@ -32,7 +32,6 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.Identifier;
-import org.cubictest.model.IdentifierType;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;

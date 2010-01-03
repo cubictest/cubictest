@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.cubictest.model.ActionType;
 import org.cubictest.model.FormElement;
-import org.cubictest.model.IdentifierType;
 import org.cubictest.model.PropertyAwareObject;
 
 /**

@@ -15,7 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
@@ -28,7 +27,6 @@ import org.cubictest.model.PageElement;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.context.SimpleContext;
 import org.cubictest.model.formElement.Option;
-import org.cubictest.model.formElement.Select;
 import org.eclipse.swt.widgets.Display;
 
 

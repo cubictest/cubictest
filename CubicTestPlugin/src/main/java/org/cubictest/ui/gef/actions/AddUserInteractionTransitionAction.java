@@ -26,10 +26,7 @@ import org.cubictest.ui.gef.controller.PageEditPart;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.view.CubicTestImageRegistry;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**

@@ -18,7 +18,6 @@ import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;
 import org.cubictest.model.i18n.AllLanguages;
 import org.cubictest.model.i18n.Language;
-import org.cubictest.ui.gef.command.ChangeCurrentLanguageCommand;
 import org.cubictest.ui.gef.command.ChangeSubTestLanguageCommand;
 import org.cubictest.ui.gef.controller.SubTestEditPart;
 import org.cubictest.ui.gef.editors.GraphicalTestEditor;

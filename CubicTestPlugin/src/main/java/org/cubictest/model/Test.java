@@ -13,9 +13,6 @@ package org.cubictest.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.plaf.ListUI;
-
-import org.apache.commons.lang.ArrayUtils;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.i18n.AllLanguages;
 import org.cubictest.model.i18n.Language;

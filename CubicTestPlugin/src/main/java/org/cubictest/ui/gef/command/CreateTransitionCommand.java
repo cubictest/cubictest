@@ -10,12 +10,15 @@
  *******************************************************************************/
 package org.cubictest.ui.gef.command;
 
+import static org.cubictest.model.ActionType.CLICK;
+import static org.cubictest.model.IdentifierType.ALT;
+import static org.cubictest.model.IdentifierType.LABEL;
+
 import java.util.List;
 
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.common.utils.UserInfo;
-import org.cubictest.model.ActionType;
 import org.cubictest.model.Common;
 import org.cubictest.model.CommonTransition;
 import org.cubictest.model.ConnectionPoint;
@@ -23,7 +26,6 @@ import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.ExtensionPoint;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.IActionElement;
-import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;
 import org.cubictest.model.Link;
 import org.cubictest.model.Page;
@@ -45,9 +47,6 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
-import static org.cubictest.model.ActionType.CLICK;
-import static org.cubictest.model.IdentifierType.ALT;
-import static org.cubictest.model.IdentifierType.LABEL;
 
 /**
  * A command that creates a <code>Transition</code>.

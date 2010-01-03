@@ -12,7 +12,6 @@ package org.cubictest.export.holders;
 
 import static org.junit.Assert.assertEquals;
 
-import org.cubictest.export.holders.ContextHolder;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
 import org.cubictest.model.Image;

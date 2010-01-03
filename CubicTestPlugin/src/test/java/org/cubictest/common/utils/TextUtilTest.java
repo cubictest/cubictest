@@ -9,10 +9,10 @@
  *    Stein K. Skytteren and Christian Schwarz - initial API and implementation
  *******************************************************************************/
 package org.cubictest.common.utils;
+import junit.framework.TestCase;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.junit.Test;
-
-import junit.framework.TestCase;
 
 /**
  * Tests the TextUtil class.

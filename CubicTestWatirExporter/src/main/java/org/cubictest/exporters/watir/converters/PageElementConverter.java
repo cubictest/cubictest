@@ -15,10 +15,7 @@ import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.watir.converters.delegates.PageElementAsserterPlain;
 import org.cubictest.exporters.watir.converters.delegates.PageElementAsserterXPath;
 import org.cubictest.exporters.watir.holders.WatirHolder;
-import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.Text;
-import org.cubictest.model.formElement.Option;
 
 /**
  * Converts a page element located on a page to a watir assertion.

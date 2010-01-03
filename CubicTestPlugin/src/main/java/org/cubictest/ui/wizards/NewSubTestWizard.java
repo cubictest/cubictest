@@ -18,7 +18,6 @@ import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.ExtensionTransition;
 import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
-import org.cubictest.model.SubTestStartPoint;
 import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;

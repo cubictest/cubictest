@@ -17,7 +17,6 @@ import java.util.List;
 import org.cubictest.common.resources.UiText;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.ViewUtil;
-import org.cubictest.model.ExtensionStartPoint;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;
 import org.cubictest.model.Test;

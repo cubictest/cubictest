@@ -23,11 +23,9 @@ import org.cubictest.model.IActionElement;
 import org.cubictest.model.IStartPoint;
 import org.cubictest.model.Page;
 import org.cubictest.model.PageElement;
-import org.cubictest.model.Test;
 import org.cubictest.model.Transition;
 import org.cubictest.model.TransitionNode;
 import org.cubictest.model.UrlStartPoint;
-import org.cubictest.model.UserInteractionsTransition;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
 
 

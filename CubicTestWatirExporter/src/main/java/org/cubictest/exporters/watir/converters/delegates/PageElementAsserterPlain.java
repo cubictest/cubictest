@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.cubictest.exporters.watir.converters.delegates;
 
-import static org.cubictest.model.Moderator.*;
+import static org.cubictest.model.Moderator.EQUAL;
 
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.WatirHolder;

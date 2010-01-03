@@ -10,7 +10,8 @@
  *******************************************************************************/
 package org.cubictest.persistence;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.cubictest.model.customstep.CustomTestStep;
 import org.cubictest.model.customstep.data.CustomTestStepData;

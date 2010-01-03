@@ -11,7 +11,6 @@
 package org.cubictest.exporters.watir.runner;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.apache.commons.lang.StringUtils;

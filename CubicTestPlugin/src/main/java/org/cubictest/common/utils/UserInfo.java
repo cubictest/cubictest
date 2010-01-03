@@ -12,9 +12,6 @@ package org.cubictest.common.utils;
 
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.resources.UiText;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;

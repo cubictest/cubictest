@@ -14,7 +14,6 @@ import static org.cubictest.model.IdentifierType.LABEL;
 
 import org.cubictest.export.converters.IPageElementConverter;
 import org.cubictest.exporters.selenium.selenese.holders.SeleneseDocument;
-import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;

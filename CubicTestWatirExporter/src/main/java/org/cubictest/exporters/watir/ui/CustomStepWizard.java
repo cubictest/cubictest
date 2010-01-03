@@ -13,7 +13,6 @@ import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.internal.ide.DialogUtil;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.newresource.ResourceMessages;
-import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 
 
 public class CustomStepWizard extends Wizard {

@@ -16,7 +16,6 @@ import java.util.List;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.model.ConnectionPoint;
-import org.cubictest.model.CustomTestStepHolder;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SubTest;

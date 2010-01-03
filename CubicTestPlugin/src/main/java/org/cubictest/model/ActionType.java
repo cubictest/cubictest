@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.cubictest.model;
 
-import java.util.HashMap;
 
 /**
  * The action types for user interaction with a web page.

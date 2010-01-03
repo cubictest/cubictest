@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.cubictest.common.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,7 +12,7 @@ package org.cubictest.model.context;
 
 import static org.cubictest.model.IdentifierType.CLASS;
 import static org.cubictest.model.IdentifierType.ID;
-import static org.cubictest.model.IdentifierType.*;
+import static org.cubictest.model.IdentifierType.INDEX;
 
 import java.util.ArrayList;
 import java.util.List;

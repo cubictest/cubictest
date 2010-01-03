@@ -11,7 +11,6 @@
 package org.cubictest.ui.gef.command;
 
 import org.cubictest.model.NamePropertyObject;
-import org.cubictest.model.Test;
 import org.eclipse.gef.commands.Command;
 
 

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.cubictest.demo;
 
-import org.apache.log4j.BasicConfigurator;
 import org.mortbay.http.SocketListener;
 import org.mortbay.jetty.Server;
 

@@ -14,7 +14,6 @@ import java.io.File;
 
 import org.cubictest.CubicTestPlugin;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.common.utils.Logger;
 import org.cubictest.common.utils.ModelUtil;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;

@@ -11,7 +11,6 @@
 package org.cubictest.model;
 
 import org.apache.commons.lang.StringUtils;
-import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.i18n.Language;
 import org.cubictest.persistence.TestPersistance;

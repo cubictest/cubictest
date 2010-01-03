@@ -11,20 +11,14 @@
 package org.cubictest.exporters.watir.converters.delegates;
 
 import static org.cubictest.exporters.watir.utils.WatirUtils.escape;
-import static org.cubictest.model.IdentifierType.LABEL;
 
-import org.apache.commons.lang.StringUtils;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.export.utils.exported.XPathBuilder;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.PageElement;
 import org.cubictest.model.Text;
 import org.cubictest.model.Title;
 import org.cubictest.model.formElement.Option;
-import org.cubictest.model.formElement.Select;
-import org.cubictest.model.formElement.TextArea;
-import org.cubictest.model.formElement.TextField;
 
 /**
  * Page element converter that uses XPath.
