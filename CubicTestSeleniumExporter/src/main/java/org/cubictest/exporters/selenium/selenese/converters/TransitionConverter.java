@@ -45,11 +45,10 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 			handleUserInteraction(doc, action);
 		}
 		
-		int timeout = SeleniumUtils.getTimeout(doc.getSettings());
 		if (transition.hasCustomTimeout()) {
-			timeout = transition.getSecondsToWaitForResult();
+			int timeout = transition.getSecondsToWaitForResult();
+			doc.addCommand("setTimeout", (timeout * 1000) + "");
 		}
-		doc.addCommand("setTimeout", (timeout * 1000) + "");
 	}
 	
 	

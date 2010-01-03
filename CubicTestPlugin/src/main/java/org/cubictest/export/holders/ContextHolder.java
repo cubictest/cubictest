@@ -38,7 +38,7 @@ public abstract class ContextHolder implements IResultHolder {
 	private Map<PageElement, PageElement> elementParentMap = new HashMap<PageElement, PageElement>();
 	private boolean shouldFailOnAssertionFailure;
 	private boolean useNamespace = false;
-	private CubicTestProjectSettings settings;
+	protected CubicTestProjectSettings settings;
 	
 	public CubicTestProjectSettings getSettings() {
 		return settings;

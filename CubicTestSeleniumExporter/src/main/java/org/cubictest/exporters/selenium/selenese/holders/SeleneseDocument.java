@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.selenese.holders;
 
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.holders.ContextHolder;
+import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.exporters.selenium.utils.XmlUtils;
 import org.cubictest.model.PropertyAwareObject;
 import org.jdom.Document;
@@ -40,6 +42,11 @@ public class SeleneseDocument extends ContextHolder {
 		setUpHtmlPage();
 	}
 
+	@Override
+	public void setSettings(CubicTestProjectSettings settings) {
+		super.setSettings(settings);
+		table.addContent(new Command("setTimeout", (SeleniumUtils.getTimeout(settings) * 1000) + ""));
+	}
 
 	
 	/**
@@ -97,8 +104,6 @@ public class SeleneseDocument extends ContextHolder {
 		table.setAttribute("border", "1");
 		table.setAttribute("cellspacing", "0");
 		body.addContent(table);
-		
-		table.addContent(new Command("setTimeout", "30000"));
 	}
 
 
