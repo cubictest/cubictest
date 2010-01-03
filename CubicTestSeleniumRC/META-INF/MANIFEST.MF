@@ -6,6 +6,5 @@ Bundle-Version: 1.9.6
 Bundle-Vendor: www.CubicTest.org
 Eclipse-LazyStart: false
 Bundle-ClassPath: lib/selenium-java-client-driver.jar,
- lib/selenium-java-client-driver-sources.jar,
- lib/selenium-server-dummy.jar
+ lib/selenium-java-client-driver-sources.jar
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
