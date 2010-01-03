@@ -25,7 +25,7 @@ import org.cubictest.model.PropertyAwareObject;
  */
 public abstract class Checkable extends FormElement {
 
-	//TODO: Old attribute. Not in use. Remove.
+	//TODO: Old attribute. Not in use. Remove using LegacyConverter.
 	private boolean checked;
 	
 	/**
