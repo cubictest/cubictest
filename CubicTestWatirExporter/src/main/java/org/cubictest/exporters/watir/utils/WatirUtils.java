@@ -37,6 +37,7 @@ import static org.cubictest.model.IdentifierType.VALUE;
 import static org.cubictest.model.Moderator.EQUAL;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.watir.holders.WatirHolder;
 import org.cubictest.model.ActionType;
@@ -254,5 +255,20 @@ public class WatirUtils {
 
 	public static String escape(String s) { 
 		return StringUtils.replace(s, "\"", "\\\"");
+	}
+	
+	/**
+	 * Get user configured timeout in seconds.
+	 */
+	public static int getTimeout(CubicTestProjectSettings settings) {
+		int defaultTimeout = 5;
+		if(settings == null) {
+			return defaultTimeout;
+		}
+		return settings.getInteger(WatirUtils.getPluginPropertyPrefix(), "timeout", defaultTimeout);
+	}
+	
+	public static String getPluginPropertyPrefix() {
+		return "WatirExporterPlugin";
 	}
 }

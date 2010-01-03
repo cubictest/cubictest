@@ -48,6 +48,11 @@ public class TransitionConverter implements ITransitionConverter<WatirHolder> {
 				handlePageElementAction(watirHolder, action);
 			}
 		}
+		
+		if (transition.hasCustomTimeout()) {
+			watirHolder.setNextPageElementTimeout(transition.getSecondsToWaitForResult());
+		}
+
 	}
 
 	

@@ -19,6 +19,7 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.holders.RunnerResultHolder;
 import org.cubictest.exporters.watir.utils.RubyBuffer;
+import org.cubictest.exporters.watir.utils.WatirUtils;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.Identifier;
 import org.cubictest.model.IdentifierType;
@@ -68,7 +69,7 @@ public class WatirHolder extends RunnerResultHolder {
 	 * @param testName
 	 */
 	public WatirHolder(Display display, CubicTestProjectSettings settings) {
-		super(display, settings);
+		super(display, settings, WatirUtils.getTimeout(settings));
 		this.containers.push("ie");
 		this.rubyBuffer = new RubyBuffer();
 		pageElementIdMap = new HashMap<String, PageElement>();

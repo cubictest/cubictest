@@ -45,7 +45,6 @@ public class SeleniumHolder extends RunnerResultHolder {
 	private String timestampFolder = new SimpleDateFormat("yyyy-MM-dd HHmm").format(new Date());
 	private boolean takeScreenshots;
 	private boolean captureHtml;
-	private int nextPageElementTimeout;
 	
 	
 	/**
@@ -55,13 +54,12 @@ public class SeleniumHolder extends RunnerResultHolder {
 	 * @param settings settings for the project.
 	 */
 	public SeleniumHolder(Selenium selenium, Display display, CubicTestProjectSettings settings) {
-		super(display, settings);
+		super(display, settings, SeleniumUtils.getTimeout(settings));
 		this.selenium = new CubicTestLocalRunner(selenium);
-		this.nextPageElementTimeout = SeleniumUtils.getTimeout(settings);
 	}
 	
 	public SeleniumHolder(String seleniumServerHostname, int seleniumServerPort, String browser, String initialUrl, Display display, CubicTestProjectSettings settings) {
-		super(display, settings);
+		super(display, settings, SeleniumUtils.getTimeout(settings));
 		if (seleniumServerPort < 80) {
 			throw new ExporterException("Invalid port");
 		}
@@ -69,7 +67,6 @@ public class SeleniumHolder extends RunnerResultHolder {
 			seleniumServerHostname = "localhost";
 		}
 		this.selenium = new CubicTestLocalRunner(seleniumServerHostname, seleniumServerPort, browser, initialUrl);
-		this.nextPageElementTimeout = SeleniumUtils.getTimeout(settings);
 	}
 	
 	@Override
@@ -151,16 +148,6 @@ public class SeleniumHolder extends RunnerResultHolder {
 
 	public void setTestName(String testName) {
 		//not in use
-	}
-
-	/** Set next timeout in seconds */
-	public void setNextPageElementTimeout(int nextPageElementTimeout) {
-		this.nextPageElementTimeout = nextPageElementTimeout;
-	}
-	
-	/** Get next timeout in seconds */
-	public int getNextPageElementTimeout() {
-		return nextPageElementTimeout;
 	}
 
 	public CubicTestLocalRunner getSelenium() {

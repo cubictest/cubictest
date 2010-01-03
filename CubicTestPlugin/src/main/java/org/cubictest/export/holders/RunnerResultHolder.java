@@ -37,10 +37,12 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	protected final Display display;
 	protected CubicTestProjectSettings settings;
 	private boolean failOnAssertionFailure;
-	
-	public RunnerResultHolder(Display display, CubicTestProjectSettings settings) {
+	private int nextPageElementTimeout;
+
+	public RunnerResultHolder(Display display, CubicTestProjectSettings settings, int initialPageElementTimeout) {
 		this.display = display;
 		this.settings = settings;
+		this.nextPageElementTimeout = initialPageElementTimeout;
 	}
 
 	
@@ -172,6 +174,14 @@ public abstract class RunnerResultHolder extends ContextHolder {
 		return display;
 	}
 	
-
+	/** Set next timeout in seconds */
+	public void setNextPageElementTimeout(int nextPageElementTimeout) {
+		this.nextPageElementTimeout = nextPageElementTimeout;
+	}
+	
+	/** Get next timeout in seconds */
+	public int getNextPageElementTimeout() {
+		return nextPageElementTimeout;
+	}
 
 }

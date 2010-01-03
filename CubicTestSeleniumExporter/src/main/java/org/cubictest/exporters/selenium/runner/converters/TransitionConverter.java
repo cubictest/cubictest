@@ -64,9 +64,6 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 		if (transition.hasCustomTimeout()) {
 			seleniumHolder.setNextPageElementTimeout(transition.getSecondsToWaitForResult());
 		}
-		else {
-			seleniumHolder.setNextPageElementTimeout(SeleniumUtils.getTimeout(seleniumHolder.getSettings()));;
-		}
 	}
 
 	/**

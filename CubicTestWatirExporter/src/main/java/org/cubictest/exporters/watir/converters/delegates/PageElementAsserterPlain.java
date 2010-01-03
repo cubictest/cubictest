@@ -128,7 +128,7 @@ public class PageElementAsserterPlain {
 				//assert present
 				watirHolder.add("while " + not + watirHolder.getVariableName(pe) + "." + WatirUtils.getPresentAssertionMethod(pe) + " do", 3);
 			}
-			watirHolder.add("if (pass > 20)", 4);
+			watirHolder.add("if (pass > " + (watirHolder.getNextPageElementTimeout() * 10) + ")", 4);
 			watirHolder.add("raise " + WatirHolder.TEST_STEP_FAILED, 5);
 			watirHolder.add("end", 4);
 			watirHolder.add("sleep 0.1", 4);
