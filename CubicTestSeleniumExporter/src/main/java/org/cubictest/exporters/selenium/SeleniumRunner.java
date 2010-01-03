@@ -34,7 +34,7 @@ import org.openqa.selenium.server.RemoteControlConfiguration;
 
 /**
  * Has static methods for running tests.
- * Can easily be invoked e.g. from a unit test.
+ * Can be invoked e.g. from a unit test.
  * 
  * @author Christian Schwarz
  */
