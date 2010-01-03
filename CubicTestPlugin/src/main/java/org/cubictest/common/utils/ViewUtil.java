@@ -53,6 +53,7 @@ import org.cubictest.ui.gef.controller.AbstractPageEditPart;
 import org.cubictest.ui.gef.controller.PageElementEditPart;
 import org.cubictest.ui.gef.controller.PropertyChangePart;
 import org.cubictest.ui.gef.controller.TestEditPart;
+import org.cubictest.ui.gef.editors.GraphicalTestEditor;
 import org.cubictest.ui.gef.interfaces.exported.ITestEditor;
 import org.cubictest.ui.utils.UserInteractionDialogUtil;
 import org.eclipse.core.resources.IProject;
@@ -539,6 +540,14 @@ public class ViewUtil {
 			project = ((ITestEditor) editorPart).getProject();
 		}
 		return project;
+	}
+
+	public static GraphicalTestEditor getGraphicalTestEditorFromActivePage() {
+		IEditorPart editorPart = CubicTestPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		if (editorPart != null && editorPart instanceof GraphicalTestEditor) {
+			return ((GraphicalTestEditor) editorPart);
+		}
+		throw new CubicException("Could not get GraphicalTestEditor from active page");
 	}
 	
 	public static Test getTestFromActivePage() {

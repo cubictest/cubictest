@@ -15,6 +15,7 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 import java.util.Iterator;
 
 import org.cubictest.common.utils.Logger;
+import org.cubictest.common.utils.ViewUtil;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.ExtensionPoint;
@@ -33,6 +34,7 @@ import org.cubictest.ui.gef.view.CubicTestHeaderLabel;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.editparts.AbstractEditPart;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
@@ -197,17 +199,14 @@ public class AutoLayout {
 	 * @param page
 	 */
 	public void setPageSelected(AbstractPage page) {
+		GraphicalViewer graphicalViewer = ViewUtil.getGraphicalTestEditorFromActivePage().getGraphicalViewer();
+		graphicalViewer.deselectAll();
+		
 		Iterator<?> iter = this.getTestEditPart().getChildren().iterator();
 		while (iter.hasNext()) {
 			EditPart part = (EditPart) iter.next();
-			if (part instanceof AbstractPageEditPart) {
-				AbstractPage p = (AbstractPage) part.getModel();
-				if (p.equals(page)) {
-					part.setSelected(EditPart.SELECTED_PRIMARY);
-				}
-				else {
-					part.setSelected(EditPart.SELECTED_NONE);
-				}
+			if (part.getModel().equals(page)) {
+				graphicalViewer.select(part);
 			}
 		}
 	}
