@@ -10,8 +10,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.ui.ide
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .,
- lib/commons-lang-2.3.jar
+Bundle-ClassPath: .
 Bundle-Vendor: cubictest.org
 Bundle-Activator: org.cubictest.exporters.watir.WatirExporterPlugin
 Import-Package: org.eclipse.draw2d
