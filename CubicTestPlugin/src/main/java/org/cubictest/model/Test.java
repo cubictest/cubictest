@@ -439,7 +439,11 @@ public class Test extends PropertyAwareObject implements NamePropertyObject {
 		}
 		
 		for (SubTest subTest : getSubTests()) {
-			subTest.reloadTest();
+			subTest.reloadTest(true);
+		}
+
+		if (getStartPoint() instanceof ExtensionStartPoint) {
+			((ExtensionStartPoint) getStartPoint()).reloadTest(true);
 		}
 	}
 	

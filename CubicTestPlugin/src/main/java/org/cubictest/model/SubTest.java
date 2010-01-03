@@ -11,6 +11,7 @@
 package org.cubictest.model;
 
 import org.apache.commons.lang.StringUtils;
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.model.i18n.Language;
 import org.cubictest.persistence.TestPersistance;
@@ -74,6 +75,10 @@ public class SubTest extends ConnectionPoint {
 	}
 
 	public void reloadTest() {
+		reloadTest(false);
+	}
+	
+	public void reloadTest(boolean rethrowOnError) {
 		try {
 			if (project == null && test != null) {
 				project = test.getProject();
@@ -88,6 +93,9 @@ public class SubTest extends ConnectionPoint {
 			dangling = true;
 			test = new Test();
 			test.setName(message);
+			if (rethrowOnError) {
+				throw new CubicException(e, message);
+			}
 		}
 	}
 	

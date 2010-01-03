@@ -56,6 +56,8 @@ public class JUnitTestRunner {
 	}
 	
 	public void run(Test test) {
+		test.refreshSubFiles();
+		
 		try {
 			if (seleniumHolder == null || !reuseSelenium) {
 				startSeleniumAndOpenInitialUrlWithTimeoutGuard(test, 40);
