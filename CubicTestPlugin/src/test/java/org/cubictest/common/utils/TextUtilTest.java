@@ -78,27 +78,27 @@ public class TextUtilTest extends TestCase {
 	}
 	
 	@Test
-	public void testSimple() {
+	public void testNormalizeSimple() {
 		String s = "abc";
 		assertEquals(s, TextUtil.normalize(s));
 	}
 	
 	@Test
-	public void testSimpleWithSpace() {
+	public void testNormalizeSimpleWithSpace() {
 		String s = " abc ";
 		String ex = "abc";
 		assertEquals(ex, TextUtil.normalize(s));
 	}
 	
 	@Test
-	public void testSimpleWithMultipleSpace() {
+	public void testNormalizeSimpleWithMultipleSpace() {
 		String s = " a     b  c    ";
 		String ex = "a b c";
 		assertEquals(ex, TextUtil.normalize(s));
 	}
 	
 	@Test
-	public void testSimpleWithLineBreakAndTab() {
+	public void testNormalizeSimpleWithLineBreakAndTab() {
 		String s = " \ta   \n  b  c  \t\t\n  ";
 		String ex = "a b c";
 		assertEquals(ex, TextUtil.normalize(s));
