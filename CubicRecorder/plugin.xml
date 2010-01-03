@@ -1,74 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution 
-	       id="CubicRecorder.objectContribution0"
-		   objectClass="org.cubictest.ui.gef.controller.TestEditPart">
-         <action
-               class="org.cubictest.recorder.ui.RecordEditorAction"
-               id="CubicRecorder.record"
-               label="Record"
-               menubarPath="additions"
-               state="false"
-               icon="icons/record.gif"
-               style="toggle"
-               tooltip="Record test in a web browser"/>
-      </objectContribution>
-      <objectContribution 
-	       id="CubicRecorder.objectContribution1"
-		   objectClass="org.cubictest.ui.gef.controller.PageElementEditPart">
-         <action
-               class="org.cubictest.recorder.ui.RecordEditorAction"
-               id="CubicRecorder.record"
-               label="Record from selected Page/State"
-               menubarPath="additions"
-               state="false"
-               icon="icons/record.gif"
-               style="toggle"
-               tooltip="Record test in a web browser"/>
-      </objectContribution>
-      <objectContribution 
-	       id="CubicRecorder.objectContribution2"
-		   objectClass="org.cubictest.ui.gef.controller.PageEditPart">
-         <action
-               class="org.cubictest.recorder.ui.RecordEditorAction"
-               id="CubicRecorder.recordFromSelectedPage"
-               label="Record from selected Page/State"
-               menubarPath="additions"
-               state="false"
-               icon="icons/record.gif"
-               style="toggle"
-               tooltip="Record test in a web browser"/>
-      </objectContribution>
-      <objectContribution 
-	       id="CubicRecorder.objectContribution3"
-		   objectClass="org.cubictest.ui.gef.controller.ExtensionStartPointEditPart">
-         <action
-               class="org.cubictest.recorder.ui.RecordEditorAction"
-               id="CubicRecorder.record3"
-               label="Record"
-               menubarPath="additions"
-               state="false"
-               icon="icons/record.gif"
-               style="toggle"
-               tooltip="Record test in a web browser"/>
-      </objectContribution>
-      <objectContribution 
-	       id="CubicRecorder.objectContribution4"
-		   objectClass="org.cubictest.ui.gef.controller.UrlStartPointEditPart">
-         <action
-               class="org.cubictest.recorder.ui.RecordEditorAction"
-               id="CubicRecorder.record4"
-               label="Record"
-               menubarPath="additions"
-               state="false"
-               icon="icons/record.gif"
-               style="toggle"
-               tooltip="Record test in a web browser"/>
-      </objectContribution>
-   </extension>
    <extension point="org.eclipse.ui.preferencePages">
  	  <page id="CubicTestRecorderPreferencePage"
   	      	name="Recorder"
@@ -87,11 +19,11 @@
             modes="run, debug">
          <contextualLaunch>
             <contextLabel
-                  label="Record Test with Selenium (Custom Test Steps)"
+                  label="Record Test with Selenium"
                   mode="run">
             </contextLabel>
             <contextLabel
-                  label="Record/Debug Test with Selenium (Custom Test Steps)"
+                  label="Record/Debug Test with Selenium"
                   mode="debug">
             </contextLabel>
             <enablement>

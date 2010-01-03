@@ -10,30 +10,27 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.common.utils.Logger;
-import org.cubictest.export.converters.ICustomTestStepConverter;
 import org.cubictest.export.converters.TreeTestWalker;
-import org.cubictest.export.exceptions.UserCancelledException;
-import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.export.runner.RunnerStarter.Operation;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
 import org.cubictest.exporters.selenium.runner.converters.SameVMCustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
-import org.cubictest.exporters.selenium.runner.converters.UnsupportedCustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
-import org.cubictest.model.Page;
 import org.cubictest.model.Test;
-import org.cubictest.model.TransitionNode;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.Selenium;
 
@@ -42,45 +39,26 @@ import com.thoughtworks.selenium.Selenium;
  * 
  * @author Christian Schwarz
  */
-public class TestRunner extends BaseTestRunner {
+public class TestRunner {
 
+	protected static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
+	protected CubicTestProjectSettings settings;
 	SeleniumHolder seleniumHolder;
 	SeleniumStarter seleniumStarter;
 	Selenium selenium;
-	TransitionNode targetPage;
-	private IProgressMonitor monitor;
 	boolean reuseSelenium = false;
-	private boolean runingInSameVMAsCustomFiles = false;
 	private final SeleniumRunnerConfiguration config;
 
-
-	/**
-	 * Typically invoked by the CubicTest Recorder plugin for test forwarding.
-	 */
-	public TestRunner(SeleniumRunnerConfiguration config, Test test, Display display, CubicTestProjectSettings settings) {
-		super(display, settings, test);
-		this.test = test;
+	
+	public TestRunner(SeleniumRunnerConfiguration config, CubicTestProjectSettings settings) {
+		this.settings = settings;
 		this.config = config;
 	}
 	
-	/**
-	 * Use existing Selenium instance in runner.
-	 * Typically invoked by the Maven plugin.
-	 */
-	public TestRunner(SeleniumRunnerConfiguration config, Test test, Selenium selenium, CubicTestProjectSettings settings, boolean runingInSameVMAsCustomFiles) {
-		super(null, settings, test);
-		this.config = config;
-		this.test = test;
-		this.selenium = selenium;
-		this.runingInSameVMAsCustomFiles  = runingInSameVMAsCustomFiles;
-	}
-	
-	public void run(IProgressMonitor monitor) {
-		this.monitor = monitor;
-		
+	public void run(Test test) {
 		try {
 			if (seleniumHolder == null || !reuseSelenium) {
-				startSeleniumAndOpenInitialUrlWithTimeoutGuard(monitor, 40);
+				startSeleniumAndOpenInitialUrlWithTimeoutGuard(test, 40);
 			}
 			
 			seleniumHolder.setWorkingDir(config.getHtmlCaptureAndScreenshotsTargetDir());
@@ -88,37 +66,16 @@ public class TestRunner extends BaseTestRunner {
 			seleniumHolder.setTakeScreenshots(config.isTakeScreenshots());
 			seleniumHolder.setCaptureHtml(config.isCaptureHtml());
 
-			Class<? extends ICustomTestStepConverter<SeleniumHolder>> ctsc = null;
-			if(runingInSameVMAsCustomFiles) {
-				ctsc = SameVMCustomTestStepConverter.class;
-			}
-			else {
-				ctsc = UnsupportedCustomTestStepConverter.class;
-			}
-				
 			TreeTestWalker<SeleniumHolder> testWalker = new TreeTestWalker<SeleniumHolder>(UrlStartPointConverter.class, 
 					PageElementConverter.class, ContextConverter.class, 
-					TransitionConverter.class, ctsc);
+					TransitionConverter.class, SameVMCustomTestStepConverter.class);
 			
-			if (monitor != null) {
-				monitor.beginTask("Traversing the test model...", IProgressMonitor.UNKNOWN);
-			}
+			//walk the test!
+			testWalker.convertTest(test, seleniumHolder, null);
 			
-			//run the test!
-			testWalker.convertTest(test, seleniumHolder, targetPage);
-
-			if (monitor != null) {
-				monitor.done();
-			}
-
 		}
 		catch (Exception e) {
-			if (monitor != null && monitor.isCanceled()) {
-				throw new UserCancelledException("User cancelled");
-			}
-			else {
-				ErrorHandler.rethrow(e);
-			}
+			ErrorHandler.rethrow(e);
 		}
 	}
 
@@ -126,21 +83,15 @@ public class TestRunner extends BaseTestRunner {
 	/**
 	 * Start selenium and opens initial URL, all guarded by a timeout.
 	 */
-	private void startSeleniumAndOpenInitialUrlWithTimeoutGuard(final IProgressMonitor monitor, int timeoutSeconds)
+	private void startSeleniumAndOpenInitialUrlWithTimeoutGuard(Test test, int timeoutSeconds)
 			throws InterruptedException {
 		
 		seleniumStarter = new SeleniumStarter(config);
 		seleniumStarter.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(test));
-		seleniumStarter.setDisplay(display);
 		seleniumStarter.setSelenium(selenium);
 		seleniumStarter.setStartNewSeleniumServer(config.shouldStartCubicSeleniumServer());
 		seleniumStarter.setSettings(settings);
 
-		if (monitor != null) {
-			CancelHandler cancelHandler = new CancelHandler(monitor, this);
-			cancelHandler.start();
-		}
-		
 		//start Selenium (browser and server), guard by timeout:
 		try {
 			seleniumStarter.setOperation(Operation.START);
@@ -157,10 +108,7 @@ public class TestRunner extends BaseTestRunner {
 					+ "Error message: " + e.toString(), e);
 		}
 		
-		//monitor used to detect user cancel request:
-		seleniumHolder.setMonitor(monitor);
-		seleniumHolder.setFailOnAssertionFailure(failOnAssertionFailure);
-		
+		seleniumHolder.setFailOnAssertionFailure(true);
 
 		while (!seleniumHolder.isSeleniumStarted()) {
 			//wait for selenium (server & test system) to start
@@ -168,32 +116,6 @@ public class TestRunner extends BaseTestRunner {
 		}
 	}
 
-	
-
-	/**
-	 * Stop selenium, guarded by a timeout.
-	 */
-	public void stopSeleniumWithTimeoutGuard(int timeoutSeconds) {
-		try {
-			if (seleniumStarter != null) {
-				seleniumStarter.setOperation(Operation.STOP);
-				call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
-			}
-			seleniumStarter = null;
-		} catch (Exception e) {
-			if (monitor != null && monitor.isCanceled()) {
-				Logger.warn("Exception when stopping selenium.", e);
-			}
-			else {
-				ErrorHandler.rethrow(e);
-			}
-		}
-		finally {
-			if (seleniumHolder != null) {
-				seleniumHolder.setSeleniumStarted(false);
-			}
-		}
-	}
 
 	/**
 	 * Show the results of the test in the GUI.
@@ -209,26 +131,43 @@ public class TestRunner extends BaseTestRunner {
 	public String getCurrentBreadcrumbs() {
 		return seleniumHolder.getCurrentBreadcrumbs();
 	}
-	
-
 
 	public void setSelenium(Selenium selenium) {
 		this.selenium = selenium;
 	}
 
-
-	public void setTargetPage(TransitionNode targetPage) {
-		this.targetPage = targetPage;
-	}
-
-
 	public void setReuseSelenium(boolean reuseSelenium) {
 		this.reuseSelenium = reuseSelenium;
 	}
 
-	public void cleanUp() {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * Call a callable object, guarded by timeout.
+	 */
+	protected static <T> T call(Callable<T> c, long timeout, TimeUnit timeUnit)
+	    throws InterruptedException, ExecutionException, TimeoutException {
+	    FutureTask<T> t = new FutureTask<T>(c);
+	    THREADPOOL.execute(t);
+	    return t.get(timeout, timeUnit);
 	}
-
+	
+	/**
+	 * Stop selenium, guarded by a timeout.
+	 */
+	public void stopSeleniumWithTimeoutGuard(int timeoutSeconds) {
+		try {
+			if (seleniumStarter != null) {
+				seleniumStarter.setOperation(Operation.STOP);
+				call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
+			}
+			seleniumStarter = null;
+		} catch (Exception e) {
+			ErrorHandler.rethrow(e);
+		}
+		finally {
+			if (seleniumHolder != null) {
+				seleniumHolder.setSeleniumStarted(false);
+			}
+		}
+	}
+	
 }

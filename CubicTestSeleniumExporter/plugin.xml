@@ -11,14 +11,6 @@
       </CustomStepExtension>
    </extension>
 
-   <extension point="org.eclipse.ui.preferencePages">
- 	  <page id="CubicTestSeleniumExporterPreferencePage"
-  	      	name="Selenium Exporter"
-	      	class="org.cubictest.exporters.selenium.ui.preferences.SeleniumExporterPreferencePage"
-		    category="CubicTestPreferencePage">
-   	  </page>
-   </extension>
-     
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
@@ -42,48 +34,6 @@
          </action>
       </objectContribution>
 
-      <objectContribution
-            id="CubicTestSeleniumExporter.objectContribution1"
-		    objectClass="org.cubictest.ui.gef.controller.TestEditPart">
-         <action
-               class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               icon="icons/selenium_run_icon.gif"
-               id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               label="Run Test with Selenium Runner"
-               menubarPath="additions"/>
-      </objectContribution>
-      <objectContribution
-            id="CubicTestSeleniumExporter.objectContribution2"
-		    objectClass="org.cubictest.ui.gef.controller.AbstractStartPointEditPart">
-         <action
-               class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               icon="icons/selenium_run_icon.gif"
-               id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               label="Run Test with Selenium Runner"
-               menubarPath="additions"/>
-      </objectContribution>
-
-      <objectContribution
-            id="CubicTestSeleniumExporter.objectContribution3"
-		    objectClass="org.cubictest.ui.gef.controller.PageEditPart">
-         <action
-               class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               icon="icons/selenium_run_icon.gif"
-               id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               label="Run with Selenium to selected Page/State"
-               menubarPath="additions"/>
-      </objectContribution>
-      <objectContribution
-            id="CubicTestSeleniumExporter.objectContribution4"
-		    objectClass="org.cubictest.ui.gef.controller.PageElementEditPart">
-         <action
-               class="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               icon="icons/selenium_run_icon.gif"
-               id="org.cubictest.exporters.selenium.ui.RunSeleniumRunnerAction"
-               label="Run with Selenium to selected Page/State"
-               menubarPath="additions"/>
-      </objectContribution>
-      
       <viewerContribution
             id="CubicTestSeleniumExporter.viewerContribution1"
             targetID="cubicTestPlugin.editor.contextmenu">
@@ -164,11 +114,11 @@
             modes="run, debug">
          <contextualLaunch>
             <contextLabel
-                  label="Run Test with Selenium (Custom Test Steps)"
+                  label="Run Test with Selenium"
                   mode="run">
             </contextLabel>
             <contextLabel
-                  label="Debug Test with Selenium (Custom Test Steps)"
+                  label="Debug Test with Selenium"
                   mode="debug">
             </contextLabel>
             <enablement>

@@ -153,9 +153,8 @@ public class SeleniumRunner
         
         if (reuseBrowser && testRunner == null) {
         	//we start the browser just once for this instance
-			testRunner = new TestRunner(config, null, null, settings, true);
+			testRunner = new TestRunner(config, settings);
 			testRunner.setReuseSelenium(true);
-			testRunner.setFailOnAssertionFailure(true);
         }
         
         for (File file : files) {
@@ -166,14 +165,12 @@ public class SeleniumRunner
     		try {
     			notRunTests.remove(file.getName());
     			if (reuseBrowser) {
-    				testRunner.setTest(test);
-        			testRunner.run(null);
+        			testRunner.run(test);
         			passedTests.add(file.getName());
     			}
     			else {
-    				testRunner = new TestRunner(config, test, null, settings,true);
-        			testRunner.setFailOnAssertionFailure(true);
-        			testRunner.run(null);
+    				testRunner = new TestRunner(config, settings);
+        			testRunner.run(test);
         			passedTests.add(file.getName());
                 	smallLogSeperator();
                 	System.out.println(LOG_PREFIX + "Test run finished: " + file.getName() + ": " + testRunner.getResultMessage());

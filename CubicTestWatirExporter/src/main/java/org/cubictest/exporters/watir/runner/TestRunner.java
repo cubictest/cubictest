@@ -15,15 +15,14 @@ import java.io.FileWriter;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.converters.TreeTestWalker;
-import org.cubictest.export.runner.BaseTestRunner;
 import org.cubictest.exporters.watir.converters.ContextConverter;
 import org.cubictest.exporters.watir.converters.CustomTestStepConverter;
 import org.cubictest.exporters.watir.converters.PageElementConverter;
 import org.cubictest.exporters.watir.converters.TransitionConverter;
 import org.cubictest.exporters.watir.converters.UrlStartPointConverter;
 import org.cubictest.exporters.watir.holders.WatirHolder;
-import org.cubictest.model.Page;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,7 +34,7 @@ import org.eclipse.swt.widgets.Display;
  * 
  * @author Christian Schwarz
  */
-public class TestRunner extends BaseTestRunner {
+public class TestRunner implements ICubicTestRunnable {
 
 	public static final String RUNNER_TEMP_FILENAME = "cubictest_watir_runner_temp.rb";
 	Display display;
@@ -46,12 +45,13 @@ public class TestRunner extends BaseTestRunner {
 	Process process;
 	TestDoneHandler testDoneHandler;
 	private TransitionNode targetPage;
+	protected Test test;
 
 	
 	public TestRunner(Test test, Display display, CubicTestProjectSettings settings) {
-		super(display, settings, test);
 		this.settings = settings;
 		this.display = display;
+		this.test = test;
 	}
 
 
@@ -136,10 +136,11 @@ public class TestRunner extends BaseTestRunner {
 		this.targetPage = targetPage;
 	}
 
+	public Test getTest() {
+		return test;
+	}
 
 	public void cleanUp() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
