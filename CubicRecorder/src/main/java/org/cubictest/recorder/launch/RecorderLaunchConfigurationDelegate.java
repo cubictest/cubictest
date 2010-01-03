@@ -15,8 +15,8 @@ import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.launch.LaunchConfigurationDelegate;
-import org.cubictest.exporters.selenium.launch.TestRunner;
-import org.cubictest.exporters.selenium.launch.TestRunner.RunnerParameters;
+import org.cubictest.exporters.selenium.launch.LaunchTestRunner;
+import org.cubictest.exporters.selenium.launch.LaunchTestRunner.RunnerParameters;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.model.Test;
 import org.cubictest.recorder.CubicRecorder;
@@ -31,14 +31,14 @@ public class RecorderLaunchConfigurationDelegate extends LaunchConfigurationDele
 
 	private SeleniumRecorder seleniumRecorder;
 
-	protected ICubicTestRunnable getCubicTestRunnable(TestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config) {
+	protected ICubicTestRunnable getCubicTestRunnable(LaunchTestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config) {
 		
 		ITestEditor testEditor = getTestEditor();
 		AutoLayout autoLayout = new AutoLayout(testEditor);
 		SynchronizedCommandStack syncCommandStack = new SynchronizedCommandStack(parameters.display, testEditor.getCommandStack());
 		IRecorder cubicRecorder = new CubicRecorder(parameters.test, syncCommandStack, autoLayout, parameters.display);
 		IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder, parameters.display);
-		TestRunner initialTestRunner = new TestRunner(parameters, config);
+		LaunchTestRunner initialTestRunner = new LaunchTestRunner(parameters, config);
 
 		seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, ExportUtils.getInitialUrlStartPoint(parameters.test).getBeginAt(), parameters.display, config.getBrowser(), initialTestRunner);
 		cubicRecorder.setEnabled(true);

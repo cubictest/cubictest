@@ -20,7 +20,7 @@ import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.common.BrowserType;
-import org.cubictest.exporters.selenium.launch.TestRunner;
+import org.cubictest.exporters.selenium.launch.LaunchTestRunner;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
@@ -48,10 +48,10 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 	private final String url;
 	private Thread serverThread;
 	private final Display display;
-	private final TestRunner initialTestRunner;
+	private final LaunchTestRunner initialTestRunner;
 	private final IRecorder recorder;
 
-	public SeleniumRecorder(IRecorder recorder, String url, Display display, BrowserType browser, TestRunner initialTestRunner) {
+	public SeleniumRecorder(IRecorder recorder, String url, Display display, BrowserType browser, LaunchTestRunner initialTestRunner) {
 		this.recorder = recorder;
 		this.url = url;
 		this.display = display;

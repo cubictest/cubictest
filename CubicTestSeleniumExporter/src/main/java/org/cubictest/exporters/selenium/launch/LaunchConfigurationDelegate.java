@@ -210,7 +210,7 @@ public abstract class LaunchConfigurationDelegate extends AbstractJavaLaunchConf
 			seleniumMultiWindow = getSeleniumMultiWindow(configuration);
 			
 			// create the parameters:
-			TestRunner.RunnerParameters parameters = new TestRunner.RunnerParameters();
+			LaunchTestRunner.RunnerParameters parameters = new LaunchTestRunner.RunnerParameters();
 			parameters.test = test;
 			parameters.display = wb.getDisplay();
 			parameters.remoteRunnerClientListenerPort = serverPort;
@@ -270,11 +270,11 @@ public abstract class LaunchConfigurationDelegate extends AbstractJavaLaunchConf
 
 	
 	/** To be overridden by runner implementations. */
-	protected abstract void verifyPreconditions(TestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config);
+	protected abstract void verifyPreconditions(LaunchTestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config);
 
 	
 	/** To be overridden by runner implementations. */
-	protected abstract ICubicTestRunnable getCubicTestRunnable(TestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config);
+	protected abstract ICubicTestRunnable getCubicTestRunnable(LaunchTestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config);
 
 	
 	private String getBrowser(ILaunchConfiguration configuration) {

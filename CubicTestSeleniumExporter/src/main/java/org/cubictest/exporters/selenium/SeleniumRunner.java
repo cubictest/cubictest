@@ -24,7 +24,7 @@ import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
-import org.cubictest.exporters.selenium.runner.TestRunner;
+import org.cubictest.exporters.selenium.runner.JUnitTestRunner;
 import org.cubictest.exporters.selenium.runner.converters.SameVMCustomTestStepConverter;
 import org.cubictest.model.Test;
 import org.cubictest.persistence.TestPersistance;
@@ -47,7 +47,7 @@ public class SeleniumRunner
 
 	private static final boolean REUSE_BROWSER_DEFAULT = true;
 	private boolean reuseBrowser = REUSE_BROWSER_DEFAULT;
-	private TestRunner testRunner;
+	private JUnitTestRunner testRunner;
 	private SeleniumRunnerConfiguration config;
 	private CubicTestProjectSettings settings;
 
@@ -153,7 +153,7 @@ public class SeleniumRunner
         
         if (reuseBrowser && testRunner == null) {
         	//we start the browser just once for this instance
-			testRunner = new TestRunner(config, settings);
+			testRunner = new JUnitTestRunner(config, settings);
 			testRunner.setReuseSelenium(true);
         }
         
@@ -169,7 +169,7 @@ public class SeleniumRunner
         			passedTests.add(file.getName());
     			}
     			else {
-    				testRunner = new TestRunner(config, settings);
+    				testRunner = new JUnitTestRunner(config, settings);
         			testRunner.run(test);
         			passedTests.add(file.getName());
                 	smallLogSeperator();
@@ -242,9 +242,9 @@ public class SeleniumRunner
 		System.out.println(SMALL_SEPERATOR);
 	}
 
-	private static void stopSelenium(TestRunner testRunner) {
+	private static void stopSelenium(JUnitTestRunner testRunner) {
 		try {
-			((TestRunner) testRunner).stopSeleniumWithTimeoutGuard(20);
+			((JUnitTestRunner) testRunner).stopSeleniumWithTimeoutGuard(20);
 		}
 		catch (Exception e) {
 			System.err.println("Error stopping selenium.");

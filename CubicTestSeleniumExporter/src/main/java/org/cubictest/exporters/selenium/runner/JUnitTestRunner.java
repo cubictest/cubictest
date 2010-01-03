@@ -39,7 +39,7 @@ import com.thoughtworks.selenium.Selenium;
  * 
  * @author Christian Schwarz
  */
-public class TestRunner {
+public class JUnitTestRunner {
 
 	protected static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
 	protected CubicTestProjectSettings settings;
@@ -50,7 +50,7 @@ public class TestRunner {
 	private final SeleniumRunnerConfiguration config;
 
 	
-	public TestRunner(SeleniumRunnerConfiguration config, CubicTestProjectSettings settings) {
+	public JUnitTestRunner(SeleniumRunnerConfiguration config, CubicTestProjectSettings settings) {
 		this.settings = settings;
 		this.config = config;
 	}

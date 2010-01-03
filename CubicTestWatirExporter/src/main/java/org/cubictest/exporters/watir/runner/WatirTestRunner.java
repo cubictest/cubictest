@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Display;
  * 
  * @author Christian Schwarz
  */
-public class TestRunner implements ICubicTestRunnable {
+public class WatirTestRunner implements ICubicTestRunnable {
 
 	public static final String RUNNER_TEMP_FILENAME = "cubictest_watir_runner_temp.rb";
 	Display display;
@@ -48,7 +48,7 @@ public class TestRunner implements ICubicTestRunnable {
 	protected Test test;
 
 	
-	public TestRunner(Test test, Display display, CubicTestProjectSettings settings) {
+	public WatirTestRunner(Test test, Display display, CubicTestProjectSettings settings) {
 		this.settings = settings;
 		this.display = display;
 		this.test = test;

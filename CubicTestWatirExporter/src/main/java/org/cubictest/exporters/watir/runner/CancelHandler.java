@@ -20,9 +20,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 public class CancelHandler extends Thread {
 	Process process;
 	IProgressMonitor monitor;
-	TestRunner runner;
+	WatirTestRunner runner;
 	
-	public CancelHandler(Process process, IProgressMonitor progressMon, TestRunner runner) {
+	public CancelHandler(Process process, IProgressMonitor progressMon, WatirTestRunner runner) {
 		this.process = process;
 		this.monitor = progressMon;
 		this.runner = runner;

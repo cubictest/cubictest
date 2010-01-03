@@ -14,7 +14,7 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.ui.BaseRunnerAction;
 import org.cubictest.exporters.watir.WatirExporterPlugin;
-import org.cubictest.exporters.watir.runner.TestRunner;
+import org.cubictest.exporters.watir.runner.WatirTestRunner;
 import org.cubictest.model.Test;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -36,11 +36,11 @@ public class RunWatirRunnerAction extends BaseRunnerAction {
 
 	@Override
 	public ICubicTestRunnable getTestRunner(Test test, Display display, CubicTestProjectSettings settings) {
-		return new TestRunner(test, display, settings);
+		return new WatirTestRunner(test, display, settings);
 	}
 
 	@Override
 	protected void finalCleanUp() {
-		((TestRunner) testRunner).closeBrowser();
+		((WatirTestRunner) testRunner).closeBrowser();
 	}
 }

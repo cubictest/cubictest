@@ -34,7 +34,6 @@ import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
-import org.cubictest.model.Page;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
 import org.eclipse.core.resources.IResource;
@@ -44,7 +43,7 @@ import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.Selenium;
 
-public class TestRunner implements ICubicTestRunnable {
+public class LaunchTestRunner implements ICubicTestRunnable {
 
 	private static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
 	private SeleniumHolder seleniumHolder;
@@ -68,7 +67,7 @@ public class TestRunner implements ICubicTestRunnable {
 	}
 
 
-	public TestRunner(RunnerParameters runnerParameters, SeleniumRunnerConfiguration config) {
+	public LaunchTestRunner(RunnerParameters runnerParameters, SeleniumRunnerConfiguration config) {
 		this.runnerParameters = runnerParameters;
 		this.config = config;
 	}

@@ -22,10 +22,10 @@ import org.eclipse.core.runtime.IProgressMonitor;
 public class TestDoneHandler extends Thread {
 	Process process;
 	IProgressMonitor monitor;
-	TestRunner runner;
+	WatirTestRunner runner;
 	boolean closeBrowser;
 	
-	public TestDoneHandler(Process process, IProgressMonitor progressMon, TestRunner runner) {
+	public TestDoneHandler(Process process, IProgressMonitor progressMon, WatirTestRunner runner) {
 		this.process = process;
 		this.monitor = progressMon;
 		this.runner = runner;
