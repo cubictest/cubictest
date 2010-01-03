@@ -23,7 +23,6 @@ import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.converters.TreeTestWalker;
-import org.cubictest.export.runner.RunnerStarter.Operation;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.launch.converters.LaunchCustomTestStepConverter;
 import org.cubictest.exporters.selenium.runner.CubicTestRemoteRunnerClient;
@@ -33,7 +32,8 @@ import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
 import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
-import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
+import org.cubictest.exporters.selenium.runner.util.SeleniumController;
+import org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation;
 import org.cubictest.model.Test;
 import org.cubictest.model.TransitionNode;
 import org.eclipse.core.resources.IResource;
@@ -47,7 +47,7 @@ public class LaunchTestRunner implements ICubicTestRunnable {
 
 	private static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
 	private SeleniumHolder seleniumHolder;
-	private SeleniumStarter seleniumStarter;
+	private SeleniumController seleniumController;
 	private Selenium selenium;
 	private TransitionNode targetPage;
 	private IProgressMonitor monitor;
@@ -132,12 +132,12 @@ public class LaunchTestRunner implements ICubicTestRunnable {
 	private void startSeleniumAndOpenInitialUrlWithTimeoutGuard(final IProgressMonitor monitor, int timeoutSeconds)
 			throws InterruptedException {
 		
-		seleniumStarter = new SeleniumStarter(config);
-		seleniumStarter.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(runnerParameters.test));
-		seleniumStarter.setDisplay(runnerParameters.display);
-		seleniumStarter.setSelenium(selenium);
-		seleniumStarter.setStartNewSeleniumServer(config.shouldStartCubicSeleniumServer());
-		seleniumStarter.setSettings(new CubicTestProjectSettings(runnerParameters.test.getProject())); 
+		seleniumController = new SeleniumController(config);
+		seleniumController.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(runnerParameters.test));
+		seleniumController.setDisplay(runnerParameters.display);
+		seleniumController.setSelenium(selenium);
+		seleniumController.setStartNewSeleniumServer(config.shouldStartCubicSeleniumServer());
+		seleniumController.setSettings(new CubicTestProjectSettings(runnerParameters.test.getProject())); 
 		
 		//start cancel handler, in case we want to cancel the Selenium startup or test run:
 		if (monitor != null) {
@@ -157,7 +157,7 @@ public class LaunchTestRunner implements ICubicTestRunnable {
 				}
 
 				private boolean seleniumIsRunnningOrStarting() {
-					return seleniumStarter != null || (seleniumHolder != null && seleniumHolder.isSeleniumStarted());
+					return seleniumController != null || (seleniumHolder != null && seleniumHolder.isSeleniumStarted());
 				}
 			};
 			cancelHandler.start();
@@ -165,8 +165,8 @@ public class LaunchTestRunner implements ICubicTestRunnable {
 
 		// start Selenium (browser and server), guard by timeout:
 		try {
-			seleniumStarter.setOperation(Operation.START);
-			seleniumHolder = call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
+			seleniumController.setOperation(Operation.START);
+			seleniumHolder = call(seleniumController, timeoutSeconds, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			ErrorHandler.rethrow("Unable to start " + config.getBrowser().getDisplayName() + 
 					" and open initial URL.\n\n" +
@@ -195,9 +195,9 @@ public class LaunchTestRunner implements ICubicTestRunnable {
 	 */
 	public void stopSeleniumWithTimeoutGuard(int timeoutSeconds) {
 		try {
-			if (seleniumStarter != null) {
-				seleniumStarter.setOperation(Operation.STOP);
-				call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
+			if (seleniumController != null) {
+				seleniumController.setOperation(Operation.STOP);
+				call(seleniumController, timeoutSeconds, TimeUnit.SECONDS);
 			}
 		} catch (Exception e) {
 			if (monitor != null && monitor.isCanceled()) {
@@ -207,7 +207,7 @@ public class LaunchTestRunner implements ICubicTestRunnable {
 				ErrorHandler.rethrow(e);
 			}
 		} finally {
-			seleniumStarter = null;
+			seleniumController = null;
 			if (seleniumHolder != null) {
 				seleniumHolder.setSeleniumStarted(false);
 			}

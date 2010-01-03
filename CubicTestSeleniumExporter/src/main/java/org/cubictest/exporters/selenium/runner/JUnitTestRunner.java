@@ -21,7 +21,6 @@ import java.util.concurrent.TimeoutException;
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.export.converters.TreeTestWalker;
-import org.cubictest.export.runner.RunnerStarter.Operation;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.runner.converters.ContextConverter;
 import org.cubictest.exporters.selenium.runner.converters.PageElementConverter;
@@ -29,7 +28,8 @@ import org.cubictest.exporters.selenium.runner.converters.SameVMCustomTestStepCo
 import org.cubictest.exporters.selenium.runner.converters.TransitionConverter;
 import org.cubictest.exporters.selenium.runner.converters.UrlStartPointConverter;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
-import org.cubictest.exporters.selenium.runner.util.SeleniumStarter;
+import org.cubictest.exporters.selenium.runner.util.SeleniumController;
+import org.cubictest.exporters.selenium.runner.util.SeleniumController.Operation;
 import org.cubictest.model.Test;
 
 import com.thoughtworks.selenium.Selenium;
@@ -44,7 +44,7 @@ public class JUnitTestRunner {
 	protected static final ExecutorService THREADPOOL = Executors.newCachedThreadPool();
 	protected CubicTestProjectSettings settings;
 	SeleniumHolder seleniumHolder;
-	SeleniumStarter seleniumStarter;
+	SeleniumController seleniumController;
 	Selenium selenium;
 	boolean reuseSelenium = false;
 	private final SeleniumRunnerConfiguration config;
@@ -86,16 +86,16 @@ public class JUnitTestRunner {
 	private void startSeleniumAndOpenInitialUrlWithTimeoutGuard(Test test, int timeoutSeconds)
 			throws InterruptedException {
 		
-		seleniumStarter = new SeleniumStarter(config);
-		seleniumStarter.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(test));
-		seleniumStarter.setSelenium(selenium);
-		seleniumStarter.setStartNewSeleniumServer(config.shouldStartCubicSeleniumServer());
-		seleniumStarter.setSettings(settings);
+		seleniumController = new SeleniumController(config);
+		seleniumController.setInitialUrlStartPoint(ExportUtils.getInitialUrlStartPoint(test));
+		seleniumController.setSelenium(selenium);
+		seleniumController.setStartNewSeleniumServer(config.shouldStartCubicSeleniumServer());
+		seleniumController.setSettings(settings);
 
 		//start Selenium (browser and server), guard by timeout:
 		try {
-			seleniumStarter.setOperation(Operation.START);
-			seleniumHolder = call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
+			seleniumController.setOperation(Operation.START);
+			seleniumHolder = call(seleniumController, timeoutSeconds, TimeUnit.SECONDS);
 		}
 		catch (Exception e) {
 			ErrorHandler.rethrow("Unable to start " + config.getBrowser().getDisplayName() + 
@@ -155,11 +155,11 @@ public class JUnitTestRunner {
 	 */
 	public void stopSeleniumWithTimeoutGuard(int timeoutSeconds) {
 		try {
-			if (seleniumStarter != null) {
-				seleniumStarter.setOperation(Operation.STOP);
-				call(seleniumStarter, timeoutSeconds, TimeUnit.SECONDS);
+			if (seleniumController != null) {
+				seleniumController.setOperation(Operation.STOP);
+				call(seleniumController, timeoutSeconds, TimeUnit.SECONDS);
 			}
-			seleniumStarter = null;
+			seleniumController = null;
 		} catch (Exception e) {
 			ErrorHandler.rethrow(e);
 		}

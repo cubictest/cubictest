@@ -10,14 +10,17 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner.util;
 
+import java.util.concurrent.Callable;
+
+import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.ExporterException;
-import org.cubictest.export.runner.RunnerStarter;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.exporters.selenium.runner.holders.SeleniumHolder;
 import org.cubictest.exporters.selenium.utils.SeleniumUtils;
 import org.cubictest.model.UrlStartPoint;
+import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.Selenium;
 
@@ -27,8 +30,13 @@ import com.thoughtworks.selenium.Selenium;
  * 
  * @author Christian Schwarz
  */
-public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
+public class SeleniumController implements Callable<SeleniumHolder> {
 
+	public enum Operation {
+		START, STOP
+	};
+	
+	public Operation operation = Operation.START;
 	SeleniumProxyServer server;
 	SeleniumHolder seleniumHolder;
 	UrlStartPoint initialUrlStartPoint;
@@ -36,19 +44,38 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 	Selenium selenium;
 	private boolean startNewSeleniumServer = true;
 	private SeleniumRunnerConfiguration config;
+	protected Display display;
+	protected CubicTestProjectSettings settings;
 	
 	
 	@SuppressWarnings("unused")
-	private SeleniumStarter(){}
+	private SeleniumController(){}
 	
-	public SeleniumStarter(SeleniumRunnerConfiguration configuration) {
+	
+	public SeleniumController(SeleniumRunnerConfiguration configuration) {
 		this.config = configuration;
 	}
+	
+	
+	/**
+	 * Method to start/stop the runner thread.
+	 * Caller should guard method by a timeout.
+	 */
+	public SeleniumHolder call() throws InterruptedException {
+		if (Operation.START.equals(operation)) {
+			return doStart();
+		}
+		
+		else if (Operation.STOP.equals(operation)){
+			return doStop();
+		}
+		return null;
+	}
+	
 	
 	/**
 	 * Start the Selenium Proxy Server and start and return the Selenium test object.
 	 */
-	@Override
 	public SeleniumHolder doStart() {
 		if (selenium == null && startNewSeleniumServer) {
 			server = new SeleniumProxyServer(config);
@@ -100,7 +127,6 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 		
 	
 	
-	@Override
 	protected SeleniumHolder doStop() {
 		try {
 			if (seleniumHolder != null && seleniumStarted) {
@@ -137,5 +163,17 @@ public class SeleniumStarter extends RunnerStarter<SeleniumHolder> {
 
 	public void setStartNewSeleniumServer(boolean startNewSeleniumServer) {
 		this.startNewSeleniumServer = startNewSeleniumServer;
+	}
+	
+	public void setDisplay(Display display) {
+		this.display = display;
+	}
+
+	public void setSettings(CubicTestProjectSettings settings) {
+		this.settings = settings;
+	}
+
+	public void setOperation(Operation operation) {
+		this.operation = operation;
 	}
 }
