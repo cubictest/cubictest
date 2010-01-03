@@ -58,7 +58,6 @@ public class CubicSelenium implements Selenium {
 				}
 			}
 		}catch (IOException e) {
-			//e.printStackTrace();
 			throw new RuntimeException("Could not execute Selenium command: " + command + " " + args, e);
 		}
 		return results;
