@@ -114,7 +114,7 @@ public class TreeTestWalker<T extends IResultHolder> {
 	 * @param targetExtensionPoint Convert only path in test that leads to this targetExtensionPoint
 	 * @param targetPage page that the walker should stop when it gets to
 	 */
-	public void convertTest(Test test, ConnectionPoint targetExtensionPoint, T resultHolder, TransitionNode targetPage) {
+	private void convertTest(Test test, ConnectionPoint targetExtensionPoint, T resultHolder, TransitionNode targetPage) {
 		if (targetExtensionPoint == null && targetPage == null) {
 			//traverse tree
 			convertTest(test, resultHolder);
