@@ -128,12 +128,12 @@ public abstract class LaunchConfigurationDelegate extends AbstractJavaLaunchConf
 			// Environment variables
 			String[] envp= getEnvironment(configuration);
 			
-			ArrayList vmArguments= new ArrayList();
-			ArrayList programArguments= new ArrayList();
+			ArrayList<Object> vmArguments= new ArrayList<Object>();
+			ArrayList<Object> programArguments= new ArrayList<Object>();
 			collectExecutionArguments(configuration, vmArguments, programArguments);
 			
 			// VM-specific attributes
-			Map vmAttributesMap= getVMSpecificAttributesMap(configuration);
+			Map<?, ?> vmAttributesMap= getVMSpecificAttributesMap(configuration);
 			
 			// Classpath
 			String[] classpath = getClasspath(configuration);

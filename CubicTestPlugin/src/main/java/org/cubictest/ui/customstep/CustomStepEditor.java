@@ -296,7 +296,7 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 
 	}
 	
-	private void updateActions(List actionIds){
+	private void updateActions(List<String> actionIds){
 		for(int i = 0; i < actionIds.size(); i++){
 			IAction action = getActionRegistry().getAction(actionIds.get(i));
 			if (action != null && action instanceof UpdateAction){
@@ -310,6 +310,8 @@ public class CustomStepEditor extends EditorPart implements ICustomStepListener 
 		}
 		return actionRegistry;
 	}
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(Class adapter) {	
 		if (adapter == CommandStack.class)

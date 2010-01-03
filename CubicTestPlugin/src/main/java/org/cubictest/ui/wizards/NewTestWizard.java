@@ -112,7 +112,6 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		final String url = newUrlStartPointPage.getUrl();
 		final ExtensionPoint extensionPoint = extentionStartPointSelectorPage.getExtensionPoint();
 		final IFile file = extentionStartPointSelectorPage.getExtentionPointFile();
-		final boolean useUrlStartPoint = startPointTypeSelectionPage.isUrlStartPointSelected();
 		
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {

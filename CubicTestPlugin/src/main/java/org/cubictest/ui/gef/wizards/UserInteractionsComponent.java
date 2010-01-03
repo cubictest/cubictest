@@ -704,7 +704,7 @@ public class UserInteractionsComponent {
 		 * Get contents to display in dropdown.
 		 */
 		public Object[] getElements(Object inputElement) {
-			List actionTypes = (List) inputElement;
+			List<?> actionTypes = (List<?>) inputElement;
 			return actionTypes.toArray();
 		}
 

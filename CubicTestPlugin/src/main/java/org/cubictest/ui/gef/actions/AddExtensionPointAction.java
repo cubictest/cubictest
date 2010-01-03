@@ -59,7 +59,7 @@ public class AddExtensionPointAction extends BaseEditorAction {
 	
 	@Override
 	public void run() {
-		for (Iterator iter = this.getParts().iterator(); iter.hasNext();) {
+		for (Iterator<?> iter = this.getParts().iterator(); iter.hasNext();) {
 			Object element = iter.next();
 			if(element instanceof PageEditPart) {
 				PageEditPart pageEditPart = (PageEditPart) element;

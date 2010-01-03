@@ -42,7 +42,7 @@ public class ResourceExtractor {
         return extractResourcePath(ResourceExtractor.class, resourcePath, dest);
     }
     
-    public static File extractResourcePath(Class cl, String resourcePath, File dest)
+    public static File extractResourcePath(Class<ResourceExtractor> cl, String resourcePath, File dest)
             throws IOException {
         boolean alwaysExtract = true;
         URL url = cl.getResource(resourcePath);
@@ -67,14 +67,14 @@ public class ResourceExtractor {
         return dest;
     }
     
-    private static void extractResourcePathFromJar(Class cl, File jarFile, String resourcePath, File dest) throws IOException {
+    private static void extractResourcePathFromJar(Class<ResourceExtractor> cl, File jarFile, String resourcePath, File dest) throws IOException {
         ZipFile z = new ZipFile(jarFile, ZipFile.OPEN_READ);
         String zipStyleResourcePath = resourcePath.substring(1) + "/"; 
         ZipEntry ze = z.getEntry(zipStyleResourcePath);
         log.debug( "Extracting "+resourcePath+" to " + dest.getAbsolutePath() );
         if (ze != null) {
             // DGF If it's a directory, then we need to look at all the entries
-            for (Enumeration entries = z.entries(); entries.hasMoreElements();) {
+            for (Enumeration<?> entries = z.entries(); entries.hasMoreElements();) {
                 ze = (ZipEntry) entries.nextElement();
                 if (ze.getName().startsWith(zipStyleResourcePath)) {
                     String relativePath = ze.getName().substring(zipStyleResourcePath.length());

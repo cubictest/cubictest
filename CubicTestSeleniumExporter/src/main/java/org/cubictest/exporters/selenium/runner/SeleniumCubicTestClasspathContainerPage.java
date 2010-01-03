@@ -28,8 +28,6 @@ public class SeleniumCubicTestClasspathContainerPage extends WizardPage
 		implements IClasspathContainerPage, IClasspathContainerPageExtension {
 
 	private IClasspathEntry containerEntryResult;
-	private Label resolvedPath;
-	private IJavaProject project;
 
 	public SeleniumCubicTestClasspathContainerPage() {
 		super("CubicTest Selenium Wizard Page");
@@ -37,7 +35,6 @@ public class SeleniumCubicTestClasspathContainerPage extends WizardPage
 		setDescription("Add CubicTest Selenium Classpath");
 		setImageDescriptor(JavaPluginImages.DESC_WIZBAN_ADD_LIBRARY);
 		
-		//containerEntryResult = SeleniumClasspathVariableInitializer.getSeleniumLibraryEntry();
 		containerEntryResult = JavaCore.newContainerEntry(new Path("CUBICTEST_SELENIUM"));
 		
 	}
@@ -71,18 +68,6 @@ public class SeleniumCubicTestClasspathContainerPage extends WizardPage
 
 	public void initialize(IJavaProject project,
 			IClasspathEntry[] currentEntries) {
-		this.project = project;
-		/*
-		ClasspathContainerInitializer initlizer = 
-			JavaCore.getClasspathContainerInitializer("CUBICTEST_SELENIUM");
-		
-		try {
-			initlizer.initialize(null, project);
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 	}
 
 }

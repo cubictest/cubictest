@@ -136,7 +136,7 @@ public class TestEditPart extends PropertyChangePart{
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new TestXYLayoutEditPolicy());
 	}
 
-	protected List getModelChildren(){
+	protected List<Object> getModelChildren(){
 		List<Object> children = new ArrayList<Object>();
 		ConnectionPoint cp = ((Test)getModel()).getStartPoint();
 		if (cp != null)

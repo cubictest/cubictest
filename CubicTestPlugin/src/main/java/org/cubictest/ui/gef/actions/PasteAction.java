@@ -101,10 +101,10 @@ public class PasteAction extends SelectionAction {
 		List<EditPart> result = new ArrayList<EditPart>();
 		
 		Object clipContents = Clipboard.getDefault().getContents();
-		if (clipContents instanceof List) {
-			List clipboardList = (List) clipContents;
+		if (clipContents instanceof List<?>) {
+			List<?> clipboardList = (List<?>) clipContents;
 	
-			for (Iterator iter = clipboardList.iterator(); iter.hasNext();){
+			for (Iterator<?> iter = clipboardList.iterator(); iter.hasNext();){
 				Object currentClip = iter.next();
 				if(currentClip instanceof EditPart) {
 					result.add((EditPart) currentClip);		

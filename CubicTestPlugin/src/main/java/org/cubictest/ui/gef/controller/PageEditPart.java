@@ -50,7 +50,7 @@ public class PageEditPart extends AbstractPageEditPart {
 	}
 
 	@Override
-	protected List getModelTargetConnections() {
+	protected List<Transition> getModelTargetConnections() {
 		Transition trans = ((TransitionNode)getModel()).getInTransition();
 		List<Transition> list = new ArrayList<Transition>();
 		if (trans != null)

@@ -251,7 +251,6 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		wiz.setDefaultDestFolder(getNewParamsPath());
 		IWorkbench workbench = CubicTestPlugin.getDefault().getWorkbench();
 		wiz.init(workbench, new StructuredSelection(test.getProject()));
-		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wiz);
 		return wiz;
 	}
 

@@ -28,7 +28,7 @@ public class ParameterList extends PropertyAwareObject {
 	public boolean hasObservers() {
 		int num = 0;
 		for (Parameter param : parameters) {
-			for (SationObserver observer : param.getObservers()) {
+			for (@SuppressWarnings("unused") SationObserver observer : param.getObservers()) {
 				num++;
 			}
 		}

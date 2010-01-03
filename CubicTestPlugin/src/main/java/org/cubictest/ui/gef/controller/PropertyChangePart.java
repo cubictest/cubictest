@@ -114,9 +114,9 @@ public abstract class PropertyChangePart extends AbstractGraphicalEditPart imple
 			int modelIndex = getModelTargetConnections().indexOf(newValue);
 			addTargetConnection(editPart, modelIndex);
 		}else{
-			List children = getTargetConnections();
+			List<?> children = getTargetConnections();
 			ConnectionEditPart partToRemove = null;
-			for (Iterator iter = children.iterator(); iter.hasNext();){
+			for (Iterator<?> iter = children.iterator(); iter.hasNext();){
 				ConnectionEditPart part = (ConnectionEditPart) iter.next();
 				if (part.getModel() == oldValue){
 					partToRemove = part;
@@ -147,10 +147,10 @@ public abstract class PropertyChangePart extends AbstractGraphicalEditPart imple
 			int modelIndex = getModelSourceConnections().indexOf(newValue);
 			addSourceConnection(editPart, modelIndex);
 		}else{
-			List children = getSourceConnections();
+			List<?> children = getSourceConnections();
 
 			ConnectionEditPart partToRemove = null;
-			for (Iterator iter = children.iterator(); iter.hasNext();){
+			for (Iterator<?> iter = children.iterator(); iter.hasNext();){
 				ConnectionEditPart part = (ConnectionEditPart) iter.next();
 				if (part.getModel() == oldValue){
 					partToRemove = part;
@@ -175,10 +175,10 @@ public abstract class PropertyChangePart extends AbstractGraphicalEditPart imple
 			int modelIndex = getModelChildren().indexOf(newValue);
 			addChild(editPart, modelIndex);
 		}else{
-			List children = getChildren();
+			List<?> children = getChildren();
 
 			EditPart partToRemove = null;
-			for (Iterator iter = children.iterator(); iter.hasNext();){
+			for (Iterator<?> iter = children.iterator(); iter.hasNext();){
 				EditPart part = (EditPart) iter.next();
 				if (part.getModel() == oldValue){
 					partToRemove = part;

@@ -88,12 +88,5 @@ public class TransitionConverter implements ITransitionConverter<SeleneseDocumen
 		return commandName;
 	}
 
-
-	
-	private void waitForPageToLoad(SeleneseDocument doc, int seconds) {
-		long millis = seconds * 1000;
-		doc.addCommand("waitForPageToLoad", millis + "").setDescription("Waiting for page to load");
-	}
-	
 	
 }

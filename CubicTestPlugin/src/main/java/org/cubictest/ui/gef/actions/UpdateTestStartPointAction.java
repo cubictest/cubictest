@@ -75,7 +75,7 @@ public class UpdateTestStartPointAction extends BaseEditorAction  {
 	
 	@Override
 	public void run() {
-		for (Iterator iter = this.getParts().iterator(); iter.hasNext();) {
+		for (Iterator<?> iter = this.getParts().iterator(); iter.hasNext();) {
 			Object element = iter.next();
 			if(element instanceof AbstractNodeEditPart) {
 				AbstractNodeEditPart pageEditPart = (AbstractNodeEditPart) element;

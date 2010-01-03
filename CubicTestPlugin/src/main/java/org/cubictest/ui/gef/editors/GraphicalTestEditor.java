@@ -520,10 +520,12 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 			}
 		}
 	}
+	
 	/*
 	 *  (non-Javadoc)
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(Class adapter){
 		if (adapter == GraphicalViewer.class || adapter == EditPartViewer.class)
@@ -595,7 +597,7 @@ public class GraphicalTestEditor extends EditorPart implements IAdaptable,
 		getActionRegistry().registerAction(action);
 	}
 	
-	private void updateActions(List actionIds){
+	private void updateActions(List<String> actionIds){
 		for(int i = 0; i < actionIds.size(); i++){
 			IAction action = getActionRegistry().getAction(actionIds.get(i));
 			if (action != null && action instanceof UpdateAction){

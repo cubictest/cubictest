@@ -472,7 +472,7 @@ public class ViewUtil {
 		return (TestEditPart) editPart;
 	}
 	
-	public static boolean parentPageIsOnClipboard(EditPart clipboardPart, List clipboardList) {
+	public static boolean parentPageIsOnClipboard(EditPart clipboardPart, List<?> clipboardList) {
 		EditPart parent = clipboardPart.getParent();
 		while(parent != null && parent.getModel() instanceof PageElement) {
 			parent = parent.getParent();
@@ -505,8 +505,8 @@ public class ViewUtil {
 		return newClips;
 	}
 	
-	public static boolean containsAPage(List parts) {
-		for (Iterator iter = parts.iterator(); iter.hasNext();){
+	public static boolean containsAPage(List<?> parts) {
+		for (Iterator<?> iter = parts.iterator(); iter.hasNext();){
 			Object selected = iter.next();
 			if (selected instanceof AbstractPageEditPart || selected instanceof AbstractPage) {
 				return true;
@@ -519,9 +519,9 @@ public class ViewUtil {
 		if (o instanceof PageElementEditPart || o instanceof PageElement)
 			return true;
 		
-		if (o instanceof List) {
-			List parts = (List) o;
-			for (Iterator iter = parts.iterator(); iter.hasNext();){
+		if (o instanceof List<?>) {
+			List<?> parts = (List<?>) o;
+			for (Iterator<?> iter = parts.iterator(); iter.hasNext();){
 				Object selected = iter.next();
 				if (selected instanceof PageElementEditPart || selected instanceof PageElement) {
 					return true;

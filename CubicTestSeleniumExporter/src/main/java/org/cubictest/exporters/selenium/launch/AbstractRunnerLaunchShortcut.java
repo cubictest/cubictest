@@ -166,7 +166,7 @@ public abstract class AbstractRunnerLaunchShortcut implements ILaunchShortcut {
 		return false;
 	}
 	
-	private ILaunchConfiguration chooseConfiguration(List configList, String mode) throws InterruptedException {
+	private ILaunchConfiguration chooseConfiguration(List<ILaunchConfiguration> configList, String mode) throws InterruptedException {
 		IDebugModelPresentation labelProvider= DebugUITools.newDebugModelPresentation();
 		ElementListSelectionDialog dialog= new ElementListSelectionDialog(new Shell(), labelProvider);
 		dialog.setElements(configList.toArray());

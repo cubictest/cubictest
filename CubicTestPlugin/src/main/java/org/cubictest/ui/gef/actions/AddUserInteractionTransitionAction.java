@@ -65,7 +65,7 @@ public class AddUserInteractionTransitionAction extends BaseEditorAction {
 	
 	@Override
 	public void run() {
-		for (Iterator iter = this.getParts().iterator(); iter.hasNext();) {
+		for (Iterator<?> iter = this.getParts().iterator(); iter.hasNext();) {
 			Object element = iter.next();
 			PageEditPart pageEditPart = null;
 			PageElement selectedPageElement = null;

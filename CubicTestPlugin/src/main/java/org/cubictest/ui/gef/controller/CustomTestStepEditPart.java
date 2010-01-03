@@ -82,7 +82,6 @@ public class CustomTestStepEditPart extends AbstractNodeEditPart implements ICus
 	@Override
 	protected IFigure createFigure() {
 		String name = ((CustomTestStepHolder)getModel()).getName();
-		String filePath = ((CustomTestStepHolder)getModel()).getFilePath();
 		customTestStepFigure = new CustomTestStepFigure(name);
 		Point p = ((TransitionNode)getModel()).getPosition();
 		customTestStepFigure.setLocation(p);

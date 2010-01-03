@@ -190,7 +190,7 @@ public class SubTestEditPart extends AbstractNodeEditPart{
 	}
 	
 	@Override
-	protected List getModelTargetConnections() {
+	protected List<Transition> getModelTargetConnections() {
 		Transition trans = getModel().getInTransition();
 		List<Transition> list = new ArrayList<Transition>();
 		if (trans != null)

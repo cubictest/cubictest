@@ -121,7 +121,7 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 			project.open(monitor);
 
 			IJavaProject javaProject = JavaCore.create(project);
-			Map java15options = javaProject.getOptions(true);
+			Map<?, ?> java15options = javaProject.getOptions(true);
 			JavaCore.setComplianceOptions("1.5", java15options);
 			javaProject.setOptions(java15options);
 			
