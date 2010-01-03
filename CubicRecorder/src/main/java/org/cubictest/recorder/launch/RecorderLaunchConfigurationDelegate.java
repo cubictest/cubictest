@@ -11,12 +11,13 @@
 package org.cubictest.recorder.launch;
 
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.UserInfo;
 import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.exceptions.ExporterException;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.launch.LaunchConfigurationDelegate;
 import org.cubictest.exporters.selenium.launch.LaunchTestRunner;
-import org.cubictest.exporters.selenium.launch.LaunchTestRunner.RunnerParameters;
+import org.cubictest.exporters.selenium.launch.RunnerParameters;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.model.Test;
 import org.cubictest.recorder.CubicRecorder;
@@ -31,26 +32,33 @@ public class RecorderLaunchConfigurationDelegate extends LaunchConfigurationDele
 
 	private SeleniumRecorder seleniumRecorder;
 
-	protected ICubicTestRunnable getCubicTestRunnable(LaunchTestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config) {
+	protected ICubicTestRunnable getCubicTestRunnable(RunnerParameters parameters, SeleniumRunnerConfiguration config) {
+		try {
+			ITestEditor testEditor = getTestEditor();
+			AutoLayout autoLayout = new AutoLayout(testEditor);
+			SynchronizedCommandStack syncCommandStack = new SynchronizedCommandStack(parameters.display, testEditor.getCommandStack());
+			IRecorder cubicRecorder = new CubicRecorder(parameters.test, syncCommandStack, autoLayout, parameters.display);
+			IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder, parameters.display);
+			LaunchTestRunner initialTestRunner = new LaunchTestRunner(parameters, config);
+			
+			seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, parameters, config.getBrowser(), initialTestRunner);
 		
-		ITestEditor testEditor = getTestEditor();
-		AutoLayout autoLayout = new AutoLayout(testEditor);
-		SynchronizedCommandStack syncCommandStack = new SynchronizedCommandStack(parameters.display, testEditor.getCommandStack());
-		IRecorder cubicRecorder = new CubicRecorder(parameters.test, syncCommandStack, autoLayout, parameters.display);
-		IRecorder guiAwareRecorder = new GUIAwareRecorder(cubicRecorder, parameters.display);
-		LaunchTestRunner initialTestRunner = new LaunchTestRunner(parameters, config);
-
-		seleniumRecorder = new SeleniumRecorder(guiAwareRecorder, ExportUtils.getInitialUrlStartPoint(parameters.test).getBeginAt(), parameters.display, config.getBrowser(), initialTestRunner);
-		cubicRecorder.setEnabled(true);
-		guiAwareRecorder.setEnabled(true);
-		
-		testEditor.addDisposeListener(new IDisposeListener() {
-			public void disposed() {
-				stopSelenium(null);
-			}
-		});
-
-		return seleniumRecorder;
+			testEditor.addDisposeListener(new IDisposeListener() {
+				public void disposed() {
+					stopSelenium(null);
+				}
+			});
+			
+			return seleniumRecorder;
+		}
+		catch (final Exception e) {
+			parameters.display.syncExec(new Runnable() {
+				public void run() {
+					UserInfo.showErrorDialog(e);
+				}
+			});
+			throw new ExporterException("Error starting the Recorder.", e);
+		}
 	}
 	
 	private void stopSelenium(AutoLayout autoLayout) {

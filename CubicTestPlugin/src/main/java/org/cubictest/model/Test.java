@@ -433,7 +433,7 @@ public class Test extends PropertyAwareObject implements NamePropertyObject {
 		return status;
 	}
 	
-	public void refreshSubFiles() {
+	public void refreshAndVerifySubFiles() {
 		for (CustomTestStepHolder holder : getCustomTestSteps()) {
 			holder.reloadCustomTestStep();
 		}

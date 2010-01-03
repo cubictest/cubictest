@@ -21,6 +21,7 @@ import org.cubictest.export.ICubicTestRunnable;
 import org.cubictest.export.utils.exported.ExportUtils;
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.launch.LaunchTestRunner;
+import org.cubictest.exporters.selenium.launch.RunnerParameters;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.Page;
 import org.cubictest.model.SimpleTransition;
@@ -40,21 +41,22 @@ import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.SeleniumException;
 
 public class SeleniumRecorder implements ICubicTestRunnable {
+	
 	private boolean seleniumStarted;
 	private Selenium selenium;
 	BrowserType browser;
 	private SeleniumServer seleniumProxy;
 	private int port = -1;
 	private final String url;
-	private Thread serverThread;
 	private final Display display;
 	private final LaunchTestRunner initialTestRunner;
 	private final IRecorder recorder;
 
-	public SeleniumRecorder(IRecorder recorder, String url, Display display, BrowserType browser, LaunchTestRunner initialTestRunner) {
+	public SeleniumRecorder(IRecorder recorder, RunnerParameters parameters, BrowserType browser, LaunchTestRunner initialTestRunner) {
+		parameters.test.refreshAndVerifySubFiles();
 		this.recorder = recorder;
-		this.url = url;
-		this.display = display;
+		this.url = ExportUtils.getInitialUrlStartPoint(parameters.test).getBeginAt();
+		this.display = parameters.display;
 		this.browser = browser;
 		this.initialTestRunner = initialTestRunner;
 		
@@ -62,7 +64,6 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 		
 		try {
 			port = ExportUtils.findAvailablePort();
-			System.out.println("Port: " + port);
 			RemoteControlConfiguration config = new RemoteControlConfiguration();
 			config.setSingleWindow(true);
 			config.setPort(port);
@@ -77,7 +78,7 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 			String baseUrl = getBaseUrl(url);
 			servletHandler.getSessionManager().addEventListener(new SeleniumRecorderSessionListener(recorder, baseUrl));
 		} catch (Exception e) {
-			ErrorHandler.logAndShowErrorDialogAndRethrow("Got an error when starting the recorder.", e);
+			ErrorHandler.logAndShowErrorDialogAndRethrow("Error starting the recorder.", e);
 		}
 	}
 	
@@ -105,65 +106,54 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 	}
 
 	public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-
-		serverThread = new Thread() {
-
-			@Override
-			public void run() {
-		        try {
-					seleniumProxy.start();
-					selenium = new DefaultSelenium("localhost", seleniumProxy.getPort(), browser.getId(), url);
-					selenium.start();
-					selenium.open(url);
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						ErrorHandler.logAndShowErrorDialogAndRethrow(e);
-					}
-					seleniumStarted = true;
-		        } catch (final Exception e) {
-		        	String msg = "";
-		        	if (e.toString().indexOf("Location.href") >= 0 || e.toString().indexOf("Security error") >= 0) {
-		        		msg += "Looks like Selenium failed when following a redirect. If this occured at start of test, " +
-		        				"try modifying the start point URL to the correct/redirected address.\n\n";
-		        	}
-		        	msg += "Error occured when recording test. Recording might not work.";
-		        	final String finalMsg = msg;
-		    		display.syncExec(new Runnable() {
-		    			public void run() {
-		    				UserInfo.showErrorDialog(e, finalMsg);
-		    			}
-		    		});
-					ErrorHandler.logAndRethrow(finalMsg, e);
-				}
-		        
-		        if (initialTestRunner != null) {
-	 				recorder.setEnabled(false);
-		        	initialTestRunner.setSelenium(selenium);
-		        	TransitionNode lastNodeInTestOnFirstPath = ModelUtil.getLastNodeInGraph(initialTestRunner.getTest().getStartPoint());
-		        	initialTestRunner.setTargetPage(lastNodeInTestOnFirstPath);
-		        	initialTestRunner.run(monitor);
-					
-		        	if (!(lastNodeInTestOnFirstPath instanceof Page) || ((Page) lastNodeInTestOnFirstPath).hasElements()) {
-		        		//create new page for start of recording
-		        		Page newPage = new Page();
-		        		newPage.setName("Record start");
-		        		SimpleTransition transition = new SimpleTransition();
-		        		transition.setStart(lastNodeInTestOnFirstPath);
-		        		transition.setEnd(newPage);
-		        		recorder.addToTest(transition, newPage);
-		        		lastNodeInTestOnFirstPath = newPage;
-		        		
-		        	}
-		        	recorder.setCursor((AbstractPage) lastNodeInTestOnFirstPath);
-		        	recorder.setEnabled(true);
-		        }
+        try {
+			seleniumProxy.start();
+			selenium = new DefaultSelenium("localhost", seleniumProxy.getPort(), browser.getId(), url);
+			selenium.start();
+			selenium.open(url);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}
+			seleniumStarted = true;
+        } catch (final Exception e) {
+        	String msg = "";
+        	if (e.toString().indexOf("Location.href") >= 0 || e.toString().indexOf("Security error") >= 0) {
+        		msg += "Looks like Selenium failed when following a redirect. If this occured at start of test, " +
+        				"try modifying the start point URL to the correct/redirected address.\n\n";
+        	}
+        	msg += "Error occured when recording test. Recording might not work.";
+        	final String finalMsg = msg;
+    		display.syncExec(new Runnable() {
+    			public void run() {
+    				UserInfo.showErrorDialog(e, finalMsg);
+    			}
+    		});
+			ErrorHandler.logAndRethrow(finalMsg, e);
+		}
+        
+        if (initialTestRunner != null) {
+			recorder.setEnabled(false);
+        	initialTestRunner.setSelenium(selenium);
+        	TransitionNode lastNodeInTestOnFirstPath = ModelUtil.getLastNodeInGraph(initialTestRunner.getTest().getStartPoint());
+        	initialTestRunner.setTargetPage(lastNodeInTestOnFirstPath);
+        	initialTestRunner.run(monitor);
 			
-			
-		};
-		
-		serverThread.start();
+        	if (!(lastNodeInTestOnFirstPath instanceof Page) || ((Page) lastNodeInTestOnFirstPath).hasElements()) {
+        		//create new page for start of recording
+        		Page newPage = new Page();
+        		newPage.setName("Record start");
+        		SimpleTransition transition = new SimpleTransition();
+        		transition.setStart(lastNodeInTestOnFirstPath);
+        		transition.setEnd(newPage);
+        		recorder.addToTest(transition, newPage);
+        		lastNodeInTestOnFirstPath = newPage;
+        		
+        	}
+        	recorder.setCursor((AbstractPage) lastNodeInTestOnFirstPath);
+        }
+        recorder.setEnabled(true);
 	}
 	
 

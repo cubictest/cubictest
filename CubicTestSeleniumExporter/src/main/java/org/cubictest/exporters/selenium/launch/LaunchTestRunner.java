@@ -39,7 +39,6 @@ import org.cubictest.model.TransitionNode;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.swt.widgets.Display;
 
 import com.thoughtworks.selenium.Selenium;
 
@@ -59,14 +58,6 @@ public class LaunchTestRunner implements ICubicTestRunnable {
 	SeleniumRunnerConfiguration config;
 	
 
-	public static class RunnerParameters {
-		public Test test;
-		public Display display;
-		public int remoteRunnerClientListenerPort;
-		public int seleniumClientProxyPort;
-	}
-
-
 	public LaunchTestRunner(RunnerParameters runnerParameters, SeleniumRunnerConfiguration config) {
 		this.runnerParameters = runnerParameters;
 		this.config = config;
@@ -75,7 +66,7 @@ public class LaunchTestRunner implements ICubicTestRunnable {
 
 	public void run(IProgressMonitor monitor) {
 		this.monitor = monitor;
-		runnerParameters.test.refreshSubFiles();
+		runnerParameters.test.refreshAndVerifySubFiles();
 
 		try {
 			if (seleniumHolder == null || !reuseSelenium) {

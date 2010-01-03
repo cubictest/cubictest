@@ -11,13 +11,13 @@
 package org.cubictest.exporters.selenium.launch;
 
 import org.cubictest.export.utils.exported.ExportUtils;
-import org.cubictest.exporters.selenium.launch.LaunchTestRunner.RunnerParameters;
+import org.cubictest.exporters.selenium.launch.RunnerParameters;
 import org.cubictest.exporters.selenium.runner.SeleniumRunnerConfiguration;
 import org.cubictest.model.Test;
 
 public class RunnerLaunchConfigurationDelegate extends LaunchConfigurationDelegate {
 
-	protected LaunchTestRunner getCubicTestRunnable(LaunchTestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config) {
+	protected LaunchTestRunner getCubicTestRunnable(RunnerParameters parameters, SeleniumRunnerConfiguration config) {
 		return new LaunchTestRunner(parameters, config);
 	}
 

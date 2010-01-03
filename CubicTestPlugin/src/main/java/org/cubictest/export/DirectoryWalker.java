@@ -134,6 +134,7 @@ public class DirectoryWalker<T extends IResultHolder> implements IRunnableWithPr
 	protected void convertCubicTestFile(IFile testFile, IFolder outFolder, IProgressMonitor monitor, boolean isSelected) throws Exception {
 		//load Test and start the conversion:
 		Test test = TestPersistance.loadFromFile(testFile);
+		test.refreshAndVerifySubFiles();
 		
 		if (!ExportUtils.testIsOkForExport(test)) {
 			if (isSelected) {

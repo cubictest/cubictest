@@ -21,7 +21,6 @@ public class GUIAwareRecorder implements IRecorder {
 
 	private final IRecorder recorder;
 	private final Display display;
-	private boolean enabled;
 
 	
 	public GUIAwareRecorder(IRecorder recorder, Display display) {
@@ -63,11 +62,11 @@ public class GUIAwareRecorder implements IRecorder {
 	}
 
 	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+		recorder.setEnabled(enabled);
 	}
 
 	public boolean isEnabled() {
-		return enabled;
+		return recorder.isEnabled();
 	}
 
 	public void addToTest(final Transition transition, final AbstractPage endPage) {

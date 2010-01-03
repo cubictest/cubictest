@@ -56,7 +56,7 @@ public class JUnitTestRunner {
 	}
 	
 	public void run(Test test) {
-		test.refreshSubFiles();
+		test.refreshAndVerifySubFiles();
 		
 		try {
 			if (seleniumHolder == null || !reuseSelenium) {

@@ -190,7 +190,7 @@ public abstract class LaunchConfigurationDelegate extends AbstractJavaLaunchConf
 						setTest(editor.getTest());
 						setTestEditor(editor);
 						editor.getTest().resetStatus();
-						editor.getTest().refreshSubFiles();
+						editor.getTest().refreshAndVerifySubFiles();
 					}catch (Exception e) {
 						Logger.warn("Error opening test in editor", e);
 						setTest(TestPersistance.loadFromFile(testFile));
@@ -210,7 +210,7 @@ public abstract class LaunchConfigurationDelegate extends AbstractJavaLaunchConf
 			seleniumMultiWindow = getSeleniumMultiWindow(configuration);
 			
 			// create the parameters:
-			LaunchTestRunner.RunnerParameters parameters = new LaunchTestRunner.RunnerParameters();
+			RunnerParameters parameters = new RunnerParameters();
 			parameters.test = test;
 			parameters.display = wb.getDisplay();
 			parameters.remoteRunnerClientListenerPort = serverPort;
@@ -270,11 +270,11 @@ public abstract class LaunchConfigurationDelegate extends AbstractJavaLaunchConf
 
 	
 	/** To be overridden by runner implementations. */
-	protected abstract void verifyPreconditions(LaunchTestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config);
+	protected abstract void verifyPreconditions(RunnerParameters parameters, SeleniumRunnerConfiguration config);
 
 	
 	/** To be overridden by runner implementations. */
-	protected abstract ICubicTestRunnable getCubicTestRunnable(LaunchTestRunner.RunnerParameters parameters, SeleniumRunnerConfiguration config);
+	protected abstract ICubicTestRunnable getCubicTestRunnable(RunnerParameters parameters, SeleniumRunnerConfiguration config);
 
 	
 	private String getBrowser(ILaunchConfiguration configuration) {
