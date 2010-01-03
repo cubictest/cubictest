@@ -28,7 +28,7 @@
                enablesFor="1"
                label="Export to Selenium Core test script"
                icon="icons/selenium_export_icon.gif"
-               class="org.cubictest.exporters.selenium.ui.ExportToSeleniumAction"
+               class="org.cubictest.exporters.selenium.ui.ExportToSeleneseAction"
                menubarPath="cubictest.menu1/group1"
                id="org.cubictest.exporters.selenium.ui.ExportToSeleniumAction">
          </action>
@@ -38,7 +38,7 @@
             id="CubicTestSeleniumExporter.viewerContribution1"
             targetID="cubicTestPlugin.editor.contextmenu">
          <action
-               class="org.cubictest.exporters.selenium.ui.ExportToSeleniumEditorAction"
+               class="org.cubictest.exporters.selenium.ui.ExportToSeleneseEditorAction"
                icon="icons/selenium_export_icon.gif"
                id="org.cubictest.exporters.selenium.ui.ExportToSeleniumEditorAction"
                label="Export to Selenium Core test script"

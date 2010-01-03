@@ -35,10 +35,10 @@ import org.eclipse.ui.part.FileEditorInput;
  * @author Christian Schwarz
  *
  */
-public class ExportToSeleniumEditorAction implements IEditorActionDelegate {
+public class ExportToSeleneseEditorAction implements IEditorActionDelegate {
 	ISelection selection;
 	
-	public ExportToSeleniumEditorAction() {
+	public ExportToSeleneseEditorAction() {
 		super();
 	}
 
@@ -59,7 +59,7 @@ public class ExportToSeleniumEditorAction implements IEditorActionDelegate {
 					PageElementConverter.class, 
 					ContextConverter.class,
 					SeleneseDocument.class);
-			UserInfo.showInfoDialog(ExportToSeleniumAction.OK_MESSAGE);
+			UserInfo.showInfoDialog(ExportToSeleneseAction.OK_MESSAGE);
 		} 
 		catch (Exception e) {
 			ErrorHandler.logAndShowErrorDialogAndRethrow("Error occured in Selenium export.", e);

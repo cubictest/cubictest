@@ -31,7 +31,7 @@ import org.eclipse.ui.IActionDelegate;
  * @author Christian Schwarz
  *
  */
-public class ExportToSeleniumAction implements IActionDelegate {
+public class ExportToSeleneseAction implements IActionDelegate {
 	ISelection selection;
 	
 	public static final String OK_MESSAGE = "Test exported OK to the \"generated\" directory.";
