@@ -11,7 +11,8 @@
 package org.cubictest.model.i18n;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -56,12 +57,15 @@ public class AllLanguages extends PropertyAwareObject{
 	}
 
 	public Set<String> getAllKeys() {
-		Set<String> keys = new HashSet<String>();
-		for(Language lang : languages)
-			keys.addAll(lang.keySet());
-		for(Language lang : languages)
-			lang.keySet().addAll(keys);
-		return keys;
+		List<String> list = new ArrayList<String>();
+		for(Language lang : languages) {
+			list.addAll(lang.keySet());
+		}
+		for(Language lang : languages) {
+			lang.keySet().addAll(list);
+		}
+		Collections.sort(list);
+		return new LinkedHashSet<String>(list);
 	}
 
 	public Language createLanguage() {

@@ -11,7 +11,10 @@
 package org.cubictest.model.i18n;
 
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -82,11 +85,12 @@ public class Language{
 	}
 
 	public Set<String> keySet() {
-		Set<String> result = new HashSet<String>();
+		List<String> list = new ArrayList<String>();
 		for(Object o : getProperties().keySet()){
-			result.add((String) o);
+			list.add((String) o);
 		}
-		return result;
+		Collections.sort(list);
+		return new LinkedHashSet<String>(list);
 	}
 
 	public String getFileName() {

@@ -11,7 +11,7 @@
 package org.cubictest.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -120,7 +120,7 @@ public abstract class TransitionNode extends PropertyAwareObject implements Name
 	 * @return Returns the outTransitions.
 	 */
 	public List<Transition> getOutTransitions() {
-		Set<Transition> set = new HashSet<Transition>();
+		Set<Transition> set = new LinkedHashSet<Transition>();
 		set.addAll(outTransitions);
 		if (set.size() != outTransitions.size()) {
 			Logger.error("Duplicate out-transitions detected from " + this.toString() + "! Removing them.");
