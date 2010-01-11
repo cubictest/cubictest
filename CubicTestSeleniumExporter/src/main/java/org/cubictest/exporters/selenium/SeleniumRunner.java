@@ -46,7 +46,10 @@ public class SeleniumRunner
 	private static final String LOG_PREFIX = "[CubicTest Selenium Runner] ";
 
 	private static final boolean REUSE_BROWSER_DEFAULT = true;
+	private static final boolean HALT_ON_TEST_FAILURE_DEFAULT = true;
+	
 	private boolean reuseBrowser = REUSE_BROWSER_DEFAULT;
+	private boolean haltOnTestFailure = HALT_ON_TEST_FAILURE_DEFAULT;
 	private JUnitTestRunner testRunner;
 	private SeleniumRunnerConfiguration config;
 	private CubicTestProjectSettings settings;
@@ -150,12 +153,6 @@ public class SeleniumRunner
         
         System.out.println(LOG_PREFIX + "Keep browser open between test suite files: " + reuseBrowser);
         
-        if (reuseBrowser && testRunner == null) {
-        	//we start the browser just once for this instance
-			testRunner = new JUnitTestRunner(config, settings);
-			testRunner.setReuseSelenium(true);
-        }
-        
         for (File file : files) {
         	System.out.println(LOG_PREFIX + "Running test: " + file);
         	notRunTests.remove(file.getName());
@@ -165,6 +162,10 @@ public class SeleniumRunner
 
     		try {
     			if (reuseBrowser) {
+    		        if (testRunner == null) {
+    					testRunner = new JUnitTestRunner(config, settings);
+    					testRunner.setReuseSelenium(true);
+    		        }
         			testRunner.run(test);
         			passedTests.add(file.getName());
     			}
@@ -199,7 +200,9 @@ public class SeleniumRunner
     			failedTests.add(file.getName());
     			buildOk = false;
     			testRunner = null;
-    			break;
+    			if (haltOnTestFailure) {
+    				break;
+    			}
     		}
     		catch (Throwable e) {
     			System.err.println(LOG_PREFIX + "Error detected during test run. Stopping Selenium.");
@@ -208,7 +211,9 @@ public class SeleniumRunner
     			System.err.println(e);
     			exceptionTests.add(file.getName());
     			buildOk = false;
-    			break;
+    			if (haltOnTestFailure) {
+    				break;
+    			}
 			}
         }
 		if (!reuseBrowser) {
@@ -304,6 +309,14 @@ public class SeleniumRunner
 
 	public IElementContext getCustomStepElementContext() {
 		return SameVMCustomTestStepConverter.getThreadElementContext();
+	}
+
+	/**
+	 * Set whether to halt on first test failure or to run all tests and then fail at
+	 * the end if at least one test had a failure.
+	 */
+	public void setHaltOnTestFailure(boolean haltOnTestFailure) {
+		this.haltOnTestFailure = haltOnTestFailure;
 	}
 
 }
