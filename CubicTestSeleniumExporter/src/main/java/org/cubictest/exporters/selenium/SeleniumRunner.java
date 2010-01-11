@@ -108,7 +108,6 @@ public class SeleniumRunner
 	 * Run specified test.
 	 * @param testPath Path to test to run, relative to project root.
 	 */
-    @SuppressWarnings("unchecked")
 	public void runTest(String testPath)
     {
     	if (StringUtils.isBlank(testPath)) {
