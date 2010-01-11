@@ -158,11 +158,12 @@ public class SeleniumRunner
         
         for (File file : files) {
         	System.out.println(LOG_PREFIX + "Running test: " + file);
+        	notRunTests.remove(file.getName());
+        	
         	Test test = TestPersistance.loadFromFile(file, null);
         	System.out.println(LOG_PREFIX + "Test loaded: " + test.getName());
 
     		try {
-    			notRunTests.remove(file.getName());
     			if (reuseBrowser) {
         			testRunner.run(test);
         			passedTests.add(file.getName());
