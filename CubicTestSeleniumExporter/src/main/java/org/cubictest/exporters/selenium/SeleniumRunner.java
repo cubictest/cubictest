@@ -230,7 +230,7 @@ public class SeleniumRunner
         System.out.println("Tests not run: " + notRunTests.toString());
 
         if (!buildOk) {
-        	throw new AssertionError("[CubicTest] There were test failures. See console/log output for failure details.");
+        	throw new AssertionError("[CubicTest] There were test failures:\n" + failedTests.toString() + "\nSee console/log output for full failure details.");
         }
 	}
     
