@@ -167,32 +167,31 @@ public class SeleniumRunner
     					testRunner.setReuseSelenium(true);
     		        }
         			testRunner.run(test);
-        			passedTests.add(file.getName());
     			}
     			else {
     				testRunner = new JUnitTestRunner(config, settings);
         			testRunner.run(test);
-        			passedTests.add(file.getName());
-                	smallLogSeperator();
-                	System.out.println(LOG_PREFIX + "Test run finished: " + file.getName() + ": " + testRunner.getResultMessage());
                 	smallLogSeperator();
         			stopSelenium(testRunner);
         			Thread.sleep(800); //do not reopen firefox immediately
     			}
+    			passedTests.add(file.getName());
+            	smallLogSeperator();
+            	System.out.println(LOG_PREFIX + "Test run finished: " + file.getName() + ": " + testRunner.getResultMessage());
     		}
     		catch (EmptyTestSuiteException e) {
     			System.out.println(SEPERATOR);
-    			System.err.println("Warning: Test suites should contain at least one test. " + 
+    			System.out.println("Warning: Test suites should contain at least one test. " + 
 						"To add a test, drag it from the package explorer into the test suite editor.");
     			throw new AssertionError("Test suite was empty: " + file.getName());
     		}
     		catch (ExporterException e) {
-    			System.err.println(LOG_PREFIX + "Test failure detected. Stopping Selenium.");
+    			System.out.println(LOG_PREFIX + "Test failure detected. Stopping Selenium.");
     			stopSelenium(testRunner);
             	logSeperator();
-    			System.err.println("Failure in test " + file.getName() + ": " + e.getMessage());
+    			System.out.println(LOG_PREFIX + "Failure in test " + file.getName() + ": " + e.getMessage());
             	logSeperator();
-            	System.out.println("Failure path: " + file.getName() + " --> " + testRunner.getCurrentBreadcrumbs());
+            	System.out.println(LOG_PREFIX + "Failure path: " + file.getName() + " --> " + testRunner.getCurrentBreadcrumbs());
             	if (!reuseBrowser) {
             		logSeperator();
 	            	System.out.println(file.getName() + ": " + testRunner.getResultMessage());
@@ -205,10 +204,10 @@ public class SeleniumRunner
     			}
     		}
     		catch (Throwable e) {
-    			System.err.println(LOG_PREFIX + "Error detected during test run. Stopping Selenium.");
+    			System.out.println(LOG_PREFIX + "Error detected during test run. Stopping Selenium.");
     			stopSelenium(testRunner);
     			testRunner = null;
-    			System.err.println(e);
+    			System.out.println(e.toString());
     			exceptionTests.add(file.getName());
     			buildOk = false;
     			if (haltOnTestFailure) {
@@ -225,7 +224,7 @@ public class SeleniumRunner
         	if (testRunner != null) {
         		resultMessage = testRunner.getResultMessage();
         	}
-			System.out.println("Test run finished. " + resultMessage);
+			System.out.println(LOG_PREFIX + "Test run finished. " + resultMessage);
 			testRunner = null;
 		}        
     	logSeperator();
@@ -235,7 +234,15 @@ public class SeleniumRunner
         System.out.println("Tests not run: " + notRunTests.toString());
 
         if (!buildOk) {
-        	throw new AssertionError("[CubicTest] There were test failures:\n" + failedTests.toString() + "\nSee console/log output for full failure details.");
+        	logSeperator();
+        	System.out.println(LOG_PREFIX + "Test run failure!");
+        	logSeperator();
+        	throw new AssertionError(LOG_PREFIX + "There were test failures:\n" + failedTests.toString() + "\nSee console/log output for full failure details.");
+        }
+        else {
+        	logSeperator();
+        	System.out.println(LOG_PREFIX + "Test run successful!");
+        	logSeperator();
         }
 	}
     
@@ -247,12 +254,13 @@ public class SeleniumRunner
 		System.out.println(SMALL_SEPERATOR);
 	}
 
+	
 	private static void stopSelenium(JUnitTestRunner testRunner) {
 		try {
 			((JUnitTestRunner) testRunner).stopSeleniumWithTimeoutGuard(20);
 		}
 		catch (Exception e) {
-			System.err.println("Error stopping selenium.");
+			System.out.println(LOG_PREFIX + "Error stopping selenium.");
 			e.printStackTrace();
 		}
 	}
