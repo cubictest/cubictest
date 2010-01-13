@@ -103,7 +103,7 @@ public class SubTestParamsSection extends AbstractPropertySection implements Pro
 			if(paramFile.exists()) {
 				ChangeParameterListCommand command = new ChangeParameterListCommand();
 				command.setTest(test);
-				command.setNewParamList(ParameterPersistance.loadFromFile(paramFile));
+				command.setNewParamList(ParameterPersistance.loadFromFile(paramFile.getFullPath().toString()));
 				command.setOldParamList(paramList);
 				executeCommand(command);
 			}

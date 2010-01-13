@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.cubictest.model.i18n;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,10 +21,8 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
-import org.cubictest.export.exceptions.ExporterException;
+import org.cubictest.common.utils.FileUtil;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 
 public class Language{
 	
@@ -33,21 +30,6 @@ public class Language{
 	private String name = "";
 	private String fileName = "";
 
-	
-	private File getFile(){
-		try {
-			return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(fileName)).getLocation().toFile();
-		}
-		catch (Exception e) {
-			File result = new File("../" + fileName); //language uses Project name in path. Remove it.
-	    	
-	    	if (!result.exists()) {
-	    		throw new ExporterException("Language file not found: " + result.getAbsolutePath());
-	    	}
-	    	return result;
-		}
-	}
-	
 	
 	public boolean isEmpty() {
 		return getProperties().isEmpty();
@@ -107,7 +89,7 @@ public class Language{
 		if (properties == null) {
 			try {
 				properties = new Properties();
-				properties.load(new FileReader(getFile()));
+				properties.load(new FileReader(FileUtil.getFileFromWorkspaceRoot(fileName)));
 			} catch (IOException e) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}
@@ -119,7 +101,7 @@ public class Language{
 		boolean success = false;
 		try {
 			properties = new Properties();
-			properties.load(new FileReader(getFile()));
+			properties.load(new FileReader(FileUtil.getFileFromWorkspaceRoot(fileName)));
 			success = true;
 		} catch (IOException e) {
 			ErrorHandler.logAndShowErrorDialog(e);

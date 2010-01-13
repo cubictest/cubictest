@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SationObserver;
+import org.cubictest.persistence.ParameterPersistance;
 
 
 public class ParameterList extends PropertyAwareObject {
@@ -24,6 +25,13 @@ public class ParameterList extends PropertyAwareObject {
 	private List<Parameter> parameters;
 	private int parameterIndex;
 	private String fileName;
+	
+	public ParameterList getNewUpdatedVersion() {
+		ParameterList updated = ParameterPersistance.loadFromFile(this.fileName);
+		updated.copyObserversFrom(this);
+		updated.setParameterIndex(parameterIndex);
+		return updated;
+	}
 	
 	public boolean hasObservers() {
 		int num = 0;
@@ -148,5 +156,18 @@ public class ParameterList extends PropertyAwareObject {
 
 	}
 
+	public void copyObserversFrom(ParameterList oldParamList) {
+		if(getParameters() == null || oldParamList == null) {
+			return;
+		}
+		for(Parameter oldParam : oldParamList.getParameters()){
+			for(Parameter param : getParameters()){
+				if(param.getHeader().equals(oldParam.getHeader())){
+					param.setObservers(oldParam.getObservers());
+				}
+			}
+		}
+		updateObservers();
+	}
 
 }

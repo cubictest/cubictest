@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.common.utils.FileUtil;
 import org.cubictest.model.parameterization.Parameter;
 import org.cubictest.model.parameterization.ParameterList;
 import org.eclipse.core.resources.IFile;
@@ -54,29 +55,31 @@ public class ParameterPersistance {
 	 * @param iFile The file containing the test.
 	 * @return The parameterList.
 	 */	
-	public static ParameterList loadFromFile(IFile iFile) {
+	public static ParameterList loadFromFile(String fileName) {
+		File file = FileUtil.getFileFromWorkspaceRoot(fileName);
 		String xml = "";
 		try {
-			String charset = TestPersistance.getCharset(iFile.getLocation().toFile());
-			xml = FileUtils.readFileToString(iFile.getLocation().toFile(), charset);
+			String charset = TestPersistance.getCharset(file);
+			xml = FileUtils.readFileToString(file, charset);
 		} catch (IOException e) {
 			ErrorHandler.logAndRethrow(e);
 		}
 		try {
 			ParameterList list = (ParameterList) new CubicTestXStream().fromXML(xml);
-			list.setFileName(iFile.getFullPath().toString());
+			list.setFileName(fileName);
 			return list;
-		}catch (Exception e) {
-			return fromFile(iFile);
+		} catch (Exception e) {
+			return manualParseFromFile(fileName);
 		}
 	}
 	
-	private static ParameterList fromFile(IFile iFile) {
+	private static ParameterList manualParseFromFile(String fileName) {
+		File file = FileUtil.getFileFromWorkspaceRoot(fileName);
 		ParameterList list = new ParameterList();
-		list.setFileName(iFile.getFullPath().toString());
+		list.setFileName(fileName);
 		FileReader fr;
 		try {
-			fr = new FileReader(iFile.getLocation().toFile());
+			fr = new FileReader(file);
 		
 			BufferedReader bw = new BufferedReader(fr);
 			String line = bw.readLine();
@@ -92,9 +95,7 @@ public class ParameterPersistance {
 			while (line != null){
 				int i = 0;
 				for(String token : line.split(";")){
-					list.getParameters()
-							.get(i++)
-									.addParameterInput(token.trim());
+					list.getParameters().get(i++).addParameterInput(token.trim());
 				}
 				line = bw.readLine();
 			}

@@ -98,6 +98,9 @@ public class TestPersistance {
 		try {
 			test = (Test) new CubicTestXStream().fromXML(xml);
 			test.getAllLanguages().updateAllLanguages();
+			if (test.getParamList() != null) {
+				test.setParamList(test.getParamList().getNewUpdatedVersion());
+			}
 		} catch (Exception e) {
 			if (ErrorHandler.getCause(e) instanceof ConversionException) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow("Could not load test (error creating Test from XML file \"" + file.getName() + "\"). If the test was created with a newer version of CubicTest, then please upgrade to that version.\n", e);

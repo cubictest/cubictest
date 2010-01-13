@@ -309,7 +309,7 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 		try{
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(filePath));
 			if(file.exists())
-				list = ParameterPersistance.loadFromFile(file);
+				list = ParameterPersistance.loadFromFile(file.getFullPath().toString());
 		} catch (Exception e) {
 			// list will be null
 		}

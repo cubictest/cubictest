@@ -11,7 +11,6 @@
 package org.cubictest.ui.gef.command;
 
 import org.cubictest.model.Test;
-import org.cubictest.model.parameterization.Parameter;
 import org.cubictest.model.parameterization.ParameterList;
 import org.eclipse.gef.commands.Command;
 
@@ -44,7 +43,7 @@ public class ChangeParameterListCommand extends Command {
 	@Override
 	public void execute() {
 		super.execute();
-		copyObserverList(newParameterList,oldParameterList);
+		newParameterList.copyObserversFrom(oldParameterList);
 		test.setParamList(newParameterList);
 		test.updateObservers();
 	}
@@ -52,22 +51,9 @@ public class ChangeParameterListCommand extends Command {
 	@Override
 	public void undo() {
 		super.undo();
-		copyObserverList(oldParameterList, newParameterList);
+		oldParameterList.copyObserversFrom(newParameterList);
 		test.setParamList(oldParameterList);
 		test.updateObservers();
 	}
 	
-	private void copyObserverList(ParameterList newParamList, ParameterList oldParamList) {
-		if(oldParamList == null || newParamList == null)
-			return;
-		for(Parameter oldParam : oldParamList.getParameters()){
-			for(Parameter newParam : newParamList.getParameters()){
-				if(newParam.getHeader().equals(oldParam.getHeader())){
-					newParam.setObservers( oldParam.getObservers());
-				}
-			}
-			
-		}
-		
-	}
 }

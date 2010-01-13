@@ -103,7 +103,7 @@ public class ParamsEditor extends EditorPart {
 		}
 		IFileEditorInput input = (IFileEditorInput)editorInput;
 		
-		paramList = ParameterPersistance.loadFromFile(input.getFile());
+		paramList = ParameterPersistance.loadFromFile(input.getFile().getFullPath().toString());
 		
 		setSite(site);
 		setInput(editorInput);
