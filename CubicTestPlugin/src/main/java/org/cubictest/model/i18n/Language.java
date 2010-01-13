@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.cubictest.model.i18n;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,20 +22,30 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
+import org.cubictest.export.exceptions.ExporterException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 
 public class Language{
+	
 	private transient Properties properties;
 	private String name = "";
-	private transient IFile file;
 	private String fileName = "";
+
 	
-	
-	private IFile getFile(){
-		return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(fileName));
+	private File getFile(){
+		try {
+			return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(fileName)).getLocation().toFile();
+		}
+		catch (Exception e) {
+			File result = new File("../" + fileName); //language uses Project name in path. Remove it.
+	    	
+	    	if (!result.exists()) {
+	    		throw new ExporterException("Language file not found: " + result.getAbsolutePath());
+	    	}
+	    	return result;
+		}
 	}
 	
 	
@@ -47,13 +59,7 @@ public class Language{
 	
 	public Language(IFile inFile){
 		this();
-		if(inFile == null)
-			this.file = getFile();
-		else {
-			this.file = inFile;
-			this.fileName = file.getFullPath().toOSString();
-		}
-		
+		this.fileName = inFile.getFullPath().toOSString();
 		updateLanguage();
 	}
 
@@ -101,10 +107,8 @@ public class Language{
 		if (properties == null) {
 			try {
 				properties = new Properties();
-				properties.load(getFile().getContents());
+				properties.load(new FileReader(getFile()));
 			} catch (IOException e) {
-				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
-			} catch (CoreException e) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}
 		}
@@ -115,11 +119,9 @@ public class Language{
 		boolean success = false;
 		try {
 			properties = new Properties();
-			properties.load(getFile().getContents());
+			properties.load(new FileReader(getFile()));
 			success = true;
 		} catch (IOException e) {
-			ErrorHandler.logAndShowErrorDialog(e);
-		} catch (CoreException e) {
 			ErrorHandler.logAndShowErrorDialog(e);
 		}
 		return success;

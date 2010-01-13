@@ -102,9 +102,17 @@ public class TestPersistance {
 				ErrorHandler.logAndShowErrorDialogAndRethrow("Could not load test (error creating Test from XML file \"" + file.getName() + "\"). If the test was created with a newer version of CubicTest, then please upgrade to that version.\n", e);
 			}
 			else {
-				ErrorHandler.logAndShowErrorDialogAndRethrow("Exception occured. Could not load test.", e);
+				ErrorHandler.logAndShowErrorDialogAndRethrow("Exception occured. Could not load test \"" + file.getName() + "\"", e);
 			}
 		}
+		
+		try {
+			test.getAllLanguages().updateAllLanguages();
+		} catch (CubicException e) {
+			Logger.error("Exception occured. Could not load test \"" + file.getName() + "\"", e);
+			throw e;
+		}
+		
 		return test;
 	}
 

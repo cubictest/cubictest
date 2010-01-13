@@ -16,6 +16,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.cubictest.common.exception.CubicException;
 import org.cubictest.model.PropertyAwareObject;
 import org.cubictest.model.SationObserver;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -109,13 +110,18 @@ public class AllLanguages extends PropertyAwareObject{
 
 	public void updateAllLanguages() {
 		List<Language> toRemove = new ArrayList<Language>();
-		for(Language language : languages){
-			if (language.updateLanguage() == false) {
-				if (MessageDialog.openConfirm(new Shell(), 
-						"CubicTest", "Load of language file " + language.getFileName() + " failed.\n\n" +
-						"Do you want to remove the language from the test?")) {
-					toRemove.add(language);
+		for (Language language : languages){
+			try {
+				if (language.updateLanguage() == false) {
+					if (MessageDialog.openConfirm(new Shell(), 
+							"CubicTest", "Load of language file " + language.getFileName() + " failed.\n\n" +
+					"Do you want to remove the language from the test?")) {
+						toRemove.add(language);
+					}
 				}
+			}
+			catch (Exception e) {
+				throw new CubicException(e, "Load of language file " + language.getFileName() + " failed. Missing language files must be resolved in the Graphical Test Editor.");
 			}
 		}
 		if (!toRemove.isEmpty()) {

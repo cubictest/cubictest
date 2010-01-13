@@ -156,11 +156,11 @@ public class SeleniumRunner
         for (File file : files) {
         	System.out.println(LOG_PREFIX + "Running test: " + file);
         	notRunTests.remove(file.getName());
-        	
-        	Test test = TestPersistance.loadFromFile(file, null);
-        	System.out.println(LOG_PREFIX + "Test loaded: " + test.getName());
 
     		try {
+    			Test test = TestPersistance.loadFromFile(file, null);
+    			System.out.println(LOG_PREFIX + "Test loaded: " + test.getName());
+
     			if (reuseBrowser) {
     		        if (testRunner == null) {
     					testRunner = new JUnitTestRunner(config, settings);
@@ -186,7 +186,7 @@ public class SeleniumRunner
     			throw new AssertionError("Test suite was empty: " + file.getName());
     		}
     		catch (ExporterException e) {
-    			System.out.println(LOG_PREFIX + "Test failure detected. Stopping Selenium.");
+    			System.out.println(LOG_PREFIX + "Test failure detected.");
     			stopSelenium(testRunner);
             	logSeperator();
     			System.out.println(LOG_PREFIX + "Failure in test " + file.getName() + ": " + e.getMessage());
@@ -204,7 +204,7 @@ public class SeleniumRunner
     			}
     		}
     		catch (Throwable e) {
-    			System.out.println(LOG_PREFIX + "Error detected during test run. Stopping Selenium.");
+    			System.out.println(LOG_PREFIX + "Error detected during test run.");
     			stopSelenium(testRunner);
     			testRunner = null;
     			System.out.println(e.toString());
@@ -256,12 +256,15 @@ public class SeleniumRunner
 
 	
 	private static void stopSelenium(JUnitTestRunner testRunner) {
-		try {
-			((JUnitTestRunner) testRunner).stopSeleniumWithTimeoutGuard(20);
-		}
-		catch (Exception e) {
-			System.out.println(LOG_PREFIX + "Error stopping selenium.");
-			e.printStackTrace();
+		if (testRunner != null) {
+			try {
+    			System.out.println(LOG_PREFIX + "Stopping Selenium.");
+				((JUnitTestRunner) testRunner).stopSeleniumWithTimeoutGuard(20);
+			}
+			catch (Exception e) {
+				System.out.println(LOG_PREFIX + "Error stopping selenium.");
+				e.printStackTrace();
+			}
 		}
 	}
 

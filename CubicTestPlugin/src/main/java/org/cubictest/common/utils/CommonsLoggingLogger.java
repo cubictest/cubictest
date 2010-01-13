@@ -21,8 +21,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class CommonsLoggingLogger {
 
-	private static Log log = LogFactory.getLog(CommonsLoggingLogger.class);
-	
+	private static Log log = LogFactory.getLog("CubicTest");
 	
 	public static void error(String message) {
 		String newMessage = StringUtils.isBlank(message) ? "An error has occurred" : message;
