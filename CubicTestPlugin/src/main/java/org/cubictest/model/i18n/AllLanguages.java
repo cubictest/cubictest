@@ -121,7 +121,7 @@ public class AllLanguages extends PropertyAwareObject{
 				}
 			}
 			catch (Exception e) {
-				throw new CubicException(e, "Load of language file " + language.getFileName() + " failed. Missing language files must be resolved in the Graphical Test Editor.");
+				throw new CubicException("Load of language file " + language.getFileName() + " failed. Missing language files must be resolved in the Graphical Test Editor.", e);
 			}
 		}
 		if (!toRemove.isEmpty()) {

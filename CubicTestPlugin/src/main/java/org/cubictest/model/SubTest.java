@@ -94,7 +94,7 @@ public class SubTest extends ConnectionPoint {
 			test = new Test();
 			test.setName(message);
 			if (rethrowOnError) {
-				throw new CubicException(e, message);
+				throw new CubicException(message, e);
 			}
 		}
 	}

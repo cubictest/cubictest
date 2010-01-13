@@ -28,7 +28,7 @@ public class CubicException extends RuntimeException {
 		super(message);
 	}
 
-	public CubicException(Throwable cause, String message) {
+	public CubicException(String message, Throwable cause) {
 		super(message, cause);
 	}
 	

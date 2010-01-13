@@ -36,7 +36,7 @@ public class ErrorHandler {
 		if (e instanceof RuntimeException) {
 			throw (RuntimeException) e;
 		}
-		throw new CubicException(e, message);
+		throw new CubicException(message, e);
 	}
 	
 	public static void logAndRethrow(Throwable e) {
