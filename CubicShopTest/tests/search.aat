@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="Cp1252"?>
 <test>
   <startPoint class="extensionStartPoint">
     <sourceExtensionPointPageId>page215362701162367169184</sourceExtensionPointPageId>
@@ -335,8 +336,9 @@
                 </userInteraction>
               </userInteractions>
               <page class="page" reference="../../.."/>
-              <reloadsPage>OFF</reloadsPage>
               <secondsToWaitForResult>2</secondsToWaitForResult>
+              <name></name>
+              <hasCustomTimeout>true</hasCustomTimeout>
               <start class="page" reference="../../.."/>
               <end class="page">
                 <commons/>
@@ -516,12 +518,12 @@
                       </userInteraction>
                       <userInteraction>
                         <element class="textField" reference="../../../../../elements/textField"/>
-                        <input>The Cube</input>
-                        <action>ENTER_TEXT</action>
+                        <input>books</input>
+                        <action>ENTER_PARAMETER_TEXT</action>
                         <i18nKey></i18nKey>
-                        <paramKey></paramKey>
+                        <paramKey>query</paramKey>
                         <useI18n>false</useI18n>
-                        <useParam>false</useParam>
+                        <useParam>true</useParam>
                       </userInteraction>
                       <userInteraction>
                         <element class="button" reference="../../../../../elements/button"/>
@@ -534,8 +536,9 @@
                       </userInteraction>
                     </userInteractions>
                     <page class="page" reference="../../.."/>
-                    <reloadsPage>AUTO</reloadsPage>
                     <secondsToWaitForResult>2</secondsToWaitForResult>
+                    <name></name>
+                    <hasCustomTimeout>false</hasCustomTimeout>
                     <start class="page" reference="../../.."/>
                     <end class="page">
                       <commons/>
@@ -544,11 +547,12 @@
                           <description></description>
                           <identifiers>
                             <identifier>
-                              <value>Search result for cubics</value>
+                              <value>Search result for books</value>
                               <probability>100</probability>
                               <type reference="../../../../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
+                              <paramKey>result</paramKey>
                               <useI18n>false</useI18n>
-                              <useParam>false</useParam>
+                              <useParam>true</useParam>
                               <moderator reference="../../../../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
                             </identifier>
                           </identifiers>
@@ -810,6 +814,24 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page4464141263402038318</id>
+      <position>
+        <x>0</x>
+        <y>3032</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -822,9 +844,35 @@
     <languages/>
     <observers/>
   </allLanguages>
+  <paramList>
+    <parameters>
+      <parameter>
+        <header>query</header>
+        <inputs>
+          <string>books</string>
+          <string>crates</string>
+        </inputs>
+        <observers>
+          <userInteraction reference="../../../../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/userInteractions/userInteraction[2]"/>
+        </observers>
+      </parameter>
+      <parameter>
+        <header>result</header>
+        <inputs>
+          <string>Search result for books</string>
+          <string>Search result for crates</string>
+        </inputs>
+        <observers>
+          <identifier reference="../../../../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/elements/text/identifiers/identifier"/>
+        </observers>
+      </parameter>
+    </parameters>
+    <parameterIndex>0</parameterIndex>
+    <fileName>/CubicShopTest/params/search.params</fileName>
+  </paramList>
   <name>search</name>
   <description></description>
   <id>test1162408155135</id>
-  <modelVersion>9</modelVersion>
+  <modelVersion>10</modelVersion>
   <status>PASS</status>
 </test>

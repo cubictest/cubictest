@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="Cp1252"?>
+<parameterList>
+  <parameters>
+    <parameter>
+      <header>query</header>
+      <inputs>
+        <string>books</string>
+        <string>crates</string>
+      </inputs>
+      <observers/>
+    </parameter>
+    <parameter>
+      <header>result</header>
+      <inputs>
+        <string>Search result for books</string>
+        <string>Search result for crates</string>
+      </inputs>
+      <observers/>
+    </parameter>
+  </parameters>
+  <parameterIndex>0</parameterIndex>
+  <fileName>/CubicShopTest/params/search.params</fileName>
+</parameterList>
