@@ -4,16 +4,20 @@
     <parameter>
       <header>query</header>
       <inputs>
-        <string>books</string>
-        <string>crates</string>
+        <string>books4</string>
+        <string>crates2</string>
+        <string>test4</string>
+        <string>go2</string>
       </inputs>
       <observers/>
     </parameter>
     <parameter>
       <header>result</header>
       <inputs>
-        <string>Search result for books</string>
-        <string>Search result for crates</string>
+        <string>books4</string>
+        <string>crates2</string>
+        <string>test4</string>
+        <string>go2</string>
       </inputs>
       <observers/>
     </parameter>

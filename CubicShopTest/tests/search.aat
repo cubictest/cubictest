@@ -59,7 +59,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>true</not>
-              <status>UNKNOWN</status>
+              <status>PASS</status>
             </checkbox>
             <select>
               <elements>
@@ -518,7 +518,7 @@
                       </userInteraction>
                       <userInteraction>
                         <element class="textField" reference="../../../../../elements/textField"/>
-                        <input>books</input>
+                        <input>test3</input>
                         <action>ENTER_PARAMETER_TEXT</action>
                         <i18nKey></i18nKey>
                         <paramKey>query</paramKey>
@@ -547,28 +547,12 @@
                           <description></description>
                           <identifiers>
                             <identifier>
-                              <value>Search result for books</value>
+                              <value>test3</value>
                               <probability>100</probability>
                               <type reference="../../../../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
                               <paramKey>result</paramKey>
                               <useI18n>false</useI18n>
                               <useParam>true</useParam>
-                              <moderator reference="../../../../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
-                            </identifier>
-                          </identifiers>
-                          <directEditIdentifier reference="../identifiers/identifier"/>
-                          <not>false</not>
-                          <status reference="../../../../../../../../../elements/checkbox/status"/>
-                        </text>
-                        <text>
-                          <description></description>
-                          <identifiers>
-                            <identifier>
-                              <value>The Cube</value>
-                              <probability>100</probability>
-                              <type reference="../../../../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
-                              <useI18n>false</useI18n>
-                              <useParam>false</useParam>
                               <moderator reference="../../../../../../../../../../../elements/checkbox/identifiers/identifier/moderator"/>
                             </identifier>
                           </identifiers>
@@ -652,7 +636,7 @@
                       </position>
                       <dimension>
                         <width>183</width>
-                        <height>88</height>
+                        <height>66</height>
                       </dimension>
                       <name defined-in="transitionNode"></name>
                     </end>
@@ -832,6 +816,42 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page308707501263402950030</id>
+      <position>
+        <x>0</x>
+        <y>3332</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page60651571263403404380</id>
+      <position>
+        <x>0</x>
+        <y>3632</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -849,8 +869,10 @@
       <parameter>
         <header>query</header>
         <inputs>
-          <string>books</string>
-          <string>crates</string>
+          <string>books4</string>
+          <string>crates2</string>
+          <string>test3</string>
+          <string>go2</string>
         </inputs>
         <observers>
           <userInteraction reference="../../../../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/userInteractions/userInteraction[2]"/>
@@ -859,20 +881,22 @@
       <parameter>
         <header>result</header>
         <inputs>
-          <string>Search result for books</string>
-          <string>Search result for crates</string>
+          <string>books4</string>
+          <string>crates2</string>
+          <string>test3</string>
+          <string>go2</string>
         </inputs>
         <observers>
           <identifier reference="../../../../../startPoint/outTransitions/extensionTransition/end/outTransitions/userInteractionsTransition/end/outTransitions/userInteractionsTransition/end/elements/text/identifiers/identifier"/>
         </observers>
       </parameter>
     </parameters>
-    <parameterIndex>0</parameterIndex>
+    <parameterIndex>2</parameterIndex>
     <fileName>/CubicShopTest/params/search.params</fileName>
   </paramList>
   <name>search</name>
   <description></description>
   <id>test1162408155135</id>
   <modelVersion>10</modelVersion>
-  <status>PASS</status>
+  <status reference="../startPoint/outTransitions/extensionTransition/end/elements/checkbox/status"/>
 </test>
