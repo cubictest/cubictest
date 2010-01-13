@@ -75,8 +75,7 @@ public class I18nSection extends AbstractPropertySection implements PropertyChan
 			WizardDialog dlg = new WizardDialog(new Shell(), wizard);
 			if(dlg.open() != WizardDialog.CANCEL){	
 				String text = wizard.getFileName();
-				Language lang = new Language(ResourcesPlugin.
-						getWorkspace().getRoot().getFile(new Path(text)));
+				Language lang = new Language(ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(text)));
 				String name = wizard.getLanguageName();
 				if(name == null || name.length() < 1) {
 					return;
