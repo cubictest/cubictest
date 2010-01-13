@@ -97,6 +97,7 @@ public class TestPersistance {
 		Test test = null;
 		try {
 			test = (Test) new CubicTestXStream().fromXML(xml);
+			test.getAllLanguages().updateAllLanguages();
 		} catch (Exception e) {
 			if (ErrorHandler.getCause(e) instanceof ConversionException) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow("Could not load test (error creating Test from XML file \"" + file.getName() + "\"). If the test was created with a newer version of CubicTest, then please upgrade to that version.\n", e);
@@ -104,13 +105,6 @@ public class TestPersistance {
 			else {
 				ErrorHandler.logAndShowErrorDialogAndRethrow("Exception occured. Could not load test \"" + file.getName() + "\"", e);
 			}
-		}
-		
-		try {
-			test.getAllLanguages().updateAllLanguages();
-		} catch (CubicException e) {
-			Logger.error("Exception occured. Could not load test \"" + file.getName() + "\"", e);
-			throw e;
 		}
 		
 		return test;
