@@ -34,6 +34,9 @@ public class ChangeParameterListCommand extends Command {
 	
 	@Override
 	public boolean canExecute() {
+		if (newParameterList == null && oldParameterList != null) {
+			return true;
+		}
 		if (newParameterList.equals(oldParameterList)) {
 			return false;
 		}
@@ -43,7 +46,9 @@ public class ChangeParameterListCommand extends Command {
 	@Override
 	public void execute() {
 		super.execute();
-		newParameterList.copyObserversFrom(oldParameterList);
+		if (newParameterList != null) {
+			newParameterList.copyObserversFrom(oldParameterList);
+		}
 		test.setParamList(newParameterList);
 		test.updateObservers();
 	}
@@ -51,7 +56,9 @@ public class ChangeParameterListCommand extends Command {
 	@Override
 	public void undo() {
 		super.undo();
-		oldParameterList.copyObserversFrom(newParameterList);
+		if (oldParameterList != null) {
+			oldParameterList.copyObserversFrom(newParameterList);
+		}
 		test.setParamList(oldParameterList);
 		test.updateObservers();
 	}

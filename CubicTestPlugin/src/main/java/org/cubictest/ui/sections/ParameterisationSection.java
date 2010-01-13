@@ -127,10 +127,9 @@ public class ParameterisationSection extends AbstractPropertySection implements 
 	class FileNameListener implements ModifyListener{
 		public void modifyText(ModifyEvent e) {
 			String text = fileName.getText();
-			ParameterList list = paramList;
-			if((list == null && !"".equals(text)) || 
-					(list != null && !list.getFileName().equals(text)))
+			if((paramList == null && !"".equals(text)) || (paramList != null && !paramList.getFileName().equals(text))) {
 				filePathChanged(text);
+			}
 		}
 	}
 
