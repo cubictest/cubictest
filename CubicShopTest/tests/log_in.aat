@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="Cp1252"?>
 <test>
   <startPoint class="urlStartPoint">
     <beginAt>http://cubictest.seleniumhq.org/cubicshop/</beginAt>
@@ -113,11 +113,12 @@
               <description></description>
               <identifiers>
                 <identifier>
-                  <value>Log in</value>
+                  <value>Login</value>
                   <probability>100</probability>
                   <type reference="../../../../text/identifiers/identifier/type"/>
-                  <useI18n>false</useI18n>
+                  <useI18n>true</useI18n>
                   <useParam>false</useParam>
+                  <moderator>EQUAL</moderator>
                 </identifier>
                 <identifier>
                   <value>logIn</value>
@@ -125,6 +126,7 @@
                   <type reference="../../../../textField/identifiers/identifier[3]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
                 </identifier>
                 <identifier>
                   <value>logIn</value>
@@ -132,6 +134,7 @@
                   <type reference="../../../../textField/identifiers/identifier[2]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
                 </identifier>
                 <identifier>
                   <value></value>
@@ -139,6 +142,7 @@
                   <type reference="../../../../textField/identifiers/identifier[5]/type"/>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
                 </identifier>
                 <identifier>
                   <value></value>
@@ -146,6 +150,23 @@
                   <type>CLASS</type>
                   <useI18n>false</useI18n>
                   <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>SRC</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
+                </identifier>
+                <identifier>
+                  <value></value>
+                  <probability>0</probability>
+                  <type>ALT</type>
+                  <useI18n>false</useI18n>
+                  <useParam>false</useParam>
+                  <moderator reference="../../identifier/moderator"/>
                 </identifier>
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
@@ -188,6 +209,8 @@
                 </userInteraction>
               </userInteractions>
               <page class="page" reference="../../.."/>
+              <name></name>
+              <hasCustomTimeout>false</hasCustomTimeout>
               <start class="page" reference="../../.."/>
               <end class="page">
                 <commons/>
@@ -303,6 +326,24 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page268676541263380888739</id>
+      <position>
+        <x>0</x>
+        <y>1231</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -312,11 +353,19 @@
   </transitions>
   <customTestSteps/>
   <allLanguages>
-    <languages/>
-    <observers/>
+    <languages>
+      <language>
+        <name>English</name>
+        <fileName>\CubicShopTest\tests\log_in.properties</fileName>
+      </language>
+    </languages>
+    <observers>
+      <identifier reference="../../../startPoint/outTransitions/simpleTransition/end/elements/button/identifiers/identifier"/>
+    </observers>
+    <currentLanguage reference="../languages/language"/>
   </allLanguages>
   <name>log_in</name>
   <description></description>
   <id>test1177885511999</id>
-  <modelVersion>9</modelVersion>
+  <modelVersion>10</modelVersion>
 </test>
