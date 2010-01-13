@@ -111,7 +111,8 @@ public class AllLanguages extends PropertyAwareObject{
 		List<Language> toRemove = new ArrayList<Language>();
 		for(Language language : languages){
 			if (language.updateLanguage() == false) {
-				if (MessageDialog.openConfirm(new Shell(), "CubicTest", "Load of language file " + language.getFileName() + " failed.\n\n" +
+				if (MessageDialog.openConfirm(new Shell(), 
+						"CubicTest", "Load of language file " + language.getFileName() + " failed.\n\n" +
 						"Do you want to remove the language from the test?")) {
 					toRemove.add(language);
 				}
