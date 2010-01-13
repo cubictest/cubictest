@@ -408,6 +408,7 @@ public class UserInteractionsComponent {
 		@Override
 		protected Control createControl(Composite parent) {
 			CCombo comboBox = (CCombo) super.createControl(parent);
+			comboBox.setVisibleItemCount(8);
 	        comboBox.addSelectionListener(new SelectionAdapter() {
 	        	
 	        	/**
