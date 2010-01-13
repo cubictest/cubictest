@@ -44,7 +44,7 @@ public class ChangeParameterListCommand extends Command {
 	@Override
 	public void execute() {
 		super.execute();
-		updateObservers(newParameterList,oldParameterList);
+		copyObserverList(newParameterList,oldParameterList);
 		test.setParamList(newParameterList);
 		test.updateObservers();
 	}
@@ -52,12 +52,12 @@ public class ChangeParameterListCommand extends Command {
 	@Override
 	public void undo() {
 		super.undo();
-		updateObservers(oldParameterList, newParameterList);
+		copyObserverList(oldParameterList, newParameterList);
 		test.setParamList(oldParameterList);
 		test.updateObservers();
 	}
 	
-	private void updateObservers(ParameterList newParamList, ParameterList oldParamList) {
+	private void copyObserverList(ParameterList newParamList, ParameterList oldParamList) {
 		if(oldParamList == null || newParamList == null)
 			return;
 		for(Parameter oldParam : oldParamList.getParameters()){
