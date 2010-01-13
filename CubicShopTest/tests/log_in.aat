@@ -113,7 +113,7 @@
               <description></description>
               <identifiers>
                 <identifier>
-                  <value>Login</value>
+                  <value>Log in</value>
                   <probability>100</probability>
                   <type reference="../../../../text/identifiers/identifier/type"/>
                   <useI18n>true</useI18n>
@@ -243,7 +243,7 @@
                       <id>extensionpoint299655571183409409192</id>
                       <position>
                         <x>88</x>
-                        <y>399</y>
+                        <y>407</y>
                       </position>
                       <dimension>
                         <width>150</width>
@@ -337,6 +337,24 @@
       <position>
         <x>0</x>
         <y>1231</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page165144141263380981892</id>
+      <position>
+        <x>0</x>
+        <y>1531</y>
       </position>
       <dimension>
         <width>0</width>
