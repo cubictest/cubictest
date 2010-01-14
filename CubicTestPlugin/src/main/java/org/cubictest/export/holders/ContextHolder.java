@@ -102,7 +102,7 @@ public abstract class ContextHolder implements IResultHolder {
 	
 	 private String getFullContextWithAllElements(PageElement pageElement, String axis, boolean traverseParents, PageElement elementToIgnore) {
 		
-		String elementExp = axis + XPathBuilder.getXPathForSingleElement(pageElement, useNamespace);
+		String elementExpression = axis + XPathBuilder.getXPathForSingleElement(pageElement, useNamespace);
 		
 		if (pageElement instanceof IContext && !(pageElement instanceof Frame)) {
 			IContext context = (IContext) pageElement;
@@ -110,15 +110,22 @@ public abstract class ContextHolder implements IResultHolder {
 				if (child == elementToIgnore) {
 					continue;
 				}
-				elementExp = elementExp + "[" + getFullContextWithAllElements(child, "descendant-or-self::", false, null) + "]";
+				String notStart = "";
+				String notEnd = "";
+				if (child.isNot()) {
+					notStart = "not(";
+					notEnd = ")";
+				}
+				String childExpression = "[" + notStart + getFullContextWithAllElements(child, "descendant-or-self::", false, null) + notEnd + "]";
+				elementExpression += childExpression;
 			}
 		}
 		
 		if (traverseParents && isInAContext(pageElement) && !(getParent(pageElement) instanceof Frame)) {
-			elementExp = getFullContextWithAllElements(getParent(pageElement), "/descendant-or-self::", true, pageElement) + elementExp;
+			elementExpression = getFullContextWithAllElements(getParent(pageElement), "/descendant-or-self::", true, pageElement) + elementExpression;
 		}
 		
-		return elementExp;
+		return elementExpression;
 	}
 
 	
