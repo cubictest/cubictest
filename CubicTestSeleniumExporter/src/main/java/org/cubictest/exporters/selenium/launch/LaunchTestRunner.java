@@ -66,7 +66,11 @@ public class LaunchTestRunner implements ICubicTestRunnable {
 
 	public void run(IProgressMonitor monitor) {
 		this.monitor = monitor;
-		runnerParameters.test.refreshAndVerifySubFiles();
+		runnerParameters.display.syncExec(new Runnable() {
+			public void run() {
+				runnerParameters.test.refreshAndVerifySubFiles();
+			}
+		});
 
 		try {
 			if (seleniumHolder == null || !reuseSelenium) {

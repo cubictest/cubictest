@@ -7,6 +7,7 @@ import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
 import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -43,6 +44,7 @@ public abstract class AbstractRunnerLaunchShortcut implements ILaunchShortcut {
 
 	private void launch(IFile element, String mode) {
 		try {
+			element.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 			ILaunchConfigurationWorkingCopy temparary = createLaunchConfiguration(element);
 			ILaunchConfiguration config = findExistingLaunchConfiguration(temparary, mode);
 			if (config == null) {

@@ -19,15 +19,19 @@ package org.cubictest.export.exceptions;
  */
 public class UserInteractionException extends ExporterException {
 
+	private static final long serialVersionUID = 1L;
+
+	public UserInteractionException(Throwable cause) {
+		super("Error invoking user interaction", cause);
+	}
 
 	public UserInteractionException(String message) {
 		super(message);
 	}
 
-	public UserInteractionException(String message, Exception cause) {
+	public UserInteractionException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
-	private static final long serialVersionUID = 1L;
 
 }

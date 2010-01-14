@@ -20,7 +20,9 @@ import org.cubictest.common.exception.CubicException;
  */
 public class ExporterException extends CubicException {
 
-	public ExporterException(Exception cause) {
+	private static final long serialVersionUID = 1L;
+
+	public ExporterException(Throwable cause) {
 		super(cause);
 	}
 
@@ -28,10 +30,9 @@ public class ExporterException extends CubicException {
 		super(message);
 	}
 
-	public ExporterException(String message, Exception cause) {
+	public ExporterException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
-	private static final long serialVersionUID = 1L;
 
 }

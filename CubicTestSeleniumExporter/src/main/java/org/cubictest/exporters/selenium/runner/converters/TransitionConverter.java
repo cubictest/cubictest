@@ -47,15 +47,35 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 	 */
 	public void handleUserInteractions(SeleniumHolder seleniumHolder, UserInteractionsTransition transition) {
 		
-		for (UserInteraction action : transition.getUserInteractions()) {
-			IActionElement actionElement = action.getElement();
+		for (UserInteraction userInteraction : transition.getUserInteractions()) {
+			IActionElement actionElement = userInteraction.getElement();
 			
 			if (actionElement == null) {
-				Logger.warn("Action element was null. Skipping user interaction: " + action);
+				Logger.warn("Action element was null. Skipping user interaction: " + userInteraction);
 				continue;
 			}
 			
-			handleUserInteraction(seleniumHolder, action);
+			int waitMillis = seleniumHolder.getNextPageElementTimeout() * 1000;
+			int waitIntervalMillis = 100;
+			int i = 0;
+			while(true) {
+				try {
+					handleUserInteraction(seleniumHolder, userInteraction);
+					break;
+				}
+				catch (UserInteractionException e) {
+					if (i > waitMillis) {
+						handleUserInteractionFailure(seleniumHolder, userInteraction, e);
+					}
+					try {
+						Thread.sleep(waitIntervalMillis);
+						i += waitIntervalMillis;
+						Logger.warn("Retrying user interaction: " + userInteraction.toString() + " after error: " + e.toString());
+					} catch (InterruptedException e2) {
+						throw new ExporterException(e2.toString() + " came after " + e.toString(), e);
+					}
+				}
+			}
 			
 			//increment the number of steps in test:
 			seleniumHolder.addResult(null, TestPartStatus.PASS);
@@ -64,6 +84,20 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 		if (transition.hasCustomTimeout()) {
 			seleniumHolder.setNextPageElementTimeout(transition.getSecondsToWaitForResult());
 		}
+	}
+
+	private void handleUserInteractionFailure(SeleniumHolder seleniumHolder,
+			UserInteraction userInteraction, UserInteractionException e) {
+		String msg = "Error invoking user interaction: " + userInteraction.toString() + ".";
+		if (userInteraction.getElement() instanceof PageElement) {
+			PageElement pe = (PageElement) userInteraction.getElement();
+			if (pe.getStatus().equals(TestPartStatus.FAIL)) {
+				msg += "\n\nPage element " + pe.toString() + " not found.";
+			}
+			seleniumHolder.addResultByIsNot(pe, TestPartStatus.EXCEPTION, pe.isNot());
+		}
+		Logger.error(msg, e);
+		throw new UserInteractionException(msg);
 	}
 
 	/**
@@ -75,7 +109,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 		IActionElement element = userInteraction.getElement();
 		ActionType actionType = userInteraction.getActionType();
 		boolean withinFrame = false;
-		if(element instanceof PageElement && seleniumHolder.isPageElementWithinFrame((PageElement)element)){
+		if (element instanceof PageElement && seleniumHolder.isPageElementWithinFrame((PageElement)element)){
 			//check if parent frame was found:
 			if (TestPartStatus.FAIL == seleniumHolder.getParentFrame((PageElement)element).getStatus()) {
 				ErrorHandler.logAndShowErrorDialogAndThrow("Cannot interact with element " + element + ":\n" + 
@@ -98,7 +132,8 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 			if (SELECT.equals(actionType) && selectbox.getIdentifier(MULTISELECT).getProbability() > 0) {
 				commandName = "addSelection"; //appropriate for multi-selection
 			}
-		}else {
+		}
+		else {
 			//all other elements
 			if (element instanceof PageElement) {
 				locator = "xpath=" + seleniumHolder.getFullContextWithAllElements((PageElement) element);
@@ -124,22 +159,15 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 				//one parameter only
 				seleniumHolder.getSelenium().execute(commandName, locator);
 			}
-			if(withinFrame && commandName.equals(SeleniumUtils.FIREEVENT))
-				upToParentFrame(seleniumHolder);
-			return commandName;
 		}
 		catch (Throwable e) {
-			String msg = "Error invoking user interaction: " + userInteraction.toString() + ".";
-			if (element instanceof PageElement) {
-				PageElement pe = (PageElement) element;
-				if (pe.getStatus().equals(TestPartStatus.FAIL)) {
-					msg += "\n\nPage element " + pe.toString() + " not found.";
-				}
-				seleniumHolder.addResultByIsNot(pe, TestPartStatus.EXCEPTION, pe.isNot());
-			}
-			Logger.error(msg, e);
-			throw new UserInteractionException(msg);
+			throw new UserInteractionException(e);
 		}
+
+		if (withinFrame && commandName.equals(SeleniumUtils.FIREEVENT)) {
+			upToParentFrame(seleniumHolder);
+		}
+		return commandName;
 	}
 
 	private void getToRightFrame(SeleniumHolder seleniumHolder, PageElement element) {
