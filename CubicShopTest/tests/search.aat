@@ -59,7 +59,7 @@
               </identifiers>
               <directEditIdentifier reference="../identifiers/identifier"/>
               <not>true</not>
-              <status>PASS</status>
+              <status>UNKNOWN</status>
             </checkbox>
             <select>
               <elements>
@@ -338,7 +338,7 @@
               <page class="page" reference="../../.."/>
               <secondsToWaitForResult>2</secondsToWaitForResult>
               <name></name>
-              <hasCustomTimeout>true</hasCustomTimeout>
+              <hasCustomTimeout>false</hasCustomTimeout>
               <start class="page" reference="../../.."/>
               <end class="page">
                 <commons/>
@@ -518,7 +518,7 @@
                       </userInteraction>
                       <userInteraction>
                         <element class="textField" reference="../../../../../elements/textField"/>
-                        <input>test3</input>
+                        <input>test4</input>
                         <action>ENTER_PARAMETER_TEXT</action>
                         <i18nKey></i18nKey>
                         <paramKey>query</paramKey>
@@ -547,7 +547,7 @@
                           <description></description>
                           <identifiers>
                             <identifier>
-                              <value>test3</value>
+                              <value>test4</value>
                               <probability>100</probability>
                               <type reference="../../../../../../../../../../../elements/checkbox/identifiers/identifier/type"/>
                               <paramKey>result</paramKey>
@@ -852,6 +852,24 @@
       </dimension>
       <name defined-in="transitionNode"></name>
     </page>
+    <page>
+      <children/>
+      <commons/>
+      <elements/>
+      <name></name>
+      <description></description>
+      <outTransitions/>
+      <id>page146724601263504406824</id>
+      <position>
+        <x>0</x>
+        <y>3932</y>
+      </position>
+      <dimension>
+        <width>0</width>
+        <height>0</height>
+      </dimension>
+      <name defined-in="transitionNode"></name>
+    </page>
   </pages>
   <subTests/>
   <transitions>
@@ -871,7 +889,7 @@
         <inputs>
           <string>books4</string>
           <string>crates2</string>
-          <string>test3</string>
+          <string>test4</string>
           <string>go2</string>
         </inputs>
         <observers>
@@ -883,7 +901,7 @@
         <inputs>
           <string>books4</string>
           <string>crates2</string>
-          <string>test3</string>
+          <string>test4</string>
           <string>go2</string>
         </inputs>
         <observers>
@@ -898,5 +916,5 @@
   <description></description>
   <id>test1162408155135</id>
   <modelVersion>10</modelVersion>
-  <status reference="../startPoint/outTransitions/extensionTransition/end/elements/checkbox/status"/>
+  <status>PASS</status>
 </test>
