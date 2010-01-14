@@ -232,6 +232,7 @@ public class NewCubicTestProjectWizard extends Wizard implements INewWizard {
 	public void launchNewTestWizard(IFolder testFolder) {
 		// Create the wizard
 		NewTestWizard wiz = new NewTestWizard();
+		wiz.setShowUsageHints(true);
 		wiz.init(workbench, new StructuredSelection(testFolder));
 		
 		//Create the wizard dialog

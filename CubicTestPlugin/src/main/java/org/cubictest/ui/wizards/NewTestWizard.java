@@ -72,6 +72,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	Map<ExtensionPoint, IFile> extensionPointMap;
 	IProject project;
 	String filePath;
+	private boolean showUsageHints;
 
 	/**
 	 * Constructor for NewTestWizard.
@@ -177,6 +178,11 @@ public class NewTestWizard extends Wizard implements INewWizard {
 			emptyTest = WizardUtils.createEmptyTest("test" + System.currentTimeMillis(), 
 					name, description, startTestFile, extensionPoint);
 		}
+		
+		if (showUsageHints) {
+			emptyTest.setName("Right click on test elements / canvas for context menu (expand 'Run As' for recording / running test)");
+		}
+		
 		TestPersistance.saveToFile(emptyTest, testFile);
 		monitor.worked(1);
 		
@@ -294,6 +300,10 @@ public class NewTestWizard extends Wizard implements INewWizard {
 	
 	public String getFilePath() {
 		return filePath;
+	}
+
+	public void setShowUsageHints(boolean showUsageHints) {
+		this.showUsageHints = showUsageHints;
 	}
 	
 }
