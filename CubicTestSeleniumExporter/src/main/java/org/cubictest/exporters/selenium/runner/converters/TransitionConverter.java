@@ -70,7 +70,7 @@ public class TransitionConverter implements ITransitionConverter<SeleniumHolder>
 					try {
 						Thread.sleep(waitIntervalMillis);
 						i += waitIntervalMillis;
-						Logger.warn("Retrying user interaction: " + userInteraction.toString() + " after error: " + e.toString());
+						Logger.warn("Retrying user interaction: " + userInteraction.toString() + " after error: " + ErrorHandler.getCause(e).toString());
 					} catch (InterruptedException e2) {
 						throw new ExporterException(e2.toString() + " came after " + e.toString(), e);
 					}
