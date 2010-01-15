@@ -180,7 +180,7 @@ public class NewTestWizard extends Wizard implements INewWizard {
 		}
 		
 		if (showUsageHints) {
-			emptyTest.setName("Right click on test elements / canvas for context menu (expand 'Run As' for recording / running test)");
+			emptyTest.setName("Right click for context menu (expand 'Run As' to record or run test)");
 		}
 		
 		TestPersistance.saveToFile(emptyTest, testFile);
