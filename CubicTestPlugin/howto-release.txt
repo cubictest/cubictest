@@ -19,4 +19,6 @@ How to release a new version of CubicTest
    1) pack all files into a fat-jar (see txt file with required contents)
    2) put the fat-jar into CubicTestSeleniumExporter/lib
  
+* Build the Update Site
+
 
