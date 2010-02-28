@@ -15,6 +15,8 @@ How to release a new version of CubicTest
  - search and replace in all files 
  - rename jar and pom files as well
  
- 
+* Package the CubicTestSeleniumExporter into a fat-jar file
+   1) pack all files into a fat-jar (see txt file with required contents)
+   2) put the fat-jar into CubicTestSeleniumExporter/lib
  
 
