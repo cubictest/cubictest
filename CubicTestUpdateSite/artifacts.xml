@@ -11,68 +11,68 @@
     <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
   </mappings>
   <artifacts size='12'>
-    <artifact classifier='osgi.bundle' id='org.cubictest.recorder.cubicrecorder' version='1.9.6'>
+    <artifact classifier='osgi.bundle' id='org.cubictest.recorder.cubicrecorder' version='2.0.3'>
       <properties size='3'>
         <property name='artifact.size' value='6097088'/>
         <property name='download.size' value='6097088'/>
         <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
-    <artifact classifier='org.eclipse.update.feature' id='org.cubictest' version='1.9.6'>
+    <artifact classifier='org.eclipse.update.feature' id='org.cubictest' version='2.0.3'>
       <properties size='2'>
         <property name='artifact.size' value='4953'/>
         <property name='download.size' value='4953'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.cubictest.exporters.watir' version='1.9.6'>
+    <artifact classifier='osgi.bundle' id='org.cubictest.exporters.watir' version='2.0.3'>
       <properties size='3'>
         <property name='artifact.size' value='43860'/>
         <property name='download.size' value='43860'/>
         <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.cubictest.exporters.watir' version='1.9.6'>
+    <artifact classifier='osgi.bundle' id='org.cubictest.exporters.watir' version='2.0.3'>
       <properties size='3'>
         <property name='artifact.size' value='44851'/>
         <property name='download.size' value='44851'/>
         <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
-    <artifact classifier='org.eclipse.update.feature' id='org.cubictest' version='1.9.6'>
+    <artifact classifier='org.eclipse.update.feature' id='org.cubictest' version='2.0.3'>
       <properties size='2'>
         <property name='artifact.size' value='4952'/>
         <property name='download.size' value='4952'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.cubictest' version='1.9.6'>
+    <artifact classifier='osgi.bundle' id='org.cubictest' version='2.0.3'>
       <properties size='3'>
         <property name='artifact.size' value='2693888'/>
         <property name='download.size' value='2693888'/>
         <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.cubictest.exporters.selenium' version='1.9.6'>
+    <artifact classifier='osgi.bundle' id='org.cubictest.exporters.selenium' version='2.0.3'>
       <properties size='3'>
         <property name='artifact.size' value='12332069'/>
         <property name='download.size' value='12332069'/>
         <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.cubictest.exporters.selenium' version='1.9.6'>
+    <artifact classifier='osgi.bundle' id='org.cubictest.exporters.selenium' version='2.0.3'>
       <properties size='3'>
         <property name='artifact.size' value='12657846'/>
         <property name='download.size' value='12657846'/>
         <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.cubictest' version='1.9.6'>
+    <artifact classifier='osgi.bundle' id='org.cubictest' version='2.0.3'>
       <properties size='3'>
         <property name='artifact.size' value='2684082'/>
         <property name='download.size' value='2684082'/>
         <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='org.cubictest.recorder.cubicrecorder' version='1.9.6'>
+    <artifact classifier='osgi.bundle' id='org.cubictest.recorder.cubicrecorder' version='2.0.3'>
       <properties size='3'>
         <property name='artifact.size' value='6397021'/>
         <property name='download.size' value='6397021'/>
