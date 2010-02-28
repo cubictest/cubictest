@@ -1,0 +1,20 @@
+How to release a new version of CubicTest
+-------------------------------------------
+
+* Make sure you have the latest version of Eclipse, GEF and Subclipse (install as primary workspace)
+
+* Make sure you have the latest version of Selenium. 
+ -  To upgrade Selenium, 
+   1) put jars in the project CubicTestSeleniumRC/lib, 
+   2) pack them into a fat-jar
+   3) put the fat-jar into CubicTestSeleniumExporter/lib
+   
+* Check that license is inserted on all source files
+
+* Upgrade the version number 
+ - search and replace in all files 
+ - rename jar and pom files as well
+ 
+ 
+ 
+
