@@ -1,0 +1,9 @@
+In FatJar config, only check option to remove *.SF files
+
+Required to run tests from maven:
+--------------------------------------
+Project output
+selenium-java-client-driver-sources.jar
+selenium-java-client-driver.jar
+selenium-server-coreless.jar
+selenium-server.jar

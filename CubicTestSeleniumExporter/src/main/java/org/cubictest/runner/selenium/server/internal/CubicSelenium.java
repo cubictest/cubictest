@@ -808,4 +808,12 @@ public class CubicSelenium implements Selenium {
 	public void selectPopUp(String arg0) {
 		execute("selectPopUp", arg0);
 	}
+
+	public String getLog() {
+		return execute("getLog")[0];
+	}
+
+	public void open(String arg0, String arg1) {
+		execute("open", arg0, arg1);
+	}
 }

@@ -31,7 +31,7 @@ import java.util.zip.ZipFile;
 import org.apache.commons.logging.Log;
 import org.apache.tools.ant.util.FileUtils;
 import org.eclipse.core.runtime.FileLocator;
-import org.mortbay.log.LogFactory;
+import org.openqa.jetty.log.LogFactory;
 
 public class ResourceExtractor {
 
