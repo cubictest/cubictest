@@ -98,6 +98,11 @@ Event.observe(window, 'load', function() {
 		var menuElement = frameDoc.createElement("div");
 		menuElement.id = "cubicContextMenu";
 		frameDoc.body.insertBefore(menuElement, frameDoc.body.firstChild);
+		
+		/* Set up the action listener */
+		var actionRecorder = new Cubic.recorder.ActionRecorder(jsonrpc.recorder, frameDoc.body);
+		
+		/* Set up the recorder context menu */
 		yuiContextMenu = new YAHOO.widget.ContextMenu("cubicContextMenu", { trigger: frameDoc, width: "", zIndex: 1000 });
 		cubicContextMenu = new Cubic.recorder.ContextMenu(yuiContextMenu);
 		
@@ -204,7 +209,7 @@ Event.observe(window, 'load', function() {
 		}
 		
 		cubicMenuItem.execute = function() {
-			YAHOO.log("execute  on assert All Options Present");
+			YAHOO.log("execute on assert All Options Present");
 			var elmt = this.target;
 			var parentCubicId = elmt.cubicId;
 			if(typeof parentCubicId == 'undefined'){
@@ -237,14 +242,12 @@ Event.observe(window, 'load', function() {
 		}
 		
 		cubicContextMenu.addItem(cubicMenuItem);
-	
+
+		actionRecorder.ignore(yuiContextMenu.element);
 	
 		/* Render Menu */
 		cubicContextMenu.render(frameDoc.body);		
 		
-		/* Set up the action listener */
-		var actionRecorder = new Cubic.recorder.ActionRecorder(jsonrpc.recorder, frameDoc.body);
-		actionRecorder.ignore(yuiContextMenu.element);
 		
 	}, false);
 }, true);
