@@ -70,12 +70,6 @@ Event.observe(window, 'load', function() {
 	document.getElementsByTagName("TABLE")[0].style.border = "1px solid red";
 	document.getElementsByTagName("TR")[0].style.display = "none";
 
-/*
-var temp = document.createElement("div");
-document.body.appendChild(temp);
-temp.innerHTML = '<a href="https://www.dnbnor.no/" target="myiframe" style="position: absolute; display: block; top: 0">google.no</a>';
-*/
-
 	var iframeName = 'selenium_myiframe';
 	//var myLogReader = new YAHOO.widget.LogReader(); 
 	var jsonrpc = new JSONRpcClient("/selenium-server/cubic-recorder/JSON-RPC");
