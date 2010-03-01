@@ -27,5 +27,9 @@ How to release a new version of CubicTest
    - Apply the build to a *fresh* Eclipse installation each time (as Update Site files are cached,
      so you will only get the old files again if you uninstall and reinstall same version number).
      
-     
+* Copy the generated update site files to the release candidate update site:
+	http://boss.bekk.no/cubictest/update-release-candidates/theVersion-RCx
 
+* Distribute links, release acceptance test
+
+* Deploy to main update site (TODO)
