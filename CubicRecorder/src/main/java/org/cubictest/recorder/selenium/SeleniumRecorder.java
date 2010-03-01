@@ -45,7 +45,7 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 	private boolean seleniumStarted;
 	private Selenium selenium;
 	BrowserType browser;
-	private SeleniumServer seleniumProxy;
+	private SeleniumServer seleniumServer;
 	private int port = -1;
 	private final String url;
 	private final Display display;
@@ -68,9 +68,9 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 			config.setSingleWindow(true);
 			config.setPort(port);
 			config.setPortDriversShouldContact(port);
-			seleniumProxy = new SeleniumServer(false, config);
+			seleniumServer = new SeleniumServer(false, config);
 			
-			Server server = seleniumProxy.getServer();
+			Server server = seleniumServer.getServer();
 			HttpContext cubicRecorder = server.getContext("/selenium-server/cubic-recorder/");
 			ServletHandler servletHandler = new ServletHandler();
 			servletHandler.addServlet("JSON-RPC", "/JSON-RPC", JSONRPCServlet.class.getName());
@@ -98,8 +98,8 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 			Logger.error(e.getMessage(), e);
 		}
 		try {
-			if (seleniumProxy != null)
-				seleniumProxy.stop();
+			if (seleniumServer != null)
+				seleniumServer.stop();
 		} catch(SeleniumException e) {
 			Logger.error(e.getMessage(), e);
 		}
@@ -107,8 +107,8 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 
 	public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
         try {
-			seleniumProxy.start();
-			selenium = new DefaultSelenium("localhost", seleniumProxy.getPort(), browser.getId(), url);
+			seleniumServer.start();
+			selenium = new DefaultSelenium("localhost", seleniumServer.getPort(), browser.getId(), url);
 			selenium.start();
 			selenium.open(url);
 			try {
