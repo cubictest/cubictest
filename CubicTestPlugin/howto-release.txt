@@ -3,6 +3,8 @@ How to release a new version of CubicTest
 
 * Make sure you have the latest version of Eclipse, GEF and Subclipse (install as primary workspace)
 
+* Make sure that the Eclipse compiler is set to Java 1.5
+
 * Make sure you have the latest version of Selenium. 
  -  To upgrade Selenium, 
    1) put jars in the project CubicTestSeleniumRC/lib, 
