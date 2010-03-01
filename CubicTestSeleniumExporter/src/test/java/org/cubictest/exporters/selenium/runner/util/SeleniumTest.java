@@ -22,7 +22,7 @@ import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
 
-public class SeleniumStarterTest {
+public class SeleniumTest {
     private static final int SERVER_PORT = 4444;
 	private Selenium browser;
 	private SeleniumServer server;
