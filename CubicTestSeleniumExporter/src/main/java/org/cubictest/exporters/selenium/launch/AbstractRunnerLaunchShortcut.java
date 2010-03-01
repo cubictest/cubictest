@@ -10,11 +10,14 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.launch;
 
+import static java.util.Arrays.asList;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
 import org.cubictest.common.utils.Logger;
+import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.common.SeleniumExporterProjectSettings;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -38,6 +41,10 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 public abstract class AbstractRunnerLaunchShortcut implements ILaunchShortcut {
 
+	protected BrowserType[] getSupportedBrowsers() {
+		return BrowserType.values();
+	}
+	
 	public void launch(ISelection selection, String mode) {
 		if(selection instanceof StructuredSelection) {
 			launch((IFile) ((StructuredSelection) selection).getFirstElement(), mode);
@@ -79,7 +86,11 @@ public abstract class AbstractRunnerLaunchShortcut implements ILaunchShortcut {
 		ILaunchConfigurationWorkingCopy wc= configType.newInstance(file.getParent(), 
 				getLaunchManager().generateUniqueLaunchConfigurationNameFrom(file.getName()));
 		
-		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_BROWSER, SeleniumExporterProjectSettings.getPreferredBrowser(settings).getId());
+		BrowserType preferredBrowser = SeleniumExporterProjectSettings.getPreferredBrowser(settings);
+		if (asList(getSupportedBrowsers()).indexOf(preferredBrowser) < 0) {
+			preferredBrowser = getSupportedBrowsers()[0];
+		}
+		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_BROWSER, preferredBrowser.getId());
 		wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, 
 				file.getProject().getName());
 		wc.setAttribute(SeleniumRunnerTab.CUBIC_TEST_NAME, 

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.cubictest.exporters.selenium.launch;
 
+import static java.util.Arrays.asList;
 import static org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME;
 
 import java.net.URL;
@@ -395,6 +396,9 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			
 			String defaultBrowser = SeleniumExporterProjectSettings.getPreferredBrowser(settings).getId();
 			browserType = BrowserType.fromId(configuration.getAttribute(CUBIC_TEST_BROWSER, defaultBrowser));
+			if (asList(getSupportedBrowsers()).indexOf(browserType) < 0) {
+				browserType = getSupportedBrowsers()[0];
+			}
 			nameSpaceButton.setSelection(configuration.getAttribute(
 					CUBIC_TEST_NAMESPACE_XPATH,	false));
 			seleniumServerHost.setText(configuration.getAttribute(
@@ -420,6 +424,9 @@ public class SeleniumRunnerTab extends AbstractLaunchConfigurationTab {
 			nameSpaceButton.setSelection(false);
 		}
 		int storedBrowserTypeIndex = ArrayUtils.indexOf(getSupportedBrowsers(), browserType);
+		if (storedBrowserTypeIndex < 0) {
+			storedBrowserTypeIndex = 0;
+		}
 		browserCombo.select(storedBrowserTypeIndex);
 	}
 

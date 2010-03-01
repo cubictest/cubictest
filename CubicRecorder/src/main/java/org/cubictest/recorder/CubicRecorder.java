@@ -13,6 +13,7 @@ package org.cubictest.recorder;
 
 import static org.cubictest.model.ActionType.CLICK;
 
+import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.model.AbstractPage;
 import org.cubictest.model.ActionType;
 import org.cubictest.model.ExtensionStartPoint;
@@ -40,6 +41,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.widgets.Display;
 
 public class CubicRecorder implements IRecorder {
+	public static final BrowserType[] SUPPORTED_BROWSERS = new BrowserType[] { BrowserType.FIREFOX, BrowserType.OPERA};
 	private Test test;
 	private AbstractPage cursor;
 	private UserInteractionsTransition userInteractionsTransition;

@@ -29,9 +29,9 @@ import org.cubictest.model.TransitionNode;
 import org.cubictest.recorder.IRecorder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Display;
-import org.mortbay.http.HttpContext;
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.servlet.ServletHandler;
+import org.openqa.jetty.http.HttpContext;
+import org.openqa.jetty.jetty.Server;
+import org.openqa.jetty.jetty.servlet.ServletHandler;
 import org.openqa.selenium.server.RemoteControlConfiguration;
 import org.openqa.selenium.server.SeleniumServer;
 

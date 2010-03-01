@@ -11,10 +11,18 @@
  *******************************************************************************/
 package org.cubictest.recorder.launch;
 
+import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.launch.AbstractRunnerLaunchShortcut;
+import org.cubictest.recorder.CubicRecorder;
 
 public class SeleniumRecorderLaunchShortcut extends AbstractRunnerLaunchShortcut {
 	protected String getLaunchConfigurationTypeId() {
 		return "org.cubictest.recorder.ui.launchConfigurationType";
 	}
+	
+	@Override
+	protected BrowserType[] getSupportedBrowsers() {
+		return CubicRecorder.SUPPORTED_BROWSERS;
+	}
+
 }

@@ -13,11 +13,12 @@ package org.cubictest.recorder.launch;
 
 import org.cubictest.exporters.selenium.common.BrowserType;
 import org.cubictest.exporters.selenium.launch.SeleniumRunnerTab;
+import org.cubictest.recorder.CubicRecorder;
 
 public class SeleniumRecorderTab extends SeleniumRunnerTab {
 
 	@Override
 	protected BrowserType[] getSupportedBrowsers() {
-		return new BrowserType[] { BrowserType.FIREFOX, BrowserType.OPERA};
+		return CubicRecorder.SUPPORTED_BROWSERS;
 	}
 }
