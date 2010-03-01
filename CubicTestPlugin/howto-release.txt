@@ -19,8 +19,13 @@ How to release a new version of CubicTest
  
 * Package the CubicTestSeleniumExporter into a fat-jar file
    1) pack all files into a fat-jar (see txt file with required contents)
-   2) put the fat-jar into CubicTestSeleniumExporter/lib
+   2) put the fat-jar into 
+       - CubicTestSeleniumExporter/lib
+       - CubicRecorder/lib
  
 * Build the Update Site
-
+   - Apply the build to a *fresh* Eclipse installation each time (as Update Site files are cached,
+     so you will only get the old files again if you uninstall and reinstall same version number).
+     
+     
 
