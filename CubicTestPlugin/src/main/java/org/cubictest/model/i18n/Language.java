@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.cubictest.model.i18n;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +18,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.cubictest.common.utils.ErrorHandler;
 import org.cubictest.common.utils.FileUtil;
@@ -89,7 +89,7 @@ public class Language{
 		if (properties == null) {
 			try {
 				properties = new Properties();
-				properties.load(new FileReader(FileUtil.getFileFromWorkspaceRoot(fileName)));
+				properties.load(FileUtils.openInputStream(FileUtil.getFileFromWorkspaceRoot(fileName)));
 			} catch (IOException e) {
 				ErrorHandler.logAndShowErrorDialogAndRethrow(e);
 			}
@@ -101,7 +101,7 @@ public class Language{
 		boolean success = false;
 		try {
 			properties = new Properties();
-			properties.load(new FileReader(FileUtil.getFileFromWorkspaceRoot(fileName)));
+			properties.load(FileUtils.openInputStream(FileUtil.getFileFromWorkspaceRoot(fileName)));
 			success = true;
 		} catch (IOException e) {
 			ErrorHandler.logAndShowErrorDialog(e);
