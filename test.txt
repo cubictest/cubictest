@@ -1,5 +1,0 @@
-testing SVN notifications, ignore
-asdasdasda
-adasd
-asdasd
-test 1 2 3
