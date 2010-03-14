@@ -11,6 +11,16 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <folder path="/CubicTestSeleniumExporter/META-INF"/>
+        <file path="/CubicTestSeleniumExporter/.project"/>
+        <javaElement handleIdentifier="=CubicTestSeleniumExporter/src\/main\/resources"/>
+        <file path="/CubicTestSeleniumExporter/plugin.xml"/>
+        <file path="/CubicTestSeleniumExporter/.classpath"/>
         <javaElement handleIdentifier="=CubicTestSeleniumExporter/src\/main\/java"/>
+        <file path="/CubicTestSeleniumExporter/selenium-exporter-2.0.3.pom"/>
+        <file path="/CubicTestSeleniumExporter/jar-export.jardesc"/>
+        <folder path="/CubicTestSeleniumExporter/src"/>
+        <file path="/CubicTestSeleniumExporter/build.properties"/>
+        <folder path="/CubicTestSeleniumExporter/icons"/>
     </selectedElements>
 </jardesc>
