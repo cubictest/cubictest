@@ -25,7 +25,6 @@ Export-Package: com.thoughtworks.selenium,
  org.cubictest.exporters.selenium.common,
  org.cubictest.exporters.selenium.launch,
  org.cubictest.exporters.selenium.runner,
- org.cubictest.exporters.selenium.ui,
- org.openqa.selenium.server.browserlaunchers
+ org.cubictest.exporters.selenium.ui
 Bundle-Activator: org.cubictest.exporters.selenium.SeleniumExporterPlugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
