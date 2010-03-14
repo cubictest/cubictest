@@ -38,19 +38,19 @@
     <dependency>
       <groupId>org.cubictest</groupId>
       <artifactId>cubictest</artifactId>
-      <version>1.9.6</version>
+      <version>2.0.3</version>
     </dependency>
 
     <dependency>
       <groupId>org.cubictest</groupId>
       <artifactId>selenium-exporter</artifactId>
-      <version>1.9.6</version>
+      <version>2.0.3</version>
     </dependency>
 
     <dependency>
       <groupId>org.cubictest</groupId>
       <artifactId>cubictest-selenium-rc</artifactId>
-      <version>1.9.6</version>
+      <version>2.0.3</version>
     </dependency>
     
   </dependencies>  	
