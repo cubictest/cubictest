@@ -22,7 +22,7 @@ echo "Repo files:"
 
 #Windows:
 #echo "FYI: WinSCP must be on PATH"
-#winscp.com /command "open schwarz@boss.bekk.no" "put ./cubictest_m2_jars/* /srv/www/htdocs/cubictest/m2repo/" "exit"
+winscp.com /command "open schwarz@boss.bekk.no" "put ./cubictest_m2_jars/* /srv/www/htdocs/cubictest/m2repo/" "exit"
 
 
 
