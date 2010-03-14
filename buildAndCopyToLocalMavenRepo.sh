@@ -84,7 +84,7 @@ cp cubictest-selenium-rc-$1.jar "$SELENIUM_RC_DIR"
 sha1 cubictest-selenium-rc-$1.jar | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.jar.sha1"
 md5 cubictest-selenium-rc-$1.jar | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.jar.md5"
 
-cd $BASE_DIR/CubicTestSeleniumExporterServer
+cd $BASE_DIR/CubicTestSeleniumRC
 cp cubictest-selenium-rc-$1.pom "$SELENIUM_RC_DIR"
 sha1 cubictest-selenium-rc-$1.pom | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.pom.sha1"
 md5 cubictest-selenium-rc-$1.pom | awk '{print $1}' > "$SELENIUM_RC_DIR/cubictest-selenium-rc-$1.pom.md5"

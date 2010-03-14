@@ -5,12 +5,12 @@ then
 fi
 
 # Copy jars and poms, generate checksums
-./copyToLocalMavenRepo.sh $@
+./buildAndCopyToLocalMavenRepo.sh $@
 echo "OK to continue? (CTRL+C to abort)"
 read
 
 # Build release dir structure
-./zipMavenRepo.sh $@
+./zipLocalMavenRepo.sh $@
 echo "OK to continue? (CTRL+C to abort)"
 read
 
