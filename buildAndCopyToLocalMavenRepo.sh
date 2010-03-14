@@ -16,6 +16,7 @@ sha1() {
 		#probably cygwin
 		sha1sum "$@" | awk '{print $1}'
 	else
+		#linux
 		sha1 "$@"
 	fi
 }
@@ -26,6 +27,7 @@ md5() {
 		#probably cygwin
 		md5sum "$@" | awk '{print $1}'
 	else
+		#linux
 		md5 "$@"
 	fi
 }
