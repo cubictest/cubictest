@@ -1,0 +1,3 @@
+This project must be built as selenium-exporter-<version>.jar
+
+Right click on the project and select Export... -> Jar file
