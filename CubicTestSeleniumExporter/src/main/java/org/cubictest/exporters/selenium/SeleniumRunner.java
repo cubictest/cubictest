@@ -64,7 +64,7 @@ public class SeleniumRunner
 	 */
 	public SeleniumRunner() {
 		this.config = new SeleniumRunnerConfiguration();
-		config.setMultiWindow(true);
+		config.setMultiWindow(false);
 		settings = new CubicTestProjectSettings(new File("."));
 		config.setBrowser(SeleniumExporterProjectSettings.getPreferredBrowser(settings));
 		SameVMCustomTestStepConverter.resetElementContext();

@@ -41,7 +41,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.widgets.Display;
 
 public class CubicRecorder implements IRecorder {
-	public static final BrowserType[] SUPPORTED_BROWSERS = new BrowserType[] { BrowserType.FIREFOX, BrowserType.OPERA};
+	public static final BrowserType[] SUPPORTED_BROWSERS = new BrowserType[] { BrowserType.FIREFOX };
 	private Test test;
 	private AbstractPage cursor;
 	private UserInteractionsTransition userInteractionsTransition;

@@ -334,10 +334,10 @@ public abstract class LaunchConfigurationDelegate extends AbstractJavaLaunchConf
 		try {
 			return configuration.getAttribute(
 					SeleniumRunnerTab.CUBIC_TEST_SELENIUM_SERVER_MULTI_WINDOW,
-					true);
+					false);
 		} catch (Exception e) {
 			Logger.error("Error getting property", e);
-			return true;
+			return false;
 		}
 	}
 

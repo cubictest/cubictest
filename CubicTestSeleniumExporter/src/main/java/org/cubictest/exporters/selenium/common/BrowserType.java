@@ -19,12 +19,9 @@ package org.cubictest.exporters.selenium.common;
 public enum BrowserType {
 
 	FIREFOX("*firefox", "Firefox", false),
-	OPERA("*opera", "Opera", false),
 	GOOGLE_CHROME("*googlechrome", "Google Chrome", false),
 	INTERNET_EXPLORER("*iexplore", "Internet Explorer", false),
-	SAFARI("*safari", "Safari", false),
-	FIREFOX_PI("*pifirefox", "Firefox - Proxy injection mode", true),
-	INTERNET_EXPLORER_PI("*piiexplore", "Internet Explorer - Proxy injection mode", true);
+	SAFARI("*safari", "Safari", false);
 	
 	private String id;
 	private String displayName;
