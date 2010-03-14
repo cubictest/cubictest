@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cubictest.common.settings.CubicTestProjectSettings;
+import org.cubictest.common.utils.Logger;
 import org.cubictest.export.exceptions.AssertionFailedException;
 import org.cubictest.model.ConnectionPoint;
 import org.cubictest.model.PageElement;
@@ -176,6 +177,7 @@ public abstract class RunnerResultHolder extends ContextHolder {
 	
 	/** Set next timeout in seconds */
 	public void setNextPageElementTimeout(int nextPageElementTimeout) {
+		Logger.info("Selenium timeout set to " + nextPageElementTimeout + " seconds");
 		this.nextPageElementTimeout = nextPageElementTimeout;
 	}
 	
