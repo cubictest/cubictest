@@ -2,5 +2,6 @@ This project must be built as selenium-exporter-<version>.jar
 
 Right click on the project and select Export... -> Jar file
 
-Export all files, put the generated jar file here:
+Export all files EXCEPT the /lib folder(!) and put the generated jar file here:
+
 CubicTestSeleniumExporter\lib\selenium-exporter-<version>.jar
