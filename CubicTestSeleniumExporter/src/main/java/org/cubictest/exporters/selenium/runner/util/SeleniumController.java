@@ -105,7 +105,7 @@ public class SeleniumController implements Callable<SeleniumHolder> {
 			seleniumHolder = new SeleniumHolder(config.getSeleniumServerHostname(), config.getSeleniumServerPort(), config.getBrowser().getId(), baseUrl, display, settings);
 			seleniumHolder.getSelenium().start();
 			//using selenium default timeout, open start URL and check connection (that browser profiles has been set correctly):
-			seleniumHolder.getSelenium().open(initUrl);
+			seleniumHolder.getSelenium().open(initUrl, "true");
 
 			int timeout = SeleniumUtils.getTimeout(settings);
 			seleniumHolder.getSelenium().setTimeout((timeout * 1000) + "");

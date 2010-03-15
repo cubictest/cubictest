@@ -94,6 +94,10 @@ public class CubicTestLocalRunner {
 		selenium.open(beginAt);
 	}
 	
+	public void open(String beginAt, String ignoreResponseCode) {
+		selenium.open(beginAt, ignoreResponseCode);
+	}
+	
 	public void selectFrame(String locator) {
 		selenium.selectFrame(locator);
 	}

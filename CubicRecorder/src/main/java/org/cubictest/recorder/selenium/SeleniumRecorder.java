@@ -110,7 +110,7 @@ public class SeleniumRecorder implements ICubicTestRunnable {
 			seleniumServer.start();
 			selenium = new DefaultSelenium("localhost", seleniumServer.getPort(), browser.getId(), url);
 			selenium.start();
-			selenium.open(url);
+			selenium.open(url, "true");
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

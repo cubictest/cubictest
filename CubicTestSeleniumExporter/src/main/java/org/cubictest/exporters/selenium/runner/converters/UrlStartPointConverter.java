@@ -31,6 +31,6 @@ public class UrlStartPointConverter implements IUrlStartPointConverter<SeleniumH
 		}
 		
 		//open URL:
-		seleniumHolder.getSelenium().open(sp.getBeginAt());
+		seleniumHolder.getSelenium().open(sp.getBeginAt(), "true");
 	}
 }
