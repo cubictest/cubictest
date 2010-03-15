@@ -25,10 +25,3 @@ echo "Repo files:"
 winscp.com /command "open schwarz@boss.bekk.no" "put ./cubictest_m2_jars/* /srv/www/htdocs/cubictest/m2repo/" "exit"
 
 
-
-echo "Repo zip file:"
-#Linux:
-#scp -r ./cubictest_m2_jars.zip schwarz@boss.bekk.no:/srv/www/htdocs/cubictest/m2repo/
-
-#Windows:
-winscp.com /command "open schwarz@boss.bekk.no" "put ./cubictest_m2_jars.zip /srv/www/htdocs/cubictest/m2repo/" "exit"
