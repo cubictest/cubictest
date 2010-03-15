@@ -65,4 +65,4 @@ echo "FYI: 7-zip must be on PATH"
 
 cd "$BASE_DIR"
 
-
+mv cubictest_m2_jars.zip cubictest_m2_jars
