@@ -1,35 +1,54 @@
 How to release a new version of CubicTest
 -------------------------------------------
 
-* Make sure you have the latest version of Eclipse, GEF and Subclipse (install as primary workspace)
+* Make sure you have the latest version of Eclipse, GEF and Subclipse svn (install as primary workspace)
 
 * Make sure that the Eclipse compiler is set to Java 1.5
 
 * Make sure you have the latest version of Selenium. 
  -  To upgrade Selenium, 
    1) put jars in the project CubicTestSeleniumRC/lib, 
-   2) pack them into a fat-jar
-   3) put the fat-jar into CubicTestSeleniumExporter/lib
+   2) pack them into a fat-jar (using the fat-jar plugin(1))
+   3) put the fat-jar into 
+        - CubicTestSeleniumExporter/lib
+        - CubicRecorder/lib
    
 * Check that license is inserted on all source files
 
 * Upgrade the version number 
  - search and replace in all files 
  - rename jar and pom files as well
- 
-* Package the CubicTestSeleniumExporter into a fat-jar file
+
+* Package the CubicTestPlugin into a fat-jar file (using the fat-jar plugin(1))
    1) pack all files into a fat-jar (see txt file with required contents)
    2) put the fat-jar into 
        - CubicTestSeleniumExporter/lib
-       - CubicRecorder/lib
  
+* Package the CubicTestSeleniumExporter into a jar file
+   1) pack all files into a jar (use standard Eclipse jar export)
+   2) put the jar into CubicTestSeleniumExporter/lib
+
 * Build the Update Site
    - Apply the build to a *fresh* Eclipse installation each time (as Update Site files are cached,
      so you will only get the old files again if you uninstall and reinstall same version number).
-     
-* Copy the generated update site files to the release candidate update site:
-	http://boss.bekk.no/cubictest/update-release-candidates/theVersion-RCx
 
-* Distribute links, release acceptance test
+* Build the rich client version
+	1) Compute dependencies CubicTest.product
+	2) Export CubicTest.product
 
-* Deploy to main update site (TODO)
+* Deploy to update site (including zip'ed version for local update sites) 
+
+* Deploy to maven repository (including zip'ed version for zip downloads) 
+
+* Deploy rich client version
+
+* Release Jira version
+
+* Update meta.xml in website dir with release info
+
+* Create release news story (link to Jira release notes)
+
+
+--------------------------
+(1) The fat-jar plugin in committed in CubicTest svn under the tools dir.
+
