@@ -128,11 +128,13 @@ p:first-letter{
 
 .news{
 	float: left;
+	margin: 10px 0 0 0;
+	
 }
 
 .newsItem{
 	display: block;
-	margin: 35px 0;
+	margin: 20px 0 35px 0;
 }
 
 .newsHeader{
