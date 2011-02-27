@@ -1,0 +1,5 @@
+h1. Welcome to CubicTest
+
+See www.cubictest.org and cubictest.openqa.org for more information.
+
+"CubicTest is licensed under Eclipse Public License - v 1.0":http://www.eclipse.org/legal/epl-v10.html
