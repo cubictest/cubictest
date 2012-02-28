@@ -22,10 +22,15 @@ import java.net.UnknownHostException;
 import javax.net.SocketFactory;
 
 import org.cubictest.export.exceptions.ExporterException;
-import org.openqa.selenium.server.BrowserConfigurationOptions;
+import org.openqa.selenium.server.browserlaunchers.BrowserOptions;
 
 import com.thoughtworks.selenium.Selenium;
 
+/**
+ * 
+ * edited by ye mao (cnkmym@gmail.com)
+ * @date 2012-02-28
+ */
 public class CubicSelenium implements Selenium {
 
 	private final int port;
@@ -757,7 +762,11 @@ public class CubicSelenium implements Selenium {
 		execute("rollup", arg0, arg1);
 	}
 
-	public void start(BrowserConfigurationOptions arg0) {
+	/**
+	 * Edited by YEMAO
+	 * @param arg0
+	 */
+	public void start(BrowserOptions arg0) {
 		throw new RuntimeException("Not implementedin CubicTest");
 	}
 
@@ -815,5 +824,12 @@ public class CubicSelenium implements Selenium {
 
 	public void open(String arg0, String arg1) {
 		execute("open", arg0, arg1);
+	}
+
+	/**
+	 * Edited by YEMAO
+	 */
+	public Number getCssCount(String css) {
+		return null;
 	}
 }
