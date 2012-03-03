@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CubicTestSeleniumExporter
 Bundle-SymbolicName: org.cubictest.exporters.selenium;singleton:=true
-Bundle-Version: 2.0.3
+Bundle-Version: 2.0.5
 Require-Bundle: org.eclipse.core.runtime,
  org.cubictest,
  org.eclipse.ui.ide,
@@ -17,14 +17,35 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-LazyStart: true
 Bundle-ClassPath: .,
  lib/jdom.jar,
- lib/cubictest-selenium-rc-2.0.3.jar,
- lib/junit-4.4-src.jar,
- lib/junit-4.4.jar
+ lib/cubictest-selenium-rc-2.0.5.jar,
+ lib/junit-4.10-src.jar,
+ lib/junit-4.10.jar
 Bundle-Vendor: cubictest.org
-Export-Package: com.thoughtworks.selenium,
- org.cubictest.exporters.selenium.common,
- org.cubictest.exporters.selenium.launch,
- org.cubictest.exporters.selenium.runner,
- org.cubictest.exporters.selenium.ui
+Export-Package: com.thoughtworks.selenium;uses:="junit.framework,org.testng,org.testng.internal",
+ org.cubictest.exporters.selenium.common;uses:="org.cubictest.common.settings,org.eclipse.ui.plugin",
+ org.cubictest.exporters.selenium.launch;uses:="com.thoughtworks.selenium,org.cubictest.selenium.custom",
+ org.cubictest.exporters.selenium.runner;
+  uses:="org.eclipse.jface.wizard,
+   org.eclipse.core.runtime,
+   org.cubictest.exporters.selenium.common,
+   org.cubictest.model,
+   org.cubictest.exporters.selenium.runner.util,
+   org.cubictest.common.settings,
+   com.thoughtworks.selenium,
+   org.cubictest.exporters.selenium.runner.holders,
+   org.eclipse.jdt.core,
+   org.eclipse.jdt.ui.wizards,
+   org.openqa.selenium.server,
+   org.eclipse.swt.widgets",
+ org.cubictest.exporters.selenium.ui;
+  uses:="org.eclipse.jface.wizard,
+   org.eclipse.jface.action,
+   org.cubictest.model.customstep.data,
+   org.eclipse.jdt.core,
+   org.eclipse.ui,
+   org.eclipse.core.resources,
+   org.eclipse.jface.viewers,
+   org.cubictest.ui.customstep.section,
+   org.eclipse.swt.widgets"
 Bundle-Activator: org.cubictest.exporters.selenium.SeleniumExporterPlugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
