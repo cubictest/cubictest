@@ -29,9 +29,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.apache.commons.logging.Log;
-import org.apache.tools.ant.util.FileUtils;
 import org.eclipse.core.runtime.FileLocator;
 import org.openqa.jetty.log.LogFactory;
+import org.openqa.selenium.browserlaunchers.LauncherUtils;
 
 public class ResourceExtractor {
 
@@ -58,7 +58,7 @@ public class ResourceExtractor {
 				if (resourceFile.isDirectory()) {
 				    LauncherUtils.copyDirectory(resourceFile, dest);
 				} else {
-				    FileUtils.getFileUtils().copyFile(resourceFile, dest);
+				    org.apache.commons.io.FileUtils.copyFile(resourceFile, dest);
 				}
 			} catch (Exception e) {
                 throw new RuntimeException("Couldn't convert URL to File:" + url, e);
