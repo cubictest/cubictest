@@ -761,11 +761,7 @@ public class CubicSelenium implements Selenium {
 	public void rollup(String arg0, String arg1) {
 		execute("rollup", arg0, arg1);
 	}
-
-	/**
-	 * Edited by YEMAO
-	 * @param arg0
-	 */
+	
 	public void start(BrowserOptions arg0) {
 		throw new RuntimeException("Not implementedin CubicTest");
 	}
@@ -826,9 +822,6 @@ public class CubicSelenium implements Selenium {
 		execute("open", arg0, arg1);
 	}
 
-	/**
-	 * Edited by YEMAO
-	 */
 	public Number getCssCount(String css) {
 		return null;
 	}

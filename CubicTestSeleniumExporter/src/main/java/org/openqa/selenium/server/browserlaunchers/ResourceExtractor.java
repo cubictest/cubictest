@@ -58,9 +58,6 @@ public class ResourceExtractor {
 				if (resourceFile.isDirectory()) {
 				    LauncherUtils.copyDirectory(resourceFile, dest);
 				} else {
-					/**
-					 * Edited by YEMAO
-					 */
 				    org.apache.commons.io.FileUtils.copyFile(resourceFile, dest);
 				}
 			} catch (Exception e) {

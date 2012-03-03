@@ -47,11 +47,6 @@ public class SeleniumUtils {
 	 */
 	public static String getOptionLocator(Option option) {
 		Identifier optionMainId = option.getMainIdentifier();
-
-		/**
-		 * Edited by YEMAO
-		 * remove dead code section
-		 */
 		if (optionMainId == null) {
 			return "index=0";
 		}
