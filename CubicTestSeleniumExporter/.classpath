@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/junit-4.4-src.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.10-src.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="lib/cubictest-selenium-rc-2.0.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry exported="true" kind="lib" path="lib/jdom.jar" sourcepath="CubicTestSeleniumExportersrc.zip"/>
-	<classpathentry exported="true" kind="lib" path="lib/cubictest-selenium-rc-2.0.3.jar" sourcepath="C:/projects/selenium-1.0.1-download/selenium-remote-control-1.0.1/selenium-server-1.0.1/selenium-server-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

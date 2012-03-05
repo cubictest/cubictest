@@ -7,6 +7,7 @@
  * 
  * Contributors:
  *    Stein K. Skytteren and Christian Schwarz - initial API and implementation
+ *    YE Mao - version up , feature extension
  *******************************************************************************/
 package org.cubictest.exporters.selenium.runner;
 

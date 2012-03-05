@@ -4316,7 +4316,7 @@ YAHOO.widget.MenuItem.prototype = {
     * @default null
     * @private
     * @type <a href="http://www.w3.org/TR/2000/WD-DOM-Level-1-20000929/level-
-    * one-html.html#ID-48250443">HTMLAnchorElement</a>
+    * one-html.html#ID-482.0.53">HTMLAnchorElement</a>
     */
     _oAnchor: null,
 

@@ -29,7 +29,6 @@ import org.cubictest.model.UserInteraction;
 import org.cubictest.model.customstep.data.CustomTestStepData;
 import org.cubictest.model.formElement.Option;
 
-
 /**
  * Util class for Selenium export.
  * 
@@ -38,31 +37,37 @@ import org.cubictest.model.formElement.Option;
 public class SeleniumUtils {
 
 	public static final String FIREEVENT = "fireEvent";
-	
 
 	/**
-	 * Get the string that represents the Selenium locator-string for the element.
+	 * Get the string that represents the Selenium locator-string for the
+	 * element.
+	 * 
 	 * @param element
 	 * @return
 	 */
 	public static String getOptionLocator(Option option) {
 		Identifier optionMainId = option.getMainIdentifier();
-		if (!optionMainId.getModerator().equals(EQUAL)) {
-			throw new ExporterException("\n" + option.getParent() + " --> " + option + 
-					":\nSelenium only supports \"be equal to\" identifiers for Options in SelectLists.");
-		}
-		String locator = "";
 		if (optionMainId == null) {
-			locator = "index=0";
+			return "index=0";
 		}
+
+		String locator = "";
+		if (!optionMainId.getModerator().equals(EQUAL)) {
+			throw new ExporterException(
+					"\n"
+							+ option.getParent()
+							+ " --> "
+							+ option
+							+ ":\nSelenium only supports \"be equal to\" identifiers for Options in SelectLists.");
+		}
+
 		else {
-			locator = getOptionIdType(optionMainId) + "=" + optionMainId.getValue();
+			locator = getOptionIdType(optionMainId) + "="
+					+ optionMainId.getValue();
 		}
 		return locator;
 	}
-	
-	
-	
+
 	private static String getOptionIdType(Identifier optionMainId) {
 		if (optionMainId.getType().equals(IdentifierType.LABEL))
 			return "label";
@@ -70,10 +75,9 @@ public class SeleniumUtils {
 			return ExportUtils.getHtmlIdType(optionMainId);
 	}
 
-
-
 	/**
 	 * Get the Selenium command name for the specified ActionType.
+	 * 
 	 * @param a
 	 */
 	public static String getCommandName(ActionType a) {
@@ -115,137 +119,145 @@ public class SeleniumUtils {
 		case DRAG_DROP:
 			return "dragdrop";
 		default:
-			throw new ExporterException("Internal error: Could not get selenium command for action type " + a);
+			throw new ExporterException(
+					"Internal error: Could not get selenium command for action type "
+							+ a);
 		}
 	}
 
-	
 	/**
-	 * Get a description of the command for the specified ActionType and element.
+	 * Get a description of the command for the specified ActionType and
+	 * element.
+	 * 
 	 * @param a
 	 * @param element
 	 */
-	public static String getCommandDescription(ActionType a, IActionElement element) {
+	public static String getCommandDescription(ActionType a,
+			IActionElement element) {
 		switch (a) {
-		
+
 		case CLICK:
 			return "Clicking " + element;
-		
+
 		case CHECK:
 			return "Checking " + element;
-		
+
 		case UNCHECK:
 			return "Unchecking " + element;
-		
+
 		case SELECT:
 			return "Selecting " + element;
 
 		case ENTER_TEXT:
 		case ENTER_PARAMETER_TEXT:
 			return "Typing text " + element;
-		
+
 		case CLEAR_ALL_TEXT:
 			return "Clearing text " + element;
-		
+
 		case KEY_PRESSED:
 			return "Pressing key " + element;
-		
+
 		case MOUSE_OVER:
 			return "Move mouse to " + element;
-		
+
 		case MOUSE_OUT:
 			return "Remove mouse from " + element;
-		
+
 		case DBLCLICK:
 			return "Doubleclicking on " + element;
-		
+
 		case FOCUS:
 			return "Setting focus on " + element;
-		
+
 		case BLUR:
 			return "Removing focus from " + element;
-		
+
 		case GO_BACK:
 			return "Going back to previous page " + element;
 
 		case REFRESH:
 			return "Refreshing page " + element;
-			
+
 		case DRAG_DROP:
 			return "Drag'n drop " + element;
-			
+
 		default:
-			throw new ExporterException("Internal error: Could get command description for action type " + a);
+			throw new ExporterException(
+					"Internal error: Could get command description for action type "
+							+ a);
 		}
 	}
-	
-	
-	
+
 	/**
-	 * Get the value for a Selenium command (get value for third column in a Selenese row).
+	 * Get the value for a Selenium command (get value for third column in a
+	 * Selenese row).
+	 * 
 	 * @param userInteraction
 	 */
 	public static String getValue(UserInteraction userInteraction) {
 		ActionType a = userInteraction.getActionType();
-		switch (a){
-			case ENTER_TEXT: 
-			case ENTER_PARAMETER_TEXT:
-			case KEY_PRESSED: 
-				return userInteraction.getTextualInput();
-			case SELECT:
-				throw new ExporterException("getValue not supported for Options.");
-			case FOCUS:
-				return "focus";
-			case BLUR:
-				return "blur";
-			case DRAG_DROP:
-				return userInteraction.getValue();
-			default:
-				return "";
+		switch (a) {
+		case ENTER_TEXT:
+		case ENTER_PARAMETER_TEXT:
+		case KEY_PRESSED:
+			return userInteraction.getTextualInput();
+		case SELECT:
+			throw new ExporterException("getValue not supported for Options.");
+		case FOCUS:
+			return "focus";
+		case BLUR:
+			return "blur";
+		case DRAG_DROP:
+			return userInteraction.getValue();
+		default:
+			return "";
 		}
 	}
-	
-	
+
 	/**
-	 * Get the value for a Selenium command (get value for third column in a Selenese row).
+	 * Get the value for a Selenium command (get value for third column in a
+	 * Selenese row).
+	 * 
 	 * @param userInteraction
 	 */
 	public static boolean hasSeleniumInputColumn(UserInteraction userInteraction) {
 		ActionType a = userInteraction.getActionType();
-		switch (a){
-			case ENTER_TEXT:
-			case ENTER_PARAMETER_TEXT:
-			case KEY_PRESSED:
-			case CLEAR_ALL_TEXT:
-			case SELECT:
-			case FOCUS:
-			case BLUR:
-			case DRAG_DROP:
-				return true;
-			default:
-				return false;
+		switch (a) {
+		case ENTER_TEXT:
+		case ENTER_PARAMETER_TEXT:
+		case KEY_PRESSED:
+		case CLEAR_ALL_TEXT:
+		case SELECT:
+		case FOCUS:
+		case BLUR:
+		case DRAG_DROP:
+			return true;
+		default:
+			return false;
 		}
 	}
-	
 
 	/**
 	 * Get user configured timeout in seconds.
+	 * 
 	 * @param settings
 	 * @return
 	 */
 	public static int getTimeout(CubicTestProjectSettings settings) {
-		if(settings == null)
+		if (settings == null)
 			return 20;
-		return settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(), "timeout", 20);
+		return settings.getInteger(SeleniumUtils.getPluginPropertyPrefix(),
+				"timeout", 20);
 	}
-	
+
 	public static String getPluginPropertyPrefix() {
 		return "SeleniumExporterPlugin";
 	}
-	
-	
-	public static void writeTextToFile(String directory, String fileName, String text, String fileExt){
-		File textFile = new File(directory + fileName  + "." + fileExt);
+
+	public static void writeTextToFile(String directory, String fileName,
+			String text, String fileExt) {
+		File textFile = new File(directory + fileName + "." + fileExt);
 		try {
 			FileWriter writer = new FileWriter(textFile);
 			writer.write(text);
@@ -257,7 +269,8 @@ public class SeleniumUtils {
 
 	public static boolean getWaitForPageToLoadValue(CustomTestStepData data) {
 		boolean waitForPageToLoad = false;
-		Object waitForPageToLoadSetting = data.getExporterUserSetting(ChangeCustomStepWaitForPageToLoadCommand.WAIT_FOR_PAGE_TO_LOAD);
+		Object waitForPageToLoadSetting = data
+				.getExporterUserSetting(ChangeCustomStepWaitForPageToLoadCommand.WAIT_FOR_PAGE_TO_LOAD);
 		if (waitForPageToLoadSetting != null) {
 			waitForPageToLoad = ((Boolean) waitForPageToLoadSetting);
 		}

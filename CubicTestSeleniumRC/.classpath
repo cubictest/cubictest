@@ -2,9 +2,8 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="lib/selenium-java-client-driver.jar"/>
-	<classpathentry kind="lib" path="lib/selenium-java-client-driver-sources.jar"/>
-	<classpathentry kind="lib" path="lib/selenium-server.jar"/>
-	<classpathentry kind="lib" path="lib/selenium-server-coreless.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-java-2.19.0-srcs.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-java-2.19.0.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-server-standalone-2.19.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

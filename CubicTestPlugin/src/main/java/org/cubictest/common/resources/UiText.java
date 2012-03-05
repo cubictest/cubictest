@@ -7,6 +7,7 @@
  * 
  * Contributors:
  *    Stein K. Skytteren and Christian Schwarz - initial API and implementation
+ *    Mao YE - version up, new feature extended
  *******************************************************************************/
 package org.cubictest.common.resources;
 
