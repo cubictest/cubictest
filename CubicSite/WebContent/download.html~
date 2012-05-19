@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>CubicTest</title>
+<link href="css/style.css" type="text/css" rel="stylesheet"></link>
+</head>
+<body>
+	<div id="header">
+		<img id="cubicLogo" src="images/logo.gif"/>
+		<div id=title>CubicTest</div>
+	</div>
+	<div id="menu">
+		<div class="menuitem"><a href="index.html">Home</a></div>
+		<div class="menuitem"><a href="screenshots.html">Screenshots</a></div>
+		<div class="menuitem"><a href="features.html">Features</a></div>
+		<div class="menuitem"><a href="download.html">Download</a></div>
+		<div class="menuitem"><a href="http://wiki.openqa.org/display/CT/Home">Documentation / Wiki</a></div>
+		<div class="menuitem"><a href="about.html">About</a></div>
+	</div>
+	<div id="sponsors">
+		<img id="osiLogo" class="logo" src="images/osiLogo.jpg"/>
+	</div>
+	<div id="body">
+
+		<div class="download">
+			<h1>
+				Eclipse Plug-in / Update Site
+			</h1>
+			<div>
+				CubicTest is Open Source software licensed under the <a href="LICENSE.html">Eclipse Public License v 1.0</a> 
+			</div>
+			<br/>
+			<div class="description">
+				Eclipse Plug-in version (platform independent).
+				Requires minimum Eclipse 3.4 with Java 5 JRE. 
+				
+				<br/><br/><br/>
+				<b>NB!</b> CubicTest 2.0.6 only works out-of the box with <b>Firefox 8,9,10</b>. <a href="http://groups.google.com/group/cubictest-users/browse_thread/thread/9fc54e07f5313a01?pli=1">More information</a>
+				
+				<br/><br/><br/>
+				<b>CubicTest Eclipse Update Site</b>
+				<ul>
+					<li>http://www.cubictest.org/update/</li>
+				</ul>
+				<a href="installDetails.html">Detailed installation instructions</a>
+				<br/>
+				<a href="upgrade.html">How to upgrade from a previous version</a>
+			</div>
+			<br/>
+			<br/>
+			<div class="description">
+				If you encounter problems, see the <a href="http://wiki.openqa.org/display/CT/CubicTest+-+Troubleshooting">troubleshooting page</a>
+			</div>
+			<br/>
+		</div>
+					
+		<div class="download">
+			<h1>
+				Rich client download
+			</h1>
+			<div class="description">
+				A rich client version of CubicTest with <b>bundled Java 5 JRE and Eclipse</b> can be downloaded here:
+				<br/>
+				<a href="download_step2.html">CubicTest Rich Client downloads (win32 only)</a>
+				<br/><br/>
+				It is recommended for users without Eclipse and Java, and requires no installation except downloading
+				and extracting a zip file.
+				<br/><br/>
+				Users of other OS'es than Windows must use the Update Site version.
+			</div>
+			
+			
+		</div>
+
+
+
+		<div class="download">
+			<h1>
+				Source Code
+			</h1>
+			<div class="description">
+				The source code of CubicTest is hosted at <a href="https://github.com/cubictest/cubictest">github</a>.
+			</div>
+		</div>
+		
+		<br/><br/><br/>
+
+	</div>
+	<div id="footer"></div>
+</body>
+</html>

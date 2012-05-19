@@ -2,7 +2,7 @@
 <feature
       id="org.cubictest"
       label="CubicTest"
-      version="2.0.5"
+      version="2.0.6"
       provider-name="cubictest.org"
       plugin="org.cubictest">
 
@@ -123,28 +123,28 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.cubictest"
          download-size="0"
          install-size="0"
-         version="2.0.5"
+         version="2.0.6"
          unpack="false"/>
 
    <plugin
          id="org.cubictest.recorder.cubicrecorder"
          download-size="0"
          install-size="0"
-         version="2.0.5"
+         version="2.0.6"
          unpack="false"/>
 
    <plugin
          id="org.cubictest.exporters.selenium"
          download-size="0"
          install-size="0"
-         version="2.0.5"
+         version="2.0.6"
          unpack="false"/>
 
    <plugin
          id="org.cubictest.exporters.watir"
          download-size="0"
          install-size="0"
-         version="2.0.5"
+         version="2.0.6"
          unpack="false"/>
 
 </feature>

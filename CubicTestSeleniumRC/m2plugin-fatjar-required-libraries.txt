@@ -3,6 +3,6 @@ In FatJar config, only check option to remove *.SF files
 Required to run tests from maven:
 --------------------------------------
 Project output
-selenium-java-2.19.0-srcs.jar
-selenium-java-2.19.0.jar
-selenium-server-standalone-2.19.0.jar
+selenium-java-2.21.0-srcs.jar
+selenium-java-2.21.0.jar
+selenium-server-standalone-2.21.0.jar

@@ -320,13 +320,13 @@
                value="icons/logo128x128.gif"/>
          <property
                name="startupMessageRect"
-               value="7,2.0.541,20"/>
+               value="7,2.0.641,20"/>
          <property
                name="aboutText"
                value="Thank you for using CubicTest!&#x0A;&#x0A;See www.cubictest.org for more information and support.&#x0A;&#x0A;CubicTest is created by:&#x0A;Stein Kåre Skytteren&#x0A;Christian Schwarz&#x0A;Erlend Halvorsen"/>
          <property
                name="startupProgressRect"
-               value="0,2.0.555,15"/>
+               value="0,2.0.655,15"/>
          <property
                name="startupForegroundColor"
                value="C8D5EA"/>

@@ -24,7 +24,7 @@ public class SeleniumClasspathContainerInitializer extends
 
 	public static final String CUBICTEST_SELENIUM = "CUBICTEST_SELENIUM";
 
-	private static final String curVersion = "2.0.5";
+	private static final String curVersion = "2.0.6";
 	private static final String junitName = "/lib/junit-4.10.jar";
 	private static final String junitSrcName = "/lib/junit-4.10-src.jar";
 	private static final String exporterName = "/lib/cubictest-exporter-"

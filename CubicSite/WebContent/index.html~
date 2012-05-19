@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>CubicTest</title>
+<link href="css/style.css" type="text/css" rel="stylesheet"></link>
+</head>
+<body>
+	<div id="header">
+		<img id="cubicLogo" src="images/logo.gif"/>
+		<div id=title>CubicTest</div>
+	</div>
+	<div id="menu">
+		<div class="menuitem"><a href="index.html">Home</a></div>
+		<div class="menuitem"><a href="screenshots.html">Screenshots</a></div>
+		<div class="menuitem"><a href="features.html">Features</a></div>
+		<div class="menuitem"><a href="download.html">Download</a></div>
+		<div class="menuitem"><a href="http://wiki.openqa.org/display/CT/Home">Documentation / Wiki</a></div>
+		<div class="menuitem"><a href="about.html">About</a></div>
+	</div>
+	<div id="sponsors">
+		<img id="osiLogo" class="logo" src="images/osiLogo.jpg"/>
+	</div>
+	<div id="body">
+		<div class="introduction">
+			<h1>Welcome to functional web testing with CubicTest!</h1>
+			<p>
+				CubicTest is a graphical Eclipse plug-in for writing Selenium and Watir tests. 
+				It makes tests faster and easier to write, and provides abstractions to make tests more robust and reusable.
+			</p>
+			<p>
+				CubicTest's test editor is centered around pages/states and transitions between these pages/states.
+				The model is intuitive for both Ajax and traditional web applications and supports most user interaction types.
+			</p>
+			<p>
+				CubicTest featres an innovative test recorder and test runner based on Selenium RC
+				which are fully integrated with the graphical test editor.
+				Tests can also be run standalone from Maven 2.
+			</p>
+			<p>
+				CubicTest is a tool hosted at <a href="http://www.openqa.org">OpenQA.org</a>
+				and has its main <a href="http://cubictest.openqa.org">homepage</a> there.
+			</p>
+		</div>
+		
+		<div class="news">
+		
+			<h1>News</h1>
+	
+			<div class="newsItem">
+				<div class="newsHeader">Source code moved to github</div>
+				<div class="newsDate">27. February 2011</div>
+				<p class="newsBody">
+					The source code of CubicTest has moved to <a href="https://github.com/cubictest/cubictest">github</a>!
+					This makes collaboration with contributors easier.
+					<br/>
+					The CubicTest wiki (Confluence) has moved to <a href="http://wiki.openqa.org/display/CT/Home">OpenQA</a>.
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">Discussion Forum Moved to Google Groups</div>
+				<div class="newsDate">6. April 2010</div>
+				<p class="newsBody">
+					Check out the new google group <a href="http://groups.google.com/group/cubictest-users">cubictest-users</a>!
+					<br/>
+					The content from the old OpenQA forum has been migrated (in line with the 
+					Selenium discussion forums being migrated to google as well).
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 2.0.6 has been released</div>
+				<div class="newsDate">19, May 2012</div>
+				<p class="newsBody">
+					New features:
+					<ul>
+						<li>
+							Update Libraries, using Selenium 2.21.0 (RC)
+						</li>
+						<li>
+							Support newest browser (Firefox 11, Chrome 17)
+						</li>
+					</ul>
+					<a href="download.html">CubicTest downloads</a>
+					<br/>
+					<a href="upgrade.html">How to upgrade from a previous version</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 2.0.5 has been released</div>
+				<div class="newsDate">28. Feb 2012</div>
+				<p class="newsBody">
+					New features:
+					<ul>
+						<li>
+							Update Libraries, using Selenium 2.19.0 (RC)
+						</li>
+						<li>
+							Support newest browser (Firefox 10, Chrome 17)
+						</li>
+					</ul>
+					<a href="download.html">CubicTest downloads</a>
+					<br/>
+					<a href="upgrade.html">How to upgrade from a previous version</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 2.0.3 has been released</div>
+				<div class="newsDate">14. March 2010</div>
+				<p class="newsBody">
+					New features:
+					<ul>
+						<li>
+							Custom Test Step support in the recorder
+						</li>
+						<li>
+							Bug fixes and usability improvements (see <a href="http://jira.openqa.org/secure/ReleaseNote.jspa?projectId=10170&styleName=Html&version=10720">Release Notes</a>)
+						</li>
+					</ul>
+					<a href="download.html">CubicTest downloads</a>
+					<br/>
+					<a href="upgrade.html">How to upgrade from a previous version</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 1.9.6 has been released</div>
+				<div class="newsDate">2. July 2009</div>
+				<p class="newsBody">
+					New features:
+					<ul>
+						<li>
+							Custom Test Step definitions can now request auto wait for page to load before entering the step.
+						</li>
+						<li>
+							More robust page element identification: Contexts now uses child elements for identification.
+						</li>
+						<li>
+							Many bug fixes and usability improvements (see <a href="http://jira.openqa.org/secure/ReleaseNote.jspa?projectId=10170&styleName=Html&version=10620">Release Notes</a>)
+						</li>
+					</ul>
+					To upgrade, first uninstall the previous version. <br/>
+					<a href="download.html">CubicTest downloads</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 1.9.2 has been released</div>
+				<div class="newsDate">10. February 2009</div>
+				<p class="newsBody">
+					New features:
+					<ul>
+						<li>
+							Now fully configurable JUnit test runner (set browser type, selenium server, multiwindow, capture screenshots etc).
+						</li>
+						<li>
+							Custom Test Step Element Context now accessible from JUnit (allows for more stateful tests).
+						</li>
+						<li>
+							Now possible with custom test flow using JUnit - keep test browser open and launch any tests you want, e.g. using branches and loops in Java/JUnit.
+						</li>
+						<li>
+							Many bug fixes and usability improvements.
+						</li>
+					</ul>
+					<a href="download.html">CubicTest downloads</a>, 
+					<a href="http://jira.openqa.org/secure/ReleaseNote.jspa?projectId=10170&styleName=Html&version=10621">Release Notes</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 1.8.11 has been released</div>
+				<div class="newsDate">13. November 2008</div>
+				<p class="newsBody">
+					New features include Custom Test Suites (launch and setup cubic tests from JUnit),
+    				support for Firefox 3, editor support for setting name on user interactions, Opera support in the recorder as well as many bug fixes and usability improvements.
+					<br />
+					<a href="download.html">CubicTest downloads</a>, 
+					<a href="http://jira.openqa.org/secure/ReleaseNote.jspa?projectId=10170&styleName=Html&version=10582">Release Notes</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 1.8.6 has been released</div>
+				<div class="newsDate">12. June 2008</div>
+				<p class="newsBody">
+					Added new Custom Test Step feature that lets you write all the custom Selenium RC code you want, new runner (now Eclipse 
+					Launch Configuration, which makes it possible to e.g. run test in background and debug Custom Test Steps),
+					HTML frame support, internationalissation support in tests, HTML source and screenshot capture of failing test, bug fixes 
+					and usability improvements.
+					<br />
+					<a href="download.html">CubicTest downloads</a>, 
+					<a href="http://jira.openqa.org/browse/CT/fixforversion/10572">Release Notes</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 1.8.2 has been released</div>
+				<div class="newsDate">5. February 2008</div>
+				<p class="newsBody">
+					Bug fixes and usability improvements.
+					<br />
+					<a href="download.html">CubicTest downloads</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 1.8.1 has been released</div>
+				<div class="newsDate">30. January 2008</div>
+				<p class="newsBody">
+					Added refactoring support, better parameterization possibilities, better maven 2 runner,
+					possible to record from (or run test to) selected Page/State, upgraded to Selenium 0.9.2,
+					support for multiple browsers in Selenium runner, now possible to use "begins with", "contains" and
+					"ends with" in identifiers. Usability improvements and bug fixes.
+					Changed license to <a href="http://www.eclipse.org/legal/epl-v10.html" target="_blank">Eclipse Public License</a>
+					<br />
+					<a href="download.html">CubicTest downloads</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 1.7.11 has been released</div>
+				<div class="newsDate">4. November 2007</div>
+				<p class="newsBody">
+					Usability improvements and bug fixes. Added Watir test runner.
+					<br />
+					<a href="download.html">CubicTest downloads</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 1.7.8 has been released</div>
+				<div class="newsDate">14. August 2007</div>
+				<p class="newsBody">
+					Bug fixes. Now comes with new <a href="http://boss.bekk.no/display/BOSS/CubicTest">documentation</a>
+					<br />
+					<a href="download.html">CubicTest downloads</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 1.7.6 has been released</div>
+				<div class="newsDate">28. June 2007</div>
+				<p class="newsBody">
+					New: Test-project properties file for editing timeout values etc., better usability, bug fixes, improved Maven 2 plugin,
+					better test parameterization support.
+					<br />
+					<a href="download.html">CubicTest downloads</a>
+				</p>
+			</div>
+			
+			<div class="newsItem">
+				<div class="newsHeader">CubicTest 1.7.5 has been released</div>
+				<div class="newsDate">18. June 2007</div>
+				<p class="newsBody">
+					New: Selenium RC Runner, Selenium Core Export, Selenium RC Recorder, CubicTest Maven 2 Plugin, Smart Contexts, 
+					better element identificatoin, lots of usability improvements and bug fixes. Now possible to download a rich client version.
+					<br />
+					<a href="download.html">CubicTest downloads</a>
+				</p>
+			</div>
+		</div>
+		<div class="features">
+			<div class="feature">
+				<div class="header">Page/state concept</div>
+				<!-- Two states with a transition <img src="" alt="Page/state concept"/> -->
+				<div class="caption">
+					A uniqe page/state concept that lets you model your application as a graph of states.
+				</div>
+			</div>
+			<div class="feature">
+				<div class="header">Recorder</div>
+				<!-- Record button <img src="" alt="Recorder"/> -->
+				<div class="caption">
+					Record your tests directly from Firefox into the editor.
+				</div>
+			</div>
+			<div class="feature">
+				<div class="header">Runner</div>
+				<!-- Play <img src="" alt="Runner"/> button -->
+				<div class="caption">
+					Run your tests instantly, using your favorite browser. No instrumenting of target application necessary.
+				</div>
+			</div>
+			<div class="feature">
+				<div class="header">Page element identification</div>
+				<!-- Bullseye <img src="" alt="Page element identification"/>-->
+				<div class="caption">
+					Identify page elements based on context and multiple identifiers for robust identification of page elements.
+				</div>
+			</div>
+		</div>
+				
+		<br /><br />
+	</div>
+	<div id="footer"></div>
+</body>
+</html>
