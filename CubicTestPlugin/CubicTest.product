@@ -28,8 +28,8 @@ Erlend Halvorsen
 
    <splash
       location="org.cubictest"
-      startupProgressRect="0,2.0.555,15"
-      startupMessageRect="7,2.0.541,20"
+      startupProgressRect="0,2.0.655,15"
+      startupMessageRect="7,2.0.641,20"
       startupForegroundColor="C8D5EA" />
    <launcher>
       <solaris/>

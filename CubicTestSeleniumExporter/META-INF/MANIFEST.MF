@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: CubicTestSeleniumExporter
 Bundle-SymbolicName: org.cubictest.exporters.selenium;singleton:=true
-Bundle-Version: 2.0.5
+Bundle-Version: 2.0.6
 Require-Bundle: org.eclipse.core.runtime,
  org.cubictest,
  org.eclipse.ui.ide,
@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-LazyStart: true
 Bundle-ClassPath: .,
  lib/jdom.jar,
- lib/cubictest-selenium-rc-2.0.5.jar,
+ lib/cubictest-selenium-rc-2.0.6.jar,
  lib/junit-4.10-src.jar,
  lib/junit-4.10.jar
 Bundle-Vendor: cubictest.org
